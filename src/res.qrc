@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/com.zzc">
+        <file>controls/StandardButton.qml</file>
+        <file>controls/FilledButton.qml</file>
+    </qresource>
+</RCC>

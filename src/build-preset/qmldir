@@ -1,0 +1,4 @@
+module FluentUI
+plugin FluentUI
+classname FluentUIQmlPlugin
+typeinfo plugin.qmltypes
