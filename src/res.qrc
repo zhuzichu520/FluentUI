@@ -1,6 +1,19 @@
 <RCC>
-    <qresource prefix="/com.zzc">
-        <file>controls/StandardButton.qml</file>
-        <file>controls/FilledButton.qml</file>
+    <qresource prefix="/com.zhuzichu">
+        <file>controls/FluButton.qml</file>
+        <file>controls/FluFilledButton.qml</file>
+        <file>controls/FluText.qml</file>
+        <file>controls/FluToggleSwitch.qml</file>
+        <file>controls/FluIconButton.qml</file>
+        <file>controls/FluCheckBox.qml</file>
+        <file>controls/FluRadioButton.qml</file>
+        <file>controls/FluSlider.qml</file>
+        <file>controls/FluProgressRing.qml</file>
+        <file>controls/FluProgressBar.qml</file>
+        <file>controls/FluComboBox.qml</file>
+        <file>controls/FluDropDownButton.qml</file>
+        <file>controls/FluTextBox.qml</file>
+        <file>controls/FluTimePicker.qml</file>
+        <file>res/font/fontawesome-webfont.ttf</file>
     </qresource>
 </RCC>

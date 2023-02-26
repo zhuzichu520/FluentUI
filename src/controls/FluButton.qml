@@ -10,17 +10,16 @@ Rectangle {
     property int topPadding: 8
     property int bottomPadding: 8
     property bool disabled: false
+    signal clicked
     radius: 4
-    color: "#FFFFFF"
-
-    width: childrenRect.width
-    height: childrenRect.height
-
-    border.color: "#eeeeee"
+    color: button_mouse.containsMouse ? "#eeeeee" : "#FFFFFF"
+    width: button_text.implicitWidth
+    height: button_text.implicitHeight
+    border.color: "#cccccc"
     border.width: 1
 
     Text {
-        id: buttonText
+        id: button_text
         text: "Standard Button"
         color: "#000000"
         font.pixelSize: 13
@@ -32,9 +31,11 @@ Rectangle {
     }
 
     MouseArea {
+        id:button_mouse
         anchors.fill: parent
+        hoverEnabled: true
         onClicked: {
-            console.log("Button clicked")
+            button.clicked()
         }
     }
 }

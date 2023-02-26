@@ -1,19 +1,14 @@
 ﻿#ifndef FLUENTUI_H
 #define FLUENTUI_H
 
-#include <QtQuick/QQuickPaintedItem>
+#include <QQmlEngine>
 
-class FluentUI : public QQuickPaintedItem
+class FluentUI
 {
-    Q_OBJECT
-    QML_ELEMENT
-    Q_DISABLE_COPY(FluentUI)
-public:
-    explicit FluentUI(QQuickItem *parent = nullptr);
-    void paint(QPainter *painter) override;
-    ~FluentUI() override;
-signals:
 
+public:
+    static void create(QQmlEngine* engine);
+    static QString version();
 };
 
 #endif // FLUENTUI_H

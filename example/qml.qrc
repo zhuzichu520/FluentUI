@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>T_Controls.qml</file>
+        <file>T_Typography.qml</file>
+        <file>App.qml</file>
+        <file>MainPage.qml</file>
+        <file>SettingPage.qml</file>
     </qresource>
 </RCC>

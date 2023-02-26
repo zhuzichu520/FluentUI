@@ -1,27 +1,15 @@
 ﻿#include "FluentUI.h"
 
-#include <QPainter>
+#include "Fluent.h"
 
-FluentUI::FluentUI(QQuickItem *parent)
-    : QQuickPaintedItem(parent)
+void FluentUI::create(QQmlEngine *engine)
 {
-    // By default, QQuickItem does not draw anything. If you subclass
-    // QQuickItem to create a visual item, you will need to uncomment the
-    // following line and re-implement updatePaintNode()
-
-    // setFlag(ItemHasContents, true);
+    Fluent::getInstance()->registerTypes(URI_STR);
+    Fluent::getInstance()->initializeEngine(engine,URI_STR);
+    engine->addImportPath("/");
 }
 
-void FluentUI::paint(QPainter *painter)
+QString FluentUI::version()
 {
-    QPen pen(QColorConstants::Red, 2);
-    QBrush brush(QColorConstants::Red);
-
-    painter->setPen(pen);
-    painter->setBrush(brush);
-    painter->drawRect(0, 0, 100, 100);
-}
-
-FluentUI::~FluentUI()
-{
+    return Fluent::getInstance()->version();
 }

@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include <QQmlExtensionPlugin>
-#include <FluentUI.h>
 
 class FluentUIQmlPlugin : public QQmlExtensionPlugin
 {
@@ -10,6 +9,5 @@ class FluentUIQmlPlugin : public QQmlExtensionPlugin
 
 public:
     void registerTypes(const char *uri) override;
-
     void initializeEngine(QQmlEngine *engine, const char *uri) override;
 };

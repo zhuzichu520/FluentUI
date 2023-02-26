@@ -14,7 +14,7 @@ echo %BUILDER_BIN_PATH%
 echo %QT_QML_FLUENT_PATH%
 echo "--------------------------"
 
-copy /y  %PWD_PATH%\Toou2D.h  %BUILDER_BIN_PATH% & copy /y  %PRESET_PATH%\*  %BUILDER_BIN_PATH%\
+copy /y  %PWD_PATH%\FluentUI.h  %BUILDER_BIN_PATH% & copy /y  %PRESET_PATH%\*  %BUILDER_BIN_PATH%\
 
 if %ANDROID% == YES copy /y %LIBFILE_PATH% %BUILDER_BIN_PATH%
 
@@ -22,4 +22,5 @@ if %1 == SHARED (
     echo running install to qtqml folder
     rmdir /s /q %QT_QML_FLUENT_PATH% & md %QT_QML_FLUENT_PATH%
     copy /y %BUILDER_BIN_PATH% %QT_QML_FLUENT_PATH%
+	cd %QT_QML_FLUENT_PATH%
 )
