@@ -7,16 +7,7 @@ DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 SOURCES += \
         main.cpp
 
-win32 {
-    SOURCES += \
-        TaoFrameLessView_win.cpp
-} else {
-    SOURCES += \
-        TaoFrameLessView_unix.cpp
-}
-
 RESOURCES += qml.qrc
-
 
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -52,7 +43,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 # PRE_TARGETDEPS += $$OUT_PWD/../bin/FluentUI/lib$${LIBNAME}.a
 
 ### 注意:静态库 .so .dylib .dll 是自动安装的Qt qml plugin目录中，不需要此步配置
-
-HEADERS += \
-    Frameless.h \
-    TaoFrameLessView.h
