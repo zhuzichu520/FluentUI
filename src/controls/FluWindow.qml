@@ -13,9 +13,21 @@ Rectangle {
     }
     property string title: "FluentUI"
 
+    Behavior on opacity{
+        NumberAnimation{
+        duration: 100
+        }
+    }
+
+    property var window : {
+        if(Window.window == null)
+            return null
+        return Window.window
+    }
+
     onIsMaxChanged: {
         if(isMax){
-            root.anchors.margins = 4
+            root.anchors.margins = 8
             root.anchors.fill = parent
         }else{
             root.anchors.margins = 0
@@ -26,7 +38,17 @@ Rectangle {
     color : FluApp.isDark ? "#202020" : "#F3F3F3"
 
     Component.onCompleted: {
+     console.debug("onCompleted")
+    }
 
+    Connections{
+        target: FluApp
+        function onWindowReady(view){
+            if(FluApp.equalsWindow(view,window)){
+                helper.initWindow(view);
+                helper.setTitle(title);
+            }
+        }
     }
 
     WindowHelper{

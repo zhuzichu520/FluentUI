@@ -17,8 +17,7 @@ Item {
         FluButton{
             Layout.topMargin: 20
             onClicked: {
-                FluApp.getWIdByWindow(Window.window)
-//                FluApp.navigate("/Setting")
+
             }
         }
 

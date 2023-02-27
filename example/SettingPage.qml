@@ -5,6 +5,7 @@ FluWindow {
 
     width: 500
     height: 500
+    title:"设置"
 
     FluAppBar{
         id:appbar

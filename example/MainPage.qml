@@ -9,6 +9,7 @@ FluWindow {
     id:rootwindow
     width: 800
     height: 600
+    title: "FluentUI"
 
     FluAppBar{
         id:appbar
@@ -43,10 +44,23 @@ FluWindow {
 
             Rectangle{
                 color: {
-                    if(nav_list.currentIndex === index){
-                        return "#EAEAEB"
+                    if(FluApp.isDark){
+                        if(item_mouse.containsMouse){
+                            return "#292929"
+                        }
+                        if(nav_list.currentIndex === index){
+                            return "#2D2D2D"
+                        }
+                        return "#00000000"
+                    }else{
+                        if(item_mouse.containsMouse){
+                            return "#EDEDED"
+                        }
+                        if(nav_list.currentIndex === index){
+                            return "#EAEAEA"
+                        }
+                        return "#00000000"
                     }
-                    return item_mouse.containsMouse? "#EAEAEA" : "#00000000"
                 }
                 radius: 4
                 anchors{
@@ -70,9 +84,10 @@ FluWindow {
                 }
             }
 
-            Text{
+            FluText{
                 text:model.text
                 anchors.centerIn: parent
+                fontStyle: FluText.Caption
             }
 
         }

@@ -810,6 +810,10 @@ Module {
         exports: ["FluentUI/WindowHelper 1.0"]
         exportMetaObjectRevisions: [0]
         Method {
+            name: "initWindow"
+            Parameter { name: "window"; type: "FramelessView"; isPointer: true }
+        }
+        Method {
             name: "setTitle"
             Parameter { name: "text"; type: "string" }
         }
@@ -1044,5 +1048,6 @@ Module {
         defaultProperty: "data"
         Property { name: "isMax"; type: "bool" }
         Property { name: "title"; type: "string" }
+        Property { name: "window"; type: "QVariant" }
     }
 }

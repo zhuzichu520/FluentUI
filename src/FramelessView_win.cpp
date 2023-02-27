@@ -20,6 +20,10 @@
 // WS_SYSMENU: enables the context menu with the move, close, maximize, minize... commands (shift + right-click on the task bar item)
 // WS_CAPTION: enables aero minimize animation/transition
 // WS_MAXIMIZEBOX, WS_MINIMIZEBOX: enable minimize/maximize
+
+QMap<WId,FramelessView*>* FramelessView::windowCache = new QMap<WId,FramelessView*>;
+
+
 enum class Style : DWORD
 {
     windowed = WS_OVERLAPPEDWINDOW | WS_THICKFRAME | WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX,
@@ -149,6 +153,13 @@ FramelessView::FramelessView(QWindow* parent)
         setIsMax(windowState() == Qt::WindowMaximized);
         setIsFull(windowState() == Qt::WindowFullScreen);
     });
+
+    QObject::connect(this, &QQuickView::statusChanged, this, [&](QQuickView::Status status) {
+        if (status == QQuickView::Status::Ready) {
+            FramelessView::windowCache->insert(this->winId(),this);
+        }
+    });
+
 }
 void FramelessView::showEvent(QShowEvent* e)
 {
@@ -181,6 +192,7 @@ FramelessView::~FramelessView()
     {
         ::DestroyMenu(d->mMenuHandler);
     }
+    FramelessView::windowCache->remove(this->winId());
     delete d;
 }
 

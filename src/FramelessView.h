@@ -23,6 +23,7 @@ public:
     bool isFull() const;
     QQuickItem *titleItem() const;
 
+    static QMap<WId,FramelessView*> *windowCache;
     static QRect calcCenterGeo(const QRect &screenGeo, const QSize &normalSize);
 public slots:
     void setIsMax(bool isMax);

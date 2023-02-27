@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 {
-//    qputenv("QSG_RENDER_LOOP","basic");
+    qputenv("QSG_RENDER_LOOP","basic");
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

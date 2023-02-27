@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QQmlContext>
 #include <QQuickItem>
+#include <QTimer>
 #include "FramelessView.h"
 
 
@@ -30,26 +31,7 @@ void FluApp::setAppWindow(QWindow *window){
 }
 
 void FluApp::run(){
-    if(!routes().contains(initialRoute())){
-        qErrnoWarning("没有找到当前路由");
-        return;
-    }
-    FramelessView *view = new FramelessView();
-    view->engine()->rootContext()->setContextProperty("FluApp",FluApp::getInstance());
-    view->setColor(QColor(255,0,0,1));
-    const QUrl url(routes().value(initialRoute()).toString());
-    QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
-        if (status == QQuickView::Status::Ready) {
-
-                qDebug()<<"-----------winId:"<<view->winId();
-        }
-    });
-    QObject::connect(view->engine(), &QQmlEngine::quit, qApp, &QCoreApplication::quit);
-    QObject::connect(qApp, &QGuiApplication::aboutToQuit, qApp, [&view](){view->setSource({});});
-//    view->setTitle("FluentUI");
-    view->setSource(url);
-    view->moveToScreenCenter();
-    view->show();
+    navigate(initialRoute());
 }
 
 void FluApp::navigate(const QString& route){
@@ -57,16 +39,27 @@ void FluApp::navigate(const QString& route){
         qErrnoWarning("没有找到当前路由");
         return;
     }
+
+    bool isAppWindow = route==initialRoute();
     FramelessView *view = new FramelessView();
     view->engine()->rootContext()->setContextProperty("FluApp",FluApp::getInstance());
     view->setColor(isDark() ? QColor(0,0,0,1) : QColor(255, 255, 255, 1));
+    QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
+        if (status == QQuickView::Status::Ready) {
+            Q_EMIT windowReady(view);
+        }
+    });
     view->setSource((routes().value(route).toString()));
-    view->closeDeleteLater();
+    if(isAppWindow){
+        QObject::connect(view->engine(), &QQmlEngine::quit, qApp, &QCoreApplication::quit);
+        QObject::connect(qApp, &QGuiApplication::aboutToQuit, qApp, [&view](){view->setSource({});});
+    }else{
+        view->closeDeleteLater();
+    }
     view->moveToScreenCenter();
     view->show();
 }
 
-void FluApp::getWIdByWindow(QWindow *window){
-    qDebug()<< window->winId();
-    window->winId();
+bool FluApp::equalsWindow(FramelessView *view,QWindow *window){
+    return view->winId() == window->winId();
 }

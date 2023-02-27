@@ -14,15 +14,31 @@ Switch {
         width: root.width
         height: root.height
         radius: height / 2
-        color: root.checked ? checkedColor : "white"
+        color: {
+            if(FluApp.isDark){
+                if(root.checked){
+                    return checkedColor
+                }
+                if(switch_mouse.containsMouse){
+                    return "#3E3E3C"
+                }
+                return "#323232"
+            }else{
+                if(switch_mouse.containsMouse){
+                    return "#F4F4F4"
+                }
+                return root.checked ? checkedColor : "white"
+            }
+        }
         border.width: 1
         border.color: root.checked ? checkedColor : "#666666"
 
         Rectangle {
-            x: root.checked ? parent.width - width - 4 : 4
-            width: root.checked ? parent.height - 8 : parent.height - 8
-            height: width
+            x:  root.checked ? root.implicitWidth  - width - 4 : 4
+            width:  root.height - 8
+            height: root.height - 8
             radius: width / 2
+            scale: switch_mouse.containsMouse ? 1.2 : 1.0
             anchors.verticalCenter: parent.verticalCenter
             color: root.checked ? "#FFFFFF" : "#666666"
 //            border.color: "#D5D5D5"

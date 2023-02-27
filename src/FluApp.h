@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QWindow>
 #include <QJsonObject>
+#include "FramelessView.h"
 #include "stdafx.h"
 
 class FluApp : public QObject
@@ -12,6 +13,7 @@ class FluApp : public QObject
     Q_PROPERTY_AUTO(QString,initialRoute);
     Q_PROPERTY_AUTO(bool,isDark);
     Q_PROPERTY_AUTO(QJsonObject,routes);
+
 public:
 
     static FluApp *getInstance();
@@ -24,7 +26,9 @@ public:
 
     Q_INVOKABLE void setAppWindow(QWindow *window);
 
-    Q_INVOKABLE void getWIdByWindow(QWindow *window);
+    Q_SIGNAL void windowReady(FramelessView *view);
+
+    Q_INVOKABLE bool equalsWindow(FramelessView *view,QWindow *window);
 
 private:
     static FluApp* m_instance;

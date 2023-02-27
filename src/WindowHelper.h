@@ -4,20 +4,21 @@
 #include <QObject>
 #include <QQuickWindow>
 #include <QQuickItem>
+#include <QWindow>
+#include "FramelessView.h"
 
-class WindowHelper : public QObject, public QQmlParserStatus
+class WindowHelper : public QObject
 {
     Q_OBJECT
 
 public:
     explicit WindowHelper(QObject *parent = nullptr);
-    void classBegin() override;
-    void componentComplete() override;
 
+    Q_INVOKABLE void initWindow(FramelessView* window);
     Q_INVOKABLE void setTitle(const QString& text);
-private:
 
-  QQuickWindow* window;
+private:
+    FramelessView* window;
 
 };
 
