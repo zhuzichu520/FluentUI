@@ -1,6 +1,5 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.15
 
 Rectangle {
     id: button
@@ -10,19 +9,33 @@ Rectangle {
     property int topPadding: 8
     property int bottomPadding: 8
     property bool disabled: false
+    property color primaryColor : "#0064B0"
     signal clicked
     radius: 4
-    color: button_mouse.containsMouse ? "#eeeeee" : "#FFFFFF"
+    color:{
+        if(FluApp.isDark){
+            if(disabled){
+                return "#C7C7C7"
+            }
+            return  button_mouse.containsMouse ? "#444444" : "#3e3e3e"
+        }else{
+            if(disabled){
+                return "#C7C7C7"
+            }
+            return  button_mouse.containsMouse ? "#FBFBFB" : "#FFFFFF"
+        }
+    }
     width: button_text.implicitWidth
     height: button_text.implicitHeight
-    border.color: "#cccccc"
+
+    border.color: FluApp.isDark ? "#505050" : "#DFDFDF"
     border.width: 1
 
-    Text {
+
+    FluText {
         id: button_text
         text: "Standard Button"
-        color: "#000000"
-        font.pixelSize: 13
+        font.pixelSize: 14
         leftPadding: button.startPadding
         rightPadding: button.endPadding
         topPadding: button.topPadding
@@ -35,6 +48,8 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         onClicked: {
+            if(disabled)
+                return
             button.clicked()
         }
     }

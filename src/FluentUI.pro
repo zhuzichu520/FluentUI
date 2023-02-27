@@ -6,7 +6,7 @@ TARGET      = $$qtLibraryTarget($$TARGET)
 uri         = FluentUI
 
 ##########################################
-CONFIG += staticlib  # staticlib or sharedlib
+CONFIG += sharedlib  # staticlib or sharedlib
 #** 多次切换编译构建模式，建议先清理缓存。项目右键->清理
 
 #*[staticlib] 构建静态库.a
@@ -29,6 +29,7 @@ HEADERS += \
     Fluent.h \
     FluentUI.h \
     FramelessView.h \
+    WindowHelper.h \
     qml_plugin.h \
     stdafx.h
 
@@ -38,6 +39,7 @@ SOURCES += \
     FluApp.cpp \
     Fluent.cpp \
     FluentUI.cpp \
+    WindowHelper.cpp \
     qml_plugin.cpp \
 
 win32 {

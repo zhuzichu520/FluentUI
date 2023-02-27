@@ -7,12 +7,9 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+//    qputenv("QSG_RENDER_LOOP","basic");
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
     #if defined(STATICLIB)
         FluentUI::create(&engine);

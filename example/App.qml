@@ -7,7 +7,7 @@ import FluentUI 1.0
 
 Window {
     id:app
-
+    color: "#00000000"
     Component.onCompleted: {
         FluApp.setAppWindow(app)
         FluApp.routes = {

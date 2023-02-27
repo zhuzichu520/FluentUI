@@ -177,7 +177,6 @@ void FramelessView::showEvent(QShowEvent* e)
 }
 FramelessView::~FramelessView()
 {
-    qInfo()<<"FramelessView析构了";
     if (d->mMenuHandler != NULL)
     {
         ::DestroyMenu(d->mMenuHandler);

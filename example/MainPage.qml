@@ -5,11 +5,15 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
-Rectangle {
+FluWindow {
     id:rootwindow
     width: 800
     height: 600
-    color : "#F3F3F3"
+
+    FluAppBar{
+        id:appbar
+        title: "FluentUI"
+    }
 
     ListModel{
         id:nav_items
@@ -26,7 +30,7 @@ Rectangle {
     ListView{
         id:nav_list
         anchors{
-            top: parent.top
+            top: appbar.bottom
             bottom: parent.bottom
             topMargin: 20
             bottomMargin: 20
@@ -75,13 +79,13 @@ Rectangle {
     }
 
     Rectangle{
-        color: "#FFFFFF"
+        color: FluApp.isDark ? "#323232" : "#FFFFFF"
         radius: 10
         clip: true
         anchors{
             left: nav_list.right
             leftMargin: 2
-            top: parent.top
+            top: appbar.bottom
             topMargin: 20
             right: parent.right
             rightMargin: 10
@@ -89,7 +93,7 @@ Rectangle {
             bottomMargin: 20
         }
         border.width: 1
-        border.color: "#EEEEEE"
+        border.color: FluApp.isDark ? "#666666" : "#EEEEEE"
 
         Loader{
             anchors.fill: parent

@@ -14,24 +14,23 @@ Item {
             fontStyle: FluText.TitleLarge
         }
 
-
-
         FluButton{
-
             Layout.topMargin: 20
+            onClicked: {
+                FluApp.getWIdByWindow(Window.window)
+//                FluApp.navigate("/Setting")
+            }
         }
 
         FluFilledButton{
             onClicked:{
                 FluApp.navigate("/Setting")
-                console.debug("FluFilledButton:"+Window.window.x)
             }
         }
 
         FluFilledButton{
             disabled: true
             onClicked:{
-                console.debug("FluFilledButton-disabled")
             }
         }
 
@@ -39,7 +38,7 @@ Item {
             Component.onCompleted: {
 
             }
-            icon:FluentIcons.FA_android
+            icon:FluentIcons.FA_close
         }
 
         FluToggleSwitch{

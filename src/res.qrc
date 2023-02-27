@@ -15,5 +15,8 @@
         <file>controls/FluTextBox.qml</file>
         <file>controls/FluTimePicker.qml</file>
         <file>res/font/fontawesome-webfont.ttf</file>
+        <file>controls/FluAppBar.qml</file>
+        <file>controls/FluRectangle.qml</file>
+        <file>controls/FluWindow.qml</file>
     </qresource>
 </RCC>

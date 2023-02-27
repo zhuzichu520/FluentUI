@@ -4,6 +4,7 @@
 #include <QQmlContext>
 #include <QGuiApplication>
 #include <QQuickWindow>
+#include "WindowHelper.h"
 #include "FluApp.h"
 #include "Def.h"
 
@@ -27,6 +28,12 @@ void Fluent::registerTypes(const char *uri){
     int major = 1;
     int minor = 0;
 
+    qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
+
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluWindow.qml"),uri,major,minor,"FluWindow");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluRectangle.qml"),uri,major,minor,"FluRectangle");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluAppBar.qml"),uri,major,minor,"FluAppBar");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluAppBar.qml"),uri,major,minor,"FluAppBar");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluButton.qml"),uri,major,minor,"FluButton");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluCheckBox.qml"),uri,major,minor,"FluCheckBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluComboBox.qml"),uri,major,minor,"FluComboBox");

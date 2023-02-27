@@ -16,10 +16,10 @@ Text {
         Caption
     }
 
-    property int fontStyle: FluText.Display
-    property color textColor: "#333333"
+    property int fontStyle: FluText.Body
+    property color textColor: FluApp.isDark ? "#FFFFFF" : "#1A1A1A"
 
-    property int pixelSize : 16
+    property int pixelSize : 14
 
     color: textColor
 
@@ -66,6 +66,7 @@ Text {
                 font.pixelSize = text.pixelSize * 0.8
                 break
             default:
+                font.pixelSize = text.pixelSize * 1.0
                 break
         }
     }

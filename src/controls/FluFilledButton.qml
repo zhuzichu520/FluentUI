@@ -1,6 +1,5 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.15
 
 Rectangle {
     id: button
@@ -21,14 +20,12 @@ Rectangle {
     }
     width: button_text.implicitWidth
     height: button_text.implicitHeight
-    border.color: "#cccccc"
-    border.width: 1
 
-    Text {
+    FluText {
         id: button_text
-        text: "Standard Button"
+        text: "Filled Button"
         color: "#FFFFFFFF"
-        font.pixelSize: 13
+        font.pixelSize: 14
         leftPadding: button.startPadding
         rightPadding: button.endPadding
         topPadding: button.topPadding
