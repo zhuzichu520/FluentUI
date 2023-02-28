@@ -60,7 +60,7 @@ Text {
         case FluText.BodyStrong:
             return text.pixelSize * 1.0
         case FluText.Body:
-            return text.font.pixelSize = 14
+            return text.pixelSize * 1.0
         case FluText.Caption:
             return text.pixelSize * 0.8
         default:

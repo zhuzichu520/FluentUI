@@ -31,6 +31,10 @@ FluWindow {
             page:"qrc:/T_InfoBar.qml"
         }
         ListElement{
+            text:"Progress"
+            page:"qrc:/T_Progress.qml"
+        }
+        ListElement{
             text:"Rectangle"
             page:"qrc:/T-Rectangle.qml"
         }

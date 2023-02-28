@@ -8,9 +8,9 @@ Rectangle{
     color: FluApp.isDark ? "#323232" : "#FFFFFF"
     height: 50
     width: {
-       if(parent==null)
-           return 200
-       return parent.width
+        if(parent==null)
+            return 200
+        return parent.width
     }
 
     property string title: "标题"
@@ -84,7 +84,11 @@ Rectangle{
                 return Window.Maximized === Window.window.visibility  ? FluentIcons.FA_window_restore : FluentIcons.FA_window_maximize
             }
             Layout.alignment: Qt.AlignVCenter
-            text:Window.Maximized === Window.window.visibility?"向下还原":"最大化"
+            text:{
+                if(Window.window == null)
+                    return ""
+                Window.Maximized === Window.window.visibility?"向下还原":"最大化"
+            }
             iconSize: 15
             onClicked: {
                 toggleMaximized()

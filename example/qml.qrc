@@ -9,5 +9,6 @@
         <file>T_Buttons.qml</file>
         <file>T-Rectangle.qml</file>
         <file>T_InfoBar.qml</file>
+        <file>T_Progress.qml</file>
     </qresource>
 </RCC>

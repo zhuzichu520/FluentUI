@@ -12,6 +12,7 @@ Item {
         FluText{
             text:"Rectangle"
             fontStyle: FluText.TitleLarge
+            Layout.topMargin: 20
         }
 
         FluRectangle{

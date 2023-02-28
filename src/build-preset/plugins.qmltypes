@@ -1025,15 +1025,27 @@ Module {
         exports: ["FluentUI/FluProgressBar 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "data"
+        defaultProperty: "contentItem"
+        Property { name: "progress"; type: "double" }
+        Property { name: "indeterminate"; type: "bool" }
+        Property { name: "radius"; type: "QVariant" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "borderColor"; type: "QColor" }
+        Property { name: "borderWidth"; type: "int" }
+        Property { name: "contentItem"; type: "QQuickItem"; isList: true; isReadonly: true }
     }
     Component {
-        prototype: "QQuickItem"
+        prototype: "QQuickRectangle"
         name: "FluentUI/FluProgressRing 1.0"
         exports: ["FluentUI/FluProgressRing 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "linWidth"; type: "double" }
+        Property { name: "progress"; type: "double" }
+        Property { name: "indeterminate"; type: "bool" }
+        Property { name: "radius2"; type: "double"; isReadonly: true }
+        Property { name: "primaryColor"; type: "QColor" }
     }
     Component {
         prototype: "QQuickItem"
@@ -1078,6 +1090,9 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "lineWidth"; type: "int" }
+        Property { name: "dotSize"; type: "int" }
+        Property { name: "value"; type: "int" }
     }
     Component {
         prototype: "QQuickText"

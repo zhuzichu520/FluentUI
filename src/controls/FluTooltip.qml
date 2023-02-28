@@ -9,6 +9,7 @@ ToolTip {
     contentItem: FluText {
         text: tool_tip.text
         font: tool_tip.font
+        fontStyle: FluText.BodyLarge
         padding: 4
         wrapMode: Text.WrapAnywhere
     }
