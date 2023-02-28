@@ -1,10 +1,11 @@
 ﻿import QtQuick 2.0
 import QtQuick.Controls 2.0
+import FluentUI 1.0
 
 Switch {
     id: root
     property color checkedColor: "#0064B0"
-    signal clicked2
+    property var onClickFunc
     width: 40
     implicitWidth: 40
     height: 20
@@ -24,10 +25,13 @@ Switch {
                 }
                 return "#323232"
             }else{
+                if(root.checked){
+                    return checkedColor
+                }
                 if(switch_mouse.containsMouse){
                     return "#F4F4F4"
                 }
-                return root.checked ? checkedColor : "white"
+                return  "#FFFFFF"
             }
         }
         border.width: 1
@@ -52,7 +56,11 @@ Switch {
         anchors.fill: parent
         hoverEnabled: true
         onClicked: {
-            root.clicked2()
+            if(root.onClickFunc){
+                root.onClickFunc()
+            }else{
+                root.checked = !root.checked
+            }
         }
     }
 }

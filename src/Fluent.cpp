@@ -30,6 +30,12 @@ void Fluent::registerTypes(const char *uri){
 
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
 
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluShadow.qml"),uri,major,minor,"FluShadow");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTooltip.qml"),uri,major,minor,"FluTooltip");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDivider.qml"),uri,major,minor,"FluDivider");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluIcon.qml"),uri,major,minor,"FluIcon");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluObject.qml"),uri,major,minor,"FluObject");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluInfoBar.qml"),uri,major,minor,"FluInfoBar");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluWindow.qml"),uri,major,minor,"FluWindow");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluRectangle.qml"),uri,major,minor,"FluRectangle");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluAppBar.qml"),uri,major,minor,"FluAppBar");
@@ -57,10 +63,10 @@ void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     Q_UNUSED(engine)
     Q_UNUSED(uri)
-    QFont font;
-    font.setFamily("Microsoft YaHei");
-    QGuiApplication::setFont(font);
-    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
+//    QFont font;
+//    font.setFamily("Microsoft YaHei");
+//    QGuiApplication::setFont(font);
+//    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
     QFontDatabase::addApplicationFont(":/com.zhuzichu/res/font/fontawesome-webfont.ttf");
     engine->rootContext()->setContextProperty("FluApp",FluApp::getInstance());
 }

@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 Rectangle {
     id: button
 
+    property string text: "Standard Button"
     property int startPadding : 15
     property int endPadding : 15
     property int topPadding: 8
@@ -15,12 +16,12 @@ Rectangle {
     color:{
         if(FluApp.isDark){
             if(disabled){
-                return "#C7C7C7"
+                return Qt.rgba(59/255,59/255,59/255,1)
             }
             return  button_mouse.containsMouse ? "#444444" : "#3e3e3e"
         }else{
             if(disabled){
-                return "#C7C7C7"
+                return Qt.rgba(252/255,252/255,252/255,1)
             }
             return  button_mouse.containsMouse ? "#FBFBFB" : "#FFFFFF"
         }
@@ -34,13 +35,26 @@ Rectangle {
 
     FluText {
         id: button_text
-        text: "Standard Button"
+        text: button.text
         font.pixelSize: 14
         leftPadding: button.startPadding
         rightPadding: button.endPadding
         topPadding: button.topPadding
         bottomPadding: button.bottomPadding
         anchors.centerIn: parent
+        color: {
+            if(FluApp.isDark){
+                if(disabled){
+                    return Qt.rgba(131/255,131/255,131/255,1)
+                }
+                return Qt.rgba(1,1,1,1)
+            }else{
+                if(disabled){
+                    return Qt.rgba(160/255,160/255,160/255,1)
+                }
+                return Qt.rgba(0,0,0,1)
+            }
+        }
     }
 
     MouseArea {

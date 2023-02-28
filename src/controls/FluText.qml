@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-
+import FluentUI 1.0
 
 Text {
 
@@ -18,57 +18,55 @@ Text {
 
     property int fontStyle: FluText.Body
     property color textColor: FluApp.isDark ? "#FFFFFF" : "#1A1A1A"
-
     property int pixelSize : 14
 
     color: textColor
 
-    Component.onCompleted: {
-        setFontStyle(fontStyle)
-    }
-
-    onStyleChanged: {
-        setFontStyle(fontStyle)
-    }
-
-    function setFontStyle(fontStyle) {
+    font.bold: {
         switch (fontStyle) {
-            case FluText.Display:
-                font.bold = true
-                font.pixelSize = text.pixelSize * 4
-                break
-            case FluText.TitleLarge:
-                font.bold = true
-                font.pixelSize = text.pixelSize * 2
-                break
-            case FluText.Title:
-                font.bold = true
-                font.pixelSize = text.pixelSize * 1.5
-                break
-            case FluText.Subtitle:
-                font.bold = true
-                font.pixelSize = text.pixelSize * 0.9
-                break
-            case FluText.BodyLarge:
-                font.bold = false
-                font.pixelSize = text.pixelSize * 1.1
-                break
-            case FluText.BodyStrong:
-                font.bold = true
-                font.pixelSize = text.pixelSize * 1.0
-                break
-            case FluText.Body:
-                font.bold = false
-                font.pixelSize = text.pixelSize
-                break
-            case FluText.Caption:
-                font.bold = false
-                font.pixelSize = text.pixelSize * 0.8
-                break
-            default:
-                font.pixelSize = text.pixelSize * 1.0
-                break
+        case FluText.Display:
+            return true
+        case FluText.TitleLarge:
+            return true
+        case FluText.Title:
+            return true
+        case FluText.Subtitle:
+            return true
+        case FluText.BodyLarge:
+            return false
+        case FluText.BodyStrong:
+            return true
+        case FluText.Body:
+            return false
+        case FluText.Caption:
+            return false
+        default:
+            return false
         }
     }
+
+    font.pixelSize: {
+        switch (fontStyle) {
+        case FluText.Display:
+            return text.pixelSize * 4
+        case FluText.TitleLarge:
+            return text.pixelSize * 2
+        case FluText.Title:
+            return text.pixelSize * 1.5
+        case FluText.Subtitle:
+            return text.pixelSize * 0.9
+        case FluText.BodyLarge:
+            return text.pixelSize * 1.1
+        case FluText.BodyStrong:
+            return text.pixelSize * 1.0
+        case FluText.Body:
+            return text.font.pixelSize = 14
+        case FluText.Caption:
+            return text.pixelSize * 0.8
+        default:
+            return text.pixelSize * 1.0
+        }
+    }
+
 
 }

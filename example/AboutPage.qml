@@ -5,21 +5,21 @@ FluWindow {
 
     width: 500
     height: 500
-    title:"设置"
+    title:"关于"
 
     FluAppBar{
         id:appbar
     }
 
     FluText{
-        text:"设置"
+        text:"关于"
         fontStyle: FluText.Display
         anchors.centerIn: parent
 
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                FluApp.navigate("/About")
+
             }
         }
 

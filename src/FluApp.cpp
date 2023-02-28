@@ -39,10 +39,8 @@ void FluApp::navigate(const QString& route){
         qErrnoWarning("没有找到当前路由");
         return;
     }
-
     bool isAppWindow = route==initialRoute();
     FramelessView *view = new FramelessView();
-    view->engine()->rootContext()->setContextProperty("FluApp",FluApp::getInstance());
     view->setColor(isDark() ? QColor(0,0,0,1) : QColor(255, 255, 255, 1));
     QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
         if (status == QQuickView::Status::Ready) {

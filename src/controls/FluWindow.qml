@@ -15,7 +15,7 @@ Rectangle {
 
     Behavior on opacity{
         NumberAnimation{
-        duration: 100
+            duration: 100
         }
     }
 
@@ -27,7 +27,7 @@ Rectangle {
 
     onIsMaxChanged: {
         if(isMax){
-            root.anchors.margins = 8
+            root.anchors.margins = 8*(1/Screen.devicePixelRatio)
             root.anchors.fill = parent
         }else{
             root.anchors.margins = 0
@@ -38,7 +38,7 @@ Rectangle {
     color : FluApp.isDark ? "#202020" : "#F3F3F3"
 
     Component.onCompleted: {
-     console.debug("onCompleted")
+        console.debug("onCompleted")
     }
 
     Connections{
@@ -54,5 +54,26 @@ Rectangle {
     WindowHelper{
         id:helper
     }
+
+    FluInfoBar{
+        id:infoBar
+        root: root
+    }
+
+
+    function showSuccess(text,duration,moremsg){
+        infoBar.showSuccess(text,duration,moremsg);
+    }
+    function showInfo(text,duration,moremsg){
+        infoBar.showInfo(text,duration,moremsg);
+    }
+    function showWarning(text,duration,moremsg){
+        infoBar.showWarning(text,duration,moremsg);
+    }
+    function showError(text,duration,moremsg){
+        infoBar.showError(text,duration,moremsg);
+    }
+
+
 
 }

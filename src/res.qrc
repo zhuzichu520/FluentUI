@@ -18,5 +18,11 @@
         <file>controls/FluAppBar.qml</file>
         <file>controls/FluRectangle.qml</file>
         <file>controls/FluWindow.qml</file>
+        <file>controls/FluInfoBar.qml</file>
+        <file>controls/FluObject.qml</file>
+        <file>controls/FluIcon.qml</file>
+        <file>controls/FluDivider.qml</file>
+        <file>controls/FluTooltip.qml</file>
+        <file>controls/FluShadow.qml</file>
     </qresource>
 </RCC>

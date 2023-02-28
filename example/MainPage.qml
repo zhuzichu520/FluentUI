@@ -19,8 +19,20 @@ FluWindow {
     ListModel{
         id:nav_items
         ListElement{
-            text:"Controls"
-            page:"qrc:/T_Controls.qml"
+            text:"Buttons"
+            page:"qrc:/T_Buttons.qml"
+        }
+        ListElement{
+            text:"ToggleSwitch"
+            page:"qrc:/T_ToggleSwitch.qml"
+        }
+        ListElement{
+            text:"InfoBar"
+            page:"qrc:/T_InfoBar.qml"
+        }
+        ListElement{
+            text:"Rectangle"
+            page:"qrc:/T-Rectangle.qml"
         }
         ListElement{
             text:"Typography"
@@ -108,7 +120,7 @@ FluWindow {
             bottomMargin: 20
         }
         border.width: 1
-        border.color: FluApp.isDark ? "#666666" : "#EEEEEE"
+        border.color: FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(238/255,238/255,238/255,1)
 
         Loader{
             anchors.fill: parent

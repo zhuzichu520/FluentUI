@@ -3,7 +3,6 @@ import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
-
 Rectangle{
 
     color: FluApp.isDark ? "#323232" : "#FFFFFF"
@@ -63,7 +62,7 @@ Rectangle{
             }
             FluToggleSwitch{
                 checked: FluApp.isDark
-                onClicked2:{
+                onClickFunc:function(){
                     FluApp.isDark = !FluApp.isDark
                 }
             }
@@ -73,7 +72,7 @@ Rectangle{
             icon : FluentIcons.FA_window_minimize
             Layout.alignment: Qt.AlignVCenter
             iconSize: 15
-            iconColor: FluApp.isDark ? "#FFFFFF" : "#000000"
+            text:"最小化"
             onClicked: {
                 Window.window.showMinimized()
             }
@@ -85,7 +84,7 @@ Rectangle{
                 return Window.Maximized === Window.window.visibility  ? FluentIcons.FA_window_restore : FluentIcons.FA_window_maximize
             }
             Layout.alignment: Qt.AlignVCenter
-            iconColor: FluApp.isDark ? "#FFFFFF" : "#000000"
+            text:Window.Maximized === Window.window.visibility?"向下还原":"最大化"
             iconSize: 15
             onClicked: {
                 toggleMaximized()
@@ -94,19 +93,18 @@ Rectangle{
         FluIconButton{
             icon : FluentIcons.FA_close
             Layout.alignment: Qt.AlignVCenter
+            text:"关闭"
             iconSize: 15
-            iconColor: FluApp.isDark ? "#FFFFFF" : "#000000"
             onClicked: {
                 Window.window.close()
             }
         }
     }
 
-    Rectangle{
+    FluDivider{
         width: parent.width;
         height: 1;
         anchors.bottom: parent.bottom;
-        color: FluApp.isDark ? "#666666" : "#EEEEEE"
     }
 
 }

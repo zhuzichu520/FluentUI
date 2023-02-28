@@ -1,9 +1,13 @@
 <RCC>
     <qresource prefix="/">
-        <file>T_Controls.qml</file>
+        <file>T_ToggleSwitch.qml</file>
         <file>T_Typography.qml</file>
         <file>App.qml</file>
         <file>MainPage.qml</file>
         <file>SettingPage.qml</file>
+        <file>AboutPage.qml</file>
+        <file>T_Buttons.qml</file>
+        <file>T-Rectangle.qml</file>
+        <file>T_InfoBar.qml</file>
     </qresource>
 </RCC>

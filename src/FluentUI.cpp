@@ -4,9 +4,9 @@
 
 void FluentUI::create(QQmlEngine *engine)
 {
-    Fluent::getInstance()->registerTypes(URI_STR);
-    Fluent::getInstance()->initializeEngine(engine,URI_STR);
     engine->addImportPath("/");
+    Fluent::getInstance()->initializeEngine(engine,URI_STR);
+    Fluent::getInstance()->registerTypes(URI_STR);
 }
 
 QString FluentUI::version()

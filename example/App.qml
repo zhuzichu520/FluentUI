@@ -12,7 +12,8 @@ Window {
         FluApp.setAppWindow(app)
         FluApp.routes = {
             "/":"qrc:/MainPage.qml",
-            "/Setting":"qrc:/SettingPage.qml"
+            "/Setting":"qrc:/SettingPage.qml",
+            "/About":"qrc:/AboutPage.qml"
         }
         FluApp.initialRoute = "/"
         FluApp.run()

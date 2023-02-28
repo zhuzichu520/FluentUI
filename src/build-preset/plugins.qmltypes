@@ -855,6 +855,7 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "text"; type: "string" }
         Property { name: "startPadding"; type: "int" }
         Property { name: "endPadding"; type: "int" }
         Property { name: "topPadding"; type: "int" }
@@ -880,6 +881,14 @@ Module {
         defaultProperty: "data"
     }
     Component {
+        prototype: "QQuickRectangle"
+        name: "FluentUI/FluDivider 1.0"
+        exports: ["FluentUI/FluDivider 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+    }
+    Component {
         prototype: "QQuickItem"
         name: "FluentUI/FluDropDownButton 1.0"
         exports: ["FluentUI/FluDropDownButton 1.0"]
@@ -894,12 +903,12 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "text"; type: "string" }
         Property { name: "startPadding"; type: "int" }
         Property { name: "endPadding"; type: "int" }
         Property { name: "topPadding"; type: "int" }
         Property { name: "bottomPadding"; type: "int" }
         Property { name: "disabled"; type: "bool" }
-        Property { name: "primaryColor"; type: "QColor" }
         Signal { name: "clicked" }
     }
     Component {
@@ -909,12 +918,12 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "text"; type: "string" }
         Property { name: "startPadding"; type: "int" }
         Property { name: "endPadding"; type: "int" }
         Property { name: "topPadding"; type: "int" }
         Property { name: "bottomPadding"; type: "int" }
         Property { name: "disabled"; type: "bool" }
-        Property { name: "primaryColor"; type: "QColor" }
         Signal { name: "clicked" }
     }
     Component {
@@ -924,13 +933,24 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "text"; type: "string" }
         Property { name: "startPadding"; type: "int" }
         Property { name: "endPadding"; type: "int" }
         Property { name: "topPadding"; type: "int" }
         Property { name: "bottomPadding"; type: "int" }
         Property { name: "disabled"; type: "bool" }
-        Property { name: "primaryColor"; type: "QColor" }
         Signal { name: "clicked" }
+    }
+    Component {
+        prototype: "QQuickText"
+        name: "FluentUI/FluIcon 1.0"
+        exports: ["FluentUI/FluIcon 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "icon"; type: "int" }
+        Property { name: "iconSize"; type: "int" }
+        Property { name: "iconColor"; type: "QColor" }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -941,8 +961,63 @@ Module {
         defaultProperty: "data"
         Property { name: "iconSize"; type: "int" }
         Property { name: "icon"; type: "int" }
-        Property { name: "iconColor"; type: "QColor" }
+        Property { name: "disabled"; type: "bool" }
+        Property { name: "text"; type: "string" }
         Signal { name: "clicked" }
+    }
+    Component {
+        prototype: "QObject"
+        name: "FluentUI/FluInfoBar 1.0"
+        exports: ["FluentUI/FluInfoBar 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "children"
+        Property { name: "root"; type: "QVariant" }
+        Property { name: "layoutY"; type: "int" }
+        Method {
+            name: "showSuccess"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showInfo"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showWarning"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showError"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showCustom"
+            type: "QVariant"
+            Parameter { name: "itemcomponent"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+        }
+        Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component {
+        prototype: "QObject"
+        name: "FluentUI/FluObject 1.0"
+        exports: ["FluentUI/FluObject 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "children"
+        Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
         prototype: "QQuickItem"
@@ -967,6 +1042,10 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "checked"; type: "bool" }
+        Property { name: "text"; type: "string" }
+        Property { name: "disabled"; type: "bool" }
+        Signal { name: "clicked" }
     }
     Component {
         prototype: "QQuickItem"
@@ -974,7 +1053,23 @@ Module {
         exports: ["FluentUI/FluRectangle 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
+        defaultProperty: "contentItem"
+        Property { name: "radius"; type: "QVariant" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "borderColor"; type: "QColor" }
+        Property { name: "borderWidth"; type: "int" }
+        Property { name: "contentItem"; type: "QQuickItem"; isList: true; isReadonly: true }
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "FluentUI/FluShadow 1.0"
+        exports: ["FluentUI/FluShadow 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
         defaultProperty: "data"
+        Property { name: "shadowColor"; type: "QColor" }
+        Property { name: "radius"; type: "int" }
+        Property { name: "isShadow"; type: "bool" }
     }
     Component {
         prototype: "QQuickItem"
@@ -1007,11 +1102,6 @@ Module {
         Property { name: "fontStyle"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
         Property { name: "pixelSize"; type: "int" }
-        Method {
-            name: "setFontStyle"
-            type: "QVariant"
-            Parameter { name: "fontStyle"; type: "QVariant" }
-        }
     }
     Component {
         prototype: "QQuickItem"
@@ -1037,7 +1127,15 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "checkedColor"; type: "QColor" }
-        Signal { name: "clicked2" }
+        Property { name: "onClickFunc"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickToolTip"
+        name: "FluentUI/FluTooltip 1.0"
+        exports: ["FluentUI/FluTooltip 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "contentData"
     }
     Component {
         prototype: "QQuickRectangle"
@@ -1049,5 +1147,33 @@ Module {
         Property { name: "isMax"; type: "bool" }
         Property { name: "title"; type: "string" }
         Property { name: "window"; type: "QVariant" }
+        Method {
+            name: "showSuccess"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showInfo"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showWarning"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showError"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
     }
 }
