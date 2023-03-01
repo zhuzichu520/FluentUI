@@ -825,6 +825,10 @@ Module {
             name: "setMaximumSize"
             Parameter { name: "size"; type: "QSize" }
         }
+        Method {
+            name: "setSize"
+            Parameter { name: "size"; type: "QSize" }
+        }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -1176,6 +1180,7 @@ Module {
         defaultProperty: "data"
         Property { name: "isMax"; type: "bool" }
         Property { name: "title"; type: "string" }
+        Property { name: "winId"; type: "string" }
         Property { name: "minimumSize"; type: "QVariant" }
         Property { name: "maximumSize"; type: "QVariant" }
         Property { name: "window"; type: "QVariant" }
@@ -1207,5 +1212,6 @@ Module {
             Parameter { name: "duration"; type: "QVariant" }
             Parameter { name: "moremsg"; type: "QVariant" }
         }
+        Method { name: "close"; type: "QVariant" }
     }
 }

@@ -10,13 +10,15 @@ Window {
     color: "#00000000"
     Component.onCompleted: {
         FluApp.isFps = true
+        FluApp.isDark = false
         FluApp.setAppWindow(app)
         FluApp.routes = {
             "/":"qrc:/MainPage.qml",
             "/Setting":"qrc:/SettingPage.qml",
-            "/About":"qrc:/AboutPage.qml"
+            "/About":"qrc:/AboutPage.qml",
+            "/Installer":"qrc:/Installer.qml"
         }
-        FluApp.initialRoute = "/"
+        FluApp.initialRoute = "/Installer"
         FluApp.run()
     }
 
