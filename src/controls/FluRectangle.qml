@@ -1,13 +1,12 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Shapes 1.15
 import QtGraphicalEffects 1.15
 
 Item{
     id:root
     property var radius:[0,0,0,0]
     property color color : "#FFFFFF"
-    property color borderColor:"transparent"
+    property color borderColor:"red"
     property int borderWidth: 1
     default property alias contentItem: container.children
 
@@ -20,35 +19,40 @@ Item{
 
     }
 
-    Shape {
-        id: shape
-        width: root.width
-        height: root.height
-        layer.enabled: true
-        layer.samples: 4
-        layer.smooth: true
+    Canvas {
+        id: canvas
+        anchors.fill: parent
         visible: false
-        ShapePath {
-            startX: 0
-            startY: radius[0]
-            fillColor: color
-            strokeColor: borderColor
-            strokeWidth: borderWidth
-            PathQuad { x: radius[0]; y: 0; controlX: 0; controlY: 0 }
-            PathLine { x: shape.width - radius[1]; y: 0 }
-            PathQuad { x: shape.width; y: radius[1]; controlX: shape.width; controlY: 0 }
-            PathLine { x: shape.width; y: shape.height - radius[2] }
-            PathQuad { x: shape.width - radius[2]; y: shape.height; controlX: shape.width; controlY: shape.height }
-            PathLine { x: radius[3]; y: shape.height }
-            PathQuad { x: 0; y: shape.height - radius[3]; controlX: 0; controlY: shape.height }
-            PathLine { x: 0; y: radius[0] }
+        onPaint: {
+            var ctx = getContext("2d");
+            var x = 0;
+            var y = 0;
+            var w = root.width;
+            var h = root.height;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x + radius[0], y);
+            ctx.lineTo(x + w - radius[1], y);
+            ctx.arcTo(x + w, y, x + w, y + radius[1], radius[1]);
+            ctx.lineTo(x + w, y + h - radius[2]);
+            ctx.arcTo(x + w, y + h, x + w - radius[2], y + h, radius[2]);
+            ctx.lineTo(x + radius[3], y + h);
+            ctx.arcTo(x, y + h, x, y + h - radius[3], radius[3]);
+            ctx.lineTo(x, y + radius[0]);
+            ctx.arcTo(x, y, x + radius[0], y, radius[0]);
+            ctx.closePath();
+            ctx.fillStyle = root.color;
+            ctx.fill();
+            ctx.restore();
         }
     }
 
     OpacityMask {
         anchors.fill: container
         source: container
-        maskSource: shape
+        maskSource: canvas
     }
 
 }

@@ -817,6 +817,14 @@ Module {
             name: "setTitle"
             Parameter { name: "text"; type: "string" }
         }
+        Method {
+            name: "setMinimumSize"
+            Parameter { name: "size"; type: "QSize" }
+        }
+        Method {
+            name: "setMaximumSize"
+            Parameter { name: "size"; type: "QSize" }
+        }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -895,6 +903,24 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "FluentUI/FluDropShadow 1.0"
+        exports: ["FluentUI/FluDropShadow 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "fast"; type: "bool" }
+        Property { name: "source"; type: "QVariant" }
+        Property { name: "radius"; type: "double" }
+        Property { name: "samples"; type: "int" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "horizontalOffset"; type: "double" }
+        Property { name: "verticalOffset"; type: "double" }
+        Property { name: "spread"; type: "double" }
+        Property { name: "cached"; type: "bool" }
+        Property { name: "transparentBorder"; type: "bool" }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -1074,17 +1100,6 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
-        name: "FluentUI/FluShadow 1.0"
-        exports: ["FluentUI/FluShadow 1.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "data"
-        Property { name: "shadowColor"; type: "QColor" }
-        Property { name: "radius"; type: "int" }
-        Property { name: "isShadow"; type: "bool" }
-    }
-    Component {
-        prototype: "QQuickItem"
         name: "FluentUI/FluSlider 1.0"
         exports: ["FluentUI/FluSlider 1.0"]
         exportMetaObjectRevisions: [0]
@@ -1161,6 +1176,8 @@ Module {
         defaultProperty: "data"
         Property { name: "isMax"; type: "bool" }
         Property { name: "title"; type: "string" }
+        Property { name: "minimumSize"; type: "QVariant" }
+        Property { name: "maximumSize"; type: "QVariant" }
         Property { name: "window"; type: "QVariant" }
         Method {
             name: "showSuccess"

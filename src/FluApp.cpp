@@ -22,6 +22,7 @@ FluApp::FluApp(QObject *parent)
     : QObject{parent}
 {
     isDark(true);
+    isFps(true);
 }
 
 

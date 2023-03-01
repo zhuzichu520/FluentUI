@@ -12,6 +12,7 @@ class FluApp : public QObject
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,initialRoute);
     Q_PROPERTY_AUTO(bool,isDark);
+    Q_PROPERTY_AUTO(bool,isFps);
     Q_PROPERTY_AUTO(QJsonObject,routes);
 
 public:

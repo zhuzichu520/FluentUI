@@ -7,8 +7,22 @@
         <file>SettingPage.qml</file>
         <file>AboutPage.qml</file>
         <file>T_Buttons.qml</file>
-        <file>T-Rectangle.qml</file>
+        <file>T_Rectangle.qml</file>
         <file>T_InfoBar.qml</file>
         <file>T_Progress.qml</file>
+        <file>T_Slider.qml</file>
+        <file>res/image/image_huoyin.webp</file>
+        <file>res/svg/avatar_1.svg</file>
+        <file>res/svg/avatar_2.svg</file>
+        <file>res/svg/avatar_3.svg</file>
+        <file>res/svg/avatar_4.svg</file>
+        <file>res/svg/avatar_5.svg</file>
+        <file>res/svg/avatar_6.svg</file>
+        <file>res/svg/avatar_7.svg</file>
+        <file>res/svg/avatar_8.svg</file>
+        <file>res/svg/avatar_9.svg</file>
+        <file>res/svg/avatar_10.svg</file>
+        <file>res/svg/avatar_11.svg</file>
+        <file>res/svg/avatar_12.svg</file>
     </qresource>
 </RCC>

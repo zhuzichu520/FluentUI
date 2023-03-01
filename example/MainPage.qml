@@ -10,6 +10,8 @@ FluWindow {
     width: 800
     height: 600
     title: "FluentUI"
+    minimumSize: Qt.size(600,400)
+    //    property var maximumSize
 
     FluAppBar{
         id:appbar
@@ -27,6 +29,10 @@ FluWindow {
             page:"qrc:/T_ToggleSwitch.qml"
         }
         ListElement{
+            text:"Slider"
+            page:"qrc:/T_Slider.qml"
+        }
+        ListElement{
             text:"InfoBar"
             page:"qrc:/T_InfoBar.qml"
         }
@@ -36,7 +42,7 @@ FluWindow {
         }
         ListElement{
             text:"Rectangle"
-            page:"qrc:/T-Rectangle.qml"
+            page:"qrc:/T_Rectangle.qml"
         }
         ListElement{
             text:"Typography"

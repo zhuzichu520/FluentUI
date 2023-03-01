@@ -1,7 +1,6 @@
 ﻿import QtQuick 2.12
 import QtQuick.Controls 2.12
 
-//进度条4
 FluRectangle {
     id: control
 
@@ -9,50 +8,40 @@ FluRectangle {
     height: 6
     radius: [3,3,3,3]
     clip: true
-    color:Qt.rgba(214/255,214/255,214/255,1)
-    property real progress: 0.25
+    color:  FluApp.isDark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    property real progress: 0.5
     property bool indeterminate: true
 
     Component.onCompleted: {
-        anim.enabled = false
         if(indeterminate){
-            rect.x = -control.width*0.5
+            bar.x = -control.width*0.5
+            behavior.enabled = true
+            bar.x = control.width
         }else{
-            rect.x = 0
+            bar.x = 0
         }
-        anim.enabled = true
-    } 
+    }
 
     Rectangle{
-        id:rect
+        id:bar
         radius: 3
         width: control.width*progress
         height:  control.height
-        color:Qt.rgba(0/255,102/255,180/255,1)
+        color:FluApp.isDark ? Qt.rgba(76/255,160/255,224/255,1) : Qt.rgba(0/255,102/255,180/255,1)
 
         Behavior on x{
-            id:anim
-            enabled: true
+            id:behavior
+            enabled: false
             NumberAnimation{
-                duration: 800
+                duration: 1000
                 onRunningChanged: {
                     if(!running){
-                        anim.enabled = false
-                        rect.x = -control.width*0.5
-                        anim.enabled = true
-                        timer.start()
+                        behavior.enabled = false
+                        bar.x = -control.width*0.5
+                        behavior.enabled = true
+                        bar.x = control.width
                     }
                 }
-            }
-        }
-
-        Timer{
-            id:timer
-            running: indeterminate
-            interval: 800
-            triggeredOnStart: true
-            onTriggered: {
-                rect.x = control.width
             }
         }
     }

@@ -9,6 +9,7 @@ Window {
     id:app
     color: "#00000000"
     Component.onCompleted: {
+        FluApp.isFps = true
         FluApp.setAppWindow(app)
         FluApp.routes = {
             "/":"qrc:/MainPage.qml",

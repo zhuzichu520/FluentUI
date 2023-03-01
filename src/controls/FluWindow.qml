@@ -12,6 +12,8 @@ Rectangle {
         return Window.Maximized === Window.window.visibility
     }
     property string title: "FluentUI"
+    property var minimumSize
+    property var maximumSize
 
     Behavior on opacity{
         NumberAnimation{
@@ -47,6 +49,12 @@ Rectangle {
             if(FluApp.equalsWindow(view,window)){
                 helper.initWindow(view);
                 helper.setTitle(title);
+                if(minimumSize){
+                    helper.setMinimumSize(minimumSize)
+                }
+                if(maximumSize){
+                    helper.setMaximumSize(maximumSize)
+                }
             }
         }
     }

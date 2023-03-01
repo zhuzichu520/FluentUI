@@ -19,10 +19,6 @@ ToolTip {
         color: FluApp.isDark ? Qt.rgba(50/255,49/255,48/255,1) : Qt.rgba(1,1,1,1)
         radius: 5
         layer.enabled: true
-        layer.effect: DropShadow {
-             radius: 5
-             samples: 4
-             color: "#80000000"
-         }
+        layer.effect: FluDropShadow {}
     }
 }

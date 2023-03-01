@@ -53,6 +53,13 @@ Rectangle{
         height: parent.height
         spacing: 5
 
+        TFpsMonitor{
+           Layout.alignment: Qt.AlignVCenter
+           Layout.rightMargin: 12
+           Layout.topMargin: 5
+           visible: FluApp.isFps
+        }
+
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
             spacing: 5

@@ -30,7 +30,7 @@ void Fluent::registerTypes(const char *uri){
 
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
 
-    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluShadow.qml"),uri,major,minor,"FluShadow");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDropShadow.qml"),uri,major,minor,"FluDropShadow");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTooltip.qml"),uri,major,minor,"FluTooltip");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDivider.qml"),uri,major,minor,"FluDivider");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluIcon.qml"),uri,major,minor,"FluIcon");
