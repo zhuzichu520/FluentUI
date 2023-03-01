@@ -77,6 +77,7 @@ Item {
                     asynchronous: true
                     anchors.fill: parent
                     source: "qrc:/res/svg/avatar_1.svg"
+                    sourceSize: Qt.size(width,height)
                 }
                 layer.enabled: true
                 layer.effect: FluDropShadow {}
@@ -89,6 +90,7 @@ Item {
                 Image {
                     asynchronous: true
                     anchors.fill: parent
+                    sourceSize: Qt.size(width,height)
                     source: "qrc:/res/svg/avatar_2.svg"
                 }
                 layer.enabled: true
@@ -101,6 +103,7 @@ Item {
                 Image {
                     asynchronous: true
                     anchors.fill: parent
+                    sourceSize: Qt.size(width,height)
                     source: "qrc:/res/svg/avatar_3.svg"
                 }
                 layer.enabled: true
@@ -117,6 +120,7 @@ Item {
                 Image {
                     asynchronous: true
                     anchors.fill: parent
+                    sourceSize: Qt.size(width,height)
                     source: "qrc:/res/svg/avatar_4.svg"
                 }
                 layer.enabled: true
@@ -132,6 +136,7 @@ Item {
                 asynchronous: true
                 source: "qrc:/res/image/image_huoyin.webp"
                 anchors.fill: parent
+                sourceSize: Qt.size(width,height)
             }
             Layout.topMargin: 10
             layer.enabled: true
