@@ -24,5 +24,6 @@
         <file>res/svg/avatar_10.svg</file>
         <file>res/svg/avatar_11.svg</file>
         <file>res/svg/avatar_12.svg</file>
+        <file>Installer.qml</file>
     </qresource>
 </RCC>

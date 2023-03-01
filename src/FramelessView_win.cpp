@@ -118,7 +118,8 @@ public:
         if (oldStyle != newStyle)
         {
             borderless = enabled;
-            ::SetWindowLongPtrW(handle, GWL_STYLE, static_cast<LONG>(newStyle));
+            //todo 有待研究这个
+//            ::SetWindowLongPtrW(handle, GWL_STYLE, static_cast<LONG>(newStyle));
 
             // when switching between borderless and windowed, restore appropriate shadow state
             setShadow(handle, borderless_shadow && (newStyle != Style::windowed));

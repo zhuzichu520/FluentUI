@@ -12,6 +12,9 @@ Rectangle {
         return Window.Maximized === Window.window.visibility
     }
     property string title: "FluentUI"
+
+    property string winId
+
     property var minimumSize
     property var maximumSize
 
@@ -40,7 +43,7 @@ Rectangle {
     color : FluApp.isDark ? "#202020" : "#F3F3F3"
 
     Component.onCompleted: {
-        console.debug("onCompleted")
+        console.debug("Component.onCompleted:"+root.winId)
     }
 
     Connections{
@@ -55,6 +58,11 @@ Rectangle {
                 if(maximumSize){
                     helper.setMaximumSize(maximumSize)
                 }
+                if(maximumSize&&minimumSize){
+                    if(maximumSize.width === minimumSize.width && maximumSize.height === minimumSize.height){
+                        helper.disResizable()
+                    }
+                }
             }
         }
     }
@@ -68,7 +76,6 @@ Rectangle {
         root: root
     }
 
-
     function showSuccess(text,duration,moremsg){
         infoBar.showSuccess(text,duration,moremsg);
     }
@@ -81,7 +88,8 @@ Rectangle {
     function showError(text,duration,moremsg){
         infoBar.showError(text,duration,moremsg);
     }
-
-
+    function close(){
+        window.close()
+    }
 
 }

@@ -21,3 +21,7 @@ void WindowHelper::setMinimumSize(const QSize &size){
 void WindowHelper::setMaximumSize(const QSize &size){
     this->window->setMaximumSize(size);
 }
+
+void WindowHelper::setSize(const QSize &size){
+
+}
