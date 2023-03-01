@@ -1,0 +1,7 @@
+TempMode
+ 
+Silent=1
+ 
+Overwrite=1
+ 
+Setup=./example.exe

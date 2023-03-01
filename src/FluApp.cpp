@@ -42,15 +42,8 @@ void FluApp::navigate(const QString& route){
     }
     bool isAppWindow = route==initialRoute();
     FramelessView *view = new FramelessView();
-    view->setProperty("winId","1234243");
-      qDebug()<<"-----FramelessView--------->";
-//    view->setWidth(800);
-//    view->setHeight(500);
-//    view->setMaximumSize(QSize(800,500));
-//    view->setMinimumSize(QSize(800,500));
     view->setColor(isDark() ? QColor(0,0,0,1) : QColor(255, 255, 255, 1));
     QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
-        qDebug()<<"-------------->";
         if (status == QQuickView::Status::Ready) {
             Q_EMIT windowReady(view);
 
@@ -58,7 +51,6 @@ void FluApp::navigate(const QString& route){
             view->show();
         }
     });
-     qDebug()<<"-----view->setSource((routes().value(route).toString()))--------->";
     view->setSource((routes().value(route).toString()));
     if(isAppWindow){
         QObject::connect(view->engine(), &QQmlEngine::quit, qApp, &QCoreApplication::quit);
@@ -69,10 +61,5 @@ void FluApp::navigate(const QString& route){
 }
 
 bool FluApp::equalsWindow(FramelessView *view,QWindow *window){
-      qDebug()<<"-----equalsWindow--------->";
-        view->setWidth(800);
-        view->setHeight(500);
-        view->setMaximumSize(QSize(800,500));
-        view->setMinimumSize(QSize(800,500));
     return view->winId() == window->winId();
 }

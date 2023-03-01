@@ -5,10 +5,10 @@ import FluentUI 1.0
 FluWindow {
 
     id:window
-//    width: 800
-//    height: 400
-//    maximumSize: Qt.size(800,400)
-//    minimumSize: Qt.size(800,400)
+    width: 800
+    height: 400
+    maximumSize: Qt.size(800,400)
+    minimumSize: Qt.size(800,400)
     title:"安装向导"
 
     FluAppBar{

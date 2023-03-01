@@ -15,14 +15,22 @@ Rectangle{
 
     property string title: "标题"
 
+    property bool resizable: {
+        if(Window.window == null){
+            return false
+        }
+        return !(Window.window.minimumHeight === Window.window.maximumHeight && Window.window.maximumWidth === Window.window.minimumWidth)
+    }
+
     MouseArea{
-        property var lastClickTime: new Date()
         anchors.fill: parent
         anchors.topMargin: 5
         acceptedButtons: Qt.LeftButton
+        hoverEnabled: true
         onPressed: Window.window.startSystemMove()
         onDoubleClicked: {
-            toggleMaximized();
+            if(resizable)
+                toggleMaximized();
         }
     }
 
@@ -33,8 +41,6 @@ Rectangle{
             Window.window.showMaximized();
         }
     }
-
-
 
     FluText {
         text: title
@@ -54,10 +60,10 @@ Rectangle{
         spacing: 5
 
         TFpsMonitor{
-           Layout.alignment: Qt.AlignVCenter
-           Layout.rightMargin: 12
-           Layout.topMargin: 5
-           visible: FluApp.isFps
+            Layout.alignment: Qt.AlignVCenter
+            Layout.rightMargin: 12
+            Layout.topMargin: 5
+            visible: FluApp.isFps
         }
 
         RowLayout{
@@ -91,6 +97,7 @@ Rectangle{
                 return Window.Maximized === Window.window.visibility  ? FluentIcons.FA_window_restore : FluentIcons.FA_window_maximize
             }
             Layout.alignment: Qt.AlignVCenter
+            visible: resizable
             text:{
                 if(Window.window == null)
                     return ""

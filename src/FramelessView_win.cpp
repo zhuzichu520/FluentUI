@@ -119,7 +119,7 @@ public:
         {
             borderless = enabled;
             //todo 有待研究这个
-//            ::SetWindowLongPtrW(handle, GWL_STYLE, static_cast<LONG>(newStyle));
+            ::SetWindowLongPtrW(handle, GWL_STYLE, static_cast<LONG>(newStyle));
 
             // when switching between borderless and windowed, restore appropriate shadow state
             setShadow(handle, borderless_shadow && (newStyle != Style::windowed));
@@ -348,20 +348,19 @@ bool FramelessView::nativeEvent(const QByteArray& eventType, void* message, long
         {
             RECT winrect;
             GetWindowRect(HWND(winId()), &winrect);
-
             long x = GET_X_LPARAM(msg->lParam);
             long y = GET_Y_LPARAM(msg->lParam);
-
             *result = 0;
             if (!isMaxWin(this) && !isFullWin(this))
             { //非最大化、非全屏时，进行命中测试，处理边框拖拽
-                *result = hitTest(winrect, x, y, border_width);
-                if (0 != *result)
-                {
-                    return true;
+                if(!((maximumHeight()==minimumHeight())&&(maximumWidth()==minimumWidth()))){
+                    *result = hitTest(winrect, x, y, border_width);
+                    if (0 != *result)
+                    {
+                        return true;
+                    }
                 }
             }
-
             if (d->m_titleItem)
             {
                 auto titlePos = d->m_titleItem->mapToGlobal({ 0, 0 });

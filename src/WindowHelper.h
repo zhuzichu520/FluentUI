@@ -18,7 +18,7 @@ public:
     Q_INVOKABLE void setTitle(const QString& text);
     Q_INVOKABLE void setMinimumSize(const QSize &size);
     Q_INVOKABLE void setMaximumSize(const QSize &size);
-    Q_INVOKABLE void setSize(const QSize &size);
+    Q_INVOKABLE void refreshWindow();
 
 private:
     FramelessView* window;

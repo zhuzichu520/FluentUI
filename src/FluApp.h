@@ -32,6 +32,7 @@ public:
     Q_INVOKABLE bool equalsWindow(FramelessView *view,QWindow *window);
 
 private:
+
     static FluApp* m_instance;
     QWindow *appWindow;
 
