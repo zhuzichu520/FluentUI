@@ -26,8 +26,6 @@ FluApp::FluApp(QObject *parent)
     isFps(true);
 }
 
-
-
 void FluApp::setAppWindow(QWindow *window){
     appWindow = window;
 }
@@ -43,7 +41,7 @@ void FluApp::navigate(const QString& route){
     }
     bool isAppWindow = route==initialRoute();
     FramelessView *view = new FramelessView();
-    view->setColor(isDark() ? QColor(0,0,0,1) : QColor(255, 255, 255, 1));
+    view->setColor(QColor(0,0,0,0));
     QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
         if (status == QQuickView::Status::Ready) {
             Q_EMIT windowReady(view);
@@ -65,17 +63,26 @@ bool FluApp::equalsWindow(FramelessView *view,QWindow *window){
     return view->winId() == window->winId();
 }
 
-QJsonArray FluApp::awesomelist()
+QJsonArray FluApp::awesomelist(const QString& keyword)
 {
     QJsonArray arr;
     QMetaEnum enumType = Fluent_Awesome::staticMetaObject.enumerator(Fluent_Awesome::staticMetaObject.indexOfEnumerator("Fluent_AwesomeType"));
     for(int i=0; i < enumType.keyCount(); ++i){
-        QJsonObject obj;
         QString name = enumType.key(i);
         int icon = enumType.value(i);
-        obj.insert("name",name);
-        obj.insert("icon",icon);
-        arr.append(obj);
+        if(keyword.isEmpty()){
+            QJsonObject obj;
+            obj.insert("name",name);
+            obj.insert("icon",icon);
+            arr.append(obj);
+        }else{
+            if(name.mid(3).contains(keyword)){
+                QJsonObject obj;
+                obj.insert("name",name);
+                obj.insert("icon",icon);
+                arr.append(obj);
+            }
+        }
     }
     return arr;
 }

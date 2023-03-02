@@ -27,5 +27,9 @@
         <file>controls/TFpsMonitor.qml</file>
         <file>controls/FluTextBoxBackground.qml</file>
         <file>controls/FluMultiLineTextBox.qml</file>
+        <file>controls/FluWindowResize.qml</file>
+        <file>controls/FluScrollBar.qml</file>
+        <file>controls/FluMenu.qml</file>
+        <file>controls/FluMenuItem.qml</file>
     </qresource>
 </RCC>

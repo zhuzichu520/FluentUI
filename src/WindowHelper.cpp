@@ -15,14 +15,15 @@ void WindowHelper::initWindow(FramelessView* window){
     this->window = window;
 }
 
-void WindowHelper::setMinimumSize(const QSize &size){
-    this->window->setMinimumSize(size);
+void WindowHelper::setMinimumWidth(int width){
+    this->window->setMinimumWidth(width);
 }
-void WindowHelper::setMaximumSize(const QSize &size){
-    this->window->setMaximumSize(size);
+void WindowHelper::setMaximumWidth(int width){
+    this->window->setMaximumWidth(width);
 }
-
-void WindowHelper::refreshWindow(){
-    this->window->setFlag(Qt::NoDropShadowWindowHint,true);
-    this->window->setFlag(Qt::NoDropShadowWindowHint,false);
+void WindowHelper::setMinimumHeight(int height){
+    this->window->setMinimumHeight(height);
+}
+void WindowHelper::setMaximumHeight(int height){
+    this->window->setMaximumHeight(height);
 }

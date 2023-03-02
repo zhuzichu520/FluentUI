@@ -2,27 +2,11 @@
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
+import QtGraphicalEffects 1.15
 
-Rectangle {
+Item {
 
     id:root
-    property bool isMax: {
-        if(Window.window == null)
-            return false
-        return Window.Maximized === Window.window.visibility
-    }
-    property string title: "FluentUI"
-
-    property string winId
-
-    property var minimumSize
-    property var maximumSize
-
-    Behavior on opacity{
-        NumberAnimation{
-            duration: 100
-        }
-    }
 
     property var window : {
         if(Window.window == null)
@@ -30,17 +14,42 @@ Rectangle {
         return Window.window
     }
 
-    onIsMaxChanged: {
-        if(isMax){
-            root.anchors.margins = 8*(1/Screen.devicePixelRatio)
-            root.anchors.fill = parent
-        }else{
-            root.anchors.margins = 0
-            root.anchors.fill = null
+    property color color: FluApp.isDark ? "#202020" : "#F3F3F3"
+    property string title: "FluentUI"
+    property int minimumWidth
+    property int maximumWidth
+    property int minimumHeight
+    property int maximumHeight
+    property int borderless:{
+        if(Window.window == null)
+            return 4
+        if(Window.window.visibility === Window.Maximized){
+            return 0
+        }
+        return 4
+    }
+    default property alias content: container.children
+
+    FluWindowResize{}
+
+    Behavior on opacity{
+        NumberAnimation{
+            duration: 100
         }
     }
 
-    color : FluApp.isDark ? "#202020" : "#F3F3F3"
+    Rectangle{
+        id:container
+        color:root.color
+        anchors.fill: parent
+        anchors.margins: borderless
+        layer.enabled: true
+        layer.effect: DropShadow {
+            radius: 5
+            samples: 4
+            color: "#40000000"
+        }
+    }
 
     Component.onCompleted: {
 
@@ -52,13 +61,18 @@ Rectangle {
             if(FluApp.equalsWindow(view,window)){
                 helper.initWindow(view);
                 helper.setTitle(title);
-                if(minimumSize){
-                    helper.setMinimumSize(minimumSize)
+                if(minimumWidth){
+                    helper.setMinimumWidth(minimumWidth)
                 }
-                if(maximumSize){
-                    helper.setMaximumSize(maximumSize)
+                if(maximumWidth){
+                    helper.setMaximumWidth(maximumWidth)
                 }
-                helper.refreshWindow()
+                if(minimumHeight){
+                    helper.setMinimumHeight(minimumHeight)
+                }
+                if(maximumHeight){
+                    helper.setMaximumHeight(maximumHeight)
+                }
             }
         }
     }

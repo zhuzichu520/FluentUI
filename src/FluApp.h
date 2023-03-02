@@ -32,7 +32,7 @@ public:
 
     Q_INVOKABLE bool equalsWindow(FramelessView *view,QWindow *window);
 
-    Q_INVOKABLE QJsonArray awesomelist();
+    Q_INVOKABLE QJsonArray awesomelist(const QString& keyword = "");
 
     Q_INVOKABLE void clipText(const QString& text);
 
