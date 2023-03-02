@@ -1,41 +1,26 @@
 ﻿import QtQuick 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls.impl 2.15
-import QtQuick.Templates 2.15 as T
-import QtQuick.Window 2.15
-import QtGraphicalEffects 1.15
 
-T.Menu {
-    id: control
+Popup {
+    id: popup
+    default property alias content: container.children
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            contentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             contentHeight + topPadding + bottomPadding)
-    margins: 0
-    delegate: FluMenuItem { }
-
-    contentItem: ListView {
-        implicitHeight: contentHeight
-        model: control.contentModel
-        interactive: Window.window ? contentHeight > Window.window.height : false
-        clip: true
-        currentIndex: control.currentIndex
-        ScrollIndicator.vertical: ScrollIndicator {}
-    }
-
-    background: Item {
-        implicitWidth: 122
-        implicitHeight: 30
-        Rectangle{
-            anchors.fill: parent
-            color: "#FFFFFF"
-            layer.effect: FluDropShadow{}
-            layer.enabled: true
+    background: FluRectangle {
+        implicitWidth: 140
+        implicitHeight: container.height
+        color:FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
+        radius: [5,5,5,5]
+        layer.effect: FluDropShadow{}
+        layer.enabled: true
+        Column{
+            spacing: 5
+            topPadding: 5
+            bottomPadding: 5
+            id:container
+            function closePopup(){
+                popup.close()
+            }
         }
-
-
     }
-
-
 }

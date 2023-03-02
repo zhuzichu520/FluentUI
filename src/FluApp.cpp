@@ -41,11 +41,10 @@ void FluApp::navigate(const QString& route){
     }
     bool isAppWindow = route==initialRoute();
     FramelessView *view = new FramelessView();
-    view->setColor(QColor(0,0,0,0));
+    view->setColor(QColor(Qt::transparent));
     QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
         if (status == QQuickView::Status::Ready) {
             Q_EMIT windowReady(view);
-
             view->moveToScreenCenter();
             view->show();
         }

@@ -9,10 +9,10 @@ import FluentUI 1.0
 FluWindow {
     id:rootwindow
     width: 800
-    height: 600
+    height: 700
     title: "FluentUI"
     minimumWidth: 600
-    minimumHeight: 400
+    minimumHeight: 500
 
     FluAppBar{
         id:appbar
@@ -61,17 +61,6 @@ FluWindow {
                 page:"qrc:/T_Typography.qml"
             }
         }
-
-        FluMenu{
-            id:menu
-            FluMenuItem{
-                text:"123"
-            }
-            FluMenuItem{
-                text:"456"
-            }
-        }
-
     }
 
     FluIconButton{
@@ -82,8 +71,25 @@ FluWindow {
             leftMargin: 12
             bottomMargin: 12
         }
+        FluMenu{
+            id:menu
+            x:40
+            margins:4
+            FluMenuItem{
+                text:"关于"
+                onClicked:{
+                    FluApp.navigate("/About")
+                }
+            }
+            FluMenuItem{
+                text:"设置"
+                onClicked:{
+                    FluApp.navigate("/Setting")
+                }
+            }
+        }
         onClicked:{
-            menu.popup()
+            menu.open()
         }
     }
 

@@ -21,13 +21,10 @@ static bool isFullWin(QQuickView* win)
 {
     return win->windowState() == Qt::WindowFullScreen;
 }
-
-
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
     setFlags(Qt::CustomizeWindowHint | Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
     setResizeMode(SizeRootObjectToView);
-
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
     connect(this, &QWindow::windowStateChanged, this, [&](Qt::WindowState state) {

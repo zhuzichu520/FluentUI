@@ -46,7 +46,9 @@ Item {
         layer.enabled: true
         layer.effect: DropShadow {
             radius: 5
-            samples: 4
+            samples: 5
+            horizontalOffset: 0
+            verticalOffset: 0
             color: "#40000000"
         }
     }

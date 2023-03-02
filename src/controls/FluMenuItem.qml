@@ -1,29 +1,40 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls.impl 2.15
-import QtQuick.Templates 2.15 as T
-import QtQuick.Shapes 1.15
 
-T.MenuItem {
-    id: control
+Item {
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            implicitContentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             implicitContentHeight + topPadding + bottomPadding,
-                             implicitIndicatorHeight + topPadding + bottomPadding)
-    padding: 0
-      spacing: 6
+    id:root
+    width: 140
+    height: 32
 
-    contentItem: FluText {
-        text: control.text
+    property string text: "MenuItem"
+    signal clicked
+
+    Rectangle{
+        anchors.centerIn: parent
+        width: 100
+        height: 32
+        radius: 4
+        color:{
+            if(mouse_area.containsMouse){
+                return FluApp.isDark ? Qt.rgba(56/255,56/255,56/255,1) : Qt.rgba(230/255,230/255,230/255,1)
+            }
+            return FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
+        }
+
+        FluText{
+            text: root.text
+            anchors.centerIn: parent
+        }
+
+        MouseArea{
+            id:mouse_area
+            hoverEnabled: true
+            anchors.fill: parent
+            onClicked: {
+                root.clicked()
+                root.parent.closePopup()
+            }
+        }
     }
-
-    background: Rectangle {
-        implicitWidth: 120
-        implicitHeight: 30
-        width: control.width
-              height: control.height
-    }
-
 }

@@ -4,11 +4,12 @@ import FluentUI 1.0
 FluWindow {
 
     width: 500
-    height: 500
+    height: 600
     title:"设置"
 
     FluAppBar{
         id:appbar
+        title:"设置"
     }
 
     FluText{

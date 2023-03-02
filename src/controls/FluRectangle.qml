@@ -14,7 +14,7 @@ Item{
         id:container
         width: root.width
         height: root.height
-        visible: false
+        opacity: 0
         color:root.color
     }
 

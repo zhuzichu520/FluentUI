@@ -16,7 +16,6 @@ FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessVi
 {
     setFlags(Qt::CustomizeWindowHint | Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
     setResizeMode(SizeRootObjectToView);
-
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
     connect(this, &QWindow::windowStateChanged, this, [&](Qt::WindowState state) {
