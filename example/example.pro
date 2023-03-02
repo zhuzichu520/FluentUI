@@ -4,6 +4,7 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
 SOURCES += \
+        InstallHelper.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -42,3 +43,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 # PRE_TARGETDEPS += $$OUT_PWD/../bin/FluentUI/lib$${LIBNAME}.a
 
 ### 注意:静态库 .so .dylib .dll 是自动安装的Qt qml plugin目录中，不需要此步配置
+
+HEADERS += \
+    InstallHelper.h \
+    stdafx.h

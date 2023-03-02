@@ -9,6 +9,7 @@ class FramelessViewPrivate
 public:
     bool m_isMax = false;
     bool m_isFull = false;
+    bool m_deleteLater = false;
     QQuickItem *m_titleItem = nullptr;
 };
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
@@ -58,6 +59,10 @@ void FramelessView::moveToScreenCenter()
     setGeometry(geo);
     update();
 }
+void FramelessView::closeDeleteLater(){
+    d->m_deleteLater = true;
+}
+
 bool FramelessView::isMax() const
 {
     return d->m_isMax;
@@ -95,7 +100,6 @@ bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, qint
 #else
 bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, long *result)
 #endif
-
 {
     return Super::nativeEvent(eventType, message, result);
 }

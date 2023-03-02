@@ -1,5 +1,8 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Dialogs 1.3 as Dialogs
+import Qt.labs.platform 1.1
+import UI 1.0
 import FluentUI 1.0
 
 FluWindow {
@@ -7,14 +10,36 @@ FluWindow {
     id:window
     width: 800
     height: 400
-    maximumSize: Qt.size(800,400)
-    minimumSize: Qt.size(800,400)
+    minimumWidth:800
+    maximumWidth:800
+    minimumHeight:400
+    maximumHeight:400
     title:"安装向导"
+
+    property string installPath: "C:\\Program Files"
+    property string installName: "FluentUI"
 
     FluAppBar{
         id:appbar
         title: "安装向导"
     }
+
+
+    Item{
+        id:data
+        InstallHelper{
+            id:helper
+        }
+        Dialogs.FileDialog {
+            id: fileDialog
+            selectFolder: true
+            folder: "file:///"+installPath
+            onAccepted: {
+                installPath = String(fileDialog.fileUrls[0]).replace("file:///","").replace(RegExp("/",'g'),"\\")
+            }
+        }
+    }
+
 
     ColumnLayout{
 
@@ -36,16 +61,35 @@ FluWindow {
             }
 
             FluTextBox{
+                id:textbox_path
                 Layout.preferredHeight: 40
                 Layout.fillWidth: true
-                text:"C:\\Program Files\\RustDesk"
+                text:installPath+ "\\" +installName
                 readOnly:true
             }
 
             FluButton{
                 text:"更改路径"
                 Layout.rightMargin: 30
+                onClicked: {
+                    fileDialog.open()
+                }
             }
+        }
+
+        FluCheckBox{
+            id:checkbox_startmenu
+            Layout.topMargin: 20
+            Layout.leftMargin: 30
+            checked: true
+            text:"创建启动菜单快捷方式"
+        }
+        FluCheckBox{
+            id:checkbox_home
+            Layout.leftMargin: 30
+            Layout.topMargin: 5
+            checked: true
+            text:"创建桌面图标"
         }
 
         Item{
@@ -77,6 +121,9 @@ FluWindow {
                 }
                 FluFilledButton{
                     text:"同意并安装"
+                    onClicked: {
+                        helper.install(textbox_path.text,checkbox_home.checked,checkbox_startmenu.checked)
+                    }
                 }
                 FluButton{
                     text:"不安装直接运行"
@@ -88,4 +135,34 @@ FluWindow {
             }
         }
     }
+
+    Rectangle{
+
+        anchors.fill: parent
+        visible: helper.installing
+        color: "#80000000"
+
+        MouseArea{
+            anchors.fill: parent
+            hoverEnabled: true
+        }
+
+        FluProgressBar{
+            id:progress
+            anchors.centerIn: parent
+        }
+
+        FluText{
+            text:"正在安装..."
+            color:"#FFFFFF"
+            font.pixelSize: 20
+            anchors{
+                horizontalCenter: progress.horizontalCenter
+                bottom: progress.top
+                bottomMargin: 10
+            }
+        }
+
+    }
+
 }

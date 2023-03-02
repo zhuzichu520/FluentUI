@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.15
+
 import FluentUI 1.0
 
 FluWindow {
@@ -10,51 +11,79 @@ FluWindow {
     width: 800
     height: 600
     title: "FluentUI"
-    minimumSize: Qt.size(600,400)
-    //    property var maximumSize
+    minimumWidth: 600
+    minimumHeight: 400
 
     FluAppBar{
         id:appbar
         title: "FluentUI"
     }
 
-    ListModel{
-        id:nav_items
-        ListElement{
-            text:"Buttons"
-            page:"qrc:/T_Buttons.qml"
+    Item{
+        id:data
+
+        ListModel{
+            id:nav_items
+            ListElement{
+                text:"Buttons"
+                page:"qrc:/T_Buttons.qml"
+            }
+            ListElement{
+                text:"TextBox"
+                page:"qrc:/T_TextBox.qml"
+            }
+            ListElement{
+                text:"ToggleSwitch"
+                page:"qrc:/T_ToggleSwitch.qml"
+            }
+            ListElement{
+                text:"Slider"
+                page:"qrc:/T_Slider.qml"
+            }
+            ListElement{
+                text:"InfoBar"
+                page:"qrc:/T_InfoBar.qml"
+            }
+            ListElement{
+                text:"Progress"
+                page:"qrc:/T_Progress.qml"
+            }
+            ListElement{
+                text:"Rectangle"
+                page:"qrc:/T_Rectangle.qml"
+            }
+            ListElement{
+                text:"Awesome"
+                page:"qrc:/T_Awesome.qml"
+            }
+            ListElement{
+                text:"Typography"
+                page:"qrc:/T_Typography.qml"
+            }
         }
-        ListElement{
-            text:"TextBox"
-            page:"qrc:/T_TextBox.qml"
+
+        FluMenu{
+            id:menu
+            FluMenuItem{
+                text:"123"
+            }
+            FluMenuItem{
+                text:"456"
+            }
         }
-        ListElement{
-            text:"ToggleSwitch"
-            page:"qrc:/T_ToggleSwitch.qml"
+
+    }
+
+    FluIconButton{
+        icon:FluentIcons.FA_navicon
+        anchors{
+            left: parent.left
+            bottom: parent.bottom
+            leftMargin: 12
+            bottomMargin: 12
         }
-        ListElement{
-            text:"Slider"
-            page:"qrc:/T_Slider.qml"
-        }
-        ListElement{
-            text:"InfoBar"
-            page:"qrc:/T_InfoBar.qml"
-        }
-        ListElement{
-            text:"Progress"
-            page:"qrc:/T_Progress.qml"
-        }
-        ListElement{
-            text:"Rectangle"
-            page:"qrc:/T_Rectangle.qml"
-        }
-        ListElement{
-            text:"Awesome"
-            page:"qrc:/T_Awesome.qml"
-        }
-        ListElement{
-            text:"Typography"
-            page:"qrc:/T_Typography.qml"
+        onClicked:{
+            menu.popup()
         }
     }
 
@@ -64,8 +93,9 @@ FluWindow {
             top: appbar.bottom
             bottom: parent.bottom
             topMargin: 20
-            bottomMargin: 20
+            bottomMargin: 52
         }
+        clip: true
         width: 160
         model: nav_items
         delegate: Item{

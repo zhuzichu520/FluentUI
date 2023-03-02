@@ -818,14 +818,21 @@ Module {
             Parameter { name: "text"; type: "string" }
         }
         Method {
-            name: "setMinimumSize"
-            Parameter { name: "size"; type: "QSize" }
+            name: "setMinimumWidth"
+            Parameter { name: "width"; type: "int" }
         }
         Method {
-            name: "setMaximumSize"
-            Parameter { name: "size"; type: "QSize" }
+            name: "setMaximumWidth"
+            Parameter { name: "width"; type: "int" }
         }
-        Method { name: "refreshWindow" }
+        Method {
+            name: "setMinimumHeight"
+            Parameter { name: "height"; type: "int" }
+        }
+        Method {
+            name: "setMaximumHeight"
+            Parameter { name: "height"; type: "int" }
+        }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -883,6 +890,8 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "checked"; type: "bool" }
+        Property { name: "text"; type: "string" }
     }
     Component {
         prototype: "QQuickItem"
@@ -1041,6 +1050,22 @@ Module {
         Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
+        prototype: "QQuickMenu"
+        name: "FluentUI/FluMenu 1.0"
+        exports: ["FluentUI/FluMenu 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "contentData"
+    }
+    Component {
+        prototype: "QQuickMenuItem"
+        name: "FluentUI/FluMenuItem 1.0"
+        exports: ["FluentUI/FluMenuItem 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+    }
+    Component {
         prototype: "QQuickTextArea"
         name: "FluentUI/FluMultiLineTextBox 1.0"
         exports: ["FluentUI/FluMultiLineTextBox 1.0"]
@@ -1109,6 +1134,14 @@ Module {
         Property { name: "borderColor"; type: "QColor" }
         Property { name: "borderWidth"; type: "int" }
         Property { name: "contentItem"; type: "QQuickItem"; isList: true; isReadonly: true }
+    }
+    Component {
+        prototype: "QQuickScrollBar"
+        name: "FluentUI/FluScrollBar 1.0"
+        exports: ["FluentUI/FluScrollBar 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
     }
     Component {
         prototype: "QQuickItem"
@@ -1180,18 +1213,21 @@ Module {
         defaultProperty: "contentData"
     }
     Component {
-        prototype: "QQuickRectangle"
+        prototype: "QQuickItem"
         name: "FluentUI/FluWindow 1.0"
         exports: ["FluentUI/FluWindow 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "data"
-        Property { name: "isMax"; type: "bool" }
-        Property { name: "title"; type: "string" }
-        Property { name: "winId"; type: "string" }
-        Property { name: "minimumSize"; type: "QVariant" }
-        Property { name: "maximumSize"; type: "QVariant" }
+        defaultProperty: "content"
         Property { name: "window"; type: "QVariant" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "title"; type: "string" }
+        Property { name: "minimumWidth"; type: "int" }
+        Property { name: "maximumWidth"; type: "int" }
+        Property { name: "minimumHeight"; type: "int" }
+        Property { name: "maximumHeight"; type: "int" }
+        Property { name: "borderless"; type: "int" }
+        Property { name: "content"; type: "QQuickItem"; isList: true; isReadonly: true }
         Method {
             name: "showSuccess"
             type: "QVariant"
