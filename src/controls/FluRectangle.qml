@@ -16,7 +16,6 @@ Item{
         height: root.height
         visible: false
         color:root.color
-
     }
 
     Canvas {

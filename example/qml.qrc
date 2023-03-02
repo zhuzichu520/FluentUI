@@ -25,5 +25,7 @@
         <file>res/svg/avatar_11.svg</file>
         <file>res/svg/avatar_12.svg</file>
         <file>Installer.qml</file>
+        <file>T_Awesome.qml</file>
+        <file>T_TextBox.qml</file>
     </qresource>
 </RCC>

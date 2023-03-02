@@ -23,6 +23,6 @@ void WindowHelper::setMaximumSize(const QSize &size){
 }
 
 void WindowHelper::refreshWindow(){
-    this->window->setFlag(Qt::FramelessWindowHint,true);
-    this->window->setFlag(Qt::FramelessWindowHint,false);
+    this->window->setFlag(Qt::NoDropShadowWindowHint,true);
+    this->window->setFlag(Qt::NoDropShadowWindowHint,false);
 }

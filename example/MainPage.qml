@@ -25,6 +25,10 @@ FluWindow {
             page:"qrc:/T_Buttons.qml"
         }
         ListElement{
+            text:"TextBox"
+            page:"qrc:/T_TextBox.qml"
+        }
+        ListElement{
             text:"ToggleSwitch"
             page:"qrc:/T_ToggleSwitch.qml"
         }
@@ -43,6 +47,10 @@ FluWindow {
         ListElement{
             text:"Rectangle"
             page:"qrc:/T_Rectangle.qml"
+        }
+        ListElement{
+            text:"Awesome"
+            page:"qrc:/T_Awesome.qml"
         }
         ListElement{
             text:"Typography"

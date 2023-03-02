@@ -35,22 +35,11 @@ FluWindow {
                 Layout.leftMargin: 30
             }
 
-            Rectangle{
-                color: FluApp.isDark ? "#323232" : "#FFFFFF"
-                radius: 4
+            FluTextBox{
+                Layout.preferredHeight: 40
                 Layout.fillWidth: true
-                height: 40
-                border.width: 1
-                border.color: FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(238/255,238/255,238/255,1)
-
-                FluText{
-                    text:"C:\\Program Files\\RustDesk"
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        left:parent.left
-                        leftMargin: 14
-                    }
-                }
+                text:"C:\\Program Files\\RustDesk"
+                readOnly:true
             }
 
             FluButton{

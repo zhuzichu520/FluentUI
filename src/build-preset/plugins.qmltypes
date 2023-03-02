@@ -1041,6 +1041,14 @@ Module {
         Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
+        prototype: "QQuickTextArea"
+        name: "FluentUI/FluMultiLineTextBox 1.0"
+        exports: ["FluentUI/FluMultiLineTextBox 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+    }
+    Component {
         prototype: "QObject"
         name: "FluentUI/FluObject 1.0"
         exports: ["FluentUI/FluObject 1.0"]
@@ -1138,7 +1146,7 @@ Module {
         Property { name: "pixelSize"; type: "int" }
     }
     Component {
-        prototype: "QQuickItem"
+        prototype: "QQuickTextField"
         name: "FluentUI/FluTextBox 1.0"
         exports: ["FluentUI/FluTextBox 1.0"]
         exportMetaObjectRevisions: [0]

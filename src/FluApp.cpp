@@ -5,7 +5,8 @@
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QTimer>
-#include "FramelessView.h"
+#include <QClipboard>
+#include "Def.h"
 
 
 FluApp* FluApp::m_instance = nullptr;
@@ -62,4 +63,23 @@ void FluApp::navigate(const QString& route){
 
 bool FluApp::equalsWindow(FramelessView *view,QWindow *window){
     return view->winId() == window->winId();
+}
+
+QJsonArray FluApp::awesomelist()
+{
+    QJsonArray arr;
+    QMetaEnum enumType = Fluent_Awesome::staticMetaObject.enumerator(Fluent_Awesome::staticMetaObject.indexOfEnumerator("Fluent_AwesomeType"));
+    for(int i=0; i < enumType.keyCount(); ++i){
+        QJsonObject obj;
+        QString name = enumType.key(i);
+        int icon = enumType.value(i);
+        obj.insert("name",name);
+        obj.insert("icon",icon);
+        arr.append(obj);
+    }
+    return arr;
+}
+
+void FluApp::clipText(const QString& text){
+    QGuiApplication::clipboard()->setText(text);
 }

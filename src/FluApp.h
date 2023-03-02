@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QWindow>
+#include <QJsonArray>
 #include <QJsonObject>
 #include "FramelessView.h"
 #include "stdafx.h"
@@ -30,6 +31,11 @@ public:
     Q_SIGNAL void windowReady(FramelessView *view);
 
     Q_INVOKABLE bool equalsWindow(FramelessView *view,QWindow *window);
+
+    Q_INVOKABLE QJsonArray awesomelist();
+
+    Q_INVOKABLE void clipText(const QString& text);
+
 
 private:
 
