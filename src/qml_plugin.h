@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <QQmlExtensionPlugin>
+#include <FluentUI.h>
 
 class FluentUIQmlPlugin : public QQmlExtensionPlugin
 {

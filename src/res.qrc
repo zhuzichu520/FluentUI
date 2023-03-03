@@ -23,7 +23,6 @@
         <file>controls/FluIcon.qml</file>
         <file>controls/FluDivider.qml</file>
         <file>controls/FluTooltip.qml</file>
-        <file>controls/FluDropShadow.qml</file>
         <file>controls/TFpsMonitor.qml</file>
         <file>controls/FluTextBoxBackground.qml</file>
         <file>controls/FluMultiLineTextBox.qml</file>
@@ -31,5 +30,7 @@
         <file>controls/FluScrollBar.qml</file>
         <file>controls/FluMenu.qml</file>
         <file>controls/FluMenuItem.qml</file>
+        <file>controls/FluShadow.qml</file>
+        <file>controls/FluTextButton.qml</file>
     </qresource>
 </RCC>

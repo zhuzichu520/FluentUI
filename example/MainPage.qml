@@ -17,6 +17,8 @@ FluWindow {
     FluAppBar{
         id:appbar
         title: "FluentUI"
+        showDark: true
+        showFps: true
     }
 
     Item{
@@ -76,17 +78,23 @@ FluWindow {
             x:40
             margins:4
             FluMenuItem{
+                text:"意见反馈"
+                onClicked:{
+                    showInfo("正在建设中...")
+                }
+            }
+            FluMenuItem{
                 text:"关于"
                 onClicked:{
                     FluApp.navigate("/About")
                 }
             }
-            FluMenuItem{
-                text:"设置"
-                onClicked:{
-                    FluApp.navigate("/Setting")
-                }
-            }
+            //            FluMenuItem{
+            //                text:"设置"
+            //                onClicked:{
+            //                    FluApp.navigate("/Setting")
+            //                }
+            //            }
         }
         onClicked:{
             menu.open()

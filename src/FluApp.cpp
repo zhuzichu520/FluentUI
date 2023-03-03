@@ -22,8 +22,7 @@ FluApp *FluApp::getInstance()
 FluApp::FluApp(QObject *parent)
     : QObject{parent}
 {
-    isDark(true);
-    isFps(true);
+    isDark(false);
 }
 
 void FluApp::setAppWindow(QWindow *window){
@@ -39,7 +38,7 @@ void FluApp::navigate(const QString& route){
         qErrnoWarning("没有找到当前路由");
         return;
     }
-    bool isAppWindow = route==initialRoute();
+    bool isAppWindow = route == initialRoute();
     FramelessView *view = new FramelessView();
     view->setColor(QColor(Qt::transparent));
     QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {

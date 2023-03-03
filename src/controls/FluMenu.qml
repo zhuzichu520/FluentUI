@@ -6,13 +6,14 @@ Popup {
     id: popup
     default property alias content: container.children
 
-    background: FluRectangle {
+    background: Rectangle {
         implicitWidth: 140
         implicitHeight: container.height
         color:FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
-        radius: [5,5,5,5]
-        layer.effect: FluDropShadow{}
-        layer.enabled: true
+        radius: 5
+        FluShadow{
+            radius: 5
+        }
         Column{
             spacing: 5
             topPadding: 5

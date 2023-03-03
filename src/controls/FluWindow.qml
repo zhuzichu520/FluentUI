@@ -32,10 +32,15 @@ Item {
 
     FluWindowResize{}
 
+
     Behavior on opacity{
         NumberAnimation{
             duration: 100
         }
+    }
+
+    FluShadow{
+        anchors.fill: container
     }
 
     Rectangle{
@@ -43,14 +48,6 @@ Item {
         color:root.color
         anchors.fill: parent
         anchors.margins: borderless
-        layer.enabled: true
-        layer.effect: DropShadow {
-            radius: 5
-            samples: 5
-            horizontalOffset: 0
-            verticalOffset: 0
-            color: "#40000000"
-        }
     }
 
     Component.onCompleted: {

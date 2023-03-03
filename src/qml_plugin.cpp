@@ -1,14 +1,12 @@
 ﻿#include "qml_plugin.h"
 
-#include "Fluent.h"
-
 void FluentUIQmlPlugin::registerTypes(const char *uri)
 {
-    Fluent::getInstance()->registerTypes(uri);
+    FluentUI::registerTypes(uri);
 }
 
 void FluentUIQmlPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
-    Fluent::getInstance()->initializeEngine(engine,uri);
+    FluentUI::initializeEngine(engine,uri);
 }
 

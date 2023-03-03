@@ -15,6 +15,9 @@ Rectangle{
 
     property string title: "标题"
 
+    property bool showDark: false
+    property bool showFps: false
+
     property bool resizable: {
         if(Window.window == null){
             return false
@@ -63,12 +66,13 @@ Rectangle{
             Layout.alignment: Qt.AlignVCenter
             Layout.rightMargin: 12
             Layout.topMargin: 5
-            visible: FluApp.isFps
+            visible: showFps
         }
 
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
             spacing: 5
+            visible: showDark
             FluText{
                 text:"夜间模式"
                 fontStyle: FluText.Body
@@ -112,7 +116,6 @@ Rectangle{
             icon : FluentIcons.FA_close
             Layout.alignment: Qt.AlignVCenter
             text:"关闭"
-            iconSize: 15
             onClicked: {
                 Window.window.close()
             }

@@ -8,6 +8,7 @@ Item{
     property color color : "#FFFFFF"
     property color borderColor:"red"
     property int borderWidth: 1
+    property bool shadow: true
     default property alias contentItem: container.children
 
     Rectangle{
@@ -16,6 +17,17 @@ Item{
         height: root.height
         opacity: 0
         color:root.color
+    }
+
+    FluShadow{
+        anchors.fill: container
+        radius: root.radius[0]
+        visible: {
+            if(root.radius[0] === root.radius[1] && root.radius[0] === root.radius[2] && root.radius[0] === root.radius[3] && root.shadow){
+                return true
+            }
+            return false
+        }
     }
 
     Canvas {

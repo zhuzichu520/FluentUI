@@ -31,68 +31,50 @@ MouseArea {
                 return;
             }
 
-            var rc = Qt.rect(0, 0, 0, 0);
             let e = 0;
-
-            //top-left
-            rc = Qt.rect(0, 0, border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(0,0,border,border, mouse.x, mouse.y)) {
                 e = Qt.TopEdge | Qt.LeftEdge;
                 window.startSystemResize(e);
                 return;
             }
 
-            //top
-            rc = Qt.rect(border, 0, window.width-border*2, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(border,0,window.width-border*2,border, mouse.x, mouse.y)) {
                 e = Qt.TopEdge;
                 window.startSystemResize(e);
                 return;
             }
 
-            //top-right
-            rc = Qt.rect(window.width-border, 0, border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(window.width-border,0,border,border, mouse.x, mouse.y)) {
                 e = Qt.TopEdge | Qt.RightEdge;
                 window.startSystemResize(e);
                 return;
             }
 
-            //right
-            rc = Qt.rect(window.width-border, border, border, window.height-border*2);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(window.width-border,border,border,window.height-border*2, mouse.x, mouse.y)) {
                 e = Qt.RightEdge;
                 window.startSystemResize(e);
                 return;
             }
 
-            //bottom-right
-            rc = Qt.rect(window.width-border, window.height-border, border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(window.width-border,window.height-border,border,border, mouse.x, mouse.y)) {
                 e = Qt.BottomEdge | Qt.RightEdge;
                 window.startSystemResize(e);
                 return;
             }
 
-            //bottom
-            rc = Qt.rect(border, window.height-border, window.width-border*2, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(border,window.height-border,window.width-border*2,border, mouse.x, mouse.y)) {
                 e = Qt.BottomEdge;
                 window.startSystemResize(e);
                 return;
             }
 
-            //bottom_left
-            rc = Qt.rect(0, window.height-border,border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(0,window.height-border,border,border, mouse.x, mouse.y)) {
                 e = Qt.BottomEdge | Qt.LeftEdge;
                 window.startSystemResize(e);
                 return;
             }
 
-            //left
-            rc = Qt.rect(0, border,border, window.height-border*2);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(0,border,border , window.height-border*2, mouse.x, mouse.y)) {
                 e = Qt.LeftEdge;
                 window.startSystemResize(e);
                 return;
@@ -105,66 +87,46 @@ MouseArea {
                 cursorShape = Qt.ArrowCursor;
                 return;
             }
-
-            var rc = Qt.rect(0, 0, 0, 0);
-
-            //top-left
-            rc = Qt.rect(0, 0, border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(0,0,border,border, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeFDiagCursor;
                 return;
             }
 
-            //top
-            rc = Qt.rect(border, 0, window.width-border*2, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(border,0,window.width-border*2,border, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeVerCursor;
                 return;
             }
 
-            //top-right
-            rc = Qt.rect(window.width-border, 0, border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(window.width-border,0,border,border, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeBDiagCursor;
                 return;
             }
 
-            //right
-            rc = Qt.rect(window.width-border, border, border, window.height-border*2);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(window.width-border,border,border,window.height-border*2, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeHorCursor;
                 return;
             }
 
-            //bottom-right
-            rc = Qt.rect(window.width-border, window.height-border, border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(window.width-border,window.height-border,border,border, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeFDiagCursor;
                 return;
             }
 
-            //bottom
-            rc = Qt.rect(border, window.height-border, window.width-border*2, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(border,window.height-border,window.width-border*2,border, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeVerCursor;
                 return;
             }
 
-            //bottom_left
-            rc = Qt.rect(0, window.height-border,border, border);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(0,window.height-border,border,border, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeBDiagCursor;
                 return;
             }
 
-            //left
-            rc = Qt.rect(0, border,border, window.height-border*2);
-            if (ptInRect(rc, mouse.x, mouse.y)) {
+            if (ptInRect(0,border,border, window.height-border*2, mouse.x, mouse.y)) {
                 cursorShape = Qt.SizeHorCursor;
                 return;
             }
 
-            //default
             cursorShape = Qt.ArrowCursor;
         }
 
@@ -172,13 +134,12 @@ MouseArea {
         cursorShape = Qt.ArrowCursor;
     }
 
-    function ptInRect(rc, x, y)
+    function ptInRect(rcx,rcy,rcwidth,rcheight, x, y)
     {
-        if ((rc.x <= x && x <= (rc.x + rc.width)) &&
-                (rc.y <= y && y <= (rc.y + rc.height))) {
+        if ((rcx <= x && x <= (rcx + rcwidth)) &&
+                (rcy <= y && y <= (rcy + rcheight))) {
             return true;
         }
-
         return false;
     }
 

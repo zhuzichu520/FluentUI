@@ -9,16 +9,23 @@ Window {
     id:app
     color: "#00000000"
     Component.onCompleted: {
-        FluApp.isFps = true
+
+        FluApp.setContextProperty("installHelper",installHelper)
+
         FluApp.isDark = false
         FluApp.setAppWindow(app)
         FluApp.routes = {
             "/":"qrc:/MainPage.qml",
             "/Setting":"qrc:/SettingPage.qml",
             "/About":"qrc:/AboutPage.qml",
-            "/Installer":"qrc:/Installer.qml"
+            "/Installer":"qrc:/Installer.qml",
+            "/Uninstall":"qrc:/Uninstall.qml"
         }
-        FluApp.initialRoute = "/Installer"
+        if(installHelper.isNavigateUninstall()){
+            FluApp.initialRoute = "/Uninstall"
+        }else{
+            FluApp.initialRoute = "/Installer"
+        }
         FluApp.run()
     }
 

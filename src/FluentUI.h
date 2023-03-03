@@ -7,8 +7,8 @@ class FluentUI
 {
 
 public:
-    static void create(QQmlEngine* engine);
-    static QString version();
+    static void registerTypes(const char *uri) ;
+    static void initializeEngine(QQmlEngine *engine, const char *uri);
 };
 
 #endif // FLUENTUI_H

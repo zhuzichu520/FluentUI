@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QWindow>
 #include <QJsonArray>
+#include <QQmlContext>
 #include <QJsonObject>
+#include <QQmlEngine>
 #include "FramelessView.h"
 #include "stdafx.h"
 
@@ -13,7 +15,6 @@ class FluApp : public QObject
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,initialRoute);
     Q_PROPERTY_AUTO(bool,isDark);
-    Q_PROPERTY_AUTO(bool,isFps);
     Q_PROPERTY_AUTO(QJsonObject,routes);
 
 public:
@@ -36,10 +37,20 @@ public:
 
     Q_INVOKABLE void clipText(const QString& text);
 
+    Q_INVOKABLE void setContextProperty(const QString &name, QObject *data){
+        if(engine){
+            engine->rootContext()->setContextProperty(name,data);
+        }
+    }
+
+    void setEngine(QQmlEngine *engine){
+        this->engine = engine;
+    }
 
 private:
 
     static FluApp* m_instance;
+    QQmlEngine *engine;
     QWindow *appWindow;
 
 };

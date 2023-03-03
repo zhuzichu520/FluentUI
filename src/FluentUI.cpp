@@ -2,14 +2,10 @@
 
 #include "Fluent.h"
 
-void FluentUI::create(QQmlEngine *engine)
-{
-    engine->addImportPath("/");
-    Fluent::getInstance()->initializeEngine(engine,URI_STR);
-    Fluent::getInstance()->registerTypes(URI_STR);
-}
 
-QString FluentUI::version()
-{
-    return Fluent::getInstance()->version();
+void FluentUI::registerTypes(const char *uri){
+    Fluent::getInstance()->registerTypes(uri);
+}
+void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
+    Fluent::getInstance()->initializeEngine(engine,uri);
 }

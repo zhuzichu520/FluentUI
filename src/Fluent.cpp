@@ -32,10 +32,9 @@ void Fluent::registerTypes(const char *uri){
 
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMenu.qml"),uri,major,minor,"FluMenu");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMenuItem.qml"),uri,major,minor,"FluMenuItem");
-
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluScrollBar.qml"),uri,major,minor,"FluScrollBar");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTextButton.qml"),uri,major,minor,"FluTextButton");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMultiLineTextBox.qml"),uri,major,minor,"FluMultiLineTextBox");
-    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDropShadow.qml"),uri,major,minor,"FluDropShadow");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTooltip.qml"),uri,major,minor,"FluTooltip");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDivider.qml"),uri,major,minor,"FluDivider");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluIcon.qml"),uri,major,minor,"FluIcon");
@@ -72,5 +71,7 @@ void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
     font.setFamily("Microsoft YaHei");
     QGuiApplication::setFont(font);
     QFontDatabase::addApplicationFont(":/com.zhuzichu/res/font/fontawesome-webfont.ttf");
-    engine->rootContext()->setContextProperty("FluApp",FluApp::getInstance());
+    FluApp* app = FluApp::getInstance();
+    app->setEngine(engine);
+    engine->rootContext()->setContextProperty("FluApp",app);
 }

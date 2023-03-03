@@ -79,9 +79,6 @@ Item {
                     source: "qrc:/res/svg/avatar_1.svg"
                     sourceSize: Qt.size(width,height)
                 }
-                layer.enabled: true
-                layer.effect: FluDropShadow {}
-
             }
             FluRectangle{
                 width: 50
@@ -93,8 +90,6 @@ Item {
                     sourceSize: Qt.size(width,height)
                     source: "qrc:/res/svg/avatar_2.svg"
                 }
-                layer.enabled: true
-                layer.effect: FluDropShadow {}
             }
             FluRectangle{
                 width: 50
@@ -105,12 +100,6 @@ Item {
                     anchors.fill: parent
                     sourceSize: Qt.size(width,height)
                     source: "qrc:/res/svg/avatar_3.svg"
-                }
-                layer.enabled: true
-                layer.effect: DropShadow {
-                    radius: 5
-                    samples: 4
-                    color: "#80000000"
                 }
             }
             FluRectangle{
@@ -123,8 +112,6 @@ Item {
                     sourceSize: Qt.size(width,height)
                     source: "qrc:/res/svg/avatar_4.svg"
                 }
-                layer.enabled: true
-                layer.effect: FluDropShadow {}
             }
         }
 
@@ -139,12 +126,6 @@ Item {
                 sourceSize: Qt.size(width,height)
             }
             Layout.topMargin: 10
-            layer.enabled: true
-            layer.effect: FluDropShadow {}
         }
-
-
-
-
     }
 }

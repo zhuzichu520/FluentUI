@@ -2,7 +2,6 @@
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3 as Dialogs
 import Qt.labs.platform 1.1
-import UI 1.0
 import FluentUI 1.0
 
 FluWindow {
@@ -27,9 +26,6 @@ FluWindow {
 
     Item{
         id:data
-        InstallHelper{
-            id:helper
-        }
         Dialogs.FileDialog {
             id: fileDialog
             selectFolder: true
@@ -72,7 +68,8 @@ FluWindow {
                 text:"更改路径"
                 Layout.rightMargin: 30
                 onClicked: {
-                    fileDialog.open()
+                    showInfo(installHelper.applicationFilePath())
+                    //                    fileDialog.open()
                 }
             }
         }
@@ -122,7 +119,7 @@ FluWindow {
                 FluFilledButton{
                     text:"同意并安装"
                     onClicked: {
-                        helper.install(textbox_path.text,checkbox_home.checked,checkbox_startmenu.checked)
+                        installHelper.install(textbox_path.text,checkbox_home.checked,checkbox_startmenu.checked)
                     }
                 }
                 FluButton{
@@ -139,7 +136,7 @@ FluWindow {
     Rectangle{
 
         anchors.fill: parent
-        visible: helper.installing
+        visible: installHelper.installing
         color: "#80000000"
 
         MouseArea{

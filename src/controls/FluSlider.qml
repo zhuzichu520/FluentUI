@@ -40,11 +40,12 @@ Item{
         id:dot
         width: dotSize
         height: dotSize
+                FluShadow{
+                radius: 15
+                }
         radius: 15
         anchors.verticalCenter: parent.verticalCenter
-        layer.enabled: true
         color:FluApp.isDark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
-        layer.effect: FluDropShadow {}
         Rectangle{
             width: dotSize/2
             height: dotSize/2

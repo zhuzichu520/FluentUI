@@ -27,5 +27,6 @@
         <file>Installer.qml</file>
         <file>T_Awesome.qml</file>
         <file>T_TextBox.qml</file>
+        <file>Uninstall.qml</file>
     </qresource>
 </RCC>
