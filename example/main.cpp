@@ -3,11 +3,10 @@
 #include <QQmlContext>
 #include <QDir>
 #include <QProcess>
-#include "InstallHelper.h"
 
 QMap<QString, QVariant> properties(){
     QMap<QString, QVariant> map;
-    map["installHelper"] = QVariant::fromValue(QVariant::fromValue(InstallHelper::getInstance()));
+//    map["installHelper"] = QVariant::fromValue(QVariant::fromValue(InstallHelper::getInstance()));
     return map;
 }
 
