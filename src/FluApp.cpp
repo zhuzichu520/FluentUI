@@ -25,8 +25,9 @@ FluApp::FluApp(QObject *parent)
     isDark(false);
 }
 
-void FluApp::setAppWindow(QWindow *window){
-    appWindow = window;
+void FluApp::init(QWindow *window,QMap<QString, QVariant> properties){
+    this->appWindow = window;
+    this->properties = properties;
 }
 
 void FluApp::run(){
@@ -40,6 +41,14 @@ void FluApp::navigate(const QString& route){
     }
     bool isAppWindow = route == initialRoute();
     FramelessView *view = new FramelessView();
+
+    QMapIterator<QString, QVariant> iterator(properties);
+    while (iterator.hasNext()) {
+        iterator.next();
+        QString key = iterator.key();
+        QVariant value = iterator.value();
+        view->engine()->rootContext()->setContextProperty(key,value);
+    }
     view->setColor(QColor(Qt::transparent));
     QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
         if (status == QQuickView::Status::Ready) {

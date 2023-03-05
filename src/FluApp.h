@@ -27,7 +27,7 @@ public:
 
     Q_INVOKABLE void navigate(const QString& route);
 
-    Q_INVOKABLE void setAppWindow(QWindow *window);
+    Q_INVOKABLE void init(QWindow *window,QMap<QString, QVariant> properties);
 
     Q_SIGNAL void windowReady(FramelessView *view);
 
@@ -37,20 +37,10 @@ public:
 
     Q_INVOKABLE void clipText(const QString& text);
 
-    Q_INVOKABLE void setContextProperty(const QString &name, QObject *data){
-        if(engine){
-            engine->rootContext()->setContextProperty(name,data);
-        }
-    }
-
-    void setEngine(QQmlEngine *engine){
-        this->engine = engine;
-    }
-
 private:
 
     static FluApp* m_instance;
-    QQmlEngine *engine;
+    QMap<QString, QVariant> properties;
     QWindow *appWindow;
 
 };

@@ -30,9 +30,16 @@ FluWindow {
             topMargin: 20
         }
 
+
+
         Item{
-            width: 1
+            Layout.preferredWidth : parent.width
             Layout.fillHeight: true
+            FluText{
+                text:"青山不改，绿水长流，有缘再见"
+                anchors.centerIn: parent
+                fontStyle:FluText.TitleLarge
+            }
         }
 
         Rectangle{

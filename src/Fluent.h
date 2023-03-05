@@ -8,13 +8,10 @@ class Fluent: public QObject
 {
     Q_OBJECT
 public:
-    static Fluent *getInstance();
-
     Q_INVOKABLE QString version() const;
-
     void registerTypes(const char *uri);
-
     void initializeEngine(QQmlEngine *engine, const char *uri);
+    static Fluent *getInstance();
 private:
     static Fluent* m_instance;
 };

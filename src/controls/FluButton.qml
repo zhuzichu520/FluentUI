@@ -13,6 +13,7 @@ Rectangle {
     property color primaryColor : "#0064B0"
     signal clicked
     radius: 4
+
     color:{
         if(FluApp.isDark){
             if(disabled){

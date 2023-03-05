@@ -34,6 +34,14 @@ FluWindow {
                 installPath = String(fileDialog.fileUrls[0]).replace("file:///","").replace(RegExp("/",'g'),"\\")
             }
         }
+
+
+        Connections{
+            target: installHelper
+            function onErrorInfoChanged(){
+                showError(installHelper.errorInfo)
+            }
+        }
     }
 
 
@@ -68,8 +76,7 @@ FluWindow {
                 text:"更改路径"
                 Layout.rightMargin: 30
                 onClicked: {
-                    showInfo(installHelper.applicationFilePath())
-                    //                    fileDialog.open()
+                    fileDialog.open()
                 }
             }
         }

@@ -20,11 +20,6 @@ MouseArea {
     propagateComposedEvents: true
     z: -65535
 
-    onReleased: {
-        Window.window.width = Window.window.width+1
-        Window.window.width = Window.window.width-1
-    }
-
     onPressed :
         (mouse)=> {
             if (fixedSize) {

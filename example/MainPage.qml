@@ -109,12 +109,14 @@ FluWindow {
             topMargin: 20
             bottomMargin: 52
         }
+        boundsBehavior: Flickable.StopAtBounds
         clip: true
         width: 160
         model: nav_items
         delegate: Item{
             height: 38
             width: nav_list.width
+
 
             Rectangle{
                 color: {
@@ -147,22 +149,25 @@ FluWindow {
                     leftMargin: 6
                     rightMargin: 6
                 }
-            }
 
-            MouseArea{
-                id:item_mouse
-                hoverEnabled: true
-                anchors.fill: parent
-                onClicked: {
-                    nav_list.currentIndex = index
+
+                MouseArea{
+                    id:item_mouse
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    onClicked: {
+                        nav_list.currentIndex = index
+                    }
                 }
+
+                FluText{
+                    text:model.text
+                    anchors.centerIn: parent
+                    fontStyle: FluText.Caption
+                }
+
             }
 
-            FluText{
-                text:model.text
-                anchors.centerIn: parent
-                fontStyle: FluText.Caption
-            }
 
         }
     }

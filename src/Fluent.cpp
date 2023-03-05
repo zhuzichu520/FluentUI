@@ -72,6 +72,5 @@ void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
     QGuiApplication::setFont(font);
     QFontDatabase::addApplicationFont(":/com.zhuzichu/res/font/fontawesome-webfont.ttf");
     FluApp* app = FluApp::getInstance();
-    app->setEngine(engine);
     engine->rootContext()->setContextProperty("FluApp",app);
 }
