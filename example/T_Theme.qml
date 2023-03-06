@@ -48,6 +48,17 @@ Item {
                     }
                 }
             }
+            FluText{
+                text:"夜间模式"
+                fontStyle: FluText.Subtitle
+                Layout.topMargin: 20
+            }
+            FluToggleSwitch{
+                checked: FluTheme.isDark
+                onClickFunc:function(){
+                    FluTheme.isDark = !FluTheme.isDark
+                }
+            }
         }
     }
 }

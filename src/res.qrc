@@ -32,5 +32,6 @@
         <file>controls/FluMenuItem.qml</file>
         <file>controls/FluShadow.qml</file>
         <file>controls/FluTextButton.qml</file>
+        <file>controls/FluContentDialog.qml</file>
     </qresource>
 </RCC>
