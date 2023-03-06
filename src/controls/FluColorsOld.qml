@@ -30,7 +30,7 @@ QtObject {
     property color _Grey210: Qt.rgba(22/255,21/255,20/255,1)
     property color _Grey220: Qt.rgba(17/255,16/255,15/255,1)
 
-    property FluColorSet _Yellow:FluColorSet{
+    property FluColorSetOld _Yellow:FluColorSetOld{
         darkest: Qt.rgba(249/255,168/255,37/255,1)
         darker:Qt.rgba(251/255,192/255,45/255,1)
         dark:Qt.rgba(253/255,216/255,53/255,1)
@@ -40,7 +40,7 @@ QtObject {
         lightest:Qt.rgba(255/255,245/255,157/255,1)
     }
 
-    property FluColorSet _Orange:FluColorSet{
+    property FluColorSetOld _Orange:FluColorSetOld{
         darkest: Qt.rgba(153/255,61/255,7/255,1)
         darker:Qt.rgba(172/255,68/255,8/255,1)
         dark:Qt.rgba(209/255,84/255,10/255,1)
@@ -50,7 +50,7 @@ QtObject {
         lightest:Qt.rgba(250/255,158/255,104/255,1)
     }
 
-    property FluColorSet _Red:FluColorSet{
+    property FluColorSetOld _Red:FluColorSetOld{
         darkest: Qt.rgba(143/255,10/255,21/255,1)
         darker:Qt.rgba(162/255,11/255,24/255,1)
         dark:Qt.rgba(185/255,13/255,28/255,1)
@@ -60,7 +60,7 @@ QtObject {
         lightest:Qt.rgba(240/255,107/255,118/255,1)
     }
 
-    property FluColorSet _Magenta:FluColorSet{
+    property FluColorSetOld _Magenta:FluColorSetOld{
         darkest: Qt.rgba(111/255,0/255,79/255,1)
         darker:Qt.rgba(126/255,0/255,110/255,1)
         dark:Qt.rgba(144/255,0/255,126/255,1)
@@ -70,7 +70,7 @@ QtObject {
         lightest:Qt.rgba(208/255,96/255,194/255,1)
     }
 
-    property FluColorSet _Purple:FluColorSet{
+    property FluColorSetOld _Purple:FluColorSetOld{
         darkest: Qt.rgba(71/255,47/255,104/255,1)
         darker:Qt.rgba(81/255,53/255,118/255,1)
         dark:Qt.rgba(100/255,66/255,147/255,1)
@@ -80,7 +80,7 @@ QtObject {
         lightest:Qt.rgba(168/255,144/255,201/255,1)
     }
 
-    property FluColorSet _Blue:FluColorSet{
+    property FluColorSetOld _Blue:FluColorSetOld{
         darkest: Qt.rgba(0/255,74/255,131/255,1)
         darker:Qt.rgba(0/255,84/255,148/255,1)
         dark:Qt.rgba(0/255,102/255,180/255,1)
@@ -90,7 +90,7 @@ QtObject {
         lightest:Qt.rgba(96/255,171/255,228/255,1)
     }
 
-    property FluColorSet _Teal:FluColorSet{
+    property FluColorSetOld _Teal:FluColorSetOld{
         darkest: Qt.rgba(0/255,110/255,91/255,1)
         darker:Qt.rgba(0/255,124/255,103/255,1)
         dark:Qt.rgba(0/255,151/255,125/255,1)
@@ -100,7 +100,7 @@ QtObject {
         lightest:Qt.rgba(96/255,207/255,188/255,1)
     }
 
-    property FluColorSet _Green:FluColorSet{
+    property FluColorSetOld _Green:FluColorSetOld{
         darkest: Qt.rgba(9/255,76/255,9/255,1)
         darker:Qt.rgba(12/255,93/255,12/255,1)
         dark:Qt.rgba(14/255,111/255,14/255,1)

@@ -17,7 +17,7 @@ Item {
             height: 22
             radius: 4
             border.color: {
-                if(FluApp.isDark){
+                if(FluTheme.isDark){
                     if(checked){
                         return FluTheme.primaryColor.lighter
                     }
@@ -34,7 +34,7 @@ Item {
             }
             border.width: 1
             color: {
-                if(FluApp.isDark){
+                if(FluTheme.isDark){
                     if(checked){
                         if(mouse_area.containsMouse){
                             return Qt.rgba(74/255,149/255,207/255,1)
@@ -64,7 +64,7 @@ Item {
                 icon: FluentIcons.FA_check
                 iconSize: 15
                 visible: checked
-                color: FluApp.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                color: FluTheme.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
             }
         }
         FluText{

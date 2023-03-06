@@ -4,6 +4,8 @@
 #include <QQmlContext>
 #include <QGuiApplication>
 #include <QQuickWindow>
+#include "FluColors.h"
+#include "FluTheme.h"
 #include "WindowHelper.h"
 #include "FluApp.h"
 #include "Def.h"
@@ -29,11 +31,12 @@ void Fluent::registerTypes(const char *uri){
     int minor = 0;
 
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
+    qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
+    //    qmlRegisterSingletonType(QUrl("qrc:/com.zhuzichu/controls/FluColors.qml"),uri,major,minor,"FluColors");
+    //    qmlRegisterSingletonType(QUrl("qrc:/com.zhuzichu/controls/FluTheme.qml"),uri,major,minor,"FluTheme");
 
-    qmlRegisterSingletonType(QUrl("qrc:/com.zhuzichu/controls/FluColors.qml"),uri,major,minor,"FluColors");
-    qmlRegisterSingletonType(QUrl("qrc:/com.zhuzichu/controls/FluTheme.qml"),uri,major,minor,"FluTheme");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluColorSetOld.qml"),uri,major,minor,"FluColorSetOld");
 
-    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluColorSet.qml"),uri,major,minor,"FluColorSet");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMenu.qml"),uri,major,minor,"FluMenu");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMenuItem.qml"),uri,major,minor,"FluMenuItem");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluScrollBar.qml"),uri,major,minor,"FluScrollBar");
@@ -76,4 +79,8 @@ void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
     QFontDatabase::addApplicationFont(":/com.zhuzichu/res/font/fontawesome-webfont.ttf");
     FluApp* app = FluApp::getInstance();
     engine->rootContext()->setContextProperty("FluApp",app);
+    FluColors* colors = FluColors::getInstance();
+    engine->rootContext()->setContextProperty("FluColors",colors);
+    FluTheme* theme = FluTheme::getInstance();
+    engine->rootContext()->setContextProperty("FluTheme",theme);
 }

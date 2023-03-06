@@ -18,7 +18,7 @@ Item {
 
 
             Repeater{
-                model: [FluColors._Yellow,FluColors._Orange,FluColors._Red,FluColors._Magenta,FluColors._Purple,FluColors._Blue,FluColors._Teal,FluColors._Green]
+                model: [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
                 delegate:  Rectangle{
                     width: 42
                     height: 42
@@ -29,7 +29,7 @@ Item {
                         icon: FluentIcons.FA_check
                         iconSize: 15
                         visible: modelData === FluTheme.primaryColor
-                        color: FluApp.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                        color: FluTheme.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                     }
                     MouseArea{
                         id:mouse_item

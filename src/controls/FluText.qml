@@ -17,7 +17,7 @@ Text {
     }
 
     property int fontStyle: FluText.Body
-    property color textColor: FluApp.isDark ? "#FFFFFF" : "#1A1A1A"
+    property color textColor: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
     property int pixelSize : 14
 
     color: textColor

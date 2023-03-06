@@ -17,9 +17,9 @@ Item {
         radius: 4
         color:{
             if(mouse_area.containsMouse){
-                return FluApp.isDark ? Qt.rgba(56/255,56/255,56/255,1) : Qt.rgba(230/255,230/255,230/255,1)
+                return FluTheme.isDark ? Qt.rgba(56/255,56/255,56/255,1) : Qt.rgba(230/255,230/255,230/255,1)
             }
-            return FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
+            return FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
         }
 
         FluText{

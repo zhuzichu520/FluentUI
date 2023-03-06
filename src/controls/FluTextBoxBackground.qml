@@ -10,9 +10,9 @@ Rectangle{
     layer.enabled: true
     color: {
         if(input.hovered){
-            return FluApp.isDark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+            return FluTheme.isDark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
         }
-        return FluApp.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(1,1,1,1)
+        return FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(1,1,1,1)
     }
     layer.effect:OpacityMask {
         maskSource: Rectangle {
@@ -22,13 +22,13 @@ Rectangle{
         }
     }
     border.width: 1
-    border.color: FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(238/255,238/255,238/255,1)
+    border.color: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(238/255,238/255,238/255,1)
     Rectangle{
         width: parent.width
         height: input.focus ? 3 : 1
         anchors.bottom: parent.bottom
         color: {
-            if(FluApp.isDark){
+            if(FluTheme.isDark){
                 input.focus ? FluTheme.primaryColor.lighter  : Qt.rgba(166/255,166/255,166/255,1)
             }else{
                 return input.focus ? FluTheme.primaryColor.dark  : Qt.rgba(183/255,183/255,183/255,1)

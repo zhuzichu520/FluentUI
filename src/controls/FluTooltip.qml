@@ -16,7 +16,7 @@ ToolTip {
 
     background: Rectangle{
         anchors.fill: parent
-        color: FluApp.isDark ? Qt.rgba(50/255,49/255,48/255,1) : Qt.rgba(1,1,1,1)
+        color: FluTheme.isDark ? Qt.rgba(50/255,49/255,48/255,1) : Qt.rgba(1,1,1,1)
         radius: 5
         FluShadow{}
     }

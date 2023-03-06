@@ -5,9 +5,9 @@ import FluentUI 1.0
 TextField{
     id:input
     width: 300
-    color: FluApp.isDark ? "#FFFFFF" : "#1A1A1A"
+    color: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
     selectionColor: {
-        if(FluApp.isDark){
+        if(FluTheme.isDark){
             return FluTheme.primaryColor.lighter
         }else{
             return FluTheme.primaryColor.dark

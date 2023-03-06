@@ -12,11 +12,24 @@ Rectangle {
     property alias text: tool_tip.text
     signal clicked
     property bool disabled: false
-
+    property bool hovered: button_mouse.containsMouse
+    property color textColor: {
+        if(FluTheme.isDark){
+            if(disabled){
+                return Qt.rgba(130/255,130/255,130/255,1)
+            }
+            return Qt.rgba(1,1,1,1)
+        }else{
+            if(disabled){
+                return Qt.rgba(161/255,161/255,161/255,1)
+            }
+            return Qt.rgba(0,0,0,1)
+        }
+    }
     radius: 4
 
     color: {
-        if(FluApp.isDark){
+        if(FluTheme.isDark){
             if(disabled){
                 return Qt.rgba(59/255,59/255,59/255,1)
             }
@@ -36,19 +49,7 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         anchors.centerIn: parent
-        color:{
-            if(FluApp.isDark){
-                if(disabled){
-                    return Qt.rgba(130/255,130/255,130/255,1)
-                }
-                return Qt.rgba(1,1,1,1)
-            }else{
-                if(disabled){
-                    return Qt.rgba(161/255,161/255,161/255,1)
-                }
-                return Qt.rgba(0,0,0,1)
-            }
-        }
+        color:button.textColor
         text: (String.fromCharCode(icon).toString(16));
     }
 

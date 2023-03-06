@@ -44,8 +44,9 @@ class FluColors : public QObject
 
 public:
     explicit FluColors(QObject *parent = nullptr);
-
-signals:
+    static FluColors *getInstance();
+private:
+    static FluColors* m_instance;
 
 };
 

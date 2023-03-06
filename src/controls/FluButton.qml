@@ -15,7 +15,7 @@ Rectangle {
     radius: 4
 
     color:{
-        if(FluApp.isDark){
+        if(FluTheme.isDark){
             if(disabled){
                 return Qt.rgba(59/255,59/255,59/255,1)
             }
@@ -30,7 +30,7 @@ Rectangle {
     width: button_text.implicitWidth
     height: button_text.implicitHeight
 
-    border.color: FluApp.isDark ? "#505050" : "#DFDFDF"
+    border.color: FluTheme.isDark ? "#505050" : "#DFDFDF"
     border.width: 1
 
 
@@ -44,7 +44,7 @@ Rectangle {
         bottomPadding: button.bottomPadding
         anchors.centerIn: parent
         color: {
-            if(FluApp.isDark){
+            if(FluTheme.isDark){
                 if(disabled){
                     return Qt.rgba(131/255,131/255,131/255,1)
                 }

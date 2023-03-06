@@ -9,10 +9,10 @@ import FluentUI 1.0
 FluWindow {
     id:rootwindow
     width: 800
-    height: 700
+    height: 600
     title: "FluentUI"
     minimumWidth: 600
-    minimumHeight: 500
+    minimumHeight: 400
 
     FluAppBar{
         id:appbar
@@ -124,7 +124,7 @@ FluWindow {
 
             Rectangle{
                 color: {
-                    if(FluApp.isDark){
+                    if(FluTheme.isDark){
                         if(item_mouse.containsMouse){
                             return "#292929"
                         }
@@ -177,7 +177,7 @@ FluWindow {
     }
 
     Rectangle{
-        color: FluApp.isDark ? "#323232" : "#FFFFFF"
+        color: FluTheme.isDark ? "#323232" : "#FFFFFF"
         radius: 10
         clip: true
         anchors{
@@ -191,7 +191,7 @@ FluWindow {
             bottomMargin: 20
         }
         border.width: 1
-        border.color: FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(238/255,238/255,238/255,1)
+        border.color: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(238/255,238/255,238/255,1)
 
         Loader{
             anchors.fill: parent

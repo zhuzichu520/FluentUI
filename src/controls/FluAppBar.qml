@@ -5,7 +5,8 @@ import FluentUI 1.0
 
 Rectangle{
 
-    color: FluTheme.primaryColor.dark
+    id:root
+    color: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     height: 50
     width: {
         if(parent==null)
@@ -14,7 +15,7 @@ Rectangle{
     }
     z: 65535
     property string title: "标题"
-
+    property color textColor: FluTheme.isDark ? "#000000" : "#FFFFFF"
     property bool showDark: false
     property bool showFps: false
 
@@ -52,7 +53,7 @@ Rectangle{
             left: parent.left
             leftMargin: 14
         }
-        color:"#FFFFFFFF"
+        color:root.textColor
         fontStyle: FluText.Title
         font.pixelSize: 14
         font.bold: true
@@ -62,13 +63,13 @@ Rectangle{
         anchors.right: parent.right;
         anchors.rightMargin: 10
         height: parent.height
-        spacing: 15
+        spacing: 5
 
         TFpsMonitor{
             Layout.alignment: Qt.AlignVCenter
             Layout.rightMargin: 12
             Layout.topMargin: 5
-            color:"#FFFFFFFF"
+            color:root.textColor
             visible: showFps
         }
 
@@ -78,84 +79,53 @@ Rectangle{
             visible: showDark
             FluText{
                 text:"夜间模式"
-                color:"#FFFFFFFF"
+                color:root.textColor
                 fontStyle: FluText.Body
             }
             FluToggleSwitch{
-                checked: FluApp.isDark
+                checked: FluTheme.isDark
                 onClickFunc:function(){
-                    FluApp.isDark = !FluApp.isDark
+                    FluTheme.isDark = !FluTheme.isDark
                 }
             }
         }
 
-        FluIcon{
+        FluIconButton{
             icon : FluentIcons.FA_window_minimize
             Layout.alignment: Qt.AlignVCenter
             iconSize: 15
-            color:"#FFFFFF"
-            MouseArea{
-                id:mouse_miniminzed
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {
-                    Window.window.showMinimized()
-                }
-            }
-            FluTooltip{
-                visible: mouse_miniminzed.containsMouse
-                text:"最小化"
-                delay: 1000
+            text:"最小化"
+            textColor: root.textColor
+            color:hovered ? "#20000000" : "#00000000"
+            onClicked: {
+                Window.window.showMinimized()
             }
         }
-        FluIcon{
-
-            property bool isRestore: {
+        FluIconButton{
+            property bool isRestore:{
                 if(Window.window == null)
                     return false
                 return Window.Maximized === Window.window.visibility
             }
-            color:"#FFFFFF"
-            icon :  {
-                if(Window.window == null)
-                    return FluentIcons.FA_window_restore
-                return Window.Maximized === Window.window.visibility  ? FluentIcons.FA_window_restore : FluentIcons.FA_window_maximize
-            }
+            icon : isRestore  ? FluentIcons.FA_window_restore : FluentIcons.FA_window_maximize
+            color:hovered ? "#20000000" : "#00000000"
             Layout.alignment: Qt.AlignVCenter
             visible: resizable
+            textColor: root.textColor
+            text:isRestore?"向下还原":"最大化"
             iconSize: 15
-            MouseArea{
-                id:mouse_maximized
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {
-                    toggleMaximized()
-                }
-            }
-            FluTooltip{
-                visible: mouse_maximized.containsMouse
-                text:{
-                    return parent.isRestore?"向下还原":"最大化"
-                }
-                delay: 1000
+            onClicked: {
+                toggleMaximized()
             }
         }
-        FluIcon{
+        FluIconButton{
             icon : FluentIcons.FA_close
             Layout.alignment: Qt.AlignVCenter
-            color:"#FFFFFF"
-            MouseArea{
-                id:mouse_close
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {
-                    Window.window.close()
-                }
-            }
-            FluTooltip{
-                visible: mouse_close.containsMouse
-                text:"关闭"
-                delay: 1000
+            text:"关闭"
+            textColor: root.textColor
+            color:hovered ? "#20000000" : "#00000000"
+            onClicked: {
+                Window.window.close()
             }
         }
     }

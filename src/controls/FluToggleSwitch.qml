@@ -15,7 +15,7 @@ Switch {
         height: root.height
         radius: height / 2
         color: {
-            if(FluApp.isDark){
+            if(FluTheme.isDark){
                 if(root.checked){
                     return FluTheme.primaryColor.dark
                 }

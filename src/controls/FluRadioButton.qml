@@ -47,21 +47,21 @@ Item {
             }
             border.color: {
                 if(disabled){
-                    if(FluApp.isDark){
+                    if(FluTheme.isDark){
                         return Qt.rgba(82/255,82/255,82/255,1)
                     }else{
                         return Qt.rgba(198/255,198/255,198/255,1)
                     }
                 }
                 if(checked){
-                    if(FluApp.isDark){
+                    if(FluTheme.isDark){
                         return FluTheme.primaryColor.lighter
                     }else{
 
                         return FluTheme.primaryColor.dark
                     }
                 }else{
-                    if(FluApp.isDark){
+                    if(FluTheme.isDark){
                         return Qt.rgba(161/255,161/255,161/255,1)
                     }else{
 
@@ -73,7 +73,7 @@ Item {
                 if(disabled&&checked){
                     return Qt.rgba(159/255,159/255,159/255,1)
                 }
-                if(FluApp.isDark){
+                if(FluTheme.isDark){
                     if(root_mouse.containsMouse){
                         return Qt.rgba(43/255,43/255,43/255,1)
                     }

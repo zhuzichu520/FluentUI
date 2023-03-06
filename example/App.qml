@@ -10,7 +10,7 @@ Window {
     color: "#00000000"
     Component.onCompleted: {
         FluApp.init(app,properties)
-        FluApp.isDark = false
+        FluTheme.isDark = false
         FluApp.routes = {
             "/":"qrc:/MainPage.qml",
             "/Setting":"qrc:/SettingPage.qml",

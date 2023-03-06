@@ -22,7 +22,6 @@ FluApp *FluApp::getInstance()
 FluApp::FluApp(QObject *parent)
     : QObject{parent}
 {
-    isDark(false);
 }
 
 void FluApp::init(QWindow *window,QMap<QString, QVariant> properties){

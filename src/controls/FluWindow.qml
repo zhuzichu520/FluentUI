@@ -14,7 +14,7 @@ Item {
         return Window.window
     }
 
-    property color color: FluApp.isDark ? "#202020" : "#F3F3F3"
+    property color color: FluTheme.isDark ? "#202020" : "#F3F3F3"
     property string title: "FluentUI"
     property int minimumWidth
     property int maximumWidth
@@ -41,11 +41,11 @@ Item {
 
 
     Rectangle{
-        color:FluTheme.primaryColor.dark
+        color: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
         border.width: 1
         anchors.fill: parent
         radius: 4
-        border.color:Qt.lighter(FluTheme.primaryColor.dark,1.3)
+        border.color:FluTheme.isDark ? Qt.darker(FluTheme.primaryColor.lighter,1.3) : Qt.lighter(FluTheme.primaryColor.dark,1.3)
     }
 
     Rectangle{

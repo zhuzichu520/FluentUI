@@ -5,11 +5,11 @@ import FluentUI 1.0
 TextArea{
     id:input
     width: 300
-    color: FluApp.isDark ? "#FFFFFF" : "#1A1A1A"
+    color: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
     wrapMode: Text.WrapAnywhere
     selectByMouse: true
     selectionColor: {
-        if(FluApp.isDark){
+        if(FluTheme.isDark){
             return FluTheme.primaryColor.lighter
         }else{
             return FluTheme.primaryColor.dark

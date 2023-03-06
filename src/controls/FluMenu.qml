@@ -9,7 +9,7 @@ Popup {
     background: Rectangle {
         implicitWidth: 140
         implicitHeight: container.height
-        color:FluApp.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
+        color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
         radius: 5
         FluShadow{
             radius: 5

@@ -32,8 +32,8 @@
         <file>controls/FluMenuItem.qml</file>
         <file>controls/FluShadow.qml</file>
         <file>controls/FluTextButton.qml</file>
-        <file>controls/FluColorSet.qml</file>
-        <file>controls/FluColors.qml</file>
-        <file>controls/FluTheme.qml</file>
+        <file>controls/FluColorSetOld.qml</file>
+        <file>controls/FluColorsOld.qml</file>
+        <file>controls/FluThemeOld.qml</file>
     </qresource>
 </RCC>

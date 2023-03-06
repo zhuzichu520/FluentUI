@@ -15,7 +15,7 @@ Rectangle {
     signal clicked
     radius: 4
     color:{
-        if(FluApp.isDark){
+        if(FluTheme.isDark){
             if(disabled){
                 return Qt.rgba(199/255,199/255,199/255,1)
             }
@@ -34,7 +34,7 @@ Rectangle {
         id: button_text
         text: button.text
         color: {
-            if(FluApp.isDark){
+            if(FluTheme.isDark){
                 if(disabled){
                     return Qt.rgba(173/255,173/255,173/255,1)
                 }
