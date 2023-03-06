@@ -32,7 +32,7 @@ Item{
             radius: 3
             width: control.width*(value/100)
             height:  control.height
-            color:FluApp.isDark ? Qt.rgba(76/255,160/255,224/255,1) :Qt.rgba(0/255,102/255,180/255,1)
+            color:FluApp.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
     }
 
@@ -50,7 +50,7 @@ Item{
             width: dotSize/2
             height: dotSize/2
             radius: dotSize/4
-            color:FluApp.isDark ? Qt.rgba(76/255,160/255,224/255,1) :Qt.rgba(0/255,102/255,180/255,1)
+            color:FluApp.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
             scale: control_mouse.containsMouse ? 1.2 : 1
             Behavior on scale {

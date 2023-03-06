@@ -19,7 +19,7 @@ Item {
             border.color: {
                 if(FluApp.isDark){
                     if(checked){
-                        return Qt.rgba(76/255,160/255,224/255,1)
+                        return FluTheme.primaryColor.lighter
                     }
                     return Qt.rgba(160/255,160/255,160/255,1)
                 }else{
@@ -27,7 +27,7 @@ Item {
                         if(mouse_area.containsMouse){
                             return Qt.rgba(25/255,117/255,187/255,1)
                         }
-                        return Qt.rgba(0/255,102/255,180/255,1)
+                        return FluTheme.primaryColor.dark
                     }
                     return Qt.rgba(136/255,136/255,136/255,1)
                 }
@@ -39,7 +39,7 @@ Item {
                         if(mouse_area.containsMouse){
                             return Qt.rgba(74/255,149/255,207/255,1)
                         }
-                        return Qt.rgba(76/255,160/255,224/255,1)
+                        return FluTheme.primaryColor.lighter
                     }
                     if(mouse_area.containsMouse){
                         return Qt.rgba(62/255,62/255,62/255,1)
@@ -50,7 +50,7 @@ Item {
                         if(mouse_area.containsMouse){
                             return Qt.rgba(25/255,117/255,187/255,1)
                         }
-                        return Qt.rgba(0/255,102/255,180/255,1)
+                        return FluTheme.primaryColor.dark
                     }
                     if(mouse_area.containsMouse){
                         return Qt.rgba(244/255,244/255,244/255,1)

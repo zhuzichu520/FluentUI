@@ -55,6 +55,10 @@ FluWindow {
                 page:"qrc:/T_Rectangle.qml"
             }
             ListElement{
+                text:"Theme"
+                page:"qrc:/T_Theme.qml"
+            }
+            ListElement{
                 text:"Awesome"
                 page:"qrc:/T_Awesome.qml"
             }

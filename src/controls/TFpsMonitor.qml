@@ -17,6 +17,7 @@ Item {
     Component{
         id:contentComponent
         FluText{
+            color:toou2d_fps.color
             text: " Avg " + fpsAvg + " | " + fps + " Fps";
         }
     }

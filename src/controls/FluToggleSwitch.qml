@@ -4,7 +4,6 @@ import FluentUI 1.0
 
 Switch {
     id: root
-    property color checkedColor: "#0064B0"
     property var onClickFunc
     width: 40
     implicitWidth: 40
@@ -18,7 +17,7 @@ Switch {
         color: {
             if(FluApp.isDark){
                 if(root.checked){
-                    return checkedColor
+                    return FluTheme.primaryColor.dark
                 }
                 if(switch_mouse.containsMouse){
                     return "#3E3E3C"
@@ -26,7 +25,7 @@ Switch {
                 return "#323232"
             }else{
                 if(root.checked){
-                    return checkedColor
+                    return FluTheme.primaryColor.dark
                 }
                 if(switch_mouse.containsMouse){
                     return "#F4F4F4"
@@ -35,7 +34,7 @@ Switch {
             }
         }
         border.width: 1
-        border.color: root.checked ? checkedColor : "#666666"
+        border.color: root.checked ? Qt.lighter(FluTheme.primaryColor.dark,1.2) : "#666666"
 
         Rectangle {
             x:  root.checked ? root.implicitWidth  - width - 4 : 4

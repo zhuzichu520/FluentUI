@@ -39,8 +39,13 @@ Item {
         }
     }
 
-    FluShadow{
-        anchors.fill: container
+
+    Rectangle{
+        color:FluTheme.primaryColor.dark
+        border.width: 1
+        anchors.fill: parent
+        radius: 4
+        border.color:Qt.lighter(FluTheme.primaryColor.dark,1.3)
     }
 
     Rectangle{

@@ -14,7 +14,7 @@ Rectangle {
     property real progress: 0.25
     property bool indeterminate: true
     readonly property real radius2 : radius - linWidth/2
-    property color primaryColor : FluApp.isDark ? Qt.rgba(76/255,160/255,224/255,1) : Qt.rgba(0/255,102/255,180/255,1)
+    property color primaryColor : FluApp.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
 
     onProgressChanged: {
         canvas.requestPaint()

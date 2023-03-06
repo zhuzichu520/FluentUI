@@ -10,9 +10,9 @@ TextArea{
     selectByMouse: true
     selectionColor: {
         if(FluApp.isDark){
-            return Qt.rgba(76/255,160/255,224/255,1)
+            return FluTheme.primaryColor.lighter
         }else{
-            return Qt.rgba(0/255,102/255,180/255,1)
+            return FluTheme.primaryColor.dark
         }
     }
     background: FluTextBoxBackground{

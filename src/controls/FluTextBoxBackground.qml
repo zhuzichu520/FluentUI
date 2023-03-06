@@ -29,9 +29,9 @@ Rectangle{
         anchors.bottom: parent.bottom
         color: {
             if(FluApp.isDark){
-                input.focus ? Qt.rgba(76/255,160/255,224/255,1)  : Qt.rgba(166/255,166/255,166/255,1)
+                input.focus ? FluTheme.primaryColor.lighter  : Qt.rgba(166/255,166/255,166/255,1)
             }else{
-                return input.focus ? Qt.rgba(0/255,102/255,180/255,1)  : Qt.rgba(183/255,183/255,183/255,1)
+                return input.focus ? FluTheme.primaryColor.dark  : Qt.rgba(183/255,183/255,183/255,1)
             }
         }
         Behavior on height{

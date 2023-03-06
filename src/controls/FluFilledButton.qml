@@ -19,12 +19,12 @@ Rectangle {
             if(disabled){
                 return Qt.rgba(199/255,199/255,199/255,1)
             }
-            return  button_mouse.containsMouse ? Qt.rgba(74/255,149/255,207/255,1) : Qt.rgba(76/255,160/255,224/255,1)
+            return  button_mouse.containsMouse ? Qt.darker(FluTheme.primaryColor.lighter,1.1) : FluTheme.primaryColor.lighter
         }else{
             if(disabled){
                 return Qt.rgba(199/255,199/255,199/255,1)
             }
-            return  button_mouse.containsMouse ? Qt.rgba(25/255,117/255,187/255,1) : Qt.rgba(0/255,102/255,180/255,1)
+            return  button_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor.dark,1.1): FluTheme.primaryColor.dark
         }
     }
     width: button_text.implicitWidth

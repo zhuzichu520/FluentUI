@@ -13,6 +13,8 @@ RESOURCES += \
 HEADERS += \
     Def.h \
     FluApp.h \
+    FluColorSet.h \
+    FluColors.h \
     Fluent.h \
     FluentUI.h \
     FramelessView.h \
@@ -23,6 +25,8 @@ HEADERS += \
 SOURCES += \
     Def.cpp \
     FluApp.cpp \
+    FluColorSet.cpp \
+    FluColors.cpp \
     Fluent.cpp \
     FluentUI.cpp \
     WindowHelper.cpp \

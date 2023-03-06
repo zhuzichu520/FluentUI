@@ -205,7 +205,7 @@ FluObject {
                             switch(_super.type){
                             case mcontrol.const_success: return Qt.rgba(108/255,203/255,95/255,1);
                             case mcontrol.const_warning: return Qt.rgba(252/255,225/255,0/255,1);
-                            case mcontrol.const_info:    return Qt.rgba(76/255,160/255,224/255,1);
+                            case mcontrol.const_info:    return FluTheme.primaryColor.lighter;
                             case mcontrol.const_error:   return Qt.rgba(255/255,153/255,164/255,1);
                             }
                             return "#FFFFFF"

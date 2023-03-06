@@ -27,7 +27,7 @@ FluRectangle {
         radius: 3
         width: control.width*progress
         height:  control.height
-        color:FluApp.isDark ? Qt.rgba(76/255,160/255,224/255,1) : Qt.rgba(0/255,102/255,180/255,1)
+        color:FluApp.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
 
         Behavior on x{
             id:behavior
