@@ -46,7 +46,7 @@ Item {
         color: {
             if(window === null)
                 return borerlessColor
-           return window.active ? borerlessColor : Qt.lighter(FluTheme.primaryColor.lightest,1.1)
+           return window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
         }
         border.width: 1
         anchors.fill: parent

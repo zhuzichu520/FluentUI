@@ -6,7 +6,7 @@ import FluentUI 1.0
 Item {
     FluText{
         id:title
-        text:"Theme"
+        text:"Typography"
         fontStyle: FluText.TitleLarge
     }
     ScrollView{
@@ -21,6 +21,7 @@ Item {
             spacing: 5
             FluText{
                 text:"Display"
+                Layout.topMargin: 20
                 fontStyle: FluText.Display
             }
             FluText{

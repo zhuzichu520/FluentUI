@@ -44,6 +44,7 @@ Item {
                     progress_bar.progress = value/100
                     progress_ring.progress = value/100
                 }
+                Layout.bottomMargin: 30
             }
         }
     }

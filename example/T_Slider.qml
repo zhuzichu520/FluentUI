@@ -23,6 +23,7 @@ Item {
             spacing: 5
             FluSlider{
                 Layout.topMargin: 20
+                Layout.leftMargin: 15
                 value: 50
             }
         }

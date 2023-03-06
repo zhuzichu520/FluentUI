@@ -11,7 +11,7 @@ Rectangle{
     color: {
         if(Window.window == null)
             return borerlessColor
-        return Window.window.active ? borerlessColor : Qt.lighter(FluTheme.primaryColor.lightest,1.1)
+        return Window.window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
     }
     height: 50
     width: {

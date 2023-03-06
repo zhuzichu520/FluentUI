@@ -56,6 +56,10 @@ FluWindow {
             page:"qrc:/T_Rectangle.qml"
         }
         ListElement{
+            text:"TreeView"
+            page:"qrc:/T_TreeView.qml"
+        }
+        ListElement{
             text:"Theme"
             page:"qrc:/T_Theme.qml"
         }
@@ -93,12 +97,6 @@ FluWindow {
                     FluApp.navigate("/About")
                 }
             }
-            //            FluMenuItem{
-            //                text:"设置"
-            //                onClicked:{
-            //                    FluApp.navigate("/Setting")
-            //                }
-            //            }
         }
         onClicked:{
             menu.open()

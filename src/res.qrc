@@ -33,5 +33,7 @@
         <file>controls/FluShadow.qml</file>
         <file>controls/FluTextButton.qml</file>
         <file>controls/FluContentDialog.qml</file>
+        <file>controls/FluTreeView.qml</file>
+        <file>controls/FluTreeItem.qml</file>
     </qresource>
 </RCC>

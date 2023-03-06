@@ -28,5 +28,6 @@
         <file>T_TextBox.qml</file>
         <file>T_Theme.qml</file>
         <file>T_Dialog.qml</file>
+        <file>T_TreeView.qml</file>
     </qresource>
 </RCC>

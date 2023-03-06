@@ -4,6 +4,27 @@
 #include <QScreen>
 #include <QWindow>
 
+#include <VersionHelpers.h>
+#include <WinUser.h>
+#include <dwmapi.h>
+#include <objidl.h> // Fixes error C2504: 'IUnknown' : base class undefined
+#include <windows.h>
+#include <windowsx.h>
+#include <wtypes.h>
+#pragma comment(lib, "Dwmapi.lib") // Adds missing library, fixes error LNK2019: unresolved
+#pragma comment(lib, "User32.lib")
+#pragma comment(lib, "Gdi32.lib")
+
+static bool isMaxWin(QWindow* win)
+{
+    return win->windowState() == Qt::WindowMaximized;
+}
+static bool isFullWin(QQuickView* win)
+{
+    return win->windowState() == Qt::WindowFullScreen;
+}
+
+
 class FramelessViewPrivate
 {
 public:
@@ -100,6 +121,44 @@ bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, qint
 bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, long *result)
 #endif
 {
+#if (QT_VERSION == QT_VERSION_CHECK(5, 11, 1))
+    // Work-around a bug caused by typo which only exists in Qt 5.11.1
+    const auto msg = *reinterpret_cast<MSG**>(message);
+#else
+    const auto msg = static_cast<LPMSG>(message);
+#endif
+    if (!msg || !msg->hwnd)
+    {
+        return false;
+    }
+    switch (msg->message)
+    {
+    case WM_NCCALCSIZE: {
+        const auto mode = static_cast<BOOL>(msg->wParam);
+        const auto clientRect = mode ? &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(msg->lParam)->rgrc[0]) : reinterpret_cast<LPRECT>(msg->lParam);
+        if (mode == TRUE)
+        {
+            *result = WVR_REDRAW;
+            //规避 拖动border进行resize时界面闪烁
+            if (!isMaxWin(this) && !isFullWin(this))
+            {
+                if (clientRect->top != 0)
+                {
+                    clientRect->top -= 0.1;
+                }
+            }
+            else
+            {
+                if (clientRect->top != 0)
+                {
+                    clientRect->top += 0.1;
+                }
+            }
+            return true;
+        }
+        break;
+    }
+    }
     return Super::nativeEvent(eventType, message, result);
 }
 
