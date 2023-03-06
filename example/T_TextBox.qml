@@ -6,23 +6,31 @@ import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
 Item {
-
-    ColumnLayout{
-        spacing: 5
-
-        FluText{
-            text:"TextBox"
-            fontStyle: FluText.TitleLarge
+    FluText{
+        id:title
+        text:"TextBox"
+        fontStyle: FluText.TitleLarge
+    }
+    ScrollView{
+        clip: true
+        width: parent.width
+        contentWidth: parent.width
+        anchors{
+            top: title.bottom
+            bottom: parent.bottom
         }
-        FluTextBox{
-            Layout.topMargin: 20
-            placeholderText: "单行输入框"
-            Layout.preferredWidth: 300
-        }
-        FluMultiLineTextBox{
-            Layout.topMargin: 20
-            Layout.preferredWidth: 300
-            placeholderText: "多行输入框"
+        ColumnLayout{
+            spacing: 5
+            FluTextBox{
+                Layout.topMargin: 20
+                placeholderText: "单行输入框"
+                Layout.preferredWidth: 300
+            }
+            FluMultiLineTextBox{
+                Layout.topMargin: 20
+                Layout.preferredWidth: 300
+                placeholderText: "多行输入框"
+            }
         }
     }
 }

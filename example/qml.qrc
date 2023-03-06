@@ -27,5 +27,6 @@
         <file>T_Awesome.qml</file>
         <file>T_TextBox.qml</file>
         <file>T_Theme.qml</file>
+        <file>T_Dialog.qml</file>
     </qresource>
 </RCC>

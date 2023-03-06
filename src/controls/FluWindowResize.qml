@@ -4,13 +4,14 @@ import QtQuick.Window 2.15
 MouseArea {
 
     property int border: 4
+    property var window: Window.window
     property bool fixedSize: {
-        if(Window.window == null)
+        if(window == null)
             return true
-        if(Window.window.visibility === Window.Maximized || Window.window.visibility === Window.FullScreen){
+        if(window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
             return true
         }
-        return (Window.window.minimumWidth === Window.window.maximumWidth && Window.window.minimumHeight === Window.window.maximumHeight)
+        return (window.minimumWidth === window.maximumWidth && window.minimumHeight === window.maximumHeight)
     }
 
     anchors.fill: parent

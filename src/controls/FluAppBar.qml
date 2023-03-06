@@ -6,7 +6,13 @@ import FluentUI 1.0
 Rectangle{
 
     id:root
-    color: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+
+    property color borerlessColor : FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    color: {
+        if(Window.window == null)
+            return borerlessColor
+        return Window.window.active ? borerlessColor : Qt.lighter(FluTheme.primaryColor.lightest,1.1)
+    }
     height: 50
     width: {
         if(parent==null)
@@ -19,30 +25,31 @@ Rectangle{
     property bool showDark: false
     property bool showFps: false
 
+    property var window: Window.window
+
     property bool resizable: {
-        if(Window.window == null){
+        if(window == null){
             return false
         }
-        return !(Window.window.minimumHeight === Window.window.maximumHeight && Window.window.maximumWidth === Window.window.minimumWidth)
+        return !(window.minimumHeight === window.maximumHeight && window.maximumWidth === window.minimumWidth)
     }
 
-    MouseArea{
-        anchors.fill: parent
-        anchors.topMargin: 5
-        acceptedButtons: Qt.LeftButton
-        hoverEnabled: true
-        onPressed: Window.window.startSystemMove()
-        onDoubleClicked: {
-            if(resizable)
-                toggleMaximized();
-        }
+    TapHandler {
+        onTapped: if (tapCount === 2) toggleMaximized()
+        gesturePolicy: TapHandler.DragThreshold
+    }
+
+    DragHandler {
+        target: null
+        grabPermissions: TapHandler.CanTakeOverFromAnything
+        onActiveChanged: if (active) { window.startSystemMove(); }
     }
 
     function toggleMaximized() {
-        if (Window.window.visibility === Window.Maximized) {
-            Window.window.showNormal();
+        if (window.visibility === Window.Maximized) {
+            window.showNormal();
         } else {
-            Window.window.showMaximized();
+            window.showMaximized();
         }
     }
 
@@ -98,14 +105,14 @@ Rectangle{
             textColor: root.textColor
             color:hovered ? "#20000000" : "#00000000"
             onClicked: {
-                Window.window.showMinimized()
+                window.showMinimized()
             }
         }
         FluIconButton{
             property bool isRestore:{
-                if(Window.window == null)
+                if(window == null)
                     return false
-                return Window.Maximized === Window.window.visibility
+                return Window.Maximized === window.visibility
             }
             icon : isRestore  ? FluentIcons.FA_window_restore : FluentIcons.FA_window_maximize
             color:hovered ? "#20000000" : "#00000000"

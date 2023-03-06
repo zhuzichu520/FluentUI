@@ -8,7 +8,7 @@ import FluentUI 1.0
 Item {
     FluText{
         id:title
-        text:"Slider"
+        text:"Dialog"
         fontStyle: FluText.TitleLarge
     }
     ScrollView{
@@ -21,9 +21,12 @@ Item {
         }
         ColumnLayout{
             spacing: 5
-            FluSlider{
+            FluButton{
                 Layout.topMargin: 20
-                value: 50
+                text:"Show Dialog"
+                onClicked: {
+
+                }
             }
         }
     }

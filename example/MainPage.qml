@@ -21,51 +21,51 @@ FluWindow {
         showFps: true
     }
 
-    Item{
-        id:data
-
-        ListModel{
-            id:nav_items
-            ListElement{
-                text:"Buttons"
-                page:"qrc:/T_Buttons.qml"
-            }
-            ListElement{
-                text:"TextBox"
-                page:"qrc:/T_TextBox.qml"
-            }
-            ListElement{
-                text:"ToggleSwitch"
-                page:"qrc:/T_ToggleSwitch.qml"
-            }
-            ListElement{
-                text:"Slider"
-                page:"qrc:/T_Slider.qml"
-            }
-            ListElement{
-                text:"InfoBar"
-                page:"qrc:/T_InfoBar.qml"
-            }
-            ListElement{
-                text:"Progress"
-                page:"qrc:/T_Progress.qml"
-            }
-            ListElement{
-                text:"Rectangle"
-                page:"qrc:/T_Rectangle.qml"
-            }
-            ListElement{
-                text:"Theme"
-                page:"qrc:/T_Theme.qml"
-            }
-            ListElement{
-                text:"Awesome"
-                page:"qrc:/T_Awesome.qml"
-            }
-            ListElement{
-                text:"Typography"
-                page:"qrc:/T_Typography.qml"
-            }
+    ListModel{
+        id:nav_items
+        ListElement{
+            text:"Buttons"
+            page:"qrc:/T_Buttons.qml"
+        }
+        ListElement{
+            text:"TextBox"
+            page:"qrc:/T_TextBox.qml"
+        }
+        ListElement{
+            text:"ToggleSwitch"
+            page:"qrc:/T_ToggleSwitch.qml"
+        }
+        ListElement{
+            text:"Slider"
+            page:"qrc:/T_Slider.qml"
+        }
+        ListElement{
+            text:"InfoBar"
+            page:"qrc:/T_InfoBar.qml"
+        }
+        ListElement{
+            text:"Dialog"
+            page:"qrc:/T_Dialog.qml"
+        }
+        ListElement{
+            text:"Progress"
+            page:"qrc:/T_Progress.qml"
+        }
+        ListElement{
+            text:"Rectangle"
+            page:"qrc:/T_Rectangle.qml"
+        }
+        ListElement{
+            text:"Theme"
+            page:"qrc:/T_Theme.qml"
+        }
+        ListElement{
+            text:"Awesome"
+            page:"qrc:/T_Awesome.qml"
+        }
+        ListElement{
+            text:"Typography"
+            page:"qrc:/T_Typography.qml"
         }
     }
 
@@ -123,25 +123,6 @@ FluWindow {
 
 
             Rectangle{
-                color: {
-                    if(FluTheme.isDark){
-                        if(item_mouse.containsMouse){
-                            return "#292929"
-                        }
-                        if(nav_list.currentIndex === index){
-                            return "#2D2D2D"
-                        }
-                        return "#00000000"
-                    }else{
-                        if(item_mouse.containsMouse){
-                            return "#EDEDED"
-                        }
-                        if(nav_list.currentIndex === index){
-                            return "#EAEAEA"
-                        }
-                        return "#00000000"
-                    }
-                }
                 radius: 4
                 anchors{
                     top: parent.top
@@ -153,14 +134,31 @@ FluWindow {
                     leftMargin: 6
                     rightMargin: 6
                 }
-
-
                 MouseArea{
                     id:item_mouse
                     hoverEnabled: true
                     anchors.fill: parent
                     onClicked: {
                         nav_list.currentIndex = index
+                    }
+                }
+                color: {
+                    if(FluTheme.isDark){
+                        if(nav_list.currentIndex === index){
+                            return "#2D2D2D"
+                        }
+                        if(item_mouse.containsMouse){
+                            return "#292929"
+                        }
+                        return "#202020"
+                    }else{
+                        if(nav_list.currentIndex === index){
+                            return "#EAEAEA"
+                        }
+                        if(item_mouse.containsMouse){
+                            return "#EDEDED"
+                        }
+                        return "#F3f3f3"
                     }
                 }
 
@@ -171,8 +169,6 @@ FluWindow {
                 }
 
             }
-
-
         }
     }
 

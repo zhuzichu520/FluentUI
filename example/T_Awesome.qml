@@ -5,13 +5,11 @@ import QtQuick.Window 2.15
 import FluentUI 1.0
 
 Item {
-
     FluText{
         id:title
         text:"Awesome"
         fontStyle: FluText.TitleLarge
     }
-
     FluTextBox{
         id:text_box
         placeholderText: "请输入关键字"
@@ -20,7 +18,6 @@ Item {
             top:title.bottom
         }
     }
-
     FluFilledButton{
         text:"搜索"
         anchors{
@@ -32,7 +29,6 @@ Item {
             grid_view.model = FluApp.awesomelist(text_box.text)
         }
     }
-
     GridView{
         id:grid_view
         cellWidth: 120
@@ -48,10 +44,8 @@ Item {
             bottom: parent.bottom
         }
         delegate: Item {
-
             width: 120
             height: 60
-
             FluIconButton{
                 id:item_icon
                 icon:modelData.icon
@@ -62,7 +56,6 @@ Item {
                     showSuccess("您复制了 "+text)
                 }
             }
-
             FluText {
                 id:item_name
                 font.pixelSize: 10;
@@ -70,10 +63,6 @@ Item {
                 anchors.top: item_icon.bottom
                 text: modelData.name
             }
-
         }
-
-
-
     }
 }

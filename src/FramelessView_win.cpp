@@ -12,15 +12,6 @@ public:
     bool m_deleteLater = false;
     QQuickItem *m_titleItem = nullptr;
 };
-
-static bool isMaxWin(QWindow* win)
-{
-    return win->windowState() == Qt::WindowMaximized;
-}
-static bool isFullWin(QQuickView* win)
-{
-    return win->windowState() == Qt::WindowFullScreen;
-}
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
     setFlags(Qt::CustomizeWindowHint | Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
@@ -109,53 +100,6 @@ bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, qint
 bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, long *result)
 #endif
 {
-    if (!result)
-    {
-        return false;
-    }
-
-#if (QT_VERSION == QT_VERSION_CHECK(5, 11, 1))
-    const auto msg = *reinterpret_cast<MSG**>(message);
-#else
-    const auto msg = static_cast<LPMSG>(message);
-#endif
-    if (!msg || !msg->hwnd)
-    {
-        return false;
-    }
-    switch (msg->message)
-    {
-    case WM_NCCALCSIZE: {
-#if 1
-        const auto mode = static_cast<BOOL>(msg->wParam);
-        const auto clientRect = mode ? &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(msg->lParam)->rgrc[0]) : reinterpret_cast<LPRECT>(msg->lParam);
-        if (mode == TRUE)
-        {
-            *result = WVR_REDRAW;
-            //规避 拖动border进行resize时界面闪烁
-            if (!isMaxWin(this) && !isFullWin(this))
-            {
-                if (clientRect->top != 0)
-                {
-                    clientRect->top -= 0.1;
-                }
-            }
-            else
-            {
-                if (clientRect->top != 0)
-                {
-                    clientRect->top += 0.1;
-                }
-            }
-            return true;
-        }
-#else
-        *result = 0;
-        return true;
-#endif
-        break;
-    }
-    }
     return Super::nativeEvent(eventType, message, result);
 }
 

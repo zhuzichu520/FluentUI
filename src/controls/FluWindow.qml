@@ -20,18 +20,20 @@ Item {
     property int maximumWidth
     property int minimumHeight
     property int maximumHeight
+
     property int borderless:{
-        if(Window.window == null)
+        if(window === null)
             return 4
         if(Window.window.visibility === Window.Maximized){
             return 0
         }
         return 4
     }
-    default property alias content: container.children
+    default property alias content: container.data
 
-    FluWindowResize{}
-
+    FluWindowResize{
+        border:borderless
+    }
 
     Behavior on opacity{
         NumberAnimation{
@@ -39,13 +41,17 @@ Item {
         }
     }
 
-
     Rectangle{
-        color: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+        property color borerlessColor : FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+        color: {
+            if(window === null)
+                return borerlessColor
+           return window.active ? borerlessColor : Qt.lighter(FluTheme.primaryColor.lightest,1.1)
+        }
         border.width: 1
         anchors.fill: parent
         radius: 4
-        border.color:FluTheme.isDark ? Qt.darker(FluTheme.primaryColor.lighter,1.3) : Qt.lighter(FluTheme.primaryColor.dark,1.3)
+        border.color:FluTheme.isDark ? Qt.darker(FluTheme.primaryColor.lighter,1.3) : Qt.lighter(FluTheme.primaryColor.dark,1.2)
     }
 
     Rectangle{
