@@ -6,7 +6,7 @@ QML插件
 
 ## status
 | [Windows][win-link]| [Ubuntu][ubuntu-link]|[MacOS][macos-link]|
-|---------------|---------------|-----------------|-----------------|----------------|
+|---------------|---------------|-----------------|
 | ![win-badge]  | ![ubuntu-badge]      | ![macos-badge] |
 
 
