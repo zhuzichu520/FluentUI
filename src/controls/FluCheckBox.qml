@@ -7,6 +7,7 @@ Item {
     id:root
     property bool checked: false
     property string text: "Check Box"
+    property var checkClicked
     width: childrenRect.width
     height: childrenRect.height
 
@@ -78,6 +79,10 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         onClicked: {
+            if(checkClicked){
+                checkClicked()
+                return
+            }
             checked = !checked
         }
     }

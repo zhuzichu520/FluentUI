@@ -12,181 +12,44 @@ Item {
         fontStyle: FluText.TitleLarge
     }
 
-    ListModel {
-        id: tree_model
-        ListElement {
-            text: "Root"
-            expanded:true
-            items: [
-                ListElement {
-                    text: "Node 1"
-                    expanded:false
-                    items: [
-                        ListElement {
-                            text: "Node 1.1"
-                            expanded:true
-                            items:[
-                                ListElement{
-                                    text:"Node 1.1.1"
-                                    expanded:true
-                                    items:[
-                                        ListElement{
-                                            text:"Node 1.1.1.1"
-                                            expanded:false
-                                            items:[]
-                                        },
-                                        ListElement{
-                                            text:"Node 1.1.1.2"
-                                            expanded:false
-                                            items:[]
-                                        },
-                                        ListElement{
-                                            text:"Node 1.1.1.3"
-                                            expanded:false
-                                            items:[]
-                                        },
-                                        ListElement{
-                                            text:"Node 1.1.1.4"
-                                            expanded:false
-                                            items:[]
-                                        },
-                                        ListElement{
-                                            text:"Node 1.1.1.5"
-                                            expanded:false
-                                            items:[]
-                                        },
-                                        ListElement{
-                                            text:"Node 1.1.1.6"
-                                            expanded:false
-                                            items:[]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        ListElement {
-                            text: "Node 1.2"
-                            expanded:false
-                            items:[]
-                        }
-                    ]
-                },
-                ListElement {
-                    text: "Node 2"
-                    expanded:false
-                    items:[]
-                },
-                ListElement {
-                    text: "Node 3"
-                    expanded:true
-                    items: [
-                        ListElement {
-                            text: "Node 3.1"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.2"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.3"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.4"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.5"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.6"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.7"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.8"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.9"
-                            expanded:false
-                            items:[]
-                        },
-                        ListElement {
-                            text: "Node 3.10"
-                            expanded:true
-                            items:[
-                                ListElement{
-                                    text:"Node 3.10.1"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.2"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.3"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.4"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.5"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.6"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.7"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.8"
-                                    expanded:false
-                                    items:[]
-                                },
-                                ListElement{
-                                    text:"Node 3.10.9"
-                                    expanded:false
-                                    items:[]
-                                }
-                            ]
-                        },
-                        ListElement {
-                            text: "Node 3.11"
-                            expanded:false
-                            items:[]
-                        }
-                    ]
-                }
-            ]
-        }
+    function randomName() {
+        var names = ["张三", "李四", "王五", "赵六", "钱七", "孙八", "周九", "吴十"]
+        return names[Math.floor(Math.random() * names.length)]
     }
 
+    function randomCompany() {
+        var companies = ["阿里巴巴", "腾讯", "百度", "京东", "华为", "小米", "字节跳动", "美团", "滴滴"]
+        return companies[Math.floor(Math.random() * companies.length)]
+    }
+
+    function randomDepartment() {
+        var departments = ["技术部", "销售部", "市场部", "人事部", "财务部", "客服部", "产品部", "设计部", "运营部"]
+        return departments[Math.floor(Math.random() * departments.length)]
+    }
+
+    function createEmployee() {
+        var name = randomName()
+        return tree_view.createItem(name, false)
+    }
+
+    function createSubtree(numEmployees) {
+        var employees = []
+        for (var i = 0; i < numEmployees; i++) {
+            employees.push(createEmployee())
+        }
+        return tree_view.createItem(randomDepartment(), true, employees)
+    }
+
+    function createOrg(numLevels, numSubtrees, numEmployees) {
+        if (numLevels === 0) {
+            return []
+        }
+        var subtrees = []
+        for (var i = 0; i < numSubtrees; i++) {
+            subtrees.push(createSubtree(numEmployees))
+        }
+        return [tree_view.createItem(randomCompany(), true, subtrees)].concat(createOrg(numLevels - 1, numSubtrees, numEmployees))
+    }
 
 
     FluTreeView{
@@ -197,7 +60,17 @@ Item {
             left:parent.left
             bottom:parent.bottom
         }
-        model:tree_model
+        onItemClicked:
+            (model)=>{
+                showSuccess(model.text)
+            }
+
+        Component.onCompleted: {
+            var org = createOrg(10, 3, 5)
+            updateData(org)
+
+        }
+
     }
 
 
@@ -207,11 +80,62 @@ Item {
             right: parent.right
             top: parent.top
         }
-        FluButton{
-            text:"test"
-            onClicked: {
+
+        FluText{
+            text:{
+                if(tree_view.selectionMode === FluTreeView.None){
+                    return "FluTreeView.None"
+                }
+                if(tree_view.selectionMode === FluTreeView.Single){
+                    return "FluTreeView.Single"
+                }
+                if(tree_view.selectionMode === FluTreeView.Multiple){
+                    return "FluTreeView.Multiple"
+                }
             }
         }
-    }
 
+        FluButton{
+            text:"None"
+            onClicked: {
+                tree_view.selectionMode = FluTreeView.None
+            }
+        }
+
+        FluButton{
+            text:"Single"
+            onClicked: {
+                tree_view.selectionMode = FluTreeView.Single
+            }
+        }
+
+        FluButton{
+            text:"Multiple"
+            onClicked: {
+                tree_view.selectionMode = FluTreeView.Multiple
+            }
+        }
+
+        FluFilledButton{
+            text:"获取选中的数据"
+            onClicked: {
+                if(tree_view.selectionMode === FluTreeView.None){
+                    showError("当前非选择模式,没有选中的数据")
+                }
+                if(tree_view.selectionMode === FluTreeView.Single){
+                    showSuccess(tree_view.signleData().text)
+                }
+                if(tree_view.selectionMode === FluTreeView.Multiple){
+                    if(tree_view.multipData().length===0){
+                        showError("没有选中数据")
+                        return
+                    }
+                    var info = []
+                    tree_view.multipData().map((value)=>info.push(value.text))
+                    showSuccess(info.join(","))
+                }
+            }
+        }
+
+    }
 }
