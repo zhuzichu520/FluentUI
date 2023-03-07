@@ -1,6 +1,8 @@
 ﻿import QtQuick 2.15
 
-QtObject {
-    property string text;
-    property list<FluTreeItem> items;
+
+Item {
+    property string name
+    property bool expanded: false
+    property list<FluTreeItem> children
 }
