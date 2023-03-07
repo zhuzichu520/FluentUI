@@ -68,7 +68,6 @@ FluColors::FluColors(QObject *parent)
     red->lightest("#f06b76");
     Red(red);
 
-
     FluColorSet *magenta = new FluColorSet();
     magenta->darkest("#6f004f");
     magenta->darker("#a0076c");
