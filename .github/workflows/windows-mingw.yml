@@ -26,7 +26,7 @@ jobs:
             qt_tools: "tools_mingw,8.1.0-1-202004170606,qt.tools.win64_mingw810"
             qt_tools_mingw_install: mingw810_64
     env:
-      targetName: example
+      targetName: example.exe
     steps:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
@@ -65,7 +65,7 @@ jobs:
       - name: package
         id: package      
         env:
-          archiveName: ${{ matrix.qt_ver }}-${{ env.targetName }}-${{ matrix.qt_arch }}
+          archiveName: ${{ matrix.qt_ver }}-${{ env.targetName:0:-4 }}-${{ matrix.qt_arch }}
         shell: pwsh
         run: |
           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:targetName}
