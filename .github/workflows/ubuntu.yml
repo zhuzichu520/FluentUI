@@ -40,3 +40,30 @@ jobs:
         run: |
           qmake
           make
+      - name: install QT linux deploy
+        uses: miurahr/install-linuxdeploy-action@v1
+        with:
+          plugins: qt appimage
+      # 打包
+      - name: package
+        run: |
+          # make sure Qt plugin finds QML sources so it can deploy the imported files
+          export QML_SOURCES_PATHS=src
+          # 拷贝依赖
+          linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=bin/release/${targetName} --appdir bin/release/
+          mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}.AppImage
+      # 上传artifacts          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}.zip
+          path: ${{ env.targetName }}.AppImage
+      # tag 上传Release
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.targetName }}.AppImage
+          asset_name: ${{ env.targetName }}_${{ matrix.os }}_${{ matrix.qt_ver }}.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
