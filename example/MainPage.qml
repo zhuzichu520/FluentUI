@@ -56,6 +56,10 @@ FluWindow {
             page:"qrc:/T_Rectangle.qml"
         }
         ListElement{
+            text:"Expander"
+            page:"qrc:/T_Expander.qml"
+        }
+        ListElement{
             text:"TreeView"
             page:"qrc:/T_TreeView.qml"
         }
@@ -111,6 +115,7 @@ FluWindow {
             topMargin: 20
             bottomMargin: 52
         }
+        ScrollBar.vertical: ScrollBar { }
         boundsBehavior: Flickable.StopAtBounds
         clip: true
         width: 160

@@ -13,6 +13,11 @@ Rectangle {
     signal clicked
     property bool disabled: false
     property bool hovered: button_mouse.containsMouse
+
+    property color hoverColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(244/255,244/255,244/255,1)
+    property color normalColor: FluTheme.isDark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(1,1,1,1)
+    property color disableColor: FluTheme.isDark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(1,1,1,1)
+
     property color textColor: {
         if(FluTheme.isDark){
             if(disabled){
@@ -29,17 +34,10 @@ Rectangle {
     radius: 4
 
     color: {
-        if(FluTheme.isDark){
-            if(disabled){
-                return Qt.rgba(59/255,59/255,59/255,1)
-            }
-            return button_mouse.containsMouse ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(50/255,50/255,50/255,1)
-        }else{
-            if(disabled){
-                return Qt.rgba(1,1,1,1)
-            }
-            return button_mouse.containsMouse ? Qt.rgba(244/255,244/255,244/255,1) : Qt.rgba(1,1,1,1)
+        if(disabled){
+            return disableColor
         }
+        return (hovered || button_mouse.containsMouse) ? hoverColor : normalColor
     }
 
     Text {
@@ -69,7 +67,7 @@ Rectangle {
             if(button.text === ""){
                 return false
             }
-            return button_mouse.containsMouse
+            return (hovered || button_mouse.containsMouse)
         }
         delay: 1000
     }

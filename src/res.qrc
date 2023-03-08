@@ -34,5 +34,6 @@
         <file>controls/FluTextButton.qml</file>
         <file>controls/FluContentDialog.qml</file>
         <file>controls/FluTreeView.qml</file>
+        <file>controls/FluExpander.qml</file>
     </qresource>
 </RCC>
