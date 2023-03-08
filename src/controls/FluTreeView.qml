@@ -20,8 +20,6 @@ Rectangle {
     property var currentElement
     property var currentParentElement
 
-    property var multipElement: []
-
     property var rootModel: tree_model.get(0).items
 
     signal itemClicked(var item)
@@ -31,9 +29,11 @@ Rectangle {
         ListElement{
             text: "根节点"
             expanded:true
+            items:[]
             key:"123456"
             multipSelected:false
-            items:[]
+            multipIndex:0
+            multipParentKey:""
         }
     }
 
@@ -166,63 +166,58 @@ Rectangle {
                         text:""
                         checked: itemModel.multipSelected
                         visible: selectionMode === FluTreeView.Multiple
+                        Layout.leftMargin: 5
+
+                        function refreshCheckBox(){
+                            const stack = [tree_model.get(0)];
+                            const result = [];
+                            while (stack.length > 0) {
+                                const curr = stack.pop();
+                                result.unshift(curr);
+                                if (curr.items) {
+                                    for(var i=0 ; i<curr.items.count ; i++){
+                                        curr.items.setProperty(i,"multipIndex",i)
+                                        curr.items.setProperty(i,"multipParentKey",curr.key)
+                                        stack.push(curr.items.get(i));
+                                    }
+                                }
+                            }
+                            for(var j=0 ; j<result.length-1 ; j++){
+                                var item = result[j]
+                                let obj = result.find(function(o) {
+                                    return o.key === item.multipParentKey;
+                                });
+                                if((item.items !== undefined) && (item.items.count !== 0)){
+                                    var items = item.items
+                                    for(var k=0 ; k<items.count ; k++){
+                                        if(items.get(k).multipSelected === false){
+                                            obj.items.setProperty(item.multipIndex,"multipSelected",false)
+                                            break
+                                        }
+                                        obj.items.setProperty(item.multipIndex,"multipSelected",true)
+                                    }
+                                }
+                            }
+
+
+                        }
+
                         checkClicked:function(){
                             if(hasChild){
-
-                            }else{
-                                itemModel.multipSelected = !itemModel.multipSelected
-
-                                const stack = [tree_model.get(0)];
-                                const result = [];
+                                const stack = [itemModel];
                                 while (stack.length > 0) {
                                     const curr = stack.pop();
-                                    result.unshift(curr);
                                     if (curr.items) {
                                         for(var i=0 ; i<curr.items.count ; i++){
+                                            curr.items.setProperty(i,"multipSelected",!itemModel.multipSelected)
                                             stack.push(curr.items.get(i));
                                         }
                                     }
                                 }
-
-                                for(var j=0 ; j<result.length ; j++){
-                                    var item = result[j]
-                                    if((item.items !== undefined) && (item.items.count !== 0)){
-                                        console.debug(item.index)
-                                        var items = item.items
-                                        for(var k=0 ; k<items.count ; k++){
-
-
-
-                                            if(items.get(k).multipSelected === false){
-                                                items.setProperty(k,"multipSelected",false)
-                                                break
-                                            }
-                                            items.setProperty(k,"multipSelected",true)
-                                        }
-                                    }
-                                }
-
-
-                                //                                const stack = [tree_model.get(0)];
-                                //                                while (stack.length > 0) {
-                                //                                    const node = stack.pop();
-                                //                                    for (var i = 0 ; i <node.items.count; i i--) {
-                                //                                        const item = node.items.get(i)
-                                //                                        if((item.items !== undefined) && (item.items.count !== 0)){
-
-                                //                                            console.debug(item.text)
-                                //                                            var items = item.items
-                                //                                            for(var j=0 ; j<items.count ; j++){
-                                //                                                if(items.get(j).multipSelected === false){
-                                //                                                    node.items.setProperty(i,"multipSelected",false)
-                                //                                                    break
-                                //                                                }
-                                //                                                node.items.setProperty(i,"multipSelected",true)
-                                //                                            }
-                                //                                        }
-                                //                                        stack.push(item);
-                                //                                    }
-                                //                                }
+                                refreshCheckBox()
+                            }else{
+                                itemModel.multipSelected = !itemModel.multipSelected
+                                refreshCheckBox()
                             }
                         }
                     }
@@ -270,9 +265,7 @@ Rectangle {
                         delegate: delegate_items
                     }
                 }
-
             }
-
         }
     }
 
@@ -289,7 +282,6 @@ Rectangle {
         ScrollBar.horizontal: ScrollBar { }
     }
 
-
     function updateData(items){
         rootModel.clear()
         rootModel.append(items)
@@ -300,13 +292,24 @@ Rectangle {
     }
 
     function multipData(){
-        return multipElement
+        const stack = [tree_model.get(0)];
+        const result = [];
+        while (stack.length > 0) {
+            const curr = stack.pop();
+            if(curr.multipSelected){
+                result.push(curr)
+            }
+
+            for(var i=0 ; i<curr.items.count ; i++){
+                stack.push(curr.items.get(i));
+            }
+        }
+        return result
     }
 
     function createItem(text="Title",expanded=true,items=[]){
-        return {text:text,expanded:expanded,items:items,key:uniqueRandom(),multipSelected:false};
+        return {text:text,expanded:expanded,items:items,key:uniqueRandom(),multipSelected:false,multipIndex:0,multipParentKey:""};
     }
-
 
     function uniqueRandom() {
         var timestamp = Date.now();

@@ -123,6 +123,10 @@ Item {
                     showError("当前非选择模式,没有选中的数据")
                 }
                 if(tree_view.selectionMode === FluTreeView.Single){
+                    if(!tree_view.signleData()){
+                        showError("没有选中数据")
+                        return
+                    }
                     showSuccess(tree_view.signleData().text)
                 }
                 if(tree_view.selectionMode === FluTreeView.Multiple){
