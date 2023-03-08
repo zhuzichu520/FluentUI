@@ -2,7 +2,7 @@
 
 ## 简介
 
-QML插件
+这是一个漂亮的Fluent组件库，使用QML插件开发的
 
 ## status
 | [Windows][win-link]| [Ubuntu][ubuntu-link]|[MacOS][macos-link]|
@@ -46,3 +46,25 @@ QML插件
 |FluTooltip|tooltip提示框||
 |FluTreeView|树控件||
 |FluTheme|主题设置|支持主题颜色切换，夜间模式|
+
+# 部分效果预览
+
+## 主页
+
+![](doc/preview/main.png)
+
+## 主题颜色切换、夜间模式
+
+![](doc/preview/theme.png)
+
+## FluTreeView树组件
+
+![](doc/preview/treeview.png)
+
+## Toast组件
+
+![](doc/preview/infobar.png)
+
+## Rectangle组件
+
+![](doc/preview/rectangle.png)
