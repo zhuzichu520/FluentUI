@@ -1,4 +1,4 @@
-﻿#include "FramelessView.h"
+#include "FramelessView.h"
 #include <QGuiApplication>
 #include <QQuickItem>
 #include <QScreen>

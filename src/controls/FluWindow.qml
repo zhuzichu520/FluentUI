@@ -21,7 +21,12 @@ Item {
     property int minimumHeight
     property int maximumHeight
 
+    property bool isMacos: Qt.platform.os === "osx"
+
     property int borderless:{
+        if(isMacos){
+            return 0
+        }
         if(window === null)
             return 4
         if(Window.window.visibility === Window.Maximized){

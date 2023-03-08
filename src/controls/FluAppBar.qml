@@ -13,13 +13,15 @@ Rectangle{
             return borerlessColor
         return Window.window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
     }
-    height: 50
+    property bool isMacos: Qt.platform.os === "osx"
+    height: isMacos ? 0 : 50
     width: {
         if(parent==null)
             return 200
         return parent.width
     }
     z: 65535
+    clip: true
     property string title: "标题"
     property color textColor: FluTheme.isDark ? "#000000" : "#FFFFFF"
     property bool showDark: false

@@ -38,8 +38,13 @@ win32 {
     SOURCES += \
         FramelessView_win.cpp
 } else {
+    macos {
+    SOURCES += \
+        FramelessView_mac.cpp
+    }else{
     SOURCES += \
         FramelessView_unix.cpp
+    }
 }
 
 DEFINES += VERSION_IN=\\\"1.0.0\\\"

@@ -59,7 +59,7 @@ void FluApp::navigate(const QString& route){
     view->setSource((routes().value(route).toString()));
     if(isAppWindow){
         QObject::connect(view->engine(), &QQmlEngine::quit, qApp, &QCoreApplication::quit);
-        QObject::connect(qApp, &QGuiApplication::aboutToQuit, qApp, [&view](){view->setSource({});});
+//        QObject::connect(qApp, &QGuiApplication::aboutToQuit, qApp, [&view](){view->setSource({});});
     }else{
         view->closeDeleteLater();
     }
