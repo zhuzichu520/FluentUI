@@ -1,6 +1,7 @@
 name: Ubuntu
-# Qt官方没有linux平台的x86包
+
 on: 
+  workflow_dispatch:
   push:
     paths:
       - '*.pro'
@@ -20,11 +21,8 @@ jobs:
         os: [ubuntu-18.04,ubuntu-20.04]
         qt_ver: [5.15.2]
         qt_arch: [gcc_64]
-        exclude: 
-          # Qt6.2.2 need GLIBC_2.28, ubuntu 18.04 have not.
-          - os: ubuntu-18.04
-            qt_ver: 6.2.2
-            qt_arch: gcc_64
+    env:
+      targetName: example
     steps:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
@@ -32,7 +30,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           cached: 'false'
       - name: ubuntu install GL library
-        run: sudo apt-get install -y libglew-dev libglfw3-dev
+        run: sudo apt-get install -y libglew-dev libglfw3-dev qml-module-qtquick-controls qml-module-qtquick-controls2
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
