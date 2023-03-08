@@ -4,11 +4,10 @@
 
 这是一个漂亮的Fluent组件库，使用QML插件开发的
 
-## status
+## 编译状态
 | [Windows][win-link]| [Ubuntu][ubuntu-link]|[MacOS][macos-link]|
 |---------------|---------------|-----------------|
 | ![win-badge]  | ![ubuntu-badge]      | ![macos-badge] |
-
 
 [win-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AWindows "WindowsAction"
 [win-badge]: https://github.com/zhuzichu520/FluentUI/workflows/Windows/badge.svg  "Windows"
@@ -18,6 +17,18 @@
 
 [macos-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AMacOS "MacOSAction"
 [macos-badge]: https://github.com/zhuzichu520/FluentUI/workflows/MacOS/badge.svg "MacOS"
+
+## 发布
+
+|[已发布][release-link]|[下载][download-link]|下载次数|
+|:--:|:--:|:--:|
+|![release-badge] |![download-badge]|![download-latest]|
+
+[release-link]: https://github.com/zhuzichu520/FluentUI/releases "Release status"
+[release-badge]: https://img.shields.io/github/release/zhuzichu520/FluentUI.svg?style=flat-square "Release status"
+[download-link]: https://github.com/zhuzichu520/FluentUI/releases/latest "Download status"
+[download-badge]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/total.svg "Download status"
+[download-latest]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/latest/total.svg "latest status"
 
 ## 支持的组件
 
