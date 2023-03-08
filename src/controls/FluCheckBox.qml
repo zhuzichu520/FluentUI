@@ -8,6 +8,7 @@ Item {
     property bool checked: false
     property string text: "Check Box"
     property var checkClicked
+    property bool hovered: mouse_area.containsMouse
     width: childrenRect.width
     height: childrenRect.height
 

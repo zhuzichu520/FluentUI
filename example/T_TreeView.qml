@@ -66,7 +66,7 @@ Item {
             }
 
         Component.onCompleted: {
-            var org = createOrg(10, 3, 5)
+            var org = createOrg(3, 3, 3)
             updateData(org)
 
         }
@@ -84,13 +84,13 @@ Item {
         FluText{
             text:{
                 if(tree_view.selectionMode === FluTreeView.None){
-                    return "FluTreeView.None"
+                    return "selectionMode->FluTreeView.None"
                 }
                 if(tree_view.selectionMode === FluTreeView.Single){
-                    return "FluTreeView.Single"
+                    return "selectionMode->FluTreeView.Single"
                 }
                 if(tree_view.selectionMode === FluTreeView.Multiple){
-                    return "FluTreeView.Multiple"
+                    return "selectionMode->FluTreeView.Multiple"
                 }
             }
         }

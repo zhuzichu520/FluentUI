@@ -31,6 +31,8 @@ Rectangle {
         ListElement{
             text: "根节点"
             expanded:true
+            key:"123456"
+            multipSelected:false
             items:[]
         }
     }
@@ -66,7 +68,7 @@ Rectangle {
 
             property real level: (mapToItem(list_root,0,0).x+list_root.contentX)/0.001
             property var text: model.text??"Item"
-            property bool isItems : (model.items !== undefined) && (model.items.count !== 0)
+            property bool hasChild : (model.items !== undefined) && (model.items.count !== 0)
             property var items: model.items??[]
             property var expanded: model.expanded??true
             property int width_hint: calculateWidth()
@@ -99,12 +101,12 @@ Rectangle {
                             if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
                                 return Qt.rgba(62/255,62/255,62/255,1)
                             }
-                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered)?Qt.rgba(62/255,62/255,62/255,1):Qt.rgba(50/255,50/255,50/255,1)
+                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(62/255,62/255,62/255,1):Qt.rgba(50/255,50/255,50/255,1)
                         }else{
                             if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
                                 return Qt.rgba(244/255,244/255,244/255,1)
                             }
-                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered)?Qt.rgba(244/255,244/255,244/255,1):Qt.rgba(253/255,253/255,253/255,1)
+                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(244/255,244/255,244/255,1):Qt.rgba(253/255,253/255,253/255,1)
                         }
                     }
 
@@ -160,14 +162,67 @@ Rectangle {
                     }
 
                     FluCheckBox{
+                        id:item_layout_checkbox
                         text:""
-                        checked: multipElement.includes(itemModel)
+                        checked: itemModel.multipSelected
                         visible: selectionMode === FluTreeView.Multiple
                         checkClicked:function(){
-                            if(checked){
-                                multipElement = multipElement.filter((value) => value !== itemModel)
+                            if(hasChild){
+
                             }else{
-                                multipElement = [...multipElement,itemModel]
+                                itemModel.multipSelected = !itemModel.multipSelected
+
+                                const stack = [tree_model.get(0)];
+                                const result = [];
+                                while (stack.length > 0) {
+                                    const curr = stack.pop();
+                                    result.unshift(curr);
+                                    if (curr.items) {
+                                        for(var i=0 ; i<curr.items.count ; i++){
+                                            stack.push(curr.items.get(i));
+                                        }
+                                    }
+                                }
+
+                                for(var j=0 ; j<result.length ; j++){
+                                    var item = result[j]
+                                    if((item.items !== undefined) && (item.items.count !== 0)){
+                                        console.debug(item.index)
+                                        var items = item.items
+                                        for(var k=0 ; k<items.count ; k++){
+
+
+
+                                            if(items.get(k).multipSelected === false){
+                                                items.setProperty(k,"multipSelected",false)
+                                                break
+                                            }
+                                            items.setProperty(k,"multipSelected",true)
+                                        }
+                                    }
+                                }
+
+
+                                //                                const stack = [tree_model.get(0)];
+                                //                                while (stack.length > 0) {
+                                //                                    const node = stack.pop();
+                                //                                    for (var i = 0 ; i <node.items.count; i i--) {
+                                //                                        const item = node.items.get(i)
+                                //                                        if((item.items !== undefined) && (item.items.count !== 0)){
+
+                                //                                            console.debug(item.text)
+                                //                                            var items = item.items
+                                //                                            for(var j=0 ; j<items.count ; j++){
+                                //                                                if(items.get(j).multipSelected === false){
+                                //                                                    node.items.setProperty(i,"multipSelected",false)
+                                //                                                    break
+                                //                                                }
+                                //                                                node.items.setProperty(i,"multipSelected",true)
+                                //                                            }
+                                //                                        }
+                                //                                        stack.push(item);
+                                //                                    }
+                                //                                }
                             }
                         }
                     }
@@ -176,9 +231,9 @@ Rectangle {
                         id:item_layout_expanded
                         color:"#00000000"
                         icon:item_layout.expanded?FluentIcons.FA_angle_down:FluentIcons.FA_angle_right
-                        opacity: item_layout.isItems
+                        opacity: item_layout.hasChild
                         onClicked: {
-                            if(!item_layout.isItems){
+                            if(!item_layout.hasChild){
                                 item_layout_rect.onClickItem()
                                 return
                             }
@@ -198,7 +253,7 @@ Rectangle {
             Item{
                 id:item_sub
                 visible: {
-                    if(!isItems){
+                    if(!hasChild){
                         return false
                     }
                     return item_layout.expanded??false
@@ -249,8 +304,14 @@ Rectangle {
     }
 
     function createItem(text="Title",expanded=true,items=[]){
-        return {text:text,expanded:expanded,items:items};
+        return {text:text,expanded:expanded,items:items,key:uniqueRandom(),multipSelected:false};
     }
 
+
+    function uniqueRandom() {
+        var timestamp = Date.now();
+        var random = Math.floor(Math.random() * 1000000);
+        return timestamp.toString() + random.toString();
+    }
 
 }
