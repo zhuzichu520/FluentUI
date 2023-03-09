@@ -21,10 +21,8 @@ Item {
     property int minimumHeight
     property int maximumHeight
 
-    property bool isMacos: Qt.platform.os === "osx"
-
     property int borderless:{
-        if(isMacos){
+        if(!FluTheme.isFrameless){
             return 0
         }
         if(window === null)
@@ -34,6 +32,7 @@ Item {
         }
         return 4
     }
+
     default property alias content: container.data
 
     FluWindowResize{
@@ -51,7 +50,7 @@ Item {
         color: {
             if(window === null)
                 return borerlessColor
-           return window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
+            return window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
         }
         border.width: 1
         anchors.fill: parent

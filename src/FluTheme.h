@@ -9,6 +9,7 @@ class FluTheme : public QObject
 {
     Q_OBJECT
     Q_PROPERTY_AUTO(FluColorSet*,primaryColor)
+    Q_PROPERTY_AUTO(bool,isFrameless);
     Q_PROPERTY_AUTO(bool,isDark);
 public:
     explicit FluTheme(QObject *parent = nullptr);

@@ -21,6 +21,7 @@ public:
     void closeDeleteLater();
     bool isMax() const;
     bool isFull() const;
+    void refreshWindow();
     QQuickItem *titleItem() const;
 
     static QMap<WId,FramelessView*> *windowCache;
@@ -38,6 +39,7 @@ signals:
 protected:
     void showEvent(QShowEvent *e) override;
     void resizeEvent(QResizeEvent *e) override;
+    bool event(QEvent *ev) override;
 #    if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) override;
 #    else

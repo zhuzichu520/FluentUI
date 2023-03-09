@@ -6,8 +6,11 @@ FluWindow {
 
     width: 500
     height: 600
-    minimumWidth: 300
-    minimumHeight: 400
+    minimumWidth: 500
+    minimumHeight: 600
+    maximumWidth: 500
+    maximumHeight: 600
+
     title:"关于"
 
     FluAppBar{

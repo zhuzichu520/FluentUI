@@ -18,7 +18,6 @@ FluWindow {
         id:appbar
         title: "FluentUI"
         showDark: true
-        showFps: true
     }
 
     ListModel{

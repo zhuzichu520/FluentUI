@@ -13,8 +13,8 @@ Rectangle{
             return borerlessColor
         return Window.window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
     }
-    property bool isMacos: Qt.platform.os === "osx"
-    height: isMacos ? 0 : 50
+    visible: FluTheme.isFrameless
+    height: visible ? 50 : 0
     width: {
         if(parent==null)
             return 200

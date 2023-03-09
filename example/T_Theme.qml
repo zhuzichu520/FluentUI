@@ -59,6 +59,17 @@ Item {
                     FluTheme.isDark = !FluTheme.isDark
                 }
             }
+            FluText{
+                text:"无边框"
+                fontStyle: FluText.Subtitle
+                Layout.topMargin: 20
+            }
+            FluToggleSwitch{
+                checked: FluTheme.isFrameless
+                onClickFunc:function(){
+                    FluTheme.isFrameless = !FluTheme.isFrameless
+                }
+            }
         }
     }
 }

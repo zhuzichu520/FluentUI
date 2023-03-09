@@ -9,8 +9,22 @@ Item {
     property string text: "Check Box"
     property var checkClicked
     property bool hovered: mouse_area.containsMouse
+
+    property bool disabled: false
+
     width: childrenRect.width
     height: childrenRect.height
+
+    property color borderNormalColor: FluTheme.isDark ? Qt.rgba(160/255,160/255,160/255,1) : Qt.rgba(136/255,136/255,136/255,1)
+    property color borderCheckedColor: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color borderHoverColor: FluTheme.isDark ? Qt.rgba(167/255,167/255,167/255,1) : Qt.rgba(135/255,135/255,135/255,1)
+
+
+    property color normalColor: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+    property color checkedColor: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color hoverColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(244/255,244/255,244/255,1)
+
+    property color checkedHoverColor: FluTheme.isDark ? Qt.darker(checkedColor,1.1) : Qt.lighter(checkedColor,1.1)
 
     RowLayout{
         spacing: 4
@@ -19,46 +33,26 @@ Item {
             height: 22
             radius: 4
             border.color: {
-                if(FluTheme.isDark){
-                    if(checked){
-                        return FluTheme.primaryColor.lighter
-                    }
-                    return Qt.rgba(160/255,160/255,160/255,1)
-                }else{
-                    if(checked){
-                        if(mouse_area.containsMouse){
-                            return Qt.rgba(25/255,117/255,187/255,1)
-                        }
-                        return FluTheme.primaryColor.dark
-                    }
-                    return Qt.rgba(136/255,136/255,136/255,1)
+                if(checked){
+                    return borderCheckedColor
                 }
+                if(hovered){
+                    return borderHoverColor
+                }
+                return borderNormalColor
             }
             border.width: 1
             color: {
-                if(FluTheme.isDark){
-                    if(checked){
-                        if(mouse_area.containsMouse){
-                            return Qt.rgba(74/255,149/255,207/255,1)
-                        }
-                        return FluTheme.primaryColor.lighter
+                if(checked){
+                    if(hovered){
+                        return checkedHoverColor
                     }
-                    if(mouse_area.containsMouse){
-                        return Qt.rgba(62/255,62/255,62/255,1)
-                    }
-                    return Qt.rgba(45/255,45/255,45/255,1)
-                }else{
-                    if(checked){
-                        if(mouse_area.containsMouse){
-                            return Qt.rgba(25/255,117/255,187/255,1)
-                        }
-                        return FluTheme.primaryColor.dark
-                    }
-                    if(mouse_area.containsMouse){
-                        return Qt.rgba(244/255,244/255,244/255,1)
-                    }
-                    return  Qt.rgba(247/255,247/255,247/255,1)
+                    return checkedColor
                 }
+                if(hovered){
+                    return hoverColor
+                }
+                return normalColor
             }
 
             FluIcon {
@@ -79,6 +73,7 @@ Item {
         id:mouse_area
         anchors.fill: parent
         hoverEnabled: true
+        enabled: !disabled
         onClicked: {
             if(checkClicked){
                 checkClicked()

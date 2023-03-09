@@ -3,6 +3,7 @@
 #include <QQuickItem>
 #include <QScreen>
 #include <QWindow>
+#include <FluTheme.h>
 
 class FramelessViewPrivate
 {
@@ -12,10 +13,10 @@ public:
     bool m_deleteLater = false;
     QQuickItem *m_titleItem = nullptr;
 };
+
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
-//    setFlags(Qt::CustomizeWindowHint | Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
-    setResizeMode(SizeRootObjectToView);
+    refreshWindow();
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
     connect(this, &QWindow::windowStateChanged, this, [&](Qt::WindowState state) {
@@ -23,15 +24,31 @@ FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessVi
         setIsMax(windowState() == Qt::WindowMaximized);
         setIsFull(windowState() == Qt::WindowFullScreen);
     });
+    connect(FluTheme::getInstance(),&FluTheme::isFramelessChanged,this,[=](){
+        refreshWindow();
+    });
 }
+
+void FramelessView::refreshWindow(){
+    if(FluTheme::getInstance()->isFrameless()){
+        setFlags(Qt::CustomizeWindowHint | Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
+    }else{
+        setFlags(Qt::Window);
+    }
+    setResizeMode(SizeViewToRootObject);
+    setResizeMode(SizeRootObjectToView);
+}
+
 FramelessView::~FramelessView()
 {
     delete d;
 }
+
 void FramelessView::showEvent(QShowEvent *e)
 {
     Super::showEvent(e);
 }
+
 QRect FramelessView::calcCenterGeo(const QRect &screenGeo, const QSize &normalSize)
 {
     int w = normalSize.width();
@@ -46,9 +63,9 @@ QRect FramelessView::calcCenterGeo(const QRect &screenGeo, const QSize &normalSi
         y = screenGeo.y();
         h = screenGeo.height();
     }
-
     return { x, y, w, h };
 }
+
 void FramelessView::moveToScreenCenter()
 {
     auto geo = calcCenterGeo(screen()->availableGeometry(), size());
@@ -58,6 +75,7 @@ void FramelessView::moveToScreenCenter()
     setGeometry(geo);
     update();
 }
+
 void FramelessView::closeDeleteLater(){
     d->m_deleteLater = true;
 }
@@ -66,14 +84,17 @@ bool FramelessView::isMax() const
 {
     return d->m_isMax;
 }
+
 bool FramelessView::isFull() const
 {
     return d->m_isFull;
 }
+
 QQuickItem *FramelessView::titleItem() const
 {
     return d->m_titleItem;
 }
+
 void FramelessView::setIsMax(bool isMax)
 {
     if (d->m_isMax == isMax)
@@ -82,6 +103,7 @@ void FramelessView::setIsMax(bool isMax)
     d->m_isMax = isMax;
     emit isMaxChanged(d->m_isMax);
 }
+
 void FramelessView::setIsFull(bool isFull)
 {
     if(d->m_isFull == isFull)
@@ -90,6 +112,7 @@ void FramelessView::setIsFull(bool isFull)
     d->m_isFull = isFull;
     emit isFullChanged(d->m_isFull);
 }
+
 void FramelessView::setTitleItem(QQuickItem *item)
 {
     d->m_titleItem = item;
@@ -107,3 +130,15 @@ void FramelessView::resizeEvent(QResizeEvent *e)
 {
     Super::resizeEvent(e);
 }
+
+bool FramelessView::event(QEvent *ev)
+{
+    if (ev->type() == QEvent::Close) {
+        if(d->m_deleteLater){
+            deleteLater();
+            ev->setAccepted(false);
+        }
+    }
+    return QQuickWindow::event(ev);
+}
+

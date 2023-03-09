@@ -127,6 +127,30 @@ Item {
                     text:"Disabled"
                 }
             }
+            FluDivider{
+                Layout.fillWidth: true ; height:1
+            }
+            RowLayout{
+                Layout.topMargin: 20
+                width: parent.width
+                FluCheckBox{
+                    disabled:icon_button_check.checked
+                }
+                Item{
+                    height: 1
+                    Layout.fillWidth: true
+                }
+                FluToggleSwitch{
+                    id:icon_button_check
+                    Layout.alignment: Qt.AlignRight
+                }
+                FluText{
+                    text:"Disabled"
+                }
+            }
+            FluDivider{
+                Layout.fillWidth: true ; height:1
+            }
         }
     }
 }
