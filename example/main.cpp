@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDir>
+#include <QQuickWindow>
 #include <QProcess>
 
 QMap<QString, QVariant> properties(){
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QCoreApplication::setApplicationName("FluentUI");
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     QMapIterator<QString, QVariant> iterator(properties());

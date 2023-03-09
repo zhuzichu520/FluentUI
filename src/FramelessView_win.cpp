@@ -16,6 +16,7 @@ public:
 
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
+    setResizeMode(SizeRootObjectToView);
     refreshWindow();
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
@@ -35,8 +36,6 @@ void FramelessView::refreshWindow(){
     }else{
         setFlags(Qt::Window);
     }
-    setResizeMode(SizeViewToRootObject);
-    setResizeMode(SizeRootObjectToView);
 }
 
 FramelessView::~FramelessView()
@@ -123,6 +122,17 @@ bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, qint
 bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, long *result)
 #endif
 {
+    MSG* msg = static_cast<MSG*>(message);
+    if (msg->message == WM_WINDOWPOSCHANGING)
+    {
+        WINDOWPOS* wp = reinterpret_cast<WINDOWPOS*>(msg->lParam);
+        if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0)
+        {
+            wp->flags |= SWP_NOCOPYBITS;
+            *result = 0;
+            return true;
+        }
+    }
     return Super::nativeEvent(eventType, message, result);
 }
 
