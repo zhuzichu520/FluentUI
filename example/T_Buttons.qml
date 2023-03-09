@@ -108,7 +108,7 @@ Item {
                         delegate:  FluRadioButton{
                             checked : repeater.selecIndex===index
                             disabled:radio_button_switch.checked
-                            text:"RodioButton_"+index
+                            text:"Radio Button_"+index
                             onClicked:{
                                 repeater.selecIndex = index
                             }

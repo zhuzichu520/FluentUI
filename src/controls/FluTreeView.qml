@@ -198,8 +198,6 @@ Rectangle {
                                     }
                                 }
                             }
-
-
                         }
 
                         checkClicked:function(){
@@ -239,8 +237,8 @@ Rectangle {
                     FluText {
                         text:  item_layout.text
                         Layout.alignment: Qt.AlignVCenter
-                        topPadding: 10
-                        bottomPadding: 10
+                        topPadding: 7
+                        bottomPadding: 7
                     }
                 }
             }

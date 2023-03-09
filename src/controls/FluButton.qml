@@ -37,7 +37,6 @@ Rectangle {
     FluText {
         id: button_text
         text: button.text
-        font.pixelSize: 14
         leftPadding: button.startPadding
         rightPadding: button.endPadding
         topPadding: button.topPadding

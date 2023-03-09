@@ -43,7 +43,7 @@ Item {
                             model: 3
                             delegate:  FluRadioButton{
                                 checked : repeater.selecIndex===index
-                                text:"RodioButton_"+index
+                                text:"Radio Button_"+index
                                 onClicked:{
                                     repeater.selecIndex = index
                                 }

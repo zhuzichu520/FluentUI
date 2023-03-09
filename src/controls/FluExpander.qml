@@ -18,7 +18,7 @@ Item {
     Rectangle{
         id:layout_header
         width: parent.width
-        height: 50
+        height: 45
         radius: 4
         border.color: FluTheme.isDark ? Qt.rgba(53/255,53/255,53/255,1) : Qt.rgba(240/255,240/255,240/255,1)
         color: FluTheme.isDark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)

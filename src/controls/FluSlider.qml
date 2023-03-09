@@ -6,8 +6,10 @@ Item{
 
     id:root
 
-    property int lineWidth: 5
+    property int lineSize: 5
+    property int size: 180
     property int dotSize: 26
+
     property int value: 50
 
     enum Orientation  {
@@ -21,6 +23,8 @@ Item{
     property int orientation: FluSlider.Horizontal
 
     property bool isHorizontal: orientation === FluSlider.Horizontal
+
+    rotation: isHorizontal ? 0 : 180
 
     Component.onCompleted: {
         if(isHorizontal){
@@ -38,8 +42,8 @@ Item{
 
     FluRectangle {
         id: control
-        width: isHorizontal ? 200 : root.lineWidth
-        height:  isHorizontal ? root.lineWidth : 200
+        width: isHorizontal ? size : root.lineSize
+        height:  isHorizontal ? root.lineSize : size
         radius: [3,3,3,3]
         clip: true
         anchors.verticalCenter: parent.verticalCenter
@@ -101,6 +105,7 @@ Item{
         FluTooltip{
             id:tool_tip
             text:String(root.value)
+            y: isHorizontal ? -40 : 32
         }
     }
 

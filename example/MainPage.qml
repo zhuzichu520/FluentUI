@@ -11,7 +11,7 @@ FluWindow {
     width: 800
     height: 600
     title: "FluentUI"
-    minimumWidth: 600
+    minimumWidth: 500
     minimumHeight: 400
 
     FluAppBar{
@@ -123,7 +123,6 @@ FluWindow {
             height: 38
             width: nav_list.width
 
-
             Rectangle{
                 radius: 4
                 anchors{
@@ -167,7 +166,6 @@ FluWindow {
                 FluText{
                     text:model.text
                     anchors.centerIn: parent
-                    fontStyle: FluText.Caption
                 }
 
             }

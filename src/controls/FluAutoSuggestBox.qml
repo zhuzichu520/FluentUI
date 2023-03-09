@@ -3,9 +3,13 @@ import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 TextField{
+
+    property var values:[]
+    property int fontStyle: FluText.Body
+    property int pixelSize : FluTheme.textSize
+
     id:input
     width: 300
-    property var values:[]
     color: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
     selectionColor: {
         if(FluTheme.isDark){
@@ -14,9 +18,58 @@ TextField{
             return FluTheme.primaryColor.dark
         }
     }
+    placeholderTextColor: {
+        if(focus){
+            return FluTheme.isDark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
+        }
+        return FluTheme.isDark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
+    }
     rightPadding: 30
     selectByMouse: true
-
+    font.bold: {
+        switch (fontStyle) {
+        case FluText.Display:
+            return true
+        case FluText.TitleLarge:
+            return true
+        case FluText.Title:
+            return true
+        case FluText.Subtitle:
+            return true
+        case FluText.BodyLarge:
+            return false
+        case FluText.BodyStrong:
+            return true
+        case FluText.Body:
+            return false
+        case FluText.Caption:
+            return false
+        default:
+            return false
+        }
+    }
+    font.pixelSize: {
+        switch (fontStyle) {
+        case FluText.Display:
+            return input.pixelSize * 4
+        case FluText.TitleLarge:
+            return input.pixelSize * 2
+        case FluText.Title:
+            return input.pixelSize * 1.5
+        case FluText.Subtitle:
+            return input.pixelSize * 0.9
+        case FluText.BodyLarge:
+            return input.pixelSize * 1.1
+        case FluText.BodyStrong:
+            return input.pixelSize * 1.0
+        case FluText.Body:
+            return input.pixelSize * 1.0
+        case FluText.Caption:
+            return input.pixelSize * 0.8
+        default:
+            return input.pixelSize * 1.0
+        }
+    }
     background: FluTextBoxBackground{
         inputItem: input
 
@@ -72,7 +125,7 @@ TextField{
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left: parent.left
-                            leftMargin: 15
+                            leftMargin: 10
                         }
                     }
                 }
@@ -84,8 +137,6 @@ TextField{
                         anchors.fill: parent
                         anchors.topMargin: 2
                         anchors.bottomMargin: 2
-                        anchors.leftMargin: 5
-                        anchors.rightMargin: 5
                         color:  {
                             if(item_mouse.containsMouse){
                                 return FluTheme.isDark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(234/255,234/255,234/255,1)

@@ -3,7 +3,9 @@ import FluentUI 1.0
 
 Text {
 
-    id:text
+    property int fontStyle: FluText.Body
+    property color textColor: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+    property int pixelSize : FluTheme.textSize
 
     enum FontStyle {
         Display,
@@ -16,12 +18,8 @@ Text {
         Caption
     }
 
-    property int fontStyle: FluText.Body
-    property color textColor: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
-    property int pixelSize : 14
-
+    id:text
     color: textColor
-
     font.bold: {
         switch (fontStyle) {
         case FluText.Display:
@@ -44,7 +42,6 @@ Text {
             return false
         }
     }
-
     font.pixelSize: {
         switch (fontStyle) {
         case FluText.Display:
@@ -67,6 +64,5 @@ Text {
             return text.pixelSize * 1.0
         }
     }
-
 
 }

@@ -73,9 +73,12 @@ void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     Q_UNUSED(engine)
     Q_UNUSED(uri)
+#ifdef Q_OS_WIN
     QFont font;
     font.setFamily("Microsoft YaHei");
     QGuiApplication::setFont(font);
+    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
+#endif
     QFontDatabase::addApplicationFont(":/com.zhuzichu/res/font/fontawesome-webfont.ttf");
     FluApp* app = FluApp::getInstance();
     engine->rootContext()->setContextProperty("FluApp",app);

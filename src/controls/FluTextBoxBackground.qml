@@ -9,6 +9,9 @@ Rectangle{
     radius: 4
     layer.enabled: true
     color: {
+        if(input.focus){
+            return FluTheme.isDark ? Qt.rgba(36/255,36/255,36/255,1) : Qt.rgba(1,1,1,1)
+        }
         if(input.hovered){
             return FluTheme.isDark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
         }
