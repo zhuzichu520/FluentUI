@@ -153,13 +153,13 @@ FluWindow {
                         }
                         return "#202020"
                     }else{
-                        if(nav_list.currentIndex === index){
-                            return "#EAEAEA"
-                        }
                         if(item_mouse.containsMouse){
-                            return "#EDEDED"
+                            return Qt.rgba(0,0,0,0.03)
                         }
-                        return "#F3f3f3"
+                        if(nav_list.currentIndex === index){
+                            return Qt.rgba(0,0,0,0.06)
+                        }
+                        return Qt.rgba(0,0,0,0)
                     }
                 }
 

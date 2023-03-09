@@ -14,7 +14,13 @@ Item {
         return Window.window
     }
 
-    property color color: FluTheme.isDark ? "#202020" : "#F3F3F3"
+    property color color: {
+        if(window && window.active){
+            return FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+        }
+        return FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+    }
+
     property string title: "FluentUI"
     property int minimumWidth
     property int maximumWidth
@@ -25,12 +31,7 @@ Item {
         if(!FluTheme.isFrameless){
             return 0
         }
-        if(window === null)
-            return 4
-        if(Window.window.visibility === Window.Maximized){
-            return 0
-        }
-        return 4
+        return (window && (window.visibility === Window.Maximized)) ? 0 : 4
     }
 
     default property alias content: container.data
@@ -47,11 +48,7 @@ Item {
 
     Rectangle{
         property color borerlessColor : FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
-        color: {
-            if(window === null)
-                return borerlessColor
-            return window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
-        }
+        color:  (window && window.active) ? borerlessColor : Qt.lighter(borerlessColor,1.1)
         border.width: 1
         anchors.fill: parent
         radius: 4
@@ -63,6 +60,11 @@ Item {
         color:root.color
         anchors.fill: parent
         anchors.margins: borderless
+        Behavior on color{
+            ColorAnimation {
+                duration: 300
+            }
+        }
     }
 
     Component.onCompleted: {
