@@ -33,6 +33,7 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
 
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluAutoSuggestBox.qml"),uri,major,minor,"FluAutoSuggestBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluExpander.qml"),uri,major,minor,"FluExpander");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTreeView.qml"),uri,major,minor,"FluTreeView");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluContentDialog.qml"),uri,major,minor,"FluContentDialog");

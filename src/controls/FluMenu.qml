@@ -11,6 +11,7 @@ Popup {
         implicitHeight: container.height
         color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
         radius: 5
+
         FluShadow{
             radius: 5
         }

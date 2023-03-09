@@ -23,10 +23,12 @@ Popup {
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape
     background: Rectangle {
+        id:layout_content
         implicitWidth:minWidth
         implicitHeight: text_title.height + text_message.height + layout_actions.height
         color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
         radius:5
+
         FluShadow{
             radius: 5
         }

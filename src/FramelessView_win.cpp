@@ -16,7 +16,6 @@ public:
 
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
-    setResizeMode(SizeRootObjectToView);
     refreshWindow();
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
@@ -36,6 +35,8 @@ void FramelessView::refreshWindow(){
     }else{
         setFlags(Qt::Window);
     }
+    setResizeMode(SizeViewToRootObject);
+    setResizeMode(SizeRootObjectToView);
 }
 
 FramelessView::~FramelessView()

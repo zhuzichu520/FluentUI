@@ -35,5 +35,6 @@
         <file>controls/FluContentDialog.qml</file>
         <file>controls/FluTreeView.qml</file>
         <file>controls/FluExpander.qml</file>
+        <file>controls/FluAutoSuggestBox.qml</file>
     </qresource>
 </RCC>
