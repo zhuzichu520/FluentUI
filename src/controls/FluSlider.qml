@@ -6,23 +6,40 @@ Item{
 
     id:root
 
-    property int lineWidth: 6
-    property int dotSize: 30
+    property int lineWidth: 5
+    property int dotSize: 26
     property int value: 50
 
+    enum Orientation  {
+        Horizontal,
+        Vertical
+    }
+
+    height: control.height
+    width: control.width
+
+    property int orientation: FluSlider.Horizontal
+
+    property bool isHorizontal: orientation === FluSlider.Horizontal
+
     Component.onCompleted: {
-        dot.x =value/100*control.width - dotSize/2
-        root.value = Qt.binding(function(){
-            return (dot.x+15)/control.width*100
-        })
+        if(isHorizontal){
+            dot.x =value/100*control.width - dotSize/2
+            root.value = Qt.binding(function(){
+                return (dot.x+dotSize/2)/control.width*100
+            })
+        }else{
+            dot.y =value/100*control.height - dotSize/2
+            root.value = Qt.binding(function(){
+                return (dot.y+dotSize/2)/control.height*100
+            })
+        }
     }
 
     FluRectangle {
-
         id: control
-
-        width: 300
-        height: root.lineWidth
+        width: isHorizontal ? 200 : root.lineWidth
+        height:  isHorizontal ? root.lineWidth : 200
         radius: [3,3,3,3]
         clip: true
         anchors.verticalCenter: parent.verticalCenter
@@ -30,8 +47,8 @@ Item{
         Rectangle{
             id:rect
             radius: 3
-            width: control.width*(value/100)
-            height:  control.height
+            width: isHorizontal ? control.width*(value/100) : control.width
+            height: isHorizontal ?  control.height  : control.height*(value/100)
             color:FluTheme.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
     }
@@ -40,11 +57,12 @@ Item{
         id:dot
         width: dotSize
         height: dotSize
-                FluShadow{
-                radius: 15
-                }
-        radius: 15
-        anchors.verticalCenter: parent.verticalCenter
+        FluShadow{
+            radius: dotSize/2
+        }
+        radius: dotSize/2
+        anchors.verticalCenter: isHorizontal ?  parent.verticalCenter : undefined
+        anchors.horizontalCenter: isHorizontal ? undefined :parent.horizontalCenter
         color:FluTheme.isDark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
         Rectangle{
             width: dotSize/2
@@ -65,9 +83,11 @@ Item{
             hoverEnabled: true
             drag {
                 target: dot
-                axis: Drag.XAxis
-                minimumX: -dotSize/2
-                maximumX: control.width - dotSize/2
+                axis: isHorizontal ? Drag.XAxis : Drag.YAxis
+                minimumX: isHorizontal ? -dotSize/2 : 0
+                maximumX: isHorizontal ?  (control.width - dotSize/2) : 0
+                minimumY: isHorizontal ? 0 : -dotSize/2
+                maximumY: isHorizontal ? 0 : (control.height - dotSize/2)
             }
             onPressed: {
                 tool_tip.visible  =  true

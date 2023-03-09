@@ -8,8 +8,8 @@ Rectangle {
     property string text: "Filled Button"
     property int startPadding : 15
     property int endPadding : 15
-    property int topPadding: 8
-    property int bottomPadding: 8
+    property int topPadding: 5
+    property int bottomPadding: 5
     property bool disabled: false
 
     signal clicked

@@ -91,7 +91,7 @@ FluWindow {
             FluMenuItem{
                 text:"意见反馈"
                 onClicked:{
-                    showInfo("正在建设中...")
+                    Qt.openUrlExternally("https://github.com/zhuzichu520/FluentUI/issues/new")
                 }
             }
             FluMenuItem{

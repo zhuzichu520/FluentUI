@@ -34,7 +34,7 @@ FluWindow {
                 fontStyle: FluText.Title
             }
             FluText{
-                text:"v1.0.1"
+                text:"v1.0.2"
                 fontStyle: FluText.Body
                 Layout.alignment: Qt.AlignBottom
             }

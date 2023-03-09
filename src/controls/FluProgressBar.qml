@@ -4,8 +4,8 @@ import QtQuick.Controls 2.12
 FluRectangle {
     id: control
 
-    width: 180
-    height: 6
+    width: 150
+    height: 5
     radius: [3,3,3,3]
     clip: true
     color:  FluTheme.isDark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)

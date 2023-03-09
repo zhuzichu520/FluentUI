@@ -7,8 +7,8 @@ Rectangle {
     property string text: "Standard Button"
     property int startPadding : 15
     property int endPadding : 15
-    property int topPadding: 8
-    property int bottomPadding: 8
+    property int topPadding: 5
+    property int bottomPadding: 5
     property bool disabled: false
     property color primaryColor : "#0064B0"
     signal clicked
