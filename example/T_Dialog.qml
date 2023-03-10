@@ -5,13 +5,8 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
-Item {
-
-    FluText{
-        id:title
-       text:"Dialog"
-        fontStyle: FluText.TitleLarge
-    }
+FluScrollablePage{
+    title:"Dialog"
 
     FluContentDialog{
         id:dialog
@@ -27,25 +22,11 @@ Item {
         }
     }
 
-
-
-    ScrollView{
-        clip: true
-        width: parent.width
-        contentWidth: parent.width
-        anchors{
-            top: title.bottom
-            bottom: parent.bottom
-        }
-        ColumnLayout{
-            spacing: 5
-            FluButton{
-                Layout.topMargin: 20
-                text:"Show Dialog"
-                onClicked: {
-                    dialog.open()
-                }
-            }
+    FluButton{
+        Layout.topMargin: 20
+        text:"Show Dialog"
+        onClicked: {
+            dialog.open()
         }
     }
 }

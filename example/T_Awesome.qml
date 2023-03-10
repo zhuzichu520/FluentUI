@@ -4,20 +4,19 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 
-Item {
-    FluText{
-        id:title
-        text:"Awesome"
-        fontStyle: FluText.TitleLarge
-    }
+FluContentPage {
+
+    title:"Awesome"
+
     FluTextBox{
         id:text_box
         placeholderText: "请输入关键字"
         anchors{
             topMargin: 20
-            top:title.bottom
+            top:parent.top
         }
     }
+
     FluFilledButton{
         text:"搜索"
         anchors{

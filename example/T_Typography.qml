@@ -3,24 +3,15 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Item {
+FluContentPage {
 
+    title: "Typography"
     property int textSize: 13
-
-    FluText{
-        id:title
-        text:"Typography"
-        fontStyle: FluText.TitleLarge
-    }
 
     ScrollView{
         clip: true
         width: parent.width
         contentWidth: parent.width
-        anchors{
-            top: title.bottom
-            bottom: parent.bottom
-        }
         ColumnLayout{
             spacing: 0
             FluText{
@@ -85,7 +76,7 @@ Item {
             topMargin: 30
         }
         onValueChanged:{
-           textSize = value/100*16+8
+            textSize = value/100*16+8
         }
         value: 31
     }

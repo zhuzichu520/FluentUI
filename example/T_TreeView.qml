@@ -2,15 +2,11 @@
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
-Item {
-    FluText{
-        id:title
-        text:"TreeView"
-        fontStyle: FluText.TitleLarge
-    }
+FluContentPage {
+
+    title:"TreeView"
 
     function randomName() {
         var names = ["张三", "李四", "王五", "赵六", "钱七", "孙八", "周九", "吴十"]
@@ -56,7 +52,7 @@ Item {
         id:tree_view
         width:240
         anchors{
-            top:title.bottom
+            top:parent.top
             left:parent.left
             bottom:parent.bottom
         }

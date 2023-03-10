@@ -60,6 +60,7 @@ Item {
         color:root.color
         anchors.fill: parent
         anchors.margins: borderless
+        clip: true
         Behavior on color{
             ColorAnimation {
                 duration: 300

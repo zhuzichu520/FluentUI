@@ -2,154 +2,182 @@
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
-Item {
-    width: parent.width
-    FluText{
-        id:title
-        text:"Buttons"
-        fontStyle: FluText.TitleLarge
-    }
-    ScrollView{
-        clip: true
+FluScrollablePage{
+    title:"Buttons"
+
+    spacing: 20
+
+    FluArea{
+        Layout.topMargin: 20
         width: parent.width
-        contentWidth: parent.width
-        anchors{
-            top: title.bottom
-            bottom: parent.bottom
+        height: 68
+        paddings: 10
+
+        FluButton{
+            disabled:button_switch.checked
+            onClicked: {
+                showInfo("点击StandardButton")
+            }
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
         }
-        ColumnLayout{
+
+        Row{
             spacing: 5
-            width: parent.width
-            RowLayout{
-                Layout.topMargin: 20
-                width: parent.width
-                FluButton{
-                    disabled:button_switch.checked
-                    onClicked: {
-                        showInfo("点击StandardButton")
-                    }
-                }
-                Item{
-                    height: 1
-                    Layout.fillWidth: true
-                }
-                FluToggleSwitch{
-                    id:button_switch
-                    Layout.alignment: Qt.AlignRight
-                }
-                FluText{
-                    text:"Disabled"
-                }
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
             }
-            FluDivider{
-                Layout.fillWidth: true ; height:1;
+            FluToggleSwitch{
+                id:button_switch
+                Layout.alignment: Qt.AlignRight
             }
-            RowLayout{
-                Layout.topMargin: 20
-                width: parent.width
-                FluFilledButton{
-                    disabled:filled_button_switch.checked
+            FluText{
+                text:"Disabled"
+            }
+        }
+    }
+
+    FluArea{
+        width: parent.width
+        height: 68
+        paddings: 10
+
+        FluFilledButton{
+            disabled:filled_button_switch.checked
+            onClicked: {
+              showWarning("点击FilledButton")
+            }
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:filled_button_switch
+                Layout.alignment: Qt.AlignRight
+            }
+            FluText{
+                text:"Disabled"
+            }
+        }
+    }
+
+
+    FluArea{
+        width: parent.width
+        height: 68
+        paddings: 10
+
+        FluIconButton{
+            icon:FluentIcons.FA_close
+            disabled:icon_button_switch.checked
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            onClicked:{
+                showSuccess("点击IconButton")
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:icon_button_switch
+                Layout.alignment: Qt.AlignRight
+            }
+            FluText{
+                text:"Disabled"
+            }
+        }
+    }
+
+    FluArea{
+        width: parent.width
+        height: 100
+        paddings: 10
+
+        ColumnLayout{
+            spacing: 8
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            Repeater{
+                id:repeater
+                property int selecIndex : 0
+                model: 3
+                delegate:  FluRadioButton{
+                    checked : repeater.selecIndex===index
+                    disabled:radio_button_switch.checked
+                    text:"Radio Button_"+index
                     onClicked:{
-                        showWarning("点击FilledButton")
+                        repeater.selecIndex = index
                     }
                 }
-                Item{
-                    height: 1
-                    Layout.fillWidth: true
-                }
-                FluToggleSwitch{
-                    id:filled_button_switch
-                    Layout.alignment: Qt.AlignRight
-                }
-                FluText{
-                    text:"Disabled"
-                }
             }
-            FluDivider{
-                Layout.fillWidth: true ; height:1
+        }
+
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
             }
-            RowLayout{
-                Layout.topMargin: 20
-                width: parent.width
-                FluIconButton{
-                    icon:FluentIcons.FA_close
-                    disabled:icon_button_switch.checked
-                    onClicked:{
-                        showSuccess("点击IconButton")
-                    }
-                }
-                Item{
-                    height: 1
-                    Layout.fillWidth: true
-                }
-                FluToggleSwitch{
-                    id:icon_button_switch
-                    Layout.alignment: Qt.AlignRight
-                }
-                FluText{
-                    text:"Disabled"
-                }
+            FluToggleSwitch{
+                id:radio_button_switch
+                Layout.alignment: Qt.AlignRight
             }
-            FluDivider{
-                Layout.fillWidth: true ; height:1
+            FluText{
+                text:"Disabled"
             }
-            RowLayout{
-                Layout.topMargin: 20
-                width: parent.width
-                ColumnLayout{
-                    spacing: 8
-                    Repeater{
-                        id:repeater
-                        property int selecIndex : 0
-                        model: 3
-                        delegate:  FluRadioButton{
-                            checked : repeater.selecIndex===index
-                            disabled:radio_button_switch.checked
-                            text:"Radio Button_"+index
-                            onClicked:{
-                                repeater.selecIndex = index
-                            }
-                        }
-                    }
-                }
-                Item{
-                    height: 1
-                    Layout.fillWidth: true
-                }
-                FluToggleSwitch{
-                    id:radio_button_switch
-                    Layout.alignment: Qt.AlignRight
-                }
-                FluText{
-                    text:"Disabled"
-                }
+        }
+    }
+
+
+    FluArea{
+        width: parent.width
+        height: 68
+        paddings: 10
+
+        FluCheckBox{
+            disabled:icon_button_check.checked
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
             }
-            FluDivider{
-                Layout.fillWidth: true ; height:1
+        }
+
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
             }
-            RowLayout{
-                Layout.topMargin: 20
-                width: parent.width
-                FluCheckBox{
-                    disabled:icon_button_check.checked
-                }
-                Item{
-                    height: 1
-                    Layout.fillWidth: true
-                }
-                FluToggleSwitch{
-                    id:icon_button_check
-                    Layout.alignment: Qt.AlignRight
-                }
-                FluText{
-                    text:"Disabled"
-                }
+            FluToggleSwitch{
+                id:icon_button_check
+                Layout.alignment: Qt.AlignRight
             }
-            FluDivider{
-                Layout.fillWidth: true ; height:1
+            FluText{
+                text:"Disabled"
             }
         }
     }

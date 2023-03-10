@@ -10,6 +10,8 @@ Item {
     id:root
     height: layout_header.height + container.height
     width: 400
+    implicitWidth: width
+    implicitHeight: height
 
     property int contentHeight : 300
 

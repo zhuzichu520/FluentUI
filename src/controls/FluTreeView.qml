@@ -5,9 +5,8 @@ import QtQuick.Controls 2.15
 import FluentUI 1.0
 import QtGraphicalEffects 1.15
 
-Rectangle {
+Item {
     id:root
-    color: FluTheme.isDark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(253/255,253/255,253/255,1)
 
     enum TreeViewSelectionMode  {
         None,
@@ -101,12 +100,12 @@ Rectangle {
                             if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
                                 return Qt.rgba(62/255,62/255,62/255,1)
                             }
-                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(62/255,62/255,62/255,1):Qt.rgba(50/255,50/255,50/255,1)
+                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(62/255,62/255,62/255,1):Qt.rgba(0,0,0,0)
                         }else{
                             if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
-                                return Qt.rgba(244/255,244/255,244/255,1)
+                                return Qt.rgba(0,0,0,0.06)
                             }
-                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(244/255,244/255,244/255,1):Qt.rgba(253/255,253/255,253/255,1)
+                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(0,0,0,0.03):Qt.rgba(0,0,0,0)
                         }
                     }
 

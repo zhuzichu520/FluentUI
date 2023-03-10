@@ -36,5 +36,12 @@
         <file>controls/FluTreeView.qml</file>
         <file>controls/FluExpander.qml</file>
         <file>controls/FluAutoSuggestBox.qml</file>
+        <file>controls/FluNavigationView.qml</file>
+        <file>controls/FluPaneItem.qml</file>
+        <file>controls/FluPaneItemHeader.qml</file>
+        <file>controls/FluPaneItemSeparator.qml</file>
+        <file>controls/FluScrollablePage.qml</file>
+        <file>controls/FluContentPage.qml</file>
+        <file>controls/FluArea.qml</file>
     </qresource>
 </RCC>

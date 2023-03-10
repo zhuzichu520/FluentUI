@@ -14,7 +14,8 @@ Rectangle{
         return Window.window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
     }
     visible: FluTheme.isFrameless
-    height: visible ? 50 : 0
+    height: visible ? 34 : 0
+
     width: {
         if(parent==null)
             return 200
@@ -60,7 +61,7 @@ Rectangle{
         anchors{
             verticalCenter: parent.verticalCenter
             left: parent.left
-            leftMargin: 14
+            leftMargin: 10
         }
         color:root.textColor
         fontStyle: FluText.Title
@@ -69,14 +70,13 @@ Rectangle{
     }
 
     RowLayout{
-        anchors.right: parent.right;
-        anchors.rightMargin: 10
-        height: parent.height
-        spacing: 5
+        anchors.right: parent.right
+        height: 30
+        spacing: 0
 
         TFpsMonitor{
             Layout.alignment: Qt.AlignVCenter
-            Layout.rightMargin: 12
+            Layout.rightMargin: 20
             Layout.topMargin: 5
             color:root.textColor
             visible: showFps
@@ -84,8 +84,9 @@ Rectangle{
 
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
-            spacing: 5
+            Layout.rightMargin: 14
             visible: showDark
+            spacing: 5
             FluText{
                 text:"夜间模式"
                 color:root.textColor

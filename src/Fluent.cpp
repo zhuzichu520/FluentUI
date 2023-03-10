@@ -33,6 +33,15 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
 
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluArea.qml"),uri,major,minor,"FluArea");
+
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluContentPage.qml"),uri,major,minor,"FluContentPage");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluScrollablePage.qml"),uri,major,minor,"FluScrollablePage");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPaneItemHeader.qml"),uri,major,minor,"FluPaneItemHeader");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPaneItem.qml"),uri,major,minor,"FluPaneItem");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPaneItemSeparator.qml"),uri,major,minor,"FluPaneItemSeparator");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluNavigationView.qml"),uri,major,minor,"FluNavigationView");
+
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluAutoSuggestBox.qml"),uri,major,minor,"FluAutoSuggestBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluExpander.qml"),uri,major,minor,"FluExpander");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTreeView.qml"),uri,major,minor,"FluTreeView");
