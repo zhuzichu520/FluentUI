@@ -81,8 +81,9 @@ FluScrollablePage{
         paddings: 10
 
         FluIconButton{
-            icon:FluentIcons.FA_close
+            icon:FluentIcons.ChromeCloseContrast
             disabled:icon_button_switch.checked
+            iconSize: 15
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left

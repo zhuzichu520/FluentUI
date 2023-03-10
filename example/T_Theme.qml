@@ -20,7 +20,7 @@ FluScrollablePage{
                 color: mouse_item.containsMouse ? Qt.lighter(modelData.normal,1.1) : modelData.normal
                 FluIcon {
                     anchors.centerIn: parent
-                    icon: FluentIcons.FA_check
+                    icon: FluentIcons.AcceptMedium
                     iconSize: 15
                     visible: modelData === FluTheme.primaryColor
                     color: FluTheme.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)

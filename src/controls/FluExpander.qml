@@ -53,7 +53,8 @@ Item {
             hoverColor: FluTheme.isDark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(245/255,245/255,245/255,1)
             normalColor: FluTheme.isDark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
             hovered: root_mouse.containsMouse
-            icon: expand ? FluentIcons.FA_angle_up : FluentIcons.FA_angle_down
+            iconSize: 15
+            icon: expand ? FluentIcons.ChevronUp : FluentIcons.ChevronDown
             onClicked: {
                 expand = !expand
             }

@@ -42,7 +42,7 @@ Rectangle {
 
     Text {
         id:text_icon
-        font.family: "fontawesome"
+        font.family: "Segoe Fluent Icons"
         font.pixelSize: iconSize
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

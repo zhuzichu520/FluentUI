@@ -66,7 +66,7 @@ Item {
 
             FluIcon {
                 anchors.centerIn: parent
-                icon: FluentIcons.FA_check
+                icon: FluentIcons.AcceptMedium
                 iconSize: 15
                 visible: checked
                 color: FluTheme.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)

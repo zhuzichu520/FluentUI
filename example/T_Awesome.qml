@@ -30,8 +30,8 @@ FluContentPage {
     }
     GridView{
         id:grid_view
-        cellWidth: 120
-        cellHeight: 60
+        cellWidth: 80
+        cellHeight: 80
         clip: true
         model:FluApp.awesomelist()
         ScrollBar.vertical: FluScrollBar {}
@@ -43,8 +43,8 @@ FluContentPage {
             bottom: parent.bottom
         }
         delegate: Item {
-            width: 120
-            height: 60
+            width: 68
+            height: 80
             FluIconButton{
                 id:item_icon
                 icon:modelData.icon
@@ -57,10 +57,14 @@ FluContentPage {
             }
             FluText {
                 id:item_name
-                font.pixelSize: 10;
+                font.pixelSize: 10
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: item_icon.bottom
+                width:parent.width
+                wrapMode: Text.WrapAnywhere
                 text: modelData.name
+
+                horizontalAlignment: Text.AlignHCenter
             }
         }
     }

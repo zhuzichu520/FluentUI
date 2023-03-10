@@ -7,7 +7,7 @@ Text {
     property color iconColor: FluTheme.isDark ? "#FFFFFF" : "#000000"
 
     id:text_icon
-    font.family: "fontawesome"
+    font.family: "Segoe Fluent Icons"
     font.pixelSize: iconSize
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter

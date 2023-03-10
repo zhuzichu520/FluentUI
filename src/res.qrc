@@ -14,7 +14,6 @@
         <file>controls/FluDropDownButton.qml</file>
         <file>controls/FluTextBox.qml</file>
         <file>controls/FluTimePicker.qml</file>
-        <file>res/font/fontawesome-webfont.ttf</file>
         <file>controls/FluAppBar.qml</file>
         <file>controls/FluRectangle.qml</file>
         <file>controls/FluWindow.qml</file>
@@ -43,5 +42,6 @@
         <file>controls/FluScrollablePage.qml</file>
         <file>controls/FluContentPage.qml</file>
         <file>controls/FluArea.qml</file>
+        <file>res/font/Segoe_Fluent_Icons.ttf</file>
     </qresource>
 </RCC>

@@ -74,7 +74,7 @@ TextField{
         inputItem: input
 
         FluIconButton{
-            icon:FluentIcons.FA_close
+            icon:FluentIcons.ChromeClose
             iconSize: 14
             width: 20
             height: 20

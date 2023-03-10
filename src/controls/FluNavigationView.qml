@@ -145,10 +145,11 @@ Item {
             height:parent.height
             spacing: 0
             FluIconButton{
-                icon: FluentIcons.FA_arrow_left
+                icon: FluentIcons.ChromeBack
                 Layout.leftMargin: 5
                 Layout.alignment: Qt.AlignVCenter
                 disabled:  nav_swipe.depth === 1
+                iconSize: 15
                 onClicked: {
                     nav_swipe.pop()
                     nav_list.stackIndex.pop()
@@ -159,8 +160,9 @@ Item {
                 }
             }
             FluIconButton{
-                icon: FluentIcons.FA_navicon
+                icon: FluentIcons.GlobalNavButton
                 Layout.leftMargin: 5
+                iconSize: 15
                 visible: displayMode === FluNavigationView.Minimal
                 Layout.alignment: Qt.AlignVCenter
                 onClicked: {

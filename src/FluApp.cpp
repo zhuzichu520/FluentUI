@@ -82,7 +82,7 @@ QJsonArray FluApp::awesomelist(const QString& keyword)
             obj.insert("icon",icon);
             arr.append(obj);
         }else{
-            if(name.mid(3).contains(keyword)){
+            if(name.contains(keyword)){
                 QJsonObject obj;
                 obj.insert("name",name);
                 obj.insert("icon",icon);

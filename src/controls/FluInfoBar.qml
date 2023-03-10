@@ -192,11 +192,11 @@ FluObject {
                 FluIcon{
                     icon:{
                         switch(_super.type){
-                        case mcontrol.const_success: return FluentIcons.FA_check_circle;
-                        case mcontrol.const_warning: return FluentIcons.FA_info_circle;
-                        case mcontrol.const_info:    return FluentIcons.FA_info_circle;
-                        case mcontrol.const_error:   return FluentIcons.FA_times_circle;
-                        }
+                        case mcontrol.const_success: return FluentIcons.CompletedSolid;
+                        case mcontrol.const_warning: return FluentIcons.InfoSolid;
+                        case mcontrol.const_info:    return FluentIcons.InfoSolid;
+                        case mcontrol.const_error:   return FluentIcons.StatusErrorFull;
+                        }FluentIcons.StatusErrorFull
                         return FluentIcons.FA_info_circle
                     }
                     iconSize:20

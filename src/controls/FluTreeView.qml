@@ -222,8 +222,9 @@ Item {
                     FluIconButton{
                         id:item_layout_expanded
                         color:"#00000000"
-                        icon:item_layout.expanded?FluentIcons.FA_angle_down:FluentIcons.FA_angle_right
+                        icon:item_layout.expanded?FluentIcons.ChevronDown:FluentIcons.ChevronRight
                         opacity: item_layout.hasChild
+                        iconSize: 15
                         onClicked: {
                             if(!item_layout.hasChild){
                                 item_layout_rect.onClickItem()

@@ -101,7 +101,7 @@ Rectangle{
         }
 
         FluIconButton{
-            icon : FluentIcons.FA_window_minimize
+            icon : FluentIcons.ChromeMinimizeContrast
             Layout.alignment: Qt.AlignVCenter
             iconSize: 15
             text:"最小化"
@@ -117,7 +117,7 @@ Rectangle{
                     return false
                 return Window.Maximized === window.visibility
             }
-            icon : isRestore  ? FluentIcons.FA_window_restore : FluentIcons.FA_window_maximize
+            icon : isRestore  ? FluentIcons.ChromeRestoreContrast : FluentIcons.ChromeMaximizeContrast
             color:hovered ? "#20000000" : "#00000000"
             Layout.alignment: Qt.AlignVCenter
             visible: resizable
@@ -129,9 +129,10 @@ Rectangle{
             }
         }
         FluIconButton{
-            icon : FluentIcons.FA_close
+            icon : FluentIcons.ChromeCloseContrast
             Layout.alignment: Qt.AlignVCenter
             text:"关闭"
+            iconSize: 13
             textColor: root.textColor
             color:hovered ? "#20000000" : "#00000000"
             onClicked: {

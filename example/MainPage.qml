@@ -116,7 +116,6 @@ FluWindow {
             title:"Theming"
         }
 
-
         FluPaneItem{
             title:"Theme"
             onTap:{
