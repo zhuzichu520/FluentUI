@@ -105,11 +105,11 @@ Item {
                 }
                 color: {
                     if(FluTheme.isDark){
-                        if((nav_list.currentIndex === position)&&type===0){
-                            return "#2D2D2D"
-                        }
                         if(item_mouse.containsMouse){
-                            return "#292929"
+                            return Qt.rgba(1,1,1,0.03)
+                        }
+                        if((nav_list.currentIndex === position)&&type===0){
+                            return Qt.rgba(1,1,1,0.06)
                         }
                         return Qt.rgba(0,0,0,0)
                     }else{

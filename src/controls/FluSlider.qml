@@ -8,7 +8,7 @@ Item{
 
     property int lineSize: 5
     property int size: 180
-    property int dotSize: 26
+    property int dotSize: 28
 
     property int value: 50
 
