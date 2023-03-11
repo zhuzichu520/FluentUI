@@ -75,7 +75,7 @@ TextField{
 
         FluIconButton{
             icon:FluentIcons.ChromeClose
-            iconSize: 14
+            iconSize: 10
             width: 20
             height: 20
             opacity: 0.5
@@ -108,7 +108,7 @@ TextField{
             FluShadow{
                 radius: 4
             }
-            color: FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(243/255,241/255,240/255,1)
+            color: FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
             height: 38*Math.min(Math.max(list_view.count,1),8)
             ListView{
                 id:list_view
@@ -137,11 +137,13 @@ TextField{
                         anchors.fill: parent
                         anchors.topMargin: 2
                         anchors.bottomMargin: 2
+                        anchors.leftMargin: 5
+                        anchors.rightMargin: 5
                         color:  {
                             if(item_mouse.containsMouse){
-                                return FluTheme.isDark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(234/255,234/255,234/255,1)
+                                return FluTheme.isDark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
-                            return FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(243/255,241/255,240/255,1)
+                            return FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                         }
                         radius: 3
                         MouseArea{

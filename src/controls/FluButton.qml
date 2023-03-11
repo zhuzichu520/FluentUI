@@ -61,8 +61,10 @@ Rectangle {
         id:button_mouse
         anchors.fill: parent
         hoverEnabled: true
-        enabled: !disabled
         onClicked: {
+            if(disabled){
+                return
+            }
             button.clicked()
         }
     }

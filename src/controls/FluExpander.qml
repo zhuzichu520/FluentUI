@@ -22,9 +22,8 @@ Item {
         width: parent.width
         height: 45
         radius: 4
-        border.color: FluTheme.isDark ? Qt.rgba(53/255,53/255,53/255,1) : Qt.rgba(240/255,240/255,240/255,1)
-        color: FluTheme.isDark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-
+        color: FluTheme.isDark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+        border.color: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
 
         MouseArea{
             id:root_mouse
@@ -72,8 +71,8 @@ Item {
             left: layout_header.left
         }
         radius: 4
-        border.color: FluTheme.isDark ? Qt.rgba(53/255,53/255,53/255,1) : Qt.rgba(240/255,240/255,240/255,1)
-        color: FluTheme.isDark ? Qt.rgba(57/255,57/255,57/255,1) : Qt.rgba(249/255,249/255,249/255,1)
+        color: FluTheme.isDark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+        border.color: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
         height: expand ? contentHeight : 0
         Behavior on height {
             NumberAnimation{

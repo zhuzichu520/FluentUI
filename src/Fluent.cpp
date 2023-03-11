@@ -42,6 +42,12 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPaneItemSeparator.qml"),uri,major,minor,"FluPaneItemSeparator");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluNavigationView.qml"),uri,major,minor,"FluNavigationView");
 
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluCalendarDatePicker.qml"),uri,major,minor,"FluCalendarDatePicker");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluCalenderView.qml"),uri,major,minor,"FluCalenderView");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDatePicker.qml"),uri,major,minor,"FluDatePicker");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTimePicker.qml"),uri,major,minor,"FluTimePicker");
+
+
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluAutoSuggestBox.qml"),uri,major,minor,"FluAutoSuggestBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluExpander.qml"),uri,major,minor,"FluExpander");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTreeView.qml"),uri,major,minor,"FluTreeView");
@@ -71,7 +77,6 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluSlider.qml"),uri,major,minor,"FluSlider");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTextBox.qml"),uri,major,minor,"FluTextBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluText.qml"),uri,major,minor,"FluText");
-    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTimePicker.qml"),uri,major,minor,"FluTimePicker");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluFilledButton.qml"),uri,major,minor,"FluFilledButton");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluToggleSwitch.qml"),uri,major,minor,"FluToggleSwitch");
 

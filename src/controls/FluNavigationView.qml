@@ -149,7 +149,7 @@ Item {
                 Layout.leftMargin: 5
                 Layout.alignment: Qt.AlignVCenter
                 disabled:  nav_swipe.depth === 1
-                iconSize: 15
+                iconSize: 13
                 onClicked: {
                     nav_swipe.pop()
                     nav_list.stackIndex.pop()
