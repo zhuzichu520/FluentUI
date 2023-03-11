@@ -30,5 +30,6 @@
         <file>T_TreeView.qml</file>
         <file>T_Expander.qml</file>
         <file>MainPage.qml</file>
+        <file>T_TimePicker.qml</file>
     </qresource>
 </RCC>

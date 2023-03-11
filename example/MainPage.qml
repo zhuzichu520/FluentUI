@@ -8,8 +8,8 @@ import FluentUI 1.0
 
 FluWindow {
     id:rootwindow
-    width: 800
-    height: 600
+    width: 860
+    height: 680
     title: "FluentUI"
     minimumWidth: 500
     minimumHeight: 400
@@ -56,6 +56,13 @@ FluWindow {
             title:"TextBox"
             onTap:{
                 nav_view.push("qrc:/T_TextBox.qml")
+            }
+        }
+
+        FluPaneItem{
+            title:"TimePicker"
+            onTap:{
+                nav_view.push("qrc:/T_TimePicker.qml")
             }
         }
 
