@@ -209,8 +209,12 @@ Item {
             clip: true
             anchors.margins: 10
             popEnter : Transition{}
-            popExit : Transition{}
-            pushEnter : Transition{}
+            popExit : Transition {
+                NumberAnimation { properties: "y"; from: 0; to: nav_swipe.height; duration: 200 }
+            }
+            pushEnter: Transition {
+                NumberAnimation { properties: "y"; from: nav_swipe.height; to: 0; duration: 200 }
+            }
             pushExit : Transition{}
             replaceEnter : Transition{}
             replaceExit : Transition{}
@@ -257,13 +261,58 @@ Item {
                 duration: 300
             }
         }
+
+        Item{
+            id:layout_header
+            width: layout_list.width
+            height: 50
+
+            FluAutoSuggestBox{
+                width: 280
+                anchors.centerIn: parent
+                icon: FluentIcons.Zoom
+                values: {
+                    var arr = []
+                    if(items==null)
+                        return arr
+                    if(items.children==null)
+                        return arr
+                    for(var i=0;i<items.children.length;i++){
+                        var item = items.children[i]
+                        if(item instanceof FluPaneItem){
+                            arr.push(item.title)
+                        }
+                    }
+                    return arr
+                }
+                placeholderText: "查找"
+                onItemClicked:
+                    (data)=>{
+                        var arr = []
+                        if(items==null)
+                        return arr
+                        if(items.children==null)
+                        return arr
+                        for(var i=0;i<items.children.length;i++){
+                            if(items.children[i].title === data){
+                                if(nav_list.currentIndex === i){
+                                    return
+                                }
+                                items.children[i].tap()
+                                nav_list.currentIndex = i
+                                return
+                            }
+                        }
+                    }
+            }
+        }
         ListView{
             id:nav_list
             property bool enableStack: true
             property var stackIndex: []
             clip: true
             anchors{
-                top: parent.top
+                top: layout_header.bottom
                 left: parent.left
                 right: parent.right
                 bottom: layout_footer.top

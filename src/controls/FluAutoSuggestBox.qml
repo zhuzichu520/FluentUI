@@ -7,6 +7,8 @@ TextField{
     property var values:[]
     property int fontStyle: FluText.Body
     property int pixelSize : FluTheme.textSize
+    property int icon: -1
+    signal itemClicked(string data)
 
     id:input
     width: 300
@@ -24,7 +26,7 @@ TextField{
         }
         return FluTheme.isDark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
     }
-    rightPadding: 30
+    rightPadding: icon_right.visible ? 50 : 30
     selectByMouse: true
     font.bold: {
         switch (fontStyle) {
@@ -83,10 +85,23 @@ TextField{
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
-                rightMargin: 5
+                rightMargin: icon_right.visible ? 25 : 5
             }
             onClicked:{
                 input.text = ""
+            }
+        }
+
+        FluIcon{
+            id:icon_right
+            icon: input.icon
+            iconSize: 15
+            opacity: 0.5
+            visible: input.icon != -1
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+                rightMargin: 5
             }
         }
     }
@@ -152,6 +167,7 @@ TextField{
                             hoverEnabled: true
                             onClicked: {
                                 input_popup.close()
+                                input.itemClicked(modelData)
                                 input.text = modelData
                             }
                         }
@@ -175,6 +191,10 @@ TextField{
 
     function searchData(){
         var result = []
+        if(values==null){
+            list_view.model = result
+            return
+        }
         values.map(function(item){
             if(item.indexOf(input.text)!==-1){
                 result.push(item)
