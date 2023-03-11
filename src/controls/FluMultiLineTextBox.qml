@@ -11,6 +11,7 @@ TextArea{
     width: 300
     color: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
     wrapMode: Text.WrapAnywhere
+    renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
     selectByMouse: true
     selectionColor: {
         if(FluTheme.isDark){

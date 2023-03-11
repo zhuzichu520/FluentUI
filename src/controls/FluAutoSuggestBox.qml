@@ -20,6 +20,7 @@ TextField{
             return FluTheme.primaryColor.dark
         }
     }
+    renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
     placeholderTextColor: {
         if(focus){
             return FluTheme.isDark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)

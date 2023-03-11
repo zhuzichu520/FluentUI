@@ -10,6 +10,7 @@ TextField{
     id:input
     width: 300
     color: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+    renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
     selectionColor: {
         if(FluTheme.isDark){
             return FluTheme.primaryColor.lighter

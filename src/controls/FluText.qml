@@ -20,6 +20,7 @@ Text {
 
     id:text
     color: textColor
+    renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
     font.bold: {
         switch (fontStyle) {
         case FluText.Display:

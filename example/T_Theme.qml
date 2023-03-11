@@ -38,7 +38,6 @@ FluScrollablePage{
     }
     FluText{
         text:"夜间模式"
-        fontStyle: FluText.Subtitle
         Layout.topMargin: 20
     }
     FluToggleSwitch{
@@ -49,13 +48,22 @@ FluScrollablePage{
     }
     FluText{
         text:"无边框"
-        fontStyle: FluText.Subtitle
         Layout.topMargin: 20
     }
     FluToggleSwitch{
         checked: FluTheme.isFrameless
         onClickFunc:function(){
             FluTheme.isFrameless = !FluTheme.isFrameless
+        }
+    }
+    FluText{
+        text:"native文本渲染"
+        Layout.topMargin: 20
+    }
+    FluToggleSwitch{
+        checked: FluTheme.isNativeText
+        onClickFunc:function(){
+            FluTheme.isNativeText = !FluTheme.isNativeText
         }
     }
 }
