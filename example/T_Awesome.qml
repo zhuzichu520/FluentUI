@@ -47,7 +47,7 @@ FluContentPage {
             height: 80
             FluIconButton{
                 id:item_icon
-                icon:modelData.icon
+                iconSource:modelData.icon
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     var text  ="FluentIcons."+modelData.name;

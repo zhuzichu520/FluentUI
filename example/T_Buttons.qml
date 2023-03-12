@@ -10,8 +10,8 @@ FluScrollablePage{
     spacing: 20
 
     FluText{
-         Layout.topMargin: 20
-         text:"支持Tab键切换焦点，Enter键执行点击事件"
+        Layout.topMargin: 20
+        text:"支持Tab键切换焦点，空格键执行点击事件"
     }
 
     FluArea{
@@ -21,6 +21,7 @@ FluScrollablePage{
 
         FluButton{
             disabled:button_switch.checked
+            text:"Standard Button"
             onClicked: {
                 showInfo("点击StandardButton")
             }
@@ -53,8 +54,9 @@ FluScrollablePage{
 
         FluFilledButton{
             disabled:filled_button_switch.checked
+            text:"Filled Button"
             onClicked: {
-              showWarning("点击FilledButton")
+                showWarning("点击FilledButton")
             }
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -85,7 +87,7 @@ FluScrollablePage{
         paddings: 10
 
         FluIconButton{
-            icon:FluentIcons.ChromeCloseContrast
+            iconSource:FluentIcons.ChromeCloseContrast
             disabled:icon_button_switch.checked
             iconSize: 15
             anchors{
@@ -129,7 +131,7 @@ FluScrollablePage{
                 property int selecIndex : 0
                 model: 3
                 delegate:  FluRadioButton{
-                    checked : repeater.selecIndex===index
+                    selected : repeater.selecIndex===index
                     disabled:radio_button_switch.checked
                     text:"Radio Button_"+index
                     onClicked:{
@@ -164,6 +166,7 @@ FluScrollablePage{
 
         FluCheckBox{
             disabled:icon_button_check.checked
+            text:"Check Box"
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left

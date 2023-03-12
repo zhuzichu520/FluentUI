@@ -26,7 +26,7 @@ FluScrollablePage{
                     property int selecIndex : 0
                     model: 3
                     delegate:  FluRadioButton{
-                        checked : repeater.selecIndex===index
+                        selected : repeater.selecIndex===index
                         text:"Radio Button_"+index
                         onClicked:{
                             repeater.selecIndex = index

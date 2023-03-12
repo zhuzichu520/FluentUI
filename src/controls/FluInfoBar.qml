@@ -190,7 +190,7 @@ FluObject {
                 spacing: 10
 
                 FluIcon{
-                    icon:{
+                    iconSource:{
                         switch(_super.type){
                         case mcontrol.const_success: return FluentIcons.CompletedSolid;
                         case mcontrol.const_warning: return FluentIcons.InfoSolid;

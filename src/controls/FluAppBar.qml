@@ -94,14 +94,14 @@ Rectangle{
             }
             FluToggleSwitch{
                 checked: FluTheme.isDark
-                onClickFunc:function(){
-                    FluTheme.isDark = !FluTheme.isDark
+                onCheckedChanged:{
+                    FluTheme.isDark = checked
                 }
             }
         }
 
         FluIconButton{
-            icon : FluentIcons.ChromeMinimizeContrast
+            iconSource : FluentIcons.ChromeMinimizeContrast
             Layout.alignment: Qt.AlignVCenter
             iconSize: 15
             text:"最小化"
@@ -117,7 +117,7 @@ Rectangle{
                     return false
                 return Window.Maximized === window.visibility
             }
-            icon : isRestore  ? FluentIcons.ChromeRestoreContrast : FluentIcons.ChromeMaximizeContrast
+            iconSource : isRestore  ? FluentIcons.ChromeRestoreContrast : FluentIcons.ChromeMaximizeContrast
             color:hovered ? "#20000000" : "#00000000"
             Layout.alignment: Qt.AlignVCenter
             visible: resizable
@@ -129,7 +129,7 @@ Rectangle{
             }
         }
         FluIconButton{
-            icon : FluentIcons.ChromeCloseContrast
+            iconSource : FluentIcons.ChromeCloseContrast
             Layout.alignment: Qt.AlignVCenter
             text:"关闭"
             iconSize: 13

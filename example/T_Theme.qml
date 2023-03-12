@@ -20,7 +20,7 @@ FluScrollablePage{
                 color: mouse_item.containsMouse ? Qt.lighter(modelData.normal,1.1) : modelData.normal
                 FluIcon {
                     anchors.centerIn: parent
-                    icon: FluentIcons.AcceptMedium
+                    iconSource: FluentIcons.AcceptMedium
                     iconSize: 15
                     visible: modelData === FluTheme.primaryColor
                     color: FluTheme.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
@@ -42,8 +42,8 @@ FluScrollablePage{
     }
     FluToggleSwitch{
         checked: FluTheme.isDark
-        onClickFunc:function(){
-            FluTheme.isDark = !FluTheme.isDark
+        onCheckedChanged:{
+            FluTheme.isDark = checked
         }
     }
     FluText{
@@ -52,8 +52,8 @@ FluScrollablePage{
     }
     FluToggleSwitch{
         checked: FluTheme.isFrameless
-        onClickFunc:function(){
-            FluTheme.isFrameless = !FluTheme.isFrameless
+        onCheckedChanged:{
+            FluTheme.isFrameless = isFrameless
         }
     }
     FluText{
@@ -62,8 +62,8 @@ FluScrollablePage{
     }
     FluToggleSwitch{
         checked: FluTheme.isNativeText
-        onClickFunc:function(){
-            FluTheme.isNativeText = !FluTheme.isNativeText
+        onCheckedChanged:{
+            FluTheme.isNativeText = isNativeText
         }
     }
 }

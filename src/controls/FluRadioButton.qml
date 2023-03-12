@@ -4,38 +4,19 @@ import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 
-Control {
+Button {
 
-    id:control
-    property bool checked: false
-    property string text: "RodioButton"
-    signal clicked
+    property bool selected: false
     property bool disabled: false
 
-    focusPolicy:Qt.TabFocus
-    Keys.onEnterPressed:(visualFocus&&handleClick())
-    Keys.onReturnPressed:(visualFocus&&handleClick())
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: handleClick()
-    }
-
-    function handleClick(){
-        if(disabled){
-            return
-        }
-
-        control.clicked()
-    }
-
-
+    id:control
+    enabled: !disabled
+    padding:0
     background: Item{
         FluFocusRectangle{
             visible: control.visualFocus
         }
     }
-
     contentItem: RowLayout{
         Rectangle{
             id:rect_check
@@ -46,22 +27,22 @@ Control {
             layer.enabled: true
             layer.smooth: true
             border.width: {
-                if(checked&&disabled){
+                if(selected&&disabled){
                     return 3
                 }
                 if(hovered){
-                    if(checked){
+                    if(selected){
                         return 5
                     }
                     return 1
                 }
                 if(hovered){
-                    if(checked){
+                    if(selected){
                         return 3
                     }
                     return 1
                 }
-                return checked ? 5 : 1
+                return selected ? 5 : 1
             }
             Behavior on border.width {
                 NumberAnimation{
@@ -76,7 +57,7 @@ Control {
                         return Qt.rgba(198/255,198/255,198/255,1)
                     }
                 }
-                if(checked){
+                if(selected){
                     if(FluTheme.isDark){
                         return FluTheme.primaryColor.lighter
                     }else{
@@ -93,7 +74,7 @@ Control {
                 }
             }
             color:{
-                if(disabled&&checked){
+                if(disabled&&selected){
                     return Qt.rgba(159/255,159/255,159/255,1)
                 }
                 if(FluTheme.isDark){
@@ -103,7 +84,7 @@ Control {
                     return Qt.rgba(50/255,50/255,50/255,1)
                 }else{
                     if(hovered){
-                        if(checked){
+                        if(selected){
                             return Qt.rgba(1,1,1,1)
                         }
                         return Qt.rgba(222/255,222/255,222/255,1)

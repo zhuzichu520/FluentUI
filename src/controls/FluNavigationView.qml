@@ -145,7 +145,7 @@ Item {
             height:parent.height
             spacing: 0
             FluIconButton{
-                icon: FluentIcons.ChromeBack
+                iconSource: FluentIcons.ChromeBack
                 Layout.leftMargin: 5
                 Layout.alignment: Qt.AlignVCenter
                 disabled:  nav_swipe.depth === 1
@@ -160,7 +160,7 @@ Item {
                 }
             }
             FluIconButton{
-                icon: FluentIcons.GlobalNavButton
+                iconSource: FluentIcons.GlobalNavButton
                 Layout.leftMargin: 5
                 iconSize: 15
                 visible: displayMode === FluNavigationView.Minimal
@@ -185,8 +185,8 @@ Item {
             }
             FluToggleSwitch{
                 checked: FluTheme.isDark
-                onClickFunc:function(){
-                    FluTheme.isDark = !FluTheme.isDark
+                onCheckedChanged:{
+                    FluTheme.isDark = checked
                 }
             }
         }
@@ -269,7 +269,7 @@ Item {
             FluAutoSuggestBox{
                 width: 280
                 anchors.centerIn: parent
-                icon: FluentIcons.Zoom
+                iconSource: FluentIcons.Zoom
                 values: {
                     var arr = []
                     if(items==null)

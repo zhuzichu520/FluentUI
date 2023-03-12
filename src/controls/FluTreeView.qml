@@ -163,7 +163,7 @@ Item {
                     FluCheckBox{
                         id:item_layout_checkbox
                         text:""
-                        checked: itemModel.multipSelected
+                        selected: itemModel.multipSelected
                         visible: selectionMode === FluTreeView.Multiple
                         Layout.leftMargin: 5
 
@@ -199,7 +199,7 @@ Item {
                             }
                         }
 
-                        checkClicked:function(){
+                        clickFunc:function(){
                             if(hasChild){
                                 const stack = [itemModel];
                                 while (stack.length > 0) {
@@ -222,7 +222,7 @@ Item {
                     FluIconButton{
                         id:item_layout_expanded
                         color:"#00000000"
-                        icon:item_layout.expanded?FluentIcons.ChevronDown:FluentIcons.ChevronRight
+                        iconSource:item_layout.expanded?FluentIcons.ChevronDown:FluentIcons.ChevronRight
                         opacity: item_layout.hasChild
                         iconSize: 15
                         onClicked: {

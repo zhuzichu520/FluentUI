@@ -2,39 +2,19 @@
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Control {
+Button {
     id: control
 
-    property string text: "Standard Button"
     property bool disabled: false
-
-
     property color normalColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property color hoverColor: FluTheme.isDark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color disableColor: FluTheme.isDark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
-
-    signal clicked
 
     topPadding:5
     bottomPadding:5
     leftPadding:15
     rightPadding:15
-
-    focusPolicy:Qt.TabFocus
-    Keys.onEnterPressed:(visualFocus&&handleClick())
-    Keys.onReturnPressed:(visualFocus&&handleClick())
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: handleClick()
-    }
-
-    function handleClick(){
-        if(disabled){
-            return
-        }
-        control.clicked()
-    }
+    enabled: !disabled
 
     background: Rectangle{
         border.color: FluTheme.isDark ? "#505050" : "#DFDFDF"
@@ -71,5 +51,4 @@ Control {
             }
         }
     }
-
 }

@@ -2,7 +2,7 @@
 
 Text {
 
-    property int icon
+    property int iconSource
     property int iconSize: 20
     property color iconColor: FluTheme.isDark ? "#FFFFFF" : "#000000"
 
@@ -12,5 +12,5 @@ Text {
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
     color: iconColor
-    text: (String.fromCharCode(icon).toString(16));
+    text: (String.fromCharCode(iconSource).toString(16));
 }

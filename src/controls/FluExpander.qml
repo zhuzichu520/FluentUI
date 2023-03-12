@@ -56,7 +56,7 @@ Item {
                 return FluTheme.isDark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
             }
             iconSize: 15
-            icon: expand ? FluentIcons.ChevronUp : FluentIcons.ChevronDown
+            iconSource: expand ? FluentIcons.ChevronUp : FluentIcons.ChevronDown
             onClicked: {
                 expand = !expand
             }

@@ -2,34 +2,19 @@
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Control {
+Button {
     id: control
 
-    property string text: "Filled Button"
     property bool disabled: false
     property color normalColor: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     property color hoverColor: FluTheme.isDark ? Qt.darker(normalColor,1.1) : Qt.lighter(normalColor,1.1)
     property color disableColor: FluTheme.isDark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
-    signal clicked
 
+    enabled: !disabled
     topPadding:5
     bottomPadding:5
     leftPadding:15
     rightPadding:15
-    focusPolicy:Qt.TabFocus
-    Keys.onEnterPressed:(visualFocus&&handleClick())
-    Keys.onReturnPressed:(visualFocus&&handleClick())
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: handleClick()
-    }
-
-    function handleClick(){
-        if(disabled)
-            return
-        control.clicked()
-    }
 
     background: Rectangle{
         radius: 4

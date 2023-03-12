@@ -7,7 +7,7 @@ TextField{
     property var values:[]
     property int fontStyle: FluText.Body
     property int pixelSize : FluTheme.textSize
-    property int icon: -1
+    property int iconSource: -1
     signal itemClicked(string data)
 
     id:input
@@ -91,7 +91,7 @@ TextField{
         inputItem: input
 
         FluIconButton{
-            icon:FluentIcons.ChromeClose
+            iconSource:FluentIcons.ChromeClose
             iconSize: 10
             width: 20
             height: 20
@@ -109,10 +109,10 @@ TextField{
 
         FluIcon{
             id:icon_right
-            icon: input.icon
+            iconSource: input.iconSource
             iconSize: 15
             opacity: 0.5
-            visible: input.icon != -1
+            visible: input.iconSource != -1
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right

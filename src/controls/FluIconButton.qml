@@ -2,17 +2,25 @@
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Control {
+Button {
 
     id:control
+
+
     width: 30
     height: 30
+    implicitWidth: width
+    implicitHeight: height
+
+    padding: 0
 
     property int iconSize: 20
-    property int icon
-    property alias text: tool_tip.text
-    signal clicked
+    property int iconSource
+
+
     property bool disabled: false
+
+    enabled: !disabled
 
     property color hoverColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(0,0,0,0.03)
     property color normalColor: FluTheme.isDark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
@@ -39,22 +47,6 @@ Control {
         }
     }
 
-    focusPolicy:Qt.TabFocus
-    Keys.onEnterPressed:(visualFocus&&handleClick())
-    Keys.onReturnPressed:(visualFocus&&handleClick())
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: handleClick()
-    }
-
-    function handleClick(){
-        if(disabled){
-            return
-        }
-        control.clicked()
-    }
-
     background: Rectangle{
         radius: 4
         color:control.color
@@ -68,11 +60,13 @@ Control {
             id:text_icon
             font.family: "Segoe Fluent Icons"
             font.pixelSize: iconSize
+            width: iconSize
+            height: iconSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
             color:control.textColor
-            text: (String.fromCharCode(icon).toString(16));
+            text: (String.fromCharCode(iconSource).toString(16));
         }
 
         FluTooltip{
@@ -83,6 +77,7 @@ Control {
                 }
                 return hovered
             }
+            text:control.text
             delay: 1000
         }
     }
