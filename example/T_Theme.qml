@@ -41,9 +41,9 @@ FluScrollablePage{
         Layout.topMargin: 20
     }
     FluToggleSwitch{
-        checked: FluTheme.isDark
-        onCheckedChanged:{
-            FluTheme.isDark = checked
+        selected: FluTheme.isDark
+        clickFunc:function(){
+            FluTheme.isDark = !FluTheme.isDark
         }
     }
     FluText{
@@ -51,9 +51,9 @@ FluScrollablePage{
         Layout.topMargin: 20
     }
     FluToggleSwitch{
-        checked: FluTheme.isFrameless
-        onCheckedChanged:{
-            FluTheme.isFrameless = isFrameless
+        selected: FluTheme.isFrameless
+        clickFunc:function(){
+            FluTheme.isFrameless = !FluTheme.isFrameless
         }
     }
     FluText{
@@ -61,9 +61,9 @@ FluScrollablePage{
         Layout.topMargin: 20
     }
     FluToggleSwitch{
-        checked: FluTheme.isNativeText
-        onCheckedChanged:{
-            FluTheme.isNativeText = isNativeText
+        selected: FluTheme.isNativeText
+        clickFunc:function(){
+            FluTheme.isNativeText = !FluTheme.isNativeText
         }
     }
 }

@@ -11,12 +11,14 @@ Button {
 
     id:control
     enabled: !disabled
+    focusPolicy:Qt.TabFocus
     padding:0
     background: Item{
         FluFocusRectangle{
-            visible: control.focus
+            visible: control.visualFocus
         }
     }
+    Keys.onSpacePressed: control.visualFocus&&clicked()
     contentItem: RowLayout{
         Rectangle{
             id:rect_check
@@ -93,14 +95,10 @@ Button {
                 }
             }
         }
-
         FluText{
             text: control.text
             Layout.alignment: Qt.AlignVCenter
         }
-
     }
-
-
 }
 

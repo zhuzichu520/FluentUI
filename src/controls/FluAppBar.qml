@@ -93,9 +93,9 @@ Rectangle{
                 fontStyle: FluText.Body
             }
             FluToggleSwitch{
-                checked: FluTheme.isDark
-                onCheckedChanged:{
-                    FluTheme.isDark = checked
+                selected: FluTheme.isDark
+                clickFunc:function(){
+                    FluTheme.isDark = !FluTheme.isDark
                 }
             }
         }

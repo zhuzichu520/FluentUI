@@ -15,11 +15,12 @@ Button {
     bottomPadding:5
     leftPadding:15
     rightPadding:15
-
+    Keys.onSpacePressed: control.visualFocus&&clicked()
+    focusPolicy:Qt.TabFocus
     background: Rectangle{
         radius: 4
         FluFocusRectangle{
-            visible: control.focus
+            visible: control.visualFocus
             radius:8
         }
         color:{
@@ -29,7 +30,6 @@ Button {
             return hovered ? hoverColor :normalColor
         }
     }
-
     contentItem: FluText {
         text: control.text
         horizontalAlignment: Text.AlignHCenter
@@ -46,6 +46,4 @@ Button {
         }
         font.pixelSize: 14
     }
-
-
 }

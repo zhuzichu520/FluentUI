@@ -4,35 +4,18 @@ import FluentUI 1.0
 
 Button {
 
-    id:control
-
-
-    width: 30
-    height: 30
-    implicitWidth: width
-    implicitHeight: height
-
-    padding: 0
-
     property int iconSize: 20
     property int iconSource
-
-
     property bool disabled: false
-
-    enabled: !disabled
-
     property color hoverColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(0,0,0,0.03)
     property color normalColor: FluTheme.isDark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
     property color disableColor: FluTheme.isDark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(0,0,0,0)
-
     property color color: {
         if(disabled){
             return disableColor
         }
         return hovered ? hoverColor : normalColor
     }
-
     property color textColor: {
         if(FluTheme.isDark){
             if(disabled){
@@ -47,14 +30,22 @@ Button {
         }
     }
 
+    id:control
+    width: 30
+    height: 30
+    implicitWidth: width
+    implicitHeight: height
+    padding: 0
+    enabled: !disabled
+    focusPolicy:Qt.TabFocus
+    Keys.onSpacePressed: control.visualFocus&&clicked()
     background: Rectangle{
         radius: 4
         color:control.color
         FluFocusRectangle{
-            visible: control.focus
+            visible: control.visualFocus
         }
     }
-
     contentItem: Item{
         Text {
             id:text_icon
@@ -68,7 +59,6 @@ Button {
             color:control.textColor
             text: (String.fromCharCode(iconSource).toString(16));
         }
-
         FluTooltip{
             id:tool_tip
             visible: {
@@ -81,8 +71,4 @@ Button {
             delay: 1000
         }
     }
-
-
-
-
 }

@@ -20,7 +20,7 @@ FluScrollablePage{
         paddings: 10
 
         FluButton{
-            disabled:button_switch.checked
+            disabled:button_switch.selected
             text:"Standard Button"
             onClicked: {
                 showInfo("点击StandardButton")
@@ -53,7 +53,7 @@ FluScrollablePage{
         paddings: 10
 
         FluFilledButton{
-            disabled:filled_button_switch.checked
+            disabled:filled_button_switch.selected
             text:"Filled Button"
             onClicked: {
                 showWarning("点击FilledButton")
@@ -88,7 +88,7 @@ FluScrollablePage{
 
         FluIconButton{
             iconSource:FluentIcons.ChromeCloseContrast
-            disabled:icon_button_switch.checked
+            disabled:icon_button_switch.selected
             iconSize: 15
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -132,7 +132,7 @@ FluScrollablePage{
                 model: 3
                 delegate:  FluRadioButton{
                     selected : repeater.selecIndex===index
-                    disabled:radio_button_switch.checked
+                    disabled:radio_button_switch.selected
                     text:"Radio Button_"+index
                     onClicked:{
                         repeater.selecIndex = index
@@ -165,7 +165,7 @@ FluScrollablePage{
         paddings: 10
 
         FluCheckBox{
-            disabled:icon_button_check.checked
+            disabled:check_box_switch.selected
             text:"Check Box"
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -181,7 +181,7 @@ FluScrollablePage{
                 right: parent.right
             }
             FluToggleSwitch{
-                id:icon_button_check
+                id:check_box_switch
                 Layout.alignment: Qt.AlignRight
             }
             FluText{
