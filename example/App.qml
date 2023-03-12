@@ -15,8 +15,6 @@ Window {
             "/":"qrc:/MainPage.qml",
             "/Setting":"qrc:/SettingPage.qml",
             "/About":"qrc:/AboutPage.qml",
-            "/Installer":"qrc:/Installer.qml",
-            "/Uninstall":"qrc:/Uninstall.qml"
         }
         FluApp.initialRoute = "/"
         FluApp.run()
