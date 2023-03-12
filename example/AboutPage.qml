@@ -34,7 +34,7 @@ FluWindow {
                 fontStyle: FluText.Title
             }
             FluText{
-                text:"v1.0.5"
+                text:"v1.0.6"
                 fontStyle: FluText.Body
                 Layout.alignment: Qt.AlignBottom
             }
@@ -69,6 +69,28 @@ FluWindow {
                 }
             }
         }
+
+        RowLayout{
+            spacing: 14
+            Layout.topMargin: 20
+            Layout.leftMargin: 15
+            FluText{
+                id:text_info
+                text:"如果该项目对你有作用，就请点击上方链接给一个免费的star吧！"
+                ColorAnimation {
+                        id: animation
+                        target: text_info
+                        property: "color"
+                        from: "red"
+                        to: "blue"
+                        duration: 1000
+                        running: true
+                        loops: Animation.Infinite
+                        easing.type: Easing.InOutQuad
+                    }
+            }
+        }
+
 
     }
 
