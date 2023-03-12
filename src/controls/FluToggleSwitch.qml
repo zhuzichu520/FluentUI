@@ -14,7 +14,7 @@ Button {
         height: root.height
         radius: height / 2
         FluFocusRectangle{
-            visible: root.visualFocus
+            visible: root.focus
             radius: 20
         }
         color: {

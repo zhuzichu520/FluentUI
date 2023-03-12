@@ -44,7 +44,7 @@ Button {
 
     background: Item{
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.focus
         }
     }
 

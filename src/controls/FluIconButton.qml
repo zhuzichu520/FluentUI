@@ -51,7 +51,7 @@ Button {
         radius: 4
         color:control.color
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.focus
         }
     }
 

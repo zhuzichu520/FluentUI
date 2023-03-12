@@ -21,7 +21,7 @@ Button {
         border.width: 1
         radius: 4
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.focus
             radius:8
         }
         color:{

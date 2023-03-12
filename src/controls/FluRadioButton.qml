@@ -14,7 +14,7 @@ Button {
     padding:0
     background: Item{
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.focus
         }
     }
     contentItem: RowLayout{
