@@ -1,19 +1,16 @@
 ﻿import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
-Item {
+Control {
 
-    id:root
+    id:control
     property bool checked: false
     property string text: "Check Box"
     property var checkClicked
-    property bool hovered: mouse_area.containsMouse
 
     property bool disabled: false
-
-    width: childrenRect.width
-    height: childrenRect.height
 
     property color borderNormalColor: FluTheme.isDark ? Qt.rgba(160/255,160/255,160/255,1) : Qt.rgba(136/255,136/255,136/255,1)
     property color borderCheckedColor: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
@@ -26,10 +23,36 @@ Item {
     property color checkedHoverColor: FluTheme.isDark ? Qt.darker(checkedColor,1.1) : Qt.lighter(checkedColor,1.1)
 
     property color checkedDisableColor: FluTheme.isDark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
-
     property color disableColor: FluTheme.isDark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(253/255,253/255,253/255,1)
 
-    RowLayout{
+
+    focusPolicy:Qt.TabFocus
+    Keys.onEnterPressed:(visualFocus&&handleClick())
+    Keys.onReturnPressed:(visualFocus&&handleClick())
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: handleClick()
+    }
+
+    function handleClick(){
+        if(disabled){
+            return
+        }
+        if(checkClicked){
+            checkClicked()
+            return
+        }
+        checked = !checked
+    }
+
+    background: Item{
+        FluFocusRectangle{
+            visible: control.visualFocus
+        }
+    }
+
+    contentItem: RowLayout{
         spacing: 4
         Rectangle{
             width: 20
@@ -73,22 +96,7 @@ Item {
             }
         }
         FluText{
-            text:root.text
-        }
-    }
-
-
-    MouseArea{
-        id:mouse_area
-        anchors.fill: parent
-        hoverEnabled: true
-        enabled: !disabled
-        onClicked: {
-            if(checkClicked){
-                checkClicked()
-                return
-            }
-            checked = !checked
+            text:control.text
         }
     }
 

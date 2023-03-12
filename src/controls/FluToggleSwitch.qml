@@ -10,6 +10,15 @@ Switch {
     height: 20
     implicitHeight: 20
     checkable: false
+
+    background:FluFocusRectangle{
+        visible: root.visualFocus
+        radius: 20
+    }
+
+    Keys.onEnterPressed:(visualFocus&&handleClick())
+    Keys.onReturnPressed:(visualFocus&&handleClick())
+
     indicator: Rectangle {
         width: root.width
         height: root.height
@@ -44,7 +53,7 @@ Switch {
             scale: switch_mouse.containsMouse ? 1.2 : 1.0
             anchors.verticalCenter: parent.verticalCenter
             color: root.checked ? "#FFFFFF" : "#666666"
-//            border.color: "#D5D5D5"
+            //            border.color: "#D5D5D5"
             Behavior on x {
                 NumberAnimation { duration: 200 }
             }
@@ -54,12 +63,15 @@ Switch {
         id:switch_mouse
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: {
-            if(root.onClickFunc){
-                root.onClickFunc()
-            }else{
-                root.checked = !root.checked
-            }
+        onClicked: handleClick()
+    }
+
+    function handleClick(){
+        if(root.onClickFunc){
+            root.onClickFunc()
+        }else{
+            root.checked = !root.checked
         }
     }
+
 }

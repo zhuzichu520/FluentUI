@@ -100,7 +100,7 @@ Rectangle {
         }
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text:"上午"
+        text:"AM/PM"
     }
 
     Popup{
@@ -210,6 +210,9 @@ Rectangle {
                         property int position:index
                         sourceComponent: list_delegate
                     }
+                    onCurrentIndexChanged: {
+                        list_view_1.positionViewAtIndex(currentIndex, ListView.NoPosition)
+                    }
                 }
                 Rectangle{
                     width: 1
@@ -230,12 +233,15 @@ Rectangle {
                         property int position:index
                         sourceComponent: list_delegate
                     }
+                    onCurrentIndexChanged: {
+                        list_view_2.positionViewAtIndex(currentIndex, ListView.NoPosition)
+                    }
                 }
                 Rectangle{
                     width: 1
                     height: parent.height
                     color: dividerColor
-                     visible: isH
+                    visible: isH
                 }
                 ListView{
                     id:list_view_3
@@ -252,6 +258,9 @@ Rectangle {
                         property int type:2
                         property int position:index
                         sourceComponent: list_delegate
+                    }
+                    onCurrentIndexChanged: {
+                        list_view_3.positionViewAtIndex(currentIndex, ListView.NoPosition)
                     }
                 }
             }
@@ -319,9 +328,35 @@ Rectangle {
             rowData[0] = text_hour.text
             rowData[1] = text_minute.text
             rowData[2] = text_ampm.text
-            list_view_1.currentIndex = -1
-            list_view_2.currentIndex = -1
-            list_view_3.currentIndex = -1
+
+            var now = new Date();
+
+            var hour
+            var ampm;
+            if(isH){
+                hour  = now.getHours();
+                if(hour>12){
+                    ampm = "下午"
+                    hour = hour-12
+                }else{
+                    ampm = "上午"
+                }
+            }else{
+                hour = now.getHours();
+            }
+            hour = text_hour.text === "时"? hour.toString().padStart(2, '0') : text_hour.text
+            var minute = text_minute.text === "分"? now.getMinutes().toString().padStart(2, '0') : text_minute.text
+            ampm = text_ampm.text === "AM/PM"?ampm:text_ampm.text
+            list_view_1.currentIndex = list_view_1.model.indexOf(hour);
+            list_view_2.currentIndex = list_view_2.model.indexOf(minute);
+            list_view_3.currentIndex = list_view_3.model.indexOf(ampm);
+
+            text_hour.text = hour
+            text_minute.text = minute
+            if(isH){
+                text_ampm.text = ampm
+            }
+
             var pos = root.mapToItem(null, 0, 0)
             if(window.height>pos.y+35+340){
                 popup.y = 35

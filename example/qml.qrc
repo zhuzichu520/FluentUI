@@ -31,5 +31,6 @@
         <file>T_Expander.qml</file>
         <file>MainPage.qml</file>
         <file>T_TimePicker.qml</file>
+        <file>T_DatePicker.qml</file>
     </qresource>
 </RCC>

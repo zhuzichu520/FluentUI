@@ -1,9 +1,10 @@
 ﻿import QtQuick 2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Rectangle {
+Control {
 
-    id:button
+    id:control
     width: 30
     height: 30
 
@@ -12,11 +13,17 @@ Rectangle {
     property alias text: tool_tip.text
     signal clicked
     property bool disabled: false
-    property bool hovered: button_mouse.containsMouse
 
     property color hoverColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(0,0,0,0.03)
     property color normalColor: FluTheme.isDark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
     property color disableColor: FluTheme.isDark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(0,0,0,0)
+
+    property color color: {
+        if(disabled){
+            return disableColor
+        }
+        return hovered ? hoverColor : normalColor
+    }
 
     property color textColor: {
         if(FluTheme.isDark){
@@ -31,47 +38,56 @@ Rectangle {
             return Qt.rgba(0,0,0,1)
         }
     }
-    radius: 4
 
-    color: {
-        if(disabled){
-            return disableColor
-        }
-        return (hovered || button_mouse.containsMouse) ? hoverColor : normalColor
-    }
+    focusPolicy:Qt.TabFocus
+    Keys.onEnterPressed:(visualFocus&&handleClick())
+    Keys.onReturnPressed:(visualFocus&&handleClick())
 
-    Text {
-        id:text_icon
-        font.family: "Segoe Fluent Icons"
-        font.pixelSize: iconSize
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        anchors.centerIn: parent
-        color:button.textColor
-        text: (String.fromCharCode(icon).toString(16));
-    }
-
-    MouseArea{
-        id:button_mouse
+    MouseArea {
         anchors.fill: parent
-        hoverEnabled: true
-        onClicked: {
-            if(disabled){
-                return
-            }
-            button.clicked()
+        onClicked: handleClick()
+    }
+
+    function handleClick(){
+        if(disabled){
+            return
+        }
+        control.clicked()
+    }
+
+    background: Rectangle{
+        radius: 4
+        color:control.color
+        FluFocusRectangle{
+            visible: control.visualFocus
         }
     }
 
-    FluTooltip{
-        id:tool_tip
-        visible: {
-            if(button.text === ""){
-                return false
-            }
-            return (hovered || button_mouse.containsMouse)
+    contentItem: Item{
+        Text {
+            id:text_icon
+            font.family: "Segoe Fluent Icons"
+            font.pixelSize: iconSize
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.centerIn: parent
+            color:control.textColor
+            text: (String.fromCharCode(icon).toString(16));
         }
-        delay: 1000
+
+        FluTooltip{
+            id:tool_tip
+            visible: {
+                if(control.text === ""){
+                    return false
+                }
+                return hovered
+            }
+            delay: 1000
+        }
     }
+
+
+
 
 }

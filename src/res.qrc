@@ -46,5 +46,6 @@
         <file>controls/FluDatePicker.qml</file>
         <file>controls/FluCalenderView.qml</file>
         <file>controls/FluCalendarDatePicker.qml</file>
+        <file>controls/FluFocusRectangle.qml</file>
     </qresource>
 </RCC>

@@ -29,6 +29,20 @@ TextField{
     }
     rightPadding: icon_right.visible ? 50 : 30
     selectByMouse: true
+
+    Keys.onUpPressed: {
+        list_view.currentIndex = Math.max(list_view.currentIndex-1,0)
+    }
+
+    Keys.onDownPressed: {
+        list_view.currentIndex = Math.min(list_view.currentIndex+1,list_view.count-1)
+    }
+
+    signal handleClicked
+    Keys.onEnterPressed:handleClicked()
+    Keys.onReturnPressed:handleClicked()
+
+
     font.bold: {
         switch (fontStyle) {
         case FluText.Display:
@@ -118,6 +132,11 @@ TextField{
         onClosed: {
             input.focus = false
         }
+        onVisibleChanged: {
+            if(visible){
+                list_view.currentIndex = -1
+            }
+        }
         background: Rectangle{
             width: input.width
             radius: 4
@@ -132,6 +151,7 @@ TextField{
                 anchors.fill: parent
                 boundsBehavior: ListView.StopAtBounds
                 clip: true
+                currentIndex: -1
                 header: Item{
                     width: input.width
                     height: visible ? 38 : 0
@@ -146,42 +166,81 @@ TextField{
                     }
                 }
                 ScrollBar.vertical: ScrollBar { }
-                delegate: Item{
-                    height: 38
+                delegate:Control{
                     width: input.width
-                    Rectangle{
-                        anchors.fill: parent
-                        anchors.topMargin: 2
-                        anchors.bottomMargin: 2
-                        anchors.leftMargin: 5
-                        anchors.rightMargin: 5
+                    padding:10
+                    background: Rectangle{
                         color:  {
-                            if(item_mouse.containsMouse){
+                            if(list_view.currentIndex === index){
+                                return FluTheme.isDark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                            }
+                            if(hovered){
                                 return FluTheme.isDark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
                             return FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                         }
-                        radius: 3
                         MouseArea{
-                            id:item_mouse
+                            id:mouse_area
                             anchors.fill: parent
-                            hoverEnabled: true
-                            onClicked: {
+                            Connections{
+                                target: input
+                                function onHandleClicked(){
+                                    if((list_view.currentIndex === index)){
+                                        mouse_area.handleClick()
+                                    }
+                                }
+                            }
+                            onClicked: handleClick()
+                            function handleClick(){
                                 input_popup.close()
                                 input.itemClicked(modelData)
                                 input.text = modelData
                             }
                         }
-                        FluText{
-                            text:modelData
+                        Rectangle{
+                            width: 3
+                            color:FluTheme.primaryColor.dark
+                            visible: list_view.currentIndex === index
+                            radius: 3
+                            height: 20
                             anchors{
-                                verticalCenter: parent.verticalCenter
                                 left: parent.left
-                                leftMargin: 10
+                                verticalCenter: parent.verticalCenter
                             }
                         }
                     }
+                    contentItem: FluText{
+                        text:modelData
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                        }
+                    }
+
                 }
+                //                Item{
+                //                    height: 38
+                //                    width: input.width
+                //                    Rectangle{
+                //                        anchors.fill: parent
+                //                        anchors.topMargin: 2
+                //                        anchors.bottomMargin: 2
+                //                        anchors.leftMargin: 5
+                //                        anchors.rightMargin: 5
+
+                //                        radius: 3
+                //                        MouseArea{
+                //                            id:item_mouse
+                //                            anchors.fill: parent
+                //                            hoverEnabled: true
+                //                            onClicked: {
+                //                                input_popup.close()
+                //                                input.itemClicked(modelData)
+                //                                input.text = modelData
+                //                            }
+                //                        }
+
+                //                    }
+                //                }
             }
         }
     }

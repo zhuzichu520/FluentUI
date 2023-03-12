@@ -2,37 +2,53 @@
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Rectangle {
-    id: button
+Control {
+    id: control
 
     property string text: "Filled Button"
-    property int startPadding : 15
-    property int endPadding : 15
-    property int topPadding: 5
-    property int bottomPadding: 5
     property bool disabled: false
-
+    property color normalColor: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color hoverColor: FluTheme.isDark ? Qt.darker(normalColor,1.1) : Qt.lighter(normalColor,1.1)
+    property color disableColor: FluTheme.isDark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
     signal clicked
-    radius: 4
-    color:{
-        if(FluTheme.isDark){
+
+    topPadding:5
+    bottomPadding:5
+    leftPadding:15
+    rightPadding:15
+    focusPolicy:Qt.TabFocus
+    Keys.onEnterPressed:(visualFocus&&handleClick())
+    Keys.onReturnPressed:(visualFocus&&handleClick())
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: handleClick()
+    }
+
+    function handleClick(){
+        if(disabled)
+            return
+        control.clicked()
+    }
+
+    background: Rectangle{
+        radius: 4
+        FluFocusRectangle{
+            visible: control.visualFocus
+            radius:8
+        }
+        color:{
             if(disabled){
-                return Qt.rgba(199/255,199/255,199/255,1)
+                return disableColor
             }
-            return  button_mouse.containsMouse ? Qt.darker(FluTheme.primaryColor.lighter,1.1) : FluTheme.primaryColor.lighter
-        }else{
-            if(disabled){
-                return Qt.rgba(199/255,199/255,199/255,1)
-            }
-            return  button_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor.dark,1.1): FluTheme.primaryColor.dark
+            return hovered ? hoverColor :normalColor
         }
     }
-    width: button_text.implicitWidth
-    height: button_text.implicitHeight
 
-    FluText {
-        id: button_text
-        text: button.text
+    contentItem: FluText {
+        text: control.text
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
         color: {
             if(FluTheme.isDark){
                 if(disabled){
@@ -44,21 +60,7 @@ Rectangle {
             }
         }
         font.pixelSize: 14
-        leftPadding: button.startPadding
-        rightPadding: button.endPadding
-        topPadding: button.topPadding
-        bottomPadding: button.bottomPadding
-        anchors.centerIn: parent
     }
 
-    MouseArea {
-        id:button_mouse
-        anchors.fill: parent
-        hoverEnabled: true
-        onClicked: {
-            if(disabled)
-                return
-            button.clicked()
-        }
-    }
+
 }

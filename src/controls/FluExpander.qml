@@ -49,9 +49,12 @@ Item {
                 right: parent.right
                 rightMargin: 15
             }
-            hoverColor: FluTheme.isDark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(245/255,245/255,245/255,1)
-            normalColor: FluTheme.isDark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-            hovered: root_mouse.containsMouse
+            color:{
+                if(root_mouse.containsMouse){
+                    return FluTheme.isDark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(245/255,245/255,245/255,1)
+                }
+                return FluTheme.isDark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+            }
             iconSize: 15
             icon: expand ? FluentIcons.ChevronUp : FluentIcons.ChevronDown
             onClicked: {

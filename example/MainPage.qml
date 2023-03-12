@@ -66,6 +66,13 @@ FluWindow {
             }
         }
 
+        FluPaneItem{
+            title:"DatePicker"
+            onTap:{
+                nav_view.push("qrc:/T_DatePicker.qml")
+            }
+        }
+
         FluPaneItemHeader{
             title:"Surface"
         }

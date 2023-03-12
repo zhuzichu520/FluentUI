@@ -9,8 +9,12 @@ FluScrollablePage{
 
     spacing: 20
 
+    FluText{
+         Layout.topMargin: 20
+         text:"支持Tab键切换焦点，Enter键执行点击事件"
+    }
+
     FluArea{
-        Layout.topMargin: 20
         width: parent.width
         height: 68
         paddings: 10

@@ -1,19 +1,42 @@
 ﻿import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 
-Item {
+Control {
 
-    id:root
-    width: childrenRect.width
-    height: childrenRect.height
+    id:control
     property bool checked: false
     property string text: "RodioButton"
     signal clicked
     property bool disabled: false
 
-    RowLayout{
+    focusPolicy:Qt.TabFocus
+    Keys.onEnterPressed:(visualFocus&&handleClick())
+    Keys.onReturnPressed:(visualFocus&&handleClick())
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: handleClick()
+    }
+
+    function handleClick(){
+        if(disabled){
+            return
+        }
+
+        control.clicked()
+    }
+
+
+    background: Item{
+        FluFocusRectangle{
+            visible: control.visualFocus
+        }
+    }
+
+    contentItem: RowLayout{
         Rectangle{
             id:rect_check
             width: 20
@@ -26,13 +49,13 @@ Item {
                 if(checked&&disabled){
                     return 3
                 }
-                if(root_mouse.containsPress){
+                if(hovered){
                     if(checked){
                         return 5
                     }
                     return 1
                 }
-                if(root_mouse.containsMouse){
+                if(hovered){
                     if(checked){
                         return 3
                     }
@@ -74,12 +97,12 @@ Item {
                     return Qt.rgba(159/255,159/255,159/255,1)
                 }
                 if(FluTheme.isDark){
-                    if(root_mouse.containsMouse){
+                    if(hovered){
                         return Qt.rgba(43/255,43/255,43/255,1)
                     }
                     return Qt.rgba(50/255,50/255,50/255,1)
                 }else{
-                    if(root_mouse.containsMouse){
+                    if(hovered){
                         if(checked){
                             return Qt.rgba(1,1,1,1)
                         }
@@ -91,21 +114,12 @@ Item {
         }
 
         FluText{
-            text: root.text
+            text: control.text
             Layout.alignment: Qt.AlignVCenter
         }
 
     }
 
-    MouseArea{
-        id:root_mouse
-        hoverEnabled: true
-        anchors.fill: parent
-        enabled: !disabled
-        onClicked: {
-            root.clicked()
-        }
-    }
 
 }
 

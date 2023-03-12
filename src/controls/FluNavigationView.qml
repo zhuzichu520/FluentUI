@@ -195,7 +195,7 @@ Item {
     Item{
         anchors{
             left: displayMode === FluNavigationView.Minimal ? parent.left : layout_list.right
-            leftMargin: 2
+            leftMargin: 10
             top: nav_app_bar.bottom
             right: parent.right
             rightMargin: 10
@@ -207,7 +207,6 @@ Item {
             id:nav_swipe
             anchors.fill: parent
             clip: true
-            anchors.margins: 10
             popEnter : Transition{}
             popExit : Transition {
                 NumberAnimation { properties: "y"; from: 0; to: nav_swipe.height; duration: 200 }
