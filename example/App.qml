@@ -12,9 +12,9 @@ Window {
         FluApp.init(app,properties)
         FluTheme.isDark = false
         FluApp.routes = {
-            "/":"qrc:/MainPage.qml",
-            "/Setting":"qrc:/SettingPage.qml",
-            "/About":"qrc:/AboutPage.qml",
+            "/":"qrc:/page/MainPage.qml",
+            "/about":"qrc:/page/AboutPage.qml",
+            "/login":"qrc:/page/LoginPage.qml",
         }
         FluApp.initialRoute = "/"
         FluApp.run()

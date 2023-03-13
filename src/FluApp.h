@@ -24,7 +24,7 @@ public:
 
     Q_INVOKABLE void run();
 
-    Q_INVOKABLE void navigate(const QString& route);
+    Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {});
 
     Q_INVOKABLE void init(QWindow *window,QMap<QString, QVariant> properties);
 

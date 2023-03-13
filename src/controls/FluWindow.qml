@@ -26,6 +26,9 @@ Item {
     property int maximumWidth
     property int minimumHeight
     property int maximumHeight
+    property int modality:0
+
+    signal initArgument(var argument)
 
     property int borderless:{
         if(!FluTheme.isFrameless){
@@ -76,8 +79,8 @@ Item {
         target: FluApp
         function onWindowReady(view){
             if(FluApp.equalsWindow(view,window)){
-                helper.initWindow(view);
-                helper.setTitle(title);
+                initArgument(helper.initWindow(view))
+                helper.setTitle(title)
                 if(minimumWidth){
                     helper.setMinimumWidth(minimumWidth)
                 }
@@ -90,6 +93,8 @@ Item {
                 if(maximumHeight){
                     helper.setMaximumHeight(maximumHeight)
                 }
+                helper.setModality(root.modality);
+                helper.updateWindow()
             }
         }
     }
@@ -117,6 +122,10 @@ Item {
     }
     function close(){
         window.close()
+    }
+
+    function onResult(data){
+
     }
 
 }

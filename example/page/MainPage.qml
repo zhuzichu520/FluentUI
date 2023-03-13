@@ -9,7 +9,7 @@ import FluentUI 1.0
 FluWindow {
     id:rootwindow
     width: 860
-    height: 680
+    height: 600
     title: "FluentUI"
     minimumWidth: 500
     minimumHeight: 400
@@ -56,6 +56,13 @@ FluWindow {
             title:"TextBox"
             onTap:{
                 nav_view.push("qrc:/T_TextBox.qml")
+            }
+        }
+
+        FluPaneItem{
+            title:"Menu"
+            onTap:{
+                nav_view.push("qrc:/T_Menu.qml")
             }
         }
 
@@ -126,6 +133,14 @@ FluWindow {
             }
         }
 
+
+        FluPaneItem{
+            title:"MultiWindow"
+            onTap:{
+                nav_view.push("qrc:/T_MultiWindow.qml")
+            }
+        }
+
         FluPaneItemHeader{
             title:"Theming"
         }
@@ -164,7 +179,7 @@ FluWindow {
         FluPaneItem{
             title:"关于"
             onTap:{
-                FluApp.navigate("/About")
+                FluApp.navigate("/about")
             }
         }
     }

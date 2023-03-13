@@ -7,7 +7,7 @@ TextField{
     property var values:[]
     property int fontStyle: FluText.Body
     property int pixelSize : FluTheme.textSize
-    property int iconSource: -1
+    property int iconSource: 0
     signal itemClicked(string data)
 
     id:input
@@ -112,7 +112,7 @@ TextField{
             iconSource: input.iconSource
             iconSize: 15
             opacity: 0.5
-            visible: input.iconSource != -1
+            visible: input.iconSource != 0
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right

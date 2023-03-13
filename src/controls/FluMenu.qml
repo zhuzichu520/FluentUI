@@ -2,9 +2,9 @@
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
-Popup {
+Menu {
     id: popup
-    default property alias content: container.children
+    default property alias content: container.data
 
     background: Rectangle {
         implicitWidth: 140

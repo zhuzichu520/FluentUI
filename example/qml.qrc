@@ -3,8 +3,6 @@
         <file>T_ToggleSwitch.qml</file>
         <file>T_Typography.qml</file>
         <file>App.qml</file>
-        <file>SettingPage.qml</file>
-        <file>AboutPage.qml</file>
         <file>T_Buttons.qml</file>
         <file>T_Rectangle.qml</file>
         <file>T_InfoBar.qml</file>
@@ -29,8 +27,12 @@
         <file>T_Dialog.qml</file>
         <file>T_TreeView.qml</file>
         <file>T_Expander.qml</file>
-        <file>MainPage.qml</file>
         <file>T_TimePicker.qml</file>
         <file>T_DatePicker.qml</file>
+        <file>T_Menu.qml</file>
+        <file>page/AboutPage.qml</file>
+        <file>page/MainPage.qml</file>
+        <file>T_MultiWindow.qml</file>
+        <file>page/LoginPage.qml</file>
     </qresource>
 </RCC>
