@@ -2,7 +2,6 @@
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
 FluScrollablePage{
@@ -23,12 +22,12 @@ FluScrollablePage{
 
     FluArea{
         width: parent.width
-        height: 68
+        height: 100
         paddings: 10
         Layout.topMargin: 20
 
         Column{
-            spacing: 5
+            spacing: 15
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
