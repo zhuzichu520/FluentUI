@@ -33,13 +33,17 @@ void FluApp::run(){
     navigate(initialRoute());
 }
 
-void FluApp::navigate(const QString& route,const QJsonObject& argument){
+void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegister* fluRegister){
     if(!routes().contains(route)){
         qErrnoWarning("没有找到当前路由");
         return;
     }
     bool isAppWindow = route == initialRoute();
     FramelessView *view = new FramelessView();
+    if(fluRegister){
+        fluRegister->to(view);
+        view->setProperty("pageRegister",QVariant::fromValue(fluRegister));
+    }
     view->setProperty("argument",argument);
     QMapIterator<QString, QVariant> iterator(properties);
     while (iterator.hasNext()) {
@@ -59,7 +63,6 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument){
     view->setSource((routes().value(route).toString()));
     if(isAppWindow){
         QObject::connect(view->engine(), &QQmlEngine::quit, qApp, &QCoreApplication::quit);
-        //        QObject::connect(qApp, &QGuiApplication::aboutToQuit, qApp, [&view](){view->setSource({});});
     }else{
         view->closeDeleteLater();
     }

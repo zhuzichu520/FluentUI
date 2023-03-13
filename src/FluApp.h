@@ -7,6 +7,7 @@
 #include <QQmlContext>
 #include <QJsonObject>
 #include <QQmlEngine>
+#include "FluRegister.h"
 #include "FramelessView.h"
 #include "stdafx.h"
 
@@ -24,7 +25,7 @@ public:
 
     Q_INVOKABLE void run();
 
-    Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {});
+    Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluRegister* fluRegister = nullptr);
 
     Q_INVOKABLE void init(QWindow *window,QMap<QString, QVariant> properties);
 
@@ -37,9 +38,8 @@ public:
     Q_INVOKABLE void clipText(const QString& text);
 
 private:
-
-    static FluApp* m_instance;
     QMap<QString, QVariant> properties;
+    static FluApp* m_instance;
     QWindow *appWindow;
 
 };

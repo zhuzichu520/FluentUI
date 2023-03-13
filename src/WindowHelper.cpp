@@ -1,5 +1,7 @@
 ﻿#include "WindowHelper.h"
 
+#include "FluRegister.h"
+
 WindowHelper::WindowHelper(QObject *parent)
     : QObject{parent}
 {
@@ -10,9 +12,16 @@ void WindowHelper::setTitle(const QString& text){
     window->setTitle(text);
 }
 
-QJsonObject WindowHelper::initWindow(FramelessView* window){
+void WindowHelper::initWindow(FramelessView* window){
     this->window = window;
+}
+
+QJsonObject WindowHelper::getArgument(){
     return window->property("argument").toJsonObject();
+}
+
+QVariant WindowHelper::getPageRegister(){
+    return window->property("pageRegister");
 }
 
 void WindowHelper::setMinimumWidth(int width){
@@ -31,7 +40,6 @@ void WindowHelper::updateWindow(){
     this->window->setFlag(Qt::Window,false);
     this->window->setFlag(Qt::Window,true);
 }
-
 void WindowHelper::setModality(int type){
     if(type == 0){
         this->window->setModality(Qt::NonModal);
@@ -42,4 +50,11 @@ void WindowHelper::setModality(int type){
     }else{
         this->window->setModality(Qt::NonModal);
     }
+}
+
+QVariant WindowHelper::createRegister(const QString& path){
+    FluRegister *p = new FluRegister(this->window);
+    p->from(this->window);
+    p->path(path);
+    return  QVariant::fromValue(p);
 }

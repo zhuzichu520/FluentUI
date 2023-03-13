@@ -15,6 +15,7 @@ HEADERS += \
     FluApp.h \
     FluColorSet.h \
     FluColors.h \
+    FluRegister.h \
     FluTheme.h \
     Fluent.h \
     FluentUI.h \
@@ -28,6 +29,7 @@ SOURCES += \
     FluApp.cpp \
     FluColorSet.cpp \
     FluColors.cpp \
+    FluRegister.cpp \
     FluTheme.cpp \
     Fluent.cpp \
     FluentUI.cpp \

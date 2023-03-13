@@ -30,6 +30,8 @@ Item {
 
     signal initArgument(var argument)
 
+    property var pageRegister
+
     property int borderless:{
         if(!FluTheme.isFrameless){
             return 0
@@ -79,7 +81,9 @@ Item {
         target: FluApp
         function onWindowReady(view){
             if(FluApp.equalsWindow(view,window)){
-                initArgument(helper.initWindow(view))
+                helper.initWindow(view)
+                initArgument(helper.getArgument())
+                pageRegister = helper.getPageRegister()
                 helper.setTitle(title)
                 if(minimumWidth){
                     helper.setMinimumWidth(minimumWidth)
@@ -111,21 +115,31 @@ Item {
     function showSuccess(text,duration,moremsg){
         infoBar.showSuccess(text,duration,moremsg);
     }
+
     function showInfo(text,duration,moremsg){
         infoBar.showInfo(text,duration,moremsg);
     }
+
     function showWarning(text,duration,moremsg){
         infoBar.showWarning(text,duration,moremsg);
     }
+
     function showError(text,duration,moremsg){
         infoBar.showError(text,duration,moremsg);
     }
+
     function close(){
         window.close()
     }
 
-    function onResult(data){
+    function registerForPageResult(path){
+        return helper.createRegister(path)
+    }
 
+    function onResult(data){
+        if(pageRegister){
+            pageRegister.onResult(data)
+        }
     }
 
 }

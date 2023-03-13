@@ -60,6 +60,7 @@ FluWindow {
                     showError("请随便输入一个密码")
                     return
                 }
+                onResult({password:textbox_password.text})
                 window.close()
             }
         }
