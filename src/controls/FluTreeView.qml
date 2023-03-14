@@ -276,8 +276,8 @@ Item {
         model: tree_model
         flickableDirection: Flickable.HorizontalAndVerticalFlick
         clip: true
-        ScrollBar.vertical: ScrollBar { }
-        ScrollBar.horizontal: ScrollBar { }
+        ScrollBar.vertical: FluScrollBar {}
+        ScrollBar.horizontal: FluScrollBar { }
     }
 
     function updateData(items){

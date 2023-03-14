@@ -97,12 +97,22 @@ FluWindow {
                 nav_view.push("qrc:/T_Progress.qml")
             }
         }
+
         FluPaneItem{
             title:"Rectangle"
             onTap:{
                 nav_view.push("qrc:/T_Rectangle.qml")
             }
         }
+
+
+        FluPaneItem{
+            title:"Carousel"
+            onTap:{
+                nav_view.push("qrc:/T_Carousel.qml")
+            }
+        }
+
         FluPaneItem{
             title:"Expander"
             onTap:{

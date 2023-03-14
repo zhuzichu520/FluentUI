@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/">
-
         <file>App.qml</file>
-
         <file>res/image/image_huoyin.webp</file>
         <file>res/svg/avatar_1.svg</file>
         <file>res/svg/avatar_2.svg</file>
@@ -16,12 +14,10 @@
         <file>res/svg/avatar_10.svg</file>
         <file>res/svg/avatar_11.svg</file>
         <file>res/svg/avatar_12.svg</file>
-		
         <file>page/AboutPage.qml</file>
         <file>page/MainPage.qml</file>
         <file>page/LoginPage.qml</file>
-		
-		<file>T_ToggleSwitch.qml</file>
+        <file>T_ToggleSwitch.qml</file>
         <file>T_Typography.qml</file>
         <file>T_Awesome.qml</file>
         <file>T_Buttons.qml</file>
@@ -38,5 +34,6 @@
         <file>T_DatePicker.qml</file>
         <file>T_MultiWindow.qml</file>
         <file>T_Menu.qml</file>
+        <file>T_Carousel.qml</file>
     </qresource>
 </RCC>

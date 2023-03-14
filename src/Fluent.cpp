@@ -47,6 +47,7 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDatePicker.qml"),uri,major,minor,"FluDatePicker");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTimePicker.qml"),uri,major,minor,"FluTimePicker");
 
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluCarousel.qml"),uri,major,minor,"FluCarousel");
 
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluAutoSuggestBox.qml"),uri,major,minor,"FluAutoSuggestBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluExpander.qml"),uri,major,minor,"FluExpander");
@@ -91,7 +92,7 @@ void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
     QFont font;
     font.setFamily("Microsoft YaHei");
     QGuiApplication::setFont(font);
-//    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
+    //    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
 #endif
     QFontDatabase::addApplicationFont(":/com.zhuzichu/res/font/Segoe_Fluent_Icons.ttf");
     FluApp* app = FluApp::getInstance();

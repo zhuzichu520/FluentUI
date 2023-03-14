@@ -17,10 +17,12 @@ Item {
         fontStyle: FluText.TitleLarge
     }
 
-    ScrollView{
+    Flickable{
         clip: true
         width: parent.width
         contentWidth: parent.width
+        contentHeight: container.height
+        ScrollBar.vertical: ScrollBar { }
         anchors{
             top: text_title.bottom
             bottom: parent.bottom

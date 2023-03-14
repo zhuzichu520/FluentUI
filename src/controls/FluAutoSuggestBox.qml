@@ -152,6 +152,7 @@ TextField{
                 boundsBehavior: ListView.StopAtBounds
                 clip: true
                 currentIndex: -1
+                ScrollBar.vertical: FluScrollBar {}
                 header: Item{
                     width: input.width
                     height: visible ? 38 : 0
@@ -165,7 +166,6 @@ TextField{
                         }
                     }
                 }
-                ScrollBar.vertical: ScrollBar { }
                 delegate:Control{
                     width: input.width
                     padding:10

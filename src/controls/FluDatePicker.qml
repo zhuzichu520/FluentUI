@@ -202,7 +202,7 @@ Rectangle {
                     width: 100
                     height: parent.height
                     boundsBehavior:Flickable.StopAtBounds
-                    ScrollBar.vertical: ScrollBar { }
+                    ScrollBar.vertical: FluScrollBar {}
                     model: generateYearArray(1924,2048)
                     clip: true
                     visible: showYear
@@ -228,7 +228,7 @@ Rectangle {
                     width: showYear ? 100 : 150
                     height: parent.height
                     clip: true
-                    ScrollBar.vertical: ScrollBar { }
+                    ScrollBar.vertical: FluScrollBar {}
                     boundsBehavior:Flickable.StopAtBounds
                     delegate: Loader{
                         property var model: modelData
@@ -252,7 +252,7 @@ Rectangle {
                     width:  showYear ? 100 : 150
                     height: parent.height
                     clip: true
-                    ScrollBar.vertical: ScrollBar { }
+                    ScrollBar.vertical: FluScrollBar {}
                     Layout.alignment: Qt.AlignVCenter
                     boundsBehavior:Flickable.StopAtBounds
                     delegate: Loader{

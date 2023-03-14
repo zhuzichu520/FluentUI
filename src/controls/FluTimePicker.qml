@@ -201,7 +201,7 @@ Rectangle {
                     width: isH ? 100 : 150
                     height: parent.height
                     boundsBehavior:Flickable.StopAtBounds
-                    ScrollBar.vertical: ScrollBar { }
+                    ScrollBar.vertical: FluScrollBar {}
                     model: isH ? generateArray(1,12) : generateArray(0,23)
                     clip: true
                     delegate: Loader{
@@ -225,7 +225,7 @@ Rectangle {
                     height: parent.height
                     model: generateArray(0,59)
                     clip: true
-                    ScrollBar.vertical: ScrollBar { }
+                    ScrollBar.vertical: FluScrollBar {}
                     boundsBehavior:Flickable.StopAtBounds
                     delegate: Loader{
                         property var model: modelData
@@ -250,7 +250,7 @@ Rectangle {
                     model: ["上午","下午"]
                     clip: true
                     visible: isH
-                    ScrollBar.vertical: ScrollBar { }
+                    ScrollBar.vertical: FluScrollBar {}
                     Layout.alignment: Qt.AlignVCenter
                     boundsBehavior:Flickable.StopAtBounds
                     delegate: Loader{

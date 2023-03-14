@@ -135,12 +135,11 @@ Item {
         }
     }
 
-
     Item {
         id:nav_app_bar
         width: parent.width
         height: 38
-
+        z:999
         RowLayout{
             height:parent.height
             spacing: 0
@@ -232,7 +231,7 @@ Item {
         id:layout_list
         width: 300
         anchors{
-            top: nav_app_bar.bottom
+            top: parent.top
             bottom: parent.bottom
         }
         x: {
@@ -264,6 +263,7 @@ Item {
         Item{
             id:layout_header
             width: layout_list.width
+            y:nav_app_bar.height
             height: 50
 
             FluAutoSuggestBox{
@@ -322,6 +322,8 @@ Item {
                     stackIndex.push(currentIndex)
                 }
             }
+            ScrollBar.vertical: FluScrollBar {}
+
             model:{
                 if(items){
                     return items.children
