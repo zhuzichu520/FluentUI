@@ -48,7 +48,7 @@ Rectangle {
         }
         Timer{
             id:tiemr
-            interval: 50
+            interval: 100
             onTriggered: {
                 control.position = list_view.contentX/list_view.width
             }
