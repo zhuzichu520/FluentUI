@@ -9,7 +9,14 @@ FluScrollablePage{
 
     title:"Carousel"
 
+
+
     FluCarousel{
+        id:carousel
+
+        Component.onCompleted: {
+            carousel.setData([{color:"#000000"},{color:"#FFFFFF"},{color:"#666666"}])
+        }
 
     }
 }
