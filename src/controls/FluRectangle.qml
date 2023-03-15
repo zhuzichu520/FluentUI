@@ -9,7 +9,7 @@ Item{
     property color borderColor:"red"
     property int borderWidth: 1
     property bool shadow: true
-    default property alias contentItem: container.children
+    default property alias contentItem: container.data
 
     Rectangle{
         id:container

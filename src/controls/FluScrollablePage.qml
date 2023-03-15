@@ -22,6 +22,7 @@ Item {
         width: parent.width
         contentWidth: parent.width
         contentHeight: container.height
+        boundsBehavior: Flickable.StopAtBounds
         ScrollBar.vertical: ScrollBar { }
         anchors{
             top: text_title.bottom

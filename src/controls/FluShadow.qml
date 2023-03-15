@@ -6,7 +6,7 @@ Item {
     anchors.margins: -4
     property color color: FluTheme.isDark ? "#FFFFFF" : "#000000"
 
-    property var radius: 4
+    property int radius: 4
 
     Rectangle{
         width: root.width
