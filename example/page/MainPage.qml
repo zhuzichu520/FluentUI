@@ -59,13 +59,6 @@ FluWindow {
         }
 
         FluPaneItem{
-            title:"Menu"
-            onTap:{
-                nav_view.push("qrc:/T_Menu.qml")
-            }
-        }
-
-        FluPaneItem{
             title:"TimePicker"
             onTap:{
                 nav_view.push("qrc:/T_TimePicker.qml")
@@ -123,11 +116,17 @@ FluWindow {
             title:"Popus"
         }
 
-
         FluPaneItem{
             title:"Dialog"
             onTap:{
                 nav_view.push("qrc:/T_Dialog.qml")
+            }
+        }
+
+        FluPaneItem{
+            title:"Menu"
+            onTap:{
+                nav_view.push("qrc:/T_Menu.qml")
             }
         }
 
