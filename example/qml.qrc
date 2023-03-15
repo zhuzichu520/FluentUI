@@ -35,5 +35,8 @@
         <file>T_MultiWindow.qml</file>
         <file>T_Menu.qml</file>
         <file>T_Carousel.qml</file>
+        <file>res/image/banner_1.jpg</file>
+        <file>res/image/banner_2.jpg</file>
+        <file>res/image/banner_3.jpg</file>
     </qresource>
 </RCC>

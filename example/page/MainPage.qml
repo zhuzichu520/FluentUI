@@ -19,7 +19,6 @@ FluWindow {
         title: "FluentUI"
     }
 
-
     FluObject{
         id:original_items
 
