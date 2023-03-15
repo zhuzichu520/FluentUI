@@ -57,12 +57,17 @@
 |FluTooltip|tooltip提示框||
 |FluTreeView|树控件||
 |FluTheme|主题设置|支持主题颜色切换，夜间模式|
+|FluCarousel|轮播图组件|支持无限轮播|
+|FluTimePicker|时间选择器||
+|FluDatePicker|日期选择器||
+|FluMenu|菜单Popup||
+|FluNavigationView|响应式导航布局||
 
 # 部分效果预览
 
-## 主页
+## 各种Button按钮
 
-![](doc/preview/main.png)
+![](doc/preview/buttons.png)
 
 ## 主题颜色切换、夜间模式
 
@@ -72,10 +77,14 @@
 
 ![](doc/preview/treeview.png)
 
-## Toast组件
+## 轮播图组件
+
+![](doc/preview/carousel.png)
+
+## IntoBar提示框组件
 
 ![](doc/preview/infobar.png)
 
-## Rectangle组件
+## 多窗口路由跳转
 
-![](doc/preview/rectangle.png)
+![](doc/preview/multiwindow.png)
