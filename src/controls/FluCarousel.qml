@@ -4,22 +4,17 @@ import FluentUI 1.0
 
 Item {
 
-
-    id:control
-
     property bool flagXChanged: true
     property int radius : 5
     property int loopTime: 2000
     property bool showIndicator: true
 
-
+    id:control
     width: 400
     height: 300
-
     ListModel{
         id:content_model
     }
-
     FluRectangle{
         anchors.fill: parent
         radius: [control.radius,control.radius,control.radius,control.radius]
@@ -33,12 +28,14 @@ Item {
             clip: true
             boundsBehavior: ListView.StopAtBounds
             model:content_model
-            maximumFlickVelocity: 4 * (list_view.orientation ===
-                                       Qt.Horizontal ? width : height)
+            maximumFlickVelocity: 4 * (list_view.orientation === Qt.Horizontal ? width : height)
+            preferredHighlightBegin: 0
+            preferredHighlightEnd: 0
+            highlightMoveDuration: 0
+            orientation : ListView.Horizontal
             delegate: Item{
                 width: ListView.view.width
                 height: ListView.view.height
-
                 property int displayIndex: {
                     if(index === 0)
                         return content_model.count-3
@@ -46,19 +43,12 @@ Item {
                         return 0
                     return index-1
                 }
-
                 Image {
                     anchors.fill: parent
                     source: model.url
                     fillMode:Image.PreserveAspectCrop
                 }
-
             }
-
-            preferredHighlightBegin: 0
-            preferredHighlightEnd: 0
-            highlightMoveDuration: 0
-
             onMovementEnded:{
                 currentIndex = list_view.contentX/list_view.width
                 if(currentIndex === 0){
@@ -69,15 +59,11 @@ Item {
                 flagXChanged = false
                 timer_run.start()
             }
-
             onMovementStarted: {
                 flagXChanged = true
                 timer_run.stop()
             }
-
             onContentXChanged: {
-
-
                 if(flagXChanged){
                     var maxX = Math.min(list_view.width*(currentIndex+1),list_view.count*list_view.width)
                     var minY = Math.max(0,(list_view.width*(currentIndex-1)))
@@ -89,11 +75,8 @@ Item {
                     }
                 }
             }
-            orientation : ListView.Horizontal
         }
     }
-
-
     function setData(data){
         content_model.clear()
         content_model.append(data[data.length-1])
@@ -102,7 +85,6 @@ Item {
         list_view.currentIndex = 1
         timer_run.restart()
     }
-
     Row{
         spacing: 10
         anchors{
@@ -131,9 +113,6 @@ Item {
             }
         }
     }
-
-
-
     Timer{
         id:timer_anim
         interval: 250
@@ -144,7 +123,6 @@ Item {
             }
         }
     }
-
     Timer{
         id:timer_run
         interval: control.loopTime
@@ -153,9 +131,6 @@ Item {
             list_view.highlightMoveDuration = 250
             list_view.currentIndex = list_view.currentIndex+1
             timer_anim.start()
-
         }
     }
-
 }
-
