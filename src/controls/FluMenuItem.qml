@@ -21,10 +21,17 @@ Item {
         height: 32
         radius: 4
         color:{
-            if(mouse_area.containsMouse){
-                return FluTheme.isDark ? Qt.rgba(56/255,56/255,56/255,1) : Qt.rgba(230/255,230/255,230/255,1)
+            if(FluTheme.isDark){
+                if(mouse_area.containsMouse){
+                    return Qt.rgba(1,1,1,0.05)
+                }
+                return Qt.rgba(0,0,0,0)
+            }else{
+                if(mouse_area.containsMouse){
+                    return Qt.rgba(0,0,0,0.05)
+                }
+                return Qt.rgba(0,0,0,0)
             }
-            return FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
         }
 
         FluText{
