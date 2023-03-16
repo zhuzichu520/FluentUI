@@ -61,6 +61,9 @@ Button {
             Behavior on x {
                 NumberAnimation { duration: 200 }
             }
+            Behavior on scale {
+                NumberAnimation { duration: 150 }
+            }
         }
     }
 

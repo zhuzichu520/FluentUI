@@ -32,7 +32,7 @@ Button {
                 if(selected&&disabled){
                     return 3
                 }
-                if(hovered){
+                if(pressed){
                     if(selected){
                         return 5
                     }
@@ -48,7 +48,7 @@ Button {
             }
             Behavior on border.width {
                 NumberAnimation{
-                    duration: 100
+                    duration: 150
                 }
             }
             border.color: {

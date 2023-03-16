@@ -81,7 +81,7 @@
 
 ![](doc/preview/carousel.png)
 
-## IntoBar提示框组件
+## InfoBar提示框组件
 
 ![](doc/preview/infobar.png)
 

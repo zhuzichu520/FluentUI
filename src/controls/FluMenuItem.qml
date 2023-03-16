@@ -4,7 +4,12 @@ import QtQuick.Controls 2.15
 Item {
 
     id:root
-    width: 140
+    width: {
+        if(root.parent){
+            return root.parent.width
+        }
+        return 140
+    }
     height: 32
 
     property string text: "MenuItem"
@@ -12,7 +17,7 @@ Item {
 
     Rectangle{
         anchors.centerIn: parent
-        width: 100
+        width: root.width-40
         height: 32
         radius: 4
         color:{
