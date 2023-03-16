@@ -117,6 +117,49 @@ FluScrollablePage{
 
     FluArea{
         width: parent.width
+        height: 68
+        paddings: 10
+
+        FluDropDownButton{
+            disabled:drop_down_button_switch.selected
+            text:"DropDownButton"
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            items:[
+                FluMenuItem{
+                    text:"Menu_1"
+                },
+                FluMenuItem{
+                    text:"Menu_2"
+                },
+                FluMenuItem{
+                    text:"Menu_3"
+                },
+                FluMenuItem{
+                    text:"Menu_4"
+                }
+            ]
+        }
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:drop_down_button_switch
+                Layout.alignment: Qt.AlignRight
+            }
+            FluText{
+                text:"Disabled"
+            }
+        }
+    }
+
+    FluArea{
+        width: parent.width
         height: 100
         paddings: 10
 
@@ -190,39 +233,5 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
-        width: parent.width
-        height: 68
-        paddings: 10
 
-        FluDropDownButton{
-            disabled:drop_down_button_switch.selected
-            text:"DropDownButton"
-            anchors{
-                verticalCenter: parent.verticalCenter
-                left: parent.left
-            }
-            items:[
-                FluMenuItem{
-                    text:"asdf"
-                }
-            ]
-        }
-
-
-        Row{
-            spacing: 5
-            anchors{
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-            }
-            FluToggleSwitch{
-                id:drop_down_button_switch
-                Layout.alignment: Qt.AlignRight
-            }
-            FluText{
-                text:"Disabled"
-            }
-        }
-    }
 }

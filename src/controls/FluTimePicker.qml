@@ -202,6 +202,9 @@ Rectangle {
                     height: parent.height
                     boundsBehavior:Flickable.StopAtBounds
                     ScrollBar.vertical: FluScrollBar {}
+                    preferredHighlightBegin: 0
+                    preferredHighlightEnd: 0
+                    highlightMoveDuration: 0
                     model: isH ? generateArray(1,12) : generateArray(0,23)
                     clip: true
                     delegate: Loader{
@@ -209,9 +212,6 @@ Rectangle {
                         property int type:0
                         property int position:index
                         sourceComponent: list_delegate
-                    }
-                    onCurrentIndexChanged: {
-                        list_view_1.positionViewAtIndex(currentIndex, ListView.NoPosition)
                     }
                 }
                 Rectangle{
@@ -225,6 +225,9 @@ Rectangle {
                     height: parent.height
                     model: generateArray(0,59)
                     clip: true
+                    preferredHighlightBegin: 0
+                    preferredHighlightEnd: 0
+                    highlightMoveDuration: 0
                     ScrollBar.vertical: FluScrollBar {}
                     boundsBehavior:Flickable.StopAtBounds
                     delegate: Loader{
@@ -232,9 +235,6 @@ Rectangle {
                         property int type:1
                         property int position:index
                         sourceComponent: list_delegate
-                    }
-                    onCurrentIndexChanged: {
-                        list_view_2.positionViewAtIndex(currentIndex, ListView.NoPosition)
                     }
                 }
                 Rectangle{
@@ -250,6 +250,9 @@ Rectangle {
                     model: ["上午","下午"]
                     clip: true
                     visible: isH
+                    preferredHighlightBegin: 0
+                    preferredHighlightEnd: 0
+                    highlightMoveDuration: 0
                     ScrollBar.vertical: FluScrollBar {}
                     Layout.alignment: Qt.AlignVCenter
                     boundsBehavior:Flickable.StopAtBounds
@@ -258,9 +261,6 @@ Rectangle {
                         property int type:2
                         property int position:index
                         sourceComponent: list_delegate
-                    }
-                    onCurrentIndexChanged: {
-                        list_view_3.positionViewAtIndex(currentIndex, ListView.NoPosition)
                     }
                 }
             }
@@ -358,10 +358,12 @@ Rectangle {
             }
 
             var pos = root.mapToItem(null, 0, 0)
-            if(window.height>pos.y+35+340){
-                popup.y = 35
-            }else{
-                popup.y = window.height-(pos.y+340)
+            if(window.height>pos.y+root.height+popup.height){
+                popup.y = root.height
+            } else if(pos.y>popup.height){
+                popup.y = -popup.height
+            } else {
+                popup.y = window.height-(pos.y+popup.height)
             }
             popup.open()
         }

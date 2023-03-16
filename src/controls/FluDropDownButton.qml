@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Window 2.15
 import FluentUI 1.0
 
 Button {
@@ -16,6 +17,7 @@ Button {
     rightPadding:35
     enabled: !disabled
     focusPolicy:Qt.TabFocus
+    property var window : Window.window
 
     property alias items: menu.content
 
@@ -68,12 +70,20 @@ Button {
     }
 
     onClicked: {
+        var pos = control.mapToItem(null, 0, 0)
+        if(window.height>pos.y+control.height+menu.height){
+            menu.y = control.height
+        }else if(pos.y>menu.height){
+            menu.y = -menu.height
+        }else{
+            popup.y = window.height-(pos.y+menu.height)
+        }
         menu.open()
     }
 
     FluMenu{
-       id:menu
-       width: control.width
+        id:menu
+        width: control.width
     }
 
 }
