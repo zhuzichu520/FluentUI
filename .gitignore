@@ -43,4 +43,5 @@ target_wrapper.*
 CMakeLists.txt.user*
 
 src/build-preset/plugins.qmltypes
-bin
+bin/debug/*
+bin/release/*
