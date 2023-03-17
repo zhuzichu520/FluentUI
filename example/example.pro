@@ -28,13 +28,20 @@ CONFIG(debug,debug|release) {
 
 win32 {
 
-
 contains(QT_ARCH, i386) {
     COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x86/*.dll) $$DESTDIR
-    QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    contains(QMAKE_CC, cl) {
+        QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    } else {
+        QMAKE_PRE_LINK += $$QMAKE_COPY COPYDLL
+    }
 } else {
     COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x64/*.dll) $$DESTDIR
-    QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    contains(QMAKE_CC, cl) {
+        QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    } else {
+        QMAKE_PRE_LINK += $$QMAKE_COPY COPYDLL
+    }
 }
 
 }
