@@ -26,5 +26,18 @@ CONFIG(debug,debug|release) {
     DESTDIR = $$absolute_path($${_PRO_FILE_PWD_}/../bin/release)
 }
 
+win32 {
+
+contains(QT_ARCH, i386) {
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x86/bin/*.dll) $$DESTDIR
+    QMAKE_POST_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+} else {
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x64/bin/*.dll) $$DESTDIR
+    QMAKE_POST_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+}
+
+}
+
+
 HEADERS += \
     ChatController.h
