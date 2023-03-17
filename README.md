@@ -65,7 +65,7 @@
 
 # 部分效果预览
 
-## 内置一个ChatGPT聊天Demo
+## 一个聊天Demo，调用了ChatGPT的接口
 
 ![](doc/preview/chatgpt.png)
 

@@ -22,6 +22,7 @@ public:
 
 private:
     QNetworkAccessManager* networkManager;
+    QString baseKey = "c2stbXgxWm5MQkZ5TzhNYzNmRWl6eDZUM0JsYmtGSnNBWjNiakJjSXB6WGN3QW9KSk11";
 };
 
 #endif // CHATCONTROLLER_H
