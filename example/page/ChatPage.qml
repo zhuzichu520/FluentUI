@@ -42,13 +42,13 @@ FluWindow {
     Component{
         id:com_text
         TextEdit {
-            text: modelData.text
+            text: message
             wrapMode: Text.WrapAnywhere
             readOnly: true
-            textFormat: Text.RichText
             selectByMouse: true
             selectByKeyboard: true
             selectedTextColor: color
+            textFormat:TextEdit.AutoText
             color:FluColors.Black
             selectionColor: {
                 if(FluTheme.isDark){
@@ -130,7 +130,7 @@ FluWindow {
 
                     Loader{
                         id:item_msg_loader
-                        property var modelData: model
+                        property var message: model.text
                         anchors.centerIn: parent
                         sourceComponent: com_text
                     }

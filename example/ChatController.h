@@ -19,9 +19,12 @@ public:
     explicit ChatController(QObject *parent = nullptr);
 
     Q_INVOKABLE void sendMessage(const QString& text);
+private:
+    QJsonObject createMessage(const QString& role,const QString& content);
 
 private:
     QNetworkAccessManager* networkManager;
+    QJsonArray messages;
     QString baseKey = "c2stbXgxWm5MQkZ5TzhNYzNmRWl6eDZUM0JsYmtGSnNBWjNiakJjSXB6WGN3QW9KSk11";
 };
 
