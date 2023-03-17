@@ -29,7 +29,7 @@ void ChatController::sendMessage(const QString& text){
             QJsonObject jsonObj = doc.object();
             QString text = jsonObj.value("choices").toArray().at(0).toObject().value("message").toObject().value("content").toString();
             if(text.isEmpty()){
-                text = "不好意思，我似乎听不懂您的意思";
+                text = "响应错误：content为空数据";
             }else{
                 messages.append(createMessage("assistant",text));
             }
