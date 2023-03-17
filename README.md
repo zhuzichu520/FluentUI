@@ -67,7 +67,7 @@
 
 ## 内置一个ChatGPT聊天Demo
 
-![](doc/preview/chatpgt.png)
+![](doc/preview/chatgpt.png)
 
 ## 各种Button按钮
 
