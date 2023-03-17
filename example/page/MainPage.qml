@@ -204,6 +204,35 @@ FluWindow {
         items:original_items
         footerItems:footer_items
 
+        actions:[
+            Image {
+                width: 30
+                height: 30
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
+                sourceSize: Qt.size(60,60)
+                source: "qrc:/res/image/logo_openai.png"
+                Layout.rightMargin: 5
+                MouseArea{
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        FluApp.navigate("/chat")
+                    }
+                }
+            },
+            FluText{
+                text:"夜间模式"
+                fontStyle: FluText.Body
+            },
+            FluToggleSwitch{
+                selected: FluTheme.isDark
+                clickFunc:function(){
+                    FluTheme.isDark = !FluTheme.isDark
+                }
+            }
+        ]
+
         Component.onCompleted: {
             nav_view.setCurrentIndex(1)
             nav_view.push("qrc:/T_Buttons.qml")

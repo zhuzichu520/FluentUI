@@ -16,6 +16,8 @@ Item {
 
     property bool displaMinimalNav : false
 
+    property alias actions: layout_actions.data
+
     onDisplayModeChanged: {
         if(displayMode === FluNavigationView.Minimal){
             anim_navi.enabled = false
@@ -172,22 +174,13 @@ Item {
 
 
         RowLayout{
+            id:layout_actions
             anchors{
                 right: parent.right
                 rightMargin: 14
                 verticalCenter: parent.verticalCenter
             }
             spacing: 5
-            FluText{
-                text:"夜间模式"
-                fontStyle: FluText.Body
-            }
-            FluToggleSwitch{
-                selected: FluTheme.isDark
-                clickFunc:function(){
-                    FluTheme.isDark = !FluTheme.isDark
-                }
-            }
         }
     }
 
@@ -377,10 +370,7 @@ Item {
                 }
             }
         }
-
     }
-
-
 
     function push(url){
         nav_swipe.push(url)

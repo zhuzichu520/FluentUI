@@ -1,9 +1,10 @@
-QT += quick concurrent
+QT += quick concurrent network
 CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
 SOURCES += \
+        ChatController.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -24,3 +25,6 @@ CONFIG(debug,debug|release) {
 } else {
     DESTDIR = $$absolute_path($${_PRO_FILE_PWD_}/../bin/release)
 }
+
+HEADERS += \
+    ChatController.h

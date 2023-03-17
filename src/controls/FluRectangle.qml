@@ -6,8 +6,6 @@ Item{
     id:root
     property var radius:[0,0,0,0]
     property color color : "#FFFFFF"
-    property color borderColor:"red"
-    property int borderWidth: 1
     property bool shadow: true
     default property alias contentItem: container.data
 

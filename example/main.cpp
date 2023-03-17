@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QQuickWindow>
 #include <QProcess>
+#include "ChatController.h"
 
 QMap<QString, QVariant> properties(){
     QMap<QString, QVariant> map;
@@ -20,6 +21,9 @@ int main(int argc, char *argv[])
 //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
+    qmlRegisterType<ChatController>("Controller",1,0,"ChatController");
+
     QMapIterator<QString, QVariant> iterator(properties());
     while (iterator.hasNext()) {
         iterator.next();

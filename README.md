@@ -65,6 +65,10 @@
 
 # 部分效果预览
 
+## 内置一个ChatGPT聊天Demo
+
+![](doc/preview/chatpgt.png)
+
 ## 各种Button按钮
 
 ![](doc/preview/buttons.png)
