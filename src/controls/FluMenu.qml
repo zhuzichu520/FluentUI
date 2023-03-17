@@ -1,6 +1,7 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.15
 
 Menu {
     id: popup
@@ -9,9 +10,18 @@ Menu {
     width: 140
     height: container.height
 
-    background: Rectangle {
-        color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(237/255,237/255,237/255,1)
-        radius: 5
+    background: Item {
+
+        Rectangle{
+            anchors.fill: parent
+            color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
+            radius: 5
+            layer.enabled: true
+            layer.effect:  GaussianBlur {
+                radius: 8
+                samples: 16
+            }
+        }
 
         FluShadow{
             radius: 5
