@@ -31,10 +31,10 @@ void ChatController::sendMessage(const QString& text){
                 text = "不好意思，我似乎听不懂您的意思";
             }
             responseData(text);
-            reply->deleteLater();
-            isLoading(false);
         } else {
             responseData("网络错误："+reply->errorString());
         }
+        isLoading(false);
+        reply->deleteLater();
     });
 }
