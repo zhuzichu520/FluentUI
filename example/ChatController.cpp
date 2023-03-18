@@ -43,14 +43,14 @@ void ChatController::sendMessage(const QString& text){
 }
 
 QJsonObject ChatController::createMessage(const QString& role,const QString& content){
-   QJsonObject message;
-   message.insert("role",role);
-   message.insert("content",content);
-   return message;
+    QJsonObject message;
+    message.insert("role",role);
+    message.insert("content",content);
+    return message;
 }
 
 void ChatController::clipText(const QString& text){
     qDebug()<<text;
-     QClipboard *clipboard = QGuiApplication::clipboard();
-     clipboard->setText(text);
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->setText(text);
 }

@@ -50,7 +50,6 @@ FluWindow {
             selectByMouse: true
             selectByKeyboard: true
             selectedTextColor: Qt.rgba(51,153,255,1)
-            textFormat:TextEdit.MarkdownText
             color:FluColors.Black
             selectionColor: {
                 if(FluTheme.isDark){
@@ -79,13 +78,6 @@ FluWindow {
             margins: 10
         }
         color: FluTheme.isDark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(245/255,245/255,245/255,1)
-        MouseArea{
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            onClicked: {
-                menu_pannel.popup()
-            }
-        }
         ListView{
             id:list_message
             anchors.fill: parent
@@ -250,26 +242,6 @@ FluWindow {
         function showMenu(text){
             menu_item.selectedText = text
             menu_item.popup()
-        }
-    }
-
-    FluMenu{
-        id:menu_pannel
-        focus: false
-        FluMenuItem{
-            text:"导出消息"
-            onClicked: {
-                file_dialog.open()
-            }
-        }
-    }
-
-    FileDialog{
-        id:file_dialog
-        folder: shortcuts.home
-        selectFolder : true
-        onAccepted: {
-            console.log("You chose: " + file_dialog.fileUrl)
         }
     }
 

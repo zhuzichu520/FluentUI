@@ -10,6 +10,7 @@
 #include <QGuiApplication>
 #include <QClipboard>
 #include <QByteArray>
+#include <QFile>
 #include "stdafx.h"
 
 class ChatController : public QObject
