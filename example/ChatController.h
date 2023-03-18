@@ -7,6 +7,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QGuiApplication>
+#include <QClipboard>
 #include <QByteArray>
 #include "stdafx.h"
 
@@ -19,6 +21,7 @@ public:
     explicit ChatController(QObject *parent = nullptr);
 
     Q_INVOKABLE void sendMessage(const QString& text);
+    Q_INVOKABLE void clipText(const QString& text);
 private:
     QJsonObject createMessage(const QString& role,const QString& content);
 

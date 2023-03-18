@@ -48,3 +48,9 @@ QJsonObject ChatController::createMessage(const QString& role,const QString& con
    message.insert("content",content);
    return message;
 }
+
+void ChatController::clipText(const QString& text){
+    qDebug()<<text;
+     QClipboard *clipboard = QGuiApplication::clipboard();
+     clipboard->setText(text);
+}

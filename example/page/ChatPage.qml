@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 import Controller 1.0
+import Qt.labs.platform 1.1
 
 FluWindow {
 
@@ -42,13 +43,14 @@ FluWindow {
     Component{
         id:com_text
         TextEdit {
+            id:item_text
             text: message
             wrapMode: Text.WrapAnywhere
             readOnly: true
             selectByMouse: true
             selectByKeyboard: true
-            selectedTextColor: color
-            textFormat:TextEdit.AutoText
+            selectedTextColor: Qt.rgba(51,153,255,1)
+            textFormat:TextEdit.MarkdownText
             color:FluColors.Black
             selectionColor: {
                 if(FluTheme.isDark){
@@ -58,6 +60,12 @@ FluWindow {
                 }
             }
             width: Math.min(list_message.width-200,600,implicitWidth)
+            TapHandler{
+                acceptedButtons: Qt.RightButton
+                onTapped: {
+                    menu_item.showMenu(item_text.selectedText)
+                }
+            }
         }
     }
 
@@ -71,7 +79,13 @@ FluWindow {
             margins: 10
         }
         color: FluTheme.isDark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(245/255,245/255,245/255,1)
-
+        MouseArea{
+            anchors.fill: parent
+            acceptedButtons: Qt.RightButton
+            onClicked: {
+                menu_pannel.popup()
+            }
+        }
         ListView{
             id:list_message
             anchors.fill: parent
@@ -219,6 +233,44 @@ FluWindow {
                 }
             }
 
+        }
+    }
+
+    FluMenu{
+        id:menu_item
+        focus: false
+        property string selectedText: ""
+        FluMenuItem{
+            text:"复制"
+            onClicked: {
+                controller.clipText(menu_item.selectedText)
+                showSuccess("复制成功")
+            }
+        }
+        function showMenu(text){
+            menu_item.selectedText = text
+            menu_item.popup()
+        }
+    }
+
+    FluMenu{
+        id:menu_pannel
+        focus: false
+        FluMenuItem{
+            text:"导出消息"
+            onClicked: {
+                file_dialog.currentFile = "file:///123.txt"
+                file_dialog.open()
+            }
+        }
+    }
+
+    FileDialog{
+        id:file_dialog
+        fileMode:FileDialog.SaveFile
+        folder: StandardPaths.writableLocation(StandardPaths.DesktopLocation)
+        onAccepted: {
+            console.log("You chose: " + file_dialog.file)
         }
     }
 
