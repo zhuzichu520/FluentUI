@@ -14,6 +14,11 @@ FluWindow {
 
     title:"ChatGPT"
 
+    onInitArgument:
+        (argument)=>{
+            scrollview.focus = true
+        }
+
     ChatController{
         id:controller
 
@@ -167,6 +172,7 @@ FluWindow {
 
 
         ScrollView{
+            id:scrollview
             anchors{
                 bottom: parent.bottom
                 left: parent.left
@@ -178,6 +184,8 @@ FluWindow {
             height: Math.min(textbox.implicitHeight,64)
             FluMultiLineTextBox{
                 id:textbox
+                focus:true
+                placeholderText: "请输入消息"
             }
         }
 

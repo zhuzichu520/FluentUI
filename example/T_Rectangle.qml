@@ -21,8 +21,6 @@ FluScrollablePage{
             height: 50
             color:"#744da9"
             radius:[15,15,15,15]
-            FluBadge{
-            }
         }
         FluRectangle{
             width: 50

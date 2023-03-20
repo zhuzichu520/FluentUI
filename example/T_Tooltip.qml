@@ -7,7 +7,7 @@ import FluentUI 1.0
 
 FluScrollablePage{
 
-    title:"TextBox"
+    title:"Tooltip"
 
     FluText{
         Layout.topMargin: 20

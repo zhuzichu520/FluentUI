@@ -91,12 +91,18 @@ FluWindow {
         }
 
         FluPaneItem{
+            title:"Badge"
+            onTap:{
+                nav_view.push("qrc:/T_Badge.qml")
+            }
+        }
+
+        FluPaneItem{
             title:"Rectangle"
             onTap:{
                 nav_view.push("qrc:/T_Rectangle.qml")
             }
         }
-
 
         FluPaneItem{
             title:"Carousel"

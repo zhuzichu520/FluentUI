@@ -41,5 +41,6 @@
         <file>res/image/logo_openai.png</file>
         <file>page/ChatPage.qml</file>
         <file>T_Tooltip.qml</file>
+        <file>T_Badge.qml</file>
     </qresource>
 </RCC>
