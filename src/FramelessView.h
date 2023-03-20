@@ -4,9 +4,6 @@
 #include <QQuickView>
 #include <QRegion>
 
-//无边框窗口，主要用来实现自定义标题栏。
-//Windows平台支持拖动和改变大小，支持Aero效果
-//非Windows平台，去掉边框，不做其它处理。由Qml模拟resize和拖动。
 class FramelessViewPrivate;
 class FramelessView : public QQuickView
 {

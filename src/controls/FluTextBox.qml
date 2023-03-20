@@ -6,10 +6,17 @@ TextField{
 
     property int fontStyle: FluText.Body
     property int pixelSize : FluTheme.textSize
+    property bool disabled: false
 
     id:input
     width: 300
-    color: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+    enabled: !disabled
+    color: {
+        if(disabled){
+            return FluTheme.isDark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+        }
+        return FluTheme.isDark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+    }
     renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
     selectionColor: {
         if(FluTheme.isDark){
@@ -19,6 +26,9 @@ TextField{
         }
     }
     placeholderTextColor: {
+        if(disabled){
+            return FluTheme.isDark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+        }
         if(focus){
             return FluTheme.isDark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
         }

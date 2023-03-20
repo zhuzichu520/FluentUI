@@ -4,7 +4,7 @@ Item {
     id:root
     anchors.fill: parent
     anchors.margins: -4
-    property color color: FluTheme.isDark ? "#FFFFFF" : "#000000"
+    property color color: FluTheme.isDark ? "#FFFFFF" : "#999999"
 
     property int radius: 4
 

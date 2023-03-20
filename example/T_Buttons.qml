@@ -40,8 +40,6 @@ FluScrollablePage{
             FluToggleSwitch{
                 id:button_switch
                 Layout.alignment: Qt.AlignRight
-            }
-            FluText{
                 text:"Disabled"
             }
         }
@@ -73,8 +71,6 @@ FluScrollablePage{
             FluToggleSwitch{
                 id:filled_button_switch
                 Layout.alignment: Qt.AlignRight
-            }
-            FluText{
                 text:"Disabled"
             }
         }
@@ -108,8 +104,6 @@ FluScrollablePage{
             FluToggleSwitch{
                 id:icon_button_switch
                 Layout.alignment: Qt.AlignRight
-            }
-            FluText{
                 text:"Disabled"
             }
         }
@@ -151,8 +145,6 @@ FluScrollablePage{
             FluToggleSwitch{
                 id:drop_down_button_switch
                 Layout.alignment: Qt.AlignRight
-            }
-            FluText{
                 text:"Disabled"
             }
         }
@@ -194,8 +186,6 @@ FluScrollablePage{
             FluToggleSwitch{
                 id:radio_button_switch
                 Layout.alignment: Qt.AlignRight
-            }
-            FluText{
                 text:"Disabled"
             }
         }
@@ -226,8 +216,6 @@ FluScrollablePage{
             FluToggleSwitch{
                 id:check_box_switch
                 Layout.alignment: Qt.AlignRight
-            }
-            FluText{
                 text:"Disabled"
             }
         }

@@ -124,6 +124,13 @@ FluWindow {
         }
 
         FluPaneItem{
+            title:"Tooltip"
+            onTap:{
+                nav_view.push("qrc:/T_Tooltip.qml")
+            }
+        }
+
+        FluPaneItem{
             title:"Menu"
             onTap:{
                 nav_view.push("qrc:/T_Menu.qml")

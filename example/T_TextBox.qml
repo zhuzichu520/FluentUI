@@ -13,17 +13,26 @@ FluScrollablePage{
         Layout.topMargin: 20
         placeholderText: "单行输入框"
         Layout.preferredWidth: 300
+        disabled:toggle_switch.selected
     }
     FluMultiLineTextBox{
         Layout.topMargin: 20
         Layout.preferredWidth: 300
         placeholderText: "多行输入框"
+        disabled:toggle_switch.selected
     }
     FluAutoSuggestBox{
         Layout.topMargin: 20
         values:generateRandomNames(100)
         placeholderText: "AutoSuggestBox"
         Layout.preferredWidth: 300
+        disabled:toggle_switch.selected
+    }
+
+    FluToggleSwitch{
+        id:toggle_switch
+        text:"Disabled"
+        Layout.topMargin: 20
     }
 
     function generateRandomNames(numNames) {

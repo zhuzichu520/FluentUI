@@ -35,6 +35,7 @@ void Fluent::registerTypes(const char *uri){
 
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluArea.qml"),uri,major,minor,"FluArea");
 
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluBadge.qml"),uri,major,minor,"FluBadge");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluContentPage.qml"),uri,major,minor,"FluContentPage");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluScrollablePage.qml"),uri,major,minor,"FluScrollablePage");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPaneItemHeader.qml"),uri,major,minor,"FluPaneItemHeader");
