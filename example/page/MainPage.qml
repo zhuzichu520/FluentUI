@@ -91,6 +91,13 @@ FluWindow {
         }
 
         FluPaneItem{
+            title:"Calender"
+            onTap:{
+                nav_view.push("qrc:/T_Calender.qml")
+            }
+        }
+
+        FluPaneItem{
             title:"Badge"
             onTap:{
                 nav_view.push("qrc:/T_Badge.qml")

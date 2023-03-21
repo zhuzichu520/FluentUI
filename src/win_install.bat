@@ -21,8 +21,8 @@ if %ANDROID% == YES copy /y %LIBFILE_PATH% %BUILDER_BIN_PATH%
 if %1 == SHARED (
     echo running install to qtqml folder
 	del /s /q %PRESET_PATH%\plugins.qmltypes
-	%QT_QML_FLUENT_PATH%\..\..\bin\qmlplugindump.exe -nonrelocatable FluentUI 1.0 .\ > %PRESET_PATH%\plugins.qmltypes
-    rmdir /s /q %QT_QML_FLUENT_PATH% & md %QT_QML_FLUENT_PATH%
+	%QT_QML_FLUENT_PATH%\..\..\bin\qmlplugindump.exe -nonrelocatable FluentUI 1.0 > %PRESET_PATH%\plugins.qmltypes
+rem rmdir /s /q %QT_QML_FLUENT_PATH% & md %QT_QML_FLUENT_PATH%
     copy /y %BUILDER_BIN_PATH% %QT_QML_FLUENT_PATH%
 	xcopy %PRESET_PATH% %QT_QML_FLUENT_PATH% /s/e/i/y
 	cd %QT_QML_FLUENT_PATH%

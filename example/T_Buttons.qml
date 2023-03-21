@@ -19,6 +19,37 @@ FluScrollablePage{
         height: 68
         paddings: 10
 
+        FluTextButton{
+            disabled:text_button_switch.selected
+            text:"Text Button"
+            onClicked: {
+                showInfo("点击Text Button")
+            }
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:text_button_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
+    }
+
+    FluArea{
+        width: parent.width
+        height: 68
+        paddings: 10
+
         FluButton{
             disabled:button_switch.selected
             text:"Standard Button"
