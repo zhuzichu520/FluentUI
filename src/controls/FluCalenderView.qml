@@ -29,29 +29,35 @@ Item {
         return {type:1,date:date}
     }
 
-    function createItemMonth(name){
-        return {type:2,name:name}
+    function createItemMonth(date){
+        return {type:2,date:date}
     }
 
+     function createItemYear(date){
+        return {type:3,date:date}
+    }
+    
 
-    function updateYear(data){
+    function updateDecade(date){
         list_model.clear()
         var year = date.getFullYear()
-        var month = date.getMonth()
-        var nextMonthYear = year
-        var nextMonth = month + 1
-        if (month === 11) {
-            nextMonthYear = year + 1
-            nextMonth = 0
+        const decadeStart = Math.floor(year / 10) * 10;
+        for(var i = decadeStart ; i< decadeStart+10 ; i++){
+            list_model.append(createItemYear(new Date(i,0,1)));
         }
 
-        for(var i = 0 ; i< 12 ;i++){
-            list_model.append(createItemMonth((i+1)+"月"));
+    }
+
+    function updateYear(date){
+        list_model.clear()
+        var year = date.getFullYear()
+        for(var i = 0 ; i< 12 ; i++){
+            list_model.append(createItemMonth(new Date(year,i)));
         }
-        list_model.append(createItemMonth("1月"));
-        list_model.append(createItemMonth("2月"));
-        list_model.append(createItemMonth("3月"));
-        list_model.append(createItemMonth("4月"));
+        for(var j = 0 ; j< 4 ; j++){
+            list_model.append(createItemMonth(new Date(year+1,j)));
+        }
+        title.text = year+"年"
     }
 
     function updateMouth(date){
@@ -107,36 +113,121 @@ Item {
     }
 
     Component{
-        id:com_month
-        Item{
-//            property bool isYear: control.date.getFullYear() === date.getFullYear()
-//            property bool isMonth: control.currentDate.getFullYear() === date.getFullYear() && control.currentDate.getMonth()
+        id:com_year
+        Button{
+            id:item_control
+            property bool isYear: control.date.getFullYear() === date.getFullYear()
             height: 70
             width: 70
-
-            Rectangle{
-                id:backgound_selected
-                anchors.centerIn: parent
-                width: 50
-                height: 50
-                radius: 25
-                visible: false
-                color: FluTheme.primaryColor.dark
+            onClicked:{
+                control.date = date
+                displayMode = FluCalenderView.Year
+                updateYear(date)
             }
-
-            FluText{
-                text:name
-                anchors.centerIn: parent
-                color: {
-//                    if(isMonth){
-//                        return "#FFFFFF"
-//                    }
-//                    if(isYear){
-//                        return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
-//                    }
-                    return Qt.rgba(150/255,150/255,150/255,1)
+            background: Item{
+                Rectangle{
+                    width: 60
+                    height: 60
+                    radius: 4
+                    anchors.centerIn: parent
+                    color:{
+                        if(FluTheme.isDark){
+                            if(item_control.hovered){
+                                return Qt.rgba(1,1,1,0.05)
+                            }
+                            return Qt.rgba(0,0,0,0)
+                        }else{
+                            if(item_control.hovered){
+                                return Qt.rgba(0,0,0,0.05)
+                            }
+                            return Qt.rgba(0,0,0,0)
+                        }
+                    }
+                }
+                Rectangle{
+                    id:backgound_selected
+                    anchors.centerIn: parent
+                    width: 50
+                    height: 50
+                    radius: 25
+                    visible: isYear
+                    color: FluTheme.primaryColor.dark
+                }
+                FluText{
+                    text:date.getFullYear()
+                    anchors.centerIn: parent
+                    color: {
+                        if(isYear){
+                            return "#FFFFFF"
+                        }
+//                        if(isYear){
+//                            return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+//                        }
+                        return Qt.rgba(150/255,150/255,150/255,1)
+                    }
                 }
             }
+            contentItem: Item{}
+        }
+    }
+
+    Component{
+        id:com_month
+        Button{
+            id:item_control
+            property bool isYear: control.date.getFullYear() === date.getFullYear()
+            property bool isMonth: control.currentDate.getFullYear() === date.getFullYear() && control.currentDate.getMonth() === date.getMonth()
+            height: 70
+            width: 70
+            onClicked:{
+                control.date = date
+                displayMode = FluCalenderView.Month
+                updateMouth(date)
+            }
+            background: Item{
+                Rectangle{
+                    width: 60
+                    height: 60
+                    radius: 4
+                    anchors.centerIn: parent
+                    color:{
+                        if(FluTheme.isDark){
+                            if(item_control.hovered){
+                                return Qt.rgba(1,1,1,0.05)
+                            }
+                            return Qt.rgba(0,0,0,0)
+                        }else{
+                            if(item_control.hovered){
+                                return Qt.rgba(0,0,0,0.05)
+                            }
+                            return Qt.rgba(0,0,0,0)
+                        }
+                    }
+                }
+                Rectangle{
+                    id:backgound_selected
+                    anchors.centerIn: parent
+                    width: 50
+                    height: 50
+                    radius: 25
+                    visible: isMonth
+                    color: FluTheme.primaryColor.dark
+                }
+                FluText{
+                    text:(date.getMonth()+1)+"月"
+                    anchors.centerIn: parent
+                    color: {
+                        if(isMonth){
+                            return "#FFFFFF"
+                        }
+                        if(isYear){
+                            return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+                        }
+                        return Qt.rgba(150/255,150/255,150/255,1)
+                    }
+                }
+            }
+            contentItem: Item{}
         }
     }
 
@@ -237,9 +328,15 @@ Item {
                     left: parent.left
                     leftMargin: 14
                 }
+                disabled: displayMode === FluCalenderView.Decade
                 onClicked:{
-                    displayMode = FluCalenderView.Year
-                    updateYear(data)
+                    if(displayMode === FluCalenderView.Month){
+                        displayMode = FluCalenderView.Year
+                        updateYear(date)
+                    }else if(displayMode === FluCalenderView.Year){
+                        displayMode = FluCalenderView.Decade
+                        updateDecade(date)
+                    }
                 }
             }
 
@@ -255,14 +352,20 @@ Item {
                 onClicked: {
                     var year = date.getFullYear()
                     var month = date.getMonth()
-                    var lastMonthYear = year;
-                    var lastMonthMonth = month - 1
-                    if (month === 0) {
-                        lastMonthYear = year - 1
-                        lastMonthMonth = 11
+                    if(displayMode === FluCalenderView.Month){
+                        var lastMonthYear = year;
+                        var lastMonthMonth = month - 1
+                        if (month === 0) {
+                            lastMonthYear = year - 1
+                            lastMonthMonth = 11
+                        }
+                        date = new Date(lastMonthYear,lastMonthMonth,1)
+                        updateMouth(date)
                     }
-                    date = new Date(lastMonthYear,lastMonthMonth,1)
-                    updateMouth(date)
+                    if(displayMode === FluCalenderView.Year){
+                        date = new Date(year-1,month,1)
+                        updateYear(date)
+                    }
                 }
             }
 
@@ -278,14 +381,20 @@ Item {
                 onClicked: {
                     var year = date.getFullYear()
                     var month = date.getMonth()
-                    var nextMonthYear = year
-                    var nextMonth = month + 1
-                    if (month === 11) {
-                        nextMonthYear = year + 1
-                        nextMonth = 0
+                    if(displayMode === FluCalenderView.Month){
+                        var nextMonthYear = year
+                        var nextMonth = month + 1
+                        if (month === 11) {
+                            nextMonthYear = year + 1
+                            nextMonth = 0
+                        }
+                        date = new Date(nextMonthYear,nextMonth,1)
+                        updateMouth(date)
                     }
-                    date = new Date(nextMonthYear,nextMonth,1)
-                    updateMouth(date)
+                    if(displayMode === FluCalenderView.Year){
+                        date = new Date(year+1,month,1)
+                        updateYear(date)
+                    }
                 }
             }
         }
@@ -308,6 +417,8 @@ Item {
                 anchors.fill: parent
                 cellHeight: displayMode === FluCalenderView.Month ? 40 : 70
                 cellWidth: displayMode === FluCalenderView.Month ? 40 : 70
+                clip: true
+                boundsBehavior:Flickable.StopAtBounds
                 delegate: Loader{
                     property var modelData : model
                     property var name : model.name
@@ -321,6 +432,9 @@ Item {
                         }
                         if(model.type === 2){
                             return com_month
+                        }
+                        if(model.type === 3){
+                            return com_year
                         }
                         return com_day
                     }
