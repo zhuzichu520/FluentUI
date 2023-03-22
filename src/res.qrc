@@ -44,8 +44,8 @@
         <file>controls/FluArea.qml</file>
         <file>res/font/Segoe_Fluent_Icons.ttf</file>
         <file>controls/FluDatePicker.qml</file>
-        <file>controls/FluCalenderView.qml</file>
-        <file>controls/FluCalendarDatePicker.qml</file>
+        <file>controls/FluCalendarView.qml</file>
+        <file>controls/FluCalendarPicker.qml</file>
         <file>controls/FluFocusRectangle.qml</file>
         <file>controls/FluCarousel.qml</file>
         <file>controls/FluBadge.qml</file>

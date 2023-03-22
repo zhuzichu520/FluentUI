@@ -105,7 +105,11 @@ Rectangle {
 
     Popup{
         id:popup
+        width: container.width
+        height: container.height
+        contentItem: Item{}
         background: Rectangle{
+            id:container
             width: 300
             radius: 4
             color: FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)

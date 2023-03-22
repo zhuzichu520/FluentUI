@@ -1,4 +1,5 @@
 ﻿import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
@@ -69,7 +70,6 @@ FluWindow {
                 }
             }
         }
-
         RowLayout{
             spacing: 14
             Layout.topMargin: 20
@@ -78,22 +78,17 @@ FluWindow {
                 id:text_info
                 text:"如果该项目对你有作用，就请点击上方链接给一个免费的star吧！"
                 ColorAnimation {
-                        id: animation
-                        target: text_info
-                        property: "color"
-                        from: "red"
-                        to: "blue"
-                        duration: 1000
-                        running: true
-                        loops: Animation.Infinite
-                        easing.type: Easing.InOutQuad
-                    }
+                    id: animation
+                    target: text_info
+                    property: "color"
+                    from: "red"
+                    to: "blue"
+                    duration: 1000
+                    running: true
+                    loops: Animation.Infinite
+                    easing.type: Easing.InOutQuad
+                }
             }
         }
-
-
     }
-
-
-
 }

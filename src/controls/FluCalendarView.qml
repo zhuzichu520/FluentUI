@@ -5,11 +5,18 @@ import FluentUI 1.0
 Item {
 
     id:control
-    property int displayMode: FluCalenderView.Month
+    property int displayMode: FluCalendarView.Month
 
     property var date: new Date()
 
     property var currentDate : new Date()
+
+    property var toDay: new Date()
+
+    signal dateClicked(var date)
+
+    width: 280
+    height: 325
 
     enum DisplayMode {
         Month,
@@ -22,19 +29,19 @@ Item {
     }
 
     function createItemWeek(name){
-        return {type:0,name:name}
+        return {type:0,date:new Date(),name:name,isDecade:false}
     }
 
     function createItemDay(date){
-        return {type:1,date:date}
+        return {type:1,date:date,name:"",isDecade:false}
     }
 
     function createItemMonth(date){
-        return {type:2,date:date}
+        return {type:2,date:date,name:"",isDecade:false}
     }
 
-     function createItemYear(date){
-        return {type:3,date:date}
+    function createItemYear(date,isDecade){
+        return {type:3,date:date,name:"",isDecade:isDecade}
     }
     
 
@@ -43,9 +50,12 @@ Item {
         var year = date.getFullYear()
         const decadeStart = Math.floor(year / 10) * 10;
         for(var i = decadeStart ; i< decadeStart+10 ; i++){
-            list_model.append(createItemYear(new Date(i,0,1)));
+            list_model.append(createItemYear(new Date(i,0,1),true));
         }
-
+        for(var j =  decadeStart+10 ; j< decadeStart+16 ; j++){
+            list_model.append(createItemYear(new Date(j,0,1),false));
+        }
+        title.text = decadeStart+"-"+(decadeStart+10)
     }
 
     function updateYear(date){
@@ -93,7 +103,7 @@ Item {
             nextMonth = 0
         }
         const nextDayOfMonth = new Date(nextMonthYear, nextMonth+1, 0).getDate()
-        for (let j = 1; j <= nextDayOfMonth; j++) {
+        for (let j = 1; j <= footerSize; j++) {
             list_model.append(createItemDay(new Date(nextMonthYear, nextMonth,j)))
         }
         title.text = year+"年"+(month+1)+"月"
@@ -116,12 +126,12 @@ Item {
         id:com_year
         Button{
             id:item_control
-            property bool isYear: control.date.getFullYear() === date.getFullYear()
+            property bool isYear: control.toDay.getFullYear() === date.getFullYear()
             height: 70
             width: 70
             onClicked:{
                 control.date = date
-                displayMode = FluCalenderView.Year
+                displayMode = FluCalendarView.Year
                 updateYear(date)
             }
             background: Item{
@@ -160,9 +170,9 @@ Item {
                         if(isYear){
                             return "#FFFFFF"
                         }
-//                        if(isYear){
-//                            return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
-//                        }
+                        if(isDecade){
+                            return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+                        }
                         return Qt.rgba(150/255,150/255,150/255,1)
                     }
                 }
@@ -176,12 +186,12 @@ Item {
         Button{
             id:item_control
             property bool isYear: control.date.getFullYear() === date.getFullYear()
-            property bool isMonth: control.currentDate.getFullYear() === date.getFullYear() && control.currentDate.getMonth() === date.getMonth()
+            property bool isMonth: control.toDay.getFullYear() === date.getFullYear() && control.toDay.getMonth() === date.getMonth()
             height: 70
             width: 70
             onClicked:{
                 control.date = date
-                displayMode = FluCalenderView.Month
+                displayMode = FluCalendarView.Month
                 updateMouth(date)
             }
             background: Item{
@@ -238,10 +248,12 @@ Item {
             id:item_control
             property bool isMonth: control.date.getMonth() === date.getMonth()
             property bool isDay: control.currentDate.getFullYear() === date.getFullYear() && control.currentDate.getMonth() === date.getMonth() && control.currentDate.getDate() === date.getDate()
+            property bool isToDay: control.toDay.getFullYear() === date.getFullYear() && control.toDay.getMonth() === date.getMonth() && control.toDay.getDate() === date.getDate()
             height: 40
             width: 40
             onClicked: {
                 currentDate = date
+                control.dateClicked(date)
             }
             background: Item{
                 Rectangle{
@@ -263,20 +275,34 @@ Item {
                         }
                     }
                 }
+
+                Rectangle{
+                    id:backgound_today
+                    anchors.centerIn: parent
+                    width: 36
+                    height: 36
+                    radius: 18
+                    color:"#00000000"
+                    visible: isDay
+                    border.color: FluTheme.primaryColor.dark
+                    border.width: 1
+                }
+
                 Rectangle{
                     id:backgound_selected
                     anchors.centerIn: parent
                     width: 30
                     height: 30
                     radius: 15
-                    visible: isDay
+                    visible: isToDay
                     color: FluTheme.primaryColor.dark
                 }
+
                 FluText{
                     text:date.getDate()
                     anchors.centerIn: parent
                     color: {
-                        if(isDay){
+                        if(isToDay){
                             return "#FFFFFF"
                         }
                         if(isMonth){
@@ -291,8 +317,7 @@ Item {
     }
 
     FluArea{
-        width: 280
-        height: 325
+        anchors.fill: parent
         radius: 5
 
         FluShadow{
@@ -306,7 +331,7 @@ Item {
             color: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
             anchors{
                 top: parent.top
-                topMargin: 45
+                topMargin: 44
             }
         }
 
@@ -328,13 +353,13 @@ Item {
                     left: parent.left
                     leftMargin: 14
                 }
-                disabled: displayMode === FluCalenderView.Decade
+                disabled: displayMode === FluCalendarView.Decade
                 onClicked:{
-                    if(displayMode === FluCalenderView.Month){
-                        displayMode = FluCalenderView.Year
+                    if(displayMode === FluCalendarView.Month){
+                        displayMode = FluCalendarView.Year
                         updateYear(date)
-                    }else if(displayMode === FluCalenderView.Year){
-                        displayMode = FluCalenderView.Decade
+                    }else if(displayMode === FluCalendarView.Year){
+                        displayMode = FluCalendarView.Decade
                         updateDecade(date)
                     }
                 }
@@ -352,7 +377,7 @@ Item {
                 onClicked: {
                     var year = date.getFullYear()
                     var month = date.getMonth()
-                    if(displayMode === FluCalenderView.Month){
+                    if(displayMode === FluCalendarView.Month){
                         var lastMonthYear = year;
                         var lastMonthMonth = month - 1
                         if (month === 0) {
@@ -361,10 +386,12 @@ Item {
                         }
                         date = new Date(lastMonthYear,lastMonthMonth,1)
                         updateMouth(date)
-                    }
-                    if(displayMode === FluCalenderView.Year){
+                    }else if(displayMode === FluCalendarView.Year){
                         date = new Date(year-1,month,1)
                         updateYear(date)
+                    }else if(displayMode === FluCalendarView.Decade){
+                        date = new Date(Math.floor(year / 10) * 10-10,month,1)
+                        updateDecade(date)
                     }
                 }
             }
@@ -381,7 +408,7 @@ Item {
                 onClicked: {
                     var year = date.getFullYear()
                     var month = date.getMonth()
-                    if(displayMode === FluCalenderView.Month){
+                    if(displayMode === FluCalendarView.Month){
                         var nextMonthYear = year
                         var nextMonth = month + 1
                         if (month === 11) {
@@ -390,10 +417,12 @@ Item {
                         }
                         date = new Date(nextMonthYear,nextMonth,1)
                         updateMouth(date)
-                    }
-                    if(displayMode === FluCalenderView.Year){
+                    }else if(displayMode === FluCalendarView.Year){
                         date = new Date(year+1,month,1)
                         updateYear(date)
+                    }else if(displayMode === FluCalendarView.Decade){
+                        date = new Date(Math.floor(year / 10) * 10+10,month,1)
+                        updateDecade(date)
                     }
                 }
             }
@@ -415,14 +444,17 @@ Item {
             GridView{
                 model: list_model
                 anchors.fill: parent
-                cellHeight: displayMode === FluCalenderView.Month ? 40 : 70
-                cellWidth: displayMode === FluCalenderView.Month ? 40 : 70
+                cellHeight: displayMode === FluCalendarView.Month ? 40 : 70
+                cellWidth: displayMode === FluCalendarView.Month ? 40 : 70
                 clip: true
                 boundsBehavior:Flickable.StopAtBounds
                 delegate: Loader{
                     property var modelData : model
                     property var name : model.name
                     property var date : model.date
+                    property var isDecade: {
+                        return model.isDecade
+                    }
                     sourceComponent: {
                         if(model.type === 0){
                             return com_week

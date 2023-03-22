@@ -72,6 +72,13 @@ FluWindow {
             }
         }
 
+        FluPaneItem{
+            title:"CalendarPicker"
+            onTap:{
+                nav_view.push("qrc:/T_CalendarPicker.qml")
+            }
+        }
+
         FluPaneItemHeader{
             title:"Surface"
         }
@@ -91,9 +98,9 @@ FluWindow {
         }
 
         FluPaneItem{
-            title:"Calender"
+            title:"Calendar"
             onTap:{
-                nav_view.push("qrc:/T_Calender.qml")
+                nav_view.push("qrc:/T_Calendar.qml")
             }
         }
 
