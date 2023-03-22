@@ -97,6 +97,7 @@ Rectangle {
     }
 
     Popup{
+        id:popup
         width: container.width
         height: container.height
         contentItem: Item{}
