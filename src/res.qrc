@@ -49,5 +49,13 @@
         <file>controls/FluFocusRectangle.qml</file>
         <file>controls/FluCarousel.qml</file>
         <file>controls/FluBadge.qml</file>
+        <file>controls/FluColorView.qml</file>
+        <file>controls/FluColorPicker.qml</file>
+        <file>colorpicker/ColorPicker.qml</file>
+        <file>colorpicker/content/Checkerboard.qml</file>
+        <file>colorpicker/content/ColorSlider.qml</file>
+        <file>colorpicker/content/NumberBox.qml</file>
+        <file>colorpicker/content/PanelBorder.qml</file>
+        <file>colorpicker/content/SBPicker.qml</file>
     </qresource>
 </RCC>

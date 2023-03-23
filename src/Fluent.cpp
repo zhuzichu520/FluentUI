@@ -47,6 +47,8 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluCalendarView.qml"),uri,major,minor,"FluCalendarView");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDatePicker.qml"),uri,major,minor,"FluDatePicker");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTimePicker.qml"),uri,major,minor,"FluTimePicker");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluColorView.qml"),uri,major,minor,"FluColorView");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluColorPicker.qml"),uri,major,minor,"FluColorPicker");
 
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluCarousel.qml"),uri,major,minor,"FluCarousel");
 

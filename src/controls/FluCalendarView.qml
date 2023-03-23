@@ -44,7 +44,6 @@ Item {
         return {type:3,date:date,name:"",isDecade:isDecade}
     }
     
-
     function updateDecade(date){
         list_model.clear()
         var year = date.getFullYear()

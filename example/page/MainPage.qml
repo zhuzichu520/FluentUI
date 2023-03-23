@@ -79,6 +79,13 @@ FluWindow {
             }
         }
 
+        FluPaneItem{
+            title:"ColorPicker"
+            onTap:{
+                nav_view.push("qrc:/T_ColorPicker.qml")
+            }
+        }
+
         FluPaneItemHeader{
             title:"Surface"
         }
@@ -94,13 +101,6 @@ FluWindow {
             title:"Progress"
             onTap:{
                 nav_view.push("qrc:/T_Progress.qml")
-            }
-        }
-
-        FluPaneItem{
-            title:"Calendar"
-            onTap:{
-                nav_view.push("qrc:/T_Calendar.qml")
             }
         }
 
