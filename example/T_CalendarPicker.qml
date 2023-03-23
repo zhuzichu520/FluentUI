@@ -12,9 +12,8 @@ FluScrollablePage{
         width: parent.width
         Layout.topMargin: 20
         height: 350
-        paddings: 1
+        paddings: 10
         FluCalendarView{
-
         }
     }
 
