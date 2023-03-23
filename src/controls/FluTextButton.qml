@@ -14,8 +14,8 @@ Button {
     id: control
     topPadding:5
     bottomPadding:5
-    leftPadding:15
-    rightPadding:15
+    leftPadding:0
+    rightPadding:0
     enabled: !disabled
     focusPolicy:Qt.TabFocus
 

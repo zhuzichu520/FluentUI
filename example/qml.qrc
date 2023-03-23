@@ -41,8 +41,8 @@
         <file>page/ChatPage.qml</file>
         <file>T_Tooltip.qml</file>
         <file>T_Badge.qml</file>
-        <file>T_Calendar.qml</file>
         <file>T_CalendarPicker.qml</file>
         <file>T_ColorPicker.qml</file>
+        <file>T_Carousel.qml</file>
     </qresource>
 </RCC>
