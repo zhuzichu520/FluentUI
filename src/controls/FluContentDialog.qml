@@ -22,7 +22,8 @@ Popup {
     modal:true
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape
-    background: Rectangle {
+    background:Item{}
+    contentItem: Rectangle {
         id:layout_content
         implicitWidth:minWidth
         implicitHeight: text_title.height + text_message.height + layout_actions.height

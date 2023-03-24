@@ -8,6 +8,10 @@ FluContentPage {
     title: "Typography"
     property int textSize: 13
 
+    Component.onCompleted: {
+        slider.seek(31)
+    }
+
     ScrollView{
         clip: true
         width: parent.width
@@ -68,6 +72,7 @@ FluContentPage {
 
 
     FluSlider{
+        id:slider
         orientation:FluSlider.Vertical
         anchors{
             right: parent.right
@@ -78,7 +83,6 @@ FluContentPage {
         onValueChanged:{
             textSize = value/100*16+8
         }
-        value: 31
     }
 
 }
