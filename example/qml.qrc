@@ -44,5 +44,6 @@
         <file>T_CalendarPicker.qml</file>
         <file>T_ColorPicker.qml</file>
         <file>T_Carousel.qml</file>
+        <file>T_MediaPlayer.qml</file>
     </qresource>
 </RCC>

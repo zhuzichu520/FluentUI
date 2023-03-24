@@ -200,6 +200,17 @@ FluWindow {
             }
         }
 
+        FluPaneItemHeader{
+            title:"Media"
+        }
+
+        FluPaneItem{
+            title:"MediaPlayer"
+            onTap:{
+                nav_view.push("qrc:/T_MediaPlayer.qml")
+            }
+        }
+
     }
 
     FluObject{

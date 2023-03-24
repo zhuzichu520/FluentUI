@@ -57,5 +57,6 @@
         <file>colorpicker/content/NumberBox.qml</file>
         <file>colorpicker/content/PanelBorder.qml</file>
         <file>colorpicker/content/SBPicker.qml</file>
+        <file>controls/FluMediaPlayer.qml</file>
     </qresource>
 </RCC>
