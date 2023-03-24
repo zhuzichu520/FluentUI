@@ -36,12 +36,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
-      - name: Qt 5 environment configuration
-        if: ${{ startsWith( matrix.qt_ver, 5 ) }}
-        shell: pwsh
-        run: |
-          Write-Output "${{ env.Qt5_DIR }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          Write-Output "${{ env.Qt5_DIR }}/../../Tools/${{ matrix.qt_tools_mingw_install }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Qt 6 environment configuration
         if: ${{ startsWith( matrix.qt_ver, 6 ) }}
         shell: pwsh
