@@ -38,7 +38,7 @@ jobs:
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          modules: 'qtmultimedia qt5compat'
+          modules: 'qtmultimedia qtcompat'
           install-deps: 'true'
           # Target platform for build
           # target: ${{ matrix.qt_target }}
