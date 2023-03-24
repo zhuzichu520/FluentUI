@@ -38,7 +38,7 @@ jobs:
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          archives: '6.4.3 qtbase qttools'
+          archives: '6.4.3 qtbase qttools qtsvg qtquickcontrols2'
           modules: 'qtmultimedia qt5compat'
           # Target platform for build
           # target: ${{ matrix.qt_target }}
