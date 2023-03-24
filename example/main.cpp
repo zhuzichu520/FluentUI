@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include <QDir>
 #include <QQuickWindow>
+#include <QQuickStyle>
 #include <QProcess>
 #include "ChatController.h"
 
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("FluentUI");
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+    QQuickStyle::setStyle("Basic");
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 

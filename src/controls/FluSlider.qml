@@ -1,12 +1,10 @@
-﻿import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtGraphicalEffects 1.15
+﻿import QtQuick
+import QtQuick.Controls
 
 Item{
 
     id:root
 
-    property int lineSize: 4
     property int size: 180
     property int dotSize: 24
 
@@ -38,19 +36,18 @@ Item{
         seek(0)
     }
 
-    FluRectangle {
+    Rectangle {
         id: control
-        width: isHorizontal ? size : root.lineSize
-        height:  isHorizontal ? root.lineSize : size
-        radius: [3,3,3,3]
-        clip: true
+        width: isHorizontal ? size : 4
+        height:  isHorizontal ? 4 : size
+        radius: 2
         anchors.verticalCenter: parent.verticalCenter
         color:FluTheme.isDark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
         Rectangle{
             id:rect
-            radius: 3
-            width: isHorizontal ? control.width*(value/maxValue) : control.width
-            height: isHorizontal ?  control.height  : control.height*(value/maxValue)
+            radius: 2.5
+            width: isHorizontal ? control.width*(value/maxValue) : 5
+            height: isHorizontal ?  5  : control.height*(value/maxValue)
             color:FluTheme.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
     }
@@ -112,7 +109,6 @@ Item{
     }
 
     function seek(position){
-        console.debug(position)
         if(isHorizontal){
             dot.x =position/maxValue*control.width - dotSize/2
             root.value = Qt.binding(function(){

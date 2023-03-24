@@ -1,4 +1,4 @@
-﻿import QtQuick 2.15
+﻿import QtQuick
 
 Item {
     id: root
@@ -50,20 +50,12 @@ Item {
         y: r
         function handleMouse(mouse) {
             if (mouse.buttons & Qt.LeftButton) {
-
                 pickerCursor.x = Math.max(0,Math.min(mouse.x - r,width-2*r));
                 pickerCursor.y = Math.max(0,Math.min(mouse.y - r,height-2*r));
-
-
-//                pickerCursor.x = Math.max(-r,Math.min(mouse.x - r,width+r));
-//                pickerCursor.y = Math.max(-r,Math.min(mouse.y - r,height+r));
-
-//                pickerCursor.x = Math.max(0, Math.min(width,  mouse.x) - 2 * r);
-//                pickerCursor.y = Math.max(0, Math.min(height, mouse.y) - 2 * r);
             }
         }
-        onPositionChanged: handleMouse(mouse)
-        onPressed: handleMouse(mouse)
+        onPositionChanged:(mouse)=> handleMouse(mouse)
+        onPressed:(mouse)=> handleMouse(mouse)
     }
 }
 

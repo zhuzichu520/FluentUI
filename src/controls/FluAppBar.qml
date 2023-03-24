@@ -1,7 +1,7 @@
-﻿import QtQuick 2.15
-import QtQuick.Window 2.15
-import QtQuick.Layouts 1.15
-import FluentUI 1.0
+﻿import QtQuick
+import QtQuick.Window
+import QtQuick.Layouts
+import FluentUI
 
 Rectangle{
 
@@ -15,11 +15,10 @@ Rectangle{
     }
     visible: FluTheme.isFrameless
     height: visible ? 34 : 0
-
     width: {
-        if(parent==null)
-            return 200
-        return parent.width
+        if(root.parent)
+            return root.parent.width
+        return 200
     }
     z: 65535
     clip: true

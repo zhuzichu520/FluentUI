@@ -4,6 +4,8 @@
 #include <QScreen>
 #include <QWindow>
 #include <FluTheme.h>
+#pragma comment(lib, "User32.lib")
+#include <windows.h>
 
 class FramelessViewPrivate
 {

@@ -1,12 +1,12 @@
-﻿import QtQuick 2.12
-import QtQuick.Controls 2.12
+﻿import QtQuick
+import QtQuick.Controls
 
 FluRectangle {
     id: control
 
     width: 150
     height: 5
-    radius: [3,3,3,3]
+    radius: [2.5,2.5,2.5,2.5]
     clip: true
     color:  FluTheme.isDark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
     property real progress: 0.5
@@ -24,7 +24,7 @@ FluRectangle {
 
     Rectangle{
         id:bar
-        radius: 3
+        radius: 2.5
         width: control.width*progress
         height:  control.height
         color:FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark

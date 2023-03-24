@@ -19,8 +19,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-18.04,ubuntu-20.04]
-        qt_ver: [5.15.2]
+        qt_ver: [6.4.3]
         qt_arch: [gcc_64]
+        exclude: 
+          # Qt6.2.2 need GLIBC_2.28, ubuntu 18.04 have not.
+          - os: ubuntu-18.04
+            qt_ver: 6.4.3
+            qt_arch: gcc_64
     env:
       targetName: example
     steps:

@@ -1,8 +1,8 @@
-﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtMultimedia 5.15
-import QtGraphicalEffects 1.15
-import FluentUI 1.0
+﻿import QtQuick
+import QtQuick.Controls
+import QtMultimedia
+import Qt5Compat.GraphicalEffects
+import FluentUI
 
 Item {
     id:control
@@ -20,30 +20,30 @@ Item {
     MediaPlayer {
         id: mediaplayer
         property bool autoSeek:true
-        autoPlay: true
         source: control.source
-        onError: {
-            console.debug(error)
+        videoOutput: video_output
+        onErrorOccurred: {
         }
         onPositionChanged: {
             if(autoSeek){
                 slider.seek(mediaplayer.position*slider.maxValue/mediaplayer.duration)
             }
         }
-        onStatusChanged: {
-            if(status===6){
+        onMediaStatusChanged: {
+            if(mediaStatus===6){
                 slider.maxValue = mediaplayer.duration
             }
         }
     }
 
     onSourceChanged: {
-       slider.seek(0)
+        slider.seek(0)
+        mediaplayer.play()
     }
 
     VideoOutput {
+        id:video_output
         anchors.fill: parent
-        source: mediaplayer
     }
 
     Item{
@@ -78,7 +78,7 @@ Item {
                 mediaplayer.autoSeek = false
             }
             onReleased: {
-                mediaplayer.seek(value*mediaplayer.duration/slider.maxValue)
+                mediaplayer.position = value*mediaplayer.duration/slider.maxValue
                 mediaplayer.autoSeek = true
             }
         }
@@ -106,14 +106,14 @@ Item {
 
         FluIconButton{
             iconSize: 15
-            iconSource: mediaplayer.playbackState === Audio.PlayingState ?   FluentIcons.Pause  : FluentIcons.Play
+            iconSource: mediaplayer.playbackState === MediaPlayer.PlayingState ?   FluentIcons.Pause  : FluentIcons.Play
             anchors{
                 horizontalCenter: parent.horizontalCenter
                 bottom: parent.bottom
                 bottomMargin: 10
             }
             onClicked: {
-                if(mediaplayer.playbackState === Audio.PlayingState){
+                if(mediaplayer.playbackState === MediaPlayer.PlayingState){
                     mediaplayer.pause()
                 }else{
                     mediaplayer.play()

@@ -1,9 +1,8 @@
-﻿import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15
-import FluentUI 1.0
-import Controller 1.0
-import QtQuick.Dialogs 1.3
+﻿import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import FluentUI
+import Controller
 
 FluWindow {
 

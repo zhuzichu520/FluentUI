@@ -1,7 +1,7 @@
-﻿import QtQuick 2.15
+﻿import QtQuick
+import QtQuick.Controls
 
 QtObject {
     id:flu_object;
-
     default property list<QtObject> children;
 }

@@ -1,8 +1,8 @@
-﻿import QtQuick 2.15
-import QtQuick.Window 2.15
-import QtQuick.Layouts 1.15
-import FluentUI 1.0
-import QtGraphicalEffects 1.15
+﻿import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import QtQuick.Layouts
+import FluentUI
 
 Item {
 
@@ -127,19 +127,19 @@ Item {
         root: root
     }
 
-    function showSuccess(text,duration,moremsg){
+    function showSuccess(text,duration=1000,moremsg){
         infoBar.showSuccess(text,duration,moremsg);
     }
 
-    function showInfo(text,duration,moremsg){
+    function showInfo(text,duration=1000,moremsg){
         infoBar.showInfo(text,duration,moremsg);
     }
 
-    function showWarning(text,duration,moremsg){
+    function showWarning(text,duration=1000,moremsg){
         infoBar.showWarning(text,duration,moremsg);
     }
 
-    function showError(text,duration,moremsg){
+    function showError(text,duration=1000,moremsg){
         infoBar.showError(text,duration,moremsg);
     }
 
