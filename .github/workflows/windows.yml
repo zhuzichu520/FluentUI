@@ -34,15 +34,16 @@ jobs:
       # 安装Qt
       - name: Install Qt
         # 使用外部action。这个action专门用来安装Qt
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
+          modules: 'qtmuiltimedia'
           # Target platform for build
           # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
           cached: 'false'
-          aqtversion: '==2.0.5'          
+          aqtversion: '==2.1.*'          
       # 拉取代码
       - uses: actions/checkout@v2
         with:
