@@ -93,4 +93,5 @@
 
 ![](doc/preview/multiwindow.png)
 
-### ⚡ Visitor count ![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
+### ⚡ Visitor count
+![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
