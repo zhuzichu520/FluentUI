@@ -38,8 +38,8 @@ jobs:
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          archives: '6.4.3 qtbase qttools qtsvg qtqml qtquick'
-          modules: 'qtmultimedia qt5compat qtqml qtquick'
+          archives: '6.4.3 qtbase qttools qtsvg'
+          modules: 'qtmultimedia qt5compat qml quick'
           # Target platform for build
           # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
