@@ -41,7 +41,7 @@ jobs:
           # Target platform for build
           # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
-          archives: 'qtbase qml quick qtmultimedia qt5compat qtsvg'
+          archives: 'qtmultimedia qt5compat qtsvg'
           cached: 'false'
           aqtversion: '==2.1.*'          
       # 拉取代码
