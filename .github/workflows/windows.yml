@@ -38,8 +38,12 @@ jobs:
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          archives: '6.4.3 qtbase qttools qtsvg'
-          modules: 'qtmultimedia qt5compat qml quick'
+          archives: '6.4.3 qt3d qtbase qtcharts qtconnectivity qtdatavis3d qtdeclarative qtgamepad qtgraphicaleffects
+qtimageformats qtlocation qtlottie qtmultimedia qtnetworkauth qtpurchasing qtquick3d
+qtquickcontrols qtquickcontrols2 qtquicktimeline qtremoteobjects qtscript qtscxml qtsensors
+qtserialbus qtserialport qtspeech qtsvg qttools qtvirtualkeyboard qtwayland qtwebchannel
+qtwebengine qtwebglplugin qtwebsockets qtwebview qtx11extras qtxmlpatterns'
+          modules: 'qtmultimedia qt5compat'
           # Target platform for build
           # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
