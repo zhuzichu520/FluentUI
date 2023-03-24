@@ -7,11 +7,11 @@ import FluentUI 1.0
 
 FluScrollablePage{
 
-    title:"ColorPicker"
+    title:"MediaPlayer"
 
     FluArea{
         width: parent.width
-        height: 280
+        height: 320
         Layout.topMargin: 20
         paddings: 10
         ColumnLayout{
@@ -21,7 +21,10 @@ FluScrollablePage{
             }
 
             FluMediaPlayer{
-
+                source:{
+                    console.debug("-------------->")
+                    return "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+                }
             }
 
         }

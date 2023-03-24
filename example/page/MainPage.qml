@@ -11,7 +11,7 @@ FluWindow {
     width: 860
     height: 600
     title: "FluentUI"
-    minimumWidth: 500
+    minimumWidth: 520
     minimumHeight: 400
 
     FluAppBar{

@@ -18,7 +18,7 @@ Menu {
             radius: 5
             layer.enabled: true
             layer.effect:  GaussianBlur {
-                radius: 8
+                radius: 5
                 samples: 16
             }
         }

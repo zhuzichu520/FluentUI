@@ -6,11 +6,14 @@ Item{
 
     id:root
 
-    property int lineSize: 5
+    property int lineSize: 4
     property int size: 180
-    property int dotSize: 28
+    property int dotSize: 24
 
     property int value: 50
+
+    property int maxValue: 100
+
 
     enum Orientation  {
         Horizontal,
@@ -24,20 +27,15 @@ Item{
 
     property bool isHorizontal: orientation === FluSlider.Horizontal
 
+    property bool enableTip : true
+
+    signal pressed
+    signal released
+
     rotation: isHorizontal ? 0 : 180
 
     Component.onCompleted: {
-        if(isHorizontal){
-            dot.x =value/100*control.width - dotSize/2
-            root.value = Qt.binding(function(){
-                return (dot.x+dotSize/2)/control.width*100
-            })
-        }else{
-            dot.y =value/100*control.height - dotSize/2
-            root.value = Qt.binding(function(){
-                return (dot.y+dotSize/2)/control.height*100
-            })
-        }
+        seek(0)
     }
 
     FluRectangle {
@@ -51,8 +49,8 @@ Item{
         Rectangle{
             id:rect
             radius: 3
-            width: isHorizontal ? control.width*(value/100) : control.width
-            height: isHorizontal ?  control.height  : control.height*(value/100)
+            width: isHorizontal ? control.width*(value/maxValue) : control.width
+            height: isHorizontal ?  control.height  : control.height*(value/maxValue)
             color:FluTheme.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
     }
@@ -94,11 +92,15 @@ Item{
                 maximumY: isHorizontal ? 0 : (control.height - dotSize/2)
             }
             onPressed: {
-                tool_tip.visible  =  true
+                if(enableTip){
+                    tool_tip.visible  =  true
+                }
+                root.pressed()
             }
 
             onReleased: {
                 tool_tip.visible  =  false
+                root.released()
             }
         }
 
@@ -106,6 +108,21 @@ Item{
             id:tool_tip
             text:String(root.value)
             y: isHorizontal ? -40 : 32
+        }
+    }
+
+    function seek(position){
+        console.debug(position)
+        if(isHorizontal){
+            dot.x =position/maxValue*control.width - dotSize/2
+            root.value = Qt.binding(function(){
+                return (dot.x+dotSize/2)/control.width*maxValue
+            })
+        }else{
+            dot.y =position/maxValue*control.height - dotSize/2
+            root.value = Qt.binding(function(){
+                return (dot.y+dotSize/2)/control.height*maxValue
+            })
         }
     }
 
