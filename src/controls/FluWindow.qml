@@ -74,7 +74,22 @@ Item {
     }
 
     Component.onCompleted: {
+        updateWindowSize()
+    }
 
+    Connections{
+        target: FluTheme
+        function onIsFramelessChanged(){
+            updateWindowSize()
+        }
+    }
+
+    function updateWindowSize(){
+        if(FluTheme.isFrameless){
+            height = height + 34
+        }else{
+            height = height - 34
+        }
     }
 
     Connections{

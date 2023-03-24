@@ -46,6 +46,7 @@ Item {
                 Image {
                     anchors.fill: parent
                     source: model.url
+                    asynchronous: true
                     fillMode:Image.PreserveAspectCrop
                 }
             }

@@ -49,6 +49,8 @@ Rectangle{
     }
 
     function toggleMaximized() {
+        if(!resizable)
+            return
         if (window.visibility === Window.Maximized) {
             window.showNormal();
         } else {

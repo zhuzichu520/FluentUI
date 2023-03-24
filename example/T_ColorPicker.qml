@@ -20,7 +20,7 @@ FluScrollablePage{
                 left:parent.left
             }
             FluText{
-                text:"此颜色组件是Github上大佬封装的"
+                text:"此颜色组件是Github上的开源项目"
             }
             FluTextButton{
                 leftPadding: 0
