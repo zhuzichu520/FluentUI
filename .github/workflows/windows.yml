@@ -43,7 +43,7 @@ qtimageformats qtlocation qtlottie qtmultimedia qtnetworkauth qtpurchasing qtqui
 qtquickcontrols qtquickcontrols2 qtquicktimeline qtremoteobjects qtscript qtscxml qtsensors
 qtserialbus qtserialport qtspeech qtsvg qttools qtvirtualkeyboard qtwayland qtwebchannel
 qtwebengine qtwebglplugin qtwebsockets qtwebview qtx11extras qtxmlpatterns'
-          modules: 'qtmultimedia qt5compat'
+          modules: 'qtmultimedia qt5compat qttools'
           # Target platform for build
           # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
