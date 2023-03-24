@@ -1,4 +1,4 @@
-QT += quick quickcontrols2 concurrent network multimedia
+QT += quick quickcontrols2 concurrent network
 CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
