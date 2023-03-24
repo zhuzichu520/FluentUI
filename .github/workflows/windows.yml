@@ -40,6 +40,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           # Target platform for build
           # target: ${{ matrix.qt_target }}
+          dir: '${{ github.workspace }}/example/'
           arch: ${{ matrix.qt_arch }}
           archives: 'qtmultimedia qt5compat qtsvg'
           cached: 'false'
