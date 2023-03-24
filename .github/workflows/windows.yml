@@ -38,13 +38,16 @@ jobs:
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          modules: 'qtmultimedia qtcompat'
-          install-deps: 'true'
+          modules: 'qtmultimedia qt5compat'
           # Target platform for build
           # target: ${{ matrix.qt_target }}
+          set-env: 'true'
+          tools-only: 'false'
+          aqtversion: '==2.1.*'
+          py7zrversion: '==0.19.*'
+          extra: '--external 7z'
           arch: ${{ matrix.qt_arch }}
-          cached: 'false'
-          aqtversion: '==2.1.*'          
+          cached: 'false'        
       # 拉取代码
       - uses: actions/checkout@v2
         with:
