@@ -83,11 +83,19 @@ Rectangle {
             enableTip:false
             onPressed: {
                 mediaplayer.autoSeek = false
+                mediaplayer.pause()
             }
             onReleased: {
-                mediaplayer.seek(value*mediaplayer.duration/slider.maxValue)
                 mediaplayer.autoSeek = true
+                mediaplayer.play()
             }
+
+            onValueChanged: {
+                if(mediaplayer.autoSeek == false){
+                    mediaplayer.seek(value*mediaplayer.duration/slider.maxValue)
+                }
+            }
+
             onLineClickFunc:function(val){
                 mediaplayer.seek(val*mediaplayer.duration/slider.maxValue)
             }
@@ -130,6 +138,22 @@ Rectangle {
                 }
             }
         }
+
+        FluIconButton{
+            iconSize: 17
+            iconSource:  mediaplayer.volume ?  FluentIcons.Volume :  FluentIcons.Mute
+            anchors{
+                left: parent.left
+                leftMargin: 5
+                bottom: parent.bottom
+                bottomMargin: 10
+            }
+            onClicked: {
+                //                FluentIcons.SkipBack10 FluentIcons.SkipForward30
+                mediaplayer.volume = !mediaplayer.volume
+            }
+        }
+
 
     }
 
