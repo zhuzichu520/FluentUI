@@ -4,37 +4,49 @@ import QtGraphicalEffects 1.15
 
 Item{
 
-    id:root
-
-    property int size: 180
-    property int dotSize: 24
-
-    property int value: 50
-
-    property int maxValue: 100
-
-
     enum Orientation  {
         Horizontal,
         Vertical
     }
-
-    height: control.height
-    width: control.width
-
+    property int size: 180
+    property int dotSize: 24
+    property int value: 50
+    property int maxValue: 100
     property int orientation: FluSlider.Horizontal
-
     property bool isHorizontal: orientation === FluSlider.Horizontal
-
     property bool enableTip : true
-
+    property var onLineClickFunc
     signal pressed
     signal released
 
+    id:root
+    height: control.height
+    width: control.width
     rotation: isHorizontal ? 0 : 180
-
     Component.onCompleted: {
         seek(0)
+    }
+
+    MouseArea{
+        id:mouse_line
+        anchors.centerIn: control
+        width: isHorizontal ? control.width : 10
+        height: isHorizontal ? 10 : control.height
+        hoverEnabled: true
+        onClicked:
+            (mouse) => {
+                var val;
+                if(isHorizontal){
+                    val = mouse.x*maxValue/control.width
+                }else{
+                    val = mouse.y*maxValue/control.height
+                }
+                if(onLineClickFunc){
+                    onLineClickFunc(val)
+                }else{
+                    seek(val)
+                }
+            }
     }
 
     Rectangle {
@@ -51,6 +63,8 @@ Item{
             height: isHorizontal ?  5  : control.height*(value/maxValue)
             color:FluTheme.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
+
+
     }
 
     Rectangle{
@@ -70,7 +84,7 @@ Item{
             radius: dotSize/4
             color:FluTheme.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
-            scale: control_mouse.containsMouse ? 1.2 : 1
+            scale: control_mouse.containsMouse || mouse_line.containsMouse  ? 1.3 : 1
             Behavior on scale {
                 NumberAnimation{
                     duration: 150
@@ -109,14 +123,14 @@ Item{
         }
     }
 
-    function seek(position){
+    function seek(val){
         if(isHorizontal){
-            dot.x =position/maxValue*control.width - dotSize/2
+            dot.x =val/maxValue*control.width - dotSize/2
             root.value = Qt.binding(function(){
                 return (dot.x+dotSize/2)/control.width*maxValue
             })
         }else{
-            dot.y =position/maxValue*control.height - dotSize/2
+            dot.y =val/maxValue*control.height - dotSize/2
             root.value = Qt.binding(function(){
                 return (dot.y+dotSize/2)/control.height*maxValue
             })

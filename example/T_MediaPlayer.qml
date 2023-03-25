@@ -9,6 +9,14 @@ FluScrollablePage{
 
     title:"MediaPlayer"
 
+    onVisibleChanged: {
+        if(visible){
+            player.play()
+        }else{
+            player.pause()
+        }
+    }
+
     FluArea{
         width: parent.width
         height: 320
@@ -21,6 +29,7 @@ FluScrollablePage{
             }
 
             FluMediaPlayer{
+                id:player
                 source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
             }
 

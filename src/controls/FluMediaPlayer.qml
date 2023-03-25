@@ -1,20 +1,24 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtMultimedia 5.15
-import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
-Item {
+Rectangle {
+
+    property url source
     id:control
     width: 480
     height: 270
+    color: FluColors.Black
+    clip: true
 
-    property url source
+    property bool showControl: true
 
-
-    Rectangle{
+    MouseArea{
         anchors.fill: parent
-        color: FluColors.Black
+        onClicked: {
+            showControl = !showControl
+        }
     }
 
     MediaPlayer {
@@ -38,7 +42,7 @@ Item {
     }
 
     onSourceChanged: {
-       slider.seek(0)
+        slider.seek(0)
     }
 
     VideoOutput {
@@ -48,24 +52,27 @@ Item {
 
     Item{
         height: 100
+        y:showControl ? control.height - 110 : control.height
         anchors{
-            bottom: parent.bottom
             left: parent.left
             right: parent.right
             leftMargin: 10
             rightMargin: 10
-            bottomMargin: 10
+        }
+        MouseArea{
+            anchors.fill: parent
+        }
+
+        Behavior on y{
+            NumberAnimation{
+                duration: 150
+            }
         }
 
         Rectangle{
             anchors.fill: parent
             color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
             radius: 5
-            layer.enabled: true
-            layer.effect:  GaussianBlur {
-                radius: 5
-                samples: 16
-            }
         }
 
         FluSlider{
@@ -80,6 +87,9 @@ Item {
             onReleased: {
                 mediaplayer.seek(value*mediaplayer.duration/slider.maxValue)
                 mediaplayer.autoSeek = true
+            }
+            onLineClickFunc:function(val){
+                mediaplayer.seek(val*mediaplayer.duration/slider.maxValue)
             }
         }
 
@@ -135,7 +145,13 @@ Item {
         return value.toString().padStart(2, '0');
     }
 
+    function pause(){
+        mediaplayer.pause()
+    }
 
+    function play(){
+        mediaplayer.play()
+    }
 
 }
 
