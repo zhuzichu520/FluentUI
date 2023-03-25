@@ -40,7 +40,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           arch: ${{ matrix.qt_arch }}
           cached: 'false'
-          aqtversion: '==2.0.5'   
+          aqtversion: '==2.0.5'
           modules: 'qtmultimedia qt5compat qtshadertools'
       # 拉取代码
       - uses: actions/checkout@v2
