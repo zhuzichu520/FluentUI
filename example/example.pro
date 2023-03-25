@@ -2,6 +2,9 @@ QT += quick concurrent network multimedia
 CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
+HEADERS += \
+    ChatController.h
+
 SOURCES += \
         ChatController.cpp \
         main.cpp
@@ -37,5 +40,10 @@ contains(QT_ARCH, i386) {
 }
 }
 
-HEADERS += \
-    ChatController.h
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+mac: {
+    QMAKE_INFO_PLIST = Info.plist
+}
