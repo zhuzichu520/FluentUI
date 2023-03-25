@@ -1,5 +1,5 @@
-QT += quick quickcontrols2 concurrent network multimedia core5compat
-CONFIG += c++17
+QT += quick concurrent network multimedia
+CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
@@ -30,10 +30,18 @@ win32 {
 
 contains(QT_ARCH, i386) {
     COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x86/*.dll) $$DESTDIR
-    QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    contains(QMAKE_CC, cl) {
+        QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    } else {
+        QMAKE_PRE_LINK += $$QMAKE_COPY $$COPYDLL
+    }
 } else {
     COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x64/*.dll) $$DESTDIR
-    QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    contains(QMAKE_CC, cl) {
+        QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
+    } else {
+        QMAKE_PRE_LINK += $$QMAKE_COPY $$COPYDLL
+    }
 }
 
 }

@@ -1,5 +1,5 @@
-QT          += qml quick svg
-CONFIG      += plugin c++17
+QT          += qml quick svg multimedia network
+CONFIG      += plugin c++11
 TEMPLATE    = lib
 TARGET      = FluentUI
 TARGET      = $$qtLibraryTarget($$TARGET)

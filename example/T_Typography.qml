@@ -1,16 +1,12 @@
-﻿import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
-import FluentUI
+﻿import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
+import FluentUI 1.0
 
 FluContentPage {
 
     title: "Typography"
     property int textSize: 13
-
-    Component.onCompleted: {
-        slider.seek(31)
-    }
 
     ScrollView{
         clip: true
@@ -72,7 +68,6 @@ FluContentPage {
 
 
     FluSlider{
-        id:slider
         orientation:FluSlider.Vertical
         anchors{
             right: parent.right
@@ -83,6 +78,7 @@ FluContentPage {
         onValueChanged:{
             textSize = value/100*16+8
         }
+        value: 31
     }
 
 }

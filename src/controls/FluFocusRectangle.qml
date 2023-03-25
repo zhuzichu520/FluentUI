@@ -1,12 +1,12 @@
-﻿import QtQuick
-import FluentUI
+﻿import QtQuick 2.15
+import FluentUI 1.0
 
 Item {
     id:root
     anchors.fill: parent
     anchors.margins: -3
 
-    property int radius: 4
+    property var radius: 4
 
     Rectangle{
         width: root.width

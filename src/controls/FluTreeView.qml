@@ -1,8 +1,9 @@
-﻿import QtQuick
-import QtQuick.Window
-import QtQuick.Layouts
-import QtQuick.Controls
-import FluentUI
+﻿import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
+import FluentUI 1.0
+import QtGraphicalEffects 1.15
 
 Item {
     id:root

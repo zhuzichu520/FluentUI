@@ -1,7 +1,8 @@
-﻿import QtQuick
-import QtQuick.Controls
-import FluentUI
+﻿import QtQuick 2.15
+import FluentUI 1.0
 
+
+/*! TODO */
 Item {
     id: toou2d_fps
     width: contentItemLoader.width + 5;

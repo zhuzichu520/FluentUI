@@ -1,6 +1,6 @@
-﻿import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
+﻿import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
 import "content"
 
 Rectangle {

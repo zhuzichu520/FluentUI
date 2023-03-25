@@ -1,9 +1,9 @@
-﻿import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-import QtQuick.Window
-import Qt5Compat.GraphicalEffects
-import FluentUI
+﻿import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
+import QtGraphicalEffects 1.15
+import FluentUI 1.0
 
 FluScrollablePage{
 
@@ -21,7 +21,10 @@ FluScrollablePage{
             }
 
             FluMediaPlayer{
-                source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+                source:{
+                    console.debug("-------------->")
+                    return "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+                }
             }
 
         }

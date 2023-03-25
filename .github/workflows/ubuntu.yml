@@ -18,8 +18,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04]
-        qt_ver: [6.4.3]
+        os: [ubuntu-18.04,ubuntu-20.04]
+        qt_ver: [5.15.2]
         qt_arch: [gcc_64]
     env:
       targetName: example
@@ -29,8 +29,6 @@ jobs:
         with:
           version: ${{ matrix.qt_ver }}
           cached: 'false'
-          aqtversion: '==2.0.5'   
-          modules: 'qtmultimedia qt5compat qtshadertools'
       - name: ubuntu install GL library
         run: sudo apt-get install -y libglew-dev libglfw3-dev qml-module-qtquick-controls qml-module-qtquick-controls2
       - uses: actions/checkout@v2
@@ -48,7 +46,7 @@ jobs:
       - name: package
         run: |
           # make sure Qt plugin finds QML sources so it can deploy the imported files
-          export QML_SOURCES_PATHS=src/..
+          export QML_SOURCES_PATHS=src
           # 拷贝依赖
           linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=bin/release/${targetName} --appdir bin/release/
           mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}.AppImage
