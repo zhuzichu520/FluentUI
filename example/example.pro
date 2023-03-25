@@ -1,5 +1,5 @@
-QT += quick quickcontrols2 concurrent network
-CONFIG += c++11
+QT += quick quickcontrols2 concurrent network multimedia core5compat
+CONFIG += c++17
 
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
