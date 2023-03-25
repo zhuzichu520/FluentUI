@@ -21,10 +21,7 @@ FluScrollablePage{
             }
 
             FluMediaPlayer{
-                source:{
-                    console.debug("-------------->")
-                    return "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-                }
+                source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
             }
 
         }
