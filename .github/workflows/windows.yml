@@ -39,13 +39,7 @@ jobs:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
           modules: 'qtmultimedia qt5compat qtshadertools'
-          # Target platform for build
-          # target: ${{ matrix.qt_target }}
-          set-env: 'true'
-          tools-only: 'false'
           aqtversion: '==2.1.*'
-          py7zrversion: '==0.19.*'
-          extra: '--external 7z'
           arch: ${{ matrix.qt_arch }}
           cached: 'false'        
       # 拉取代码
