@@ -34,14 +34,14 @@ jobs:
       # 安装Qt
       - name: Install Qt
         # 使用外部action。这个action专门用来安装Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v2
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          modules: 'qtmultimedia qt5compat qtshadertools'
-          aqtversion: '==2.1.*'
           arch: ${{ matrix.qt_arch }}
-          cached: 'false'        
+          cached: 'false'
+          aqtversion: '==2.0.5'   
+          modules: 'qtmultimedia qt5compat qtshadertools'
       # 拉取代码
       - uses: actions/checkout@v2
         with:

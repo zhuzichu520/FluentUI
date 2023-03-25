@@ -30,15 +30,13 @@ jobs:
       targetName: example
     steps:
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_ver }}
           cached: 'false'
-          aqtversion: '==2.1.*'
-          arch: ${{ matrix.qt_arch }}
           modules: 'qtmultimedia qt5compat qtshadertools'
       - name: ubuntu install GL library
-        run: sudo apt-get install -y libglew-dev libglfw3-dev qml-module-qtquick-controls qml-module-qtquick-controls2
+        run: sudo apt-get install -y libglew-dev libglfw3-dev qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtmultimedia
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
@@ -54,9 +52,9 @@ jobs:
       - name: package
         run: |
           # make sure Qt plugin finds QML sources so it can deploy the imported files
-          export QML_SOURCES_PATHS=./
+          export QML_SOURCES_PATHS=src
           # 拷贝依赖
-          linuxdeploy-x86_64.AppImage --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=bin/release/${targetName} --appdir bin/release/
+          linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=bin/release/${targetName} --appdir bin/release/
           mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}.AppImage
       # 上传artifacts          
       - uses: actions/upload-artifact@v2
