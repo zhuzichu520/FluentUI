@@ -28,28 +28,17 @@ Item {
 
     property int tabWidthBehavior : FluTabView.Equal
     property int closeButtonVisibility : FluTabView.Always
+    property int itemWidth: 146
 
     QtObject {
         id: d
         property int dragIndex: -1
         property bool dragBehavior: false
+        property bool itemPress: false
     }
-
 
     ListModel{
         id:tab_model
-        ListElement{
-            icon:""
-            text:"Document0"
-        }
-        ListElement{
-            icon:""
-            text:"Document1"
-        }
-        ListElement{
-            icon:""
-            text:"Document2"
-        }
     }
 
     ListView{
@@ -57,6 +46,8 @@ Item {
         height: 34
         orientation: ListView.Horizontal
         width: parent.width
+        interactive: false
+        boundsBehavior: ListView.StopAtBounds
         model: tab_model
         move: Transition {
             NumberAnimation { properties: "x"; duration: 100; easing.type: Easing.OutCubic }
@@ -66,16 +57,20 @@ Item {
             NumberAnimation { properties: "x"; duration: 300; easing.type: Easing.OutCubic}
             NumberAnimation { properties: "y"; duration: 100;  easing.type: Easing.OutCubic }
         }
-        clip: true
+        clip: false
+        ScrollBar.horizontal: ScrollBar{
+            id: scroll_nav
+            policy: ScrollBar.AlwaysOff
+        }
         delegate:  Item{
 
-            width: item_container.width
+            width: itemWidth
             height: item_container.height
             z: item_mouse_drag.pressed ? 1000 : 1
 
             Item{
                 id:item_layout
-                width: item_container.width
+                width: itemWidth
                 height: item_container.height
 
                 FluItem{
@@ -84,7 +79,7 @@ Item {
                     property real timestamp: new Date().getTime()
 
                     height: tab_nav.height
-                    width: item_text.width+30
+                    width: itemWidth
                     radius: [5,5,0,0]
                     Behavior on x { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
                     Behavior on y { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
@@ -101,7 +96,13 @@ Item {
                         drag.target: item_container
                         drag.axis: Drag.XAxis
 
+                        onWheel: {
+                            if (wheel.angleDelta.y > 0) scroll_nav.decrease()
+                            else scroll_nav.increase()
+                        }
+
                         onPressed: {
+                            d.itemPress = true
                             item_container.timestamp = new Date().getTime();
                             d.dragBehavior = false;
                             var pos = tab_nav.mapFromItem(item_container, 0, 0)
@@ -112,9 +113,10 @@ Item {
                         }
 
                         onReleased: {
+                            d.itemPress = false
+                            timer.stop()
                             var timeDiff = new Date().getTime() - item_container.timestamp
-                            console.debug(timeDiff)
-                            if (timeDiff < 150) {
+                            if (timeDiff < 300) {
                                 tab_nav.currentIndex = index
                             }
                             d.dragIndex = -1;
@@ -128,9 +130,41 @@ Item {
                         }
 
                         onPositionChanged: {
-                            var pos = tab_nav.mapFromItem(item_container, 0, 0);
-                            var idx = tab_nav.indexAt(pos.x, pos.y);
-                            if (idx > -1 && idx < tab_nav.count) {
+                            var pos = tab_nav.mapFromItem(item_container, 0, 0)
+                            updatePosition(pos)
+                            if(pos.x<0){
+                                timer.isIncrease = false
+                                timer.restart()
+                            }else if(pos.x>tab_nav.width-itemWidth){
+                                timer.isIncrease = true
+                                timer.restart()
+                            }
+                        }
+                        Timer{
+                            id:timer
+                            property bool isIncrease: true
+                            interval: 10
+                            repeat: true
+                            onTriggered: {
+                                if(isIncrease){
+                                    if(tab_nav.contentX>=tab_nav.contentWidth-tab_nav.width){
+                                        return
+                                    }
+                                    tab_nav.contentX = tab_nav.contentX+1
+                                }else{
+                                    if(tab_nav.contentX<=0){
+                                        return
+                                    }
+                                    tab_nav.contentX = tab_nav.contentX-1
+                                }
+                                item_mouse_drag.updatePosition(tab_nav.mapFromItem(item_container, 0, 0))
+                            }
+                        }
+                        function updatePosition(pos){
+                            var idx = tab_nav.indexAt(pos.x+tab_nav.contentX, pos.y)
+                            var firstIdx = tab_nav.indexAt(tab_nav.contentX+1, pos.y)
+                            var lastIdx = tab_nav.indexAt(tab_nav.width+tab_nav.contentX-1, pos.y)
+                            if (idx >= firstIdx && idx <= lastIdx && d.dragIndex !== idx) {
                                 tab_model.move(d.dragIndex, idx, 1)
                                 d.dragIndex = idx;
                             }
@@ -141,7 +175,7 @@ Item {
                         anchors.fill: parent
                         color: {
                             if(FluTheme.isDark){
-                                if(item_mouse_hove.containsMouse){
+                                if(item_mouse_hove.containsMouse || item_btn_close.hovered){
                                     return Qt.rgba(1,1,1,0.03)
                                 }
                                 if(tab_nav.currentIndex === index){
@@ -149,7 +183,7 @@ Item {
                                 }
                                 return Qt.rgba(0,0,0,0)
                             }else{
-                                if(item_mouse_hove.containsMouse){
+                                if(item_mouse_hove.containsMouse || item_btn_close.hovered){
                                     return Qt.rgba(0,0,0,0.03)
                                 }
                                 if(tab_nav.currentIndex === index){
@@ -168,6 +202,7 @@ Item {
                     }
 
                     FluIconButton{
+                        id:item_btn_close
                         iconSource: FluentIcons.ChromeClose
                         iconSize: 10
                         width: 24
@@ -177,9 +212,48 @@ Item {
                             rightMargin: 5
                             verticalCenter: parent.verticalCenter
                         }
+                        onClicked: {
+                            tab_model.remove(index)
+                        }
                     }
                 }
             }
         }
     }
+
+
+    Item{
+        id:container
+        anchors{
+            top: tab_nav.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+
+        Repeater{
+            model:tab_model
+            Loader{
+                property var argument: model.argument
+                anchors.fill: parent
+                sourceComponent: model.page
+                visible: tab_nav.currentIndex === index
+            }
+        }
+    }
+
+
+    function createTab(icon,text,page,argument={}){
+        return {icon:icon,text:text,page:page,argument:argument}
+    }
+
+    function appendTab(icon,text,page,argument){
+        tab_model.append(createTab(icon,text,page,argument))
+    }
+
+    function setTabList(list){
+        tab_model.clear()
+        tab_model.append(list)
+    }
+
 }

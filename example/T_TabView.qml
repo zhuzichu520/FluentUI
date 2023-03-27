@@ -8,6 +8,20 @@ FluScrollablePage{
 
     title:"TabView"
 
+    Component{
+        id:com_page
+        Rectangle{
+            anchors.fill: parent
+            color: argument
+        }
+    }
+
+    Component.onCompleted: {
+        var colors = [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
+        for(var i =0;i<colors.length;i++){
+            tab_view.appendTab("","Document "+i,com_page,colors[i].dark)
+        }
+    }
 
     FluArea{
         width: parent.width
@@ -17,7 +31,7 @@ FluScrollablePage{
 
 
         FluTabView{
-
+            id:tab_view
         }
 
 
