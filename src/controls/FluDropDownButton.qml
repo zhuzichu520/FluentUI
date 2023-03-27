@@ -9,6 +9,8 @@ Button {
     property color normalColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property color hoverColor: FluTheme.isDark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color disableColor: FluTheme.isDark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
+    property var window : Window.window
+    property alias items: menu.content
 
     id: control
     topPadding:5
@@ -17,9 +19,6 @@ Button {
     rightPadding:35
     enabled: !disabled
     focusPolicy:Qt.TabFocus
-    property var window : Window.window
-
-    property alias items: menu.content
 
     Keys.onSpacePressed: control.visualFocus&&clicked()
 

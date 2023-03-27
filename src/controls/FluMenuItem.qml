@@ -3,6 +3,9 @@ import QtQuick.Controls 2.15
 
 Item {
 
+    property string text: "MenuItem"
+    signal clicked
+
     id:root
     width: {
         if(root.parent){
@@ -12,8 +15,6 @@ Item {
     }
     height: 32
 
-    property string text: "MenuItem"
-    signal clicked
 
     Rectangle{
         anchors.centerIn: parent

@@ -7,16 +7,13 @@ import FluentUI 1.0
 
 Item {
 
-    id:root
-
     property FluObject items
     property FluObject footerItems
-
     property int displayMode: width<=700 ? FluNavigationView.Minimal : FluNavigationView.Open
-
     property bool displaMinimalNav : false
-
     property alias actions: layout_actions.data
+
+    id:root
 
     onDisplayModeChanged: {
         if(displayMode === FluNavigationView.Minimal){

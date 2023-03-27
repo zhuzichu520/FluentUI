@@ -6,20 +6,19 @@ import FluentUI 1.0
 import QtGraphicalEffects 1.15
 
 Item {
-    id:root
-
-    property int selectionMode: FluTreeView.None
-    property var currentElement
-    property var currentParentElement
-    property var rootModel: tree_model.get(0).items
-    signal itemClicked(var item)
 
     enum TreeViewSelectionMode  {
         None,
         Single,
         Multiple
     }
+    property int selectionMode: FluTreeView.None
+    property var currentElement
+    property var currentParentElement
+    property var rootModel: tree_model.get(0).items
+    signal itemClicked(var item)
 
+    id:root
     ListModel{
         id:tree_model
         ListElement{

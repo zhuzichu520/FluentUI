@@ -13,10 +13,10 @@ FluScrollablePage{
         Layout.topMargin: 20
         Repeater{
             model: [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
-            delegate:  Rectangle{
+            delegate:  FluRectangle{
                 width: 42
                 height: 42
-                radius: 4
+                radius: [4,4,4,4]
                 color: mouse_item.containsMouse ? Qt.lighter(modelData.normal,1.1) : modelData.normal
                 FluIcon {
                     anchors.centerIn: parent

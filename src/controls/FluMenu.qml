@@ -3,9 +3,10 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
 Menu {
-    id: popup
+
     default property alias content: container.data
 
+    id: popup
     width: 140
     height: container.height
 

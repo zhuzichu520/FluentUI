@@ -5,27 +5,13 @@ import QtGraphicalEffects 1.15
 Item{
     id:control
     property var radius:[0,0,0,0]
-    property color color : "#FFFFFF"
-    property bool shadow: true
     default property alias contentItem: container.data
 
-    Rectangle{
+    Item{
         id:container
         width: control.width
         height: control.height
         opacity: 0
-        color:control.color
-    }
-
-    FluShadow{
-        anchors.fill: container
-        radius: control.radius[0]
-        visible: {
-            if(control.radius[0] === control.radius[1] && control.radius[0] === control.radius[2] && control.radius[0] === control.radius[3] && control.shadow){
-                return true
-            }
-            return false
-        }
     }
 
     Canvas {

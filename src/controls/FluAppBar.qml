@@ -1,13 +1,25 @@
 ﻿import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 Rectangle{
 
-    id:root
-
+    property string title: "标题"
+    property color textColor: FluTheme.isDark ? "#000000" : "#FFFFFF"
+    property bool showDark: false
+    property bool showFps: false
+    property var window: Window.window
     property color borerlessColor : FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property bool resizable: {
+        if(window == null){
+            return false
+        }
+        return !(window.minimumHeight === window.maximumHeight && window.maximumWidth === window.minimumWidth)
+    }
+
+    id:root
     color: {
         if(Window.window == null)
             return borerlessColor
@@ -15,7 +27,6 @@ Rectangle{
     }
     visible: FluTheme.isFrameless
     height: visible ? 34 : 0
-
     width: {
         if(parent==null)
             return 200
@@ -23,19 +34,7 @@ Rectangle{
     }
     z: 65535
     clip: true
-    property string title: "标题"
-    property color textColor: FluTheme.isDark ? "#000000" : "#FFFFFF"
-    property bool showDark: false
-    property bool showFps: false
 
-    property var window: Window.window
-
-    property bool resizable: {
-        if(window == null){
-            return false
-        }
-        return !(window.minimumHeight === window.maximumHeight && window.maximumWidth === window.minimumWidth)
-    }
 
     TapHandler {
         onTapped: if (tapCount === 2) toggleMaximized()
@@ -46,16 +45,6 @@ Rectangle{
         target: null
         grabPermissions: TapHandler.CanTakeOverFromAnything
         onActiveChanged: if (active) { window.startSystemMove(); }
-    }
-
-    function toggleMaximized() {
-        if(!resizable)
-            return
-        if (window.visibility === Window.Maximized) {
-            window.showNormal();
-        } else {
-            window.showMaximized();
-        }
     }
 
     FluText {
@@ -147,6 +136,16 @@ Rectangle{
         width: parent.width;
         height: 1;
         anchors.bottom: parent.bottom;
+    }
+
+    function toggleMaximized() {
+        if(!resizable)
+            return
+        if (window.visibility === Window.Maximized) {
+            window.showNormal();
+        } else {
+            window.showMaximized();
+        }
     }
 
 }

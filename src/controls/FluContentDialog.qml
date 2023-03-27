@@ -12,7 +12,6 @@ Popup {
     property string positiveText: "Positive"
     signal negativeClicked
     signal positiveClicked
-
     property var minWidth: {
         if(Window.window==null)
             return 400
@@ -111,7 +110,6 @@ Popup {
                     positiveClicked()
                 }
             }
-
         }
     }
 }

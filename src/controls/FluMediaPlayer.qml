@@ -6,13 +6,14 @@ import FluentUI 1.0
 Rectangle {
 
     property url source
+    property bool showControl: false
+    property real volume: 30
+
     id:control
     width: 480
     height: 270
     color: FluColors.Black
     clip: true
-
-    property bool showControl: true
 
     MouseArea{
         anchors.fill: parent
@@ -37,6 +38,7 @@ Rectangle {
         onStatusChanged: {
             if(status===6){
                 slider.maxValue = mediaplayer.duration
+                showControl = true
             }
         }
     }
@@ -85,6 +87,7 @@ Rectangle {
                 mediaplayer.autoSeek = false
                 mediaplayer.pause()
             }
+            value:0
             onReleased: {
                 mediaplayer.autoSeek = true
                 mediaplayer.play()
@@ -122,24 +125,44 @@ Rectangle {
             text: formatDuration(mediaplayer.duration)
         }
 
-        FluIconButton{
-            iconSize: 15
-            iconSource: mediaplayer.playbackState === Audio.PlayingState ?   FluentIcons.Pause  : FluentIcons.Play
+
+        Row{
+            spacing: 10
             anchors{
                 horizontalCenter: parent.horizontalCenter
                 bottom: parent.bottom
                 bottomMargin: 10
             }
-            onClicked: {
-                if(mediaplayer.playbackState === Audio.PlayingState){
-                    mediaplayer.pause()
-                }else{
-                    mediaplayer.play()
+            FluIconButton{
+                iconSize: 17
+                iconSource:  FluentIcons.SkipBack10
+                onClicked: {
+                    mediaplayer.seek(Math.max(mediaplayer.position-10*1000,0))
+                }
+            }
+            FluIconButton{
+                iconSize: 15
+                iconSource: mediaplayer.playbackState === Audio.PlayingState ?   FluentIcons.Pause  : FluentIcons.Play
+                onClicked: {
+                    if(mediaplayer.playbackState === Audio.PlayingState){
+                        mediaplayer.pause()
+                    }else{
+                        mediaplayer.play()
+                    }
+                }
+            }
+            FluIconButton{
+                iconSize: 17
+                iconSource:  FluentIcons.SkipForward30
+                onClicked: {
+                    mediaplayer.seek(Math.min(mediaplayer.position+30*1000,mediaplayer.duration))
                 }
             }
         }
 
+
         FluIconButton{
+            id:btn_volume
             iconSize: 17
             iconSource:  mediaplayer.volume ?  FluentIcons.Volume :  FluentIcons.Mute
             anchors{
@@ -149,11 +172,24 @@ Rectangle {
                 bottomMargin: 10
             }
             onClicked: {
-                //                FluentIcons.SkipBack10 FluentIcons.SkipForward30
                 mediaplayer.volume = !mediaplayer.volume
             }
         }
 
+        FluSlider{
+            id:slider_volume
+            size: 80
+            dotSize: 20
+            value:30
+            anchors{
+                left:btn_volume.right
+                verticalCenter: btn_volume.verticalCenter
+                leftMargin: 10
+            }
+            onValueChanged:{
+                mediaplayer.volume = value/100
+            }
+        }
 
     }
 

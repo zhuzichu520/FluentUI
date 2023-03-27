@@ -162,6 +162,13 @@ FluWindow {
         }
 
         FluPaneItem{
+            title:"TabView"
+            onTap:{
+                nav_view.push("qrc:/T_TabView.qml")
+            }
+        }
+
+        FluPaneItem{
             title:"TreeView"
             onTap:{
                 nav_view.push("qrc:/T_TreeView.qml")

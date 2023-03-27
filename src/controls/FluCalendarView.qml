@@ -4,110 +4,25 @@ import FluentUI 1.0
 
 Item {
 
-    id:control
-    property int displayMode: FluCalendarView.Month
-
-    property var date: new Date()
-
-    property var currentDate : new Date()
-
-    property var toDay: new Date()
-
-    signal dateClicked(var date)
-
-    width: 280
-    height: 325
-
     enum DisplayMode {
         Month,
         Year,
         Decade
     }
 
+    property int displayMode: FluCalendarView.Month
+    property var date: new Date()
+    property var currentDate : new Date()
+    property var toDay: new Date()
+    signal dateClicked(var date)
+
+    id:control
+    width: 280
+    height: 325
+
     Component.onCompleted: {
         updateMouth(date)
     }
-
-    function createItemWeek(name){
-        return {type:0,date:new Date(),name:name,isDecade:false}
-    }
-
-    function createItemDay(date){
-        return {type:1,date:date,name:"",isDecade:false}
-    }
-
-    function createItemMonth(date){
-        return {type:2,date:date,name:"",isDecade:false}
-    }
-
-    function createItemYear(date,isDecade){
-        return {type:3,date:date,name:"",isDecade:isDecade}
-    }
-    
-    function updateDecade(date){
-        list_model.clear()
-        var year = date.getFullYear()
-        const decadeStart = Math.floor(year / 10) * 10;
-        for(var i = decadeStart ; i< decadeStart+10 ; i++){
-            list_model.append(createItemYear(new Date(i,0,1),true));
-        }
-        for(var j =  decadeStart+10 ; j< decadeStart+16 ; j++){
-            list_model.append(createItemYear(new Date(j,0,1),false));
-        }
-        title.text = decadeStart+"-"+(decadeStart+10)
-    }
-
-    function updateYear(date){
-        list_model.clear()
-        var year = date.getFullYear()
-        for(var i = 0 ; i< 12 ; i++){
-            list_model.append(createItemMonth(new Date(year,i)));
-        }
-        for(var j = 0 ; j< 4 ; j++){
-            list_model.append(createItemMonth(new Date(year+1,j)));
-        }
-        title.text = year+"年"
-    }
-
-    function updateMouth(date){
-        list_model.clear()
-        list_model.append([createItemWeek("一"),createItemWeek("二"),createItemWeek("三"),createItemWeek("四"),createItemWeek("五"),createItemWeek("六"),createItemWeek("日")])
-        var year = date.getFullYear()
-        var month = date.getMonth()
-        var day =  date.getDate()
-        var firstDayOfMonth = new Date(year, month, 1)
-        var dayOfWeek = firstDayOfMonth.getDay()
-        var headerSize = (dayOfWeek===0?7:dayOfWeek)-1
-        if(headerSize!==0){
-            var lastMonthYear = year;
-            var lastMonthMonth = month - 1
-            if (month === 0) {
-                lastMonthYear = year - 1
-                lastMonthMonth = 11
-            }
-            var lastMonthDays = new Date(lastMonthYear, lastMonthMonth+1, 0).getDate()
-            for (var i = headerSize-1; i >= 0; i--) {
-                list_model.append(createItemDay(new Date(lastMonthYear, lastMonthMonth,lastMonthDays-i)))
-            }
-        }
-        const lastDayOfMonth = new Date(year, month+1, 0).getDate()
-        for (let day = 1; day <= lastDayOfMonth; day++) {
-            list_model.append(createItemDay(new Date(year, month,day)))
-        }
-        var footerSize = 49-list_model.count
-        var nextMonthYear = year
-        var nextMonth = month + 1
-        if (month === 11) {
-            nextMonthYear = year + 1
-            nextMonth = 0
-        }
-        const nextDayOfMonth = new Date(nextMonthYear, nextMonth+1, 0).getDate()
-        for (let j = 1; j <= footerSize; j++) {
-            list_model.append(createItemDay(new Date(nextMonthYear, nextMonth,j)))
-        }
-        title.text = year+"年"+(month+1)+"月"
-    }
-
 
     Component{
         id:com_week
@@ -473,4 +388,86 @@ Item {
             }
         }
     }
+
+    function createItemWeek(name){
+        return {type:0,date:new Date(),name:name,isDecade:false}
+    }
+
+    function createItemDay(date){
+        return {type:1,date:date,name:"",isDecade:false}
+    }
+
+    function createItemMonth(date){
+        return {type:2,date:date,name:"",isDecade:false}
+    }
+
+    function createItemYear(date,isDecade){
+        return {type:3,date:date,name:"",isDecade:isDecade}
+    }
+
+    function updateDecade(date){
+        list_model.clear()
+        var year = date.getFullYear()
+        const decadeStart = Math.floor(year / 10) * 10;
+        for(var i = decadeStart ; i< decadeStart+10 ; i++){
+            list_model.append(createItemYear(new Date(i,0,1),true));
+        }
+        for(var j =  decadeStart+10 ; j< decadeStart+16 ; j++){
+            list_model.append(createItemYear(new Date(j,0,1),false));
+        }
+        title.text = decadeStart+"-"+(decadeStart+10)
+    }
+
+    function updateYear(date){
+        list_model.clear()
+        var year = date.getFullYear()
+        for(var i = 0 ; i< 12 ; i++){
+            list_model.append(createItemMonth(new Date(year,i)));
+        }
+        for(var j = 0 ; j< 4 ; j++){
+            list_model.append(createItemMonth(new Date(year+1,j)));
+        }
+        title.text = year+"年"
+    }
+
+    function updateMouth(date){
+        list_model.clear()
+        list_model.append([createItemWeek("一"),createItemWeek("二"),createItemWeek("三"),createItemWeek("四"),createItemWeek("五"),createItemWeek("六"),createItemWeek("日")])
+        var year = date.getFullYear()
+        var month = date.getMonth()
+        var day =  date.getDate()
+        var firstDayOfMonth = new Date(year, month, 1)
+        var dayOfWeek = firstDayOfMonth.getDay()
+        var headerSize = (dayOfWeek===0?7:dayOfWeek)-1
+        if(headerSize!==0){
+            var lastMonthYear = year;
+            var lastMonthMonth = month - 1
+            if (month === 0) {
+                lastMonthYear = year - 1
+                lastMonthMonth = 11
+            }
+            var lastMonthDays = new Date(lastMonthYear, lastMonthMonth+1, 0).getDate()
+            for (var i = headerSize-1; i >= 0; i--) {
+                list_model.append(createItemDay(new Date(lastMonthYear, lastMonthMonth,lastMonthDays-i)))
+            }
+        }
+        const lastDayOfMonth = new Date(year, month+1, 0).getDate()
+        for (let day = 1; day <= lastDayOfMonth; day++) {
+            list_model.append(createItemDay(new Date(year, month,day)))
+        }
+        var footerSize = 49-list_model.count
+        var nextMonthYear = year
+        var nextMonth = month + 1
+        if (month === 11) {
+            nextMonthYear = year + 1
+            nextMonth = 0
+        }
+        const nextDayOfMonth = new Date(nextMonthYear, nextMonth+1, 0).getDate()
+        for (let j = 1; j <= footerSize; j++) {
+            list_model.append(createItemDay(new Date(nextMonthYear, nextMonth,j)))
+        }
+        title.text = year+"年"+(month+1)+"月"
+    }
+
+
 }

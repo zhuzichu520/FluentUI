@@ -2,15 +2,16 @@
 import QtQuick.Controls 2.12
 
 FluRectangle {
-    id: control
 
+    property real progress: 0.5
+    property bool indeterminate: true
+
+    id: control
     width: 150
     height: 5
     radius: [3,3,3,3]
     clip: true
     color:  FluTheme.isDark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
-    property real progress: 0.5
-    property bool indeterminate: true
 
     Component.onCompleted: {
         if(indeterminate){

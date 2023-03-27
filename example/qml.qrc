@@ -45,5 +45,6 @@
         <file>T_ColorPicker.qml</file>
         <file>T_Carousel.qml</file>
         <file>T_MediaPlayer.qml</file>
+        <file>T_TabView.qml</file>
     </qresource>
 </RCC>

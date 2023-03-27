@@ -58,5 +58,7 @@
         <file>colorpicker/content/PanelBorder.qml</file>
         <file>colorpicker/content/SBPicker.qml</file>
         <file>controls/FluMediaPlayer.qml</file>
+        <file>controls/FluTabView.qml</file>
+        <file>controls/FluItem.qml</file>
     </qresource>
 </RCC>

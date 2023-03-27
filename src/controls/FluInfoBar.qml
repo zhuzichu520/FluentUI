@@ -7,26 +7,6 @@ FluObject {
     property var root;
     property int layoutY: 75;
 
-    function showSuccess(text,duration,moremsg){
-        mcontrol.create(mcontrol.const_success,text,duration,moremsg ? moremsg : "");
-    }
-
-    function showInfo(text,duration,moremsg){
-        mcontrol.create(mcontrol.const_info,text,duration,moremsg ? moremsg : "");
-    }
-
-    function showWarning(text,duration,moremsg){
-        mcontrol.create(mcontrol.const_warning,text,duration,moremsg ? moremsg : "");
-    }
-
-    function showError(text,duration,moremsg){
-        mcontrol.create(mcontrol.const_error,text,duration,moremsg ? moremsg : "");
-    }
-
-    function showCustom(itemcomponent,duration){
-        mcontrol.createCustom(itemcomponent,duration);
-    }
-
     FluObject{
         id:mcontrol
 
@@ -34,9 +14,7 @@ FluObject {
         property string const_info:    "info";
         property string const_warning: "warning";
         property string const_error:   "error";
-
         property int maxWidth: 300;
-
         property var screenLayout: null;
 
         function create(type,text,duration,moremsg){
@@ -229,5 +207,26 @@ FluObject {
             }
         }
     }
+
+    function showSuccess(text,duration,moremsg){
+        mcontrol.create(mcontrol.const_success,text,duration,moremsg ? moremsg : "");
+    }
+
+    function showInfo(text,duration,moremsg){
+        mcontrol.create(mcontrol.const_info,text,duration,moremsg ? moremsg : "");
+    }
+
+    function showWarning(text,duration,moremsg){
+        mcontrol.create(mcontrol.const_warning,text,duration,moremsg ? moremsg : "");
+    }
+
+    function showError(text,duration,moremsg){
+        mcontrol.create(mcontrol.const_error,text,duration,moremsg ? moremsg : "");
+    }
+
+    function showCustom(itemcomponent,duration){
+        mcontrol.createCustom(itemcomponent,duration);
+    }
+
 
 }

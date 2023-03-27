@@ -1,12 +1,13 @@
 ﻿import QtQuick 2.15
 
 Item {
+
+    property color color: FluTheme.isDark ? "#FFFFFF" : "#999999"
+    property int radius: 4
+
     id:root
     anchors.fill: parent
     anchors.margins: -4
-    property color color: FluTheme.isDark ? "#FFFFFF" : "#999999"
-
-    property int radius: 4
 
     Rectangle{
         width: root.width

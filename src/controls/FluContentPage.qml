@@ -6,10 +6,10 @@ import FluentUI 1.0
 
 Item {
 
-    id:root
-
     property alias title: text_title.text
     default property alias content: container.data
+
+    id:root
 
     FluText{
         id:text_title

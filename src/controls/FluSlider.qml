@@ -23,8 +23,9 @@ Item{
     height: control.height
     width: control.width
     rotation: isHorizontal ? 0 : 180
+
     Component.onCompleted: {
-        seek(0)
+        seek(value)
     }
 
     MouseArea{

@@ -6,11 +6,11 @@ import FluentUI 1.0
 
 Item {
 
-    id:root
-
     property alias title: text_title.text
     default property alias content: container.data
     property int spacing : 5
+
+    id:root
 
     FluText{
         id:text_title

@@ -2,11 +2,12 @@
 import FluentUI 1.0
 
 Item {
+
+    property int radius: 4
+
     id:root
     anchors.fill: parent
     anchors.margins: -3
-
-    property var radius: 4
 
     Rectangle{
         width: root.width

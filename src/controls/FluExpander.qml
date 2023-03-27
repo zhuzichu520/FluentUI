@@ -1,21 +1,19 @@
 ﻿import QtQuick 2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 Item {
 
-
     property string  headerText: "Titlte"
     property bool expand: false
+    property int contentHeight : 300
+    default property alias content: container.data
 
     id:root
     height: layout_header.height + container.height
     width: 400
     implicitWidth: width
     implicitHeight: height
-
-    property int contentHeight : 300
-
-    default property alias content: container.data
 
     Rectangle{
         id:layout_header

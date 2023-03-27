@@ -6,7 +6,6 @@ Rectangle{
     property bool showZero: true
     property int count: 0
 
-
     id:control
     color:Qt.rgba(255/255,77/255,79/255,1)
     width: {

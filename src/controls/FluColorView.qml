@@ -3,10 +3,10 @@ import "../colorpicker"
 
 Item {
 
+    property alias colorValue: color_picker.colorValue
+
     width: color_picker.width+10
     height: color_picker.height
-
-    property alias colorValue: color_picker.colorValue
 
     FluArea{
         anchors.fill: parent

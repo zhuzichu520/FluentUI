@@ -6,14 +6,26 @@ import QtGraphicalEffects 1.15
 
 Item {
 
-    id:root
-
+    property string title: "FluentUI"
+    property int minimumWidth
+    property int maximumWidth
+    property int minimumHeight
+    property int maximumHeight
+    property int modality:0
+    signal initArgument(var argument)
+    property var pageRegister
+    default property alias content: container.data
     property var window : {
         if(Window.window == null)
             return null
         return Window.window
     }
-
+    property int borderless:{
+        if(!FluTheme.isFrameless){
+            return 0
+        }
+        return (window && (window.visibility === Window.Maximized)) ? 0 : 4
+    }
     property color color: {
         if(window && window.active){
             return FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
@@ -21,25 +33,9 @@ Item {
         return FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
     }
 
-    property string title: "FluentUI"
-    property int minimumWidth
-    property int maximumWidth
-    property int minimumHeight
-    property int maximumHeight
-    property int modality:0
+    id:root
 
-    signal initArgument(var argument)
 
-    property var pageRegister
-
-    property int borderless:{
-        if(!FluTheme.isFrameless){
-            return 0
-        }
-        return (window && (window.visibility === Window.Maximized)) ? 0 : 4
-    }
-
-    default property alias content: container.data
 
     FluWindowResize{
         border:borderless
