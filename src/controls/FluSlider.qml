@@ -56,13 +56,13 @@ Item{
         height:  isHorizontal ? 4 : size
         radius: 2
         anchors.verticalCenter: parent.verticalCenter
-        color:FluTheme.isDark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
+        color:FluTheme.dark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
         Rectangle{
             id:rect
             radius: 2.5
             width: isHorizontal ? control.width*(value/maxValue) : 5
             height: isHorizontal ?  5  : control.height*(value/maxValue)
-            color:FluTheme.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
 
 
@@ -78,12 +78,12 @@ Item{
         radius: dotSize/2
         anchors.verticalCenter: isHorizontal ?  parent.verticalCenter : undefined
         anchors.horizontalCenter: isHorizontal ? undefined :parent.horizontalCenter
-        color:FluTheme.isDark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
+        color:FluTheme.dark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
         Rectangle{
             width: dotSize/2
             height: dotSize/2
             radius: dotSize/4
-            color:FluTheme.isDark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
             scale: control_mouse.containsMouse || mouse_line.containsMouse  ? 1.3 : 1
             Behavior on scale {

@@ -11,7 +11,7 @@ FluRectangle {
     height: 5
     radius: [3,3,3,3]
     clip: true
-    color:  FluTheme.isDark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    color:  FluTheme.dark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
 
     Component.onCompleted: {
         if(indeterminate){
@@ -28,7 +28,7 @@ FluRectangle {
         radius: 3
         width: control.width*progress
         height:  control.height
-        color:FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+        color:FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
 
         Behavior on x{
             id:behavior

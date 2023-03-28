@@ -19,7 +19,10 @@ static bool isFullWin(QQuickView* win)
 {
     return win->windowState() == Qt::WindowFullScreen;
 }
-
+static bool isFixWin(QQuickView* win)
+{
+    return win->minimumWidth() ==  win->maximumWidth() && win->minimumHeight() ==  win->maximumHeight();
+}
 static long hitTest(RECT winrect, long x, long y, int borderWidth)
 {
     if ((x >= winrect.left) && (x < winrect.left + borderWidth) && (y >= winrect.top) && (y < winrect.top + borderWidth))
@@ -72,14 +75,20 @@ public:
 
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
-    setFlag(Qt::FramelessWindowHint,true);
+    if(FluTheme::getInstance()->frameless()){
+        setFlag(Qt::FramelessWindowHint,true);
+    }
     setResizeMode(SizeRootObjectToView);
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
-    connect(this, &QWindow::windowStateChanged, this, [&](Qt::WindowState state) {
+    connect(this, &QWindow::windowStateChanged, this, [=](Qt::WindowState state) {
         (void)state;
         setIsMax(windowState() == Qt::WindowMaximized);
         setIsFull(windowState() == Qt::WindowFullScreen);
+    });
+    connect(FluTheme::getInstance(),&FluTheme::framelessChanged,this,[=](){
+        setFlag(Qt::Window,false);
+        setFlag(Qt::Window,true);
     });
 }
 
@@ -92,8 +101,10 @@ void FramelessView::showEvent(QShowEvent *e)
 {
     static const MARGINS shadow_state[2] { { 0, 0, 0, 0 }, { 1, 1, 1, 1 } };
     ::DwmExtendFrameIntoClientArea((HWND)(winId()), &shadow_state[true]);
+    if(FluTheme::getInstance()->frameless()){
+        setFlag(Qt::FramelessWindowHint,false);
+    }
     Super::showEvent(e);
-    setFlag(Qt::FramelessWindowHint,false);
 }
 
 QRect FramelessView::calcCenterGeo(const QRect &screenGeo, const QSize &normalSize)
@@ -177,14 +188,14 @@ bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, long
     {
         return false;
     }
-    if (msg->message == WM_NCHITTEST)
+    if (msg->message == WM_NCHITTEST && FluTheme::getInstance()->frameless())
     {
         RECT winrect;
         GetWindowRect(HWND(winId()), &winrect);
         long x = GET_X_LPARAM(msg->lParam);
         long y = GET_Y_LPARAM(msg->lParam);
         *result = 0;
-        if (!isMaxWin(this) && !isFullWin(this))
+        if (!isMaxWin(this) && !isFullWin(this) && !isFixWin(this))
         {
             *result = hitTest(winrect, x, y, 4);
             if (0 != *result)
@@ -192,7 +203,7 @@ bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, long
                 return true;
             }
         }
-    }else if (msg->message == WM_NCCALCSIZE)
+    }else if (msg->message == WM_NCCALCSIZE && FluTheme::getInstance()->frameless())
     {
         const auto mode = static_cast<BOOL>(msg->wParam);
         const auto clientRect = mode ? &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(msg->lParam)->rgrc[0]) : reinterpret_cast<LPRECT>(msg->lParam);

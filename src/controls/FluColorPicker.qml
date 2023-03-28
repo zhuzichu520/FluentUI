@@ -19,7 +19,7 @@ Button{
         border.color: {
             if(hovered)
                 return FluTheme.primaryColor.light
-            return FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+            return FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
         }
         border.width: 1
     }

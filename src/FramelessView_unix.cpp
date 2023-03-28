@@ -16,7 +16,9 @@ public:
 
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
-    setFlags( Qt::Window | Qt::FramelessWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
+    if(FluTheme::getInstance()->frameless()){
+        setFlags( Qt::Window | Qt::FramelessWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
+    }
     setResizeMode(SizeRootObjectToView);
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
@@ -24,6 +26,10 @@ FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessVi
         (void)state;
         setIsMax(windowState() == Qt::WindowMaximized);
         setIsFull(windowState() == Qt::WindowFullScreen);
+    });
+    connect(FluTheme::getInstance(),&FluTheme::framelessChanged,this,[=](){
+        setFlag(Qt::Window,false);
+        setFlag(Qt::Window,true);
     });
 }
 

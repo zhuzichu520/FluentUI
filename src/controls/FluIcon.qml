@@ -4,7 +4,7 @@ Text {
 
     property int iconSource
     property int iconSize: 20
-    property color iconColor: FluTheme.isDark ? "#FFFFFF" : "#000000"
+    property color iconColor: FluTheme.dark ? "#FFFFFF" : "#000000"
 
     id:text_icon
     font.family: "Segoe Fluent Icons"

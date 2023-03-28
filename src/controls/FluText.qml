@@ -4,7 +4,7 @@ import FluentUI 1.0
 Text {
 
     property int fontStyle: FluText.Body
-    property color textColor: FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+    property color textColor: FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
     property int pixelSize : FluTheme.textSize
 
     enum FontStyle {
@@ -20,7 +20,7 @@ Text {
 
     id:text
     color: textColor
-    renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
+    renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     font.bold: {
         switch (fontStyle) {
         case FluText.Display:

@@ -2,7 +2,7 @@
 
 Item {
 
-    property color color: FluTheme.isDark ? "#FFFFFF" : "#999999"
+    property color color: FluTheme.dark ? "#FFFFFF" : "#999999"
     property int radius: 4
 
     id:root

@@ -22,7 +22,7 @@ Item {
         height: 32
         radius: 4
         color:{
-            if(FluTheme.isDark){
+            if(FluTheme.dark){
                 if(mouse_area.containsMouse){
                     return Qt.rgba(1,1,1,0.05)
                 }

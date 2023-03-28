@@ -25,7 +25,7 @@ Menu {
     background: Item {
         Rectangle{
             anchors.fill: parent
-            color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
+            color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
             radius: 5
         }
         FluShadow{

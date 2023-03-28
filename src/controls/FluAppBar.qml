@@ -7,11 +7,11 @@ import FluentUI 1.0
 Rectangle{
 
     property string title: ""
-    property color textColor: FluTheme.isDark ? "#FFFFFF" : "#000000"
+    property color textColor: FluTheme.dark ? "#FFFFFF" : "#000000"
     property bool showDark: false
     property bool showFps: false
     property var window: Window.window
-    property color borerlessColor : FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     property bool resizable: {
         if(window == null){
             return false
@@ -21,7 +21,7 @@ Rectangle{
 
     id:root
     color: Qt.rgba(0,0,0,0)
-    visible: FluTheme.isFrameless
+    visible: FluTheme.frameless
     height: visible ? 30 : 0
     width: {
         if(parent==null)
@@ -78,9 +78,9 @@ Rectangle{
                 fontStyle: FluText.Body
             }
             FluToggleSwitch{
-                selected: FluTheme.isDark
+                selected: FluTheme.dark
                 clickFunc:function(){
-                    FluTheme.isDark = !FluTheme.isDark
+                    FluTheme.dark = !FluTheme.dark
                 }
             }
         }
@@ -95,7 +95,7 @@ Rectangle{
             radius: 0
             textColor: root.textColor
             color:{
-                if(FluTheme.isDark){
+                if(FluTheme.dark){
                     if(hovered){
                         return Qt.rgba(1,1,1,0.06)
                     }
@@ -121,7 +121,7 @@ Rectangle{
             }
             iconSource : isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
             color:{
-                if(FluTheme.isDark){
+                if(FluTheme.dark){
                     if(hovered){
                         return Qt.rgba(1,1,1,0.06)
                     }

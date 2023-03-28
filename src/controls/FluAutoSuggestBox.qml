@@ -16,26 +16,26 @@ TextField{
     enabled: !disabled
     color: {
         if(disabled){
-            return FluTheme.isDark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
         }
-        return FluTheme.isDark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+        return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
     }
     selectionColor: {
-        if(FluTheme.isDark){
+        if(FluTheme.dark){
             return FluTheme.primaryColor.lighter
         }else{
             return FluTheme.primaryColor.dark
         }
     }
-    renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
+    renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     placeholderTextColor: {
         if(disabled){
-            return FluTheme.isDark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
         }
         if(focus){
-            return FluTheme.isDark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
+            return FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
         }
-        return FluTheme.isDark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
+        return FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
     }
     rightPadding: icon_right.visible ? 50 : 30
     selectByMouse: true
@@ -163,7 +163,7 @@ TextField{
             FluShadow{
                 radius: 4
             }
-            color: FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
             height: 38*Math.min(Math.max(list_view.count,1),8)
             ListView{
                 id:list_view
@@ -192,12 +192,12 @@ TextField{
                     background: Rectangle{
                         color:  {
                             if(list_view.currentIndex === index){
-                                return FluTheme.isDark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
                             if(hovered){
-                                return FluTheme.isDark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
-                            return FluTheme.isDark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                            return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                         }
                         MouseArea{
                             id:mouse_area
