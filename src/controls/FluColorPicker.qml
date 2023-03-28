@@ -36,6 +36,14 @@ Button{
         background: FluColorView{
             id:container
         }
+        enter: Transition {
+            NumberAnimation {
+                property: "y"
+                from:0
+                to:popup.y
+                duration: 150
+            }
+        }
         contentItem: Item{}
         function showPopup() {
             var pos = control.mapToItem(null, 0, 0)

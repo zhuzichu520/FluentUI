@@ -139,6 +139,16 @@ TextField{
         id:input_popup
         visible: input.focus
         y:input.height
+        modal: true
+        dim:false
+        enter: Transition {
+            NumberAnimation {
+                property: "y"
+                from:0
+                to:input_popup.y
+                duration: 150
+            }
+        }
         onClosed: {
             input.focus = false
         }

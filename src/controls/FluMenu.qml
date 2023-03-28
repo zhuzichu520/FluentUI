@@ -13,6 +13,15 @@ Menu {
     dim:false
     contentItem: Item{}
 
+    enter: Transition {
+        NumberAnimation {
+            property: "y"
+            from:0
+            to:popup.y
+            duration: 150
+        }
+    }
+
     background: Item {
         Rectangle{
             anchors.fill: parent

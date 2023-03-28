@@ -75,7 +75,7 @@ Button {
         }else if(pos.y>menu.height){
             menu.y = -menu.height
         }else{
-            popup.y = window.height-(pos.y+menu.height)
+            menu.y = window.height-(pos.y+menu.height)
         }
         menu.open()
     }

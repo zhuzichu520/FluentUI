@@ -104,6 +104,14 @@ Rectangle {
         contentItem: Item{}
         modal: true
         dim:false
+        enter: Transition {
+            NumberAnimation {
+                property: "y"
+                from:0
+                to:popup.y
+                duration: 150
+            }
+        }
         background: Rectangle{
             id:container
             width: 300

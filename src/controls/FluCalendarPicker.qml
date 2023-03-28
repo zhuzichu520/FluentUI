@@ -65,6 +65,14 @@ Rectangle {
         width: container.width
         modal: true
         dim:false
+        enter: Transition {
+            NumberAnimation {
+                property: "y"
+                from:0
+                to:popup.y
+                duration: 150
+            }
+        }
         background: FluCalendarView{
             id:container
             onDateClicked:
