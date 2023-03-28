@@ -138,6 +138,8 @@ Item {
                             }else if(pos.x>tab_nav.width-itemWidth){
                                 timer.isIncrease = true
                                 timer.restart()
+                            }else{
+                                timer.stop()
                             }
                         }
                         Timer{
@@ -150,12 +152,12 @@ Item {
                                     if(tab_nav.contentX>=tab_nav.contentWidth-tab_nav.width){
                                         return
                                     }
-                                    tab_nav.contentX = tab_nav.contentX+1
+                                    tab_nav.contentX = tab_nav.contentX+2
                                 }else{
                                     if(tab_nav.contentX<=0){
                                         return
                                     }
-                                    tab_nav.contentX = tab_nav.contentX-1
+                                    tab_nav.contentX = tab_nav.contentX-2
                                 }
                                 item_mouse_drag.updatePosition(tab_nav.mapFromItem(item_container, 0, 0))
                             }
