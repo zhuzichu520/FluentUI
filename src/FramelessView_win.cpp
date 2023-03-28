@@ -11,6 +11,14 @@
 #pragma comment(lib, "Dwmapi.lib")
 #pragma comment(lib, "User32.lib")
 
+
+static bool isCompositionEnabled()
+{
+    BOOL composition_enabled = FALSE;
+    bool success = ::DwmIsCompositionEnabled(&composition_enabled) == S_OK;
+    return composition_enabled && success;
+}
+
 static bool isMaxWin(QWindow* win)
 {
     return win->windowState() == Qt::WindowMaximized;
@@ -75,6 +83,9 @@ public:
 
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
+    if(!isCompositionEnabled()){
+        FluTheme::getInstance()->frameless(false);
+    }
     if(FluTheme::getInstance()->frameless()){
         setFlag(Qt::FramelessWindowHint,true);
     }
