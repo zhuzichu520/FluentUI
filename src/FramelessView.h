@@ -18,7 +18,6 @@ public:
     void closeDeleteLater();
     bool isMax() const;
     bool isFull() const;
-    void refreshWindow();
     QQuickItem *titleItem() const;
 
     static QMap<WId,FramelessView*> *windowCache;

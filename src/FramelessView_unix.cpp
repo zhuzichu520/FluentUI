@@ -16,7 +16,8 @@ public:
 
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
-    refreshWindow();
+    setFlags( Qt::Window | Qt::FramelessWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
+    setResizeMode(SizeRootObjectToView);
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
     connect(this, &QWindow::windowStateChanged, this, [&](Qt::WindowState state) {
@@ -24,19 +25,6 @@ FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessVi
         setIsMax(windowState() == Qt::WindowMaximized);
         setIsFull(windowState() == Qt::WindowFullScreen);
     });
-    connect(FluTheme::getInstance(),&FluTheme::isFramelessChanged,this,[=](){
-        refreshWindow();
-    });
-}
-
-void FramelessView::refreshWindow(){
-    if(FluTheme::getInstance()->isFrameless()){
-        setFlags(Qt::CustomizeWindowHint | Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
-    }else{
-        setFlags(Qt::Window);
-    }
-    setResizeMode(SizeViewToRootObject);
-    setResizeMode(SizeRootObjectToView);
 }
 
 FramelessView::~FramelessView()

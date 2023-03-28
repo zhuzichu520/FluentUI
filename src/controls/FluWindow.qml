@@ -20,12 +20,7 @@ Item {
             return null
         return Window.window
     }
-    property int borderless:{
-        if(!FluTheme.isFrameless){
-            return 0
-        }
-        return (window && (window.visibility === Window.Maximized)) ? 0 : 4
-    }
+
     property color color: {
         if(window && window.active){
             return FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
@@ -35,12 +30,6 @@ Item {
 
     id:root
 
-
-
-    FluWindowResize{
-        border:borderless
-    }
-
     Behavior on opacity{
         NumberAnimation{
             duration: 100
@@ -48,19 +37,10 @@ Item {
     }
 
     Rectangle{
-        property color borerlessColor : FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
-        color:  (window && window.active) ? borerlessColor : Qt.lighter(borerlessColor,1.1)
-        border.width: 1
-        anchors.fill: parent
-        radius: 4
-        border.color:FluTheme.isDark ? Qt.darker(FluTheme.primaryColor.lighter,1.3) : Qt.lighter(FluTheme.primaryColor.dark,1.2)
-    }
-
-    Rectangle{
         id:container
         color:root.color
         anchors.fill: parent
-        anchors.margins: borderless
+        anchors.margins: (window && (window.visibility === Window.Maximized)) ? 8/Screen.devicePixelRatio : 0
         clip: true
         Behavior on color{
             ColorAnimation {
@@ -69,24 +49,13 @@ Item {
         }
     }
 
-    Component.onCompleted: {
-        updateWindowSize()
+    Rectangle{
+        border.width: 1
+        anchors.fill: parent
+        color: Qt.rgba(0,0,0,0,)
+        border.color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
     }
 
-    Connections{
-        target: FluTheme
-        function onIsFramelessChanged(){
-            updateWindowSize()
-        }
-    }
-
-    function updateWindowSize(){
-        if(FluTheme.isFrameless){
-            height = height + 34
-        }else{
-            height = height - 34
-        }
-    }
 
     Connections{
         target: FluApp

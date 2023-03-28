@@ -7,7 +7,7 @@ import FluentUI 1.0
 Rectangle{
 
     property string title: "标题"
-    property color textColor: FluTheme.isDark ? "#000000" : "#FFFFFF"
+    property color textColor: FluTheme.isDark ? "#FFFFFF" : "#000000"
     property bool showDark: false
     property bool showFps: false
     property var window: Window.window
@@ -20,13 +20,9 @@ Rectangle{
     }
 
     id:root
-    color: {
-        if(Window.window == null)
-            return borerlessColor
-        return Window.window.active ? borerlessColor : Qt.lighter(borerlessColor,1.1)
-    }
+    color: Qt.rgba(0,0,0,0)
     visible: FluTheme.isFrameless
-    height: visible ? 34 : 0
+    height: visible ? 30 : 0
     width: {
         if(parent==null)
             return 200
@@ -62,7 +58,7 @@ Rectangle{
 
     RowLayout{
         anchors.right: parent.right
-        height: 30
+        height: root.height
         spacing: 0
 
         TFpsMonitor{
@@ -92,10 +88,13 @@ Rectangle{
         }
 
         FluIconButton{
-            iconSource : FluentIcons.ChromeMinimizeContrast
+            width: 40
+            height: 30
+            iconSource : FluentIcons.ChromeMinimize
             Layout.alignment: Qt.AlignVCenter
-            iconSize: 15
+            iconSize: 11
             text:"最小化"
+            radius: 0
             textColor: root.textColor
             color:hovered ? "#20000000" : "#00000000"
             onClicked: {
@@ -103,39 +102,39 @@ Rectangle{
             }
         }
         FluIconButton{
+            width: 40
+            height: 30
             property bool isRestore:{
                 if(window == null)
                     return false
                 return Window.Maximized === window.visibility
             }
-            iconSource : isRestore  ? FluentIcons.ChromeRestoreContrast : FluentIcons.ChromeMaximizeContrast
+            iconSource : isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
             color:hovered ? "#20000000" : "#00000000"
             Layout.alignment: Qt.AlignVCenter
             visible: resizable
+            radius: 0
             textColor: root.textColor
             text:isRestore?"向下还原":"最大化"
-            iconSize: 15
+            iconSize: 11
             onClicked: {
                 toggleMaximized()
             }
         }
         FluIconButton{
-            iconSource : FluentIcons.ChromeCloseContrast
+            iconSource : FluentIcons.ChromeClose
             Layout.alignment: Qt.AlignVCenter
             text:"关闭"
-            iconSize: 13
-            textColor: root.textColor
-            color:hovered ? "#20000000" : "#00000000"
+            width: 40
+            height: 30
+            radius: 0
+            iconSize: 10
+            textColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
+            color:hovered ? Qt.rgba(251/255,115/255,115/255,1) : "#00000000"
             onClicked: {
                 Window.window.close()
             }
         }
-    }
-
-    FluDivider{
-        width: parent.width;
-        height: 1;
-        anchors.bottom: parent.bottom;
     }
 
     function toggleMaximized() {

@@ -47,16 +47,6 @@ FluScrollablePage{
         }
     }
     FluText{
-        text:"无边框"
-        Layout.topMargin: 20
-    }
-    FluToggleSwitch{
-        selected: FluTheme.isFrameless
-        clickFunc:function(){
-            FluTheme.isFrameless = !FluTheme.isFrameless
-        }
-    }
-    FluText{
         text:"native文本渲染"
         Layout.topMargin: 20
     }

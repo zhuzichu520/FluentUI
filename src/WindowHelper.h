@@ -24,6 +24,7 @@ public:
     Q_INVOKABLE QJsonObject getArgument();
     Q_INVOKABLE QVariant getPageRegister();
     Q_INVOKABLE void updateWindow();
+    Q_INVOKABLE void setOpacity(qreal opacity);
     Q_INVOKABLE void setModality(int type);
     Q_INVOKABLE QVariant createRegister(const QString& path);
 

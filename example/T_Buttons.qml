@@ -23,6 +23,7 @@ FluScrollablePage{
             disabled:text_button_switch.selected
             text:"Text Button"
             onClicked: {
+                console.debug(Screen.devicePixelRatio)
                 showInfo("点击Text Button")
             }
             anchors{

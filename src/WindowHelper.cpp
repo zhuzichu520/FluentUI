@@ -40,6 +40,9 @@ void WindowHelper::updateWindow(){
     this->window->setFlag(Qt::Window,false);
     this->window->setFlag(Qt::Window,true);
 }
+void WindowHelper::setOpacity(qreal opacity){
+    this->window->setOpacity(opacity);
+}
 void WindowHelper::setModality(int type){
     if(type == 0){
         this->window->setModality(Qt::NonModal);
