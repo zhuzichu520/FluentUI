@@ -29,8 +29,6 @@ Rectangle{
         return parent.width
     }
     z: 65535
-    clip: true
-
 
     TapHandler {
         onTapped: if (tapCount === 2) toggleMaximized()

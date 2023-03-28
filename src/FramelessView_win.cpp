@@ -72,7 +72,7 @@ public:
 
 FramelessView::FramelessView(QWindow *parent) : Super(parent), d(new FramelessViewPrivate)
 {
-    setFlags( Qt::Window | Qt::FramelessWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
+    setFlag(Qt::FramelessWindowHint,true);
     setResizeMode(SizeRootObjectToView);
     setIsMax(windowState() == Qt::WindowMaximized);
     setIsFull(windowState() == Qt::WindowFullScreen);
@@ -93,9 +93,6 @@ void FramelessView::showEvent(QShowEvent *e)
     static const MARGINS shadow_state[2] { { 0, 0, 0, 0 }, { 1, 1, 1, 1 } };
     ::DwmExtendFrameIntoClientArea((HWND)(winId()), &shadow_state[true]);
     Super::showEvent(e);
-    if(d->m_isFirst){
-        QTimer::singleShot(150,this,[=](){ setFlag(Qt::FramelessWindowHint,false); });
-    }
     setFlag(Qt::FramelessWindowHint,false);
 }
 
@@ -163,6 +160,8 @@ void FramelessView::setIsFull(bool isFull)
     emit isFullChanged(d->m_isFull);
 }
 
+int count = 1;
+
 void FramelessView::setTitleItem(QQuickItem *item)
 {
     d->m_titleItem = item;
@@ -214,6 +213,15 @@ bool FramelessView::nativeEvent(const QByteArray &eventType, void *message, long
                     clientRect->top += 0.1;
                 }
             }
+            return true;
+        }
+    }else if (msg->message == WM_WINDOWPOSCHANGING)
+    {
+        WINDOWPOS* wp = reinterpret_cast<WINDOWPOS*>(msg->lParam);
+        if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0)
+        {
+            wp->flags |= SWP_NOCOPYBITS;
+            *result = 0;
             return true;
         }
     }
