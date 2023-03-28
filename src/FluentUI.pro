@@ -37,6 +37,7 @@ SOURCES += \
     qml_plugin.cpp \
 
 win32 {
+    LIBS += -ldwmapi -luser32
     SOURCES += \
         FramelessView_win.cpp
 } else {

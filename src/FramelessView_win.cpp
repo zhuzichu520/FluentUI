@@ -6,16 +6,10 @@
 #include <FluTheme.h>
 #include <QTimer>
 
-#include <VersionHelpers.h>
-#include <WinUser.h>
 #include <dwmapi.h>
-#include <objidl.h>
-#include <windows.h>
 #include <windowsx.h>
-#include <wtypes.h>
 #pragma comment(lib, "Dwmapi.lib")
 #pragma comment(lib, "User32.lib")
-#pragma comment(lib, "Gdi32.lib")
 
 static bool isMaxWin(QWindow* win)
 {
