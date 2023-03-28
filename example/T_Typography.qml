@@ -7,6 +7,9 @@ FluContentPage {
 
     title: "Typography"
     property int textSize: 13
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     Component.onCompleted: {
         slider.seek(31)

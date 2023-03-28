@@ -6,7 +6,7 @@ import FluentUI 1.0
 
 Rectangle{
 
-    property string title: "标题"
+    property string title: ""
     property color textColor: FluTheme.isDark ? "#FFFFFF" : "#000000"
     property bool showDark: false
     property bool showFps: false
@@ -94,7 +94,19 @@ Rectangle{
             text:"最小化"
             radius: 0
             textColor: root.textColor
-            color:hovered ? "#20000000" : "#00000000"
+            color:{
+                if(FluTheme.isDark){
+                    if(hovered){
+                        return Qt.rgba(1,1,1,0.06)
+                    }
+                    return Qt.rgba(0,0,0,0)
+                }else{
+                    if(hovered){
+                        return Qt.rgba(0,0,0,0.06)
+                    }
+                    return Qt.rgba(0,0,0,0)
+                }
+            }
             onClicked: {
                 window.showMinimized()
             }
@@ -108,7 +120,19 @@ Rectangle{
                 return Window.Maximized === window.visibility
             }
             iconSource : isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
-            color:hovered ? "#20000000" : "#00000000"
+            color:{
+                if(FluTheme.isDark){
+                    if(hovered){
+                        return Qt.rgba(1,1,1,0.06)
+                    }
+                    return Qt.rgba(0,0,0,0)
+                }else{
+                    if(hovered){
+                        return Qt.rgba(0,0,0,0.06)
+                    }
+                    return Qt.rgba(0,0,0,0)
+                }
+            }
             Layout.alignment: Qt.AlignVCenter
             visible: resizable
             radius: 0

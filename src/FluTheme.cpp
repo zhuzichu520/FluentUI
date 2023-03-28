@@ -16,7 +16,7 @@ FluTheme::FluTheme(QObject *parent)
     : QObject{parent}
 {
     primaryColor(FluColors::getInstance()->Blue());
-    textSize(13);
+    textSize(14);
     isNativeText(false);
     isFrameless(true);
     isDark(false);

@@ -8,6 +8,9 @@ import FluentUI 1.0
 FluScrollablePage{
 
     title:"MediaPlayer"
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     onVisibleChanged: {
         if(visible){

@@ -8,6 +8,9 @@ import FluentUI 1.0
 FluScrollablePage{
 
     title:"Theme"
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     RowLayout{
         Layout.topMargin: 20

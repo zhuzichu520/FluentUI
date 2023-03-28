@@ -6,7 +6,11 @@ import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
 FluScrollablePage{
+
     title:"Expander"
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     FluExpander{
         headerText:"打开一个单选框"

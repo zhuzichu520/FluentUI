@@ -6,18 +6,18 @@ import FluentUI 1.0
 
 Item {
 
+    property alias logo : image_logo.source
     property FluObject items
     property FluObject footerItems
     property int displayMode: width<=700 ? FluNavigationView.Minimal : FluNavigationView.Open
-    property bool displaMinimalNav : false
-    property alias actions: layout_actions.data
+    property bool displaMinimalMenu : false
 
     id:root
 
     onDisplayModeChanged: {
         if(displayMode === FluNavigationView.Minimal){
             anim_navi.enabled = false
-            displaMinimalNav = false
+            displaMinimalMenu = false
             timer_anim_enable.restart()
         }
     }
@@ -85,6 +85,16 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
+                Rectangle{
+                    width: 3
+                    height: 18
+                    radius: 1.5
+                    color: FluTheme.primaryColor.dark
+                    visible: nav_list.currentIndex === position && type===0
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                    }
+                }
                 MouseArea{
                     id:item_mouse
                     hoverEnabled: true
@@ -99,6 +109,7 @@ Item {
                         }else{
                             model.tap()
                         }
+                        displaMinimalMenu = false
                     }
                 }
                 color: {
@@ -136,7 +147,7 @@ Item {
     Item {
         id:nav_app_bar
         width: parent.width
-        height: 38
+        height: 50
         z:999
         RowLayout{
             height:parent.height
@@ -144,6 +155,8 @@ Item {
             FluIconButton{
                 iconSource: FluentIcons.ChromeBack
                 Layout.leftMargin: 5
+                Layout.preferredWidth: 40
+                Layout.preferredHeight: 40
                 Layout.alignment: Qt.AlignVCenter
                 disabled:  nav_swipe.depth === 1
                 iconSize: 13
@@ -157,37 +170,45 @@ Item {
                 }
             }
             FluIconButton{
+                id:btn_nav
                 iconSource: FluentIcons.GlobalNavButton
-                Layout.leftMargin: 5
                 iconSize: 15
+                Layout.preferredWidth: 40
+                Layout.preferredHeight: 40
                 visible: displayMode === FluNavigationView.Minimal
                 Layout.alignment: Qt.AlignVCenter
                 onClicked: {
-                    displaMinimalNav = !displaMinimalNav
+                    displaMinimalMenu = !displaMinimalMenu
                 }
             }
-        }
 
-        RowLayout{
-            id:layout_actions
-            anchors{
-                right: parent.right
-                rightMargin: 14
-                verticalCenter: parent.verticalCenter
+            Image{
+                id:image_logo
+                Layout.preferredHeight: 20
+                Layout.preferredWidth: 20
+                Layout.leftMargin: {
+                    if(btn_nav.visible){
+                        return 12
+                    }
+                    return 5
+                }
+                Layout.alignment: Qt.AlignVCenter
             }
-            spacing: 5
+            FluText{
+                Layout.alignment: Qt.AlignVCenter
+                text:"FluentUI"
+                Layout.leftMargin: 12
+                fontStyle: FluText.Body
+            }
         }
     }
 
     Item{
         anchors{
             left: displayMode === FluNavigationView.Minimal ? parent.left : layout_list.right
-            leftMargin: 10
             top: nav_app_bar.bottom
             right: parent.right
-            rightMargin: 10
             bottom: parent.bottom
-            bottomMargin: 20
         }
 
         StackView{
@@ -209,9 +230,9 @@ Item {
 
     MouseArea{
         anchors.fill: parent
-        enabled: (displayMode === FluNavigationView.Minimal && displaMinimalNav)
+        enabled: (displayMode === FluNavigationView.Minimal && displaMinimalMenu)
         onClicked: {
-            displaMinimalNav = false
+            displaMinimalMenu = false
         }
     }
 
@@ -225,7 +246,7 @@ Item {
         x: {
             if(displayMode !== FluNavigationView.Minimal)
                 return 0
-            return (displayMode === FluNavigationView.Minimal && displaMinimalNav)  ? 0 : -width
+            return (displayMode === FluNavigationView.Minimal && displaMinimalMenu)  ? 0 : -width
         }
         Behavior on x{
             id:anim_navi
@@ -233,6 +254,7 @@ Item {
                 duration: 150
             }
         }
+
         color: {
             if(displayMode === FluNavigationView.Minimal){
                 return FluTheme.isDark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
@@ -248,13 +270,17 @@ Item {
             }
         }
 
+        border.color: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
+        border.width:  displayMode === FluNavigationView.Minimal ? 1 : 0
+
         Item{
             id:layout_header
             width: layout_list.width
             y:nav_app_bar.height
-            height: 50
+            height: textbox_search.height
 
             FluAutoSuggestBox{
+                id:textbox_search
                 width: 280
                 anchors.centerIn: parent
                 iconSource: FluentIcons.Zoom

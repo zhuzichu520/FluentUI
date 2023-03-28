@@ -29,6 +29,8 @@ Button{
     }
     Popup{
         id:popup
+        modal: true
+        dim:false
         height: container.height
         width: container.width
         background: FluColorView{

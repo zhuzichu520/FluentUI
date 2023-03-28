@@ -7,7 +7,9 @@ import FluentUI 1.0
 FluScrollablePage{
 
     title:"TimePicker"
-
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     FluArea{
         width: parent.width

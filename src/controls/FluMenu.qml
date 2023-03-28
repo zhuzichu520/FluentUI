@@ -9,6 +9,9 @@ Menu {
     id: popup
     width: 140
     height: container.height
+    modal: true
+    dim:false
+    contentItem: Item{}
 
     background: Item {
         Rectangle{

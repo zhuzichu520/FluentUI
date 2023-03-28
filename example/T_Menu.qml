@@ -8,11 +8,13 @@ import FluentUI 1.0
 FluScrollablePage{
 
     title:"Menu"
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     FluButton{
         text:"左击菜单"
         Layout.topMargin: 20
-        Layout.leftMargin: 15
         onClicked:{
             menu.popup()
         }
@@ -22,7 +24,6 @@ FluScrollablePage{
     FluButton{
         text:"右击菜单"
         Layout.topMargin: 20
-        Layout.leftMargin: 15
         onClicked: {
             showSuccess("请按鼠标右击")
         }

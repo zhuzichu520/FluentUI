@@ -104,6 +104,8 @@ Rectangle {
         width: container.width
         height: container.height
         contentItem: Item{}
+        modal: true
+        dim:false
         background: Rectangle{
             id:container
             width: 300

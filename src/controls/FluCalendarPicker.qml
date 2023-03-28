@@ -63,6 +63,8 @@ Rectangle {
         id:popup
         height: container.height
         width: container.width
+        modal: true
+        dim:false
         background: FluCalendarView{
             id:container
             onDateClicked:

@@ -7,6 +7,9 @@ import FluentUI 1.0
 FluScrollablePage{
 
     title:"MultiWindow"
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     property string password: ""
 

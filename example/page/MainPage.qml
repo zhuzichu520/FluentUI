@@ -9,14 +9,14 @@ import FluentUI 1.0
 FluWindow {
     id:rootwindow
     width: 860
-    height: 600
+    height: 640
     title: "FluentUI"
     minimumWidth: 520
     minimumHeight: 400
 
     FluAppBar{
         id:appbar
-        title: "FluentUI"
+        z:10
     }
 
     FluObject{
@@ -237,47 +237,13 @@ FluWindow {
         }
     }
 
-
     FluNavigationView{
         id:nav_view
-        anchors{
-            top: appbar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        items:original_items
+        anchors.fill: parent
+        items: original_items
         footerItems:footer_items
-
-        actions:[
-            Image {
-                width: 30
-                height: 30
-                Layout.preferredWidth: 30
-                Layout.preferredHeight: 30
-                sourceSize: Qt.size(60,60)
-                source: "qrc:/res/image/logo_openai.png"
-                Layout.rightMargin: 5
-                MouseArea{
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        FluApp.navigate("/chat")
-                    }
-                }
-            },
-            FluText{
-                text:"夜间模式"
-                fontStyle: FluText.Body
-            },
-            FluToggleSwitch{
-                selected: FluTheme.isDark
-                clickFunc:function(){
-                    FluTheme.isDark = !FluTheme.isDark
-                }
-            }
-        ]
-
+        logo: "qrc:/res/image/favicon.ico"
+        z: 11
         Component.onCompleted: {
             nav_view.setCurrentIndex(1)
             nav_view.push("qrc:/T_Buttons.qml")

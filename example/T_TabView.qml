@@ -7,6 +7,9 @@ import FluentUI 1.0
 FluScrollablePage{
 
     title:"TabView"
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     Component{
         id:com_page

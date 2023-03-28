@@ -46,5 +46,6 @@
         <file>T_Carousel.qml</file>
         <file>T_MediaPlayer.qml</file>
         <file>T_TabView.qml</file>
+        <file>res/image/favicon.ico</file>
     </qresource>
 </RCC>

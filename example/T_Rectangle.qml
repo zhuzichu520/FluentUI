@@ -6,7 +6,11 @@ import QtGraphicalEffects 1.15
 import FluentUI 1.0
 
 FluScrollablePage{
+
     title:"Rectangle"
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
 
     RowLayout{
         Layout.topMargin: 20

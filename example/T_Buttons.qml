@@ -9,6 +9,10 @@ FluScrollablePage{
 
     spacing: 20
 
+    leftPadding:10
+    rightPadding:10
+    bottomPadding:20
+
     FluText{
         Layout.topMargin: 20
         text:"支持Tab键切换焦点，空格键执行点击事件"
