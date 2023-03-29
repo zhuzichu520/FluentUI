@@ -46,13 +46,15 @@ FluScrollablePage{
         headerText:"打开一个滑动文本框"
         Item{
             anchors.fill: parent
-            ScrollView{
+            Flickable{
                 id:scrollview
                 width: parent.width
                 height: parent.height
-                contentWidth: parent.width
+                contentWidth: width
+                contentHeight: text_info.height
+                ScrollBar.vertical: FluScrollBar {}
                 FluText{
-                    id:test
+                    id:text_info
                     width: scrollview.width
                     wrapMode: Text.WrapAnywhere
                     padding: 14

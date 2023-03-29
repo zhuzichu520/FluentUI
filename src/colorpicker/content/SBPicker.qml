@@ -48,6 +48,7 @@ Item {
         anchors.fill: parent
         x: r
         y: r
+        preventStealing: true
         function handleMouse(mouse) {
             if (mouse.buttons & Qt.LeftButton) {
 

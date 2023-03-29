@@ -17,6 +17,7 @@ Rectangle {
 
     MouseArea{
         anchors.fill: parent
+        preventStealing: true
         onClicked: {
             showControl = !showControl
         }
