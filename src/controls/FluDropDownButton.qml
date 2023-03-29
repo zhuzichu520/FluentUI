@@ -83,6 +83,7 @@ Button {
     FluMenu{
         id:menu
         width: control.width
+        animEnabled: true
     }
 
 }

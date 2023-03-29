@@ -19,6 +19,8 @@ Item {
     FluText{
         id:text_title
         fontStyle: FluText.TitleLarge
+        visible: text !== ""
+        height: visible?implicitHeight:0
         anchors{
             top: parent.top
             topMargin: control.topPadding

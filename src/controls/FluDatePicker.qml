@@ -111,6 +111,12 @@ Rectangle {
                 to:popup.y
                 duration: 150
             }
+            NumberAnimation {
+                property: "opacity"
+                from:0
+                to:1
+                duration: 150
+            }
         }
         background: Rectangle{
             id:container

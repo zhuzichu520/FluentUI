@@ -69,13 +69,13 @@ Rectangle{
 
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
-            Layout.rightMargin: 14
+            Layout.rightMargin: 5
             visible: showDark
             spacing: 5
             FluText{
                 text:"夜间模式"
                 color:root.textColor
-                fontStyle: FluText.Body
+                fontStyle: FluText.Caption
             }
             FluToggleSwitch{
                 selected: FluTheme.isDark

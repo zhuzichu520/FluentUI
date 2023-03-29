@@ -5,7 +5,7 @@ import QtQuick.Controls 2.15
 Menu {
 
     default property alias content: container.data
-
+    property bool animEnabled: false
     id: popup
     width: 140
     height: container.height
@@ -18,7 +18,13 @@ Menu {
             property: "y"
             from:0
             to:popup.y
-            duration: 150
+            duration: animEnabled ? 150 : 0
+        }
+        NumberAnimation {
+            property: "opacity"
+            from:0
+            to:1
+            duration: animEnabled ? 150 : 0
         }
     }
 

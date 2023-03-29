@@ -43,6 +43,12 @@ Button{
                 to:popup.y
                 duration: 150
             }
+            NumberAnimation {
+                property: "opacity"
+                from:0
+                to:1
+                duration: 150
+            }
         }
         contentItem: Item{}
         function showPopup() {

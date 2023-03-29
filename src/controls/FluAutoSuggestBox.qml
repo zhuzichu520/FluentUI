@@ -148,6 +148,12 @@ TextField{
                 to:input_popup.y
                 duration: 150
             }
+            NumberAnimation {
+                property: "opacity"
+                from:0
+                to:1
+                duration: 150
+            }
         }
         onClosed: {
             input.focus = false

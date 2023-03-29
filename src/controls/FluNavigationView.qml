@@ -132,12 +132,30 @@ Item {
                     }
                 }
 
-                FluText{
-                    text:model.title
+                FluIcon{
+                    id:item_icon
+                    iconSource: {
+                        if(model.icon){
+                            return model.icon
+                        }
+                        return 0
+                    }
+                    width: 30
+                    height: 30
+                    iconSize: 15
                     anchors{
                         verticalCenter: parent.verticalCenter
                         left:parent.left
-                        leftMargin: 14
+                        leftMargin: 3
+                    }
+                }
+
+                FluText{
+                    id:item_title
+                    text:model.title
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left:item_icon.right
                     }
                 }
             }
@@ -326,6 +344,7 @@ Item {
             clip: true
             anchors{
                 top: layout_header.bottom
+                topMargin: 6
                 left: parent.left
                 right: parent.right
                 bottom: layout_footer.top

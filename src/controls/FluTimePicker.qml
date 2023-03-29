@@ -108,6 +108,12 @@ Rectangle {
         dim:false
         enter: Transition {
             NumberAnimation {
+                property: "opacity"
+                from:0
+                to:1
+                duration: 150
+            }
+            NumberAnimation {
                 property: "y"
                 from:0
                 to:popup.y

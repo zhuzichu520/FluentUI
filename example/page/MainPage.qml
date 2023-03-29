@@ -8,7 +8,7 @@ import FluentUI 1.0
 
 FluWindow {
     id:rootwindow
-    width: 860
+    width: 1000
     height: 640
     title: "FluentUI"
     minimumWidth: 520
@@ -17,10 +17,19 @@ FluWindow {
     FluAppBar{
         id:appbar
         z:10
+        showDark: true
     }
 
     FluObject{
         id:original_items
+
+        FluPaneItem{
+            title:"Home"
+            icon:FluentIcons.Home
+            onTap:{
+                nav_view.push("qrc:/T_Home.qml")
+            }
+        }
 
         FluPaneItemHeader{
             title:"Inputs"
@@ -245,11 +254,9 @@ FluWindow {
         logo: "qrc:/res/image/favicon.ico"
         z: 11
         Component.onCompleted: {
-            nav_view.setCurrentIndex(1)
-            nav_view.push("qrc:/T_Buttons.qml")
+            nav_view.setCurrentIndex(0)
+            nav_view.push("qrc:/T_Home.qml")
         }
-
-
     }
 
 
