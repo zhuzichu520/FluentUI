@@ -50,6 +50,13 @@ FluWindow {
         }
 
         FluPaneItem{
+            title:"CheckBox"
+            onTap:{
+                nav_view.push("qrc:/T_CheckBox.qml")
+            }
+        }
+
+        FluPaneItem{
             title:"ToggleSwitch"
             onTap:{
                 nav_view.push("qrc:/T_ToggleSwitch.qml")
@@ -259,5 +266,9 @@ FluWindow {
         }
     }
 
+    function startPageByTitle(title){
+        console.debug(title)
+        nav_view.startPageByTitle(title)
+    }
 
 }

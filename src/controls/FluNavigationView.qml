@@ -420,4 +420,17 @@ Item {
         nav_list.currentIndex = index
     }
 
+    function startPageByTitle(title){
+        for(var i=0;i<items.children.length;i++){
+            if(items.children[i].title === title){
+                if(nav_list.currentIndex === i){
+                    return
+                }
+                items.children[i].tap()
+                nav_list.currentIndex = i
+                return
+            }
+        }
+    }
+
 }

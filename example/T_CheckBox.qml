@@ -6,21 +6,14 @@ import FluentUI 1.0
 
 FluScrollablePage{
 
-    title:"Slider"
+    title:"CheckBox"
     leftPadding:10
     rightPadding:10
     bottomPadding:20
 
-    FluSlider{
-        Layout.topMargin: 20
-        value: 50
-        Layout.leftMargin: 10
-    }
-    FluSlider{
-        orientation:FluSlider.Vertical
+    FluCheckBox{
         Layout.topMargin: 20
         Layout.leftMargin: 10
         Layout.bottomMargin: 20
-        value: 50
     }
 }
