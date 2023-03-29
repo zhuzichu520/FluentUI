@@ -8,16 +8,16 @@ Button {
     property bool selected: false
     property var clickFunc
     property bool disabled: false
-    property color borderNormalColor: FluTheme.isDark ? Qt.rgba(160/255,160/255,160/255,1) : Qt.rgba(136/255,136/255,136/255,1)
-    property color borderSelectedColor: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
-    property color borderHoverColor: FluTheme.isDark ? Qt.rgba(167/255,167/255,167/255,1) : Qt.rgba(135/255,135/255,135/255,1)
-    property color borderDisableColor: FluTheme.isDark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
-    property color normalColor: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-    property color selectedColor: FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
-    property color hoverColor: FluTheme.isDark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(244/255,244/255,244/255,1)
-    property color selectedHoverColor: FluTheme.isDark ? Qt.darker(selectedColor,1.1) : Qt.lighter(selectedColor,1.1)
-    property color selectedDisableColor: FluTheme.isDark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
-    property color disableColor: FluTheme.isDark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(253/255,253/255,253/255,1)
+    property color borderNormalColor: FluTheme.dark ? Qt.rgba(160/255,160/255,160/255,1) : Qt.rgba(136/255,136/255,136/255,1)
+    property color borderSelectedColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color borderHoverColor: FluTheme.dark ? Qt.rgba(167/255,167/255,167/255,1) : Qt.rgba(135/255,135/255,135/255,1)
+    property color borderDisableColor: FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
+    property color normalColor: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+    property color selectedColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color hoverColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(244/255,244/255,244/255,1)
+    property color selectedHoverColor: FluTheme.dark ? Qt.darker(selectedColor,1.1) : Qt.lighter(selectedColor,1.1)
+    property color selectedDisableColor: FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
+    property color disableColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(253/255,253/255,253/255,1)
 
     id:control
     enabled: !disabled
@@ -78,7 +78,7 @@ Button {
                 iconSource: FluentIcons.AcceptMedium
                 iconSize: 15
                 visible: selected
-                color: FluTheme.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
             }
         }
         FluText{

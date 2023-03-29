@@ -7,7 +7,7 @@ Rectangle {
     property real progress: 0.25
     property bool indeterminate: true
     readonly property real radius2 : radius - linWidth/2
-    property color primaryColor : FluTheme.isDark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color primaryColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
 
     id: control
     width: 44
@@ -15,7 +15,7 @@ Rectangle {
     radius: 22
     border.width: linWidth
     color: "#00000000"
-    border.color: FluTheme.isDark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    border.color: FluTheme.dark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
 
     onProgressChanged: {
         canvas.requestPaint()
@@ -23,7 +23,7 @@ Rectangle {
 
     Connections{
         target: FluTheme
-        function onIsDarkChanged(){
+        function onDarkChanged(){
             canvas.requestPaint()
         }
     }

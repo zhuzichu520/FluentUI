@@ -92,7 +92,7 @@ Item {
                     anchors.fill: parent
                     anchors.margins: 2
                     color:{
-                        if(FluTheme.isDark){
+                        if(FluTheme.dark){
                             if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
                                 return Qt.rgba(62/255,62/255,62/255,1)
                             }

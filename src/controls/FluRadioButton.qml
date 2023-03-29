@@ -53,21 +53,21 @@ Button {
             }
             border.color: {
                 if(disabled){
-                    if(FluTheme.isDark){
+                    if(FluTheme.dark){
                         return Qt.rgba(82/255,82/255,82/255,1)
                     }else{
                         return Qt.rgba(198/255,198/255,198/255,1)
                     }
                 }
                 if(selected){
-                    if(FluTheme.isDark){
+                    if(FluTheme.dark){
                         return FluTheme.primaryColor.lighter
                     }else{
 
                         return FluTheme.primaryColor.dark
                     }
                 }else{
-                    if(FluTheme.isDark){
+                    if(FluTheme.dark){
                         return Qt.rgba(161/255,161/255,161/255,1)
                     }else{
 
@@ -79,7 +79,7 @@ Button {
                 if(disabled&&selected){
                     return Qt.rgba(159/255,159/255,159/255,1)
                 }
-                if(FluTheme.isDark){
+                if(FluTheme.dark){
                     if(hovered){
                         return Qt.rgba(43/255,43/255,43/255,1)
                     }

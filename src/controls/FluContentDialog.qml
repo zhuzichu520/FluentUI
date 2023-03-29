@@ -25,7 +25,7 @@ Popup {
         id:layout_content
         implicitWidth:minWidth
         implicitHeight: text_title.height + text_message.height + layout_actions.height
-        color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
+        color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
         radius:5
 
         FluShadow{
@@ -67,7 +67,7 @@ Popup {
             id:layout_actions
             height: 68
             radius: 5
-            color: FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             anchors{
                 top:text_message.bottom
                 left: parent.left

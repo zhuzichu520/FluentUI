@@ -122,7 +122,7 @@ FluObject {
             width:  rowlayout.width  + (_super.moremsg ? 25 : 80);
             height: rowlayout.height + 20;
             color: {
-                if(FluTheme.isDark){
+                if(FluTheme.dark){
                     switch(_super.type){
                     case mcontrol.const_success: return Qt.rgba(57/255,61/255,27/255,1);
                     case mcontrol.const_warning: return Qt.rgba(67/255,53/255,25/255,1);
@@ -143,7 +143,7 @@ FluObject {
             radius: 4
             border.width: 1
             border.color: {
-                if(FluTheme.isDark){
+                if(FluTheme.dark){
                     switch(_super.type){
                     case mcontrol.const_success: return Qt.rgba(56/255,61/255,27/255,1);
                     case mcontrol.const_warning: return Qt.rgba(66/255,53/255,25/255,1);
@@ -179,7 +179,7 @@ FluObject {
                     }
                     iconSize:20
                     color: {
-                        if(FluTheme.isDark){
+                        if(FluTheme.dark){
                             switch(_super.type){
                             case mcontrol.const_success: return Qt.rgba(108/255,203/255,95/255,1);
                             case mcontrol.const_warning: return Qt.rgba(252/255,225/255,0/255,1);

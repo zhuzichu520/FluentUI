@@ -13,13 +13,13 @@ TextField{
     enabled: !disabled
     color: {
         if(disabled){
-            return FluTheme.isDark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
         }
-        return FluTheme.isDark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+        return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
     }
-    renderType: FluTheme.isNativeText ? Text.NativeRendering : Text.QtRendering
+    renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectionColor: {
-        if(FluTheme.isDark){
+        if(FluTheme.dark){
             return FluTheme.primaryColor.lighter
         }else{
             return FluTheme.primaryColor.dark
@@ -27,12 +27,12 @@ TextField{
     }
     placeholderTextColor: {
         if(disabled){
-            return FluTheme.isDark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
         }
         if(focus){
-            return FluTheme.isDark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
+            return FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
         }
-        return FluTheme.isDark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
+        return FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
     }
     font.bold: {
         switch (fontStyle) {

@@ -55,7 +55,7 @@ Item {
                     radius: 4
                     anchors.centerIn: parent
                     color:{
-                        if(FluTheme.isDark){
+                        if(FluTheme.dark){
                             if(item_control.hovered){
                                 return Qt.rgba(1,1,1,0.05)
                             }
@@ -85,7 +85,7 @@ Item {
                             return "#FFFFFF"
                         }
                         if(isDecade){
-                            return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                         }
                         return Qt.rgba(150/255,150/255,150/255,1)
                     }
@@ -115,7 +115,7 @@ Item {
                     radius: 4
                     anchors.centerIn: parent
                     color:{
-                        if(FluTheme.isDark){
+                        if(FluTheme.dark){
                             if(item_control.hovered){
                                 return Qt.rgba(1,1,1,0.05)
                             }
@@ -145,7 +145,7 @@ Item {
                             return "#FFFFFF"
                         }
                         if(isYear){
-                            return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                         }
                         return Qt.rgba(150/255,150/255,150/255,1)
                     }
@@ -176,7 +176,7 @@ Item {
                     radius: 4
                     anchors.centerIn: parent
                     color:{
-                        if(FluTheme.isDark){
+                        if(FluTheme.dark){
                             if(item_control.hovered){
                                 return Qt.rgba(1,1,1,0.05)
                             }
@@ -220,7 +220,7 @@ Item {
                             return "#FFFFFF"
                         }
                         if(isMonth){
-                            return FluTheme.isDark ? "#FFFFFF" : "#1A1A1A"
+                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                         }
                         return Qt.rgba(150/255,150/255,150/255,1)
                     }
@@ -242,7 +242,7 @@ Item {
             id:layout_divider
             height: 1
             width: parent.width
-            color: FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+            color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
             anchors{
                 top: parent.top
                 topMargin: 44

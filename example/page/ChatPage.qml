@@ -57,7 +57,7 @@ FluWindow {
             selectedTextColor: Qt.rgba(51,153,255,1)
             color:FluColors.Black
             selectionColor: {
-                if(FluTheme.isDark){
+                if(FluTheme.dark){
                     return FluTheme.primaryColor.lighter
                 }else{
                     return FluTheme.primaryColor.dark
@@ -82,7 +82,7 @@ FluWindow {
             bottom: layout_bottom.top
             margins: 10
         }
-        color: FluTheme.isDark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(245/255,245/255,245/255,1)
+        color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(245/255,245/255,245/255,1)
         ListView{
             id:list_message
             anchors.fill: parent

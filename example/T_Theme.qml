@@ -26,7 +26,7 @@ FluScrollablePage{
                     iconSource: FluentIcons.AcceptMedium
                     iconSize: 15
                     visible: modelData === FluTheme.primaryColor
-                    color: FluTheme.isDark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                    color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                 }
                 MouseArea{
                     id:mouse_item
@@ -44,9 +44,9 @@ FluScrollablePage{
         Layout.topMargin: 20
     }
     FluToggleSwitch{
-        selected: FluTheme.isDark
+        selected: FluTheme.dark
         clickFunc:function(){
-            FluTheme.isDark = !FluTheme.isDark
+            FluTheme.dark = !FluTheme.dark
         }
     }
     FluText{
@@ -54,9 +54,9 @@ FluScrollablePage{
         Layout.topMargin: 20
     }
     FluToggleSwitch{
-        selected: FluTheme.isNativeText
+        selected: FluTheme.nativeText
         clickFunc:function(){
-            FluTheme.isNativeText = !FluTheme.isNativeText
+            FluTheme.nativeText = !FluTheme.nativeText
         }
     }
 }

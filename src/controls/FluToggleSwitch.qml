@@ -37,7 +37,7 @@ Button {
                 radius: 20
             }
             color: {
-                if(FluTheme.isDark){
+                if(FluTheme.dark){
                     if(selected){
                         return FluTheme.primaryColor.dark
                     }

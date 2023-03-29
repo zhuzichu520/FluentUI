@@ -23,9 +23,9 @@ Item {
 
     property color color: {
         if(window && window.active){
-            return FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+            return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
         }
-        return FluTheme.isDark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+        return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
     }
 
     id:root
@@ -40,7 +40,7 @@ Item {
         id:container
         color:root.color
         anchors.fill: parent
-        anchors.margins: (window && (window.visibility === Window.Maximized)) ? 8/Screen.devicePixelRatio : 0
+        anchors.margins: (window && (window.visibility === Window.Maximized) && FluTheme.frameless) ? 8/Screen.devicePixelRatio : 0
         clip: true
         Behavior on color{
             ColorAnimation {
@@ -53,7 +53,7 @@ Item {
         border.width: 1
         anchors.fill: parent
         color: Qt.rgba(0,0,0,0,)
-        border.color:FluTheme.isDark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
+        border.color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
     }
 
 
