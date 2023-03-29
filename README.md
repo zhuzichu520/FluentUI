@@ -65,9 +65,9 @@
 
 # 部分效果预览
 
-## 一个聊天Demo，调用了ChatGPT的接口
+## 首页
 
-![](doc/preview/chatgpt.png)
+![](doc/preview/home.png)
 
 ## 各种Button按钮
 

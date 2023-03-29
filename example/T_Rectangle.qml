@@ -53,7 +53,7 @@ FluScrollablePage{
     }
     FluText{
         text:"配合图片使用"
-        fontStyle: FluText.Subtitle
+        fontStyle: FluText.SubTitle
         Layout.topMargin: 20
     }
     RowLayout{

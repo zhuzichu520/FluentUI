@@ -51,15 +51,22 @@ Item {
                 if(root_mouse.containsMouse){
                     return FluTheme.dark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(245/255,245/255,245/255,1)
                 }
-                return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+                return FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
             }
-            iconSize: 15
-            iconSource: expand ? FluentIcons.ChevronUp : FluentIcons.ChevronDown
             onClicked: {
                 expand = !expand
             }
+            contentItem: FluIcon{
+                rotation: expand?0:180
+                iconSource:FluentIcons.ChevronUp
+                iconSize: 15
+                Behavior on rotation {
+                    NumberAnimation{
+                        duration: 150
+                    }
+                }
+            }
         }
-
     }
 
 

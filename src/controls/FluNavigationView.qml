@@ -362,7 +362,6 @@ Item {
                     return items.children
                 }
             }
-            boundsBehavior: ListView.StopAtBounds
             delegate: Loader{
                 property var model: modelData
                 property var position: index
@@ -386,7 +385,6 @@ Item {
             width: layout_list.width
             height: childrenRect.height
             anchors.bottom: parent.bottom
-            boundsBehavior: ListView.StopAtBounds
             model: {
                 if(footerItems){
                     return footerItems.children

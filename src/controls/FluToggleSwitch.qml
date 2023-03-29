@@ -59,7 +59,7 @@ Button {
             border.color: selected ? Qt.lighter(FluTheme.primaryColor.dark,1.2) : "#666666"
             Rectangle {
                 x:  selected ? control_backgound.width  - width - 4 : 4
-                width:  control.height - 8
+                width: pressed ?  control.height - 6 : control.height - 8
                 height: control.height - 8
                 radius: width / 2
                 antialiasing: true
@@ -68,20 +68,20 @@ Button {
                 anchors.verticalCenter: parent.verticalCenter
                 color: selected ? "#FFFFFF" : "#666666"
                 Behavior on x {
-                    NumberAnimation { duration: 200 }
+                    NumberAnimation { duration: 150 }
+                }
+                Behavior on width {
+                    NumberAnimation { duration: 150 }
                 }
                 Behavior on scale {
                     NumberAnimation { duration: 150 }
                 }
             }
         }
-
         FluText{
             text: control.text
             Layout.leftMargin: 5
             visible: text !== ""
         }
-
     }
-
 }

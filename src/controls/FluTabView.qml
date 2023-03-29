@@ -47,7 +47,6 @@ Item {
         orientation: ListView.Horizontal
         width: parent.width
         interactive: false
-        boundsBehavior: ListView.StopAtBounds
         model: tab_model
         move: Transition {
             NumberAnimation { properties: "x"; duration: 100; easing.type: Easing.OutCubic }
@@ -166,7 +165,10 @@ Item {
                             var idx = tab_nav.indexAt(pos.x+tab_nav.contentX, pos.y)
                             var firstIdx = tab_nav.indexAt(tab_nav.contentX+1, pos.y)
                             var lastIdx = tab_nav.indexAt(tab_nav.width+tab_nav.contentX-1, pos.y)
-                            if (idx >= firstIdx && idx <= lastIdx && d.dragIndex !== idx) {
+                            if(lastIdx === -1){
+                                lastIdx = tab_nav.count-1
+                            }
+                            if (idx!==-1 && idx >= firstIdx && idx <= lastIdx && d.dragIndex !== idx) {
                                 tab_model.move(d.dragIndex, idx, 1)
                                 d.dragIndex = idx;
                             }

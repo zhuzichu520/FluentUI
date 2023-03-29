@@ -73,16 +73,28 @@ Button {
                 }
                 return normalColor
             }
+            Behavior on color {
+                ColorAnimation{
+                    duration: 150
+                }
+            }
             FluIcon {
                 anchors.centerIn: parent
                 iconSource: FluentIcons.AcceptMedium
                 iconSize: 15
                 visible: selected
                 color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                Behavior on visible {
+                    NumberAnimation{
+                        duration: 150
+                    }
+                }
             }
         }
         FluText{
-            text:control.text
+            text: control.text
+            Layout.leftMargin: 5
+            visible: text !== ""
         }
     }
 }

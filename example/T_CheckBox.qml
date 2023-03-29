@@ -13,7 +13,11 @@ FluScrollablePage{
 
     FluCheckBox{
         Layout.topMargin: 20
-        Layout.leftMargin: 10
-        Layout.bottomMargin: 20
     }
+
+    FluCheckBox{
+        Layout.topMargin: 20
+        text:"Text"
+    }
+
 }

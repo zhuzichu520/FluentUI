@@ -43,7 +43,6 @@ Item {
         }
         contentWidth: parent.width
         contentHeight: container.height
-        boundsBehavior: Flickable.StopAtBounds
         ScrollBar.vertical: FluScrollBar {
         }
         anchors{

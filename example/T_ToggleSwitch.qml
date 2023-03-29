@@ -17,6 +17,6 @@ FluScrollablePage{
     }
     FluToggleSwitch{
         Layout.topMargin: 20
-        text:"Disabled"
+        text:"Text"
     }
 }

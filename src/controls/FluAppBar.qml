@@ -75,7 +75,6 @@ Rectangle{
             FluText{
                 text:"夜间模式"
                 color:root.textColor
-                fontStyle: FluText.Caption
             }
             FluToggleSwitch{
                 selected: FluTheme.dark

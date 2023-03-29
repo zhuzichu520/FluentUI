@@ -10,7 +10,7 @@ TextField{
     property int iconSource: 0
     property bool disabled: false
     signal itemClicked(string data)
-
+    signal handleClicked
     id:input
     width: 300
     enabled: !disabled
@@ -47,12 +47,8 @@ TextField{
     Keys.onDownPressed: {
         list_view.currentIndex = Math.min(list_view.currentIndex+1,list_view.count-1)
     }
-
-    signal handleClicked
     Keys.onEnterPressed:handleClicked()
     Keys.onReturnPressed:handleClicked()
-
-
     font.bold: {
         switch (fontStyle) {
         case FluText.Display:
@@ -61,10 +57,8 @@ TextField{
             return true
         case FluText.Title:
             return true
-        case FluText.Subtitle:
+        case FluText.SubTitle:
             return true
-        case FluText.BodyLarge:
-            return false
         case FluText.BodyStrong:
             return true
         case FluText.Body:
@@ -78,23 +72,21 @@ TextField{
     font.pixelSize: {
         switch (fontStyle) {
         case FluText.Display:
-            return input.pixelSize * 4
+            return text.pixelSize * 4.857
         case FluText.TitleLarge:
-            return input.pixelSize * 2
+            return text.pixelSize * 2.857
         case FluText.Title:
-            return input.pixelSize * 1.5
-        case FluText.Subtitle:
-            return input.pixelSize * 0.9
-        case FluText.BodyLarge:
-            return input.pixelSize * 1.1
-        case FluText.BodyStrong:
-            return input.pixelSize * 1.0
+            return text.pixelSize * 2
+        case FluText.SubTitle:
+            return text.pixelSize * 1.428
         case FluText.Body:
-            return input.pixelSize * 1.0
+            return text.pixelSize * 1.0
+        case FluText.BodyStrong:
+            return text.pixelSize * 1.0
         case FluText.Caption:
-            return input.pixelSize * 0.8
+            return text.pixelSize * 0.857
         default:
-            return input.pixelSize * 1.0
+            return text.pixelSize * 1.0
         }
     }
     background: FluTextBoxBackground{
@@ -175,7 +167,6 @@ TextField{
                 id:list_view
                 signal closePopup
                 anchors.fill: parent
-                boundsBehavior: ListView.StopAtBounds
                 clip: true
                 currentIndex: -1
                 ScrollBar.vertical: FluScrollBar {}

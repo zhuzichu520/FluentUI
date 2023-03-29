@@ -11,8 +11,7 @@ Text {
         Display,
         TitleLarge,
         Title,
-        Subtitle,
-        BodyLarge,
+        SubTitle,
         BodyStrong,
         Body,
         Caption
@@ -29,10 +28,8 @@ Text {
             return true
         case FluText.Title:
             return true
-        case FluText.Subtitle:
+        case FluText.SubTitle:
             return true
-        case FluText.BodyLarge:
-            return false
         case FluText.BodyStrong:
             return true
         case FluText.Body:
@@ -46,21 +43,19 @@ Text {
     font.pixelSize: {
         switch (fontStyle) {
         case FluText.Display:
-            return text.pixelSize * 4
+            return text.pixelSize * 4.857
         case FluText.TitleLarge:
-            return text.pixelSize * 2
+            return text.pixelSize * 2.857
         case FluText.Title:
-            return text.pixelSize * 1.5
-        case FluText.Subtitle:
-            return text.pixelSize * 0.9
-        case FluText.BodyLarge:
-            return text.pixelSize * 1.1
-        case FluText.BodyStrong:
-            return text.pixelSize * 1.0
+            return text.pixelSize * 2
+        case FluText.SubTitle:
+            return text.pixelSize * 1.428
         case FluText.Body:
             return text.pixelSize * 1.0
+        case FluText.BodyStrong:
+            return text.pixelSize * 1.0
         case FluText.Caption:
-            return text.pixelSize * 0.8
+            return text.pixelSize * 0.857
         default:
             return text.pixelSize * 1.0
         }

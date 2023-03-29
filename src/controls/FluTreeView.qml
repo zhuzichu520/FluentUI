@@ -267,7 +267,6 @@ Item {
         id: list_root
         anchors.fill: parent
         delegate: delegate_root
-        boundsBehavior: ListView.StopAtBounds
         contentWidth: contentItem.childrenRect.width
         model: tree_model
         flickableDirection: Flickable.HorizontalAndVerticalFlick

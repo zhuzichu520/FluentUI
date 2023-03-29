@@ -56,7 +56,6 @@ FluScrollablePage{
                 bottom: parent.bottom
             }
             orientation: ListView.Horizontal
-            boundsBehavior: ListView.StopAtBounds
             height: 240
             model: model_header
             header: Item{height: 10;width: 10}
@@ -101,7 +100,7 @@ FluScrollablePage{
                         }
                         FluText{
                             text: model.title
-                            fontStyle: FluText.BodyLarge
+                            fontStyle: FluText.Body
                             Layout.topMargin: 20
                             Layout.leftMargin: 20
                         }
@@ -110,7 +109,7 @@ FluScrollablePage{
                             Layout.topMargin: 5
                             Layout.preferredWidth: 160
                             Layout.leftMargin: 20
-                            color: FluColors.Grey100
+                            color: FluColors.Grey120
                             font.pixelSize: 12
                             wrapMode: Text.WrapAnywhere
                         }
@@ -161,22 +160,22 @@ FluScrollablePage{
         ListElement{
             title:"Buttons"
             icon:"qrc:/res/image/control/Button.png"
-             desc:"A control that responds to user input and raisesa Click event."
+            desc:"A control that responds to user input and raisesa Click event."
         }
         ListElement{
             title:"InfoBar"
             icon:"qrc:/res/image/control/InfoBar.png"
-             desc:"An inline message to display app-wide statuschange information."
+            desc:"An inline message to display app-wide statuschange information."
         }
         ListElement{
             title:"Slider"
             icon:"qrc:/res/image/control/Slider.png"
-             desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."
+            desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."
         }
         ListElement{
             title:"CheckBox"
             icon:"qrc:/res/image/control/Checkbox.png"
-             desc:"A control that a user can select or clear."
+            desc:"A control that a user can select or clear."
         }
     }
 
@@ -222,7 +221,7 @@ FluScrollablePage{
                 FluText{
                     id:item_title
                     text:model.title
-                    fontStyle: FluText.Subtitle
+                    fontStyle: FluText.BodyStrong
                     anchors{
                         left: item_icon.right
                         leftMargin: 20
@@ -233,9 +232,10 @@ FluScrollablePage{
                 FluText{
                     id:item_desc
                     text:model.desc
-                    color:FluColors.Grey100
+                    color:FluColors.Grey120
                     wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight
+                    fontStyle: FluText.Caption
                     maximumLineCount: 2
                     anchors{
                         left: item_title.left
@@ -260,7 +260,7 @@ FluScrollablePage{
 
     FluText{
         text: "Recently added samples"
-        fontStyle: FluText.TitleLarge
+        fontStyle: FluText.Title
         Layout.topMargin: 20
         Layout.leftMargin: 20
     }
@@ -270,14 +270,14 @@ FluScrollablePage{
         implicitHeight: contentHeight
         cellHeight: 120
         cellWidth: 320
-        boundsBehavior: GridView.StopAtBounds
         model:model_added
+        interactive: false
         delegate: com_item
     }
 
     FluText{
         text: "Recently updated samples"
-        fontStyle: FluText.TitleLarge
+        fontStyle: FluText.Title
         Layout.topMargin: 20
         Layout.leftMargin: 20
     }
@@ -287,7 +287,7 @@ FluScrollablePage{
         implicitHeight: contentHeight
         cellHeight: 120
         cellWidth: 320
-        boundsBehavior: GridView.StopAtBounds
+        interactive: false
         model: model_update
         delegate: com_item
     }

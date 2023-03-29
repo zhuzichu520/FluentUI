@@ -6,13 +6,13 @@ import FluentUI 1.0
 FluContentPage {
 
     title: "Typography"
-    property int textSize: 13
+    property int textSize: FluTheme.textSize
     leftPadding:10
     rightPadding:10
     bottomPadding:20
 
     Component.onCompleted: {
-        slider.seek(31)
+        slider.seek(0)
     }
 
     ScrollView{
@@ -44,13 +44,7 @@ FluContentPage {
                 text:"Subtitle"
                 padding: 0
                 pixelSize: textSize
-                fontStyle: FluText.Subtitle
-            }
-            FluText{
-                text:"Body Large"
-                padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.BodyLarge
+                fontStyle: FluText.SubTitle
             }
             FluText{
                 text:"Body Strong"
@@ -84,7 +78,7 @@ FluContentPage {
             topMargin: 30
         }
         onValueChanged:{
-            textSize = value/100*16+8
+            textSize = value/100*6+FluTheme.textSize
         }
     }
 
