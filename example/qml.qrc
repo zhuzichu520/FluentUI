@@ -149,5 +149,8 @@
         <file>res/image/control/WebView.png</file>
         <file>res/image/control/XamlUICommand.png</file>
         <file>T_CheckBox.qml</file>
+        <file>global/ItemsOriginal.qml</file>
+        <file>global/qmldir</file>
+        <file>global/ItemsFooter.qml</file>
     </qresource>
 </RCC>

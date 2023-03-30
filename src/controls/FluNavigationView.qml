@@ -7,10 +7,12 @@ import FluentUI 1.0
 Item {
 
     property alias logo : image_logo.source
+    property string title: ""
     property FluObject items
     property FluObject footerItems
     property int displayMode: width<=700 ? FluNavigationView.Minimal : FluNavigationView.Open
     property bool displaMinimalMenu : false
+    property Component  autoSuggestBox
 
     id:root
 
@@ -214,7 +216,7 @@ Item {
             }
             FluText{
                 Layout.alignment: Qt.AlignVCenter
-                text:"FluentUI"
+                text:root.title
                 Layout.leftMargin: 12
                 fontStyle: FluText.Body
             }
@@ -257,6 +259,17 @@ Item {
     Rectangle{
         id:layout_list
         width: 300
+        border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
+        border.width:  displayMode === FluNavigationView.Minimal ? 1 : 0
+        color: {
+            if(displayMode === FluNavigationView.Minimal){
+                return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+            }
+            if(window && window.active){
+                return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+            }
+            return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+        }
         anchors{
             top: parent.top
             bottom: parent.bottom
@@ -273,70 +286,29 @@ Item {
             }
         }
 
-        color: {
-            if(displayMode === FluNavigationView.Minimal){
-                return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-            }
-            if(window && window.active){
-                return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
-            }
-            return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-        }
         Behavior on color{
             ColorAnimation {
                 duration: 300
             }
         }
 
-        border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
-        border.width:  displayMode === FluNavigationView.Minimal ? 1 : 0
-
         Item{
             id:layout_header
             width: layout_list.width
             y:nav_app_bar.height
-            height: textbox_search.height
-
-            FluAutoSuggestBox{
-                id:textbox_search
-                width: 280
-                anchors.centerIn: parent
-                iconSource: FluentIcons.Zoom
-                values: {
-                    var arr = []
-                    if(items==null)
-                        return arr
-                    if(items.children==null)
-                        return arr
-                    for(var i=0;i<items.children.length;i++){
-                        var item = items.children[i]
-                        if(item instanceof FluPaneItem){
-                            arr.push(item.title)
-                        }
-                    }
-                    return arr
+            height: {
+                if(loader_auto_suggest_box.item){
+                    return loader_auto_suggest_box.item.height
                 }
-                placeholderText: "查找"
-                onItemClicked:
-                    (data)=>{
-                        var arr = []
-                        if(items==null)
-                        return arr
-                        if(items.children==null)
-                        return arr
-                        for(var i=0;i<items.children.length;i++){
-                            if(items.children[i].title === data){
-                                if(nav_list.currentIndex === i){
-                                    return
-                                }
-                                items.children[i].tap()
-                                nav_list.currentIndex = i
-                                return
-                            }
-                        }
-                    }
+                return 0
+            }
+            Loader{
+                id:loader_auto_suggest_box
+                anchors.horizontalCenter: parent.horizontalCenter
+                sourceComponent: autoSuggestBox
             }
         }
+
         ListView{
             id:nav_list
             property bool enableStack: true
@@ -349,6 +321,7 @@ Item {
                 right: parent.right
                 bottom: layout_footer.top
             }
+            highlightMoveDuration: 150
             currentIndex: -1
             onCurrentIndexChanged: {
                 if(enableStack){
@@ -418,17 +391,8 @@ Item {
         nav_list.currentIndex = index
     }
 
-    function startPageByTitle(title){
-        for(var i=0;i<items.children.length;i++){
-            if(items.children[i].title === title){
-                if(nav_list.currentIndex === i){
-                    return
-                }
-                items.children[i].tap()
-                nav_list.currentIndex = i
-                return
-            }
-        }
+    function getCurrentIndex(){
+        return nav_list.currentIndex
     }
 
 }

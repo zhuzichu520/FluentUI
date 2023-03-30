@@ -33,7 +33,6 @@ FluWindow {
             verticalCenter: parent.verticalCenter
         }
 
-
         FluAutoSuggestBox{
             id:textbox_uesrname
             values:["Admin","User"]

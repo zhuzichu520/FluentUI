@@ -26,7 +26,7 @@ FluScrollablePage{
     }
     FluAutoSuggestBox{
         Layout.topMargin: 20
-        values:generateRandomNames(100)
+        items:generateRandomNames(100)
         placeholderText: "AutoSuggestBox"
         Layout.preferredWidth: 300
         disabled:toggle_switch.selected
@@ -52,7 +52,7 @@ FluScrollablePage{
         }
         for (let i = 0; i < numNames; i++) {
             const name = generateRandomName();
-            names.push(name);
+            names.push({title:name});
         }
         return names;
     }

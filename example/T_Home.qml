@@ -2,6 +2,7 @@
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
+import "qrc:///global/"
 import FluentUI 1.0
 
 FluScrollablePage{
@@ -143,39 +144,15 @@ FluScrollablePage{
 
     ListModel{
         id:model_added
-        ListElement{
-            title:"TabView"
-            icon:"qrc:/res/image/control/TabView.png"
-            desc:"A control that displays a collection of tabs thatcan be used to display several documents."
-        }
-        ListElement{
-            title:"MediaPlayer"
-            icon:"qrc:/res/image/control/MediaPlayerElement.png"
-            desc:"A control to display video and image content"
+        Component.onCompleted: {
+            append(ItemsOriginal.getRecentlyAddedData())
         }
     }
 
     ListModel{
         id:model_update
-        ListElement{
-            title:"Buttons"
-            icon:"qrc:/res/image/control/Button.png"
-            desc:"A control that responds to user input and raisesa Click event."
-        }
-        ListElement{
-            title:"InfoBar"
-            icon:"qrc:/res/image/control/InfoBar.png"
-            desc:"An inline message to display app-wide statuschange information."
-        }
-        ListElement{
-            title:"Slider"
-            icon:"qrc:/res/image/control/Slider.png"
-            desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."
-        }
-        ListElement{
-            title:"CheckBox"
-            icon:"qrc:/res/image/control/Checkbox.png"
-            desc:"A control that a user can select or clear."
+        Component.onCompleted: {
+            append(ItemsOriginal.getRecentlyUpdatedData())
         }
     }
 
@@ -210,7 +187,7 @@ FluScrollablePage{
                     id:item_icon
                     height: 40
                     width: 40
-                    source: model.icon
+                    source: model.image
                     anchors{
                         left: parent.left
                         leftMargin: 20
@@ -251,7 +228,7 @@ FluScrollablePage{
                     anchors.fill: parent
                     hoverEnabled: true
                     onClicked: {
-                        rootwindow.startPageByTitle(model.title)
+                        ItemsOriginal.startPageByItem(model)
                     }
                 }
             }

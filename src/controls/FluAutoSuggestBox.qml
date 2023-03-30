@@ -4,12 +4,12 @@ import FluentUI 1.0
 
 TextField{
 
-    property var values:[]
+    property var items:[]
     property int fontStyle: FluText.Body
     property int pixelSize : FluTheme.textSize
     property int iconSource: 0
     property bool disabled: false
-    signal itemClicked(string data)
+    signal itemClicked(var data)
     signal handleClicked
     id:input
     width: 300
@@ -211,7 +211,7 @@ TextField{
                             function handleClick(){
                                 input_popup.close()
                                 input.itemClicked(modelData)
-                                input.text = modelData
+                                input.text = modelData.title
                             }
                         }
                         Rectangle{
@@ -227,37 +227,12 @@ TextField{
                         }
                     }
                     contentItem: FluText{
-                        text:modelData
+                        text:modelData.title
                         anchors{
                             verticalCenter: parent.verticalCenter
                         }
                     }
-
                 }
-                //                Item{
-                //                    height: 38
-                //                    width: input.width
-                //                    Rectangle{
-                //                        anchors.fill: parent
-                //                        anchors.topMargin: 2
-                //                        anchors.bottomMargin: 2
-                //                        anchors.leftMargin: 5
-                //                        anchors.rightMargin: 5
-
-                //                        radius: 3
-                //                        MouseArea{
-                //                            id:item_mouse
-                //                            anchors.fill: parent
-                //                            hoverEnabled: true
-                //                            onClicked: {
-                //                                input_popup.close()
-                //                                input.itemClicked(modelData)
-                //                                input.text = modelData
-                //                            }
-                //                        }
-
-                //                    }
-                //                }
             }
         }
     }
@@ -268,12 +243,12 @@ TextField{
 
     function searchData(){
         var result = []
-        if(values==null){
+        if(items==null){
             list_view.model = result
             return
         }
-        values.map(function(item){
-            if(item.indexOf(input.text)!==-1){
+        items.map(function(item){
+            if(item.title.indexOf(input.text)!==-1){
                 result.push(item)
             }
         })

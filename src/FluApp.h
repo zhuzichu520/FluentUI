@@ -37,6 +37,8 @@ public:
 
     Q_INVOKABLE void clipText(const QString& text);
 
+    Q_INVOKABLE QString uuid();
+
 private:
     QMap<QString, QVariant> properties;
     static FluApp* m_instance;

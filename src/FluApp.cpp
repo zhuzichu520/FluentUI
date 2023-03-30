@@ -5,6 +5,7 @@
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QTimer>
+#include <QUuid>
 #include <QClipboard>
 #include "Def.h"
 
@@ -98,4 +99,8 @@ QJsonArray FluApp::awesomelist(const QString& keyword)
 
 void FluApp::clipText(const QString& text){
     QGuiApplication::clipboard()->setText(text);
+}
+
+QString FluApp::uuid(){
+    return QUuid::createUuid().toString();
 }
