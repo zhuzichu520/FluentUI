@@ -41,7 +41,6 @@ jobs:
           # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
           cached: 'false'
-          modules: 'all'
           aqtversion: '==2.0.5'          
       # 拉取代码
       - uses: actions/checkout@v2
