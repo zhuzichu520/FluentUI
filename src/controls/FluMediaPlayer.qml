@@ -1,7 +1,7 @@
-﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtMultimedia 5.15
-import FluentUI 1.0
+﻿import QtQuick
+import QtQuick.Controls
+import QtMultimedia
+import FluentUI
 
 Rectangle {
 
@@ -26,22 +26,26 @@ Rectangle {
     MediaPlayer {
         id: mediaplayer
         property bool autoSeek:true
-        autoPlay: true
         source: control.source
-        onError: {
-            console.debug(error)
-        }
+        videoOutput: video_output
+        audioOutput: AudioOutput{}
+        onErrorChanged:(error)=> {
+                           console.debug(error)
+                       }
         onPositionChanged: {
             if(autoSeek){
                 slider.seek(mediaplayer.position*slider.maxValue/mediaplayer.duration)
             }
         }
-        onStatusChanged: {
-            if(status===6){
-                slider.maxValue = mediaplayer.duration
-                showControl = true
+        onMediaStatusChanged:
+            (status)=> {
+                if(status===2){
+                    mediaplayer.play()
+                }else if(status===5){
+                    slider.maxValue = mediaplayer.duration
+                    showControl = true
+                }
             }
-        }
     }
 
     onSourceChanged: {
@@ -49,8 +53,8 @@ Rectangle {
     }
 
     VideoOutput {
+        id:video_output
         anchors.fill: parent
-        source: mediaplayer
     }
 
     Item{
@@ -143,9 +147,9 @@ Rectangle {
             }
             FluIconButton{
                 iconSize: 15
-                iconSource: mediaplayer.playbackState === Audio.PlayingState ?   FluentIcons.Pause  : FluentIcons.Play
+                iconSource: mediaplayer.playbackState === MediaPlayer.PlayingState ?   FluentIcons.Pause  : FluentIcons.Play
                 onClicked: {
-                    if(mediaplayer.playbackState === Audio.PlayingState){
+                    if(mediaplayer.playbackState === MediaPlayer.PlayingState){
                         mediaplayer.pause()
                     }else{
                         mediaplayer.play()

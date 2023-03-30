@@ -21,12 +21,7 @@ jobs:
       # 矩阵配置
       matrix:
         include:
-          # 5.15.2 参考 https://mirrors.cloud.tencent.com/qt/online/qtsdkrepository/windows_x86/desktop/qt5_5152/
-          - qt_ver: 5.15.2
-            qt_arch: win32_msvc2019
-            msvc_arch: x86
-            qt_arch_install: msvc2019
-          - qt_ver: 5.15.2          
+          - qt_ver: 6.4.3          
             qt_arch: win64_msvc2019_64
             msvc_arch: x64
             qt_arch_install: msvc2019_64          
@@ -38,7 +33,7 @@ jobs:
       # 安装Qt
       - name: Install Qt
         # 使用外部action。这个action专门用来安装Qt
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
@@ -46,6 +41,7 @@ jobs:
           # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
           cached: 'false'
+          modules: 'all'
           aqtversion: '==2.0.5'          
       # 拉取代码
       - uses: actions/checkout@v2

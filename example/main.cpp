@@ -3,12 +3,13 @@
 #include <QQmlContext>
 #include <QDir>
 #include <QQuickWindow>
+#include <QQuickStyle>
 #include <QProcess>
 #include "ChatController.h"
 
 QMap<QString, QVariant> properties(){
     QMap<QString, QVariant> map;
-//    map["installHelper"] = QVariant::fromValue(QVariant::fromValue(InstallHelper::getInstance()));
+    //    map["installHelper"] = QVariant::fromValue(QVariant::fromValue(InstallHelper::getInstance()));
     return map;
 }
 
@@ -17,8 +18,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("ZhuZiChu");
     QCoreApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QCoreApplication::setApplicationName("FluentUI");
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+    //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+    QQuickStyle::setStyle("Basic");
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 

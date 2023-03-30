@@ -1,8 +1,8 @@
-﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Window 2.15
-import FluentUI 1.0
+﻿import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Window
+import FluentUI
 
 Rectangle {
 
@@ -59,7 +59,7 @@ Rectangle {
     }
 
 
-    Popup{
+    Menu{
         id:popup
         height: container.height
         width: container.width
@@ -79,18 +79,21 @@ Rectangle {
                 duration: 150
             }
         }
-        background: FluCalendarView{
-            id:container
-            onDateClicked:
-                (date)=>{
-                    popup.close()
-                    var year = date.getFullYear()
-                    var month = date.getMonth()
-                    var day =  date.getDate()
-                    text_date.text = year+"-"+(month+1)+"-"+day
-                }
+        contentItem: Item{
+            anchors.fill: parent
+            FluCalendarView{
+                id:container
+                onDateClicked:
+                    (date)=>{
+                        popup.close()
+                        var year = date.getFullYear()
+                        var month = date.getMonth()
+                        var day =  date.getDate()
+                        text_date.text = year+"-"+(month+1)+"-"+day
+                    }
+            }
         }
-        contentItem: Item{}
+        background: Item{}
         function showPopup() {
             var pos = root.mapToItem(null, 0, 0)
             if(window.height>pos.y+root.height+popup.height){

@@ -1,8 +1,8 @@
-﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Window 2.15
-import FluentUI 1.0
+﻿import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Window
+import FluentUI
 
 Rectangle {
 
@@ -97,12 +97,11 @@ Rectangle {
         text:"日"
     }
 
-    Popup{
+    Menu{
         id:popup
-        width: container.width
-        height: container.height
-        contentItem: Item{}
         modal: true
+        width: 300
+        height: 340
         dim:false
         enter: Transition {
             NumberAnimation {
@@ -118,12 +117,12 @@ Rectangle {
                 duration: 150
             }
         }
-        background: Rectangle{
+        background:Item{}
+        contentItem: Rectangle{
             id:container
-            width: 300
             radius: 4
+            anchors.fill: parent
             color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
-            height: 340
             MouseArea{
                 anchors.fill: parent
             }
@@ -337,9 +336,7 @@ Rectangle {
                         popup.close()
                     }
                 }
-
             }
-
         }
         y:35
         function showPopup() {

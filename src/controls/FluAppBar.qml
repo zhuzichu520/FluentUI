@@ -1,8 +1,8 @@
-﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Window 2.15
-import QtQuick.Layouts 1.15
-import FluentUI 1.0
+﻿import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import QtQuick.Layouts
+import FluentUI
 
 Rectangle{
 
@@ -23,11 +23,7 @@ Rectangle{
     color: Qt.rgba(0,0,0,0)
     visible: FluTheme.frameless
     height: visible ? 30 : 0
-    width: {
-        if(parent==null)
-            return 200
-        return parent.width
-    }
+    clip: true
     z: 65535
 
     TapHandler {
