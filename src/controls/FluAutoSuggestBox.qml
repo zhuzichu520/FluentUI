@@ -193,7 +193,7 @@ TextField{
                                 target: input
                                 function onHandleClicked(){
                                     if((list_view.currentIndex === index)){
-                                        mouse_area.handleClick()
+                                        handleClick(modelData)
                                     }
                                 }
                             }
