@@ -30,7 +30,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           cached: 'false'
           arch: ${{ matrix.qt_arch }}
-          modules: 'qt5compat qtmultimedia qtshadertools'
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
       - name: ubuntu install GL library
         run: sudo apt-get install -y libglew-dev libglfw3-dev qml-module-qtquick-controls qml-module-qtquick-controls2
       - uses: actions/checkout@v2

@@ -38,7 +38,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           arch: ${{ matrix.qt_arch }}
           cached: 'false'
-          modules: 'qt5compat qtmultimedia qtshadertools'
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
       # 拉取代码
       - uses: actions/checkout@v2
         with:

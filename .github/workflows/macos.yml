@@ -35,7 +35,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           cached: 'false'
           arch: ${{ matrix.qt_arch }}
-          modules: 'qt5compat qtmultimedia qtshadertools'
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
