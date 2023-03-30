@@ -225,8 +225,12 @@ TextField{
     function handleClick(modelData){
         input_popup.visible = false
         input.itemClicked(modelData)
+        updateText(modelData.title)
+    }
+
+    function updateText(text){
         d.flagVisible = false
-        input.text = modelData.title
+        input.text = text
         d.flagVisible = true
     }
 
@@ -239,8 +243,9 @@ TextField{
 
     TapHandler {
         acceptedButtons: Qt.RightButton
-        onTapped: menu.popup()
+        onTapped: input.echoMode !== TextInput.Password && menu.popup()
     }
+
     FluMenu{
         id:menu
         focus: false

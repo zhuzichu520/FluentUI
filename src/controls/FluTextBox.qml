@@ -74,7 +74,7 @@ TextField{
     }
     TapHandler {
         acceptedButtons: Qt.RightButton
-        onTapped: menu.popup()
+        onTapped: input.echoMode !== TextInput.Password && menu.popup()
     }
     FluMenu{
         id:menu

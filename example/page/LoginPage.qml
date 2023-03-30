@@ -17,7 +17,7 @@ FluWindow {
 
     onInitArgument:
         (argument)=>{
-            textbox_uesrname.text = argument.username
+            textbox_uesrname.updateText(argument.username)
             textbox_password.focus =  true
         }
 
@@ -35,7 +35,7 @@ FluWindow {
 
         FluAutoSuggestBox{
             id:textbox_uesrname
-            values:["Admin","User"]
+            items:[{title:"Admin"},{title:"User"}]
             placeholderText: "请输入账号"
             Layout.preferredWidth: 260
             Layout.alignment: Qt.AlignHCenter
