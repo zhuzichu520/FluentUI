@@ -11,6 +11,10 @@ TextField{
     property bool disabled: false
     signal itemClicked(var data)
     signal handleClicked
+    QtObject{
+        id:d
+        property bool flagVisible: true
+    }
     id:input
     width: 300
     enabled: !disabled
@@ -20,13 +24,7 @@ TextField{
         }
         return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
     }
-    selectionColor: {
-        if(FluTheme.dark){
-            return FluTheme.primaryColor.lighter
-        }else{
-            return FluTheme.primaryColor.dark
-        }
-    }
+    selectionColor: FluTheme.primaryColor.lightest
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     placeholderTextColor: {
         if(disabled){
@@ -39,11 +37,9 @@ TextField{
     }
     rightPadding: icon_right.visible ? 50 : 30
     selectByMouse: true
-
     Keys.onUpPressed: {
         list_view.currentIndex = Math.max(list_view.currentIndex-1,0)
     }
-
     Keys.onDownPressed: {
         list_view.currentIndex = Math.min(list_view.currentIndex+1,list_view.count-1)
     }
@@ -129,10 +125,8 @@ TextField{
 
     Popup{
         id:input_popup
-        visible: input.focus
         y:input.height
-        modal: true
-        dim:false
+        focus: false
         enter: Transition {
             NumberAnimation {
                 property: "y"
@@ -146,9 +140,6 @@ TextField{
                 to:1
                 duration: 150
             }
-        }
-        onClosed: {
-            input.focus = false
         }
         onVisibleChanged: {
             if(visible){
@@ -165,7 +156,6 @@ TextField{
             height: 38*Math.min(Math.max(list_view.count,1),8)
             ListView{
                 id:list_view
-                signal closePopup
                 anchors.fill: parent
                 clip: true
                 currentIndex: -1
@@ -207,12 +197,7 @@ TextField{
                                     }
                                 }
                             }
-                            onClicked: handleClick()
-                            function handleClick(){
-                                input_popup.close()
-                                input.itemClicked(modelData)
-                                input.text = modelData.title
-                            }
+                            onClicked: handleClick(modelData)
                         }
                         Rectangle{
                             width: 3
@@ -237,8 +222,56 @@ TextField{
         }
     }
 
+    function handleClick(modelData){
+        input_popup.visible = false
+        input.itemClicked(modelData)
+        d.flagVisible = false
+        input.text = modelData.title
+        d.flagVisible = true
+    }
+
     onTextChanged: {
         searchData()
+        if(d.flagVisible){
+            input_popup.visible = true
+        }
+    }
+
+    TapHandler {
+        acceptedButtons: Qt.RightButton
+        onTapped: menu.popup()
+    }
+    FluMenu{
+        id:menu
+        focus: false
+        FluMenuItem{
+            text: "剪切"
+            visible: input.text !== ""
+            onClicked: {
+                input.cut()
+            }
+        }
+        FluMenuItem{
+            text: "复制"
+            visible: input.selectedText !== ""
+            onClicked: {
+                input.copy()
+            }
+        }
+        FluMenuItem{
+            text: "粘贴"
+            visible: input.canPaste
+            onClicked: {
+                input.paste()
+            }
+        }
+        FluMenuItem{
+            text: "全选"
+            visible: input.text !== ""
+            onClicked: {
+                input.selectAll()
+            }
+        }
     }
 
     function searchData(){

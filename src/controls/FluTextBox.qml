@@ -18,13 +18,7 @@ TextField{
         return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
     }
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    selectionColor: {
-        if(FluTheme.dark){
-            return FluTheme.primaryColor.lighter
-        }else{
-            return FluTheme.primaryColor.dark
-        }
-    }
+    selectionColor: FluTheme.primaryColor.lightest
     placeholderTextColor: {
         if(disabled){
             return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
@@ -77,6 +71,42 @@ TextField{
     selectByMouse: true
     background: FluTextBoxBackground{
         inputItem: input
+    }
+    TapHandler {
+        acceptedButtons: Qt.RightButton
+        onTapped: menu.popup()
+    }
+    FluMenu{
+        id:menu
+        focus: false
+        FluMenuItem{
+            text: "剪切"
+            visible: input.text !== ""
+            onClicked: {
+                input.cut()
+            }
+        }
+        FluMenuItem{
+            text: "复制"
+            visible: input.selectedText !== ""
+            onClicked: {
+                input.copy()
+            }
+        }
+        FluMenuItem{
+            text: "粘贴"
+            visible: input.canPaste
+            onClicked: {
+                input.paste()
+            }
+        }
+        FluMenuItem{
+            text: "全选"
+            visible: input.text !== ""
+            onClicked: {
+                input.selectAll()
+            }
+        }
     }
 
 }

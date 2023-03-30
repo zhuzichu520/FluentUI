@@ -20,13 +20,7 @@ TextArea{
     wrapMode: Text.WrapAnywhere
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectByMouse: true
-    selectionColor: {
-        if(FluTheme.dark){
-            return FluTheme.primaryColor.lighter
-        }else{
-            return FluTheme.primaryColor.dark
-        }
-    }
+    selectionColor: FluTheme.primaryColor.lightest
     background: FluTextBoxBackground{
         inputItem: input
     }
@@ -79,6 +73,40 @@ TextArea{
             return text.pixelSize * 1.0
         }
     }
-
-
+    TapHandler {
+        acceptedButtons: Qt.RightButton
+        onTapped: menu.popup()
+    }
+    FluMenu{
+        id:menu
+        focus: false
+        FluMenuItem{
+            text: "剪切"
+            visible: input.text !== ""
+            onClicked: {
+                input.cut()
+            }
+        }
+        FluMenuItem{
+            text: "复制"
+            visible: input.selectedText !== ""
+            onClicked: {
+                input.copy()
+            }
+        }
+        FluMenuItem{
+            text: "粘贴"
+            visible: input.canPaste
+            onClicked: {
+                input.paste()
+            }
+        }
+        FluMenuItem{
+            text: "全选"
+            visible: input.text !== ""
+            onClicked: {
+                input.selectAll()
+            }
+        }
+    }
 }
