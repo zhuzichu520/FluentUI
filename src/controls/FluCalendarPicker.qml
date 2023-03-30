@@ -50,7 +50,7 @@ Rectangle {
     FluIcon{
         iconSource: FluentIcons.Calendar
         iconSize: 14
-        color: text_date.color
+        iconColor: text_date.color
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right

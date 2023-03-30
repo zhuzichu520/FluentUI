@@ -178,7 +178,7 @@ FluObject {
                         return FluentIcons.FA_info_circle
                     }
                     iconSize:20
-                    color: {
+                    iconColor: {
                         if(FluTheme.dark){
                             switch(_super.type){
                             case mcontrol.const_success: return Qt.rgba(108/255,203/255,95/255,1);

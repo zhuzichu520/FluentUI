@@ -17,7 +17,7 @@ FluScrollablePage{
         Layout.leftMargin: 10
     }
     FluSlider{
-        orientation:FluSlider.Vertical
+        vertical:true
         Layout.topMargin: 20
         Layout.leftMargin: 10
         Layout.bottomMargin: 20

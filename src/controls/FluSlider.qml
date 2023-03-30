@@ -4,17 +4,12 @@ import QtGraphicalEffects 1.15
 
 Item{
 
-    enum Orientation  {
-        Horizontal,
-        Vertical
-    }
     property int size: 180
     property int dotSize: 24
     property int value: 50
     property int maxValue: 100
-    property int orientation: FluSlider.Horizontal
-    property bool isHorizontal: orientation === FluSlider.Horizontal
-    property bool enableTip : true
+    property bool vertical: false
+    property bool tipEnabled : true
     property var onLineClickFunc
     signal pressed
     signal released
@@ -22,7 +17,7 @@ Item{
     id:root
     height: control.height
     width: control.width
-    rotation: isHorizontal ? 0 : 180
+    rotation: vertical ? 180 : 0
 
     Component.onCompleted: {
         seek(value)
@@ -31,16 +26,16 @@ Item{
     MouseArea{
         id:mouse_line
         anchors.centerIn: control
-        width: isHorizontal ? control.width : 10
-        height: isHorizontal ? 10 : control.height
+        width: vertical ? 10 : control.width
+        height: vertical ? control.height : 10
         hoverEnabled: true
         onClicked:
             (mouse) => {
                 var val;
-                if(isHorizontal){
-                    val = mouse.x*maxValue/control.width
-                }else{
+                if(vertical){
                     val = mouse.y*maxValue/control.height
+                }else{
+                    val = mouse.x*maxValue/control.width
                 }
                 if(onLineClickFunc){
                     onLineClickFunc(val)
@@ -52,20 +47,18 @@ Item{
 
     Rectangle {
         id: control
-        width: isHorizontal ? size : 4
-        height:  isHorizontal ? 4 : size
+        width: vertical ? 4 :size
+        height:  vertical ? size : 4
         radius: 2
         anchors.verticalCenter: parent.verticalCenter
         color:FluTheme.dark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
         Rectangle{
             id:rect
             radius: 2.5
-            width: isHorizontal ? control.width*(value/maxValue) : 5
-            height: isHorizontal ?  5  : control.height*(value/maxValue)
+            width: vertical ? 5 : control.width*(value/maxValue)
+            height: vertical ? control.height*(value/maxValue) :  5
             color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
-
-
     }
 
     Rectangle{
@@ -76,8 +69,8 @@ Item{
             radius: dotSize/2
         }
         radius: dotSize/2
-        anchors.verticalCenter: isHorizontal ?  parent.verticalCenter : undefined
-        anchors.horizontalCenter: isHorizontal ? undefined :parent.horizontalCenter
+        anchors.verticalCenter: vertical ? undefined : parent.verticalCenter
+        anchors.horizontalCenter: vertical ? parent.horizontalCenter : undefined
         color:FluTheme.dark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
         Rectangle{
             width: dotSize/2
@@ -85,7 +78,12 @@ Item{
             radius: dotSize/4
             color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
-            scale: control_mouse.containsMouse || mouse_line.containsMouse  ? 1.3 : 1
+            scale: {
+                if(control_mouse.pressed){
+                    return 0.9
+                }
+                return control_mouse.containsMouse || mouse_line.containsMouse  ? 1.3 : 1
+            }
             Behavior on scale {
                 NumberAnimation{
                     duration: 150
@@ -98,14 +96,14 @@ Item{
             hoverEnabled: true
             drag {
                 target: dot
-                axis: isHorizontal ? Drag.XAxis : Drag.YAxis
-                minimumX: isHorizontal ? -dotSize/2 : 0
-                maximumX: isHorizontal ?  (control.width - dotSize/2) : 0
-                minimumY: isHorizontal ? 0 : -dotSize/2
-                maximumY: isHorizontal ? 0 : (control.height - dotSize/2)
+                axis: vertical ? Drag.YAxis : Drag.XAxis
+                minimumX: vertical ? 0 : -dotSize/2
+                maximumX: vertical ? 0 : (control.width - dotSize/2)
+                minimumY: vertical ? -dotSize/2 : 0
+                maximumY: vertical ? (control.height - dotSize/2) : 0
             }
             onPressed: {
-                if(enableTip){
+                if(tipEnabled){
                     tool_tip.visible  =  true
                 }
                 root.pressed()
@@ -120,23 +118,22 @@ Item{
         FluTooltip{
             id:tool_tip
             text:String(root.value)
-            y: isHorizontal ? -40 : 32
+            y: vertical ? 32 : -40
         }
     }
 
     function seek(val){
-        if(isHorizontal){
-            dot.x =val/maxValue*control.width - dotSize/2
-            root.value = Qt.binding(function(){
-                return (dot.x+dotSize/2)/control.width*maxValue
-            })
-        }else{
+        if(vertical){
             dot.y =val/maxValue*control.height - dotSize/2
             root.value = Qt.binding(function(){
                 return (dot.y+dotSize/2)/control.height*maxValue
             })
+        }else{
+            dot.x =val/maxValue*control.width - dotSize/2
+            root.value = Qt.binding(function(){
+                return (dot.x+dotSize/2)/control.width*maxValue
+            })
         }
     }
-
 }
 

@@ -83,7 +83,7 @@ Rectangle {
             size:parent.width-20
             y:20
             anchors.horizontalCenter: parent.horizontalCenter
-            enableTip:false
+            tipEnabled:false
             onPressed: {
                 mediaplayer.autoSeek = false
                 mediaplayer.pause()

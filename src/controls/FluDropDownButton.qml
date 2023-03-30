@@ -44,7 +44,7 @@ Button {
                 rightMargin: 10
                 verticalCenter: parent.verticalCenter
             }
-            color:title.color
+            iconColor:title.color
         }
 
     }

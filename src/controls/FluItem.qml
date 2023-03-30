@@ -14,6 +14,18 @@ Item{
         opacity: 0
     }
 
+    onWidthChanged: {
+        canvas.requestPaint()
+    }
+
+    onHeightChanged: {
+        canvas.requestPaint()
+    }
+
+    onRadiusChanged: {
+        canvas.requestPaint()
+    }
+
     Canvas {
         id: canvas
         anchors.fill: parent

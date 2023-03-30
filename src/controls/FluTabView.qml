@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 Item {
@@ -13,6 +14,11 @@ Item {
 
     implicitHeight: height
     implicitWidth: width
+
+    MouseArea{
+        anchors.fill: parent
+        preventStealing: true
+    }
 
     enum TabWidthBehavior {
         Equal,
@@ -29,23 +35,42 @@ Item {
     property int tabWidthBehavior : FluTabView.Equal
     property int closeButtonVisibility : FluTabView.Always
     property int itemWidth: 146
+    signal newPressed
 
     QtObject {
         id: d
         property int dragIndex: -1
         property bool dragBehavior: false
         property bool itemPress: false
+        property int maxEqualWidth: 240
     }
 
     ListModel{
         id:tab_model
     }
 
+    FluIconButton{
+        id:btn_new
+        width: 34
+        height: 34
+        x:Math.min(tab_nav.contentWidth,tab_nav.width)
+        anchors.top: parent.top
+        iconSource: FluentIcons.Add
+        onClicked: {
+            newPressed()
+        }
+    }
+
     ListView{
         id:tab_nav
         height: 34
         orientation: ListView.Horizontal
-        width: parent.width
+        anchors{
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            rightMargin: 34
+        }
         interactive: false
         model: tab_model
         move: Transition {
@@ -56,20 +81,20 @@ Item {
             NumberAnimation { properties: "x"; duration: 300; easing.type: Easing.OutCubic}
             NumberAnimation { properties: "y"; duration: 100;  easing.type: Easing.OutCubic }
         }
-        clip: false
+        clip: true
         ScrollBar.horizontal: ScrollBar{
             id: scroll_nav
             policy: ScrollBar.AlwaysOff
         }
         delegate:  Item{
 
-            width: itemWidth
+            width: item_layout.width
             height: item_container.height
             z: item_mouse_drag.pressed ? 1000 : 1
 
             Item{
                 id:item_layout
-                width: itemWidth
+                width: item_container.width
                 height: item_container.height
 
                 FluItem{
@@ -78,8 +103,19 @@ Item {
                     property real timestamp: new Date().getTime()
 
                     height: tab_nav.height
-                    width: itemWidth
-                    radius: [5,5,0,0]
+                    width: {
+                        if(tabWidthBehavior === FluTabView.Equal){
+                            return Math.max(Math.min(d.maxEqualWidth,tab_nav.width/tab_nav.count),41 + item_btn_close.width)
+                        }
+                        if(tabWidthBehavior === FluTabView.SizeToContent){
+                            return itemWidth
+                        }
+                        if(tabWidthBehavior === FluTabView.Compact){
+                            return item_mouse_hove.containsMouse || item_btn_close.hovered || tab_nav.currentIndex === index  ? itemWidth : 41 + item_btn_close.width
+                        }
+                        return Math.max(Math.min(d.maxEqualWidth,tab_nav.width/tab_nav.count),41 + item_btn_close.width)
+                    }
+                    radius: [6,6,0,0]
                     Behavior on x { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
                     Behavior on y { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
 
@@ -198,19 +234,51 @@ Item {
                         }
                     }
 
-                    FluText{
-                        id:item_text
-                        anchors.centerIn: parent
-                        text: model.text
-                        rightPadding: 24
+                    RowLayout{
+                        spacing: 0
+                        height: parent.height
+                        Image{
+                            source:model.icon
+                            Layout.leftMargin: 10
+                            Layout.preferredWidth: 14
+                            Layout.preferredHeight: 14
+                            Layout.alignment: Qt.AlignVCenter
+                        }
+                        FluText{
+                            id:item_text
+                            text: model.text
+                            Layout.leftMargin: 10
+                            visible: {
+                                if(tabWidthBehavior === FluTabView.Equal){
+                                    return true
+                                }
+                                if(tabWidthBehavior === FluTabView.SizeToContent){
+                                    return true
+                                }
+                                if(tabWidthBehavior === FluTabView.Compact){
+                                    return item_mouse_hove.containsMouse || item_btn_close.hovered || tab_nav.currentIndex === index
+                                }
+                                return false
+                            }
+                            Layout.preferredWidth: visible?item_container.width - 41 - item_btn_close.width:0
+                            elide: Text.ElideRight
+                            Layout.alignment: Qt.AlignVCenter
+                        }
                     }
 
                     FluIconButton{
                         id:item_btn_close
                         iconSource: FluentIcons.ChromeClose
                         iconSize: 10
-                        width: 24
+                        width: visible ? 24 : 0
                         height: 24
+                        visible: {
+                            if(closeButtonVisibility === FluTabView.Nerver)
+                                return false
+                            if(closeButtonVisibility === FluTabView.OnHover)
+                                return item_mouse_hove.containsMouse || item_btn_close.hovered
+                            return true
+                        }
                         anchors{
                             right: parent.right
                             rightMargin: 5
@@ -218,6 +286,15 @@ Item {
                         }
                         onClicked: {
                             tab_model.remove(index)
+                        }
+                    }
+
+                    FluDivider{
+                        width: 1
+                        height: 16
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            right: parent.right
                         }
                     }
                 }
@@ -258,6 +335,10 @@ Item {
     function setTabList(list){
         tab_model.clear()
         tab_model.append(list)
+    }
+
+    function count(){
+        return tab_nav.count
     }
 
 }

@@ -31,7 +31,6 @@ Button {
             height: control.height
             radius: height / 2
             smooth: true
-            antialiasing: true
             FluFocusRectangle{
                 visible: control.visualFocus
                 radius: 20
@@ -58,8 +57,13 @@ Button {
             border.width: 1
             border.color: selected ? Qt.lighter(FluTheme.primaryColor.dark,1.2) : "#666666"
             Rectangle {
-                x:  selected ? control_backgound.width  - width - 4 : 4
-                width: pressed ?  control.height - 6 : control.height - 8
+                width: pressed ?  control.height - 4 : control.height - 8
+                anchors{
+                    left: selected ? undefined : parent.left
+                    leftMargin: selected ? control_backgound.width  - width - 4 : 4
+                    right: selected ? parent.right : undefined
+                    rightMargin: selected ? 4 : control_backgound.width  - width - 4
+                }
                 height: control.height - 8
                 radius: width / 2
                 antialiasing: true
@@ -67,7 +71,10 @@ Button {
                 smooth: true
                 anchors.verticalCenter: parent.verticalCenter
                 color: selected ? "#FFFFFF" : "#666666"
-                Behavior on x {
+                Behavior on anchors.leftMargin  {
+                    NumberAnimation { duration: 150 }
+                }
+                Behavior on anchors.rightMargin  {
                     NumberAnimation { duration: 150 }
                 }
                 Behavior on width {

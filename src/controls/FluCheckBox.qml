@@ -83,7 +83,7 @@ Button {
                 iconSource: FluentIcons.AcceptMedium
                 iconSize: 15
                 visible: selected
-                color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                 Behavior on visible {
                     NumberAnimation{
                         duration: 150
