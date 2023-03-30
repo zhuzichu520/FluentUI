@@ -35,15 +35,10 @@ jobs:
         # 使用外部action。这个action专门用来安装Qt
         uses: jurplel/install-qt-action@v3
         with:
-          # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          # Target platform for build
-          # target: ${{ matrix.qt_target }}
           arch: ${{ matrix.qt_arch }}
           cached: 'false'
-          install-deps: 'true'
-          modules: 'qtmultimedia'
-          archives: 'qtbase qtsvg'     
+          modules: 'qt5compat qtmultimedia'
       # 拉取代码
       - uses: actions/checkout@v2
         with:
