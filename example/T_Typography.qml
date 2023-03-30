@@ -70,7 +70,7 @@ FluContentPage {
 
     FluSlider{
         id:slider
-        orientation:FluSlider.Vertical
+        vertical:true
         anchors{
             right: parent.right
             rightMargin: 45
