@@ -85,25 +85,27 @@ TextField{
             return text.pixelSize * 1.0
         }
     }
+
+    FluIconButton{
+        iconSource:FluentIcons.ChromeClose
+        iconSize: 10
+        width: 20
+        height: 20
+        opacity: 0.5
+        visible: input.text !== ""
+        anchors{
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: icon_right.visible ? 25 : 5
+        }
+        onClicked:{
+            input.text = ""
+        }
+    }
+
     background: FluTextBoxBackground{
         inputItem: input
 
-        FluIconButton{
-            iconSource:FluentIcons.ChromeClose
-            iconSize: 10
-            width: 20
-            height: 20
-            opacity: 0.5
-            visible: input.text !== ""
-            anchors{
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-                rightMargin: icon_right.visible ? 25 : 5
-            }
-            onClicked:{
-                input.text = ""
-            }
-        }
 
         FluIcon{
             id:icon_right

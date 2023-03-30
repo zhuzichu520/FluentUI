@@ -223,6 +223,19 @@ FluScrollablePage{
                     }
                 }
 
+                Rectangle{
+                    height: 12
+                    width: 12
+                    radius:  6
+                    color: FluTheme.primaryColor.dark
+                    anchors{
+                        right: parent.right
+                        top: parent.top
+                        rightMargin: 14
+                        topMargin: 14
+                    }
+                }
+
                 MouseArea{
                     id:item_mouse
                     anchors.fill: parent

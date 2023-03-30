@@ -28,10 +28,11 @@ Rectangle {
         property bool autoSeek:true
         source: control.source
         videoOutput: video_output
-        audioOutput: AudioOutput{}
-        onErrorChanged:(error)=> {
-                           console.debug(error)
-                       }
+        audioOutput:audio_output
+        onErrorChanged:
+            (error)=> {
+                console.debug(error)
+            }
         onPositionChanged: {
             if(autoSeek){
                 slider.seek(mediaplayer.position*slider.maxValue/mediaplayer.duration)
@@ -50,6 +51,10 @@ Rectangle {
 
     onSourceChanged: {
         slider.seek(0)
+    }
+
+    AudioOutput{
+        id:audio_output
     }
 
     VideoOutput {
@@ -92,7 +97,7 @@ Rectangle {
                 mediaplayer.autoSeek = false
                 mediaplayer.pause()
             }
-            value:0
+            value:mediaplayer.position
             onReleased: {
                 mediaplayer.autoSeek = true
                 mediaplayer.play()
@@ -100,12 +105,12 @@ Rectangle {
 
             onValueChanged: {
                 if(mediaplayer.autoSeek == false){
-                    mediaplayer.seek(value*mediaplayer.duration/slider.maxValue)
+                    mediaplayer.position = value*mediaplayer.duration/slider.maxValue
                 }
             }
 
             onLineClickFunc:function(val){
-                mediaplayer.seek(val*mediaplayer.duration/slider.maxValue)
+                mediaplayer.position = val*mediaplayer.duration/slider.maxValue
             }
         }
 
@@ -142,7 +147,7 @@ Rectangle {
                 iconSize: 17
                 iconSource:  FluentIcons.SkipBack10
                 onClicked: {
-                    mediaplayer.seek(Math.max(mediaplayer.position-10*1000,0))
+                    mediaplayer.position = Math.max(mediaplayer.position-10*1000,0)
                 }
             }
             FluIconButton{
@@ -160,7 +165,7 @@ Rectangle {
                 iconSize: 17
                 iconSource:  FluentIcons.SkipForward30
                 onClicked: {
-                    mediaplayer.seek(Math.min(mediaplayer.position+30*1000,mediaplayer.duration))
+                    mediaplayer.position = Math.min(mediaplayer.position+30*1000,mediaplayer.duration)
                 }
             }
         }
@@ -169,7 +174,7 @@ Rectangle {
         FluIconButton{
             id:btn_volume
             iconSize: 17
-            iconSource:  mediaplayer.volume ?  FluentIcons.Volume :  FluentIcons.Mute
+            iconSource:  audio_output.volume ?  FluentIcons.Volume :  FluentIcons.Mute
             anchors{
                 left: parent.left
                 leftMargin: 5
@@ -177,7 +182,7 @@ Rectangle {
                 bottomMargin: 10
             }
             onClicked: {
-                mediaplayer.volume = !mediaplayer.volume
+                audio_output.volume = !audio_output.volume
             }
         }
 
@@ -192,7 +197,7 @@ Rectangle {
                 leftMargin: 10
             }
             onValueChanged:{
-                mediaplayer.volume = value/100
+                audio_output.volume = value/100
             }
         }
 
