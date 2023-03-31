@@ -31,7 +31,6 @@ Rectangle {
         audioOutput: AudioOutput{
             id:audio_output
         }
-
         onErrorChanged:
             (error)=> {
                 console.debug(error)
@@ -73,13 +72,11 @@ Rectangle {
         MouseArea{
             anchors.fill: parent
         }
-
         Behavior on y{
             NumberAnimation{
                 duration: 150
             }
         }
-
         Rectangle{
             anchors.fill: parent
             color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
@@ -101,13 +98,11 @@ Rectangle {
                 mediaplayer.autoSeek = true
                 mediaplayer.play()
             }
-
             onValueChanged: {
                 if(mediaplayer.autoSeek == false){
                     mediaplayer.position = value*mediaplayer.duration/slider.maxValue
                 }
             }
-
             onLineClickFunc:function(val){
                 mediaplayer.position = val*mediaplayer.duration/slider.maxValue
             }
@@ -198,7 +193,6 @@ Rectangle {
                 audio_output.volume = value/100
             }
         }
-
     }
 
     function formatDuration(duration) {

@@ -152,6 +152,6 @@
         <file>global/ItemsOriginal.qml</file>
         <file>global/qmldir</file>
         <file>global/ItemsFooter.qml</file>
-        <file>page/MediaPlayerPage.qml</file>
+        <file>page/MediaPage.qml</file>
     </qresource>
 </RCC>

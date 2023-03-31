@@ -55,13 +55,6 @@ Rectangle{
         height: root.height
         spacing: 0
 
-        TFpsMonitor{
-            Layout.alignment: Qt.AlignVCenter
-            Layout.rightMargin: 20
-            Layout.topMargin: 5
-            color:root.textColor
-            visible: showFps
-        }
 
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
