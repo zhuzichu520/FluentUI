@@ -23,7 +23,7 @@ Rectangle{
     color: Qt.rgba(0,0,0,0)
     visible: FluTheme.frameless
     height: visible ? 30 : 0
-    clip: true
+    opacity: visible
     z: 65535
 
     TapHandler {
