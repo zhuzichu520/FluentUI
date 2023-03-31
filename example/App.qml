@@ -18,7 +18,7 @@ Window {
             "/chat":"qrc:/page/ChatPage.qml",
             "/media":"qrc:/page/MediaPage.qml",
         }
-        FluApp.initialRoute = "/media"
+        FluApp.initialRoute = "/"
         FluApp.run()
     }
 

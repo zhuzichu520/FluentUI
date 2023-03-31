@@ -43,10 +43,9 @@ Rectangle {
         onMediaStatusChanged:
             (status)=> {
                 if(status===2){
-                    mediaplayer.play()
-                }else if(status===5){
                     slider.maxValue = mediaplayer.duration
                     showControl = true
+                    mediaplayer.play()
                 }
             }
     }
@@ -64,13 +63,17 @@ Rectangle {
         height: 100
         y:showControl ? control.height - 110 : control.height
         anchors{
-            left: parent.left
-            right: parent.right
-            leftMargin: 10
-            rightMargin: 10
+            horizontalCenter: parent.horizontalCenter
         }
+        width: 460
+        opacity: showControl
         MouseArea{
             anchors.fill: parent
+        }
+        Behavior on opacity{
+            NumberAnimation{
+                duration: 150
+            }
         }
         Behavior on y{
             NumberAnimation{
