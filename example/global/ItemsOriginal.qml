@@ -16,224 +16,222 @@ FluObject{
         }
     }
 
-    FluPaneItemHeader{
-        title:"Inputs"
-    }
+    FluPaneItemExpander{
+        title:"Basic input"
+        icon:FluentIcons.CheckboxComposite
 
-    FluPaneItem{
-        title:"Buttons"
-        image:"qrc:/res/image/control/Button.png"
-        recentlyUpdated:true
-        desc:"A control that responds to user input and raisesa Click event."
-        onTap:{
-            navigationView.push("qrc:/T_Buttons.qml")
+        FluPaneItem{
+            title:"Buttons"
+            image:"qrc:/res/image/control/Button.png"
+            recentlyUpdated:true
+            desc:"A control that responds to user input and raisesa Click event."
+            onTap:{
+                navigationView.push("qrc:/T_Buttons.qml")
+            }
+        }
+        FluPaneItem{
+            title:"Slider"
+            image:"qrc:/res/image/control/Slider.png"
+            recentlyUpdated:true
+            desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."
+            onTap:{
+                navigationView.push("qrc:/T_Slider.qml")
+            }
+        }
+
+        FluPaneItem{
+            title:"CheckBox"
+            image:"qrc:/res/image/control/Checkbox.png"
+            recentlyUpdated:true
+            desc:"A control that a user can select or clear."
+            onTap:{
+                navigationView.push("qrc:/T_CheckBox.qml")
+            }
+        }
+
+        FluPaneItem{
+            title:"ToggleSwitch"
+            onTap:{
+                navigationView.push("qrc:/T_ToggleSwitch.qml")
+            }
         }
     }
 
-    FluPaneItem{
-        title:"Slider"
-        image:"qrc:/res/image/control/Slider.png"
-        recentlyUpdated:true
-        desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."
-        onTap:{
-            navigationView.push("qrc:/T_Slider.qml")
-        }
-    }
-
-    FluPaneItem{
-        title:"CheckBox"
-        image:"qrc:/res/image/control/Checkbox.png"
-        recentlyUpdated:true
-        desc:"A control that a user can select or clear."
-        onTap:{
-            navigationView.push("qrc:/T_CheckBox.qml")
-        }
-    }
-
-    FluPaneItem{
-        title:"ToggleSwitch"
-        onTap:{
-            navigationView.push("qrc:/T_ToggleSwitch.qml")
-        }
-    }
-
-    FluPaneItemHeader{
+    FluPaneItemExpander{
         title:"Form"
-    }
-
-    FluPaneItem{
-        title:"TextBox"
-        onTap:{
-            navigationView.push("qrc:/T_TextBox.qml")
+        icon:FluentIcons.GridView
+        FluPaneItem{
+            title:"TextBox"
+            onTap:{
+                navigationView.push("qrc:/T_TextBox.qml")
+            }
+        }
+        FluPaneItem{
+            title:"TimePicker"
+            onTap:{
+                navigationView.push("qrc:/T_TimePicker.qml")
+            }
+        }
+        FluPaneItem{
+            title:"DatePicker"
+            onTap:{
+                navigationView.push("qrc:/T_DatePicker.qml")
+            }
+        }
+        FluPaneItem{
+            title:"CalendarPicker"
+            onTap:{
+                navigationView.push("qrc:/T_CalendarPicker.qml")
+            }
+        }
+        FluPaneItem{
+            title:"ColorPicker"
+            onTap:{
+                navigationView.push("qrc:/T_ColorPicker.qml")
+            }
         }
     }
 
-    FluPaneItem{
-        title:"TimePicker"
-        onTap:{
-            navigationView.push("qrc:/T_TimePicker.qml")
-        }
-    }
 
-    FluPaneItem{
-        title:"DatePicker"
-        onTap:{
-            navigationView.push("qrc:/T_DatePicker.qml")
-        }
-    }
-
-    FluPaneItem{
-        title:"CalendarPicker"
-        onTap:{
-            navigationView.push("qrc:/T_CalendarPicker.qml")
-        }
-    }
-
-    FluPaneItem{
-        title:"ColorPicker"
-        onTap:{
-            navigationView.push("qrc:/T_ColorPicker.qml")
-        }
-    }
-
-    FluPaneItemHeader{
+    FluPaneItemExpander{
         title:"Surface"
-    }
+        icon:FluentIcons.SurfaceHub
 
-    FluPaneItem{
-        title:"InfoBar"
-        image:"qrc:/res/image/control/InfoBar.png"
-        recentlyUpdated:true
-        desc:"An inline message to display app-wide statuschange information."
-        onTap:{
-            navigationView.push("qrc:/T_InfoBar.qml")
+        FluPaneItem{
+            title:"InfoBar"
+            image:"qrc:/res/image/control/InfoBar.png"
+            recentlyUpdated:true
+            desc:"An inline message to display app-wide statuschange information."
+            onTap:{
+                navigationView.push("qrc:/T_InfoBar.qml")
+            }
         }
-    }
 
-    FluPaneItem{
-        title:"Progress"
-        onTap:{
-            navigationView.push("qrc:/T_Progress.qml")
+        FluPaneItem{
+            title:"Progress"
+            onTap:{
+                navigationView.push("qrc:/T_Progress.qml")
+            }
         }
-    }
 
-    FluPaneItem{
-        title:"Badge"
-        onTap:{
-            navigationView.push("qrc:/T_Badge.qml")
+        FluPaneItem{
+            title:"Badge"
+            onTap:{
+                navigationView.push("qrc:/T_Badge.qml")
+            }
         }
-    }
 
-    FluPaneItem{
-        title:"Rectangle"
-        onTap:{
-            navigationView.push("qrc:/T_Rectangle.qml")
+        FluPaneItem{
+            title:"Rectangle"
+            onTap:{
+                navigationView.push("qrc:/T_Rectangle.qml")
+            }
         }
-    }
 
-    FluPaneItem{
-        title:"Carousel"
-        onTap:{
-            navigationView.push("qrc:/T_Carousel.qml")
+        FluPaneItem{
+            title:"Carousel"
+            onTap:{
+                navigationView.push("qrc:/T_Carousel.qml")
+            }
         }
-    }
 
-    FluPaneItem{
-        title:"Expander"
-        onTap:{
-            navigationView.push("qrc:/T_Expander.qml")
+        FluPaneItem{
+            title:"Expander"
+            onTap:{
+                navigationView.push("qrc:/T_Expander.qml")
+            }
         }
+
     }
 
-    FluPaneItemHeader{
+    FluPaneItemExpander{
         title:"Popus"
-    }
+        icon:FluentIcons.ButtonMenu
+        FluPaneItem{
+            title:"Dialog"
+            onTap:{
+                navigationView.push("qrc:/T_Dialog.qml")
+            }
+        }
 
-    FluPaneItem{
-        title:"Dialog"
-        onTap:{
-            navigationView.push("qrc:/T_Dialog.qml")
+        FluPaneItem{
+            title:"Tooltip"
+            onTap:{
+                navigationView.push("qrc:/T_Tooltip.qml")
+            }
+        }
+
+        FluPaneItem{
+            title:"Menu"
+            onTap:{
+                navigationView.push("qrc:/T_Menu.qml")
+            }
         }
     }
 
-    FluPaneItem{
-        title:"Tooltip"
-        onTap:{
-            navigationView.push("qrc:/T_Tooltip.qml")
-        }
-    }
-
-    FluPaneItem{
-        title:"Menu"
-        onTap:{
-            navigationView.push("qrc:/T_Menu.qml")
-        }
-    }
-
-    FluPaneItemHeader{
+    FluPaneItemExpander{
         title:"Navigation"
-    }
+        icon:FluentIcons.AllApps
+        FluPaneItem{
+            title:"TabView"
+            image:"qrc:/res/image/control/TabView.png"
+            recentlyAdded:true
+            desc:"A control that displays a collection of tabs thatcan be used to display several documents."
+            onTap:{
+                navigationView.push("qrc:/T_TabView.qml")
+            }
+        }
+        FluPaneItem{
+            title:"TreeView"
+            onTap:{
+                navigationView.push("qrc:/T_TreeView.qml")
+            }
+        }
 
-    FluPaneItem{
-        title:"TabView"
-        image:"qrc:/res/image/control/TabView.png"
-        recentlyAdded:true
-        desc:"A control that displays a collection of tabs thatcan be used to display several documents."
-        onTap:{
-            navigationView.push("qrc:/T_TabView.qml")
+        FluPaneItem{
+            title:"MultiWindow"
+            onTap:{
+                navigationView.push("qrc:/T_MultiWindow.qml")
+            }
         }
     }
 
-    FluPaneItem{
-        title:"TreeView"
-        onTap:{
-            navigationView.push("qrc:/T_TreeView.qml")
-        }
-    }
 
-
-    FluPaneItem{
-        title:"MultiWindow"
-        onTap:{
-            navigationView.push("qrc:/T_MultiWindow.qml")
-        }
-    }
-
-    FluPaneItemHeader{
+    FluPaneItemExpander{
         title:"Theming"
-    }
+        icon:FluentIcons.Brightness
+        FluPaneItem{
+            title:"Theme"
+            onTap:{
+                navigationView.push("qrc:/T_Theme.qml")
+            }
+        }
 
-    FluPaneItem{
-        title:"Theme"
-        onTap:{
-            navigationView.push("qrc:/T_Theme.qml")
+        FluPaneItem{
+            title:"Awesome"
+            onTap:{
+                navigationView.push("qrc:/T_Awesome.qml")
+            }
+        }
+        FluPaneItem{
+            title:"Typography"
+            onTap:{
+                navigationView.push("qrc:/T_Typography.qml")
+            }
         }
     }
 
-    FluPaneItem{
-        title:"Awesome"
-        onTap:{
-            navigationView.push("qrc:/T_Awesome.qml")
-        }
-    }
-    FluPaneItem{
-        title:"Typography"
-        onTap:{
-            navigationView.push("qrc:/T_Typography.qml")
-        }
-    }
-
-    FluPaneItemHeader{
+    FluPaneItemExpander{
         title:"Media"
-    }
-
-    FluPaneItem{
-        title:"MediaPlayer"
-        image:"qrc:/res/image/control/MediaPlayerElement.png"
-        recentlyAdded:true
-        desc:"A control to display video and image content."
-        onTap:{
-            navigationView.push("qrc:/T_MediaPlayer.qml")
+        icon:FluentIcons.Media
+        FluPaneItem{
+            title:"MediaPlayer"
+            image:"qrc:/res/image/control/MediaPlayerElement.png"
+            recentlyAdded:true
+            desc:"A control to display video and image content."
+            onTap:{
+                navigationView.push("qrc:/T_MediaPlayer.qml")
+            }
         }
     }
 
@@ -244,14 +242,23 @@ FluObject{
             if(item instanceof FluPaneItem && item.recentlyAdded){
                 arr.push(item)
             }
+            if(item instanceof FluPaneItemExpander){
+                for(var j=0;j<item.children.length;j++){
+                    var itemChild = item.children[j]
+                    if(itemChild instanceof FluPaneItem && itemChild.recentlyAdded){
+                        arr.push(itemChild)
+                    }
+                }
+            }
         }
         return arr
     }
 
     function getRecentlyUpdatedData(){
         var arr = []
-        for(var i=0;i<children.length;i++){
-            var item = children[i]
+        var items = navigationView.getItems();
+        for(var i=0;i<items.length;i++){
+            var item = items[i]
             if(item instanceof FluPaneItem && item.recentlyUpdated){
                 arr.push(item)
             }
@@ -261,8 +268,9 @@ FluObject{
 
     function getSearchData(){
         var arr = []
-        for(var i=0;i<children.length;i++){
-            var item = children[i]
+        var items = navigationView.getItems();
+        for(var i=0;i<items.length;i++){
+            var item = items[i]
             if(item instanceof FluPaneItem){
                 arr.push({title:item.title,key:item.key})
             }
@@ -270,14 +278,19 @@ FluObject{
         return arr
     }
 
-    function startPageByItem(item){
-        for(var i=0;i<children.length;i++){
-            if(children[i].key === item.key){
+    function startPageByItem(data){
+        var items = navigationView.getItems();
+        for(var i=0;i<items.length;i++){
+            var item =  items[i]
+            if(item.key === data.key){
                 if(navigationView.getCurrentIndex() === i){
                     return
                 }
-                children[i].tap()
+                item.tap()
                 navigationView.setCurrentIndex(i)
+                if(item.parent){
+                item.parent.isExpand = true
+                }
                 return
             }
         }

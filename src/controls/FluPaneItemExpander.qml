@@ -1,15 +1,12 @@
 ﻿import QtQuick
 import FluentUI
 
-QtObject {
+FluObject {
+    readonly property int flag : 3
     readonly property string key : FluApp.uuid()
-    readonly property int flag : 0
     property string title
     property int icon
-    property bool recentlyAdded: false
-    property bool recentlyUpdated: false
-    property string desc
-    property var image
+    property bool isExpand: false
     property var parent
     property int idx
     signal tap

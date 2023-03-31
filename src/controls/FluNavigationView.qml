@@ -48,14 +48,34 @@ Item {
         id:com_panel_item_separatorr
         FluDivider{
             width: nav_list.width
-            height: 1
+            height: {
+                if(model.parent){
+                    return model.parent.isExpand ? 1 : 0
+                }
+                return 1
+            }
+            Behavior on height {
+                NumberAnimation{
+                    duration: 150
+                }
+            }
         }
     }
 
     Component{
         id:com_panel_item_header
         Item{
-            height: 30
+            height: {
+                if(model.parent){
+                    return model.parent.isExpand ? 30 : 0
+                }
+                return 30
+            }
+            Behavior on height {
+                NumberAnimation{
+                    duration: 150
+                }
+            }
             width: nav_list.width
             FluText{
                 text:model.title
@@ -70,9 +90,129 @@ Item {
     }
 
     Component{
-        id:com_panel_item
+        id:com_panel_item_expander
         Item{
             height: 38
+            width: nav_list.width
+
+            Rectangle{
+                radius: 4
+                anchors{
+                    top: parent.top
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    topMargin: 2
+                    bottomMargin: 2
+                    leftMargin: 6
+                    rightMargin: 6
+                }
+                Rectangle{
+                    width: 3
+                    height: 18
+                    radius: 1.5
+                    color: FluTheme.primaryColor.dark
+                    visible: {
+                        for(var i=0;i<model.children.length;i++){
+                            var item = model.children[i]
+                            if(item.idx === nav_list.currentIndex && !model.isExpand){
+                                return true
+                            }
+                        }
+                        return false
+                    }
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                    }
+                }
+                FluIcon{
+                    rotation: model.isExpand?0:180
+                    iconSource:FluentIcons.ChevronUp
+                    iconSize: 15
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        right: parent.right
+                        rightMargin: 12
+                    }
+                    Behavior on rotation {
+                        NumberAnimation{
+                            duration: 150
+                        }
+                    }
+                }
+                MouseArea{
+                    id:item_mouse
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    onClicked: {
+                        model.isExpand = !model.isExpand
+                    }
+                }
+                color: {
+                    if(FluTheme.dark){
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
+                        if((nav_list.currentIndex === position)&&type===0){
+                            return Qt.rgba(1,1,1,0.06)
+                        }
+                        return Qt.rgba(0,0,0,0)
+                    }else{
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(0,0,0,0.03)
+                        }
+                        if(nav_list.currentIndex === position&&type===0){
+                            return Qt.rgba(0,0,0,0.06)
+                        }
+                        return Qt.rgba(0,0,0,0)
+                    }
+                }
+
+                FluIcon{
+                    id:item_icon
+                    iconSource: {
+                        if(model.icon){
+                            return model.icon
+                        }
+                        return 0
+                    }
+                    width: 30
+                    height: 30
+                    iconSize: 15
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left:parent.left
+                        leftMargin: 3
+                    }
+                }
+
+                FluText{
+                    id:item_title
+                    text:model.title
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left:item_icon.right
+                    }
+                }
+            }
+        }
+    }
+
+    Component{
+        id:com_panel_item
+        Item{
+            Behavior on height {
+                NumberAnimation{
+                    duration: 150
+                }
+            }
+            clip: true
+            height: {
+                if(model.parent){
+                    return model.parent.isExpand ? 38 : 0
+                }
+                return 38
+            }
             width: nav_list.width
 
             Rectangle{
@@ -330,11 +470,7 @@ Item {
             }
             ScrollBar.vertical: FluScrollBar {}
 
-            model:{
-                if(items){
-                    return items.children
-                }
-            }
+            model:handleItems()
             delegate: Loader{
                 property var model: modelData
                 property var position: index
@@ -348,6 +484,9 @@ Item {
                     }
                     if(modelData instanceof FluPaneItemSeparator){
                         return com_panel_item_separatorr
+                    }
+                    if(modelData instanceof FluPaneItemExpander){
+                        return com_panel_item_expander
                     }
                 }
             }
@@ -381,6 +520,33 @@ Item {
                 }
             }
         }
+    }
+
+    function handleItems(){
+        var idx = 0
+        var data = []
+        if(items){
+            for(var i=0;i<items.children.length;i++){
+                var item = items.children[i]
+                item.idx = idx
+                data.push(item)
+                idx++
+                if(item instanceof FluPaneItemExpander){
+                    for(var j=0;j<item.children.length;j++){
+                        var itemChild = item.children[j]
+                        itemChild.parent = item
+                        itemChild.idx = idx
+                        data.push(itemChild)
+                        idx++
+                    }
+                }
+            }
+        }
+        return data
+    }
+
+    function getItems(){
+        return nav_list.model
     }
 
     function push(url){

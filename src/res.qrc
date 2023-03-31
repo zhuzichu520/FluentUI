@@ -59,5 +59,6 @@
         <file>controls/FluMediaPlayer.qml</file>
         <file>controls/FluTabView.qml</file>
         <file>controls/FluItem.qml</file>
+        <file>controls/FluPaneItemExpander.qml</file>
     </qresource>
 </RCC>
