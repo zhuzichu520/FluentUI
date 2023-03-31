@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("ZhuZiChu");
     QCoreApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QCoreApplication::setApplicationName("FluentUI");
-    //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
     QQuickStyle::setStyle("Basic");
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

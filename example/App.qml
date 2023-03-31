@@ -16,6 +16,7 @@ Window {
             "/about":"qrc:/page/AboutPage.qml",
             "/login":"qrc:/page/LoginPage.qml",
             "/chat":"qrc:/page/ChatPage.qml",
+            "/mediaplayer":"qrc:/page/MediaPlayerPage.qml",
         }
         FluApp.initialRoute = "/"
         FluApp.run()

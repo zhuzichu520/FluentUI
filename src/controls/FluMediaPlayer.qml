@@ -28,7 +28,10 @@ Rectangle {
         property bool autoSeek:true
         source: control.source
         videoOutput: video_output
-        audioOutput:audio_output
+        audioOutput: AudioOutput{
+            id:audio_output
+        }
+
         onErrorChanged:
             (error)=> {
                 console.debug(error)
@@ -51,10 +54,6 @@ Rectangle {
 
     onSourceChanged: {
         slider.seek(0)
-    }
-
-    AudioOutput{
-        id:audio_output
     }
 
     VideoOutput {
@@ -170,11 +169,10 @@ Rectangle {
             }
         }
 
-
         FluIconButton{
             id:btn_volume
             iconSize: 17
-            iconSource:  audio_output.volume ?  FluentIcons.Volume :  FluentIcons.Mute
+            iconSource:  audio_output.muted ? FluentIcons.Mute  :  FluentIcons.Volume
             anchors{
                 left: parent.left
                 leftMargin: 5
@@ -182,7 +180,7 @@ Rectangle {
                 bottomMargin: 10
             }
             onClicked: {
-                audio_output.volume = !audio_output.volume
+                audio_output.muted = !audio_output.muted
             }
         }
 
