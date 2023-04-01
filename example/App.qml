@@ -2,11 +2,14 @@
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtMultimedia
 import FluentUI
 
 Window {
     id:app
     color: "#00000000"
+    //初始化一个MediaPlayer，解决macos切换到T_MediaPalyer页面崩溃问题
+    MediaPlayer{}
     Component.onCompleted: {
         FluApp.init(app,properties)
         FluTheme.frameless = ("windows" === Qt.platform.os)

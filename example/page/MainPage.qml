@@ -20,7 +20,6 @@ FluWindow {
         width:parent.width
     }
 
-
     FluNavigationView{
         id:nav_view
         anchors.fill: parent
