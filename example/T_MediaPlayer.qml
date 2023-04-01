@@ -31,11 +31,26 @@ FluScrollablePage{
             }
             FluMediaPlayer{
                 id:player
-//                source:"http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4"
                 source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-//                source:"http://video.chinanews.com/flv/2019/04/23/400/111773_web.mp4"
             }
         }
     }
+
+    FluArea{
+        width: parent.width
+        height: 68
+        Layout.topMargin: 20
+        paddings: 10
+
+        FluButton{
+            text:"跳转到视频播放器窗口"
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked:{
+                FluApp.navigate("/media",{source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"})
+            }
+        }
+
+    }
+
 }
 
