@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt6 COMPONENTS Core Quick Svg REQUIRED)
 set(QT_INSTALL_QML ${Qt6Core_DIR}/../../../qml)
 set(TARGET_TYPE SHARED)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FluentUI)
+
 set(TARGET_RESOURCES res.qrc)
 set(TARGET_SOURCES
     Def.cpp
@@ -45,6 +45,8 @@ else()
 endif()
 
 add_library(${PROJECT_NAME} ${TARGET_TYPE} ${TARGET_SOURCES} ${TARGET_HEADERS} ${TARGET_RESOURCES})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FluentUI)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE VERSION_IN=\\\"1.0.0\\\" URI_STR=\\\"FluentUI\\\")
 
