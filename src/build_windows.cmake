@@ -1,4 +1,4 @@
-﻿set(OUTP "${CMAKE_BINARY_DIR}/src/../bin/FluentUI")
+﻿set(OUTP "${CMAKE_BINARY_DIR}/bin/FluentUI")
 set(BUILDBIN_PATH "${OUTP}")
 set(QTQMLFLUENT_PATH "${QT_INSTALL_QML}/FluentUI")
 set(PRESET_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build-preset")
