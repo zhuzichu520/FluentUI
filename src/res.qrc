@@ -1,4 +1,4 @@
-<RCC>
+﻿<RCC>
     <qresource prefix="/com.zhuzichu">
         <file>controls/FluButton.qml</file>
         <file>controls/FluFilledButton.qml</file>
@@ -23,7 +23,6 @@
         <file>controls/FluDivider.qml</file>
         <file>controls/FluTooltip.qml</file>
         <file>controls/FluTextBoxBackground.qml</file>
-        <file>controls/FluMultiLineTextBox.qml</file>
         <file>controls/FluWindowResize.qml</file>
         <file>controls/FluScrollBar.qml</file>
         <file>controls/FluMenu.qml</file>
@@ -60,5 +59,7 @@
         <file>controls/FluTabView.qml</file>
         <file>controls/FluItem.qml</file>
         <file>controls/FluPaneItemExpander.qml</file>
+        <file>controls/FluTextBoxMenu.qml</file>
+        <file>controls/FluMultilineTextBox.qml</file>
     </qresource>
 </RCC>

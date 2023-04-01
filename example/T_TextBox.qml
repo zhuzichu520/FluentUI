@@ -17,7 +17,7 @@ FluScrollablePage{
         Layout.preferredWidth: 300
         disabled:toggle_switch.selected
     }
-    FluMultiLineTextBox{
+    FluMultilineTextBox{
         Layout.topMargin: 20
         Layout.preferredWidth: 300
         placeholderText: "多行输入框"

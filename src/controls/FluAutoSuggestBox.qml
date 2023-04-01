@@ -6,34 +6,40 @@ TextField{
 
     property var items:[]
     property int fontStyle: FluText.Body
+    property string emptyText: "没有找到结果"
     property int pixelSize : FluTheme.textSize
     property int iconSource: 0
     property bool disabled: false
     signal itemClicked(var data)
     signal handleClicked
+    property color normalColor: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+    property color disableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+    property color placeholderNormalColor: FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
+    property color placeholderFocusColor: FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
+    property color placeholderDisableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
     QtObject{
         id:d
         property bool flagVisible: true
     }
-    id:input
+    id:control
     width: 300
     enabled: !disabled
     color: {
         if(disabled){
-            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return disableColor
         }
-        return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+        return normalColor
     }
     selectionColor: FluTheme.primaryColor.lightest
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     placeholderTextColor: {
         if(disabled){
-            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return placeholderDisableColor
         }
         if(focus){
-            return FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
+            return placeholderFocusColor
         }
-        return FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
+        return placeholderNormalColor
     }
     rightPadding: icon_right.visible ? 50 : 30
     selectByMouse: true
@@ -92,27 +98,25 @@ TextField{
         width: 20
         height: 20
         opacity: 0.5
-        visible: input.text !== ""
+        visible: control.text !== ""
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right
             rightMargin: icon_right.visible ? 25 : 5
         }
         onClicked:{
-            input.text = ""
+            control.text = ""
         }
     }
 
     background: FluTextBoxBackground{
-        inputItem: input
-
-
+        inputItem: control
         FluIcon{
             id:icon_right
-            iconSource: input.iconSource
+            iconSource: control.iconSource
             iconSize: 15
             opacity: 0.5
-            visible: input.iconSource != 0
+            visible: control.iconSource != 0
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
@@ -122,18 +126,18 @@ TextField{
     }
 
     Component.onCompleted: {
-        searchData()
+        loadData()
     }
 
     Popup{
-        id:input_popup
-        y:input.height
+        id:control_popup
+        y:control.height
         focus: false
         enter: Transition {
             NumberAnimation {
                 property: "y"
                 from:0
-                to:input_popup.y
+                to:control_popup.y
                 duration: 150
             }
             NumberAnimation {
@@ -149,7 +153,7 @@ TextField{
             }
         }
         background: Rectangle{
-            width: input.width
+            width: control.width
             radius: 4
             FluShadow{
                 radius: 4
@@ -163,11 +167,11 @@ TextField{
                 currentIndex: -1
                 ScrollBar.vertical: FluScrollBar {}
                 header: Item{
-                    width: input.width
+                    width: control.width
                     height: visible ? 38 : 0
                     visible: list_view.count === 0
                     FluText{
-                        text:"没有找到结果"
+                        text:emptyText
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left: parent.left
@@ -176,7 +180,7 @@ TextField{
                     }
                 }
                 delegate:Control{
-                    width: input.width
+                    width: control.width
                     padding:10
                     background: Rectangle{
                         color:  {
@@ -192,7 +196,7 @@ TextField{
                             id:mouse_area
                             anchors.fill: parent
                             Connections{
-                                target: input
+                                target: control
                                 function onHandleClicked(){
                                     if((list_view.currentIndex === index)){
                                         handleClick(modelData)
@@ -223,72 +227,41 @@ TextField{
             }
         }
     }
+    onTextChanged: {
+        loadData()
+        if(d.flagVisible){
+            control_popup.visible = true
+        }
+    }
+    TapHandler {
+        acceptedButtons: Qt.RightButton
+        onTapped: control.echoMode !== TextInput.Password && menu.popup()
+    }
+    FluTextBoxMenu{
+        id:menu
+        inputItem: control
+    }
 
     function handleClick(modelData){
-        input_popup.visible = false
-        input.itemClicked(modelData)
+        control_popup.visible = false
+        control.itemClicked(modelData)
         updateText(modelData.title)
     }
 
     function updateText(text){
         d.flagVisible = false
-        input.text = text
+        control.text = text
         d.flagVisible = true
     }
 
-    onTextChanged: {
-        searchData()
-        if(d.flagVisible){
-            input_popup.visible = true
-        }
-    }
-
-    TapHandler {
-        acceptedButtons: Qt.RightButton
-        onTapped: input.echoMode !== TextInput.Password && menu.popup()
-    }
-
-    FluMenu{
-        id:menu
-        focus: false
-        FluMenuItem{
-            text: "剪切"
-            visible: input.text !== ""
-            onClicked: {
-                input.cut()
-            }
-        }
-        FluMenuItem{
-            text: "复制"
-            visible: input.selectedText !== ""
-            onClicked: {
-                input.copy()
-            }
-        }
-        FluMenuItem{
-            text: "粘贴"
-            visible: input.canPaste
-            onClicked: {
-                input.paste()
-            }
-        }
-        FluMenuItem{
-            text: "全选"
-            visible: input.text !== ""
-            onClicked: {
-                input.selectAll()
-            }
-        }
-    }
-
-    function searchData(){
+    function loadData(){
         var result = []
         if(items==null){
             list_view.model = result
             return
         }
         items.map(function(item){
-            if(item.title.indexOf(input.text)!==-1){
+            if(item.title.indexOf(control.text)!==-1){
                 result.push(item)
             }
         })

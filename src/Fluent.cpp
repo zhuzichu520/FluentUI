@@ -22,7 +22,7 @@ Fluent *Fluent::getInstance()
 
 QString Fluent::version() const
 {
-    return QStringLiteral(VERSION_IN);
+    return QStringLiteral("1.0.0");
 }
 
 void Fluent::registerTypes(const char *uri){
@@ -59,7 +59,7 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMenu.qml"),uri,major,minor,"FluMenu");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluScrollBar.qml"),uri,major,minor,"FluScrollBar");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTextButton.qml"),uri,major,minor,"FluTextButton");
-    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMultiLineTextBox.qml"),uri,major,minor,"FluMultiLineTextBox");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMultilineTextBox.qml"),uri,major,minor,"FluMultilineTextBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTooltip.qml"),uri,major,minor,"FluTooltip");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDivider.qml"),uri,major,minor,"FluDivider");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluIcon.qml"),uri,major,minor,"FluIcon");

@@ -7,31 +7,32 @@ TextArea{
     property int fontStyle: FluText.Body
     property int pixelSize : FluTheme.textSize
     property bool disabled: false
+    property color normalColor: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+    property color disableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+    property color placeholderNormalColor: FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
+    property color placeholderFocusColor: FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
+    property color placeholderDisableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
 
-    id:input
+    id:control
     width: 300
+    enabled: !disabled
     color: {
         if(disabled){
-            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return disableColor
         }
-        return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+        return normalColor
     }
-    enabled: !disabled
     wrapMode: Text.WrapAnywhere
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    selectByMouse: true
     selectionColor: FluTheme.primaryColor.lightest
-    background: FluTextBoxBackground{
-        inputItem: input
-    }
     placeholderTextColor: {
         if(disabled){
-            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
+            return placeholderDisableColor
         }
         if(focus){
-            return FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
+            return placeholderFocusColor
         }
-        return FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
+        return placeholderNormalColor
     }
     font.bold: {
         switch (fontStyle) {
@@ -73,40 +74,15 @@ TextArea{
             return text.pixelSize * 1.0
         }
     }
+    selectByMouse: true
+    background: FluTextBoxBackground{ inputItem: control }
     TapHandler {
         acceptedButtons: Qt.RightButton
-       onTapped: input.echoMode !== TextInput.Password && menu.popup()
+        onTapped: control.echoMode !== TextInput.Password && menu.popup()
     }
-    FluMenu{
+    FluTextBoxMenu{
         id:menu
-        focus: false
-        FluMenuItem{
-            text: "剪切"
-            visible: input.text !== ""
-            onClicked: {
-                input.cut()
-            }
-        }
-        FluMenuItem{
-            text: "复制"
-            visible: input.selectedText !== ""
-            onClicked: {
-                input.copy()
-            }
-        }
-        FluMenuItem{
-            text: "粘贴"
-            visible: input.canPaste
-            onClicked: {
-                input.paste()
-            }
-        }
-        FluMenuItem{
-            text: "全选"
-            visible: input.text !== ""
-            onClicked: {
-                input.selectAll()
-            }
-        }
+        inputItem: control
     }
+
 }

@@ -129,7 +129,7 @@ FluScrollablePage{
                         id:item_mouse
                         anchors.fill: parent
                         hoverEnabled: true
-                        onWheel: {
+                        onWheel: (wheel)=>{
                             if (wheel.angleDelta.y > 0) scrollbar_header.decrease()
                             else scrollbar_header.increase()
                         }
