@@ -153,5 +153,6 @@
         <file>global/qmldir</file>
         <file>global/ItemsFooter.qml</file>
         <file>page/MediaPage.qml</file>
+        <file>T_FlipView.qml</file>
     </qresource>
 </RCC>

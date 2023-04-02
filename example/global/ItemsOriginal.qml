@@ -176,6 +176,7 @@ FluObject{
             title:"TabView"
             image:"qrc:/res/image/control/TabView.png"
             recentlyAdded:true
+            order:1
             desc:"A control that displays a collection of tabs thatcan be used to display several documents."
             onTap:{
                 navigationView.push("qrc:/T_TabView.qml")
@@ -187,15 +188,23 @@ FluObject{
                 navigationView.push("qrc:/T_TreeView.qml")
             }
         }
-
         FluPaneItem{
             title:"MultiWindow"
             onTap:{
                 navigationView.push("qrc:/T_MultiWindow.qml")
             }
         }
+        FluPaneItem{
+            title:"FlipView"
+            image:"qrc:/res/image/control/FlipView.png"
+            recentlyAdded:true
+            order:2
+            desc:"Presents a collection of items that the user canflip through, one item at a time."
+            onTap:{
+                navigationView.push("qrc:/T_FlipView.qml")
+            }
+        }
     }
-
 
     FluPaneItemExpander{
         title:"Theming"
@@ -228,6 +237,7 @@ FluObject{
             title:"MediaPlayer"
             image:"qrc:/res/image/control/MediaPlayerElement.png"
             recentlyAdded:true
+            order:0
             desc:"A control to display video and image content."
             onTap:{
                 navigationView.push("qrc:/T_MediaPlayer.qml")
@@ -251,6 +261,7 @@ FluObject{
                 }
             }
         }
+        arr.sort(function(o1,o2){ return o2.order-o1.order })
         return arr
     }
 
@@ -289,7 +300,7 @@ FluObject{
                 item.tap()
                 navigationView.setCurrentIndex(i)
                 if(item.parent){
-                item.parent.isExpand = true
+                    item.parent.isExpand = true
                 }
                 return
             }

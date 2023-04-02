@@ -61,5 +61,6 @@
         <file>controls/FluPaneItemExpander.qml</file>
         <file>controls/FluTextBoxMenu.qml</file>
         <file>controls/FluMultilineTextBox.qml</file>
+        <file>controls/FluFlipView.qml</file>
     </qresource>
 </RCC>
