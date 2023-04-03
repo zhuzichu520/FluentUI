@@ -16,24 +16,23 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11.0]
+        os: [macos-12]
         qt_ver: [6.4.3]
         qt_arch: [clang_64]
     env:
       targetName: example
     steps:
-      # macos 11.0 默认环境变了,要指定
-      - name: prepare env
-        if: ${{ matrix.os == 'macos-11.0' }}
-        run: |
-          softwareupdate --all --install --force
-          sudo xcode-select --print-path
-          sudo xcode-select --switch /Library/Developer/CommandLineTools       
+      - name: '⚙️ Cache Qt'
+        id: cache-qt
+        uses: actions/cache@v3
+        with:
+          path: ${{ runner.workspace }}/Qt
+          key: ${{runner.os}}-qtcachedir-${{ matrix.qt_ver }}
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
           version: ${{ matrix.qt_ver }}
-          cached: 'false'
+          cache: ${{steps.cache-qt.outputs.cache-hit}}
           arch: ${{ matrix.qt_arch }}
           modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
       - uses: actions/checkout@v2

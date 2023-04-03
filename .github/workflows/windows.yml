@@ -30,6 +30,12 @@ jobs:
       fileName: example
     # 步骤
     steps:
+      - name: '⚙️ Cache Qt'
+        id: cache-qt
+        uses: actions/cache@v3
+        with:
+          path: ${{ runner.workspace }}\Qt
+          key: ${{runner.os}}-qtcachedir-${{ matrix.qt_ver }}
       # 安装Qt
       - name: Install Qt
         # 使用外部action。这个action专门用来安装Qt
@@ -37,7 +43,7 @@ jobs:
         with:
           version: ${{ matrix.qt_ver }}
           arch: ${{ matrix.qt_arch }}
-          cached: 'false'
+          cache: ${{steps.cache-qt.outputs.cache-hit}}
           modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
       # 拉取代码
       - uses: actions/checkout@v2
