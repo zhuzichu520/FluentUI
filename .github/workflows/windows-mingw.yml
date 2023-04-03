@@ -1,0 +1,77 @@
+name: Windows MinGW
+on: 
+  push:
+    paths:
+      - '*.pro'
+      - 'src/**'
+      - '.github/workflows/windows-mingw.yml'
+  pull_request:
+    paths:
+      - '*.pro'
+      - 'src/**'
+      - '.github/workflows/windows-mingw.yml' 
+jobs:
+  build:
+    name: Build
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        include:
+          - qt_arch: win64_mingw
+            qt_ver: 6.4.3
+            qt_tools: "tools_mingw,9.0.0-1-202203221220,qt.tools.win64_mingw900"
+            qt_tools_mingw_install: mingw900_64
+    env:
+      targetName: example.exe
+      fileName: example
+    steps:
+      - name: Install Qt
+        # 使用外部action。这个action专门用来安装Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_ver }}
+          arch: ${{ matrix.qt_arch }}
+          cache: ${{steps.cache-qt.outputs.cache-hit}}
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Qt 6 environment configuration
+        if: ${{ startsWith( matrix.qt_ver, 6 ) }}
+        shell: pwsh
+        run: |
+          Write-Output "${{ env.Qt6_DIR }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          Write-Output "${{ env.Qt6_DIR }}/../../Tools/${{ matrix.qt_tools_mingw_install }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: where is qmake & where is mingw32-make
+        shell: pwsh
+        run: |
+          Get-Command -Name 'qmake' | Format-List
+          Get-Command -Name 'mingw32-make' | Format-List
+      - name: mingw-build
+        id: build
+        shell: cmd
+        run: |
+          qmake
+          mingw32-make
+      - name: package
+        id: package      
+        env:
+          archiveName: ${{ env.fileName }}-${{ matrix.qt_arch }}-${{ matrix.qt_ver }}
+        shell: pwsh
+        run: |
+          & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:targetName}
+           $name = ${env:archiveName}
+           echo "::set-output name=packageName::$name"       
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: ${{ steps.package.outputs.packageName }}
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.fileName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true 
