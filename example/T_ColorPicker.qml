@@ -12,7 +12,7 @@ FluScrollablePage{
     bottomPadding:20
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 280
         Layout.topMargin: 20
         paddings: 10
@@ -39,7 +39,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 60
         paddings: 10

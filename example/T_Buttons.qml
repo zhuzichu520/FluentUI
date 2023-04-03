@@ -19,7 +19,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
 
@@ -50,7 +50,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
 
@@ -81,7 +81,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
 
@@ -113,7 +113,7 @@ FluScrollablePage{
 
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
 
@@ -145,7 +145,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
 
@@ -186,7 +186,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 100
         paddings: 10
 
@@ -228,7 +228,7 @@ FluScrollablePage{
 
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
 
@@ -255,6 +255,4 @@ FluScrollablePage{
             }
         }
     }
-
-
 }

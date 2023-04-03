@@ -67,7 +67,6 @@ FluContentPage {
                 width:parent.width
                 wrapMode: Text.WrapAnywhere
                 text: modelData.name
-
                 horizontalAlignment: Text.AlignHCenter
             }
         }

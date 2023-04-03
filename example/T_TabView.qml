@@ -32,7 +32,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 50
         paddings: 10
@@ -69,7 +69,7 @@ FluScrollablePage{
             FluDropDownButton{
                 id:btn_close_button_visibility
                 text:"Always"
-                 Layout.preferredWidth: 120
+                Layout.preferredWidth: 120
                 items:[
                     FluMenuItem{
                         text:"Nerver"
@@ -98,7 +98,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 5
         height: 400
         paddings: 10
