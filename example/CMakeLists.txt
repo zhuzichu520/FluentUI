@@ -7,6 +7,18 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set(platform 64)
+else()
+  set(platform 32)
+endif()
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin/debug)
+else()
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin/release)
+endif()
+
 find_package(Qt6 COMPONENTS Core Quick QuickControls2 Concurrent Network Multimedia REQUIRED)
 
 set(SOURCES
@@ -28,16 +40,25 @@ set(RC_ICONS
 
 qt_add_resources(QT_RESOURCES ${RESOURCES})
 
-if(WIN32)
-    if(QT_ARCH EQUAL 32)
-        set(COPYDLL ${CMAKE_CURRENT_SOURCE_DIR}/../third/Win_x86/*.dll ${DESTDIR})
-    else()
-        set(COPYDLL ${CMAKE_CURRENT_SOURCE_DIR}/../third/Win_x64/*.dll ${DESTDIR})
-    endif()
-    set(QMAKE_PRE_LINK "${QMAKE_COPY} ${COPYDLL}")
-endif()
-
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${QT_RESOURCES} ${RC_ICONS})
+
+if(WIN32)
+    if(platform EQUAL 32)
+        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/Win_x86/*.dll)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${DLL_FILES}
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        )
+    else()
+        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/Win_x64/*.dll)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${DLL_FILES}
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        )
+    endif()
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     QT_DEPRECATED_WARNINGS

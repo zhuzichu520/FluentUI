@@ -45,11 +45,12 @@ else()
     set(TARGET_SOURCES ${TARGET_SOURCES} FramelessView_unix.cpp)
 endif()
 
+add_definitions(-DVERSION_IN="1.0.0")
+add_definitions(-DVURI_STR="FluentUI")
+
 add_library(${PROJECT_NAME} ${TARGET_TYPE} ${TARGET_SOURCES} ${TARGET_HEADERS} ${TARGET_RESOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FluentUI)
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE VERSION_IN=\\\"1.0.0\\\" URI_STR=\\\"FluentUI\\\")
 
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE dwmapi user32)

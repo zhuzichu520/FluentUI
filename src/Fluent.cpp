@@ -22,7 +22,7 @@ Fluent *Fluent::getInstance()
 
 QString Fluent::version() const
 {
-    return QStringLiteral("1.0.0");
+    return QStringLiteral(VERSION_IN);
 }
 
 void Fluent::registerTypes(const char *uri){
