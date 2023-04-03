@@ -13,7 +13,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: windows-2019
+    runs-on: windows-2022
     strategy:
       matrix:
         include:
@@ -26,7 +26,6 @@ jobs:
       fileName: example
     steps:
       - name: Install Qt
-        # 使用外部action。这个action专门用来安装Qt
         uses: jurplel/install-qt-action@v3
         with:
           version: ${{ matrix.qt_ver }}
