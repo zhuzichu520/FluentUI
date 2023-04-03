@@ -26,11 +26,17 @@ if %1 == SHARED (
 	del /s /q %PRESET_PATH%\plugins.qmltypes
 	if exist %QMLPLUGINDUMP1_PATH% (
 		%QMLPLUGINDUMP1_PATH% -nonrelocatable FluentUI 1.0 > %PRESET_PATH%\plugins.qmltypes
+		rmdir /s /q %QT_QML_FLUENT_PATH% & md %QT_QML_FLUENT_PATH%
+		copy /y %BUILDER_BIN_PATH% %QT_QML_FLUENT_PATH%
+		xcopy %PRESET_PATH% %QT_QML_FLUENT_PATH% /s/e/i/y
+		cd %QT_QML_FLUENT_PATH%
 	) else (
+		SET QT_QML_FLUENT_PATH2 = QT_QML_FLUENT_PATH\..\..\share\qt6\qml\Fluent
 		%QMLPLUGINDUMP2_PATH% -nonrelocatable FluentUI 1.0 > %PRESET_PATH%\plugins.qmltypes
+		rmdir /s /q %QT_QML_FLUENT_PATH2% & md %QT_QML_FLUENT_PATH2%
+		copy /y %BUILDER_BIN_PATH% %QT_QML_FLUENT_PATH2%
+		xcopy %PRESET_PATH% %QT_QML_FLUENT_PATH2% /s/e/i/y
+		cd %QT_QML_FLUENT_PATH2%
 	)
-    rmdir /s /q %QT_QML_FLUENT_PATH% & md %QT_QML_FLUENT_PATH%
-    copy /y %BUILDER_BIN_PATH% %QT_QML_FLUENT_PATH%
-	xcopy %PRESET_PATH% %QT_QML_FLUENT_PATH% /s/e/i/y
-	cd %QT_QML_FLUENT_PATH%
+
 )
