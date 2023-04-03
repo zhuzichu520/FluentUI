@@ -16,10 +16,11 @@ jobs:
     name: Build
     # 运行平台， windows-latest目前是windows server 2019 
     # 参考文档 https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md
-    runs-on: windows-2019
+    runs-on: ${{ matrix.os }}
     strategy:
       # 矩阵配置
       matrix:
+        os: [windows-2019]
         include:
           - qt_ver: 6.4.3          
             qt_arch: win64_msvc2019_64
@@ -86,6 +87,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.package.outputs.packageName }}.zip
-          asset_name: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.fileName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}.zip
           tag: ${{ github.ref }}
           overwrite: true 
