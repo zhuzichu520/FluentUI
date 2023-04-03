@@ -72,6 +72,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ env.targetName }}.AppImage
-          asset_name: ${{ env.targetName }}_${{ matrix.os }}_${{ matrix.qt_ver }}.AppImage
+          asset_name: ${{ env.targetName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}.AppImage
           tag: ${{ github.ref }}
           overwrite: true
