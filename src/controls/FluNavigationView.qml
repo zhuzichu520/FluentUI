@@ -227,16 +227,6 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
-                Rectangle{
-                    width: 3
-                    height: 18
-                    radius: 1.5
-                    color: FluTheme.primaryColor.dark
-                    visible: nav_list.currentIndex === position && type===0
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                    }
-                }
                 MouseArea{
                     id:item_mouse
                     hoverEnabled: true
@@ -468,8 +458,21 @@ Item {
                     stackIndex.push(currentIndex)
                 }
             }
+            highlight: Item{
+                clip: true
+                Rectangle{
+                    height: 18
+                    radius: 1.5
+                    color: FluTheme.primaryColor.dark
+                    width: 3
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left: parent.left
+                        leftMargin: 6
+                    }
+                }
+            }
             ScrollBar.vertical: FluScrollBar {}
-
             model:handleItems()
             delegate: Loader{
                 property var model: modelData

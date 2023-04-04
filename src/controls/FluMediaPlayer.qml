@@ -121,7 +121,6 @@ Rectangle {
             text: formatDuration(slider.value*mediaplayer.duration/slider.maxValue)
         }
 
-
         FluText{
             id:end_time
             anchors{
@@ -131,7 +130,6 @@ Rectangle {
             }
             text: formatDuration(mediaplayer.duration)
         }
-
 
         Row{
             spacing: 10

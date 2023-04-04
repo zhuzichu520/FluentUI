@@ -62,5 +62,7 @@
         <file>controls/FluTextBoxMenu.qml</file>
         <file>controls/FluMultilineTextBox.qml</file>
         <file>controls/FluFlipView.qml</file>
+        <file>controls/FluPivot.qml</file>
+        <file>controls/FluPivotItem.qml</file>
     </qresource>
 </RCC>

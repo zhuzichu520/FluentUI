@@ -172,6 +172,17 @@ FluObject{
     FluPaneItemExpander{
         title:"Navigation"
         icon:FluentIcons.AllApps
+
+        FluPaneItem{
+            title:"Pivot"
+            image:"qrc:/res/image/control/Pivot.png"
+            recentlyAdded:true
+            order:3
+            desc:"Presents information from different sources in atabbed view."
+            onTap:{
+                navigationView.push("qrc:/T_Pivot.qml")
+            }
+        }
         FluPaneItem{
             title:"TabView"
             image:"qrc:/res/image/control/TabView.png"
