@@ -6,15 +6,15 @@ SOLIBFILE_PATH = $$OUT_PWD/libFluentUI.so
 ANDROID = NO
 android{
     ANDROID=YES
-    QMAKE_PRE_LINK *= md $$replace(OUTP, /, $$QMAKE_DIR_SEP)
+    QMAKE_PRE_LINK *= md $$replace(OUTP, /, \\)
 }else{
     DESTDIR += $$OUTP
 }
 SHAREDSCRIPT = "$$PWD\win_install.bat" SHARED "$$PWD" "$$PRESET_PATH" "$$BUILDBIN_PATH" "$$QTQMLFLUENT_PATH" $$ANDROID "$$SOLIBFILE_PATH"
 STATICSCRIPT = "$$PWD\win_install.bat" STATIC "$$PWD" "$$PRESET_PATH" "$$BUILDBIN_PATH" "$$QTQMLFLUENT_PATH" $$ANDROID "$$SOLIBFILE_PATH"
 CONFIG(sharedlib){
-    QMAKE_POST_LINK *= $$replace(SHAREDSCRIPT, /, $$QMAKE_DIR_SEP)
+    QMAKE_POST_LINK *= $$replace(SHAREDSCRIPT, /, \\)
 }
 else{
-    QMAKE_POST_LINK *= $$replace(STATICSCRIPT, /, $$QMAKE_DIR_SEP)
+    QMAKE_POST_LINK *= $$replace(STATICSCRIPT, /, \\)
 }
