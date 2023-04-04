@@ -17,7 +17,7 @@ Button {
         }
         return hovered ? hoverColor : normalColor
     }
-    property color textColor: {
+    property color iconColor: {
         if(FluTheme.dark){
             if(disabled){
                 return Qt.rgba(130/255,130/255,130/255,1)
@@ -57,7 +57,7 @@ Button {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
-            color:control.textColor
+            color:control.iconColor
             text: (String.fromCharCode(iconSource).toString(16));
         }
         FluTooltip{

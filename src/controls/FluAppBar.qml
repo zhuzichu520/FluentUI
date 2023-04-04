@@ -93,7 +93,7 @@ Rectangle{
             iconSize: 11
             text:minimizeText
             radius: 0
-            textColor: root.textColor
+            iconColor: root.textColor
             color: hovered ? minimizeHoverColor : minimizeNormalColor
             onClicked: {
                 d.win.showMinimized()
@@ -107,7 +107,7 @@ Rectangle{
             Layout.alignment: Qt.AlignVCenter
             visible: d.resizable
             radius: 0
-            textColor: root.textColor
+            iconColor: root.textColor
             text:d.isRestore?restoreText:maximizeText
             iconSize: 11
             onClicked: {
@@ -122,7 +122,7 @@ Rectangle{
             height: 30
             radius: 0
             iconSize: 10
-            textColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
+            iconColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
             color:hovered ? closeHoverColor : closeNormalColor
             onClicked: {
                 d.win.close()

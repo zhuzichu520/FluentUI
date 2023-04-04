@@ -10,18 +10,18 @@ Item {
     property color normalColor: FluTheme.dark ? FluColors.Grey120 : FluColors.Grey120
     property color hoverColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
 
-
     width: 400
     height: 300
+    implicitHeight: height
+    implicitWidth: width
+
+    MouseArea{
+        anchors.fill: parent
+        preventStealing: true
+    }
 
     FluObject{
         id:d
-    }
-
-    Component.onCompleted: {
-        for(var i =0 ;i <d.children.length;i++){
-            console.debug(d.children[i].title)
-        }
     }
 
     ListView{
