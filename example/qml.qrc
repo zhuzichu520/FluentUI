@@ -155,5 +155,6 @@
         <file>page/MediaPage.qml</file>
         <file>T_FlipView.qml</file>
         <file>T_Pivot.qml</file>
+        <file>component/CodeExpander.qml</file>
     </qresource>
 </RCC>
