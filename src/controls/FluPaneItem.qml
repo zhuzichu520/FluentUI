@@ -14,5 +14,5 @@ QtObject {
     property var parent
     property int idx
     signal tap
-    signal repTap
+    property var tapFunc
 }

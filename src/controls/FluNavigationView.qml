@@ -233,7 +233,10 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         if(type===0){
-                            model.repTap()
+                            if(model.tapFunc){
+                                model.tapFunc()
+                                return
+                            }
                             if(nav_list.currentIndex !== position){
                                 nav_list.currentIndex = position
                                 model.tap()

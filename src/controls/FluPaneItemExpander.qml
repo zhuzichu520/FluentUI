@@ -10,5 +10,4 @@ FluObject {
     property var parent
     property int idx
     signal tap
-    signal repTap
 }

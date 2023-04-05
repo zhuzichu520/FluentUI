@@ -183,7 +183,7 @@ FluWindow {
                 rightMargin: 10
             }
             height: Math.min(textbox.implicitHeight,64)
-            FluMultiLineTextBox{
+            FluMultilineTextBox{
                 id:textbox
                 focus:true
                 placeholderText: "请输入消息"
