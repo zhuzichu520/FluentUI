@@ -2,7 +2,7 @@
 import QtQuick.Controls
 import FluentUI
 
-Button {
+FluControl {
 
     property int iconSize: 20
     property int iconSource

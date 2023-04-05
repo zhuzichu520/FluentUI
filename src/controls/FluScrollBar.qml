@@ -114,11 +114,9 @@ ScrollBar {
             anchors.fill: parent
             onEntered: {
                 timer.restart()
-                console.debug("onEntered")
             }
             onExited: {
                 timer.restart()
-                console.debug("onExited")
             }
         }
     }

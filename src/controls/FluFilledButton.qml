@@ -2,7 +2,7 @@
 import QtQuick.Controls
 import FluentUI
 
-Button {
+FluControl {
 
     property bool disabled: false
     property color normalColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark

@@ -52,7 +52,7 @@ Item{
         anchors.fill: parent
     }
 
-    Button{
+    FluControl{
         id:btn_start
         height: vertical ? 20 : 40
         width: vertical ? 40 : 20
@@ -82,7 +82,7 @@ Item{
         }
     }
 
-    Button{
+    FluControl{
         id:btn_end
         height: vertical ? 20 : 40
         width: vertical ? 40 : 20

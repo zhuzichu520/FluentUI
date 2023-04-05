@@ -2,7 +2,7 @@
 import QtQuick.Controls
 import FluentUI
 
-TextArea{
+FluTextArea{
 
     property int fontStyle: FluText.Body
     property int pixelSize : FluTheme.textSize

@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
 
-Button {
+FluControl {
 
     property bool selected: false
     property var clickFunc

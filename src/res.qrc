@@ -64,5 +64,8 @@
         <file>controls/FluFlipView.qml</file>
         <file>controls/FluPivot.qml</file>
         <file>controls/FluPivotItem.qml</file>
+        <file>controls/FluControl.qml</file>
+        <file>controls/FluTextFiled.qml</file>
+        <file>controls/FluTextArea.qml</file>
     </qresource>
 </RCC>
