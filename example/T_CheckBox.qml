@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -10,14 +11,28 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
-    FluCheckBox{
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        paddings: 10
         Layout.topMargin: 20
+        Row{
+            spacing: 30
+            anchors.verticalCenter: parent.verticalCenter
+            FluCheckBox{
+            }
+            FluCheckBox{
+                text:"Text"
+            }
+        }
     }
-
-    FluCheckBox{
-        Layout.topMargin: 20
-        text:"Text"
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluCheckBox{
+   text:"Text"
+}'
     }
 
 }

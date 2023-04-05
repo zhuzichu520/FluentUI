@@ -11,7 +11,7 @@ FluMenu{
     focus: false
     FluMenuItem{
         text: cutText
-        visible: inputItem.text !== ""
+        visible: inputItem.text !== "" && !inputItem.readOnly
         onClicked: {
             inputItem.cut()
         }

@@ -2,6 +2,7 @@
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
+import "./component"
 import FluentUI
 
 FluScrollablePage{
@@ -10,17 +11,46 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
-    FluSlider{
+    FluArea{
+        Layout.fillWidth: true
+        height: 100
+        paddings: 10
         Layout.topMargin: 20
-        value: 50
-        Layout.leftMargin: 10
+        FluSlider{
+            value: 50
+            anchors.verticalCenter: parent.verticalCenter
+        }
     }
-    FluSlider{
-        vertical:true
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluSlider{
+   value:50
+}'
+    }
+
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 200
+        paddings: 10
         Layout.topMargin: 20
-        Layout.leftMargin: 10
-        Layout.bottomMargin: 20
-        value: 50
+        FluSlider{
+            value: 50
+            vertical:true
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+        }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluSlider{
+   vertical:true
+   value:50
+}'
+    }
+
+
 }
