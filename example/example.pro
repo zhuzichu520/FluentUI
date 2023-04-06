@@ -23,13 +23,15 @@ CONFIG(debug,debug|release) {
 }
 
 win32 {
-contains(QT_ARCH, i386) {
-    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x86/*.dll) $$DESTDIR
+
+contains(QMAKE_CC, cl) {
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/msvc/*.dll) $$DESTDIR
     QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, $$QMAKE_DIR_SEP)
 } else {
-    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x64/*.dll) $$DESTDIR
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/mingw/*.dll) $$DESTDIR
     QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, $$QMAKE_DIR_SEP)
 }
+
 }
 
 qnx: target.path = /tmp/$${TARGET}/bin

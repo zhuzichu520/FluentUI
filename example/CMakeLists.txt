@@ -43,15 +43,15 @@ qt_add_resources(QT_RESOURCES ${RESOURCES})
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${QT_RESOURCES} ${RC_ICONS})
 
 if(WIN32)
-    if(platform EQUAL 32)
-        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/Win_x86/*.dll)
+    if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
+        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/msvc/*.dll)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
             ${DLL_FILES}
             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
         )
     else()
-        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/Win_x64/*.dll)
+        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/mingw/*.dll)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
             ${DLL_FILES}
