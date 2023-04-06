@@ -15,8 +15,9 @@ FluExpander{
         id:content
         width:parent.width
         readOnly:true
-        text:code
+        text:highlightQmlCode(code)
         focus:false
+        textFormat: FluMultilineTextBox.RichText
         KeyNavigation.priority: KeyNavigation.BeforeItem
         background:Rectangle{
             radius: 4
@@ -39,5 +40,86 @@ FluExpander{
             showSuccess("复制成功")
         }
     }
+
+    function htmlEncode(e){
+      var i,s;
+      for(i in s={
+        "&":/&/g,//""//":/"/g,"'":/'/g,
+        "<":/</g,">":/>/g,"<br/>":/\n/g,
+        " ":/ /g,"  ":/\t/g
+      })e=e.replace(s[i],i);
+      return e;
+    }
+
+    function highlightQmlCode(code) {
+      // 定义 QML 关键字列表
+      var qmlKeywords = [
+        "FluTextButton",
+        "FluAppBar",
+          "FluAutoSuggestBox",
+          "FluBadge",
+          "FluButton",
+          "FluCalendarPicker",
+          "FluCalendarView",
+          "FluCarousel",
+          "FluCheckBox",
+          "FluColorPicker",
+          "FluColorView",
+          "FluComboBox",
+          "FluContentDialog",
+          "FluContentPage",
+          "FluControl",
+          "FluDatePicker",
+          "FluDivider",
+          "FluDropDownButton",
+          "FluExpander",
+          "FluFilledButton",
+          "FluFlipView",
+          "FluFocusRectangle",
+          "FluIcon",
+          "FluIconButton",
+          "FluInfoBar",
+          "FluItem",
+          "FluMediaPlayer",
+          "FluMenu",
+          "FluMenuItem",
+          "FluMultilineTextBox",
+          "FluNavigationView",
+          "FluObject",
+          "FluPaneItem",
+          "FluPaneItemExpander",
+          "FluPaneItemHeader",
+          "FluPaneItemSeparator",
+          "FluPivot",
+          "FluPivotItem",
+          "FluProgressBar",
+          "FluProgressRing",
+          "FluRadioButton",
+          "FluRectangle",
+          "FluScrollablePage",
+          "FluScrollBar",
+          "FluShadow",
+          "FluSlider",
+          "FluTabView",
+          "FluText",
+          "FluTextArea",
+          "FluTextBox",
+          "FluTextBoxBackground",
+          "FluTextBoxMenu",
+          "FluTextButton",
+          "FluTextFiled",
+          "FluTimePicker",
+          "FluToggleSwitch",
+          "FluTooltip",
+          "FluTreeView",
+          "FluWindow",
+          "FluWindowResize"
+      ];
+      code = code.replace(/\n/g, "<br>");
+      code = code.replace(/ /g, "&nbsp;");
+      return code.replace(RegExp("\\b(" + qmlKeywords.join("|") + ")\\b", "g"), "<span style='color: #c23a80'>$1</span>");
+    }
+
+
 
 }
