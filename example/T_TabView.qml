@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -10,6 +11,7 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     property var colors : [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
 
@@ -99,7 +101,7 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 5
+        Layout.topMargin: 15
         height: 400
         paddings: 10
         FluTabView{
@@ -108,6 +110,28 @@ FluScrollablePage{
                 newTab()
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluTabView{
+    anchors.fill: parent
+    Component.onCompleted: {
+        newTab()
+        newTab()
+        newTab()
+    }
+    Component{
+        id:com_page
+        Rectangle{
+            anchors.fill: parent
+            color: argument
+        }
+    }
+    function newTab(){
+        tab_view.appendTab("qrc:/res/image/favicon.ico","Document 1",com_page,argument)
+    }
+}
+'
     }
 
 }

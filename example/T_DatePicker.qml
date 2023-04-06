@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -10,44 +11,42 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
         height: 80
         paddings: 10
-
         ColumnLayout{
-
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-
             FluText{
                 text:"showYear=true"
             }
-
             FluDatePicker{
             }
-
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluDatePicker{
 
+}'
+    }
 
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
         height: 80
         paddings: 10
-
         ColumnLayout{
-
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-
             FluText{
                 text:"showYear=false"
             }
@@ -56,8 +55,13 @@ FluScrollablePage{
                 showYear:false
 
             }
-
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluDatePicker{
+    showYear:false
+}'
     }
 
 }

@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -10,30 +11,59 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
-    FluProgressBar{
+    FluArea{
+        Layout.fillWidth: true
         Layout.topMargin: 20
-    }
-    FluProgressRing{
-        Layout.topMargin: 10
-    }
-    FluProgressBar{
-        id:progress_bar
-        Layout.topMargin: 20
-        indeterminate: false
-    }
-    FluProgressRing{
-        id:progress_ring
-        Layout.topMargin: 10
-        indeterminate: false
-    }
-    FluSlider{
-        Layout.topMargin: 30
-        value:50
-        onValueChanged:{
-            progress_bar.progress = value/100
-            progress_ring.progress = value/100
+        height: 260
+        paddings: 10
+        ColumnLayout{
+            spacing: 20
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluProgressBar{
+            }
+            FluProgressRing{
+            }
+            FluProgressBar{
+                id:progress_bar
+                indeterminate: false
+            }
+            FluProgressRing{
+                id:progress_ring
+                indeterminate: false
+            }
+            FluSlider{
+                value:50
+                onValueChanged:{
+                    progress_bar.progress = value/100
+                    progress_ring.progress = value/100
+                }
+            }
         }
-        Layout.bottomMargin: 30
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluProgressBar{
+
+}
+
+FluProgressRing{
+
+}
+
+FluProgressBar{
+    indeterminate: false
+}
+
+FluProgressRing{
+    indeterminate: false
+}'
+    }
+
+
+
 }

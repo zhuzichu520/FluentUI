@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -10,7 +11,7 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
-
+    spacing: 0
 
     FluArea{
         Layout.fillWidth: true
@@ -26,7 +27,6 @@ FluScrollablePage{
                 Image{
                     source: "qrc:/res/image/banner_1.jpg"
                     asynchronous: true
-                    sourceSize: Qt.size(400,300)
                     fillMode:Image.PreserveAspectCrop
                 }
                 Image{
@@ -41,6 +41,27 @@ FluScrollablePage{
                 }
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluFlipView{
+    Image{
+        source: "qrc:/res/image/banner_1.jpg"
+        asynchronous: true
+        fillMode:Image.PreserveAspectCrop
+    }
+    Image{
+        source: "qrc:/res/image/banner_1.jpg"
+        asynchronous: true
+        fillMode:Image.PreserveAspectCrop
+    }
+    Image{
+        source: "qrc:/res/image/banner_1.jpg"
+        asynchronous: true
+        fillMode:Image.PreserveAspectCrop
+    }
+}
+'
     }
 
     FluArea{
@@ -74,5 +95,26 @@ FluScrollablePage{
             }
         }
     }
-
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluFlipView{
+    vertical:true
+    Image{
+        source: "qrc:/res/image/banner_1.jpg"
+        asynchronous: true
+        fillMode:Image.PreserveAspectCrop
+    }
+    Image{
+        source: "qrc:/res/image/banner_1.jpg"
+        asynchronous: true
+        fillMode:Image.PreserveAspectCrop
+    }
+    Image{
+        source: "qrc:/res/image/banner_1.jpg"
+        asynchronous: true
+        fillMode:Image.PreserveAspectCrop
+    }
+}
+'
+    }
 }

@@ -3,7 +3,6 @@
 import QtQuick
 import FluentUI
 
-
 FluObject{
 
     property var navigationView
@@ -19,7 +18,6 @@ FluObject{
     FluPaneItemExpander{
         title:"Basic input"
         icon:FluentIcons.CheckboxComposite
-
         FluPaneItem{
             title:"Buttons"
             image:"qrc:/res/image/control/Button.png"
@@ -38,7 +36,6 @@ FluObject{
                 navigationView.push("qrc:/T_Slider.qml")
             }
         }
-
         FluPaneItem{
             title:"CheckBox"
             image:"qrc:/res/image/control/Checkbox.png"
@@ -48,7 +45,6 @@ FluObject{
                 navigationView.push("qrc:/T_CheckBox.qml")
             }
         }
-
         FluPaneItem{
             title:"ToggleSwitch"
             onTap:{
@@ -92,11 +88,9 @@ FluObject{
         }
     }
 
-
     FluPaneItemExpander{
         title:"Surface"
         icon:FluentIcons.SurfaceHub
-
         FluPaneItem{
             title:"InfoBar"
             image:"qrc:/res/image/control/InfoBar.png"
@@ -106,42 +100,36 @@ FluObject{
                 navigationView.push("qrc:/T_InfoBar.qml")
             }
         }
-
         FluPaneItem{
             title:"Progress"
             onTap:{
                 navigationView.push("qrc:/T_Progress.qml")
             }
         }
-
         FluPaneItem{
             title:"Badge"
             onTap:{
                 navigationView.push("qrc:/T_Badge.qml")
             }
         }
-
         FluPaneItem{
             title:"Rectangle"
             onTap:{
                 navigationView.push("qrc:/T_Rectangle.qml")
             }
         }
-
         FluPaneItem{
             title:"Carousel"
             onTap:{
                 navigationView.push("qrc:/T_Carousel.qml")
             }
         }
-
         FluPaneItem{
             title:"Expander"
             onTap:{
                 navigationView.push("qrc:/T_Expander.qml")
             }
         }
-
     }
 
     FluPaneItemExpander{
@@ -153,14 +141,12 @@ FluObject{
                 navigationView.push("qrc:/T_Dialog.qml")
             }
         }
-
         FluPaneItem{
             title:"Tooltip"
             onTap:{
                 navigationView.push("qrc:/T_Tooltip.qml")
             }
         }
-
         FluPaneItem{
             title:"Menu"
             onTap:{
@@ -172,7 +158,6 @@ FluObject{
     FluPaneItemExpander{
         title:"Navigation"
         icon:FluentIcons.AllApps
-
         FluPaneItem{
             title:"Pivot"
             image:"qrc:/res/image/control/Pivot.png"
@@ -226,17 +211,16 @@ FluObject{
                 navigationView.push("qrc:/T_Theme.qml")
             }
         }
-
-        FluPaneItem{
-            title:"Awesome"
-            onTap:{
-                navigationView.push("qrc:/T_Awesome.qml")
-            }
-        }
         FluPaneItem{
             title:"Typography"
             onTap:{
                 navigationView.push("qrc:/T_Typography.qml")
+            }
+        }
+        FluPaneItem{
+            title:"Awesome"
+            onTap:{
+                navigationView.push("qrc:/T_Awesome.qml")
             }
         }
     }

@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -10,6 +11,7 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     FluArea{
         Layout.fillWidth: true
@@ -34,5 +36,15 @@ FluScrollablePage{
                 }
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluCarousel{
+    width: 400
+    height: 300
+    Component.onCompleted: {
+        setData([{url:"qrc:/res/image/banner_1.jpg"},{url:"qrc:/res/image/banner_2.jpg"},{url:"qrc:/res/image/banner_3.jpg"}])
+    }
+}'
     }
 }

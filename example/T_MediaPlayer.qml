@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -10,6 +11,7 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     onVisibleChanged: {
         if(visible){
@@ -18,7 +20,6 @@ FluScrollablePage{
             player.pause()
         }
     }
-
     FluArea{
         Layout.fillWidth: true
         height: 320
@@ -35,13 +36,19 @@ FluScrollablePage{
             }
         }
     }
-
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluMediaPlayer{
+    id:player
+    source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+}
+'
+    }
     FluArea{
         Layout.fillWidth: true
         height: 68
         Layout.topMargin: 20
         paddings: 10
-
         FluButton{
             text:"跳转到视频播放器窗口"
             anchors.verticalCenter: parent.verticalCenter
@@ -49,8 +56,10 @@ FluScrollablePage{
                 FluApp.navigate("/media",{source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"})
             }
         }
-
     }
+
+
+
 
 }
 

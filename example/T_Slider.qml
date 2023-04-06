@@ -26,7 +26,7 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluSlider{
-   value:50
+    value:50
 }'
     }
 
@@ -47,8 +47,8 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluSlider{
-   vertical:true
-   value:50
+    vertical:true
+    value:50
 }'
     }
 

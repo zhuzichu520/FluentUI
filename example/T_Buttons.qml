@@ -52,10 +52,10 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluTextButton{
-   text:"Text Button"
-   onClicked: {
+    text:"Text Button"
+    onClicked: {
 
-   }
+    }
 }'
     }
 
@@ -93,10 +93,10 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluButton{
-   text:"Standard Button"
-   onClicked: {
+    text:"Standard Button"
+    onClicked: {
 
-   }
+    }
 }'
     }
 
@@ -134,10 +134,10 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluFilledButton{
-   text:"Filled Button"
-   onClicked: {
+    text:"Filled Button"
+    onClicked: {
 
-   }
+    }
 }'
     }
 
@@ -176,10 +176,10 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluIconButton{
-   iconSource:FluentIcons.ChromeCloseContrast
-   onClicked: {
+    iconSource:FluentIcons.ChromeCloseContrast
+    onClicked: {
 
-   }
+    }
 }'
     }
 
@@ -226,21 +226,21 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluDropDownButton{
-  text:"DropDownButton"
-  items:[
-    FluMenuItem{
-      text:"Menu_1"
-    },
-    FluMenuItem{
-      text:"Menu_2"
-    },
-    FluMenuItem{
-      text:"Menu_3"
-    },
-    FluMenuItem{
-      text:"Menu_4"
-    }
-  ]
+    text:"DropDownButton"
+    items:[
+        FluMenuItem{
+            text:"Menu_1"
+        },
+        FluMenuItem{
+            text:"Menu_2"
+        },
+        FluMenuItem{
+            text:"Menu_3"
+        },
+        FluMenuItem{
+            text:"Menu_4"
+        }
+    ]
 }'
     }
 
@@ -287,11 +287,11 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluRadioButton{
-   selected:true
-   text:"Text Button"
-   onClicked: {
+    selected:true
+    text:"Text Button"
+    onClicked: {
 
-   }
+    }
 }'
     }
 
@@ -325,7 +325,7 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluCheckBox{
-   text:"Check Box"
+    text:"Check Box"
 }'
     }
 }

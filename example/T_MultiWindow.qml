@@ -3,17 +3,18 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
+import "./component"
 
 FluScrollablePage{
+
+    property string password: ""
+    property var loginPageRegister: registerForPageResult("/login")
 
     title:"MultiWindow"
     leftPadding:10
     rightPadding:10
     bottomPadding:20
-
-    property string password: ""
-
-    property var loginPageRegister: registerForPageResult("/login")
+    spacing: 0
 
     Connections{
         target: loginPageRegister
@@ -28,7 +29,6 @@ FluScrollablePage{
         height: 100
         paddings: 10
         Layout.topMargin: 20
-
         Column{
             spacing: 15
             anchors{
@@ -45,6 +45,16 @@ FluScrollablePage{
                 }
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluButton{
+    text:"点击跳转"
+    onClicked: {
+        FluApp.navigate("/about")
+    }
+}
+'
     }
 
     FluArea{
@@ -68,11 +78,30 @@ FluScrollablePage{
                     loginPageRegister.launch({username:"zhuzichu"})
                 }
             }
-
             FluText{
                 text:"登录窗口返回过来的密码->"+password
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'property var loginPageRegister: registerForPageResult("/login")
+
+Connections{
+    target: loginPageRegister
+    function onResult(data)
+    {
+        password = data.password
+    }
+}
+
+FluButton{
+    text:"点击跳转"
+    onClicked: {
+        loginPageRegister.launch({username:"zhuzichu"})
+    }
+}
+'
     }
 
 }

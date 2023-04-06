@@ -31,7 +31,7 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         code:'FluCheckBox{
-   text:"Text"
+    text:"Text"
 }'
     }
 

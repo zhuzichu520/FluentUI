@@ -15,15 +15,19 @@ FluContentPage {
         slider.seek(0)
     }
 
-    ScrollView{
-        clip: true
-        width: parent.width
-        contentWidth: parent.width
+    FluArea{
+        anchors{
+            top:parent.top
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            topMargin: 20
+        }
+        paddings: 10
         ColumnLayout{
             spacing: 0
             FluText{
                 text:"Display"
-                Layout.topMargin: 20
                 padding: 0
                 pixelSize: textSize
                 fontStyle: FluText.Display
@@ -65,21 +69,26 @@ FluContentPage {
                 fontStyle: FluText.Caption
             }
         }
+
+        FluSlider{
+            id:slider
+            vertical:true
+            anchors{
+                right: parent.right
+                rightMargin: 45
+                top: parent.top
+                topMargin: 30
+            }
+            onValueChanged:{
+                textSize = value/100*6+FluTheme.textSize
+            }
+        }
+
     }
 
 
-    FluSlider{
-        id:slider
-        vertical:true
-        anchors{
-            right: parent.right
-            rightMargin: 45
-            top: parent.top
-            topMargin: 30
-        }
-        onValueChanged:{
-            textSize = value/100*6+FluTheme.textSize
-        }
-    }
+
+
+
 
 }

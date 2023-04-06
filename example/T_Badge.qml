@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
+import "./component"
 
 FluScrollablePage{
 
@@ -11,6 +12,7 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     FluArea{
         Layout.fillWidth: true
@@ -98,6 +100,20 @@ FluScrollablePage{
                 }
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'Rectangle{
+    width: 40
+    height: 40
+    radius: 8
+    color: Qt.rgba(191/255,191/255,191/255,1)
+    FluBadge{
+        count: 100
+        isDot: false
+        color: Qt.rgba(82/255,196/255,26/255,1)
+    }
+}'
     }
 
 }
