@@ -4,7 +4,7 @@ import FluentUI
 Text {
 
     property int fontStyle: FluText.Body
-    property color textColor: FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+    property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
     property int pixelSize : FluTheme.textSize
 
     enum FontStyle {

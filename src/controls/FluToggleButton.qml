@@ -28,6 +28,8 @@ FluControl {
         }
     }
 
+    property color pressedColor: FluTheme.dark ? Qt.darker(normalColor,1.2) : Qt.lighter(normalColor,1.2)
+
     id: control
     enabled: !disabled
     topPadding:5
@@ -47,6 +49,11 @@ FluControl {
         color:{
             if(disabled){
                 return disableColor
+            }
+            if(selected){
+                if(pressed){
+                    return pressedColor
+                }
             }
             return hovered ? hoverColor :normalColor
         }
@@ -70,10 +77,20 @@ FluControl {
                     if(disabled){
                         return Qt.rgba(131/255,131/255,131/255,1)
                     }
+                    if(!selected){
+                        if(pressed){
+                            return Qt.rgba(162/255,162/255,162/255,1)
+                        }
+                    }
                     return Qt.rgba(1,1,1,1)
                 }else{
                     if(disabled){
                         return Qt.rgba(160/255,160/255,160/255,1)
+                    }
+                    if(!selected){
+                        if(pressed){
+                            return Qt.rgba(96/255,96/255,96/255,1)
+                        }
                     }
                     return Qt.rgba(0,0,0,1)
                 }

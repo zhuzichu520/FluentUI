@@ -150,19 +150,19 @@ Item {
                 }
                 color: {
                     if(FluTheme.dark){
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(1,1,1,0.03)
-                        }
                         if((nav_list.currentIndex === position)&&type===0){
                             return Qt.rgba(1,1,1,0.06)
                         }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
                         return Qt.rgba(0,0,0,0)
                     }else{
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(0,0,0,0.03)
-                        }
                         if(nav_list.currentIndex === position&&type===0){
                             return Qt.rgba(0,0,0,0.06)
+                        }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(0,0,0,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
                     }
@@ -192,6 +192,12 @@ Item {
                     anchors{
                         verticalCenter: parent.verticalCenter
                         left:item_icon.right
+                    }
+                    color:{
+                        if(item_mouse.pressed){
+                            return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                        }
+                        return FluTheme.dark ? FluColors.White : FluColors.Grey220
                     }
                 }
             }
@@ -249,19 +255,19 @@ Item {
                 }
                 color: {
                     if(FluTheme.dark){
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(1,1,1,0.03)
-                        }
                         if((nav_list.currentIndex === position)&&type===0){
                             return Qt.rgba(1,1,1,0.06)
                         }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
                         return Qt.rgba(0,0,0,0)
                     }else{
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(0,0,0,0.03)
-                        }
                         if(nav_list.currentIndex === position&&type===0){
                             return Qt.rgba(0,0,0,0.06)
+                        }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(0,0,0,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
                     }
@@ -288,6 +294,12 @@ Item {
                 FluText{
                     id:item_title
                     text:model.title
+                    color:{
+                        if(item_mouse.pressed){
+                            return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                        }
+                        return FluTheme.dark ? FluColors.White : FluColors.Grey220
+                    }
                     anchors{
                         verticalCenter: parent.verticalCenter
                         left:item_icon.right

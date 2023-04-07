@@ -186,6 +186,10 @@ FluObject{
         }
         FluPaneItem{
             title:"TableView"
+            image:"qrc:/res/image/control/DataGrid.png"
+            recentlyAdded:true
+            order:4
+            desc:"The TableView control provides a flexible way to display a collection of data in rows and columns"
             onTap:{
                 navigationView.push("qrc:/T_TableView.qml")
             }

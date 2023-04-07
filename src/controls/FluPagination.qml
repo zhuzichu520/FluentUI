@@ -27,7 +27,7 @@ Item {
 
         FluToggleButton{
             visible: control.pageCount>1
-            enabled: control.pageCurrent>1
+            disabled: control.pageCurrent<=1
             text:"<上一页"
             onClicked: {
                 control.calcNewPage(control.pageCurrent-1);
@@ -87,7 +87,7 @@ Item {
         }
         FluToggleButton{
             visible: control.pageCount>1
-            enabled: control.pageCurrent<control.pageCount
+            disabled: control.pageCurrent>=control.pageCount
             text:"下一页>"
             onClicked: {
                 control.calcNewPage(control.pageCurrent+1);
