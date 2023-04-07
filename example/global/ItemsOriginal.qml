@@ -185,6 +185,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"TableView"
+            onTap:{
+                navigationView.push("qrc:/T_TableView.qml")
+            }
+        }
+        FluPaneItem{
             title:"MultiWindow"
             onTap:{
                 navigationView.push("qrc:/T_MultiWindow.qml")

@@ -141,6 +141,47 @@ FluScrollablePage{
 }'
     }
 
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        Layout.topMargin: 20
+        paddings: 10
+
+        FluToggleButton{
+            disabled:toggle_button_switch.selected
+            text:"Toggle Button"
+            onClicked: {
+               selected = !selected
+            }
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:toggle_button_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluToggleButton{
+    text:"Toggle Button"
+    onClicked: {
+        selected = !selected
+    }
+}'
+    }
+
 
     FluArea{
         Layout.fillWidth: true

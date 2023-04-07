@@ -156,5 +156,6 @@
         <file>T_FlipView.qml</file>
         <file>T_Pivot.qml</file>
         <file>component/CodeExpander.qml</file>
+        <file>T_TableView.qml</file>
     </qresource>
 </RCC>
