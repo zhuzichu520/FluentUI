@@ -48,6 +48,5 @@ FluControl {
                 return Qt.rgba(1,1,1,1)
             }
         }
-        font.pixelSize: 14
     }
 }
