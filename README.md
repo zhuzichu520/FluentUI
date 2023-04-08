@@ -62,6 +62,12 @@
 |FluDatePicker|日期选择器||
 |FluMenu|菜单Popup||
 |FluNavigationView|响应式导航布局||
+|FluScrollbar|滚动条||
+|FluToggleButton|开关按钮||
+|FluPagination|分页组件||
+|FluTableView|表格组件||
+|FluMediaPlayer|播放器||
+|FluFlipView|FlipView||
 
 # 部分效果预览
 
