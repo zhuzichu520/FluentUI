@@ -10,6 +10,10 @@ set(QT_INSTALL_QML ${Qt6Core_DIR}/../../../qml)
 set(TARGET_TYPE SHARED)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FluentUI)
 
+if(WIN32)
+	set(CMAKE_SHARED_LIBRARY_PREFIX "")
+endif()
+
 set(TARGET_RESOURCES res.qrc)
 set(TARGET_SOURCES
     Def.cpp
