@@ -38,10 +38,6 @@ set(RC_ICONS
     favicon.ico
 )
 
-if(WIN32)
-	set(CMAKE_SHARED_LIBRARY_PREFIX "")
-endif()
-
 qt_add_resources(QT_RESOURCES ${RESOURCES})
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${QT_RESOURCES} ${RC_ICONS})
