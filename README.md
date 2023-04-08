@@ -77,6 +77,10 @@
 
 ![](doc/preview/theme.png)
 
+## TableView表格组件
+
+![](doc/preview/tableview.png)
+
 ## FluTreeView树组件
 
 ![](doc/preview/treeview.png)
@@ -84,14 +88,6 @@
 ## 轮播图组件
 
 ![](doc/preview/carousel.png)
-
-## InfoBar提示框组件
-
-![](doc/preview/infobar.png)
-
-## 多窗口路由跳转
-
-![](doc/preview/multiwindow.png)
 
 ### ⚡ Visitor count
 ![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
