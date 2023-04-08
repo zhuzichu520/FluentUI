@@ -113,7 +113,9 @@ FluExpander{
           "FluTooltip",
           "FluTreeView",
           "FluWindow",
-          "FluWindowResize"
+          "FluWindowResize",
+          "FluToggleButton",
+          "FluTableView"
       ];
       code = code.replace(/\n/g, "<br>");
       code = code.replace(/ /g, "&nbsp;");

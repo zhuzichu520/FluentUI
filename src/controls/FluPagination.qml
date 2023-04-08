@@ -1,4 +1,5 @@
 ﻿import QtQuick
+import QtQuick.Controls
 import FluentUI
 import QtQuick.Layouts
 
@@ -7,6 +8,8 @@ Item {
 
 
     signal requestPage(int page,int count)
+    property string previousText: "<上一页"
+    property string nextText: "下一页>"
     property int pageCurrent: 0
     property int itemCount: 0
     property int pageCount: itemCount>0?Math.ceil(itemCount/__itemPerPage):0
@@ -28,7 +31,7 @@ Item {
         FluToggleButton{
             visible: control.pageCount>1
             disabled: control.pageCurrent<=1
-            text:"<上一页"
+            text:control.previousText
             onClicked: {
                 control.calcNewPage(control.pageCurrent-1);
             }
@@ -76,8 +79,7 @@ Item {
             }
             FluToggleButton{
                 property int pageNumber:control.pageCount
-                visible: control.pageCount>0
-                enabled: control.pageCurrent>1
+                visible: control.pageCount>1
                 selected: pageNumber === control.pageCurrent
                 text:String(pageNumber)
                 onClicked: {
@@ -88,7 +90,7 @@ Item {
         FluToggleButton{
             visible: control.pageCount>1
             disabled: control.pageCurrent>=control.pageCount
-            text:"下一页>"
+            text:control.nextText
             onClicked: {
                 control.calcNewPage(control.pageCurrent+1);
             }
