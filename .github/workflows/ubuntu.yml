@@ -38,7 +38,7 @@ jobs:
           arch: ${{ matrix.qt_arch }}
           modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
       - name: ubuntu install GL library
-        run: sudo apt-get install -y libglew-dev libglfw3-dev qml-module-qtquick-controls qml-module-qtquick-controls2
+        run: sudo apt-get install -y libglew-dev libglfw3-dev
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
