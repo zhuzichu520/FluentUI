@@ -9,14 +9,6 @@ Item{
     property bool shadow: true
     default property alias contentItem: container.data
 
-    Rectangle{
-        id:container
-        width: control.width
-        height: control.height
-        opacity: 0
-        color:control.color
-    }
-
     FluShadow{
         anchors.fill: container
         radius: control.radius[0]
@@ -26,6 +18,14 @@ Item{
             }
             return false
         }
+    }
+
+    Rectangle{
+        id:container
+        width: control.width
+        height: control.height
+        opacity: 0
+        color:control.color
     }
 
     Canvas {

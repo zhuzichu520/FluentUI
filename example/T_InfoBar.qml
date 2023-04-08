@@ -52,12 +52,12 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        code:'  showInfo("这是一个Info样式的InfoBar")
+        code:'showInfo("这是一个Info样式的InfoBar")
 
-    showWarning("这是一个Warning样式的InfoBar")
+showWarning("这是一个Warning样式的InfoBar")
 
-    showError("这是一个Error样式的InfoBar")
+showError("这是一个Error样式的InfoBar")
 
-    showSuccess("这是一个Success样式的InfoBar这是一个Success样式的InfoBar")'
+showSuccess("这是一个Success样式的InfoBar这是一个Success样式的InfoBar")'
     }
 }
