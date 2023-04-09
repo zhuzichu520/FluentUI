@@ -96,6 +96,5 @@ FluControl {
                 }
             }
         }
-        font.pixelSize: 14
     }
 }
