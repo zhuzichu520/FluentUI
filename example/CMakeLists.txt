@@ -7,6 +7,8 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 
+file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
+
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   set(platform 64)
 else()
@@ -44,20 +46,17 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${QT_RESOURCES} ${RC_ICONS}
 
 if(WIN32)
     if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
-        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/msvc/*.dll)
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${DLL_FILES}
-            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-        )
+        set(DLLPATH ${CMAKE_CURRENT_SOURCE_DIR}/../third/msvc/*.dll)
     else()
-        file(GLOB DLL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../third/mingw/*.dll)
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${DLL_FILES}
-            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-        )
+        set(DLLPATH ${CMAKE_CURRENT_SOURCE_DIR}/../third/mingw/*.dll)
     endif()
+    string(REPLACE "/" ${PATH_SEPARATOR} DLLPATH "${DLLPATH}")
+    file(GLOB DLL_FILES ${DLLPATH})
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${DLL_FILES}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+    )
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
