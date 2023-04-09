@@ -119,6 +119,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"StatusView"
+            onTap:{
+                navigationView.push("qrc:/T_StatusView.qml")
+            }
+        }
+        FluPaneItem{
             title:"Carousel"
             onTap:{
                 navigationView.push("qrc:/T_Carousel.qml")

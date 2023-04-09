@@ -70,5 +70,6 @@
         <file>controls/FluTableView.qml</file>
         <file>controls/FluPagination.qml</file>
         <file>controls/FluToggleButton.qml</file>
+        <file>controls/FluStatusView.qml</file>
     </qresource>
 </RCC>

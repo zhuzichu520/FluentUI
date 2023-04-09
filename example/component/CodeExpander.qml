@@ -118,6 +118,7 @@ FluExpander{
           "FluTableView",
           "FluColors",
           "FluTheme",
+          "FluStatusView"
       ];
       code = code.replace(/\n/g, "<br>");
       code = code.replace(/ /g, "&nbsp;");
