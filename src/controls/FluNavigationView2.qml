@@ -6,48 +6,80 @@ import FluentUI
 
 Item {
 
-    property alias logo : image_logo.source
-    property string title: ""
-    property FluObject items
-    property FluObject footerItems
-    property int displayMode: width<=700 ? FluNavigationView.Minimal : FluNavigationView.Open
-    property bool displaMinimalMenu : false
-    property Component  autoSuggestBox
-
-    id:root
-
-    onDisplayModeChanged: {
-        if(displayMode === FluNavigationView.Minimal){
-            anim_navi.enabled = false
-            displaMinimalMenu = false
-            timer_anim_enable.restart()
-        }
-    }
-
-    Timer{
-        id:timer_anim_enable
-        interval: 150
-        onTriggered: {
-            anim_navi.enabled = true
-        }
-    }
-
     enum DisplayMode {
-        Minimal,
         Open,
+        Top,
+        Compact,
+        Minimal,
         Auto
     }
 
+    property url logo
+    property string title: ""
+    property FluObject items
+    property FluObject footerItems
+    property int displayMode: FluNavigationView2.Open
+    property Component  autoSuggestBox
     property var window : {
         if(Window.window == null)
             return null
         return Window.window
     }
 
+    id:control
+
+    QtObject{
+        id:d
+        property bool enableStack: true
+        property var stackItems: []
+        property bool enableNavigationPanel: false
+        function handleItems(){
+            var idx = 0
+            var data = []
+            if(items){
+                for(var i=0;i<items.children.length;i++){
+                    var item = items.children[i]
+                    item.idx = idx
+                    data.push(item)
+                    idx++
+                    if(item instanceof FluPaneItemExpander){
+                        for(var j=0;j<item.children.length;j++){
+                            var itemChild = item.children[j]
+                            itemChild.parent = item
+                            itemChild.idx = idx
+                            data.push(itemChild)
+                            idx++
+                        }
+                    }
+                }
+                if(footerItems){
+                    var comEmpty = Qt.createComponent("FluPaneItemEmpty.qml");
+                    for(var k=0;k<footerItems.children.length;k++){
+                        var itemFooter = footerItems.children[k]
+                        if (comEmpty.status === Component.Ready) {
+                            var objEmpty = comEmpty.createObject(items,{idx:idx});
+                            itemFooter.idx = idx;
+                            data.push(objEmpty)
+                            idx++
+                        }
+                    }
+                }
+            }
+            return data
+        }
+    }
+
+    Component{
+        id:com_panel_item_empty
+        Item{
+            visible: false
+        }
+    }
+
     Component{
         id:com_panel_item_separatorr
         FluDivider{
-            width: nav_list.width
+            width: layout_list.width
             height: {
                 if(model.parent){
                     return model.parent.isExpand ? 1 : 0
@@ -76,7 +108,7 @@ Item {
                     duration: 150
                 }
             }
-            width: nav_list.width
+            width: layout_list.width
             FluText{
                 text:model.title
                 fontStyle: FluText.BodyStrong
@@ -93,8 +125,7 @@ Item {
         id:com_panel_item_expander
         Item{
             height: 38
-            width: nav_list.width
-
+            width: layout_list.width
             Rectangle{
                 radius: 4
                 anchors{
@@ -134,6 +165,12 @@ Item {
                         right: parent.right
                         rightMargin: 12
                     }
+                    visible: {
+                        if(displayMode === FluNavigationView2.Compact){
+                            return false
+                        }
+                        return true
+                    }
                     Behavior on rotation {
                         NumberAnimation{
                             duration: 150
@@ -145,12 +182,17 @@ Item {
                     hoverEnabled: true
                     anchors.fill: parent
                     onClicked: {
+                        if(displayMode === FluNavigationView2.Compact){
+
+                            return
+                        }
                         model.isExpand = !model.isExpand
+
                     }
                 }
                 color: {
                     if(FluTheme.dark){
-                        if((nav_list.currentIndex === position)&&type===0){
+                        if((nav_list.currentIndex === idx)&&type===0){
                             return Qt.rgba(1,1,1,0.06)
                         }
                         if(item_mouse.containsMouse){
@@ -158,7 +200,7 @@ Item {
                         }
                         return Qt.rgba(0,0,0,0)
                     }else{
-                        if(nav_list.currentIndex === position&&type===0){
+                        if(nav_list.currentIndex === idx&&type===0){
                             return Qt.rgba(0,0,0,0.06)
                         }
                         if(item_mouse.containsMouse){
@@ -167,7 +209,6 @@ Item {
                         return Qt.rgba(0,0,0,0)
                     }
                 }
-
                 FluIcon{
                     id:item_icon
                     iconSource: {
@@ -185,10 +226,15 @@ Item {
                         leftMargin: 3
                     }
                 }
-
                 FluText{
                     id:item_title
                     text:model.title
+                    visible: {
+                        if(displayMode === FluNavigationView2.Compact){
+                            return false
+                        }
+                        return true
+                    }
                     anchors{
                         verticalCenter: parent.verticalCenter
                         left:item_icon.right
@@ -219,8 +265,7 @@ Item {
                 }
                 return 38
             }
-            width: nav_list.width
-
+            width: layout_list.width
             Rectangle{
                 radius: 4
                 anchors{
@@ -238,33 +283,49 @@ Item {
                     hoverEnabled: true
                     anchors.fill: parent
                     onClicked: {
-                        if(type===0){
+                        if(type === 0){
                             if(model.tapFunc){
                                 model.tapFunc()
-                                return
-                            }
-                            if(nav_list.currentIndex !== position){
-                                nav_list.currentIndex = position
-                                model.tap()
+                            }else{
+                                nav_list.currentIndex = idx
+                                layout_footer.currentIndex = -1
                             }
                         }else{
-                            model.tap()
+                            if(model.tapFunc){
+                                model.tapFunc()
+                            }else{
+                                model.tap()
+                                d.stackItems.push(model)
+                                nav_list.currentIndex = nav_list.count-layout_footer.count+idx
+                                layout_footer.currentIndex = idx
+                            }
                         }
-                        displaMinimalMenu = false
                     }
                 }
                 color: {
                     if(FluTheme.dark){
-                        if((nav_list.currentIndex === position)&&type===0){
-                            return Qt.rgba(1,1,1,0.06)
+                        if(type===0){
+                            if(nav_list.currentIndex === idx){
+                                return Qt.rgba(1,1,1,0.06)
+                            }
+                        }else{
+                            if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
+                                return Qt.rgba(1,1,1,0.06)
+                            }
                         }
                         if(item_mouse.containsMouse){
                             return Qt.rgba(1,1,1,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
                     }else{
-                        if(nav_list.currentIndex === position&&type===0){
-                            return Qt.rgba(0,0,0,0.06)
+                        if(type===0){
+                            if(nav_list.currentIndex === idx){
+                                return Qt.rgba(0,0,0,0.06)
+                            }
+                        }else{
+                            if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
+                                return Qt.rgba(0,0,0,0.06)
+                            }
                         }
                         if(item_mouse.containsMouse){
                             return Qt.rgba(0,0,0,0.03)
@@ -272,7 +333,6 @@ Item {
                         return Qt.rgba(0,0,0,0)
                     }
                 }
-
                 FluIcon{
                     id:item_icon
                     iconSource: {
@@ -290,10 +350,15 @@ Item {
                         leftMargin: 3
                     }
                 }
-
                 FluText{
                     id:item_title
                     text:model.title
+                    visible: {
+                        if(displayMode === FluNavigationView2.Compact){
+                            return false
+                        }
+                        return true
+                    }
                     color:{
                         if(item_mouse.pressed){
                             return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
@@ -308,6 +373,7 @@ Item {
             }
         }
     }
+
 
     Item {
         id:nav_app_bar
@@ -327,11 +393,17 @@ Item {
                 iconSize: 13
                 onClicked: {
                     nav_swipe.pop()
-                    nav_list.stackIndex.pop()
-                    var index = nav_list.stackIndex[nav_list.stackIndex.length-1]
-                    nav_list.enableStack = false
-                    nav_list.currentIndex = index
-                    nav_list.enableStack = true
+                    d.stackItems.pop()
+                    var item = d.stackItems[d.stackItems.length-1]
+                    d.enableStack = false
+                    if(item.idx<(nav_list.count - layout_footer.count)){
+                        layout_footer.currentIndex = -1
+                    }else{
+                        console.debug(item.idx-(nav_list.count-layout_footer.count))
+                        layout_footer.currentIndex = item.idx-(nav_list.count-layout_footer.count)
+                    }
+                    nav_list.currentIndex = item.idx
+                    d.enableStack = true
                 }
             }
             FluIconButton{
@@ -340,17 +412,17 @@ Item {
                 iconSize: 15
                 Layout.preferredWidth: 40
                 Layout.preferredHeight: 40
-                visible: displayMode === FluNavigationView.Minimal
+                visible: displayMode === FluNavigationView2.Minimal
                 Layout.alignment: Qt.AlignVCenter
                 onClicked: {
-                    displaMinimalMenu = !displaMinimalMenu
+                    d.enableNavigationPanel = !d.enableNavigationPanel
                 }
             }
-
             Image{
                 id:image_logo
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
+                source: control.logo
                 Layout.leftMargin: {
                     if(btn_nav.visible){
                         return 12
@@ -361,7 +433,7 @@ Item {
             }
             FluText{
                 Layout.alignment: Qt.AlignVCenter
-                text:root.title
+                text:control.title
                 Layout.leftMargin: 12
                 fontStyle: FluText.Body
             }
@@ -370,12 +442,11 @@ Item {
 
     Item{
         anchors{
-            left: displayMode === FluNavigationView.Minimal ? parent.left : layout_list.right
+            left: displayMode === FluNavigationView2.Minimal ? parent.left : layout_list.right
             top: nav_app_bar.bottom
             right: parent.right
             bottom: parent.bottom
         }
-
         StackView{
             id:nav_swipe
             anchors.fill: parent
@@ -395,19 +466,28 @@ Item {
 
     MouseArea{
         anchors.fill: parent
-        enabled: (displayMode === FluNavigationView.Minimal && displaMinimalMenu)
+        enabled: (displayMode === FluNavigationView2.Minimal && d.enableNavigationPanel)
         onClicked: {
-            displaMinimalMenu = false
+            d.enableNavigationPanel = false
         }
     }
 
     Rectangle{
         id:layout_list
-        width: 300
+        width: {
+            if(displayMode === FluNavigationView2.Compact){
+                return 50
+            }
+            return 300
+        }
+        anchors{
+            top: parent.top
+            bottom: parent.bottom
+        }
         border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
-        border.width:  displayMode === FluNavigationView.Minimal ? 1 : 0
+        border.width:  displayMode === FluNavigationView2.Minimal ? 1 : 0
         color: {
-            if(displayMode === FluNavigationView.Minimal){
+            if(displayMode === FluNavigationView2.Minimal){
                 return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             }
             if(window && window.active){
@@ -415,64 +495,59 @@ Item {
             }
             return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
         }
-        anchors{
-            top: parent.top
-            bottom: parent.bottom
-        }
-        x: {
-            if(displayMode !== FluNavigationView.Minimal)
-                return 0
-            return (displayMode === FluNavigationView.Minimal && displaMinimalMenu)  ? 0 : -width
-        }
-        Behavior on x{
-            id:anim_navi
-            NumberAnimation{
-                duration: 150
-            }
-        }
-
         Behavior on color{
             ColorAnimation {
                 duration: 300
             }
         }
-
+        x: {
+            if(displayMode !== FluNavigationView2.Minimal)
+                return 0
+            return (displayMode === FluNavigationView2.Minimal && d.enableNavigationPanel)  ? 0 : -width
+        }
         Item{
             id:layout_header
             width: layout_list.width
+            clip: true
             y:nav_app_bar.height
-            height: {
-                if(loader_auto_suggest_box.item){
-                    return loader_auto_suggest_box.item.height
-                }
-                return 0
-            }
+            height: 38
             Loader{
                 id:loader_auto_suggest_box
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
                 sourceComponent: autoSuggestBox
+                visible: {
+                    if(displayMode === FluNavigationView2.Compact){
+                        return false
+                    }
+                    return true
+                }
+            }
+
+            FluIconButton{
+                visible:displayMode === FluNavigationView2.Compact
+                hoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
+                pressedColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
+                normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
+                width:38
+                height:34
+                x:6
+                y:2
+                iconSize: 15
+                iconSource: {
+                    if(loader_auto_suggest_box.item){
+                        return loader_auto_suggest_box.item.autoSuggestBoxReplacement
+                    }
+                    return 0
+                }
             }
         }
 
         ListView{
             id:nav_list
-            property bool enableStack: true
-            property var stackIndex: []
             clip: true
-            anchors{
-                top: layout_header.bottom
-                topMargin: 6
-                left: parent.left
-                right: parent.right
-                bottom: layout_footer.top
-            }
+            ScrollBar.vertical: FluScrollBar {}
+            model:d.handleItems()
             highlightMoveDuration: 150
-            currentIndex: -1
-            onCurrentIndexChanged: {
-                if(enableStack){
-                    stackIndex.push(currentIndex)
-                }
-            }
             highlight: Item{
                 clip: true
                 Rectangle{
@@ -487,11 +562,26 @@ Item {
                     }
                 }
             }
-            ScrollBar.vertical: FluScrollBar {}
-            model:handleItems()
+            onCurrentIndexChanged: {
+                if(d.enableStack){
+                    var item = model[currentIndex]
+                    if(item instanceof FluPaneItem){
+                        item.tap()
+                        d.stackItems.push(item)
+                    }
+                }
+            }
+            currentIndex: -1
+            anchors{
+                top: layout_header.bottom
+                topMargin: 6
+                left: parent.left
+                right: parent.right
+                bottom: layout_footer.top
+            }
             delegate: Loader{
                 property var model: modelData
-                property var position: index
+                property var idx: index
                 property int type: 0
                 sourceComponent: {
                     if(modelData instanceof FluPaneItem){
@@ -506,25 +596,43 @@ Item {
                     if(modelData instanceof FluPaneItemExpander){
                         return com_panel_item_expander
                     }
+                    if(modelData instanceof FluPaneItemEmpty){
+                        return com_panel_item_empty
+                    }
                 }
             }
         }
-
         ListView{
             id:layout_footer
+            clip: true
             width: layout_list.width
             height: childrenRect.height
             anchors.bottom: parent.bottom
+            interactive: false
+            currentIndex: -1
             model: {
                 if(footerItems){
                     return footerItems.children
                 }
             }
-            interactive: false
-            currentIndex: -1
+            highlightMoveDuration: 150
+            highlight: Item{
+                clip: true
+                Rectangle{
+                    height: 18
+                    radius: 1.5
+                    color: FluTheme.primaryColor.dark
+                    width: 3
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left: parent.left
+                        leftMargin: 6
+                    }
+                }
+            }
             delegate: Loader{
                 property var model: modelData
-                property var position: index
+                property var idx: index
                 property int type: 1
                 sourceComponent: {
                     if(modelData instanceof FluPaneItem){
@@ -541,27 +649,8 @@ Item {
         }
     }
 
-    function handleItems(){
-        var idx = 0
-        var data = []
-        if(items){
-            for(var i=0;i<items.children.length;i++){
-                var item = items.children[i]
-                item.idx = idx
-                data.push(item)
-                idx++
-                if(item instanceof FluPaneItemExpander){
-                    for(var j=0;j<item.children.length;j++){
-                        var itemChild = item.children[j]
-                        itemChild.parent = item
-                        itemChild.idx = idx
-                        data.push(itemChild)
-                        idx++
-                    }
-                }
-            }
-        }
-        return data
+    function setCurrentIndex(index){
+        nav_list.currentIndex = index
     }
 
     function getItems(){
@@ -570,10 +659,6 @@ Item {
 
     function push(url){
         nav_swipe.push(url)
-    }
-
-    function setCurrentIndex(index){
-        nav_list.currentIndex = index
     }
 
     function getCurrentIndex(){

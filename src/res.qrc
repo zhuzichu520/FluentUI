@@ -71,5 +71,7 @@
         <file>controls/FluPagination.qml</file>
         <file>controls/FluToggleButton.qml</file>
         <file>controls/FluStatusView.qml</file>
+        <file>controls/FluNavigationView2.qml</file>
+        <file>controls/FluPaneItemEmpty.qml</file>
     </qresource>
 </RCC>

@@ -158,5 +158,7 @@
         <file>component/CodeExpander.qml</file>
         <file>T_TableView.qml</file>
         <file>T_StatusView.qml</file>
+        <file>T_Settings.qml</file>
+        <file>global/MainEvent.qml</file>
     </qresource>
 </RCC>

@@ -5,17 +5,22 @@ import FluentUI
 
 FluObject{
     id:footer_items
+
+    property var navigationView
+
     FluPaneItemSeparator{}
     FluPaneItem{
-        title:"意见反馈"
-        onTap:{
-            Qt.openUrlExternally("https://github.com/zhuzichu520/FluentUI/issues/new")
+        title:"About"
+        icon:FluentIcons.Contact
+        tapFunc:function(){
+            FluApp.navigate("/about")
         }
     }
     FluPaneItem{
-        title:"关于"
+        title:"Settings"
+        icon:FluentIcons.Settings
         onTap:{
-            FluApp.navigate("/about")
+            navigationView.push("qrc:/T_Settings.qml")
         }
     }
 }

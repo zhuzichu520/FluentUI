@@ -15,25 +15,27 @@ FluWindow {
 
     FluAppBar{
         id:appbar
-        z:10
+        z:9
         showDark: true
         width:parent.width
+        darkText: "Dark Mode"
     }
 
-    FluNavigationView{
+    FluNavigationView2{
         id:nav_view
         anchors.fill: parent
         items: ItemsOriginal
         footerItems:ItemsFooter
+        z:11
+        displayMode:MainEvent.displayMode
         logo: "qrc:/res/image/favicon.ico"
-        z: 11
         title:"FluentUI"
         autoSuggestBox:FluAutoSuggestBox{
             width: 280
             anchors.centerIn: parent
             iconSource: FluentIcons.Zoom
             items: ItemsOriginal.getSearchData()
-            placeholderText: "查找"
+            placeholderText: "Search"
             onItemClicked:
                 (data)=>{
                     ItemsOriginal.startPageByItem(data)
@@ -41,8 +43,8 @@ FluWindow {
         }
         Component.onCompleted: {
             ItemsOriginal.navigationView = nav_view
+            ItemsFooter.navigationView = nav_view
             nav_view.setCurrentIndex(0)
-            nav_view.push("qrc:/T_Home.qml")
         }
     }
 

@@ -308,7 +308,6 @@ FluObject{
                 if(navigationView.getCurrentIndex() === i){
                     return
                 }
-                item.tap()
                 navigationView.setCurrentIndex(i)
                 if(item.parent){
                     item.parent.isExpand = true
