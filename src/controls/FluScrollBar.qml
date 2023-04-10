@@ -10,7 +10,6 @@ ScrollBar {
     property color handlePressColor: Qt.darker(handleNormalColor)
     property bool expand: false
 
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -144,7 +143,7 @@ ScrollBar {
         iconSize: 8
         anchors.top: parent.top
         anchors.topMargin: 4
-        visible:vertical && expand
+        visible:vertical && expand && item_react.opacity
         onClicked:{
             decrease()
         }
@@ -152,7 +151,7 @@ ScrollBar {
     FluIconButton{
         id:btn_bottom
         iconSource: FluentIcons.CaretSolidDown
-        visible:vertical && expand
+        visible:vertical && expand && item_react.opacity
         width:10
         height:10
         iconSize: 8
@@ -167,7 +166,7 @@ ScrollBar {
     FluIconButton{
         id:btn_left
         iconSource: FluentIcons.CaretSolidLeft
-        visible:!vertical && expand
+        visible:!vertical && expand && item_react.opacity
         width:10
         height:10
         iconSize: 8
@@ -182,7 +181,7 @@ ScrollBar {
     FluIconButton{
         id:btn_right
         iconSource: FluentIcons.CaretSolidRight
-        visible:!vertical && expand
+        visible:!vertical && expand && item_react.opacity
         width:10
         height:10
         iconSize: 8

@@ -5,6 +5,6 @@ import FluentUI
 
 QtObject {
 
-    property int displayMode : FluNavigationView2.Open
+    property int displayMode : FluNavigationView.Auto
 
 }

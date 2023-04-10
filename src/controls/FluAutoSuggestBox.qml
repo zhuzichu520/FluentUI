@@ -5,7 +5,7 @@ import FluentUI
 FluTextBox{
     property var items:[]
     property string emptyText: "没有找到结果"
-    property int autoSuggestBoxReplacement: FluentIcons.Zoom
+    property int autoSuggestBoxReplacement: FluentIcons.Search
     signal itemClicked(var data)
     signal handleClicked
     QtObject{

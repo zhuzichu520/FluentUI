@@ -35,13 +35,12 @@ FluScrollablePage{
 
             Repeater{
                 id:repeater
-                model: [{title:"Top",mode:FluNavigationView2.Top},{title:"Open",mode:FluNavigationView2.Open},{title:"Compact",mode:FluNavigationView2.Compact},{title:"Minimal",mode:FluNavigationView2.Minimal},{title:"Auto",mode:FluNavigationView2.Auto}]
+                model: [{title:"Open",mode:FluNavigationView.Open},{title:"Compact",mode:FluNavigationView.Compact},{title:"Minimal",mode:FluNavigationView.Minimal},{title:"Auto",mode:FluNavigationView.Auto}]
                 delegate:  FluRadioButton{
                     selected : MainEvent.displayMode===modelData.mode
                     text:modelData.title
                     onClicked:{
                        MainEvent.displayMode = modelData.mode
-                        console.debug(modelData.mode)
                     }
                 }
             }

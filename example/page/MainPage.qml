@@ -21,7 +21,7 @@ FluWindow {
         darkText: "Dark Mode"
     }
 
-    FluNavigationView2{
+    FluNavigationView{
         id:nav_view
         anchors.fill: parent
         items: ItemsOriginal
@@ -33,7 +33,7 @@ FluWindow {
         autoSuggestBox:FluAutoSuggestBox{
             width: 280
             anchors.centerIn: parent
-            iconSource: FluentIcons.Zoom
+            iconSource: FluentIcons.Search
             items: ItemsOriginal.getSearchData()
             placeholderText: "Search"
             onItemClicked:
