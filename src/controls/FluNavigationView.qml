@@ -804,6 +804,7 @@ Item {
 
     function setCurrentIndex(index){
         nav_list.currentIndex = index
+
     }
 
     function getItems(){
@@ -816,6 +817,23 @@ Item {
 
     function getCurrentIndex(){
         return nav_list.currentIndex
+    }
+
+    function startPageByItem(data){
+        var items = getItems();
+        for(var i=0;i<items.length;i++){
+            var item =  items[i]
+            if(item.key === data.key){
+                if(getCurrentIndex() === i){
+                    return
+                }
+                setCurrentIndex(i)
+                if(item.parent && !d.isCompactAndNotPanel){
+                    item.parent.isExpand = true
+                }
+                return
+            }
+        }
     }
 
 }

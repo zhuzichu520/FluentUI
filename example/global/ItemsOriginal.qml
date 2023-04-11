@@ -301,20 +301,7 @@ FluObject{
     }
 
     function startPageByItem(data){
-        var items = navigationView.getItems();
-        for(var i=0;i<items.length;i++){
-            var item =  items[i]
-            if(item.key === data.key){
-                if(navigationView.getCurrentIndex() === i){
-                    return
-                }
-                navigationView.setCurrentIndex(i)
-                if(item.parent){
-                    item.parent.isExpand = true
-                }
-                return
-            }
-        }
+        navigationView.startPageByItem(data)
     }
 
 }
