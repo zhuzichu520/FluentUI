@@ -63,14 +63,14 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
     }
     properties.insert("argument",argument);
     QQuickWindow *view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
+    if(FluTheme::getInstance()->frameless()){
+        view->setFlag(Qt::FramelessWindowHint,true);
+    }
     wnds.insert(view->winId(),view);
     if(fluRegister){
         fluRegister->to(view);
     }
     view->setColor(QColor(Qt::transparent));
-    if(view->maximumWidth()==view->minimumWidth()&&view->maximumHeight()==view->minimumHeight()){
-        view->resize(view->minimumSize());
-    }
     view->show();
 }
 

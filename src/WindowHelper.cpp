@@ -23,16 +23,24 @@ WindowHelper::WindowHelper(QObject *parent)
 
 void WindowHelper::initWindow(QQuickWindow* window){
     this->window = window;
+}
+
+void WindowHelper::firstUpdate(){
+    if(isFisrt){
 #ifdef Q_OS_WIN
-    if(FluTheme::getInstance()->frameless()){
-        HWND wnd = (HWND)window->winId();
-        SetWindowLongPtr(wnd, GWL_STYLE, static_cast<LONG>(Style::aero_borderless));
-        const MARGINS shadow_on = { 1, 1, 1, 1 };
-        DwmExtendFrameIntoClientArea(wnd, &shadow_on);
-        SetWindowPos(wnd, Q_NULLPTR, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE);
-        ShowWindow(wnd, SW_SHOW);
-    }
+        if(FluTheme::getInstance()->frameless()){
+            HWND wnd = (HWND)window->winId();
+            SetWindowLongPtr(wnd, GWL_STYLE, static_cast<LONG>(Style::aero_borderless));
+            const MARGINS shadow_on = { 1, 1, 1, 1 };
+            DwmExtendFrameIntoClientArea(wnd, &shadow_on);
+            SetWindowPos(wnd, Q_NULLPTR, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE);
+            ShowWindow(wnd, SW_SHOW);
+            window->setFlag(Qt::FramelessWindowHint,false);
+        }
 #endif
+        isFisrt = false;
+    }
+
 }
 
 QVariant WindowHelper::createRegister(const QString& path){

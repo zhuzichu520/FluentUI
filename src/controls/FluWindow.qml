@@ -32,6 +32,12 @@ ApplicationWindow {
         clip: true
     }
 
+    onActiveChanged: {
+        if(active){
+            helper.firstUpdate()
+        }
+    }
+
     onClosing:
         (event)=>{
             //销毁窗口，释放资源

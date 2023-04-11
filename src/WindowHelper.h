@@ -18,8 +18,11 @@ public:
     Q_INVOKABLE void destoryWindow();
     Q_INVOKABLE QVariant createRegister(const QString& path);
 
+    Q_INVOKABLE void firstUpdate();
+
 private:
     QQuickWindow* window;
+    bool isFisrt=true;
 };
 
 #endif // WINDOWHELPER_H
