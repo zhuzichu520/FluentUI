@@ -69,8 +69,7 @@ FluWindow {
                 text:"https://github.com/zhuzichu520/FluentUI"
                 Layout.alignment: Qt.AlignBottom
                 onClicked: {
-                    console.debug(window.width)
-//                    Qt.openUrlExternally(text_hublink.text)
+                    Qt.openUrlExternally(text_hublink.text)
                 }
             }
         }

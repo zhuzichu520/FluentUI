@@ -467,10 +467,16 @@ Item {
                 iconSize: 15
                 Layout.preferredWidth: 40
                 Layout.preferredHeight: 40
-                visible: d.isMinimal
+                visible: opacity
+                opacity: d.isMinimal
                 Layout.alignment: Qt.AlignVCenter
                 onClicked: {
                     d.enableNavigationPanel = !d.enableNavigationPanel
+                }
+                Behavior on opacity{
+                    NumberAnimation{
+                        duration: 220
+                    }
                 }
             }
             Image{
@@ -582,16 +588,28 @@ Item {
                 id:loader_auto_suggest_box
                 anchors.centerIn: parent
                 sourceComponent: autoSuggestBox
-                visible: {
+                opacity: {
                     if(d.isCompactAndNotPanel){
                         return false
                     }
                     return true
                 }
+                visible: opacity
+                Behavior on opacity{
+                    NumberAnimation{
+                        duration: 100
+                    }
+                }
             }
 
             FluIconButton{
-                visible:d.isCompactAndNotPanel
+                visible:opacity
+                opacity:d.isCompactAndNotPanel
+                Behavior on opacity{
+                    NumberAnimation{
+                        duration: 220
+                    }
+                }
                 hoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
                 pressedColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
                 normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
