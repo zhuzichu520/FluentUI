@@ -465,15 +465,13 @@ Item {
                 id:btn_nav
                 iconSource: FluentIcons.GlobalNavButton
                 iconSize: 15
-                Layout.preferredWidth: 40
+                Layout.preferredWidth: d.isMinimal ? 40 : 0
                 Layout.preferredHeight: 40
-                visible: opacity
-                opacity: d.isMinimal
                 Layout.alignment: Qt.AlignVCenter
                 onClicked: {
                     d.enableNavigationPanel = !d.enableNavigationPanel
                 }
-                Behavior on opacity{
+                Behavior on Layout.preferredWidth{
                     NumberAnimation{
                         duration: 220
                     }

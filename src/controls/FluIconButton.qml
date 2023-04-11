@@ -38,6 +38,7 @@ FluControl {
     id:control
     width: 30
     height: 30
+    clip: true
     implicitWidth: width
     implicitHeight: height
     padding: 0
