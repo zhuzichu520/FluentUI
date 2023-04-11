@@ -5,6 +5,7 @@
 #include <QGuiApplication>
 #include <QQuickWindow>
 #include "FluColors.h"
+#include "NativeEventFilter.h"
 #include "FluTheme.h"
 #include "WindowHelper.h"
 #include "FluApp.h"
@@ -95,6 +96,8 @@ void Fluent::registerTypes(const char *uri){
 
 void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
 {
+    nativeEvent = new NativeEventFilter();
+    qApp->installNativeEventFilter(nativeEvent);
     Q_UNUSED(engine)
     Q_UNUSED(uri)
 #ifdef Q_OS_WIN

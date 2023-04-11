@@ -5,6 +5,8 @@ import FluentUI
 
 FluWindow {
 
+    id:window
+
     width: 500
     height: 600
     minimumWidth: 500
@@ -36,7 +38,7 @@ FluWindow {
                 fontStyle: FluText.Title
             }
             FluText{
-                text:"v1.2.4"
+                text:"v%1".arg(appInfo.version)
                 fontStyle: FluText.Body
                 Layout.alignment: Qt.AlignBottom
             }
@@ -67,7 +69,8 @@ FluWindow {
                 text:"https://github.com/zhuzichu520/FluentUI"
                 Layout.alignment: Qt.AlignBottom
                 onClicked: {
-                    Qt.openUrlExternally(text_hublink.text)
+                    console.debug(window.width)
+//                    Qt.openUrlExternally(text_hublink.text)
                 }
             }
         }

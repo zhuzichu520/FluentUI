@@ -11,7 +11,7 @@ Window {
     //初始化一个MediaPlayer，解决macos切换到T_MediaPalyer页面崩溃问题
     MediaPlayer{}
     Component.onCompleted: {
-        FluApp.init(app,properties)
+        FluApp.init(app)
         FluTheme.frameless = ("windows" === Qt.platform.os)
         FluTheme.dark = false
         FluApp.routes = {

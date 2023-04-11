@@ -12,8 +12,6 @@ FluWindow {
     minimumHeight: 400
     maximumWidth: 400
     maximumHeight: 400
-    modality:2
-
     title:"登录"
 
     onInitArgument:

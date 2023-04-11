@@ -2,15 +2,15 @@
 #define FLUREGISTER_H
 
 #include <QObject>
-#include <FramelessView.h>
+#include <QQuickWindow>
 #include <QJsonObject>
 #include "stdafx.h"
 
 class FluRegister : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY_AUTO(FramelessView*,from)
-    Q_PROPERTY_AUTO(FramelessView*,to)
+    Q_PROPERTY_AUTO(QQuickWindow*,from)
+    Q_PROPERTY_AUTO(QQuickWindow*,to)
     Q_PROPERTY_AUTO(QString,path);
 public:
     explicit FluRegister(QObject *parent = nullptr);

@@ -3,10 +3,12 @@ CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
 HEADERS += \
-    ChatController.h
+    ChatController.h \
+    AppInfo.h
 
 SOURCES += \
         ChatController.cpp \
+        AppInfo.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
