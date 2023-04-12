@@ -12,7 +12,7 @@ FluObject{
         //        icon:FluentIcons.Home
         cusIcon: Image{
             anchors.centerIn: parent
-            source: "qrc:/res/svg/home.svg"
+            source: FluTheme.dark ? "qrc:/res/svg/home_dark.svg" : "qrc:/res/svg/home.svg"
             sourceSize: Qt.size(30,30)
             width: 18
             height: 18

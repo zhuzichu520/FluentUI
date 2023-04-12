@@ -161,5 +161,6 @@
         <file>T_Settings.qml</file>
         <file>global/MainEvent.qml</file>
         <file>res/svg/home.svg</file>
+        <file>res/svg/home_dark.svg</file>
     </qresource>
 </RCC>
