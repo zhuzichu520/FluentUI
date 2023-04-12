@@ -56,6 +56,8 @@ ApplicationWindow {
     Component.onCompleted: {
         helper.initWindow(window)
         initArgument(argument)
+        window.x = (Screen.width - window.width)/2
+        window.y = (Screen.desktopAvailableHeight - window.height)/2
     }
 
     function showSuccess(text,duration,moremsg){

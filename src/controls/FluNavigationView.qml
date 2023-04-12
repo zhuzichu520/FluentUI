@@ -246,21 +246,36 @@ Item {
                         return Qt.rgba(0,0,0,0)
                     }
                 }
-                FluIcon{
-                    id:item_icon
-                    iconSource: {
-                        if(model.icon){
-                            return model.icon
+                Component{
+                    id:com_icon
+                    FluIcon{
+                        iconSource: {
+                            if(model.icon){
+                                return model.icon
+                            }
+                            return 0
                         }
-                        return 0
+                        iconSize: 15
                     }
+                }
+
+                Item{
+                    id:item_icon
                     width: 30
                     height: 30
-                    iconSize: 15
                     anchors{
                         verticalCenter: parent.verticalCenter
                         left:parent.left
                         leftMargin: 3
+                    }
+                    Loader{
+                        anchors.centerIn: parent
+                        sourceComponent: {
+                            if(model.cusIcon){
+                                return model.cusIcon
+                            }
+                            return com_icon
+                        }
                     }
                 }
                 FluText{
@@ -382,23 +397,39 @@ Item {
                         return Qt.rgba(0,0,0,0)
                     }
                 }
-                FluIcon{
-                    id:item_icon
-                    iconSource: {
-                        if(model.icon){
-                            return model.icon
+                Component{
+                    id:com_icon
+                    FluIcon{
+                        iconSource: {
+                            if(model.icon){
+                                return model.icon
+                            }
+                            return 0
                         }
-                        return 0
+                        iconSize: 15
                     }
+                }
+
+                Item{
+                    id:item_icon
                     width: 30
                     height: 30
-                    iconSize: 15
                     anchors{
                         verticalCenter: parent.verticalCenter
                         left:parent.left
                         leftMargin: 3
                     }
+                    Loader{
+                        anchors.centerIn: parent
+                        sourceComponent: {
+                            if(model.cusIcon){
+                                return model.cusIcon
+                            }
+                            return com_icon
+                        }
+                    }
                 }
+
                 FluText{
                     id:item_title
                     text:model.title

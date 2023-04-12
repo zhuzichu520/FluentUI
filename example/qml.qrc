@@ -160,5 +160,6 @@
         <file>T_StatusView.qml</file>
         <file>T_Settings.qml</file>
         <file>global/MainEvent.qml</file>
+        <file>res/svg/home.svg</file>
     </qresource>
 </RCC>
