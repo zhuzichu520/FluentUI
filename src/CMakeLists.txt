@@ -24,6 +24,7 @@ set(TARGET_SOURCES
     FluTheme.cpp
     Fluent.cpp
     FluentUI.cpp
+	NativeEventFilter.cpp
     WindowHelper.cpp
     qml_plugin.cpp
 )
@@ -37,17 +38,11 @@ set(TARGET_HEADERS
     FluTheme.h
     Fluent.h
     FluentUI.h
-    FramelessView.h
+	NativeEventFilter.h 
     WindowHelper.h
     qml_plugin.h
     stdafx.h
 )
-
-if(WIN32)
-    set(TARGET_SOURCES ${TARGET_SOURCES} FramelessView_win.cpp)
-else()
-    set(TARGET_SOURCES ${TARGET_SOURCES} FramelessView_unix.cpp)
-endif()
 
 add_definitions(-DVERSION_IN="1.0.0")
 add_definitions(-DVURI_STR="FluentUI")

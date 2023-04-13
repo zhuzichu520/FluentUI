@@ -25,11 +25,13 @@ find_package(Qt6 COMPONENTS Core Quick QuickControls2 Concurrent Network Multime
 
 set(SOURCES
     ChatController.cpp
+	AppInfo.cpp 
     main.cpp
 )
 
 set(HEADERS
     ChatController.h
+	AppInfo.h
 )
 
 set(RESOURCES
