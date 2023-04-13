@@ -6,11 +6,21 @@ import FluentUI
 
 ApplicationWindow {
 
-    id:window
+
+    enum LaunchMode {
+        Standard,
+        SingleTask,
+        SingleInstance
+    }
+
     default property alias content: container.data
+    property int launchMode: FluWindow.Standard
+    property string route
     property var argument:({})
     property var pageRegister
     signal initArgument(var argument)
+
+    id:window
     background: Rectangle{
         color: {
             if(active){

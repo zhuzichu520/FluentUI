@@ -44,8 +44,8 @@ void FluApp::init(QQuickWindow *window){
 void FluApp::run(){
 #ifdef Q_OS_WIN
     if(!isCompositionEnabled()){
-            FluTheme::getInstance()->frameless(false);
-        }
+        FluTheme::getInstance()->frameless(false);
+    }
 #endif
     navigate(initialRoute());
 }
@@ -58,11 +58,33 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
     QQmlEngine *engine = qmlEngine(appWindow);
     QQmlComponent component(engine, routes().value(route).toString());
     QVariantMap properties;
+    properties.insert("route",route);
     if(fluRegister){
         properties.insert("pageRegister",QVariant::fromValue(fluRegister));
     }
     properties.insert("argument",argument);
     QQuickWindow *view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
+
+    int launchMode = view->property("launchMode").toInt();
+    if(launchMode==1){
+        for (auto& pair : wnds) {
+            QString r =  pair->property("route").toString();
+            if(r == route){
+                pair->requestActivate();
+                delete view;
+                return;
+            }
+        }
+    }else if(launchMode==2){
+        for (auto& pair : wnds) {
+            QString r =  pair->property("route").toString();
+            if(r == route){
+                pair->close();
+                break;
+            }
+        }
+    }
+
     if(FluTheme::getInstance()->frameless()){
         view->setFlag(Qt::FramelessWindowHint,true);
     }

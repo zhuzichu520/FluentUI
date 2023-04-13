@@ -13,6 +13,7 @@ FluWindow {
     minimumHeight: 600
     maximumWidth: 500
     maximumHeight: 600
+    launchMode: FluWindow.SingleTask
 
     title:"关于"
 

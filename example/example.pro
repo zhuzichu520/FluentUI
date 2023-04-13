@@ -3,6 +3,7 @@ CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
 HEADERS += \
+    stdafx.h \
     ChatController.h \
     AppInfo.h
 
