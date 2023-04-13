@@ -20,6 +20,9 @@ Window {
             "/login":"qrc:/page/LoginPage.qml",
             "/chat":"qrc:/page/ChatPage.qml",
             "/media":"qrc:/page/MediaPage.qml",
+            "/singleTaskWindow":"qrc:/page/SingleTaskWindow.qml",
+            "/standardWindow":"qrc:/page/StandardWindow.qml",
+            "/singleInstanceWindow":"qrc:/page/SingleInstanceWindow.qml"
         }
         FluApp.initialRoute = "/"
         FluApp.run()

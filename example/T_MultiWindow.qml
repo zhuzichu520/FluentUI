@@ -26,6 +26,86 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
+        height: 86
+        paddings: 10
+        Layout.topMargin: 20
+        Column{
+            spacing: 15
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluText{
+                text:"<font color='red'>Standard</font>模式窗口，每次都会创建新窗口"
+            }
+            FluButton{
+                text:"点击创建窗口"
+                onClicked: {
+                    FluApp.navigate("/standardWindow")
+                }
+            }
+        }
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 86
+        paddings: 10
+        Layout.topMargin: 10
+        Column{
+            spacing: 15
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluText{
+                text:"<font color='red'>SingleTask</font>模式窗口，如果窗口存在，这激活该窗口"
+                textFormat: Text.RichText
+            }
+            FluButton{
+                text:"点击创建窗口"
+                onClicked: {
+                    FluApp.navigate("/singleTaskWindow")
+                }
+            }
+        }
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 86
+        paddings: 10
+        Layout.topMargin: 10
+        Column{
+            spacing: 15
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluText{
+                text:"<font color='red'>SingleInstance</font>模式窗口，如果窗口存在，则销毁窗口，然后新建窗口"
+            }
+            FluButton{
+                text:"点击创建窗口"
+                onClicked: {
+                    FluApp.navigate("/singleInstanceWindow")
+                }
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluWindow{
+  //launchMode: FluWindow.Standard
+  //launchMode: FluWindow.SingleTask
+     launchMode: FluWindow.SingleInstance
+}
+'
+    }
+
+
+    FluArea{
+        Layout.fillWidth: true
         height: 100
         paddings: 10
         Layout.topMargin: 20

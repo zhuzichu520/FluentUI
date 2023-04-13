@@ -162,5 +162,8 @@
         <file>global/MainEvent.qml</file>
         <file>res/svg/home.svg</file>
         <file>res/svg/home_dark.svg</file>
+        <file>page/StandardWindow.qml</file>
+        <file>page/SingleTaskWindow.qml</file>
+        <file>page/SingleInstanceWindow.qml</file>
     </qresource>
 </RCC>
