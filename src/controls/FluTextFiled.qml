@@ -1,4 +1,5 @@
 ﻿import QtQuick
+import QtQuick.Controls
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
 
@@ -26,7 +27,6 @@ T.TextField {
         y: control.topPadding
         width: control.width - (control.leftPadding + control.rightPadding)
         height: control.height - (control.topPadding + control.bottomPadding)
-
         text: control.placeholderText
         font: control.font
         color: control.placeholderTextColor

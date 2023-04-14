@@ -72,5 +72,6 @@
         <file>controls/FluToggleButton.qml</file>
         <file>controls/FluStatusView.qml</file>
         <file>controls/FluPaneItemEmpty.qml</file>
+        <file>controls/FluRatingControl.qml</file>
     </qresource>
 </RCC>

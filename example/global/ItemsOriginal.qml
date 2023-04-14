@@ -114,6 +114,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"RatingControl"
+            onTap:{
+                navigationView.push("qrc:/T_RatingControl.qml")
+            }
+        }
+        FluPaneItem{
             title:"Badge"
             onTap:{
                 navigationView.push("qrc:/T_Badge.qml")
