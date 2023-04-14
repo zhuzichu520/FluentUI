@@ -2,7 +2,7 @@
 
 ## 简介
 
-这是一个漂亮的Fluent组件库，使用QML插件开发的，main分支是Qt6.4.3。如果需要qt5的请切换至qt5分支
+这是一个漂亮的Fluent组件库，使用QML插件开发的。main分支是Qt6.4.3，如果需要qt5的请切换至qt5分支
 
 ## 编译状态
 | [Windows][win-link]| [Ubuntu][ubuntu-link]|[MacOS][macos-link]|
