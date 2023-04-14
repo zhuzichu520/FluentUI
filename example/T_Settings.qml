@@ -23,12 +23,12 @@ FluScrollablePage{
         ColumnLayout{
             spacing: 10
             anchors{
-                verticalCenter: parent.verticalCenter
+                top: parent.top
                 left: parent.left
             }
 
             FluText{
-                text:"NavigationView Display Mode"
+                text:lang.navigation_view_display_mode
                 fontStyle: FluText.BodyStrong
                 Layout.bottomMargin: 4
             }
@@ -40,11 +40,49 @@ FluScrollablePage{
                     selected : MainEvent.displayMode===modelData.mode
                     text:modelData.title
                     onClicked:{
-                       MainEvent.displayMode = modelData.mode
+                        MainEvent.displayMode = modelData.mode
                     }
                 }
             }
         }
 
     }
+
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height: 168
+        paddings: 10
+
+        ColumnLayout{
+            spacing: 10
+            anchors{
+                top: parent.top
+                left: parent.left
+            }
+
+            FluText{
+                text:lang.locale
+                fontStyle: FluText.BodyStrong
+                Layout.bottomMargin: 4
+            }
+
+            Flow{
+                spacing: 5
+                Repeater{
+                    model: ["Zh","En"]
+                    delegate:  FluRadioButton{
+                        selected : appInfo.lang.objectName === modelData
+                        text:modelData
+                        onClicked:{
+                            console.debug(modelData)
+                            appInfo.changeLang(modelData)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
 }

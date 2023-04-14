@@ -10,14 +10,14 @@ FluObject{
 
     FluPaneItemSeparator{}
     FluPaneItem{
-        title:"About"
+        title:lang.about
         icon:FluentIcons.Contact
         tapFunc:function(){
             FluApp.navigate("/about")
         }
     }
     FluPaneItem{
-        title:"Settings"
+        title:lang.settings
         icon:FluentIcons.Settings
         onTap:{
             navigationView.push("qrc:/T_Settings.qml")

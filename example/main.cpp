@@ -5,6 +5,7 @@
 #include <QQuickWindow>
 #include <QQuickStyle>
 #include <QProcess>
+#include "lang/Lang.h"
 #include "AppInfo.h"
 #include "ChatController.h"
 
@@ -17,7 +18,14 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     qmlRegisterType<ChatController>("Controller",1,0,"ChatController");
-    engine.rootContext()->setContextProperty("appInfo",new AppInfo());
+    AppInfo* appInfo = new AppInfo();
+    QQmlContext * context = engine.rootContext();
+    Lang* lang = appInfo->lang();
+    context->setContextProperty("lang",lang);
+    QObject::connect(appInfo,&AppInfo::langChanged,&app,[context,appInfo]{
+        context->setContextProperty("lang",appInfo->lang());
+    });
+    context->setContextProperty("appInfo",appInfo);
     const QUrl url(QStringLiteral("qrc:/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

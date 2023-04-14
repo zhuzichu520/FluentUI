@@ -18,7 +18,7 @@ FluWindow {
         z:9
         showDark: true
         width:parent.width
-        darkText: "Dark Mode"
+        darkText: lang.dark_mode
     }
 
     FluNavigationView{
@@ -35,7 +35,7 @@ FluWindow {
             anchors.centerIn: parent
             iconSource: FluentIcons.Search
             items: ItemsOriginal.getSearchData()
-            placeholderText: "Search"
+            placeholderText: lang.search
             onItemClicked:
                 (data)=>{
                     ItemsOriginal.startPageByItem(data)
