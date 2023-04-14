@@ -1,11 +1,10 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 
-
-Button{
+FluControl{
     id:control
     width: 36
     height: 36
@@ -27,15 +26,19 @@ Button{
     onClicked: {
         popup.showPopup()
     }
-    Popup{
+    Menu{
         id:popup
         modal: true
         dim:false
         height: container.height
         width: container.width
-        background: FluColorView{
-            id:container
+        contentItem: Item{
+            anchors.fill: parent
+            FluColorView{
+                id:container
+            }
         }
+        background:Item{}
         enter: Transition {
             NumberAnimation {
                 property: "y"
@@ -50,7 +53,6 @@ Button{
                 duration: 150
             }
         }
-        contentItem: Item{}
         function showPopup() {
             var pos = control.mapToItem(null, 0, 0)
             if(window.height>pos.y+control.height+popup.height){

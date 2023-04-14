@@ -3,35 +3,24 @@
 #include <QQmlContext>
 #include <QDir>
 #include <QQuickWindow>
+#include <QQuickStyle>
 #include <QProcess>
+#include "AppInfo.h"
 #include "ChatController.h"
-
-QMap<QString, QVariant> properties(){
-    QMap<QString, QVariant> map;
-//    map["installHelper"] = QVariant::fromValue(QVariant::fromValue(InstallHelper::getInstance()));
-    return map;
-}
 
 int main(int argc, char *argv[])
 {
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     QCoreApplication::setOrganizationName("ZhuZiChu");
     QCoreApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QCoreApplication::setApplicationName("FluentUI");
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+    QQuickStyle::setStyle("Basic");
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-
     qmlRegisterType<ChatController>("Controller",1,0,"ChatController");
-
-    QMapIterator<QString, QVariant> iterator(properties());
-    while (iterator.hasNext()) {
-        iterator.next();
-        QString key = iterator.key();
-        QVariant value = iterator.value();
-        engine.rootContext()->setContextProperty(key,value);
-    }
-    engine.rootContext()->setContextProperty("properties",properties());
+    engine.rootContext()->setContextProperty("appInfo",new AppInfo());
     const QUrl url(QStringLiteral("qrc:/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

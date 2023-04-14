@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
@@ -9,9 +9,10 @@ Rectangle {
     property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+    property string text: "请选择日期"
     property var window : Window.window
 
-    id:root
+    id:control
     color: {
         if(mouse_area.containsMouse){
             return hoverColor
@@ -44,7 +45,7 @@ Rectangle {
         }
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text:"请选择日期"
+        text:control.text
     }
 
     FluIcon{
@@ -59,7 +60,7 @@ Rectangle {
     }
 
 
-    Popup{
+    Menu{
         id:popup
         height: container.height
         width: container.width
@@ -79,28 +80,31 @@ Rectangle {
                 duration: 150
             }
         }
-        background: FluCalendarView{
-            id:container
-            onDateClicked:
-                (date)=>{
-                    popup.close()
-                    var year = date.getFullYear()
-                    var month = date.getMonth()
-                    var day =  date.getDate()
-                    text_date.text = year+"-"+(month+1)+"-"+day
-                }
+        contentItem: Item{
+            anchors.fill: parent
+            FluCalendarView{
+                id:container
+                onDateClicked:
+                    (date)=>{
+                        popup.close()
+                        var year = date.getFullYear()
+                        var month = date.getMonth()
+                        var day =  date.getDate()
+                        text_date.text = year+"-"+(month+1)+"-"+day
+                    }
+            }
         }
-        contentItem: Item{}
+        background: Item{}
         function showPopup() {
-            var pos = root.mapToItem(null, 0, 0)
-            if(window.height>pos.y+root.height+popup.height){
-                popup.y = root.height
+            var pos = control.mapToItem(null, 0, 0)
+            if(window.height>pos.y+control.height+popup.height){
+                popup.y = control.height
             } else if(pos.y>popup.height){
                 popup.y = -popup.height
             } else {
                 popup.y = window.height-(pos.y+popup.height)
             }
-            popup.x = -(popup.width-root.width)/2
+            popup.x = -(popup.width-control.width)/2
             popup.open()
         }
     }

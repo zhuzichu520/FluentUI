@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 
-Button {
+FluControl {
 
     property bool disabled: false
     property color normalColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
@@ -58,10 +58,16 @@ Button {
                 if(disabled){
                     return Qt.rgba(131/255,131/255,131/255,1)
                 }
+                if(pressed){
+                    return Qt.rgba(162/255,162/255,162/255,1)
+                }
                 return Qt.rgba(1,1,1,1)
             }else{
                 if(disabled){
                     return Qt.rgba(160/255,160/255,160/255,1)
+                }
+                if(pressed){
+                    return Qt.rgba(96/255,96/255,96/255,1)
                 }
                 return Qt.rgba(0,0,0,1)
             }

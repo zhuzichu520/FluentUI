@@ -1,6 +1,19 @@
 ﻿#include "WindowHelper.h"
 
 #include "FluRegister.h"
+#include "FluApp.h"
+#include "FluTheme.h"
+
+#ifdef Q_OS_WIN
+#include <dwmapi.h>
+#include <Windows.h>
+#include <windowsx.h>
+enum class Style : DWORD
+{
+    windowed = (WS_OVERLAPPEDWINDOW | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CLIPCHILDREN),
+    aero_borderless = (WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CLIPCHILDREN)
+};
+#endif
 
 WindowHelper::WindowHelper(QObject *parent)
     : QObject{parent}
@@ -8,51 +21,26 @@ WindowHelper::WindowHelper(QObject *parent)
 
 }
 
-void WindowHelper::setTitle(const QString& text){
-    window->setTitle(text);
-}
-
-void WindowHelper::initWindow(FramelessView* window){
+void WindowHelper::initWindow(QQuickWindow* window){
     this->window = window;
 }
 
-QJsonObject WindowHelper::getArgument(){
-    return window->property("argument").toJsonObject();
-}
-
-QVariant WindowHelper::getPageRegister(){
-    return window->property("pageRegister");
-}
-
-void WindowHelper::setMinimumWidth(int width){
-    this->window->setMinimumWidth(width);
-}
-void WindowHelper::setMaximumWidth(int width){
-    this->window->setMaximumWidth(width);
-}
-void WindowHelper::setMinimumHeight(int height){
-    this->window->setMinimumHeight(height);
-}
-void WindowHelper::setMaximumHeight(int height){
-    this->window->setMaximumHeight(height);
-}
-void WindowHelper::updateWindow(){
-    this->window->setFlag(Qt::Window,false);
-    this->window->setFlag(Qt::Window,true);
-}
-void WindowHelper::setOpacity(qreal opacity){
-    this->window->setOpacity(opacity);
-}
-void WindowHelper::setModality(int type){
-    if(type == 0){
-        this->window->setModality(Qt::NonModal);
-    }else if(type == 1){
-        this->window->setModality(Qt::WindowModal);
-    }else if(type == 2){
-        this->window->setModality(Qt::ApplicationModal);
-    }else{
-        this->window->setModality(Qt::NonModal);
+void WindowHelper::firstUpdate(){
+    if(isFisrt){
+#ifdef Q_OS_WIN
+        if(FluTheme::getInstance()->frameless()){
+            HWND wnd = (HWND)window->winId();
+            SetWindowLongPtr(wnd, GWL_STYLE, static_cast<LONG>(Style::aero_borderless));
+            const MARGINS shadow_on = { 1, 1, 1, 1 };
+            DwmExtendFrameIntoClientArea(wnd, &shadow_on);
+            SetWindowPos(wnd, Q_NULLPTR, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE);
+            ShowWindow(wnd, SW_SHOW);
+            window->setFlag(Qt::FramelessWindowHint,false);
+        }
+#endif
+        isFisrt = false;
     }
+
 }
 
 QVariant WindowHelper::createRegister(const QString& path){
@@ -60,4 +48,11 @@ QVariant WindowHelper::createRegister(const QString& path){
     p->from(this->window);
     p->path(path);
     return  QVariant::fromValue(p);
+}
+
+void WindowHelper::destoryWindow(){
+    if(this->window){
+        FluApp::getInstance()->wnds.remove(this->window->winId());
+        this->window->deleteLater();
+    }
 }

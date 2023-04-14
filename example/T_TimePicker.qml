@@ -1,8 +1,9 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
 
@@ -10,9 +11,10 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 80
         paddings: 10
@@ -33,10 +35,15 @@ FluScrollablePage{
 
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluTimePicker{
 
+}'
+    }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 80
         paddings: 10
@@ -49,15 +56,20 @@ FluScrollablePage{
             }
 
             FluText{
-                text:"hourFormat=FluTimePicker.HH"
+                text:"hourFormat=FluTimePicker.H"
             }
 
             FluTimePicker{
-                hourFormat:FluTimePicker.HH
+                 hourFormat:FluTimePicker.HH
             }
 
         }
     }
-
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluTimePicker{
+    hourFormat:FluTimePicker.HH
+}'
+    }
 
 }

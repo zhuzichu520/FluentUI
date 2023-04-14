@@ -4,17 +4,14 @@ QTQMLFLUENT_PATH = $$[QT_INSTALL_QML]/FluentUI
 PRESET_PATH = $$PWD/build-preset
 SOLIBFILE_PATH = $$OUT_PWD/libFluentUI.so
 ANDROID = NO
-
 android{
     ANDROID=YES
     QMAKE_PRE_LINK *= md $$replace(OUTP, /, \\)
 }else{
     DESTDIR += $$OUTP
 }
-
 SHAREDSCRIPT = "$$PWD\win_install.bat" SHARED "$$PWD" "$$PRESET_PATH" "$$BUILDBIN_PATH" "$$QTQMLFLUENT_PATH" $$ANDROID "$$SOLIBFILE_PATH"
 STATICSCRIPT = "$$PWD\win_install.bat" STATIC "$$PWD" "$$PRESET_PATH" "$$BUILDBIN_PATH" "$$QTQMLFLUENT_PATH" $$ANDROID "$$SOLIBFILE_PATH"
-
 CONFIG(sharedlib){
     QMAKE_POST_LINK *= $$replace(SHAREDSCRIPT, /, \\)
 }

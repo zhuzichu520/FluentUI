@@ -30,10 +30,10 @@ Item {
                 pickerCursor.y = Math.max(0, Math.min(height, mouse.y)-cursorHeight)
             }
         }
-        onPositionChanged: {
+        onPositionChanged:(mouse)=> {
             handleMouse(mouse)
         }
-        onPressed: handleMouse(mouse)
+        onPressed:(mouse)=> handleMouse(mouse)
     }
 
     function setValue(val) {

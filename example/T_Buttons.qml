@@ -1,17 +1,17 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
     title:"Buttons"
 
-    spacing: 20
-
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     FluText{
         Layout.topMargin: 20
@@ -19,9 +19,10 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
+        Layout.topMargin: 20
 
         FluTextButton{
             disabled:text_button_switch.selected
@@ -48,11 +49,21 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluTextButton{
+    text:"Text Button"
+    onClicked: {
+
+    }
+}'
+    }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
+        Layout.topMargin: 20
 
         FluButton{
             disabled:button_switch.selected
@@ -79,10 +90,20 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluButton{
+    text:"Standard Button"
+    onClicked: {
+
+    }
+}'
+    }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
+        Layout.topMargin: 20
         paddings: 10
 
         FluFilledButton{
@@ -110,13 +131,63 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluFilledButton{
+    text:"Filled Button"
+    onClicked: {
+
+    }
+}'
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        Layout.topMargin: 20
+        paddings: 10
+
+        FluToggleButton{
+            disabled:toggle_button_switch.selected
+            text:"Toggle Button"
+            onClicked: {
+               selected = !selected
+            }
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:toggle_button_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluToggleButton{
+    text:"Toggle Button"
+    onClicked: {
+        selected = !selected
+    }
+}'
+    }
 
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
-
+        Layout.topMargin: 20
         FluIconButton{
             iconSource:FluentIcons.ChromeCloseContrast
             disabled:icon_button_switch.selected
@@ -143,12 +214,21 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluIconButton{
+    iconSource:FluentIcons.ChromeCloseContrast
+    onClicked: {
+
+    }
+}'
+    }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
-
+        Layout.topMargin: 20
         FluDropDownButton{
             disabled:drop_down_button_switch.selected
             text:"DropDownButton"
@@ -184,12 +264,32 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluDropDownButton{
+    text:"DropDownButton"
+    items:[
+        FluMenuItem{
+            text:"Menu_1"
+        },
+        FluMenuItem{
+            text:"Menu_2"
+        },
+        FluMenuItem{
+            text:"Menu_3"
+        },
+        FluMenuItem{
+            text:"Menu_4"
+        }
+    ]
+}'
+    }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 100
         paddings: 10
-
+        Layout.topMargin: 20
         ColumnLayout{
             spacing: 8
             anchors{
@@ -225,13 +325,23 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluRadioButton{
+    selected:true
+    text:"Text Button"
+    onClicked: {
+
+    }
+}'
+    }
 
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 68
         paddings: 10
-
+        Layout.topMargin: 20
         FluCheckBox{
             disabled:check_box_switch.selected
             text:"Check Box"
@@ -240,8 +350,6 @@ FluScrollablePage{
                 left: parent.left
             }
         }
-
-
         Row{
             spacing: 5
             anchors{
@@ -255,6 +363,10 @@ FluScrollablePage{
             }
         }
     }
-
-
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluCheckBox{
+    text:"Check Box"
+}'
+    }
 }

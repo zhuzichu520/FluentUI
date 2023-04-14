@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
 
@@ -11,29 +11,65 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
-    FluButton{
-        text:"左击菜单"
+    FluArea{
+        Layout.fillWidth: true
+        height: 100
+        paddings: 10
         Layout.topMargin: 20
-        onClicked:{
-            menu.popup()
+        Column{
+            id:layout_column
+            spacing: 15
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left:parent.left
+            }
+
+            FluButton{
+                text:"左击菜单"
+                Layout.topMargin: 20
+                onClicked:{
+                    menu.popup()
+                }
+            }
+
+            FluButton{
+                text:"右击菜单"
+                Layout.topMargin: 20
+                onClicked: {
+                    showSuccess("请按鼠标右击")
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    acceptedButtons: Qt.RightButton
+                    onClicked: {
+                        menu.popup()
+                    }
+                }
+            }
         }
     }
 
-
-    FluButton{
-        text:"右击菜单"
-        Layout.topMargin: 20
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluMenu{
+    id:menu
+    FluMenuItem:{
+        text:"删除"
         onClicked: {
-            showSuccess("请按鼠标右击")
+            showError("删除")
         }
-        MouseArea{
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            onClicked: {
-                menu.popup()
-            }
+    }
+    FluMenuItem:{
+        text:"修改"
+        onClicked: {
+            showInfo"修改")
         }
+    }
+}
+menu.popup()
+'
     }
 
     FluMenu{
@@ -47,7 +83,7 @@ FluScrollablePage{
         FluMenuItem{
             text:"修改"
             onClicked: {
-                showError("修改")
+                showInfo("修改")
             }
         }
     }

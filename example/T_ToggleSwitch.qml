@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
 
@@ -11,12 +11,29 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
-    FluToggleSwitch{
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        paddings: 10
         Layout.topMargin: 20
+        Row{
+            spacing: 30
+            anchors.verticalCenter: parent.verticalCenter
+            FluToggleSwitch{
+            }
+            FluToggleSwitch{
+                text:"Text"
+            }
+        }
     }
-    FluToggleSwitch{
-        Layout.topMargin: 20
-        text:"Text"
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluToggleSwitch{
+    text:"Text"
+}'
     }
+
+
 }

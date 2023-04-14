@@ -1,8 +1,9 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
 
@@ -10,6 +11,7 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     property var colors : [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
 
@@ -32,7 +34,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 50
         paddings: 10
@@ -69,7 +71,7 @@ FluScrollablePage{
             FluDropDownButton{
                 id:btn_close_button_visibility
                 text:"Always"
-                 Layout.preferredWidth: 120
+                Layout.preferredWidth: 120
                 items:[
                     FluMenuItem{
                         text:"Nerver"
@@ -98,8 +100,8 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
-        Layout.topMargin: 5
+        Layout.fillWidth: true
+        Layout.topMargin: 15
         height: 400
         paddings: 10
         FluTabView{
@@ -108,6 +110,28 @@ FluScrollablePage{
                 newTab()
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluTabView{
+    anchors.fill: parent
+    Component.onCompleted: {
+        newTab()
+        newTab()
+        newTab()
+    }
+    Component{
+        id:com_page
+        Rectangle{
+            anchors.fill: parent
+            color: argument
+        }
+    }
+    function newTab(){
+        tab_view.appendTab("qrc:/res/image/favicon.ico","Document 1",com_page,argument)
+    }
+}
+'
     }
 
 }

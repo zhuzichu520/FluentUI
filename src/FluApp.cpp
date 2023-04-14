@@ -7,8 +7,20 @@
 #include <QTimer>
 #include <QUuid>
 #include <QClipboard>
+#include "FluTheme.h"
 #include "Def.h"
 
+#ifdef Q_OS_WIN
+#include <dwmapi.h>
+#include <Windows.h>
+#include <windowsx.h>
+static bool isCompositionEnabled()
+{
+    BOOL composition_enabled = FALSE;
+    bool success = ::DwmIsCompositionEnabled(&composition_enabled) == S_OK;
+    return composition_enabled && success;
+}
+#endif
 
 FluApp* FluApp::m_instance = nullptr;
 
@@ -25,12 +37,16 @@ FluApp::FluApp(QObject *parent)
 {
 }
 
-void FluApp::init(QWindow *window,QMap<QString, QVariant> properties){
+void FluApp::init(QQuickWindow *window){
     this->appWindow = window;
-    this->properties = properties;
 }
 
 void FluApp::run(){
+#ifdef Q_OS_WIN
+    if(!isCompositionEnabled()){
+        FluTheme::getInstance()->frameless(false);
+    }
+#endif
     navigate(initialRoute());
 }
 
@@ -39,38 +55,45 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         qErrnoWarning("没有找到当前路由");
         return;
     }
-    bool isAppWindow = route == initialRoute();
-    FramelessView *view = new FramelessView();
+    QQmlEngine *engine = qmlEngine(appWindow);
+    QQmlComponent component(engine, routes().value(route).toString());
+    QVariantMap properties;
+    properties.insert("route",route);
+    if(fluRegister){
+        properties.insert("pageRegister",QVariant::fromValue(fluRegister));
+    }
+    properties.insert("argument",argument);
+    QQuickWindow *view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
+
+    int launchMode = view->property("launchMode").toInt();
+    if(launchMode==1){
+        for (auto& pair : wnds) {
+            QString r =  pair->property("route").toString();
+            if(r == route){
+                pair->requestActivate();
+                delete view;
+                return;
+            }
+        }
+    }else if(launchMode==2){
+        for (auto& pair : wnds) {
+            QString r =  pair->property("route").toString();
+            if(r == route){
+                pair->close();
+                break;
+            }
+        }
+    }
+
+    if(FluTheme::getInstance()->frameless()){
+        view->setFlag(Qt::FramelessWindowHint,true);
+    }
+    wnds.insert(view->winId(),view);
     if(fluRegister){
         fluRegister->to(view);
-        view->setProperty("pageRegister",QVariant::fromValue(fluRegister));
-    }
-    view->setProperty("argument",argument);
-    QMapIterator<QString, QVariant> iterator(properties);
-    while (iterator.hasNext()) {
-        iterator.next();
-        QString key = iterator.key();
-        QVariant value = iterator.value();
-        view->engine()->rootContext()->setContextProperty(key,value);
     }
     view->setColor(QColor(Qt::transparent));
-    QObject::connect(view, &QQuickView::statusChanged, view, [&](QQuickView::Status status) {
-        if (status == QQuickView::Status::Ready) {
-            Q_EMIT windowReady(view);
-            view->moveToScreenCenter();
-            view->show();
-        }
-    });
-    view->setSource((routes().value(route).toString()));
-    if(isAppWindow){
-        QObject::connect(view->engine(), &QQmlEngine::quit, qApp, &QCoreApplication::quit);
-    }else{
-        view->closeDeleteLater();
-    }
-}
-
-bool FluApp::equalsWindow(FramelessView *view,QWindow *window){
-    return view->winId() == window->winId();
+    view->show();
 }
 
 QJsonArray FluApp::awesomelist(const QString& keyword)

@@ -1,6 +1,6 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Window 2.15
 
 Popup {
@@ -17,11 +17,11 @@ Popup {
             return 400
         return  Math.min(Window.window.width,400)
     }
-
     modal:true
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape
-    background: Rectangle {
+    background:Item{}
+    contentItem: Rectangle {
         id:layout_content
         implicitWidth:minWidth
         implicitHeight: text_title.height + text_message.height + layout_actions.height

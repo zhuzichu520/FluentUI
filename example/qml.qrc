@@ -152,5 +152,18 @@
         <file>global/ItemsOriginal.qml</file>
         <file>global/qmldir</file>
         <file>global/ItemsFooter.qml</file>
+        <file>page/MediaPage.qml</file>
+        <file>T_FlipView.qml</file>
+        <file>T_Pivot.qml</file>
+        <file>component/CodeExpander.qml</file>
+        <file>T_TableView.qml</file>
+        <file>T_StatusView.qml</file>
+        <file>T_Settings.qml</file>
+        <file>global/MainEvent.qml</file>
+        <file>res/svg/home.svg</file>
+        <file>res/svg/home_dark.svg</file>
+        <file>page/StandardWindow.qml</file>
+        <file>page/SingleTaskWindow.qml</file>
+        <file>page/SingleInstanceWindow.qml</file>
     </qresource>
 </RCC>

@@ -1,5 +1,5 @@
 QT          += qml quick svg
-CONFIG      += plugin c++11
+CONFIG      += plugin c++17
 TEMPLATE    = lib
 TARGET      = FluentUI
 TARGET      = $$qtLibraryTarget($$TARGET)
@@ -19,7 +19,7 @@ HEADERS += \
     FluTheme.h \
     Fluent.h \
     FluentUI.h \
-    FramelessView.h \
+    NativeEventFilter.h \
     WindowHelper.h \
     qml_plugin.h \
     stdafx.h
@@ -33,16 +33,12 @@ SOURCES += \
     FluTheme.cpp \
     Fluent.cpp \
     FluentUI.cpp \
+    NativeEventFilter.cpp \
     WindowHelper.cpp \
     qml_plugin.cpp \
 
 win32 {
     LIBS += -ldwmapi -luser32
-    SOURCES += \
-        FramelessView_win.cpp
-} else {
-    SOURCES += \
-        FramelessView_unix.cpp
 }
 
 DEFINES += VERSION_IN=\\\"1.0.0\\\"

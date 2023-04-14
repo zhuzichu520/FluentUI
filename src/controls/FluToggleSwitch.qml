@@ -1,9 +1,9 @@
-﻿import QtQuick 2.0
-import QtQuick.Controls 2.0
+﻿import QtQuick 2.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
 import QtQuick.Layouts 1.15
 
-Button {
+FluControl {
 
     property bool selected: false
     property var clickFunc

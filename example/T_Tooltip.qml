@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtGraphicalEffects 1.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
 
@@ -11,15 +11,15 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     FluText{
         Layout.topMargin: 20
         text:"鼠标悬停不动，弹出Tooltip"
     }
 
-
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 68
         paddings: 10
@@ -43,9 +43,21 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluIconButton{
+    iconSource:FluentIcons.ChromeCloseContrast
+    iconSize: 15
+    text:"删除"
+    onClicked:{
+        showSuccess("点击IconButton")
+    }
+}
+'
+    }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 68
         paddings: 10
@@ -72,6 +84,22 @@ FluScrollablePage{
                 }
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluButton{
+    id:button_1
+    text:"删除"
+    FluTooltip{
+        visible: button_1.hovered
+        text:button_1.text
+        delay: 1000
+    }
+    onClicked:{
+        showSuccess("点击一个Button")
+    }
+}
+'
     }
 
 

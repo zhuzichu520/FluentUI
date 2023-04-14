@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
@@ -7,27 +7,35 @@ import FluentUI 1.0
 Rectangle{
 
     property string title: ""
+    property string darkText : "夜间模式"
+    property string minimizeText : "最小化"
+    property string restoreText : "向下还原"
+    property string maximizeText : "最大化"
+    property string closeText : "关闭"
     property color textColor: FluTheme.dark ? "#FFFFFF" : "#000000"
+    property color minimizeNormalColor: Qt.rgba(0,0,0,0)
+    property color minimizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.1) : Qt.rgba(0,0,0,0.06)
+    property color maximizeNormalColor: Qt.rgba(0,0,0,0)
+    property color maximizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.1) : Qt.rgba(0,0,0,0.06)
+    property color closeNormalColor: Qt.rgba(0,0,0,0)
+    property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
+
+
     property bool showDark: false
-    property bool showFps: false
-    property var window: Window.window
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
-    property bool resizable: {
-        if(window == null){
-            return false
-        }
-        return !(window.minimumHeight === window.maximumHeight && window.maximumWidth === window.minimumWidth)
+
+    Item{
+        id:d
+        property var win: Window.window
+        property bool isRestore: win && Window.Maximized === win.visibility
+        property bool resizable: win && !(win.minimumHeight === win.maximumHeight && win.maximumWidth === win.minimumWidth)
     }
 
     id:root
     color: Qt.rgba(0,0,0,0)
     visible: FluTheme.frameless
     height: visible ? 30 : 0
-    width: {
-        if(parent==null)
-            return 200
-        return parent.width
-    }
+    opacity: visible
     z: 65535
 
     TapHandler {
@@ -38,7 +46,7 @@ Rectangle{
     DragHandler {
         target: null
         grabPermissions: TapHandler.CanTakeOverFromAnything
-        onActiveChanged: if (active) { window.startSystemMove(); }
+        onActiveChanged: if (active) { d.win.startSystemMove(); }
     }
 
     FluText {
@@ -59,13 +67,6 @@ Rectangle{
         height: root.height
         spacing: 0
 
-        TFpsMonitor{
-            Layout.alignment: Qt.AlignVCenter
-            Layout.rightMargin: 20
-            Layout.topMargin: 5
-            color:root.textColor
-            visible: showFps
-        }
 
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
@@ -73,7 +74,7 @@ Rectangle{
             visible: showDark
             spacing: 5
             FluText{
-                text:"夜间模式"
+                text:darkText
                 color:root.textColor
             }
             FluToggleSwitch{
@@ -90,53 +91,24 @@ Rectangle{
             iconSource : FluentIcons.ChromeMinimize
             Layout.alignment: Qt.AlignVCenter
             iconSize: 11
-            text:"最小化"
+            text:minimizeText
             radius: 0
-            textColor: root.textColor
-            color:{
-                if(FluTheme.dark){
-                    if(hovered){
-                        return Qt.rgba(1,1,1,0.06)
-                    }
-                    return Qt.rgba(0,0,0,0)
-                }else{
-                    if(hovered){
-                        return Qt.rgba(0,0,0,0.06)
-                    }
-                    return Qt.rgba(0,0,0,0)
-                }
-            }
+            iconColor: root.textColor
+            color: hovered ? minimizeHoverColor : minimizeNormalColor
             onClicked: {
-                window.showMinimized()
+                d.win.showMinimized()
             }
         }
         FluIconButton{
             width: 40
             height: 30
-            property bool isRestore:{
-                if(window == null)
-                    return false
-                return Window.Maximized === window.visibility
-            }
-            iconSource : isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
-            color:{
-                if(FluTheme.dark){
-                    if(hovered){
-                        return Qt.rgba(1,1,1,0.06)
-                    }
-                    return Qt.rgba(0,0,0,0)
-                }else{
-                    if(hovered){
-                        return Qt.rgba(0,0,0,0.06)
-                    }
-                    return Qt.rgba(0,0,0,0)
-                }
-            }
+            iconSource : d.isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
+            color: hovered ? maximizeHoverColor : maximizeNormalColor
             Layout.alignment: Qt.AlignVCenter
-            visible: resizable
+            visible: d.resizable
             radius: 0
-            textColor: root.textColor
-            text:isRestore?"向下还原":"最大化"
+            iconColor: root.textColor
+            text:d.isRestore?restoreText:maximizeText
             iconSize: 11
             onClicked: {
                 toggleMaximized()
@@ -145,26 +117,26 @@ Rectangle{
         FluIconButton{
             iconSource : FluentIcons.ChromeClose
             Layout.alignment: Qt.AlignVCenter
-            text:"关闭"
+            text:closeText
             width: 40
             height: 30
             radius: 0
             iconSize: 10
-            textColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
-            color:hovered ? Qt.rgba(251/255,115/255,115/255,1) : "#00000000"
+            iconColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
+            color:hovered ? closeHoverColor : closeNormalColor
             onClicked: {
-                Window.window.close()
+                d.win.close()
             }
         }
     }
 
     function toggleMaximized() {
-        if(!resizable)
+        if(!d.resizable)
             return
-        if (window.visibility === Window.Maximized) {
-            window.showNormal();
+        if (d.win.visibility === Window.Maximized) {
+            d.win.showNormal();
         } else {
-            window.showMaximized();
+            d.win.showMaximized();
         }
     }
 

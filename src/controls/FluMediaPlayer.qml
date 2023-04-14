@@ -29,7 +29,7 @@ Rectangle {
         autoPlay: true
         source: control.source
         onError: {
-            console.debug(error)
+
         }
         onPositionChanged: {
             if(autoSeek){
@@ -215,4 +215,3 @@ Rectangle {
     }
 
 }
-

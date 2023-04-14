@@ -208,23 +208,23 @@ FluObject {
         }
     }
 
-    function showSuccess(text,duration,moremsg){
+    function showSuccess(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_success,text,duration,moremsg ? moremsg : "");
     }
 
-    function showInfo(text,duration,moremsg){
+    function showInfo(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_info,text,duration,moremsg ? moremsg : "");
     }
 
-    function showWarning(text,duration,moremsg){
+    function showWarning(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_warning,text,duration,moremsg ? moremsg : "");
     }
 
-    function showError(text,duration,moremsg){
+    function showError(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_error,text,duration,moremsg ? moremsg : "");
     }
 
-    function showCustom(itemcomponent,duration){
+    function showCustom(itemcomponent,duration=1000){
         mcontrol.createCustom(itemcomponent,duration);
     }
 

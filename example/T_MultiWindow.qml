@@ -1,19 +1,20 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
+
+    property string password: ""
+    property var loginPageRegister: registerForPageResult("/login")
 
     title:"MultiWindow"
     leftPadding:10
     rightPadding:10
     bottomPadding:20
-
-    property string password: ""
-
-    property var loginPageRegister: registerForPageResult("/login")
+    spacing: 0
 
     Connections{
         target: loginPageRegister
@@ -24,11 +25,90 @@ FluScrollablePage{
     }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
+        height: 86
+        paddings: 10
+        Layout.topMargin: 20
+        Column{
+            spacing: 15
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluText{
+                text:"<font color='red'>Standard</font>模式窗口，每次都会创建新窗口"
+            }
+            FluButton{
+                text:"点击创建窗口"
+                onClicked: {
+                    FluApp.navigate("/standardWindow")
+                }
+            }
+        }
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 86
+        paddings: 10
+        Layout.topMargin: 10
+        Column{
+            spacing: 15
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluText{
+                text:"<font color='red'>SingleTask</font>模式窗口，如果窗口存在，这激活该窗口"
+                textFormat: Text.RichText
+            }
+            FluButton{
+                text:"点击创建窗口"
+                onClicked: {
+                    FluApp.navigate("/singleTaskWindow")
+                }
+            }
+        }
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 86
+        paddings: 10
+        Layout.topMargin: 10
+        Column{
+            spacing: 15
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluText{
+                text:"<font color='red'>SingleInstance</font>模式窗口，如果窗口存在，则销毁窗口，然后新建窗口"
+            }
+            FluButton{
+                text:"点击创建窗口"
+                onClicked: {
+                    FluApp.navigate("/singleInstanceWindow")
+                }
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluWindow{
+  //launchMode: FluWindow.Standard
+  //launchMode: FluWindow.SingleTask
+     launchMode: FluWindow.SingleInstance
+}
+'
+    }
+
+
+    FluArea{
+        Layout.fillWidth: true
         height: 100
         paddings: 10
         Layout.topMargin: 20
-
         Column{
             spacing: 15
             anchors{
@@ -46,9 +126,19 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluButton{
+    text:"点击跳转"
+    onClicked: {
+        FluApp.navigate("/about")
+    }
+}
+'
+    }
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         height: 130
         paddings: 10
         Layout.topMargin: 20
@@ -68,13 +158,30 @@ FluScrollablePage{
                     loginPageRegister.launch({username:"zhuzichu"})
                 }
             }
-
             FluText{
                 text:"登录窗口返回过来的密码->"+password
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'property var loginPageRegister: registerForPageResult("/login")
 
+Connections{
+    target: loginPageRegister
+    function onResult(data)
+    {
+        password = data.password
+    }
+}
 
+FluButton{
+    text:"点击跳转"
+    onClicked: {
+        loginPageRegister.launch({username:"zhuzichu"})
+    }
+}
+'
+    }
 
 }

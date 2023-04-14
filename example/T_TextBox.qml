@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtGraphicalEffects 1.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
 
@@ -11,32 +11,122 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
-    FluTextBox{
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        paddings: 10
         Layout.topMargin: 20
-        placeholderText: "单行输入框"
-        Layout.preferredWidth: 300
-        disabled:toggle_switch.selected
+
+        FluTextBox{
+            Layout.topMargin: 20
+            placeholderText: "单行输入框"
+            Layout.preferredWidth: 300
+            disabled:text_box_switch.selected
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:text_box_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
     }
-    FluMultiLineTextBox{
-        Layout.topMargin: 20
-        Layout.preferredWidth: 300
-        placeholderText: "多行输入框"
-        disabled:toggle_switch.selected
-    }
-    FluAutoSuggestBox{
-        Layout.topMargin: 20
-        items:generateRandomNames(100)
-        placeholderText: "AutoSuggestBox"
-        Layout.preferredWidth: 300
-        disabled:toggle_switch.selected
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluTextBox{
+    placeholderText:"单行输入框"
+}'
     }
 
-    FluToggleSwitch{
-        id:toggle_switch
-        text:"Disabled"
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        paddings: 10
         Layout.topMargin: 20
+
+        FluMultilineTextBox{
+            Layout.topMargin: 20
+            placeholderText: "多行输入框"
+            Layout.preferredWidth: 300
+            disabled:text_box_multi_switch.selected
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:text_box_multi_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluMultilineTextBox{
+    placeholderText:"多行输入框"
+}'
+    }
+
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        paddings: 10
+        Layout.topMargin: 20
+
+        FluAutoSuggestBox{
+            Layout.topMargin: 20
+            placeholderText: "AutoSuggestBox"
+            Layout.preferredWidth: 300
+            items:generateRandomNames(100)
+            disabled:text_box_suggest_switch.selected
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:text_box_suggest_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'FluAutoSuggestBox{
+    placeholderText:"AutoSuggestBox"
+}'
+    }
+
 
     function generateRandomNames(numNames) {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

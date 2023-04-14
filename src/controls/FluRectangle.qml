@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtGraphicalEffects 1.15
 
 Item{
@@ -8,14 +8,6 @@ Item{
     property color color : "#FFFFFF"
     property bool shadow: true
     default property alias contentItem: container.data
-
-    Rectangle{
-        id:container
-        width: control.width
-        height: control.height
-        opacity: 0
-        color:control.color
-    }
 
     FluShadow{
         anchors.fill: container
@@ -26,6 +18,14 @@ Item{
             }
             return false
         }
+    }
+
+    Rectangle{
+        id:container
+        width: control.width
+        height: control.height
+        opacity: 0
+        color:control.color
     }
 
     Canvas {

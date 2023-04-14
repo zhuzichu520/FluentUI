@@ -1,9 +1,11 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 FluWindow {
+
+    id:window
 
     width: 500
     height: 600
@@ -11,12 +13,14 @@ FluWindow {
     minimumHeight: 600
     maximumWidth: 500
     maximumHeight: 600
+    launchMode: FluWindow.SingleTask
 
     title:"关于"
 
     FluAppBar{
         id:appbar
         title:"关于"
+        width:parent.width
     }
 
     ColumnLayout{
@@ -35,7 +39,7 @@ FluWindow {
                 fontStyle: FluText.Title
             }
             FluText{
-                text:"v1.1.6"
+                text:"v%1".arg(appInfo.version)
                 fontStyle: FluText.Body
                 Layout.alignment: Qt.AlignBottom
             }

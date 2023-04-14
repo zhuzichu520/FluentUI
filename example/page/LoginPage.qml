@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
 
 FluWindow {
@@ -11,8 +12,6 @@ FluWindow {
     minimumHeight: 400
     maximumWidth: 400
     maximumHeight: 400
-    modality:2
-
     title:"登录"
 
     onInitArgument:
@@ -24,6 +23,7 @@ FluWindow {
     FluAppBar{
         id:appbar
         title:"登录"
+        width:parent.width
     }
 
     ColumnLayout{

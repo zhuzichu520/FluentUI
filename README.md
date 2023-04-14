@@ -62,6 +62,12 @@
 |FluDatePicker|日期选择器||
 |FluMenu|菜单Popup||
 |FluNavigationView|响应式导航布局||
+|FluScrollbar|滚动条||
+|FluToggleButton|开关按钮||
+|FluPagination|分页组件||
+|FluTableView|表格组件||
+|FluMediaPlayer|播放器||
+|FluFlipView|FlipView||
 
 # 部分效果预览
 
@@ -77,6 +83,10 @@
 
 ![](doc/preview/theme.png)
 
+## TableView表格组件
+
+![](doc/preview/tableview.png)
+
 ## FluTreeView树组件
 
 ![](doc/preview/treeview.png)
@@ -84,14 +94,6 @@
 ## 轮播图组件
 
 ![](doc/preview/carousel.png)
-
-## InfoBar提示框组件
-
-![](doc/preview/infobar.png)
-
-## 多窗口路由跳转
-
-![](doc/preview/multiwindow.png)
 
 ### ⚡ Visitor count
 ![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)

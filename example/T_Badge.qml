@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
+import "./component"
 
 FluScrollablePage{
 
@@ -12,9 +12,10 @@ FluScrollablePage{
     leftPadding:10
     rightPadding:10
     bottomPadding:20
+    spacing: 0
 
     FluArea{
-        width: parent.width
+        Layout.fillWidth: true
         Layout.topMargin: 20
         height: 106
         paddings: 10
@@ -99,6 +100,20 @@ FluScrollablePage{
                 }
             }
         }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        code:'Rectangle{
+    width: 40
+    height: 40
+    radius: 8
+    color: Qt.rgba(191/255,191/255,191/255,1)
+    FluBadge{
+        count: 100
+        isDot: false
+        color: Qt.rgba(82/255,196/255,26/255,1)
+    }
+}'
     }
 
 }

@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
@@ -131,7 +131,7 @@ Item {
                         drag.target: item_container
                         drag.axis: Drag.XAxis
 
-                        onWheel: {
+                        onWheel: (wheel)=>{
                             if (wheel.angleDelta.y > 0) scroll_nav.decrease()
                             else scroll_nav.increase()
                         }
@@ -198,7 +198,7 @@ Item {
                             }
                         }
                         function updatePosition(pos){
-                            var idx = tab_nav.indexAt(pos.x+tab_nav.contentX, pos.y)
+                            var idx = tab_nav.indexAt(pos.x+tab_nav.contentX+1, pos.y)
                             var firstIdx = tab_nav.indexAt(tab_nav.contentX+1, pos.y)
                             var lastIdx = tab_nav.indexAt(tab_nav.width+tab_nav.contentX-1, pos.y)
                             if(lastIdx === -1){

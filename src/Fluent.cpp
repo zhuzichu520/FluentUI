@@ -5,6 +5,7 @@
 #include <QGuiApplication>
 #include <QQuickWindow>
 #include "FluColors.h"
+#include "NativeEventFilter.h"
 #include "FluTheme.h"
 #include "WindowHelper.h"
 #include "FluApp.h"
@@ -32,6 +33,15 @@ void Fluent::registerTypes(const char *uri){
 
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
+
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluStatusView.qml"),uri,major,minor,"FluStatusView");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPagination.qml"),uri,major,minor,"FluPagination");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluToggleButton.qml"),uri,major,minor,"FluToggleButton");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTableView.qml"),uri,major,minor,"FluTableView");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPivotItem.qml"),uri,major,minor,"FluPivotItem");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPivot.qml"),uri,major,minor,"FluPivot");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluFlipView.qml"),uri,major,minor,"FluFlipView");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPaneItemExpander.qml"),uri,major,minor,"FluPaneItemExpander");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTabView.qml"),uri,major,minor,"FluTabView");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluArea.qml"),uri,major,minor,"FluArea");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluBadge.qml"),uri,major,minor,"FluBadge");
@@ -57,7 +67,7 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMenu.qml"),uri,major,minor,"FluMenu");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluScrollBar.qml"),uri,major,minor,"FluScrollBar");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTextButton.qml"),uri,major,minor,"FluTextButton");
-    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMultiLineTextBox.qml"),uri,major,minor,"FluMultiLineTextBox");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluMultilineTextBox.qml"),uri,major,minor,"FluMultilineTextBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTooltip.qml"),uri,major,minor,"FluTooltip");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluDivider.qml"),uri,major,minor,"FluDivider");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluIcon.qml"),uri,major,minor,"FluIcon");
@@ -86,6 +96,8 @@ void Fluent::registerTypes(const char *uri){
 
 void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)
 {
+    nativeEvent = new NativeEventFilter();
+    qApp->installNativeEventFilter(nativeEvent);
     Q_UNUSED(engine)
     Q_UNUSED(uri)
 #ifdef Q_OS_WIN

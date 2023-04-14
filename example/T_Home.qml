@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import "qrc:///global/"
 import FluentUI 1.0
 
@@ -129,7 +129,7 @@ FluScrollablePage{
                         id:item_mouse
                         anchors.fill: parent
                         hoverEnabled: true
-                        onWheel: {
+                        onWheel: (wheel)=>{
                             if (wheel.angleDelta.y > 0) scrollbar_header.decrease()
                             else scrollbar_header.increase()
                         }
@@ -139,20 +139,6 @@ FluScrollablePage{
                     }
                 }
             }
-        }
-    }
-
-    ListModel{
-        id:model_added
-        Component.onCompleted: {
-            append(ItemsOriginal.getRecentlyAddedData())
-        }
-    }
-
-    ListModel{
-        id:model_update
-        Component.onCompleted: {
-            append(ItemsOriginal.getRecentlyUpdatedData())
         }
     }
 
@@ -187,7 +173,7 @@ FluScrollablePage{
                     id:item_icon
                     height: 40
                     width: 40
-                    source: model.image
+                    source: modelData.image
                     anchors{
                         left: parent.left
                         leftMargin: 20
@@ -197,7 +183,7 @@ FluScrollablePage{
 
                 FluText{
                     id:item_title
-                    text:model.title
+                    text:modelData.title
                     fontStyle: FluText.BodyStrong
                     anchors{
                         left: item_icon.right
@@ -208,7 +194,7 @@ FluScrollablePage{
 
                 FluText{
                     id:item_desc
-                    text:model.desc
+                    text:modelData.desc
                     color:FluColors.Grey120
                     wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight
@@ -223,12 +209,25 @@ FluScrollablePage{
                     }
                 }
 
+                Rectangle{
+                    height: 12
+                    width: 12
+                    radius:  6
+                    color: FluTheme.primaryColor.dark
+                    anchors{
+                        right: parent.right
+                        top: parent.top
+                        rightMargin: 14
+                        topMargin: 14
+                    }
+                }
+
                 MouseArea{
                     id:item_mouse
                     anchors.fill: parent
                     hoverEnabled: true
                     onClicked: {
-                        ItemsOriginal.startPageByItem(model)
+                        ItemsOriginal.startPageByItem(modelData)
                     }
                 }
             }
@@ -247,7 +246,7 @@ FluScrollablePage{
         implicitHeight: contentHeight
         cellHeight: 120
         cellWidth: 320
-        model:model_added
+        model:ItemsOriginal.getRecentlyAddedData()
         interactive: false
         delegate: com_item
     }
@@ -265,7 +264,7 @@ FluScrollablePage{
         cellHeight: 120
         cellWidth: 320
         interactive: false
-        model: model_update
+        model: ItemsOriginal.getRecentlyUpdatedData()
         delegate: com_item
     }
 

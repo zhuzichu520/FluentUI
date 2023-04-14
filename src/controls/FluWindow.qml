@@ -1,47 +1,33 @@
 ﻿import QtQuick 2.15
 import QtQuick.Window 2.15
+import QtQuick.Controls  2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
-import QtGraphicalEffects 1.15
 
-Item {
+ApplicationWindow {
 
-    property string title: "FluentUI"
-    property int minimumWidth
-    property int maximumWidth
-    property int minimumHeight
-    property int maximumHeight
-    property int modality:0
-    signal initArgument(var argument)
-    property var pageRegister
+
+    enum LaunchMode {
+        Standard,
+        SingleTask,
+        SingleInstance
+    }
+
     default property alias content: container.data
-    property var window : {
-        if(Window.window == null)
-            return null
-        return Window.window
-    }
+    property int launchMode: FluWindow.Standard
+    property string route
+    property var argument:({})
+    property var pageRegister
+    signal initArgument(var argument)
 
-    property color color: {
-        if(window && window.active){
-            return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+    id:window
+    background: Rectangle{
+        color: {
+            if(active){
+                return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+            }
+            return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
         }
-        return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-    }
-
-    id:root
-
-    Behavior on opacity{
-        NumberAnimation{
-            duration: 100
-        }
-    }
-
-    Rectangle{
-        id:container
-        color:root.color
-        anchors.fill: parent
-        anchors.margins: (window && (window.visibility === Window.Maximized) && FluTheme.frameless) ? 8/Screen.devicePixelRatio : 0
-        clip: true
         Behavior on color{
             ColorAnimation {
                 duration: 300
@@ -49,47 +35,39 @@ Item {
         }
     }
 
-    Rectangle{
-        border.width: 1
+    Item{
+        id:container
         anchors.fill: parent
-        color: Qt.rgba(0,0,0,0,)
-        border.color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
+        anchors.margins: window.visibility === Window.Maximized && FluTheme.frameless ? 8/Screen.devicePixelRatio : 0
+        clip: true
     }
 
-
-    Connections{
-        target: FluApp
-        function onWindowReady(view){
-            if(FluApp.equalsWindow(view,window)){
-                helper.initWindow(view)
-                initArgument(helper.getArgument())
-                pageRegister = helper.getPageRegister()
-                helper.setTitle(title)
-                if(minimumWidth){
-                    helper.setMinimumWidth(minimumWidth)
-                }
-                if(maximumWidth){
-                    helper.setMaximumWidth(maximumWidth)
-                }
-                if(minimumHeight){
-                    helper.setMinimumHeight(minimumHeight)
-                }
-                if(maximumHeight){
-                    helper.setMaximumHeight(maximumHeight)
-                }
-                helper.setModality(root.modality);
-                helper.updateWindow()
-            }
+    onActiveChanged: {
+        if(active){
+            helper.firstUpdate()
         }
+    }
+
+    onClosing:
+        (event)=>{
+            //销毁窗口，释放资源
+            helper.destoryWindow()
+        }
+
+    FluInfoBar{
+        id:infoBar
+        root: window
     }
 
     WindowHelper{
         id:helper
     }
 
-    FluInfoBar{
-        id:infoBar
-        root: root
+    Component.onCompleted: {
+        helper.initWindow(window)
+        initArgument(argument)
+        window.x = (Screen.width - window.width)/2
+        window.y = (Screen.desktopAvailableHeight - window.height)/2
     }
 
     function showSuccess(text,duration,moremsg){
@@ -106,10 +84,6 @@ Item {
 
     function showError(text,duration,moremsg){
         infoBar.showError(text,duration,moremsg);
-    }
-
-    function close(){
-        window.close()
     }
 
     function registerForPageResult(path){

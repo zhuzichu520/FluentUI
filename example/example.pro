@@ -1,12 +1,15 @@
-QT += quick concurrent network multimedia
-CONFIG += c++11
+QT += quick quickcontrols2 concurrent network multimedia
+CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
 HEADERS += \
-    ChatController.h
+    stdafx.h \
+    ChatController.h \
+    AppInfo.h
 
 SOURCES += \
         ChatController.cpp \
+        AppInfo.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -23,21 +26,15 @@ CONFIG(debug,debug|release) {
 }
 
 win32 {
-contains(QT_ARCH, i386) {
-    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x86/*.dll) $$DESTDIR
-    contains(QMAKE_CC, cl) {
-        QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
-    } else {
-        QMAKE_PRE_LINK += $$QMAKE_COPY $$COPYDLL
-    }
+
+contains(QMAKE_CC, cl) {
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/msvc/*.dll) $$DESTDIR
+    QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, $$QMAKE_DIR_SEP)
 } else {
-    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/Win_x64/*.dll) $$DESTDIR
-    contains(QMAKE_CC, cl) {
-        QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, \\)
-    } else {
-        QMAKE_PRE_LINK += $$QMAKE_COPY $$COPYDLL
-    }
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/mingw/*.dll) $$DESTDIR
+    QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, $$QMAKE_DIR_SEP)
 }
+
 }
 
 qnx: target.path = /tmp/$${TARGET}/bin

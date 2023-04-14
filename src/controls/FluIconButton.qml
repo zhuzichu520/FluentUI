@@ -1,23 +1,27 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
 
-Button {
+FluControl {
 
     property int iconSize: 20
     property int iconSource
     property bool disabled: false
     property int radius:4
     property color hoverColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(0,0,0,0.03)
+    property color pressedColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(0,0,0,0.06)
     property color normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
     property color disableColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
     property color color: {
         if(disabled){
             return disableColor
         }
+        if(pressed){
+            return pressedColor
+        }
         return hovered ? hoverColor : normalColor
     }
-    property color textColor: {
+    property color iconColor: {
         if(FluTheme.dark){
             if(disabled){
                 return Qt.rgba(130/255,130/255,130/255,1)
@@ -34,6 +38,7 @@ Button {
     id:control
     width: 30
     height: 30
+    clip: true
     implicitWidth: width
     implicitHeight: height
     padding: 0
@@ -57,7 +62,7 @@ Button {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
-            color:control.textColor
+            color:control.iconColor
             text: (String.fromCharCode(iconSource).toString(16));
         }
         FluTooltip{

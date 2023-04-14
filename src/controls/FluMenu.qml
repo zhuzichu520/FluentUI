@@ -1,6 +1,6 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 
 Menu {
 
@@ -9,10 +9,8 @@ Menu {
     id: popup
     width: 140
     height: container.height
-    modal: true
+    modal:true
     dim:false
-    contentItem: Item{}
-
     enter: Transition {
         NumberAnimation {
             property: "y"
@@ -27,8 +25,8 @@ Menu {
             duration: animEnabled ? 150 : 0
         }
     }
-
-    background: Item {
+    background:Item{}
+    contentItem: Item {
         Rectangle{
             anchors.fill: parent
             color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)

@@ -1,137 +1,31 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
 
-TextField{
-
+FluTextBox{
     property var items:[]
-    property int fontStyle: FluText.Body
-    property int pixelSize : FluTheme.textSize
-    property int iconSource: 0
-    property bool disabled: false
+    property string emptyText: "没有找到结果"
+    property int autoSuggestBoxReplacement: FluentIcons.Search
     signal itemClicked(var data)
     signal handleClicked
     QtObject{
         id:d
         property bool flagVisible: true
     }
-    id:input
+    id:control
     width: 300
-    enabled: !disabled
-    color: {
-        if(disabled){
-            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
-        }
-        return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
-    }
-    selectionColor: FluTheme.primaryColor.lightest
-    renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    placeholderTextColor: {
-        if(disabled){
-            return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
-        }
-        if(focus){
-            return FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
-        }
-        return FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
-    }
-    rightPadding: icon_right.visible ? 50 : 30
-    selectByMouse: true
-    Keys.onUpPressed: {
-        list_view.currentIndex = Math.max(list_view.currentIndex-1,0)
-    }
-    Keys.onDownPressed: {
-        list_view.currentIndex = Math.min(list_view.currentIndex+1,list_view.count-1)
-    }
-    Keys.onEnterPressed:handleClicked()
-    Keys.onReturnPressed:handleClicked()
-    font.bold: {
-        switch (fontStyle) {
-        case FluText.Display:
-            return true
-        case FluText.TitleLarge:
-            return true
-        case FluText.Title:
-            return true
-        case FluText.SubTitle:
-            return true
-        case FluText.BodyStrong:
-            return true
-        case FluText.Body:
-            return false
-        case FluText.Caption:
-            return false
-        default:
-            return false
-        }
-    }
-    font.pixelSize: {
-        switch (fontStyle) {
-        case FluText.Display:
-            return text.pixelSize * 4.857
-        case FluText.TitleLarge:
-            return text.pixelSize * 2.857
-        case FluText.Title:
-            return text.pixelSize * 2
-        case FluText.SubTitle:
-            return text.pixelSize * 1.428
-        case FluText.Body:
-            return text.pixelSize * 1.0
-        case FluText.BodyStrong:
-            return text.pixelSize * 1.0
-        case FluText.Caption:
-            return text.pixelSize * 0.857
-        default:
-            return text.pixelSize * 1.0
-        }
-    }
-    background: FluTextBoxBackground{
-        inputItem: input
-
-        FluIconButton{
-            iconSource:FluentIcons.ChromeClose
-            iconSize: 10
-            width: 20
-            height: 20
-            opacity: 0.5
-            visible: input.text !== ""
-            anchors{
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-                rightMargin: icon_right.visible ? 25 : 5
-            }
-            onClicked:{
-                input.text = ""
-            }
-        }
-
-        FluIcon{
-            id:icon_right
-            iconSource: input.iconSource
-            iconSize: 15
-            opacity: 0.5
-            visible: input.iconSource != 0
-            anchors{
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-                rightMargin: 5
-            }
-        }
-    }
-
     Component.onCompleted: {
-        searchData()
+        loadData()
     }
-
     Popup{
-        id:input_popup
-        y:input.height
+        id:control_popup
+        y:control.height
         focus: false
         enter: Transition {
             NumberAnimation {
                 property: "y"
                 from:0
-                to:input_popup.y
+                to:control_popup.y
                 duration: 150
             }
             NumberAnimation {
@@ -147,7 +41,7 @@ TextField{
             }
         }
         background: Rectangle{
-            width: input.width
+            width: control.width
             radius: 4
             FluShadow{
                 radius: 4
@@ -161,11 +55,11 @@ TextField{
                 currentIndex: -1
                 ScrollBar.vertical: FluScrollBar {}
                 header: Item{
-                    width: input.width
+                    width: control.width
                     height: visible ? 38 : 0
                     visible: list_view.count === 0
                     FluText{
-                        text:"没有找到结果"
+                        text:emptyText
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left: parent.left
@@ -174,7 +68,7 @@ TextField{
                     }
                 }
                 delegate:Control{
-                    width: input.width
+                    width: control.width
                     padding:10
                     background: Rectangle{
                         color:  {
@@ -190,7 +84,7 @@ TextField{
                             id:mouse_area
                             anchors.fill: parent
                             Connections{
-                                target: input
+                                target: control
                                 function onHandleClicked(){
                                     if((list_view.currentIndex === index)){
                                         handleClick(modelData)
@@ -221,72 +115,41 @@ TextField{
             }
         }
     }
+    onTextChanged: {
+        loadData()
+        if(d.flagVisible){
+            control_popup.visible = true
+        }
+    }
+    TapHandler {
+        acceptedButtons: Qt.RightButton
+        onTapped: control.echoMode !== TextInput.Password && menu.popup()
+    }
+    FluTextBoxMenu{
+        id:menu
+        inputItem: control
+    }
 
     function handleClick(modelData){
-        input_popup.visible = false
-        input.itemClicked(modelData)
+        control_popup.visible = false
+        control.itemClicked(modelData)
         updateText(modelData.title)
     }
 
     function updateText(text){
         d.flagVisible = false
-        input.text = text
+        control.text = text
         d.flagVisible = true
     }
 
-    onTextChanged: {
-        searchData()
-        if(d.flagVisible){
-            input_popup.visible = true
-        }
-    }
-
-    TapHandler {
-        acceptedButtons: Qt.RightButton
-        onTapped: input.echoMode !== TextInput.Password && menu.popup()
-    }
-
-    FluMenu{
-        id:menu
-        focus: false
-        FluMenuItem{
-            text: "剪切"
-            visible: input.text !== ""
-            onClicked: {
-                input.cut()
-            }
-        }
-        FluMenuItem{
-            text: "复制"
-            visible: input.selectedText !== ""
-            onClicked: {
-                input.copy()
-            }
-        }
-        FluMenuItem{
-            text: "粘贴"
-            visible: input.canPaste
-            onClicked: {
-                input.paste()
-            }
-        }
-        FluMenuItem{
-            text: "全选"
-            visible: input.text !== ""
-            onClicked: {
-                input.selectAll()
-            }
-        }
-    }
-
-    function searchData(){
+    function loadData(){
         var result = []
         if(items==null){
             list_view.model = result
             return
         }
         items.map(function(item){
-            if(item.title.indexOf(input.text)!==-1){
+            if(item.title.indexOf(control.text)!==-1){
                 result.push(item)
             }
         })
@@ -294,4 +157,3 @@ TextField{
     }
 
 }
-

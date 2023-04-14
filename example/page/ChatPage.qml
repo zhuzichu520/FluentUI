@@ -1,6 +1,6 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls  2.15
 import FluentUI 1.0
 import Controller 1.0
 import QtQuick.Dialogs 1.3
@@ -43,6 +43,7 @@ FluWindow {
     FluAppBar{
         id:appbar
         title:"ChatGPT"
+        width:parent.width
     }
 
     Component{
@@ -182,7 +183,7 @@ FluWindow {
                 rightMargin: 10
             }
             height: Math.min(textbox.implicitHeight,64)
-            FluMultiLineTextBox{
+            FluMultilineTextBox{
                 id:textbox
                 focus:true
                 placeholderText: "请输入消息"
