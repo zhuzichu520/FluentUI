@@ -67,7 +67,6 @@ Rectangle{
         height: root.height
         spacing: 0
 
-
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
             Layout.rightMargin: 5

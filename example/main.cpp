@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("FluentUI");
     QQuickStyle::setStyle("Basic");
     QGuiApplication app(argc, argv);
+    app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     qmlRegisterType<ChatController>("Controller",1,0,"ChatController");
     AppInfo* appInfo = new AppInfo();

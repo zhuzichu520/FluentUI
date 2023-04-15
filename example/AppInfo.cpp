@@ -7,7 +7,7 @@ AppInfo::AppInfo(QObject *parent)
     : QObject{parent}
 {
     version("1.2.4");
-    changeLang("En");
+    lang(new En());
 }
 
 void AppInfo::changeLang(const QString& locale){

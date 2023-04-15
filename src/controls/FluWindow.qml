@@ -6,7 +6,6 @@ import FluentUI
 
 ApplicationWindow {
 
-
     enum LaunchMode {
         Standard,
         SingleTask,
@@ -14,6 +13,7 @@ ApplicationWindow {
     }
 
     default property alias content: container.data
+    property bool closeDestory: true
     property int launchMode: FluWindow.Standard
     property string route
     property var argument:({})
@@ -50,8 +50,12 @@ ApplicationWindow {
 
     onClosing:
         (event)=>{
-            //销毁窗口，释放资源
-            helper.destoryWindow()
+            if(closeDestory){
+                helper.destoryWindow()
+            }else{
+                visible = false
+                event.accepted = false
+            }
         }
 
     FluInfoBar{

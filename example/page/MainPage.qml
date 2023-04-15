@@ -2,14 +2,16 @@
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
-import "qrc:///global/"
+import Qt.labs.platform
 import FluentUI
+import "qrc:///global/"
 
 FluWindow {
-    id:rootwindow
+    id:window
     width: 1000
     height: 640
     title: "FluentUI"
+    closeDestory:false
     minimumWidth: 520
     minimumHeight: 460
 
@@ -20,6 +22,18 @@ FluWindow {
         width:parent.width
         darkText: lang.dark_mode
     }
+
+    SystemTrayIcon {
+        visible: true
+        icon.source: "qrc:/res/image/favicon.ico"
+
+        onActivated: {
+            window.show()
+            window.raise()
+            window.requestActivate()
+        }
+    }
+
 
     FluNavigationView{
         id:nav_view
