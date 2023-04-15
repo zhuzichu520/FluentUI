@@ -87,7 +87,7 @@ ApplicationWindow {
     }
 
     function registerForPageResult(path){
-        return helper.createRegister(path)
+        return helper.createRegister(window,path)
     }
 
     function onResult(data){

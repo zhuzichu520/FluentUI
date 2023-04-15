@@ -17,6 +17,8 @@ FluWindow {
 
     title:"关于"
 
+    property var loginPageRegister: registerForPageResult("/login")
+
     FluAppBar{
         id:appbar
         title:"关于"
