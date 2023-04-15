@@ -16,7 +16,7 @@ public:
 
     Q_INVOKABLE void initWindow(QQuickWindow* window);
     Q_INVOKABLE void destoryWindow();
-    Q_INVOKABLE QVariant createRegister(const QString& path);
+    Q_INVOKABLE QVariant createRegister(QQuickWindow* window,const QString& path);
 
     Q_INVOKABLE void firstUpdate();
 

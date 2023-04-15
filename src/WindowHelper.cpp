@@ -43,9 +43,9 @@ void WindowHelper::firstUpdate(){
 
 }
 
-QVariant WindowHelper::createRegister(const QString& path){
-    FluRegister *p = new FluRegister(this->window);
-    p->from(this->window);
+QVariant WindowHelper::createRegister(QQuickWindow* window,const QString& path){
+    FluRegister *p = new FluRegister(window);
+    p->from(window);
     p->path(path);
     return  QVariant::fromValue(p);
 }
