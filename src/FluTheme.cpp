@@ -1,9 +1,12 @@
 ﻿#include "FluTheme.h"
 
 #include "FluColors.h"
+#ifdef Q_OS_WIN
+#include <QSettings>
+#else
 #include <QPalette>
+#endif
 #include <QGuiApplication>
-
 FluTheme* FluTheme::m_instance = nullptr;
 
 FluTheme *FluTheme::getInstance()
@@ -39,7 +42,12 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event)
 
 bool FluTheme::isDark()
 {
+#ifdef Q_OS_WIN
+    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",QSettings::NativeFormat);
+    return !settings.value("AppsUseLightTheme").toBool();
+#else
     QPalette palette = (qobject_cast<QGuiApplication *>(QCoreApplication::instance()))->palette();
-    QColor color = palette.color(QPalette::Window).rgb();
-    return !(color.red() * 0.2126 + color.green() * 0.7152 + color.blue() * 0.0722 > 255 / 2);
+    return palette.color(QPalette::WindowText).lightness()
+            > palette.color(QPalette::Window).lightness();
+#endif
 }
