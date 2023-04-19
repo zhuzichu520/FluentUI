@@ -60,9 +60,9 @@ FluControl {
                 width: pressed ? 28 : 20
                 anchors{
                     left: selected ? undefined : parent.left
-                    leftMargin: selected ? 10 : 0
+                    leftMargin: selected ? 20 : 0
                     right: selected ? parent.right : undefined
-                    rightMargin: selected ? 0: 10
+                    rightMargin: selected ? 0: 20
                 }
                 height: 20
                 radius: 10
