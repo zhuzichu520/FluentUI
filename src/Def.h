@@ -3,6 +3,16 @@
 
 #include <QObject>
 
+namespace Fluent_DarkMode {
+Q_NAMESPACE
+    enum Fluent_DarkModeType {
+        System      = 0x0,
+        Light    = 0x1,
+        Dark     = 0x2,
+    };
+Q_ENUMS(Fluent_DarkModeType);
+}
+
 namespace Fluent_Awesome {
 Q_NAMESPACE
 enum class Fluent_AwesomeType {

@@ -79,7 +79,11 @@ Rectangle{
             FluToggleSwitch{
                 selected: FluTheme.dark
                 clickFunc:function(){
-                    FluTheme.dark = !FluTheme.dark
+                    if(FluTheme.dark){
+                        FluTheme.darkMode = FluDarkMode.Light
+                    }else{
+                        FluTheme.darkMode = FluDarkMode.Dark
+                    }
                 }
             }
         }

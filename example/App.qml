@@ -9,7 +9,7 @@ Window {
     Component.onCompleted: {
         FluApp.init(app)
         FluTheme.frameless = ("windows" === Qt.platform.os)
-        FluTheme.dark = false
+        FluTheme.darkMode = FluDarkMode.System
         FluApp.routes = {
             "/":"qrc:/page/MainPage.qml",
             "/about":"qrc:/page/AboutPage.qml",
