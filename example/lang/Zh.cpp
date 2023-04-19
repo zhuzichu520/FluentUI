@@ -13,6 +13,7 @@ Zh::Zh(QObject *parent)
     theming("主题");
     media("媒体");
     dark_mode("夜间模式");
+    sys_dark_mode("跟随系统");
     search("查找");
     about("关于");
     settings("设置");
