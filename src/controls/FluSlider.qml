@@ -73,16 +73,16 @@ Item{
         anchors.horizontalCenter: vertical ? parent.horizontalCenter : undefined
         color:FluTheme.dark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
         Rectangle{
-            width: dotSize/2
-            height: dotSize/2
-            radius: dotSize/4
+            width: dotSize
+            height: dotSize
+            radius: dotSize/2
             color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
             scale: {
                 if(control_mouse.pressed){
-                    return 0.9
+                    return 4/10
                 }
-                return control_mouse.containsMouse || mouse_line.containsMouse  ? 1.3 : 1
+                return control_mouse.containsMouse || mouse_line.containsMouse  ? 6/10 : 5/10
             }
             Behavior on scale {
                 NumberAnimation{
