@@ -72,28 +72,28 @@ FluControl {
                 Behavior on anchors.leftMargin  {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.Bezier
+                        easing.type: Easing.BezierSpline
                         easing.bezierCurve: [ 1, 0, 0, 0 ]
                     }
                 }
                 Behavior on anchors.rightMargin  {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.Bezier
+                        easing.type: Easing.BezierSpline
                         easing.bezierCurve: [ 1, 0, 0, 0 ]
                     }
                 }
                 Behavior on width {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.Bezier
+                        easing.type: Easing.BezierSpline
                         easing.bezierCurve: [ 1, 0, 0, 0 ]
                     }
                 }
                 Behavior on scale {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.Bezier
+                        easing.type: Easing.BezierSpline
                         easing.bezierCurve: [ 1, 0, 0, 0 ]
                     }
                 }

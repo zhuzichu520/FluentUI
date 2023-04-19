@@ -121,7 +121,7 @@ Item {
             Behavior on height {
                 NumberAnimation{
                     duration: 167
-                    easing.type: Easing.Bezier
+                    easing.type: Easing.BezierSpline
                     easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
@@ -140,7 +140,7 @@ Item {
             Behavior on height {
                 NumberAnimation{
                     duration: 167
-                    easing.type: Easing.Bezier
+                    easing.type: Easing.BezierSpline
                     easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
@@ -318,7 +318,7 @@ Item {
             Behavior on height {
                 NumberAnimation{
                     duration: 167
-                    easing.type: Easing.Bezier
+                    easing.type: Easing.BezierSpline
                     easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
@@ -511,7 +511,7 @@ Item {
                 Behavior on Layout.preferredWidth{
                     NumberAnimation{
                         duration: 167
-                        easing.type: Easing.Bezier
+                        easing.type: Easing.BezierSpline
                         easing.bezierCurve: [ 0, 0, 0, 1 ]
                     }
                 }
@@ -557,7 +557,7 @@ Item {
                     from: 0
                     to: nav_swipe.height
                     duration: 167
-                    easing.type: Easing.Bezier
+                    easing.type: Easing.BezierSpline
                     easing.bezierCurve: [ 1, 0, 0, 0 ]
                 }
             }
@@ -567,7 +567,7 @@ Item {
                     from: nav_swipe.height;
                     to: 0
                     duration: 167
-                    easing.type: Easing.Bezier
+                    easing.type: Easing.BezierSpline
                     easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
@@ -596,7 +596,7 @@ Item {
         Behavior on width{
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.Bezier
+                easing.type: Easing.BezierSpline
                 easing.bezierCurve: [ 0, 0, 0, 1 ]
             }
         }
@@ -604,7 +604,7 @@ Item {
             id:anim_layout_list_x
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.Bezier
+                easing.type: Easing.BezierSpline
                 easing.bezierCurve: [ 0, 0, 0, 1 ]
             }
         }

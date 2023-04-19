@@ -19,15 +19,6 @@ FluTheme::FluTheme(QObject *parent)
 {
     primaryColor(FluColors::getInstance()->Blue());
     textSize(13);
-    nativeText(true);
+    nativeText(false);
     frameless(true);
-    std::function<bool()> isDark = [](){
-        QPalette palette = (qobject_cast<QGuiApplication *>(QCoreApplication::instance()))->palette();
-        QColor color = palette.color(QPalette::Window).rgb();
-        return !(color.red() * 0.2126 + color.green() * 0.7152 + color.blue() * 0.0722 > 255 / 2);
-    };
-    dark(isDark());
-    connect(qobject_cast<QGuiApplication *>(QCoreApplication::instance()), &QGuiApplication::paletteChanged, this, [=] (const QPalette &) {
-        dark(isDark());
-    });
 }
