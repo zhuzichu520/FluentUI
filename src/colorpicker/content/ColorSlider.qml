@@ -24,6 +24,7 @@ Item {
         y: -Math.round(cursorHeight/2)
         height: parent.height+cursorHeight
         anchors.left: parent.left
+        preventStealing: true
         anchors.right: parent.right
         function handleMouse(mouse) {
             if (mouse.buttons & Qt.LeftButton) {
