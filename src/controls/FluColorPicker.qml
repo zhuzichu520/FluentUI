@@ -33,34 +33,42 @@ FluControl{
         height: container.height
         width: container.width
         contentItem: Item{
-            anchors.fill: parent
+            clip: true
             FluColorView{
                 id:container
             }
         }
-        background:Item{}
-        enter: Transition {
-            NumberAnimation {
-                property: "y"
-                from:0
-                to:popup.y
-                duration: 150
+        background:Item{
+            FluShadow{
+                radius: 5
             }
+        }
+        enter: Transition {
+            reversible: true
             NumberAnimation {
                 property: "opacity"
                 from:0
                 to:1
-                duration: 150
+                duration: 83
+            }
+        }
+
+        exit:Transition {
+            NumberAnimation {
+                property: "opacity"
+                from:1
+                to:0
+                duration: 83
             }
         }
         function showPopup() {
             var pos = control.mapToItem(null, 0, 0)
-            if(window.height>pos.y+control.height+popup.height){
+            if(window.height>pos.y+control.height+container.height){
                 popup.y = control.height
-            } else if(pos.y>popup.height){
-                popup.y = -popup.height
+            } else if(pos.y>container.height){
+                popup.y = -container.height
             } else {
-                popup.y = window.height-(pos.y+popup.height)
+                popup.y = window.height-(pos.y+container.height)
             }
             popup.x = -(popup.width-control.width)/2
             popup.open()

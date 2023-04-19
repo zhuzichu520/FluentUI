@@ -51,7 +51,7 @@ ApplicationWindow {
     onClosing:
         (event)=>{
             if(closeDestory){
-                helper.destoryWindow()
+                destoryWindow()
             }else{
                 visible = false
                 event.accepted = false
@@ -92,6 +92,10 @@ ApplicationWindow {
 
     function registerForPageResult(path){
         return helper.createRegister(window,path)
+    }
+
+    function destoryWindow(){
+        helper.destoryWindow()
     }
 
     function onResult(data){

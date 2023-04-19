@@ -120,7 +120,9 @@ Item {
             }
             Behavior on height {
                 NumberAnimation{
-                    duration: 150
+                    duration: 167
+                    easing.type: Easing.Bezier
+                    easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
         }
@@ -137,7 +139,9 @@ Item {
             }
             Behavior on height {
                 NumberAnimation{
-                    duration: 150
+                    duration: 167
+                    easing.type: Easing.Bezier
+                    easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
             width: layout_list.width
@@ -206,12 +210,12 @@ Item {
                     visible:opacity
                     Behavior on opacity {
                         NumberAnimation{
-                            duration: 220
+                            duration: 83
                         }
                     }
                     Behavior on rotation {
                         NumberAnimation{
-                            duration: 150
+                            duration: 83
                         }
                     }
                 }
@@ -290,7 +294,7 @@ Item {
                     visible:opacity
                     Behavior on opacity {
                         NumberAnimation{
-                            duration: 220
+                            duration: 83
                         }
                     }
                     anchors{
@@ -313,7 +317,9 @@ Item {
         Item{
             Behavior on height {
                 NumberAnimation{
-                    duration: 150
+                    duration: 167
+                    easing.type: Easing.Bezier
+                    easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
             clip: true
@@ -442,7 +448,7 @@ Item {
                     visible:opacity
                     Behavior on opacity {
                         NumberAnimation{
-                            duration: 220
+                            duration: 83
                         }
                     }
                     color:{
@@ -504,7 +510,9 @@ Item {
                 }
                 Behavior on Layout.preferredWidth{
                     NumberAnimation{
-                        duration: 220
+                        duration: 167
+                        easing.type: Easing.Bezier
+                        easing.bezierCurve: [ 0, 0, 0, 1 ]
                     }
                 }
             }
@@ -544,10 +552,24 @@ Item {
             clip: true
             popEnter : Transition{}
             popExit : Transition {
-                NumberAnimation { properties: "y"; from: 0; to: nav_swipe.height; duration: 200 }
+                NumberAnimation {
+                    properties: "y"
+                    from: 0
+                    to: nav_swipe.height
+                    duration: 167
+                    easing.type: Easing.Bezier
+                    easing.bezierCurve: [ 1, 0, 0, 0 ]
+                }
             }
             pushEnter: Transition {
-                NumberAnimation { properties: "y"; from: nav_swipe.height; to: 0; duration: 200 }
+                NumberAnimation {
+                    properties: "y";
+                    from: nav_swipe.height;
+                    to: 0
+                    duration: 167
+                    easing.type: Easing.Bezier
+                    easing.bezierCurve: [ 0, 0, 0, 1 ]
+                }
             }
             pushExit : Transition{}
             replaceEnter : Transition{}
@@ -573,13 +595,17 @@ Item {
         }
         Behavior on width{
             NumberAnimation{
-                duration: 150
+                duration: 167
+                easing.type: Easing.Bezier
+                easing.bezierCurve: [ 0, 0, 0, 1 ]
             }
         }
         Behavior on x{
             id:anim_layout_list_x
             NumberAnimation{
-                duration: 150
+                duration: 167
+                easing.type: Easing.Bezier
+                easing.bezierCurve: [ 0, 0, 0, 1 ]
             }
         }
         anchors{
@@ -626,7 +652,7 @@ Item {
                 visible: opacity
                 Behavior on opacity{
                     NumberAnimation{
-                        duration: 100
+                        duration: 83
                     }
                 }
             }
@@ -636,7 +662,7 @@ Item {
                 opacity:d.isCompactAndNotPanel
                 Behavior on opacity{
                     NumberAnimation{
-                        duration: 220
+                        duration: 83
                     }
                 }
                 hoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
@@ -774,7 +800,7 @@ Item {
                 property: "opacity"
                 from:0
                 to:1
-                duration: 150
+                duration: 83
             }
         }
         background: Rectangle{

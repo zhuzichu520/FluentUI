@@ -127,3 +127,7 @@ void FluApp::clipText(const QString& text){
 QString FluApp::uuid(){
     return QUuid::createUuid().toString();
 }
+
+void FluApp::closeApp(){
+    qApp->exit(0);
+}

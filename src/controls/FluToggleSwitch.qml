@@ -72,16 +72,32 @@ FluControl {
                 anchors.verticalCenter: parent.verticalCenter
                 color: selected ? "#FFFFFF" : "#666666"
                 Behavior on anchors.leftMargin  {
-                    NumberAnimation { duration: 150 }
+                    NumberAnimation {
+                        duration: 167
+                        easing.type: Easing.Bezier
+                        easing.bezierCurve: [ 1, 0, 0, 0 ]
+                    }
                 }
                 Behavior on anchors.rightMargin  {
-                    NumberAnimation { duration: 150 }
+                    NumberAnimation {
+                        duration: 167
+                        easing.type: Easing.Bezier
+                        easing.bezierCurve: [ 1, 0, 0, 0 ]
+                    }
                 }
                 Behavior on width {
-                    NumberAnimation { duration: 150 }
+                    NumberAnimation {
+                        duration: 167
+                        easing.type: Easing.Bezier
+                        easing.bezierCurve: [ 1, 0, 0, 0 ]
+                    }
                 }
                 Behavior on scale {
-                    NumberAnimation { duration: 150 }
+                    NumberAnimation {
+                        duration: 167
+                        easing.type: Easing.Bezier
+                        easing.bezierCurve: [ 1, 0, 0, 0 ]
+                    }
                 }
             }
         }

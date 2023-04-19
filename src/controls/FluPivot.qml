@@ -7,6 +7,7 @@ Item {
 
     id:control
     default property alias content: d.children
+    property alias currentIndex: nav_list.currentIndex
     property color normalColor: FluTheme.dark ? FluColors.Grey120 : FluColors.Grey120
     property color hoverColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
 

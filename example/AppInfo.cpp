@@ -6,7 +6,7 @@
 AppInfo::AppInfo(QObject *parent)
     : QObject{parent}
 {
-    version("1.2.4");
+    version("1.2.5");
     lang(new En());
 }
 

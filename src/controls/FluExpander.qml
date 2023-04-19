@@ -84,7 +84,9 @@ Item {
         height: expand ? contentHeight : 0
         Behavior on height {
             NumberAnimation{
-                duration: 150
+                duration: 167
+                easing.type: Easing.Bezier
+                easing.bezierCurve: expand ? [ 0, 0, 0, 1 ] : [ 1, 0, 0, 0 ]
             }
         }
     }

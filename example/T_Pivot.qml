@@ -21,6 +21,7 @@ FluScrollablePage{
 
         FluPivot{
             anchors.fill: parent
+            currentIndex: 2
             FluPivotItem{
                 title:"All"
                 contentItem:FluText{

@@ -76,12 +76,13 @@ FluControl {
 
     onClicked: {
         var pos = control.mapToItem(null, 0, 0)
-        if(window.height>pos.y+control.height+menu.height){
+        var containerHeight = menu.getContainerHeight()
+        if(window.height>pos.y+control.height+containerHeight){
             menu.y = control.height
-        }else if(pos.y>menu.height){
-            menu.y = -menu.height
+        }else if(pos.y>containerHeight){
+            menu.y = -containerHeight
         }else{
-            menu.y = window.height-(pos.y+menu.height)
+            menu.y = window.height-(pos.y+containerHeight)
         }
         menu.open()
     }

@@ -26,12 +26,24 @@ FluWindow {
     SystemTrayIcon {
         visible: true
         icon.source: "qrc:/res/image/favicon.ico"
-
-        onActivated: {
-            window.show()
-            window.raise()
-            window.requestActivate()
+        tooltip: "FluentUI"
+        menu: Menu {
+            MenuItem {
+                text: "退出"
+                onTriggered: {
+                    window.destoryWindow()
+                    FluApp.closeApp()
+                }
+            }
         }
+        onActivated:
+            (reason)=>{
+                if(reason === SystemTrayIcon.Trigger){
+                    window.show()
+                    window.raise()
+                    window.requestActivate()
+                }
+            }
     }
 
 

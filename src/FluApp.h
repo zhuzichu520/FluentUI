@@ -34,6 +34,8 @@ public:
 
     Q_INVOKABLE QString uuid();
 
+    Q_INVOKABLE void closeApp();
+
 public:
     QMap<quint64, QQuickWindow*> wnds;
 private:
