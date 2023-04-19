@@ -16,6 +16,7 @@ class Lang : public QObject
     Q_PROPERTY_AUTO(QString,theming);
     Q_PROPERTY_AUTO(QString,media);
     Q_PROPERTY_AUTO(QString,dark_mode);
+    Q_PROPERTY_AUTO(QString,sys_dark_mode);
     Q_PROPERTY_AUTO(QString,search);
     Q_PROPERTY_AUTO(QString,about);
     Q_PROPERTY_AUTO(QString,settings);

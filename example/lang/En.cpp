@@ -13,6 +13,7 @@ En::En(QObject *parent)
     theming("Theming");
     media("Media");
     dark_mode("Dark Mode");
+    sys_dark_mode("Sync with system");
     search("Search");
     about("About");
     settings("Settings");
