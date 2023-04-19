@@ -2,6 +2,7 @@
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import FluentUI
 import "./component"
 

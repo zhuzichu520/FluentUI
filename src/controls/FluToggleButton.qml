@@ -1,8 +1,9 @@
 ﻿import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import FluentUI
 
-FluControl {
+Button {
 
     property bool disabled: false
     property bool selected: false

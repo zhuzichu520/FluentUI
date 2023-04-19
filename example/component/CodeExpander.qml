@@ -68,7 +68,6 @@ FluExpander{
           "FluComboBox",
           "FluContentDialog",
           "FluContentPage",
-          "FluControl",
           "FluDatePicker",
           "FluDivider",
           "FluDropDownButton",

@@ -1,12 +1,10 @@
 ﻿import QtQuick
 import QtQuick.Controls
-import FluentUI
 import QtQuick.Layouts
+import FluentUI
 
 Item {
     id: control
-
-
     signal requestPage(int page,int count)
     property string previousText: "<上一页"
     property string nextText: "下一页>"

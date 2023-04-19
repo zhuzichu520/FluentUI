@@ -1,10 +1,11 @@
 ﻿import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
 
-FluControl{
+Button{
     id:control
     width: 36
     height: 36

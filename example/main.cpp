@@ -3,7 +3,6 @@
 #include <QQmlContext>
 #include <QDir>
 #include <QQuickWindow>
-#include <QQuickStyle>
 #include <QProcess>
 #include "lang/Lang.h"
 #include "AppInfo.h"
@@ -11,10 +10,12 @@
 
 int main(int argc, char *argv[])
 {
+    //将样式设置为Basic，不然会导致组件显示异常
+    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     QCoreApplication::setOrganizationName("ZhuZiChu");
     QCoreApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QCoreApplication::setApplicationName("FluentUI");
-    QQuickStyle::setStyle("Basic");
+//    QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;

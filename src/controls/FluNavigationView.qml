@@ -1,6 +1,7 @@
 ﻿import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import FluentUI
 
@@ -818,7 +819,7 @@ Item {
                 currentIndex: -1
                 model: control_popup.childModel
                 ScrollBar.vertical: FluScrollBar {}
-                delegate:FluControl{
+                delegate:Button{
                     width: 160
                     padding:10
                     background: Rectangle{
