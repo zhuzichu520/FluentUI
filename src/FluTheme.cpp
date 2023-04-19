@@ -34,6 +34,7 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event)
     Q_UNUSED(obj);
     if (event->type() == QEvent::ApplicationPaletteChange)
     {
+        qDebug()<<"--------->";
         Q_EMIT darkChanged();
         event->accept();
         return true;
@@ -43,7 +44,7 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event)
 
 bool FluTheme::systemDark()
 {
-    QPalette palette = (qobject_cast<QGuiApplication *>(QCoreApplication::instance()))->palette();
+    QPalette palette = (qobject_cast<QGuiApplication *>(QGuiApplication::instance()))->palette();
     QColor color = palette.color(QPalette::Window).rgb();
     return !(color.red() * 0.2126 + color.green() * 0.7152 + color.blue() * 0.0722 > 255 / 2);
 }

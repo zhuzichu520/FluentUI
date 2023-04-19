@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
 {
     //将样式设置为Basic，不然会导致组件显示异常
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
+    //6.4及以下监听系统深色模式变化
+    qputenv("QT_QPA_PLATFORM","windows:darkmode=2");
     QCoreApplication::setOrganizationName("ZhuZiChu");
     QCoreApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QCoreApplication::setApplicationName("FluentUI");
