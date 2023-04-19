@@ -29,6 +29,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluContentDialog{
     id:dialog
     title:"友情提示"

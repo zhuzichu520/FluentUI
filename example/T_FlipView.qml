@@ -44,6 +44,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluFlipView{
     Image{
         source: "qrc:/res/image/banner_1.jpg"
@@ -97,6 +98,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluFlipView{
     vertical:true
     Image{

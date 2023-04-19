@@ -78,6 +78,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluStatusView{
     anchors.fill: parent
     statusMode: FluStatusView.Loading

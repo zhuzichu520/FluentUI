@@ -134,6 +134,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluRectangle{
     radius: [25,25,25,25]
     width: 50

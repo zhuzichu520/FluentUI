@@ -45,6 +45,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTextBox{
     placeholderText:"单行输入框"
 }'
@@ -83,6 +84,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluMultilineTextBox{
     placeholderText:"多行输入框"
 }'
@@ -122,6 +124,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluAutoSuggestBox{
     placeholderText:"AutoSuggestBox"
 }'

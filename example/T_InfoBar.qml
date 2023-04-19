@@ -52,6 +52,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'showInfo("这是一个Info样式的InfoBar")
 
 showWarning("这是一个Warning样式的InfoBar")

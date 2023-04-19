@@ -45,6 +45,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluIconButton{
     iconSource:FluentIcons.ChromeCloseContrast
     iconSize: 15

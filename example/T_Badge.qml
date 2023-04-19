@@ -103,6 +103,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'Rectangle{
     width: 40
     height: 40

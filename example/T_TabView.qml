@@ -113,6 +113,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTabView{
     anchors.fill: parent
     Component.onCompleted: {

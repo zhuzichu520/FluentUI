@@ -142,6 +142,7 @@ FluScrollablePage {
 
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTreeView{
     id:tree_view
     width:240

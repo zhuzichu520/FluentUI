@@ -51,7 +51,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 168
+        height: 80
         paddings: 10
 
         ColumnLayout{

@@ -37,6 +37,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTimePicker{
 
 }'
@@ -67,6 +68,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTimePicker{
     hourFormat:FluTimePicker.HH
 }'

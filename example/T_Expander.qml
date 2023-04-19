@@ -15,14 +15,14 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: layout_column.height+40
+        height: layout_column.height+20
         paddings: 10
         Layout.topMargin: 20
         Column{
             id:layout_column
             spacing: 15
             anchors{
-                verticalCenter: parent.verticalCenter
+                top:parent.top
                 left:parent.left
             }
 
@@ -77,12 +77,12 @@ FluScrollablePage{
                     }
                 }
             }
-
         }
     }
 
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluExpander{
     headerText:"打开一个单选框"
     Item{

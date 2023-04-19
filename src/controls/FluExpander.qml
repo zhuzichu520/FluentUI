@@ -76,6 +76,7 @@ Item {
         clip: true
         anchors{
             top: layout_header.bottom
+            topMargin: -1
             left: layout_header.left
         }
         radius: 4

@@ -39,6 +39,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluCarousel{
     width: 400
     height: 300

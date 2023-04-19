@@ -95,6 +95,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluWindow{
   //launchMode: FluWindow.Standard
   //launchMode: FluWindow.SingleTask
@@ -128,6 +129,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluButton{
     text:"点击跳转"
     onClicked: {
@@ -165,6 +167,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'property var loginPageRegister: registerForPageResult("/login")
 
 Connections{

@@ -50,6 +50,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluPivot{
     anchors.fill: parent
     FluPivotItem:{

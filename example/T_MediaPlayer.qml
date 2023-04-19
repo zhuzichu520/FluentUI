@@ -38,6 +38,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluMediaPlayer{
     id:player
     source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
