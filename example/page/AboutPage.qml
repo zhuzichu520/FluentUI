@@ -66,6 +66,8 @@ FluWindow {
             }
             FluTextButton{
                 id:text_hublink
+                topPadding:0
+                bottomPadding:0
                 text:"https://github.com/zhuzichu520/FluentUI"
                 Layout.alignment: Qt.AlignBottom
                 onClicked: {
@@ -81,6 +83,8 @@ FluWindow {
                 text:"B站："
             }
             FluTextButton{
+                topPadding:0
+                bottomPadding:0
                 text:"https://www.bilibili.com/video/BV1mg4y1M71w/"
                 Layout.alignment: Qt.AlignBottom
                 onClicked: {
