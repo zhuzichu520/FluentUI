@@ -85,4 +85,38 @@ FluScrollablePage{
 
     }
 
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height: 80
+        paddings: 10
+
+        ColumnLayout{
+            spacing: 10
+            anchors{
+                top: parent.top
+                left: parent.left
+            }
+
+            FluText{
+                text:lang.dark_mode
+                fontStyle: FluText.BodyStrong
+                Layout.bottomMargin: 4
+            }
+
+            Flow{
+                spacing: 5
+                FluToggleSwitch{
+                    text:lang.sys_dark_mode
+                    selected:FluTheme.dark
+                    onClicked:{
+                        FluTheme.follow_system = true
+                        FluTheme.dark = FluTheme.follow_system
+                    }
+                }
+            }
+        }
+
+    }
+
 }
