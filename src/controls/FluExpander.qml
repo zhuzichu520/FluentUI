@@ -48,7 +48,7 @@ Item {
                 rightMargin: 15
             }
             color:{
-                if(root_mouse.containsMouse){
+                if(root_mouse.containsMouse || hovered){
                     return FluTheme.dark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(245/255,245/255,245/255,1)
                 }
                 return FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
