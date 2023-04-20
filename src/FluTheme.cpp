@@ -34,7 +34,6 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event)
     Q_UNUSED(obj);
     if (event->type() == QEvent::ApplicationPaletteChange)
     {
-        qDebug()<<"--------->";
         Q_EMIT darkChanged();
         event->accept();
         return true;
