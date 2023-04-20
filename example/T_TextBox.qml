@@ -51,6 +51,44 @@ FluScrollablePage{
 }'
     }
 
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        paddings: 10
+        Layout.topMargin: 20
+
+        FluPasswordBox{
+            Layout.topMargin: 20
+            placeholderText: "请输入密码"
+            Layout.preferredWidth: 300
+            disabled:password_box_switch.selected
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:password_box_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -1
+        code:'FluPasswordBox{
+    placeholderText:"请输入密码"
+}'
+    }
+
 
     FluArea{
         Layout.fillWidth: true

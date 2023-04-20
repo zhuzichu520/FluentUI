@@ -70,5 +70,6 @@
         <file>controls/FluStatusView.qml</file>
         <file>controls/FluPaneItemEmpty.qml</file>
         <file>controls/FluRatingControl.qml</file>
+        <file>controls/FluPasswordBox.qml</file>
     </qresource>
 </RCC>
