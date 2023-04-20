@@ -54,11 +54,12 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
+        height: 36+multiine_textbox.height
         paddings: 10
         Layout.topMargin: 20
 
         FluMultilineTextBox{
+            id:multiine_textbox
             Layout.topMargin: 20
             placeholderText: "多行输入框"
             Layout.preferredWidth: 300

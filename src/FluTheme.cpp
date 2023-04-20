@@ -26,7 +26,7 @@ FluTheme::FluTheme(QObject *parent)
     nativeText(false);
     frameless(true);
     darkMode(Fluent_DarkMode::Fluent_DarkModeType::Light);
-    (qobject_cast<QGuiApplication *>(QCoreApplication::instance()))->installEventFilter(this);
+    qApp->installEventFilter(this);
 }
 
 bool FluTheme::eventFilter(QObject *obj, QEvent *event)
@@ -43,7 +43,7 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event)
 
 bool FluTheme::systemDark()
 {
-    QPalette palette = (qobject_cast<QGuiApplication *>(QGuiApplication::instance()))->palette();
+    QPalette palette = qApp->palette();
     QColor color = palette.color(QPalette::Window).rgb();
     return !(color.red() * 0.2126 + color.green() * 0.7152 + color.blue() * 0.0722 > 255 / 2);
 }
