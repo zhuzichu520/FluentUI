@@ -7,11 +7,19 @@ Popup {
     id: popup
 
     property string title: "Title"
-    property string message: "Messaeg"
+    property string message: "Message"
+    property string neutralText: "Neutral"
     property string negativeText: "Negative"
     property string positiveText: "Positive"
+    signal neutralClicked
     signal negativeClicked
     signal positiveClicked
+    enum ButtonFlag{
+        NegativeButton=1
+        ,NeutralButton=2
+        ,PositiveButton=4
+    }
+    property int buttonFlags: FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
     property var minWidth: {
         if(Window.window==null)
             return 400
@@ -74,40 +82,48 @@ Popup {
                 right: parent.right
             }
 
-            Item {
-                id:divider
-                width: 1
-                height: parent.height
-                anchors.centerIn: parent
-            }
+            RowLayout{
+                anchors
+                {
+                    centerIn: parent
+                    margins: spacing
+                    fill: parent
+                }
+                spacing: 15
+                FluButton{
+                    id:neutral_btn
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    visible: popup.buttonFlags&FluContentDialog.NeutralButton
+                    text: neutralText
+                    onClicked: {
+                        popup.close()
+                        neutralClicked()
+                    }
+                }
 
-            FluButton{
-                anchors{
-                    left: parent.left
-                    leftMargin: 20
-                    rightMargin: 10
-                    right: divider.left
-                    verticalCenter: parent.verticalCenter
+                FluButton{
+                    id:negative_btn
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    visible: popup.buttonFlags&FluContentDialog.NegativeButton
+                    text: negativeText
+                    onClicked: {
+                        popup.close()
+                        negativeClicked()
+                    }
                 }
-                text: negativeText
-                onClicked: {
-                    popup.close()
-                    negativeClicked()
-                }
-            }
 
-            FluFilledButton{
-                anchors{
-                    right: parent.right
-                    left: divider.right
-                    rightMargin: 20
-                    leftMargin: 10
-                    verticalCenter: parent.verticalCenter
-                }
-                text: positiveText
-                onClicked: {
-                    popup.close()
-                    positiveClicked()
+                FluFilledButton{
+                    id:positive_btn
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    visible: popup.buttonFlags&FluContentDialog.PositiveButton
+                    text: positiveText
+                    onClicked: {
+                        popup.close()
+                        positiveClicked()
+                    }
                 }
             }
         }

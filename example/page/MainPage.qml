@@ -46,6 +46,32 @@ FluWindow {
             }
     }
 
+    FluContentDialog{
+        id:close_app
+        title:"退出"
+        message:"确定要退出程序吗？"
+        negativeText:"最小化"
+        buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+        onNegativeClicked:{
+            showSuccess("最小化成功")
+            window.hide()
+        }
+        positiveText:"退出"
+        neutralText:"取消"
+        onPositiveClicked:{
+            window.destoryWindow()
+            FluApp.closeApp()
+        }
+
+    }
+
+    onClosing:
+    {
+        window.show()
+        window.raise()
+        window.requestActivate()
+        close_app.open()
+    }
 
     FluNavigationView{
         id:nav_view
