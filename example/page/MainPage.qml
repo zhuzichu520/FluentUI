@@ -1,24 +1,74 @@
 ﻿import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import "qrc:///global/"
+import Qt.labs.platform 1.1
 import FluentUI 1.0
+import "qrc:///global/"
 
 FluWindow {
-    id:rootwindow
+    id:window
     width: 1000
     height: 640
     title: "FluentUI"
+    closeDestory:false
     minimumWidth: 520
     minimumHeight: 460
+
+    closeFunc:function(event){
+        close_app.open()
+        event.accepted = false
+    }
 
     FluAppBar{
         id:appbar
         z:9
         showDark: true
         width:parent.width
-        darkText: "Dark Mode"
+        darkText: lang.dark_mode
+    }
+
+    SystemTrayIcon {
+        id:system_tray
+        visible: true
+        icon.source: "qrc:/res/image/favicon.ico"
+        tooltip: "FluentUI"
+        menu: Menu {
+            MenuItem {
+                text: "退出"
+                onTriggered: {
+                    window.destoryWindow()
+                    FluApp.closeApp()
+                }
+            }
+        }
+        onActivated:
+            (reason)=>{
+                if(reason === SystemTrayIcon.Trigger){
+                    window.show()
+                    window.raise()
+                    window.requestActivate()
+                }
+            }
+    }
+
+    FluContentDialog{
+        id:close_app
+        title:"退出"
+        message:"确定要退出程序吗？"
+        negativeText:"最小化"
+        buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+        onNegativeClicked:{
+            system_tray.showMessage("友情提示","FluentUI已隐藏至托盘,点击托盘可再次激活窗口");
+            window.hide()
+        }
+        positiveText:"退出"
+        neutralText:"取消"
+        onPositiveClicked:{
+            window.destoryWindow()
+            FluApp.closeApp()
+        }
+
     }
 
     FluNavigationView{
@@ -35,7 +85,7 @@ FluWindow {
             anchors.centerIn: parent
             iconSource: FluentIcons.Search
             items: ItemsOriginal.getSearchData()
-            placeholderText: "Search"
+            placeholderText: lang.search
             onItemClicked:
                 (data)=>{
                     ItemsOriginal.startPageByItem(data)

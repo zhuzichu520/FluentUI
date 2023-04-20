@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
@@ -45,11 +45,11 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTextBox{
     placeholderText:"单行输入框"
 }'
     }
-
 
     FluArea{
         Layout.fillWidth: true
@@ -57,7 +57,47 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
 
+        FluPasswordBox{
+            Layout.topMargin: 20
+            placeholderText: "请输入密码"
+            Layout.preferredWidth: 300
+            disabled:password_box_switch.selected
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:password_box_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -1
+        code:'FluPasswordBox{
+    placeholderText:"请输入密码"
+}'
+    }
+
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 36+multiine_textbox.height
+        paddings: 10
+        Layout.topMargin: 20
+
         FluMultilineTextBox{
+            id:multiine_textbox
             Layout.topMargin: 20
             placeholderText: "多行输入框"
             Layout.preferredWidth: 300
@@ -83,6 +123,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluMultilineTextBox{
     placeholderText:"多行输入框"
 }'
@@ -122,6 +163,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluAutoSuggestBox{
     placeholderText:"AutoSuggestBox"
 }'

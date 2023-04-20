@@ -1,11 +1,10 @@
 ﻿import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 ApplicationWindow {
-
 
     enum LaunchMode {
         Standard,
@@ -14,10 +13,19 @@ ApplicationWindow {
     }
 
     default property alias content: container.data
+    property bool closeDestory: true
     property int launchMode: FluWindow.Standard
     property string route
     property var argument:({})
     property var pageRegister
+    property var closeFunc: function(event){
+        if(closeDestory){
+            destoryWindow()
+        }else{
+            visible = false
+            event.accepted = false
+        }
+    }
     signal initArgument(var argument)
 
     id:window
@@ -48,11 +56,7 @@ ApplicationWindow {
         }
     }
 
-    onClosing:
-        (event)=>{
-            //销毁窗口，释放资源
-            helper.destoryWindow()
-        }
+    onClosing:(event)=>closeFunc(event)
 
     FluInfoBar{
         id:infoBar
@@ -88,6 +92,10 @@ ApplicationWindow {
 
     function registerForPageResult(path){
         return helper.createRegister(window,path)
+    }
+
+    function destoryWindow(){
+        helper.destoryWindow()
     }
 
     function onResult(data){

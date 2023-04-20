@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 import "./component"
 
@@ -58,7 +58,11 @@ FluScrollablePage{
                 Layout.topMargin: 5
                 selected: FluTheme.dark
                 clickFunc:function(){
-                    FluTheme.dark = !FluTheme.dark
+                    if(FluTheme.dark){
+                        FluTheme.darkMode = FluDarkMode.Light
+                    }else{
+                        FluTheme.darkMode = FluDarkMode.Dark
+                    }
                 }
             }
             FluText{
@@ -76,12 +80,12 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTheme.primaryColor = FluColors.Orange
 
 FluTheme.dark = true
 
-FluTheme.nativeText = true
-'
+FluTheme.nativeText = true'
     }
 
 

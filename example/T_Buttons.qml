@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 import "./component"
 
@@ -51,6 +51,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluTextButton{
     text:"Text Button"
     onClicked: {
@@ -92,6 +93,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluButton{
     text:"Standard Button"
     onClicked: {
@@ -133,6 +135,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluFilledButton{
     text:"Filled Button"
     onClicked: {
@@ -174,6 +177,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluToggleButton{
     text:"Toggle Button"
     onClicked: {
@@ -216,6 +220,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluIconButton{
     iconSource:FluentIcons.ChromeCloseContrast
     onClicked: {
@@ -266,6 +271,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluDropDownButton{
     text:"DropDownButton"
     items:[
@@ -327,6 +333,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluRadioButton{
     selected:true
     text:"Text Button"
@@ -365,6 +372,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluCheckBox{
     text:"Check Box"
 }'

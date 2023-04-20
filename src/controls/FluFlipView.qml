@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 Item{
@@ -52,7 +52,7 @@ Item{
         anchors.fill: parent
     }
 
-    FluControl{
+    Button{
         id:btn_start
         height: vertical ? 20 : 40
         width: vertical ? 40 : 20
@@ -82,7 +82,7 @@ Item{
         }
     }
 
-    FluControl{
+    Button{
         id:btn_end
         height: vertical ? 20 : 40
         width: vertical ? 40 : 20

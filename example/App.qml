@@ -1,19 +1,15 @@
 ﻿import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtMultimedia 5.15
 import FluentUI 1.0
 
 Window {
     id:app
-    color: "#00000000"
-    //初始化一个MediaPlayer，解决macos切换到T_MediaPalyer页面崩溃问题
-    MediaPlayer{}
     Component.onCompleted: {
         FluApp.init(app)
         FluTheme.frameless = ("windows" === Qt.platform.os)
-        FluTheme.dark = false
+        FluTheme.darkMode = FluDarkMode.System
         FluApp.routes = {
             "/":"qrc:/page/MainPage.qml",
             "/about":"qrc:/page/AboutPage.qml",
@@ -27,5 +23,4 @@ Window {
         FluApp.initialRoute = "/"
         FluApp.run()
     }
-
 }

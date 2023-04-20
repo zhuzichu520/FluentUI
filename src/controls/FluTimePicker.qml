@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
@@ -99,243 +99,248 @@ Rectangle {
         text:"AM/PM"
     }
 
-    Popup{
+    Menu{
         id:popup
-        width: 300
-        height: 340
-        modal: true
+        width: container.width
+        height: container.height
         dim:false
         enter: Transition {
+            reversible: true
             NumberAnimation {
                 property: "opacity"
                 from:0
                 to:1
-                duration: 150
-            }
-            NumberAnimation {
-                property: "y"
-                from:0
-                to:popup.y
-                duration: 150
+                duration: 83
             }
         }
-        background:Item{}
-        contentItem: Rectangle{
-            id:container
-            anchors.fill: parent
-            radius: 4
-            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
-            MouseArea{
-                anchors.fill: parent
+
+        exit:Transition {
+            NumberAnimation {
+                property: "opacity"
+                from:1
+                to:0
+                duration: 83
             }
+        }
+        background:Item{
             FluShadow{
                 radius: 4
             }
+        }
+        contentItem: Item{
+            clip: true
+            Rectangle{
+                id:container
+                height: 340
+                width: 300
+                radius: 4
+                color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+                MouseArea{
+                    anchors.fill: parent
+                }
+                RowLayout{
+                    id:layout_content
+                    spacing: 0
+                    width: parent.width
+                    height: 300
 
-            RowLayout{
-                id:layout_content
-                spacing: 0
-                width: parent.width
-                height: 300
+                    Component{
+                        id:list_delegate
 
-                Component{
-                    id:list_delegate
+                        Item{
+                            height:38
+                            width:getListView().width
 
-                    Item{
-                        height:38
-                        width:getListView().width
-
-                        function getListView(){
-                            if(type === 0)
-                                return list_view_1
-                            if(type === 1)
-                                return list_view_2
-                            if(type === 2)
-                                return list_view_3
-                        }
-
-
-                        Rectangle{
-                            anchors.fill: parent
-                            anchors.topMargin: 2
-                            anchors.bottomMargin: 2
-                            anchors.leftMargin: 5
-                            anchors.rightMargin: 5
-                            color:  {
-                                if(getListView().currentIndex === position){
-                                    if(FluTheme.dark){
-                                        return  item_mouse.containsMouse ? Qt.darker(FluTheme.primaryColor.lighter,1.1) : FluTheme.primaryColor.lighter
-                                    }else{
-                                        return  item_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor.dark,1.1): FluTheme.primaryColor.dark
-                                    }
-                                }
-                                if(item_mouse.containsMouse){
-                                    return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
-                                }
-                                return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                            function getListView(){
+                                if(type === 0)
+                                    return list_view_1
+                                if(type === 1)
+                                    return list_view_2
+                                if(type === 2)
+                                    return list_view_3
                             }
-                            radius: 3
-                            MouseArea{
-                                id:item_mouse
+
+
+                            Rectangle{
                                 anchors.fill: parent
-                                hoverEnabled: true
-                                onClicked: {
-                                    getListView().currentIndex = position
-                                    if(type === 0){
-                                        text_hour.text = model
-                                    }
-                                    if(type === 1){
-                                        text_minute.text = model
-                                    }
-                                    if(type === 2){
-                                        text_ampm.text = model
-                                    }
-                                }
-                            }
-                            FluText{
-                                text:model
-                                color: {
+                                anchors.topMargin: 2
+                                anchors.bottomMargin: 2
+                                anchors.leftMargin: 5
+                                anchors.rightMargin: 5
+                                color:  {
                                     if(getListView().currentIndex === position){
                                         if(FluTheme.dark){
-                                            return Qt.rgba(0,0,0,1)
+                                            return  item_mouse.containsMouse ? Qt.darker(FluTheme.primaryColor.lighter,1.1) : FluTheme.primaryColor.lighter
                                         }else{
-                                            return Qt.rgba(1,1,1,1)
+                                            return  item_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor.dark,1.1): FluTheme.primaryColor.dark
                                         }
-                                    }else{
-                                        return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+                                    }
+                                    if(item_mouse.containsMouse){
+                                        return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                    }
+                                    return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                                }
+                                radius: 3
+                                MouseArea{
+                                    id:item_mouse
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    onClicked: {
+                                        getListView().currentIndex = position
+                                        if(type === 0){
+                                            text_hour.text = model
+                                        }
+                                        if(type === 1){
+                                            text_minute.text = model
+                                        }
+                                        if(type === 2){
+                                            text_ampm.text = model
+                                        }
                                     }
                                 }
-                                anchors.centerIn: parent
+                                FluText{
+                                    text:model
+                                    color: {
+                                        if(getListView().currentIndex === position){
+                                            if(FluTheme.dark){
+                                                return Qt.rgba(0,0,0,1)
+                                            }else{
+                                                return Qt.rgba(1,1,1,1)
+                                            }
+                                        }else{
+                                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+                                        }
+                                    }
+                                    anchors.centerIn: parent
+                                }
                             }
+                        }
+                    }
+
+                    ListView{
+                        id:list_view_1
+                        width: isH ? 100 : 150
+                        height: parent.height
+                        boundsBehavior:Flickable.StopAtBounds
+                        ScrollBar.vertical: FluScrollBar {}
+                        preferredHighlightBegin: 0
+                        preferredHighlightEnd: 0
+                        highlightMoveDuration: 0
+                        model: isH ? generateArray(1,12) : generateArray(0,23)
+                        clip: true
+                        delegate: Loader{
+                            property var model: modelData
+                            property int type:0
+                            property int position:index
+                            sourceComponent: list_delegate
+                        }
+                    }
+                    Rectangle{
+                        width: 1
+                        height: parent.height
+                        color: dividerColor
+                    }
+                    ListView{
+                        id:list_view_2
+                        width:  isH ? 100 : 150
+                        height: parent.height
+                        model: generateArray(0,59)
+                        clip: true
+                        preferredHighlightBegin: 0
+                        preferredHighlightEnd: 0
+                        highlightMoveDuration: 0
+                        ScrollBar.vertical: FluScrollBar {}
+                        boundsBehavior:Flickable.StopAtBounds
+                        delegate: Loader{
+                            property var model: modelData
+                            property int type:1
+                            property int position:index
+                            sourceComponent: list_delegate
+                        }
+                    }
+                    Rectangle{
+                        width: 1
+                        height: parent.height
+                        color: dividerColor
+                        visible: isH
+                    }
+                    ListView{
+                        id:list_view_3
+                        width: 100
+                        height: 76
+                        model: ["上午","下午"]
+                        clip: true
+                        visible: isH
+                        preferredHighlightBegin: 0
+                        preferredHighlightEnd: 0
+                        highlightMoveDuration: 0
+                        ScrollBar.vertical: FluScrollBar {}
+                        Layout.alignment: Qt.AlignVCenter
+                        boundsBehavior:Flickable.StopAtBounds
+                        delegate: Loader{
+                            property var model: modelData
+                            property int type:2
+                            property int position:index
+                            sourceComponent: list_delegate
                         }
                     }
                 }
 
-                ListView{
-                    id:list_view_1
-                    width: isH ? 100 : 150
-                    height: parent.height
-                    boundsBehavior:Flickable.StopAtBounds
-                    ScrollBar.vertical: FluScrollBar {}
-                    preferredHighlightBegin: 0
-                    preferredHighlightEnd: 0
-                    highlightMoveDuration: 0
-                    model: isH ? generateArray(1,12) : generateArray(0,23)
-                    clip: true
-                    delegate: Loader{
-                        property var model: modelData
-                        property int type:0
-                        property int position:index
-                        sourceComponent: list_delegate
-                    }
-                }
                 Rectangle{
-                    width: 1
-                    height: parent.height
+                    width: parent.width
+                    height: 1
+                    anchors.top: layout_content.bottom
                     color: dividerColor
                 }
-                ListView{
-                    id:list_view_2
-                    width:  isH ? 100 : 150
-                    height: parent.height
-                    model: generateArray(0,59)
-                    clip: true
-                    preferredHighlightBegin: 0
-                    preferredHighlightEnd: 0
-                    highlightMoveDuration: 0
-                    ScrollBar.vertical: FluScrollBar {}
-                    boundsBehavior:Flickable.StopAtBounds
-                    delegate: Loader{
-                        property var model: modelData
-                        property int type:1
-                        property int position:index
-                        sourceComponent: list_delegate
-                    }
-                }
+
                 Rectangle{
-                    width: 1
-                    height: parent.height
-                    color: dividerColor
-                    visible: isH
-                }
-                ListView{
-                    id:list_view_3
-                    width: 100
-                    height: 76
-                    model: ["上午","下午"]
-                    clip: true
-                    visible: isH
-                    preferredHighlightBegin: 0
-                    preferredHighlightEnd: 0
-                    highlightMoveDuration: 0
-                    ScrollBar.vertical: FluScrollBar {}
-                    Layout.alignment: Qt.AlignVCenter
-                    boundsBehavior:Flickable.StopAtBounds
-                    delegate: Loader{
-                        property var model: modelData
-                        property int type:2
-                        property int position:index
-                        sourceComponent: list_delegate
-                    }
-                }
-            }
-
-            Rectangle{
-                width: parent.width
-                height: 1
-                anchors.top: layout_content.bottom
-                color: dividerColor
-            }
-
-            Rectangle{
-                id:layout_actions
-                height: 40
-                radius: 5
-                color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-                anchors{
-                    bottom:parent.bottom
-                    left: parent.left
-                    right: parent.right
-                }
-
-                Item {
-                    id:divider
-                    width: 1
-                    height: parent.height
-                    anchors.centerIn: parent
-                }
-
-                FluButton{
+                    id:layout_actions
+                    height: 40
+                    radius: 5
+                    color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
                     anchors{
+                        bottom:parent.bottom
                         left: parent.left
-                        leftMargin: 20
-                        rightMargin: 10
-                        right: divider.left
-                        verticalCenter: parent.verticalCenter
-                    }
-                    text: "取消"
-                    onClicked: {
-                        popup.close()
-                    }
-                }
-
-                FluFilledButton{
-                    anchors{
                         right: parent.right
-                        left: divider.right
-                        rightMargin: 20
-                        leftMargin: 10
-                        verticalCenter: parent.verticalCenter
                     }
-                    text: "确定"
-                    onClicked: {
-                        changeFlag = false
-                        popup.close()
+
+                    Item {
+                        id:divider
+                        width: 1
+                        height: parent.height
+                        anchors.centerIn: parent
+                    }
+
+                    FluButton{
+                        anchors{
+                            left: parent.left
+                            leftMargin: 20
+                            rightMargin: 10
+                            right: divider.left
+                            verticalCenter: parent.verticalCenter
+                        }
+                        text: "取消"
+                        onClicked: {
+                            popup.close()
+                        }
+                    }
+
+                    FluFilledButton{
+                        anchors{
+                            right: parent.right
+                            left: divider.right
+                            rightMargin: 20
+                            leftMargin: 10
+                            verticalCenter: parent.verticalCenter
+                        }
+                        text: "确定"
+                        onClicked: {
+                            changeFlag = false
+                            popup.close()
+                        }
                     }
                 }
-
             }
-
         }
         y:35
         function showPopup() {
@@ -373,12 +378,12 @@ Rectangle {
             }
 
             var pos = root.mapToItem(null, 0, 0)
-            if(window.height>pos.y+root.height+popup.height){
+            if(window.height>pos.y+root.height+container.height){
                 popup.y = root.height
-            } else if(pos.y>popup.height){
-                popup.y = -popup.height
+            } else if(pos.y>container.height){
+                popup.y = -container.height
             } else {
-                popup.y = window.height-(pos.y+popup.height)
+                popup.y = window.height-(pos.y+container.height)
             }
             popup.open()
         }

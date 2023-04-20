@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
@@ -28,7 +28,7 @@ Item{
         visible: opacity
         opacity: statusMode === FluStatusView.Loading
         Behavior on opacity {
-            NumberAnimation  { duration: 150 }
+            NumberAnimation  { duration: 83 }
         }
         ColumnLayout{
             anchors.centerIn: parent
@@ -51,7 +51,7 @@ Item{
         visible: opacity
         opacity: statusMode === FluStatusView.Empty
         Behavior on opacity {
-            NumberAnimation  { duration: 150 }
+            NumberAnimation  { duration: 83 }
         }
         ColumnLayout{
             anchors.centerIn: parent
@@ -71,7 +71,7 @@ Item{
         visible: opacity
         opacity: statusMode === FluStatusView.Error
         Behavior on opacity {
-            NumberAnimation  { duration: 150 }
+            NumberAnimation  { duration: 83 }
         }
         ColumnLayout{
             anchors.centerIn: parent

@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
@@ -67,7 +67,6 @@ Rectangle{
         height: root.height
         spacing: 0
 
-
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
             Layout.rightMargin: 5
@@ -80,7 +79,11 @@ Rectangle{
             FluToggleSwitch{
                 selected: FluTheme.dark
                 clickFunc:function(){
-                    FluTheme.dark = !FluTheme.dark
+                    if(FluTheme.dark){
+                        FluTheme.darkMode = FluDarkMode.Light
+                    }else{
+                        FluTheme.darkMode = FluDarkMode.Dark
+                    }
                 }
             }
         }

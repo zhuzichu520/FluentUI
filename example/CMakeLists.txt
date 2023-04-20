@@ -21,17 +21,24 @@ else()
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin/release)
 endif()
 
-find_package(Qt6 COMPONENTS Core Quick QuickControls2 Concurrent Network Multimedia REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick QuickControls2 Concurrent Network Multimedia REQUIRED)
 
 set(SOURCES
     ChatController.cpp
-	AppInfo.cpp 
+    AppInfo.cpp
     main.cpp
+    lang/Lang.cpp
+    lang/En.cpp
+    lang/Zh.cpp
 )
 
 set(HEADERS
     ChatController.h
-	AppInfo.h
+    AppInfo.h
+    stdafx.h
+    lang/Lang.h
+    lang/En.h
+    lang/Zh.h
 )
 
 set(RESOURCES
@@ -67,12 +74,12 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt6::Core
-    Qt6::Quick
-    Qt6::QuickControls2
-    Qt6::Concurrent
-    Qt6::Network
-    Qt6::Multimedia
+    Qt5::Core
+    Qt5::Quick
+    Qt5::QuickControls2
+    Qt5::Concurrent
+    Qt5::Network
+    Qt5::Multimedia
 )
 
 if(WIN32)

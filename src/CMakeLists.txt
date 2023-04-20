@@ -5,7 +5,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 COMPONENTS Core Quick Svg REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick Svg REQUIRED)
 set(QT_INSTALL_QML ${Qt6Core_DIR}/../../../qml)
 set(TARGET_TYPE SHARED)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FluentUI)
@@ -24,7 +24,7 @@ set(TARGET_SOURCES
     FluTheme.cpp
     Fluent.cpp
     FluentUI.cpp
-	NativeEventFilter.cpp
+    NativeEventFilter.cpp
     WindowHelper.cpp
     qml_plugin.cpp
 )
@@ -38,7 +38,7 @@ set(TARGET_HEADERS
     FluTheme.h
     Fluent.h
     FluentUI.h
-	NativeEventFilter.h 
+    NativeEventFilter.h
     WindowHelper.h
     qml_plugin.h
     stdafx.h
@@ -58,7 +58,7 @@ endif()
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Quick Qt6::Svg)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Quick Qt5::Svg)
 
 if(WIN32)
     include(build_windows.cmake)

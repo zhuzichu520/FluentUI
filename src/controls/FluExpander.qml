@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 Item {
@@ -48,7 +48,7 @@ Item {
                 rightMargin: 15
             }
             color:{
-                if(root_mouse.containsMouse){
+                if(root_mouse.containsMouse || hovered){
                     return FluTheme.dark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(245/255,245/255,245/255,1)
                 }
                 return FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
@@ -76,6 +76,7 @@ Item {
         clip: true
         anchors{
             top: layout_header.bottom
+            topMargin: -1
             left: layout_header.left
         }
         radius: 4
@@ -84,7 +85,9 @@ Item {
         height: expand ? contentHeight : 0
         Behavior on height {
             NumberAnimation{
-                duration: 150
+                duration: 167
+                easing.type: Easing.Bezier
+                easing.bezierCurve: expand ? [ 0, 0, 0, 1 ] : [ 1, 0, 0, 0 ]
             }
         }
     }

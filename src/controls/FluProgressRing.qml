@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 
 Rectangle {
 
@@ -39,7 +39,9 @@ Rectangle {
         id:behavior
         enabled: false
         NumberAnimation{
-            duration: 1000
+            duration: 999
+            easing.type: Easing.Bezier
+            easing.bezierCurve: [0.55,0.55,0,1]
             onRunningChanged: {
                 if(!running){
                     behavior.enabled = false
@@ -68,18 +70,6 @@ Rectangle {
             ctx.arc(width/2, height/2, radius2 ,-0.5 * Math.PI,-0.5 * Math.PI + progress * 2 * Math.PI);
             ctx.stroke();
             ctx.closePath();
-            //            var start_x = width/2 + Math.cos(-0.5 * Math.PI) * radius2;
-            //            var start_y = height/2 + Math.sin(-0.5 * Math.PI) * radius2;
-            //            ctx.beginPath();
-            //            ctx.arc(start_x, start_y, 3, 0, 2*Math.PI);
-            //            ctx.fill();
-            //            ctx.closePath();
-            //            var end_x = width/2 + Math.cos(-0.5 * Math.PI + progress * 2 * Math.PI) * radius2;
-            //            var end_y = height/2 + Math.sin(-0.5 * Math.PI + progress * 2 * Math.PI) * radius2;
-            //            ctx.beginPath();
-            //            ctx.arc(end_x, end_y, 3, 0, 2*Math.PI);
-            //            ctx.fill();
-            //            ctx.closePath();
             ctx.restore();
         }
     }

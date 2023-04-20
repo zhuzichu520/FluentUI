@@ -1,8 +1,8 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-FluControl {
+Button {
 
     property bool disabled: false
     property color normalColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
@@ -12,8 +12,8 @@ FluControl {
     property bool textBold: true
 
     id: control
-    topPadding:5
-    bottomPadding:5
+    topPadding:0
+    bottomPadding:0
     leftPadding:0
     rightPadding:0
     enabled: !disabled

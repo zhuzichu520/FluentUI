@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 ToolTip {
@@ -10,7 +10,6 @@ ToolTip {
         font: tool_tip.font
         fontStyle: FluText.Body
         padding: 4
-        wrapMode: Text.WrapAnywhere
     }
 
     background: Rectangle{

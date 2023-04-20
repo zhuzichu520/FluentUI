@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 FluExpander{
@@ -68,7 +68,6 @@ FluExpander{
           "FluComboBox",
           "FluContentDialog",
           "FluContentPage",
-          "FluControl",
           "FluDatePicker",
           "FluDivider",
           "FluDropDownButton",
@@ -118,7 +117,9 @@ FluExpander{
           "FluTableView",
           "FluColors",
           "FluTheme",
-          "FluStatusView"
+          "FluStatusView",
+          "FluRatingControl",
+          "FluPasswordBox"
       ];
       code = code.replace(/\n/g, "<br>");
       code = code.replace(/ /g, "&nbsp;");

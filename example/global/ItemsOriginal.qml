@@ -8,7 +8,7 @@ FluObject{
     property var navigationView
 
     FluPaneItem{
-        title:"Home"
+        title:lang.home
         //        icon:FluentIcons.Home
         cusIcon: Image{
             anchors.centerIn: parent
@@ -23,7 +23,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:"Basic input"
+        title:lang.basic_input
         icon:FluentIcons.CheckboxComposite
         FluPaneItem{
             title:"Buttons"
@@ -61,7 +61,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:"Form"
+        title:lang.form
         icon:FluentIcons.GridView
         FluPaneItem{
             title:"TextBox"
@@ -96,7 +96,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:"Surface"
+        title:lang.surface
         icon:FluentIcons.SurfaceHub
         FluPaneItem{
             title:"InfoBar"
@@ -111,6 +111,12 @@ FluObject{
             title:"Progress"
             onTap:{
                 navigationView.push("qrc:/T_Progress.qml")
+            }
+        }
+        FluPaneItem{
+            title:"RatingControl"
+            onTap:{
+                navigationView.push("qrc:/T_RatingControl.qml")
             }
         }
         FluPaneItem{
@@ -146,7 +152,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:"Popus"
+        title:lang.popus
         icon:FluentIcons.ButtonMenu
         FluPaneItem{
             title:"Dialog"
@@ -169,7 +175,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:"Navigation"
+        title:lang.navigation
         icon:FluentIcons.AllApps
         FluPaneItem{
             title:"Pivot"
@@ -226,7 +232,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:"Theming"
+        title:lang.theming
         icon:FluentIcons.Brightness
         FluPaneItem{
             title:"Theme"
@@ -249,7 +255,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:"Media"
+        title:lang.media
         icon:FluentIcons.Media
         FluPaneItem{
             title:"MediaPlayer"

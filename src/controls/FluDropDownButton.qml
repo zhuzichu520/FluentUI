@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 
-FluControl {
+Button {
 
     property bool disabled: false
     property color normalColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
@@ -76,12 +76,13 @@ FluControl {
 
     onClicked: {
         var pos = control.mapToItem(null, 0, 0)
-        if(window.height>pos.y+control.height+menu.height){
+        var containerHeight = menu.getContainerHeight()
+        if(window.height>pos.y+control.height+containerHeight){
             menu.y = control.height
-        }else if(pos.y>menu.height){
-            menu.y = -menu.height
+        }else if(pos.y>containerHeight){
+            menu.y = -containerHeight
         }else{
-            menu.y = window.height-(pos.y+menu.height)
+            menu.y = window.height-(pos.y+containerHeight)
         }
         menu.open()
     }

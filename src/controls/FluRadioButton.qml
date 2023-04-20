@@ -1,9 +1,9 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
-FluControl {
+Button {
 
     property bool selected: false
     property bool disabled: false
@@ -47,7 +47,9 @@ FluControl {
             }
             Behavior on border.width {
                 NumberAnimation{
-                    duration: 150
+                    duration: 167
+                    easing.type: Easing.Bezier
+                    easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }
             }
             border.color: {

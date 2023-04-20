@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
@@ -110,7 +110,6 @@ FluScrollablePage{
     id:table_view
     Layout.fillWidth: true
     Layout.topMargin: 20
-    width:parent.width
     pageCurrent:1
     pageCount:10
     itemCount: 1000
@@ -141,15 +140,15 @@ FluScrollablePage{
                               width:100
                           }
                       ];
-            table_view.columns = columns
+        table_view.columns = columns
         const dataSource = [
-                          {
-                              name: "孙悟空”,
-                              age: 500,
-                              address:"钟灵毓秀的花果山,如神仙仙境的水帘洞",
+                {
+                    name: "孙悟空”,
+                    age: 500,
+                    address:"钟灵毓秀的花果山,如神仙仙境的水帘洞",
                     nickname:"齐天大圣"
-                          }
-                      ];
+                }
+        ];
         table_view.dataSource = columns
     }
 }'

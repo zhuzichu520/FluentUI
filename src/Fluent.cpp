@@ -34,6 +34,7 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
 
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluRatingControl.qml"),uri,major,minor,"FluRatingControl");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluStatusView.qml"),uri,major,minor,"FluStatusView");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPagination.qml"),uri,major,minor,"FluPagination");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluToggleButton.qml"),uri,major,minor,"FluToggleButton");
@@ -87,11 +88,14 @@ void Fluent::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluRadioButton.qml"),uri,major,minor,"FluRadioButton");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluSlider.qml"),uri,major,minor,"FluSlider");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluTextBox.qml"),uri,major,minor,"FluTextBox");
+    qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluPasswordBox.qml"),uri,major,minor,"FluPasswordBox");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluText.qml"),uri,major,minor,"FluText");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluFilledButton.qml"),uri,major,minor,"FluFilledButton");
     qmlRegisterType(QUrl("qrc:/com.zhuzichu/controls/FluToggleSwitch.qml"),uri,major,minor,"FluToggleSwitch");
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(Fluent_DarkMode::staticMetaObject,  uri,major,minor,"FluDarkMode", "Access to enums & flags only");
+
 }
 
 void Fluent::initializeEngine(QQmlEngine *engine, const char *uri)

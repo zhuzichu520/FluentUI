@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls  2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
@@ -45,6 +45,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluIconButton{
     iconSource:FluentIcons.ChromeCloseContrast
     iconSize: 15
@@ -87,6 +88,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluButton{
     id:button_1
     text:"删除"
@@ -98,8 +100,7 @@ FluScrollablePage{
     onClicked:{
         showSuccess("点击一个Button")
     }
-}
-'
+}'
     }
 
 

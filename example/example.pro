@@ -1,8 +1,11 @@
-QT += quick quickcontrols2 concurrent network multimedia
+QT += quick concurrent network multimedia
 CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
 HEADERS += \
+    lang/En.h \
+    lang/Lang.h \
+    lang/Zh.h \
     stdafx.h \
     ChatController.h \
     AppInfo.h
@@ -10,6 +13,9 @@ HEADERS += \
 SOURCES += \
         ChatController.cpp \
         AppInfo.cpp \
+        lang/En.cpp \
+        lang/Lang.cpp \
+        lang/Zh.cpp \
         main.cpp
 
 RESOURCES += qml.qrc

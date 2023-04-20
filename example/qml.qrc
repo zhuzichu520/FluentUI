@@ -165,5 +165,8 @@
         <file>page/StandardWindow.qml</file>
         <file>page/SingleTaskWindow.qml</file>
         <file>page/SingleInstanceWindow.qml</file>
+        <file>T_RatingControl.qml</file>
+        <file>res/image/qrcode_wx.jpg</file>
+        <file>res/image/qrcode_zfb.jpg</file>
     </qresource>
 </RCC>
