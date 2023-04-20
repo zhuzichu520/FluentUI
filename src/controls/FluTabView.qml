@@ -35,6 +35,7 @@ Item {
     property int tabWidthBehavior : FluTabView.Equal
     property int closeButtonVisibility : FluTabView.Always
     property int itemWidth: 146
+    property bool addButtonVisibility: true
     signal newPressed
 
     QtObject {
@@ -51,6 +52,7 @@ Item {
 
     FluIconButton{
         id:btn_new
+        visible: addButtonVisibility
         width: 34
         height: 34
         x:Math.min(tab_nav.contentWidth,tab_nav.width)
