@@ -84,18 +84,18 @@ FluScrollablePage{
     title:"友情提示"
     message:"确定要退出程序么？"
     negativeText:"取消"
-        buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
-        negativeText:"取消"
-        onNegativeClicked:{
-            showSuccess("点击取消按钮")
-        }
-        positiveText:"确定"
-        onPositiveClicked:{
-            showSuccess("点击确定按钮")
-        }
-        neutralText:"最小化"
-        onNeutralClicked:{
-            showSuccess("点击最小化按钮")
+    buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+    negativeText:"取消"
+    onNegativeClicked:{
+        showSuccess("点击取消按钮")
+    }
+    positiveText:"确定"
+    onPositiveClicked:{
+        showSuccess("点击确定按钮")
+    }
+    neutralText:"最小化"
+    onNeutralClicked:{
+        showSuccess("点击最小化按钮")
         }
     }
     dialog.open()'
