@@ -15,6 +15,11 @@ FluWindow {
     minimumWidth: 520
     minimumHeight: 460
 
+    closeFunc:function(event){
+        close_app.open()
+        event.accepted = false
+    }
+
     FluAppBar{
         id:appbar
         z:9
@@ -64,14 +69,6 @@ FluWindow {
             FluApp.closeApp()
         }
 
-    }
-
-    onClosing:
-    {
-        window.show()
-        window.raise()
-        window.requestActivate()
-        close_app.open()
     }
 
     FluNavigationView{

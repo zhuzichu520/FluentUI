@@ -18,6 +18,14 @@ ApplicationWindow {
     property string route
     property var argument:({})
     property var pageRegister
+    property var closeFunc: function(event){
+        if(closeDestory){
+            destoryWindow()
+        }else{
+            visible = false
+            event.accepted = false
+        }
+    }
     signal initArgument(var argument)
 
     id:window
@@ -48,15 +56,7 @@ ApplicationWindow {
         }
     }
 
-    onClosing:
-        (event)=>{
-            if(closeDestory){
-                destoryWindow()
-            }else{
-                visible = false
-                event.accepted = false
-            }
-        }
+    onClosing:(event)=>closeFunc(event)
 
     FluInfoBar{
         id:infoBar
