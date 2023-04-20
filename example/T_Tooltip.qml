@@ -88,6 +88,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
+        Layout.topMargin: -1
         code:'FluButton{
     id:button_1
     text:"删除"
@@ -99,8 +100,7 @@ FluScrollablePage{
     onClicked:{
         showSuccess("点击一个Button")
     }
-}
-'
+}'
     }
 
 
