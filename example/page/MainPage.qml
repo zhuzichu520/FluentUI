@@ -24,6 +24,7 @@ FluWindow {
     }
 
     SystemTrayIcon {
+        id:system_tray
         visible: true
         icon.source: "qrc:/res/image/favicon.ico"
         tooltip: "FluentUI"
@@ -53,7 +54,7 @@ FluWindow {
         negativeText:"最小化"
         buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
         onNegativeClicked:{
-            showSuccess("最小化成功")
+            system_tray.showMessage("友情提示","FluentUI已隐藏至托盘,点击托盘可再次激活窗口");
             window.hide()
         }
         positiveText:"退出"
