@@ -31,7 +31,6 @@ Button {
             width: 40
             height: control.height
             radius: height / 2
-            smooth: true
             FluFocusRectangle{
                 visible: control.visualFocus
                 radius: 20

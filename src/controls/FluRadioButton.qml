@@ -25,9 +25,6 @@ Button {
             width: 20
             height: 20
             radius: 10
-            layer.samples: 4
-            layer.enabled: true
-            layer.smooth: true
             border.width: {
                 if(selected&&disabled){
                     return 3

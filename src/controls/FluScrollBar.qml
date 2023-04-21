@@ -90,9 +90,6 @@ ScrollBar {
         implicitWidth: expand ? 8 : 2
         implicitHeight:  expand ? 8 : 2
         radius: width / 2
-        layer.samples: 4
-        layer.enabled: true
-        layer.smooth: true
         color: control.pressed?handlePressColor:control.hovered?handleHoverColor:handleNormalColor
         opacity:(control.policy === ScrollBar.AlwaysOn || control.size < 1.0)?1.0:0.0
     }

@@ -105,9 +105,6 @@ Item {
                         return false
                     return true
                 }
-                layer.samples: 4
-                layer.enabled: true
-                layer.smooth: true
                 border.width: 1
                 border.color: FluColors.Grey100
                 color:   list_view.currentIndex === index ?  FluTheme.primaryColor.dark : Qt.rgba(1,1,1,0.5)
