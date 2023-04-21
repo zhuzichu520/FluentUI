@@ -13,6 +13,7 @@ class AppInfo : public QObject
 public:
     explicit AppInfo(QObject *parent = nullptr);
     Q_INVOKABLE void changeLang(const QString& locale);
+    Q_SIGNAL void activeWindow();
 };
 
 #endif // APPINFO_H

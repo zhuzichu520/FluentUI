@@ -20,6 +20,15 @@ FluWindow {
         event.accepted = false
     }
 
+    Connections{
+        target: appInfo
+        function onActiveWindow(){
+            window.show()
+            window.raise()
+            window.requestActivate()
+        }
+    }
+
     FluAppBar{
         id:appbar
         z:9

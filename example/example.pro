@@ -8,7 +8,8 @@ HEADERS += \
     lang/Zh.h \
     stdafx.h \
     ChatController.h \
-    AppInfo.h
+    AppInfo.h \
+    IPC.h
 
 SOURCES += \
         ChatController.cpp \
@@ -16,7 +17,8 @@ SOURCES += \
         lang/En.cpp \
         lang/Lang.cpp \
         lang/Zh.cpp \
-        main.cpp
+        main.cpp \
+        IPC.cpp
 
 RESOURCES += qml.qrc
 

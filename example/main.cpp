@@ -7,6 +7,7 @@
 #include "lang/Lang.h"
 #include "AppInfo.h"
 #include "ChatController.h"
+#include "IPC.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,12 +20,25 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
-//    QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
+    //    QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
+    AppInfo* appInfo = new AppInfo();
+    IPC ipc(0);
+    QString activeWindowEvent = "activeWindow";
+    if(!ipc.isCurrentOwner()){
+        ipc.postEvent(activeWindowEvent,QString().toUtf8(),0);
+        delete appInfo;
+        return 0;
+    }
+    if(ipc.isAttached()){
+        ipc.registerEventHandler(activeWindowEvent,[&appInfo](const QByteArray& data){
+            Q_EMIT appInfo->activeWindow();
+            return true;
+        });
+    }
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     qmlRegisterType<ChatController>("Controller",1,0,"ChatController");
-    AppInfo* appInfo = new AppInfo();
     QQmlContext * context = engine.rootContext();
     Lang* lang = appInfo->lang();
     context->setContextProperty("lang",lang);
@@ -34,10 +48,10 @@ int main(int argc, char *argv[])
     context->setContextProperty("appInfo",appInfo);
     const QUrl url(QStringLiteral("qrc:/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+        &app, [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        }, Qt::QueuedConnection);
     engine.load(url);
     return app.exec();
 }

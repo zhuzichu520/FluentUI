@@ -30,6 +30,7 @@ set(SOURCES
     lang/Lang.cpp
     lang/Zh.cpp
     lang/En.cpp
+    IPC.cpp
 )
 
 set(HEADERS
@@ -39,6 +40,7 @@ set(HEADERS
     lang/Lang.h
     lang/Zh.h
     lang/En.h
+    IPC.h
 )
 
 set(RESOURCES
