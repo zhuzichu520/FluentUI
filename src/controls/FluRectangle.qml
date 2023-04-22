@@ -10,7 +10,6 @@ Item{
     default property alias contentItem: container.data
 
     id:control
-
     FluShadow{
         anchors.fill: container
         radius: control.radius[0]
