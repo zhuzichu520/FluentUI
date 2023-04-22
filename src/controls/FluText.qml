@@ -3,10 +3,6 @@ import FluentUI
 
 Text {
 
-    property int fontStyle: FluText.Body
-    property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
-    property int pixelSize : FluTheme.textSize
-
     enum FontStyle {
         Display,
         TitleLarge,
@@ -16,6 +12,10 @@ Text {
         Body,
         Caption
     }
+
+    property int fontStyle: FluText.Body
+    property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
+    property int pixelSize : FluTheme.textSize
 
     id:text
     color: textColor

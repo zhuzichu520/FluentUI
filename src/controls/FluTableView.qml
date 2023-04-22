@@ -5,7 +5,6 @@ import FluentUI
 
 Item {
 
-    id:control
     property var columns : []
     property var dataSource : []
     property int pageCurrent: 1
@@ -14,6 +13,7 @@ Item {
     property int itemHeight: 56
     signal requestPage(int page,int count)
 
+    id:control
     implicitHeight: layout_coumns.height + layout_table.height
 
     MouseArea{

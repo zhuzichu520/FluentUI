@@ -5,21 +5,6 @@ import FluentUI
 
 Item {
 
-    id:control
-    anchors.fill: {
-        if(parent)
-            return parent
-        return undefined
-    }
-
-    implicitHeight: height
-    implicitWidth: width
-
-    MouseArea{
-        anchors.fill: parent
-        preventStealing: true
-    }
-
     enum TabWidthBehavior {
         Equal,
         SizeToContent,
@@ -38,12 +23,26 @@ Item {
     property bool addButtonVisibility: true
     signal newPressed
 
+    id:control
+    implicitHeight: height
+    implicitWidth: width
+    anchors.fill: {
+        if(parent)
+            return parent
+        return undefined
+    }
+
     QtObject {
         id: d
         property int dragIndex: -1
         property bool dragBehavior: false
         property bool itemPress: false
         property int maxEqualWidth: 240
+    }
+
+    MouseArea{
+        anchors.fill: parent
+        preventStealing: true
     }
 
     ListModel{

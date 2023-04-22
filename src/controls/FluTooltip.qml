@@ -3,6 +3,7 @@ import QtQuick.Controls
 import FluentUI
 
 ToolTip {
+
     id:tool_tip
 
     contentItem: FluText {

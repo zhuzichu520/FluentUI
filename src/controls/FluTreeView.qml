@@ -11,6 +11,7 @@ Item {
         Single,
         Multiple
     }
+
     property int selectionMode: FluTreeView.None
     property var currentElement
     property var currentParentElement

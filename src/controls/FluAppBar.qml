@@ -19,8 +19,6 @@ Rectangle{
     property color maximizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.1) : Qt.rgba(0,0,0,0.06)
     property color closeNormalColor: Qt.rgba(0,0,0,0)
     property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
-
-
     property bool showDark: false
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
 

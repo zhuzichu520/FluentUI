@@ -1,12 +1,15 @@
 ﻿import QtQuick
+import QtQuick.Controls
 import FluentUI
 
 FluMenu{
+
     property string cutText : "剪切"
     property string copyText : "复制"
     property string pasteText : "粘贴"
     property string selectAllText : "全选"
     property var inputItem
+
     id:menu
     focus: false
     FluMenuItem{

@@ -14,7 +14,6 @@ Rectangle {
     property bool changeFlag: true
     readonly property var rowData: ["","",""]
 
-
     id:root
     color: {
         if(mouse_area.containsMouse){

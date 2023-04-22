@@ -3,13 +3,13 @@ import QtQuick.Controls
 import FluentUI
 
 ScrollBar {
-    id: control
 
     property color handleNormalColor: Qt.rgba(134/255,134/255,134/255,1)
     property color handleHoverColor: Qt.lighter(handleNormalColor)
     property color handlePressColor: Qt.darker(handleNormalColor)
     property bool expand: false
 
+    id: control
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,

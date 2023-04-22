@@ -3,11 +3,13 @@ import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
 Item{
-    id:control
+
     property var radius:[0,0,0,0]
     property color color : "#FFFFFF"
     property bool shadow: true
     default property alias contentItem: container.data
+
+    id:control
 
     FluShadow{
         anchors.fill: container

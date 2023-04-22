@@ -12,9 +12,11 @@ Item {
     id:control
     width: 400
     height: 300
+
     ListModel{
         id:content_model
     }
+
     FluRectangle{
         anchors.fill: parent
         radius: [control.radius,control.radius,control.radius,control.radius]

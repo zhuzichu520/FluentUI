@@ -2,10 +2,10 @@
 import Qt5Compat.GraphicalEffects
 
 Rectangle{
-    id:content
 
     property Item inputItem
 
+    id:content
     radius: 4
     layer.enabled: true
     color: {
