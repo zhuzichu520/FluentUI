@@ -15,7 +15,7 @@ Rectangle {
     radius: 22
     border.width: linWidth
     color: "#00000000"
-    border.color: FluTheme.dark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    border.color: FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
 
     onProgressChanged: {
         canvas.requestPaint()

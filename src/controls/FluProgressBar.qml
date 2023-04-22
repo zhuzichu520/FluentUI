@@ -11,7 +11,7 @@ FluRectangle {
     height: 5
     radius: [3,3,3,3]
     clip: true
-    color:  FluTheme.dark ? Qt.rgba(41/255,41/255,41/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    color:  FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
 
     Component.onCompleted: {
         if(indeterminate){
