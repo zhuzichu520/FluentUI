@@ -6,9 +6,7 @@
 #include <ctime>
 #include <random>
 
-#ifdef WIN32
-#include <windows.h>
-#else
+#ifndef _MSC_VER
 #include <unistd.h>
 #endif
 
@@ -90,7 +88,7 @@ time_t IPC::postEvent(const QString& name, const QByteArray& data, uint32_t dest
         memcpy(evt->data, data.constData(), data.length());
         mem->lastEvent = evt->posted = result = qMax(mem->lastEvent + 1, time(nullptr));
         evt->dest = dest;
-        evt->sender = GetCurrentProcessId();
+        evt->sender = _getpid();
         qDebug() << "postEvent " << name << "to" << dest;
     }
     globalMemory.unlock();
@@ -172,7 +170,7 @@ IPC::IPCEvent* IPC::fetchEvent()
             memset(evt, 0, sizeof(IPCEvent));
         }
 
-        if (evt->posted && !evt->processed && evt->sender != GetCurrentProcessId()
+        if (evt->posted && !evt->processed && evt->sender != _getpid()
             && (evt->dest == profileId || (evt->dest == 0 && isCurrentOwnerNoLock()))) {
             return evt;
         }
