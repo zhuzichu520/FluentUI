@@ -3,22 +3,22 @@ CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
 
 HEADERS += \
-    lang/En.h \
-    lang/Lang.h \
-    lang/Zh.h \
-    stdafx.h \
-    ChatController.h \
-    AppInfo.h \
-    IPC.h
+    src/lang/En.h \
+    src/lang/Lang.h \
+    src/lang/Zh.h \
+    src/stdafx.h \
+    src/controller/ChatController.h \
+    src/AppInfo.h \
+    src/tool/IPC.h
 
 SOURCES += \
-        ChatController.cpp \
-        AppInfo.cpp \
-        lang/En.cpp \
-        lang/Lang.cpp \
-        lang/Zh.cpp \
-        main.cpp \
-        IPC.cpp
+        src/controller/ChatController.cpp \
+        src/AppInfo.cpp \
+        src/lang/En.cpp \
+        src/lang/Lang.cpp \
+        src/lang/Zh.cpp \
+        src/main.cpp \
+        src/tool/IPC.cpp
 
 RESOURCES += qml.qrc
 

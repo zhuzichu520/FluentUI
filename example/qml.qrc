@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>App.qml</file>
         <file>res/image/image_huoyin.webp</file>
         <file>res/svg/avatar_1.svg</file>
         <file>res/svg/avatar_2.svg</file>
@@ -14,40 +13,11 @@
         <file>res/svg/avatar_10.svg</file>
         <file>res/svg/avatar_11.svg</file>
         <file>res/svg/avatar_12.svg</file>
-        <file>page/AboutPage.qml</file>
-        <file>page/MainPage.qml</file>
-        <file>page/LoginPage.qml</file>
-        <file>T_ToggleSwitch.qml</file>
-        <file>T_Typography.qml</file>
-        <file>T_Awesome.qml</file>
-        <file>T_Buttons.qml</file>
-        <file>T_Rectangle.qml</file>
-        <file>T_InfoBar.qml</file>
-        <file>T_Progress.qml</file>
-        <file>T_Slider.qml</file>
-        <file>T_TextBox.qml</file>
-        <file>T_Theme.qml</file>
-        <file>T_Dialog.qml</file>
-        <file>T_TreeView.qml</file>
-        <file>T_Expander.qml</file>
-        <file>T_TimePicker.qml</file>
-        <file>T_DatePicker.qml</file>
-        <file>T_MultiWindow.qml</file>
-        <file>T_Menu.qml</file>
         <file>res/image/banner_1.jpg</file>
         <file>res/image/banner_2.jpg</file>
         <file>res/image/banner_3.jpg</file>
         <file>res/image/logo_openai.png</file>
-        <file>page/ChatPage.qml</file>
-        <file>T_Tooltip.qml</file>
-        <file>T_Badge.qml</file>
-        <file>T_CalendarPicker.qml</file>
-        <file>T_ColorPicker.qml</file>
-        <file>T_Carousel.qml</file>
-        <file>T_MediaPlayer.qml</file>
-        <file>T_TabView.qml</file>
         <file>res/image/favicon.ico</file>
-        <file>T_Home.qml</file>
         <file>res/image/bg_home_header.png</file>
         <file>res/image/ic_home_github.png</file>
         <file>res/image/control/Acrylic.png</file>
@@ -148,25 +118,55 @@
         <file>res/image/control/Viewbox.png</file>
         <file>res/image/control/WebView.png</file>
         <file>res/image/control/XamlUICommand.png</file>
-        <file>T_CheckBox.qml</file>
-        <file>global/ItemsOriginal.qml</file>
-        <file>global/qmldir</file>
-        <file>global/ItemsFooter.qml</file>
-        <file>page/MediaPage.qml</file>
-        <file>T_FlipView.qml</file>
-        <file>T_Pivot.qml</file>
-        <file>component/CodeExpander.qml</file>
-        <file>T_TableView.qml</file>
-        <file>T_StatusView.qml</file>
-        <file>T_Settings.qml</file>
-        <file>global/MainEvent.qml</file>
         <file>res/svg/home.svg</file>
         <file>res/svg/home_dark.svg</file>
-        <file>page/StandardWindow.qml</file>
-        <file>page/SingleTaskWindow.qml</file>
-        <file>page/SingleInstanceWindow.qml</file>
-        <file>T_RatingControl.qml</file>
         <file>res/image/qrcode_wx.jpg</file>
         <file>res/image/qrcode_zfb.jpg</file>
+        <file>qml/component/CodeExpander.qml</file>
+        <file>qml/global/ItemsFooter.qml</file>
+        <file>qml/global/ItemsOriginal.qml</file>
+        <file>qml/global/MainEvent.qml</file>
+        <file>qml/global/qmldir</file>
+        <file>qml/App.qml</file>
+        <file>qml/window/AboutWindow.qml</file>
+        <file>qml/window/ChatWindow.qml</file>
+        <file>qml/window/LoginWindow.qml</file>
+        <file>qml/window/MainWindow.qml</file>
+        <file>qml/window/MediaWindow.qml</file>
+        <file>qml/window/SingleInstanceWindow.qml</file>
+        <file>qml/window/SingleTaskWindow.qml</file>
+        <file>qml/window/StandardWindow.qml</file>
+        <file>qml/page/T_Awesome.qml</file>
+        <file>qml/page/T_Badge.qml</file>
+        <file>qml/page/T_Buttons.qml</file>
+        <file>qml/page/T_CalendarPicker.qml</file>
+        <file>qml/page/T_Carousel.qml</file>
+        <file>qml/page/T_CheckBox.qml</file>
+        <file>qml/page/T_ColorPicker.qml</file>
+        <file>qml/page/T_DatePicker.qml</file>
+        <file>qml/page/T_Dialog.qml</file>
+        <file>qml/page/T_Expander.qml</file>
+        <file>qml/page/T_FlipView.qml</file>
+        <file>qml/page/T_Home.qml</file>
+        <file>qml/page/T_InfoBar.qml</file>
+        <file>qml/page/T_MediaPlayer.qml</file>
+        <file>qml/page/T_Menu.qml</file>
+        <file>qml/page/T_MultiWindow.qml</file>
+        <file>qml/page/T_Pivot.qml</file>
+        <file>qml/page/T_Progress.qml</file>
+        <file>qml/page/T_RatingControl.qml</file>
+        <file>qml/page/T_Rectangle.qml</file>
+        <file>qml/page/T_Settings.qml</file>
+        <file>qml/page/T_Slider.qml</file>
+        <file>qml/page/T_StatusView.qml</file>
+        <file>qml/page/T_TableView.qml</file>
+        <file>qml/page/T_TabView.qml</file>
+        <file>qml/page/T_TextBox.qml</file>
+        <file>qml/page/T_Theme.qml</file>
+        <file>qml/page/T_TimePicker.qml</file>
+        <file>qml/page/T_ToggleSwitch.qml</file>
+        <file>qml/page/T_Tooltip.qml</file>
+        <file>qml/page/T_TreeView.qml</file>
+        <file>qml/page/T_Typography.qml</file>
     </qresource>
 </RCC>

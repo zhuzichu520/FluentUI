@@ -509,6 +509,7 @@ Item {
                 onClicked: {
                     d.enableNavigationPanel = !d.enableNavigationPanel
                 }
+                visible: Layout.preferredWidth !== 0
                 Behavior on Layout.preferredWidth{
                     NumberAnimation{
                         duration: 167
@@ -639,7 +640,7 @@ Item {
             width: layout_list.width
             clip: true
             y:nav_app_bar.height
-            height: 38
+            height: autoSuggestBox ? 38 : 0
             Loader{
                 id:loader_auto_suggest_box
                 anchors.centerIn: parent

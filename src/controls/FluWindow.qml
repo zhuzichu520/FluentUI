@@ -90,7 +90,7 @@ ApplicationWindow {
         infoBar.showError(text,duration,moremsg);
     }
 
-    function registerForPageResult(path){
+    function registerForWindowResult(path){
         return helper.createRegister(window,path)
     }
 

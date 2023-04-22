@@ -24,23 +24,23 @@ endif()
 find_package(Qt6 COMPONENTS Core Quick QuickControls2 Concurrent Network Multimedia REQUIRED)
 
 set(SOURCES
-    ChatController.cpp
-    AppInfo.cpp
-    main.cpp
-    lang/Lang.cpp
-    lang/Zh.cpp
-    lang/En.cpp
-    IPC.cpp
+    src/controller/ChatController.cpp
+    src/AppInfo.cpp
+    src/main.cpp
+    src/lang/Lang.cpp
+    src/lang/Zh.cpp
+    src/lang/En.cpp
+    src/tool/IPC.cpp
 )
 
 set(HEADERS
-    ChatController.h
-    AppInfo.h
-    stdafx.h
-    lang/Lang.h
-    lang/Zh.h
-    lang/En.h
-    IPC.h
+    src/controller/ChatController.h
+    src/AppInfo.h
+    src/stdafx.h
+    src/lang/Lang.h
+    src/lang/Zh.h
+    src/lang/En.h
+    src/tool/IPC.h
 )
 
 set(RESOURCES
