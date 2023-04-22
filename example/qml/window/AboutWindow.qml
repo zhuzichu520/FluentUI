@@ -6,7 +6,7 @@ import FluentUI
 FluWindow {
 
     id:window
-
+    title:"关于"
     width: 600
     height: 600
     minimumWidth: 600
@@ -14,8 +14,6 @@ FluWindow {
     maximumWidth: 600
     maximumHeight: 600
     launchMode: FluWindow.SingleTask
-
-    title:"关于"
 
     FluAppBar{
         id:appbar

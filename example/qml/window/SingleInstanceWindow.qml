@@ -6,7 +6,7 @@ import FluentUI
 FluWindow {
 
     id:window
-
+    title:"SingleInstance"
     width: 500
     height: 600
     minimumWidth: 500
@@ -14,8 +14,6 @@ FluWindow {
     maximumWidth: 500
     maximumHeight: 600
     launchMode: FluWindow.SingleInstance
-
-    title:"SingleInstance"
 
     FluAppBar{
         id:appbar

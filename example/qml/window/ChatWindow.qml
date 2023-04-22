@@ -7,12 +7,11 @@ import QtQuick.Dialogs
 
 FluWindow {
 
+    title:"ChatGPT"
     width: 680
     height: 600
     minimumWidth: 500
     minimumHeight: 600
-
-    title:"ChatGPT"
 
     onInitArgument:
         (argument)=>{

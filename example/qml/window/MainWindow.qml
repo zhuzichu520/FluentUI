@@ -7,10 +7,11 @@ import FluentUI
 import "qrc:///qml/global/"
 
 FluWindow {
+
     id:window
+    title: "FluentUI"
     width: 1000
     height: 640
-    title: "FluentUI"
     closeDestory:false
     minimumWidth: 520
     minimumHeight: 460

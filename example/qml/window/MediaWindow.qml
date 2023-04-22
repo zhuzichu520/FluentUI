@@ -5,12 +5,11 @@ import FluentUI
 
 FluWindow {
 
+    title:"视频播放器"
     width: 640
     height: 480
     minimumWidth: 640
     minimumHeight: 480
-
-    title:"视频播放器"
 
     onInitArgument:
         (argument)=>{
@@ -22,7 +21,6 @@ FluWindow {
         title:"视频播放器"
         width:parent.width
     }
-
 
     FluMediaPlayer{
         id:player
