@@ -8,7 +8,6 @@ Item {
     id:root
     anchors.fill: parent
     anchors.margins: -3
-
     Rectangle{
         width: root.width
         height: root.height
