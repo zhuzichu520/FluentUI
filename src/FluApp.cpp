@@ -11,6 +11,8 @@
 #include "Def.h"
 
 #ifdef Q_OS_WIN
+#pragma comment(lib, "Dwmapi.lib")
+#pragma comment(lib, "User32.lib")
 #include <dwmapi.h>
 #include <Windows.h>
 #include <windowsx.h>

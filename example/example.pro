@@ -52,3 +52,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 mac: {
     QMAKE_INFO_PLIST = Info.plist
 }
+
+#### 如果你正在使用静态库，请将将下面的配置注释取消掉。
+#DEFINES += STATICLIB
+#INCLUDEPATH += $$OUT_PWD/../bin/FluentUI/
+#LIBS += -L$$OUT_PWD/../bin/FluentUI/ -lFluentUI

@@ -8,6 +8,9 @@
 #include "AppInfo.h"
 #include "controller/ChatController.h"
 #include "tool/IPC.h"
+#if defined(STATICLIB)
+#include <FluentUI.h>
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -38,6 +41,9 @@ int main(int argc, char *argv[])
     }
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
+#if defined(STATICLIB)
+    FluentUI::initialize(&engine);
+#endif
     qmlRegisterType<ChatController>("Controller",1,0,"ChatController");
     QQmlContext * context = engine.rootContext();
     Lang* lang = appInfo->lang();
