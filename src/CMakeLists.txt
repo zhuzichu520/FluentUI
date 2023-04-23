@@ -45,7 +45,7 @@ set(TARGET_HEADERS
 )
 
 add_definitions(-DVERSION_IN="1.0.0")
-add_definitions(-DVURI_STR="FluentUI")
+add_definitions(-DURI_STR="FluentUI")
 
 add_library(${PROJECT_NAME} ${TARGET_TYPE} ${TARGET_SOURCES} ${TARGET_HEADERS} ${TARGET_RESOURCES})
 
