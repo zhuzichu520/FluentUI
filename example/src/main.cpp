@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
         return 0;
     }
     if(ipc.isAttached()){
-        ipc.registerEventHandler(activeWindowEvent,[&appInfo](const QByteArray& data){
+        ipc.registerEventHandler(activeWindowEvent,[&appInfo](const QByteArray&){
             Q_EMIT appInfo->activeWindow();
             return true;
         });
