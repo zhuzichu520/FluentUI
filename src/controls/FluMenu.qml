@@ -40,6 +40,8 @@ Menu {
         Rectangle{
             anchors.fill: parent
             color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
+            border.color: FluTheme.dark ? Window.active ? Qt.rgba(55/255,55/255,55/255,1):Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+            border.width: 1
             radius: 5
         }
         Column{

@@ -29,6 +29,28 @@ Popup {
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape
     background:Item{}
+
+    enter: Transition {
+        reversible: true
+        NumberAnimation {
+            properties: "opacity,scale"
+            from:0
+            to:1
+            duration: 167
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: [ 0, 0, 0, 1 ]
+        }
+    }
+    exit:Transition {
+        NumberAnimation {
+            properties: "opacity,scale"
+            from:1
+            to:0
+            duration: 167
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: [ 1, 0, 0, 0 ]
+        }
+    }
     contentItem: Rectangle {
         id:layout_content
         implicitWidth:minWidth
