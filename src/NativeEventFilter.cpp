@@ -13,6 +13,10 @@ bool NativeEventFilter::nativeEventFilter(const QByteArray &eventType, void *mes
         MSG* msg = static_cast<MSG *>(message);
         if (msg == Q_NULLPTR)
             return false;
+        auto view = FluApp::getInstance()->wnds[(WId)msg->hwnd];
+        if(!view){
+            return false;
+        }
         switch(msg->message) {
         case WM_NCCALCSIZE:{
             NCCALCSIZE_PARAMS& params = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
@@ -22,7 +26,6 @@ bool NativeEventFilter::nativeEventFilter(const QByteArray &eventType, void *mes
             return true;
         }
         case WM_NCHITTEST: {
-            auto view = FluApp::getInstance()->wnds[(WId)msg->hwnd];
             bool isResize = !(view->maximumWidth()==view->minimumWidth()&&view->maximumHeight()==view->minimumHeight());
             const LONG borderWidth = 8;
             RECT winrect;
