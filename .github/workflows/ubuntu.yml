@@ -56,7 +56,7 @@ jobs:
       - name: package
         run: |
           # make sure Qt plugin finds QML sources so it can deploy the imported files
-          export QML_SOURCES_PATHS=src
+          export QML_SOURCES_PATHS=example
           # 拷贝依赖
           linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=bin/release/${targetName} --appdir bin/release/
           mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}.AppImage
