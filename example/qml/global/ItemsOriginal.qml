@@ -188,6 +188,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"BreadcrumbBar"
+            onTap:{
+                navigationView.push("qrc:/qml/page/T_BreadcrumbBar.qml")
+            }
+        }
+        FluPaneItem{
             title:"TabView"
             image:"qrc:/res/image/control/TabView.png"
             recentlyAdded:true

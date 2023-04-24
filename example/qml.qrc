@@ -168,5 +168,6 @@
         <file>qml/page/T_Tooltip.qml</file>
         <file>qml/page/T_TreeView.qml</file>
         <file>qml/page/T_Typography.qml</file>
+        <file>qml/page/T_BreadcrumbBar.qml</file>
     </qresource>
 </RCC>

@@ -15,6 +15,9 @@ bool NativeEventFilter::nativeEventFilter(const QByteArray &eventType, void *mes
         MSG* msg = static_cast<MSG *>(message);
         if (msg == Q_NULLPTR)
             return false;
+        if(!FluApp::getInstance()->wnds.contains((WId)msg->hwnd)){
+            return false;
+        }
         switch(msg->message) {
         case WM_NCCALCSIZE:{
             NCCALCSIZE_PARAMS& params = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
