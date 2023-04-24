@@ -4,12 +4,13 @@ import QtQuick.Controls
 Item {
 
     property string text: "MenuItem"
+    property var onClickFunc
     signal clicked
 
-    id:root
+    id:control
     width: {
-        if(root.parent){
-            return root.parent.width
+        if(control.parent){
+            return control.parent.width
         }
         return 140
     }
@@ -18,7 +19,7 @@ Item {
 
     Rectangle{
         anchors.centerIn: parent
-        width: root.width-40
+        width: control.width-40
         height: 32
         radius: 4
         color:{
@@ -36,7 +37,7 @@ Item {
         }
 
         FluText{
-            text: root.text
+            text: control.text
             anchors.centerIn: parent
         }
 
@@ -45,8 +46,12 @@ Item {
             hoverEnabled: true
             anchors.fill: parent
             onClicked: {
-                root.clicked()
-                root.parent.closePopup()
+                if(control.onClickFunc){
+                    control.onClickFunc()
+                    return
+                }
+                control.parent.closePopup()
+                control.clicked()
             }
         }
     }

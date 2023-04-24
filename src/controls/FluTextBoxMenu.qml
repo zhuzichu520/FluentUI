@@ -11,14 +11,24 @@ FluMenu{
     property var inputItem
 
     id:menu
-    focus: false
+    focus:false
+    enableAnimation:false
+
+    Connections{
+        target: inputItem
+        function onTextChanged() {
+            menu.close()
+        }
+    }
+
     FluMenuItem{
         text: cutText
-        visible: inputItem.text !== "" && !inputItem.readOnly
+        visible: inputItem.selectedText !== "" && !inputItem.readOnly
         onClicked: {
             inputItem.cut()
         }
     }
+
     FluMenuItem{
         text: copyText
         visible: inputItem.selectedText !== ""

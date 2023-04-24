@@ -126,14 +126,6 @@ FluTextBox{
             control_popup.visible = true
         }
     }
-    TapHandler {
-        acceptedButtons: Qt.RightButton
-        onTapped: control.echoMode !== TextInput.Password && menu.popup()
-    }
-    FluTextBoxMenu{
-        id:menu
-        inputItem: control
-    }
 
     function handleClick(modelData){
         control_popup.visible = false

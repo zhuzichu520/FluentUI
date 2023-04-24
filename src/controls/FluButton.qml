@@ -17,7 +17,6 @@ Button {
     rightPadding:15
     enabled: !disabled
     focusPolicy:Qt.TabFocus
-
     Keys.onSpacePressed: control.visualFocus&&clicked()
 
     background: Rectangle{
