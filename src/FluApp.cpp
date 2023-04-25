@@ -1,4 +1,4 @@
-﻿#include "FluApp.h"
+#include "FluApp.h"
 
 #include <QQmlEngine>
 #include <QGuiApplication>
@@ -72,6 +72,8 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         for (auto& pair : wnds) {
             QString r =  pair->property("route").toString();
             if(r == route){
+                pair->setProperty("argument",argument);
+                pair->raise();
                 pair->requestActivate();
                 view->deleteLater();
                 return;
