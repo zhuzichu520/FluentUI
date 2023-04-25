@@ -2,7 +2,7 @@
 
 ## 简介
 
-这是一个漂亮的Fluent组件库，使用QML插件开发的。main分支是Qt6.4.3，如果需要qt5的请切换至qt5分支，使用说明：https://github.com/zhuzichu520/FluentUI/wiki/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8
+这是一个漂亮的Fluent组件库，使用QML插件开发的。main分支是Qt6.4.3，如果需要qt5的请切换至qt5分支，<a href="https://github.com/zhuzichu520/FluentUI/wiki/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8" target="_blank">如何使用？</a>
 
 ## 编译状态
 | [Windows][win-link]| [Ubuntu][ubuntu-link]|[MacOS][macos-link]|
