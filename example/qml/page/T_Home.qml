@@ -2,7 +2,7 @@
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
-import "qrc:///qml/global/"
+import "qrc:///example/qml/global/"
 import FluentUI
 
 FluScrollablePage{
@@ -15,7 +15,7 @@ FluScrollablePage{
     ListModel{
         id:model_header
         ListElement{
-            icon:"qrc:/res/image/ic_home_github.png"
+            icon:"qrc:/example/res/image/ic_home_github.png"
             title:"FluentUI GitHub"
             desc:"The latest FluentUI controls and styles for your applications."
             url:"https://github.com/zhuzichu520/FluentUI"
@@ -30,7 +30,7 @@ FluScrollablePage{
             fillMode:Image.PreserveAspectCrop
             anchors.fill: parent
             verticalAlignment: Qt.AlignTop
-            source: "qrc:/res/image/bg_home_header.png"
+            source: "qrc:/example/res/image/bg_home_header.png"
         }
         Rectangle{
             anchors.fill: parent

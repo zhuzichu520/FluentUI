@@ -1,67 +1,59 @@
 ﻿cmake_minimum_required(VERSION 3.16)
-project(FluentUI)
+project(fluentui LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 COMPONENTS Core Quick Svg REQUIRED)
-set(QT_INSTALL_QML ${Qt6Core_DIR}/../../../qml)
-set(TARGET_TYPE SHARED)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FluentUI)
-
-if(WIN32)
-	set(CMAKE_SHARED_LIBRARY_PREFIX "")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
+else()
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
 endif()
 
-set(TARGET_RESOURCES res.qrc)
-set(TARGET_SOURCES
-    Def.cpp
-    FluApp.cpp
-    FluColorSet.cpp
-    FluColors.cpp
-    FluRegister.cpp
-    FluTheme.cpp
-    Fluent.cpp
-    FluentUI.cpp
-	NativeEventFilter.cpp
-    WindowHelper.cpp
-    qml_plugin.cpp
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+
+file(GLOB_RECURSE CPP_FILES *.cpp *.h)
+foreach(filepath ${CPP_FILES})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND sources_files ${filename})
+endforeach(filepath)
+
+file(GLOB_RECURSE QML_PATHS *.qml)
+foreach(filepath ${QML_PATHS})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND qml_files ${filename})
+endforeach(filepath)
+
+file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp)
+foreach(filepath ${RES_PATHS})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND resource_files ${filename})
+endforeach(filepath)
+
+foreach(filepath IN LISTS qml_files resource_files)
+    string(REPLACE "imports/FluentUI/" "" filename ${filepath})
+    set_source_files_properties(${filepath} PROPERTIES QT_RESOURCE_ALIAS ${filename})
+endforeach()
+
+qt_add_qml_module(fluentui
+    OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FluentUI
+    VERSION 1.0
+    URI "FluentUI"
+    SOURCES ${sources_files}
+    QML_FILES ${qml_files}
+    RESOURCES ${resource_files}
 )
 
-set(TARGET_HEADERS
-    Def.h
-    FluApp.h
-    FluColorSet.h
-    FluColors.h
-    FluRegister.h
-    FluTheme.h
-    Fluent.h
-    FluentUI.h
-	NativeEventFilter.h 
-    WindowHelper.h
-    qml_plugin.h
-    stdafx.h
+set_target_properties(fluentui PROPERTIES
+    WIN32_EXECUTABLE TRUE
+    MACOSX_BUNDLE TRUE
 )
 
-add_definitions(-DVERSION_IN="1.0.0")
-add_definitions(-DURI_STR="FluentUI")
-
-add_library(${PROJECT_NAME} ${TARGET_TYPE} ${TARGET_SOURCES} ${TARGET_HEADERS} ${TARGET_RESOURCES})
-
-set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FluentUI)
-
-if(WIN32)
-    target_link_libraries(${PROJECT_NAME} PRIVATE dwmapi user32)
-else()
-endif()
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Quick Qt6::Svg)
+target_link_libraries(fluentui PUBLIC
+    Qt::Core
+    Qt::Quick
+    Qt::Qml
+)
 
 if(WIN32)
-    include(build_windows.cmake)
-else()
-    include(build_macos.cmake)
+    target_link_libraries(fluentui PRIVATE dwmapi user32)
 endif()

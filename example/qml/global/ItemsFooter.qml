@@ -20,7 +20,7 @@ FluObject{
         title:lang.settings
         icon:FluentIcons.Settings
         onTap:{
-            navigationView.push("qrc:/qml/page/T_Settings.qml")
+            navigationView.push("qrc:/example/qml/page/T_Settings.qml")
         }
     }
 }

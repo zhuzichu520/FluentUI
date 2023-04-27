@@ -25,17 +25,17 @@ FluScrollablePage{
             }
             FluFlipView{
                 Image{
-                    source: "qrc:/res/image/banner_1.jpg"
+                    source: "qrc:/example/res/image/banner_1.jpg"
                     asynchronous: true
                     fillMode:Image.PreserveAspectCrop
                 }
                 Image{
-                    source: "qrc:/res/image/banner_2.jpg"
+                    source: "qrc:/example/res/image/banner_2.jpg"
                     asynchronous: true
                     fillMode:Image.PreserveAspectCrop
                 }
                 Image{
-                    source: "qrc:/res/image/banner_3.jpg"
+                    source: "qrc:/example/res/image/banner_3.jpg"
                     asynchronous: true
                     fillMode:Image.PreserveAspectCrop
                 }
@@ -47,17 +47,17 @@ FluScrollablePage{
         Layout.topMargin: -1
         code:'FluFlipView{
     Image{
-        source: "qrc:/res/image/banner_1.jpg"
+        source: "qrc:/example/res/image/banner_1.jpg"
         asynchronous: true
         fillMode:Image.PreserveAspectCrop
     }
     Image{
-        source: "qrc:/res/image/banner_1.jpg"
+        source: "qrc:/example/res/image/banner_1.jpg"
         asynchronous: true
         fillMode:Image.PreserveAspectCrop
     }
     Image{
-        source: "qrc:/res/image/banner_1.jpg"
+        source: "qrc:/example/res/image/banner_1.jpg"
         asynchronous: true
         fillMode:Image.PreserveAspectCrop
     }
@@ -78,18 +78,18 @@ FluScrollablePage{
             FluFlipView{
                 vertical:true
                 Image{
-                    source: "qrc:/res/image/banner_1.jpg"
+                    source: "qrc:/example/res/image/banner_1.jpg"
                     asynchronous: true
                     sourceSize: Qt.size(400,300)
                     fillMode:Image.PreserveAspectCrop
                 }
                 Image{
-                    source: "qrc:/res/image/banner_2.jpg"
+                    source: "qrc:/example/res/image/banner_2.jpg"
                     asynchronous: true
                     fillMode:Image.PreserveAspectCrop
                 }
                 Image{
-                    source: "qrc:/res/image/banner_3.jpg"
+                    source: "qrc:/example/res/image/banner_3.jpg"
                     asynchronous: true
                     fillMode:Image.PreserveAspectCrop
                 }
@@ -102,17 +102,17 @@ FluScrollablePage{
         code:'FluFlipView{
     vertical:true
     Image{
-        source: "qrc:/res/image/banner_1.jpg"
+        source: "qrc:/example/res/image/banner_1.jpg"
         asynchronous: true
         fillMode:Image.PreserveAspectCrop
     }
     Image{
-        source: "qrc:/res/image/banner_1.jpg"
+        source: "qrc:/example/res/image/banner_1.jpg"
         asynchronous: true
         fillMode:Image.PreserveAspectCrop
     }
     Image{
-        source: "qrc:/res/image/banner_1.jpg"
+        source: "qrc:/example/res/image/banner_1.jpg"
         asynchronous: true
         fillMode:Image.PreserveAspectCrop
     }

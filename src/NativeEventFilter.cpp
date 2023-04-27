@@ -11,11 +11,11 @@
 bool NativeEventFilter::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
 {
 #ifdef Q_OS_WIN
-    if (eventType == "windows_generic_MSG" && FluTheme::getInstance()->frameless()) {
+    if (eventType == "windows_generic_MSG" && FluApp::fluTheme->frameless()) {
         MSG* msg = static_cast<MSG *>(message);
         if (msg == Q_NULLPTR)
             return false;
-        if(!FluApp::getInstance()->wnds.contains((WId)msg->hwnd)){
+        if(!FluApp::fluApp->wnds.contains((WId)msg->hwnd)){
             return false;
         }
         switch(msg->message) {
@@ -27,7 +27,7 @@ bool NativeEventFilter::nativeEventFilter(const QByteArray &eventType, void *mes
             return true;
         }
         case WM_NCHITTEST: {
-            auto view = FluApp::getInstance()->wnds[(WId)msg->hwnd];
+            auto view = FluApp::fluApp->wnds[(WId)msg->hwnd];
             bool isResize = !(view->maximumWidth()==view->minimumWidth()&&view->maximumHeight()==view->minimumHeight());
             const LONG borderWidth = 8;
             RECT winrect;

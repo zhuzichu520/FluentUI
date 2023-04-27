@@ -1,19 +1,9 @@
 ﻿#include "FluTheme.h"
 
-#include "FluColors.h"
 #include "Def.h"
 #include <QPalette>
+#include "FluApp.h"
 #include <QGuiApplication>
-
-FluTheme* FluTheme::m_instance = nullptr;
-
-FluTheme *FluTheme::getInstance()
-{
-    if(FluTheme::m_instance == nullptr){
-        FluTheme::m_instance = new FluTheme;
-    }
-    return FluTheme::m_instance;
-}
 
 FluTheme::FluTheme(QObject *parent)
     : QObject{parent}
@@ -21,7 +11,7 @@ FluTheme::FluTheme(QObject *parent)
     connect(this,&FluTheme::darkModeChanged,this,[=]{
         Q_EMIT darkChanged();
     });
-    primaryColor(FluColors::getInstance()->Blue());
+    primaryColor(FluApp::flutColors->Blue());
     textSize(13);
     nativeText(false);
     frameless(true);

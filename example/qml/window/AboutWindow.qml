@@ -128,12 +128,12 @@ FluWindow {
                 Image{
                     width: 164.55
                     height: 224.25
-                    source: "qrc:/res/image/qrcode_wx.jpg"
+                    source: "qrc:/example/res/image/qrcode_wx.jpg"
                 }
                 Image{
                     width: 162
                     height: 252
-                    source: "qrc:/res/image/qrcode_zfb.jpg"
+                    source: "qrc:/example/res/image/qrcode_zfb.jpg"
                 }
             }
         }

@@ -2,6 +2,7 @@
 #define FLUTHEME_H
 
 #include <QObject>
+#include <QtQml/qqml.h>
 #include "FluColorSet.h"
 #include "stdafx.h"
 
@@ -14,13 +15,13 @@ class FluTheme : public QObject
     Q_PROPERTY_AUTO(int,darkMode);
     Q_PROPERTY_AUTO(bool,nativeText);
     Q_PROPERTY_AUTO(int,textSize);
+    QML_NAMED_ELEMENT(FluTheme)
+    QML_SINGLETON
 public:
     explicit FluTheme(QObject *parent = nullptr);
-    static FluTheme *getInstance();
     bool dark();
     Q_SIGNAL void darkChanged();
 private:
-    static FluTheme* m_instance;
     bool _dark;
     bool eventFilter(QObject *obj, QEvent *event);
     bool systemDark();

@@ -32,7 +32,7 @@ FluScrollablePage{
                 Layout.topMargin: 20
                 Layout.leftMargin: 5
                 Component.onCompleted: {
-                    carousel.setData([{url:"qrc:/res/image/banner_1.jpg"},{url:"qrc:/res/image/banner_2.jpg"},{url:"qrc:/res/image/banner_3.jpg"}])
+                    carousel.setData([{url:"qrc:/example/res/image/banner_1.jpg"},{url:"qrc:/example/res/image/banner_2.jpg"},{url:"qrc:/example/res/image/banner_3.jpg"}])
                 }
             }
         }
@@ -44,7 +44,7 @@ FluScrollablePage{
     width: 400
     height: 300
     Component.onCompleted: {
-        setData([{url:"qrc:/res/image/banner_1.jpg"},{url:"qrc:/res/image/banner_2.jpg"},{url:"qrc:/res/image/banner_3.jpg"}])
+        setData([{url:"qrc:/example/res/image/banner_1.jpg"},{url:"qrc:/example/res/image/banner_2.jpg"},{url:"qrc:/example/res/image/banner_3.jpg"}])
     }
 }'
     }

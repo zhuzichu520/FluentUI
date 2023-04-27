@@ -120,7 +120,7 @@ FluWindow {
                         asynchronous: true
                         anchors.fill: parent
                         sourceSize: Qt.size(100,100)
-                        source: isMy ? "qrc:/res/svg/avatar_2.svg" : "qrc:/res/image/logo_openai.png"
+                        source: isMy ? "qrc:/example/res/svg/avatar_2.svg" : "qrc:/example/res/image/logo_openai.png"
                     }
                 }
 

@@ -30,7 +30,7 @@ void WindowHelper::initWindow(QQuickWindow* window){
 void WindowHelper::firstUpdate(){
     if(isFisrt){
 #ifdef Q_OS_WIN
-        if(FluTheme::getInstance()->frameless()){
+        if(FluApp::fluTheme->frameless()){
             HWND wnd = (HWND)window->winId();
             SetWindowLongPtr(wnd, GWL_STYLE, static_cast<LONG>(Style::aero_borderless));
             const MARGINS shadow_on = { 1, 1, 1, 1 };
@@ -54,7 +54,7 @@ QVariant WindowHelper::createRegister(QQuickWindow* window,const QString& path){
 
 void WindowHelper::destoryWindow(){
     if(this->window){
-        FluApp::getInstance()->wnds.remove(this->window->winId());
+        FluApp::fluApp->wnds.remove(this->window->winId());
         this->window->deleteLater();
     }
 }

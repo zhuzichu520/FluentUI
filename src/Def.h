@@ -2,6 +2,7 @@
 #define DEF_H
 
 #include <QObject>
+#include <QtQml/qqml.h>
 
 namespace Fluent_DarkMode {
 Q_NAMESPACE
@@ -10,6 +11,7 @@ Q_NAMESPACE
         Light    = 0x1,
         Dark     = 0x2,
     };
+    QML_NAMED_ELEMENT(FluDarkMode)
 Q_ENUMS(Fluent_DarkModeType);
 }
 
@@ -1420,6 +1422,7 @@ enum class Fluent_AwesomeType {
     SpeechSolidBold=0xf8b2,
     ClickedOutLoudSolidBold=0xf8b3,
 };
+ QML_NAMED_ELEMENT(FluentIcons)
 Q_ENUMS(Fluent_AwesomeType)
 }
 

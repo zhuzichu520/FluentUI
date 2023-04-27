@@ -24,7 +24,7 @@ FluScrollablePage{
     }
 
     function newTab(){
-        tab_view.appendTab("qrc:/res/image/favicon.ico","Document "+tab_view.count(),com_page,colors[Math.floor(Math.random() * 8)].dark)
+        tab_view.appendTab("qrc:/example/res/image/favicon.ico","Document "+tab_view.count(),com_page,colors[Math.floor(Math.random() * 8)].dark)
     }
 
     Component.onCompleted: {
@@ -129,7 +129,7 @@ FluScrollablePage{
         }
     }
     function newTab(){
-        tab_view.appendTab("qrc:/res/image/favicon.ico","Document 1",com_page,argument)
+        tab_view.appendTab("qrc:/example/res/image/favicon.ico","Document 1",com_page,argument)
     }
 }
 '

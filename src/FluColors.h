@@ -2,6 +2,7 @@
 #define FLUCOLORS_H
 
 #include <QObject>
+#include <QtQml/qqml.h>
 #include "FluColorSet.h"
 #include "stdafx.h"
 
@@ -41,13 +42,10 @@ class FluColors : public QObject
     Q_PROPERTY_AUTO(FluColorSet*,Blue);
     Q_PROPERTY_AUTO(FluColorSet*,Teal);
     Q_PROPERTY_AUTO(FluColorSet*,Green);
-
+    QML_NAMED_ELEMENT(FluColors)
+    QML_SINGLETON
 public:
     explicit FluColors(QObject *parent = nullptr);
-    static FluColors *getInstance();
-private:
-    static FluColors* m_instance;
-
 };
 
 #endif // FLUCOLORS_H

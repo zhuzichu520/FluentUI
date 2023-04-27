@@ -79,7 +79,7 @@ FluScrollablePage{
                     Image {
                         asynchronous: true
                         anchors.fill: parent
-                        source: "qrc:/res/svg/avatar_1.svg"
+                        source: "qrc:/example/res/svg/avatar_1.svg"
                         sourceSize: Qt.size(width,height)
                     }
                 }
@@ -91,7 +91,7 @@ FluScrollablePage{
                         asynchronous: true
                         anchors.fill: parent
                         sourceSize: Qt.size(width,height)
-                        source: "qrc:/res/svg/avatar_2.svg"
+                        source: "qrc:/example/res/svg/avatar_2.svg"
                     }
                 }
                 FluRectangle{
@@ -102,7 +102,7 @@ FluScrollablePage{
                         asynchronous: true
                         anchors.fill: parent
                         sourceSize: Qt.size(width,height)
-                        source: "qrc:/res/svg/avatar_3.svg"
+                        source: "qrc:/example/res/svg/avatar_3.svg"
                     }
                 }
                 FluRectangle{
@@ -113,7 +113,7 @@ FluScrollablePage{
                         asynchronous: true
                         anchors.fill: parent
                         sourceSize: Qt.size(width,height)
-                        source: "qrc:/res/svg/avatar_4.svg"
+                        source: "qrc:/example/res/svg/avatar_4.svg"
                     }
                 }
             }
@@ -123,7 +123,7 @@ FluScrollablePage{
                 radius:[25,25,25,25]
                 Image {
                     asynchronous: true
-                    source: "qrc:/res/image/image_huoyin.webp"
+                    source: "qrc:/example/res/image/image_huoyin.webp"
                     anchors.fill: parent
                     sourceSize: Qt.size(width,height)
                 }
@@ -142,7 +142,7 @@ FluScrollablePage{
     Image{
         asynchronous: true
         anchors.fill: parent
-        source: "qrc:/res/svg/avatar_4.svg"
+        source: "qrc:/example/res/svg/avatar_4.svg"
         sourceSize: Qt.size(width,height)
     }
 }'

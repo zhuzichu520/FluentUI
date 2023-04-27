@@ -1,4 +1,4 @@
-#include "FluApp.h"
+﻿#include "FluApp.h"
 
 #include <QQmlEngine>
 #include <QGuiApplication>
@@ -6,6 +6,7 @@
 #include <QQuickItem>
 #include <QTimer>
 #include <QUuid>
+#include <QFontDatabase>
 #include <QClipboard>
 #include "FluTheme.h"
 #include "Def.h"
@@ -24,29 +25,39 @@ static bool isCompositionEnabled()
 }
 #endif
 
-FluApp* FluApp::m_instance = nullptr;
+FluApp* FluApp::fluApp = nullptr;
+FluTheme* FluApp::fluTheme = nullptr;
+FluColors* FluApp::flutColors = nullptr;
 
-FluApp *FluApp::getInstance()
-{
-    if(FluApp::m_instance == nullptr){
-        FluApp::m_instance = new FluApp;
-    }
-    return FluApp::m_instance;
+void FluApp::setFluApp(FluApp* val){
+    FluApp::fluApp = val;
+}
+void FluApp::setFluTheme(FluTheme* val){
+    FluApp::fluTheme = val;
+}
+void FluApp::setFluColors(FluColors* val){
+    FluApp::flutColors = val;
 }
 
 FluApp::FluApp(QObject *parent)
     : QObject{parent}
 {
+    QFontDatabase::addApplicationFont(":/FluentUI/Font/Segoe_Fluent_Icons.ttf");
 }
 
 void FluApp::init(QQuickWindow *window){
     this->appWindow = window;
+    QQmlEngine *engine = qmlEngine(appWindow);
+    QQmlComponent component(engine, ":/FluentUI/Controls/FluSingleton.qml");
+    component.create();
+    nativeEvent = new NativeEventFilter();
+    qApp->installNativeEventFilter(nativeEvent);
 }
 
 void FluApp::run(){
 #ifdef Q_OS_WIN
     if(!isCompositionEnabled()){
-        FluTheme::getInstance()->frameless(false);
+        fluTheme->frameless(false);
     }
 #endif
     navigate(initialRoute());
@@ -66,7 +77,6 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
     }
     properties.insert("argument",argument);
     QQuickWindow *view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
-
     int launchMode = view->property("launchMode").toInt();
     if(launchMode==1){
         for (auto& pair : wnds) {
@@ -88,8 +98,7 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
             }
         }
     }
-
-    if(FluTheme::getInstance()->frameless()){
+    if(fluTheme->frameless()){
         view->setFlag(Qt::FramelessWindowHint,true);
     }
     wnds.insert(view->winId(),view);

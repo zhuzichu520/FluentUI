@@ -4,7 +4,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
-import "qrc:///qml/global/"
+import example
+import "qrc:///example/qml/global/"
 
 FluWindow {
 
@@ -41,7 +42,7 @@ FluWindow {
     SystemTrayIcon {
         id:system_tray
         visible: true
-        icon.source: "qrc:/res/image/favicon.ico"
+        icon.source: "qrc:/example/res/image/favicon.ico"
         tooltip: "FluentUI"
         menu: Menu {
             MenuItem {
@@ -88,7 +89,7 @@ FluWindow {
         footerItems:ItemsFooter
         z:11
         displayMode:MainEvent.displayMode
-        logo: "qrc:/res/image/favicon.ico"
+        logo: "qrc:/example/res/image/favicon.ico"
         title:"FluentUI"
         autoSuggestBox:FluAutoSuggestBox{
             width: 280

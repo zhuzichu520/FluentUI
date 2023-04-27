@@ -2,14 +2,19 @@ name: Windows MinGW
 on: 
   push:
     paths:
-      - '*.pro'
+      - '*.txt'
       - 'src/**'
+      - 'example/**'
+      - 'scripts/**'
       - '.github/workflows/windows-mingw.yml'
   pull_request:
     paths:
-      - '*.pro'
+      - '*.txt'
+      - 'example/**'
       - 'src/**'
-      - '.github/workflows/windows-mingw.yml' 
+      - 'scripts/**'
+      - '.github/workflows/windows-mingw.yml'
+      
 jobs:
   build:
     name: Build
@@ -25,6 +30,11 @@ jobs:
       targetName: example.exe
       fileName: example
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
@@ -32,26 +42,29 @@ jobs:
           arch: ${{ matrix.qt_arch }}
           cache: ${{steps.cache-qt.outputs.cache-hit}}
           modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+      
       - name: Qt6 environment configuration
         if: ${{ startsWith( matrix.qt_ver, 6 ) }}
         shell: pwsh
         run: |
           Write-Output "${{ env.Qt6_DIR }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           Write-Output "${{ env.Qt6_DIR }}/../../Tools/${{ matrix.qt_tools_mingw_install }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-      - name: where is qmake & where is mingw32-make
+      
+      - name: where is cmake & where is mingw32-make
         shell: pwsh
         run: |
-          Get-Command -Name 'qmake' | Format-List
+          Get-Command -Name 'cmake' | Format-List
           Get-Command -Name 'mingw32-make' | Format-List
+      
       - name: mingw-build
         id: build
         shell: cmd
         run: |
-          qmake
-          mingw32-make
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake --build . --target all --config Release --parallel
+      
       - name: package
         id: package      
         env:
@@ -61,10 +74,12 @@ jobs:
           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:targetName}
            $name = ${env:archiveName}
            echo "::set-output name=packageName::$name"       
+      
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.package.outputs.packageName }}
           path: ${{ steps.package.outputs.packageName }}
+      
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
