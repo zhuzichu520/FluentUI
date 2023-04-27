@@ -5,7 +5,7 @@ project(example VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#获取文件分隔符（解决执行命令的时候有些平台会报错）
+#获取文件路径分隔符（解决执行命令的时候有些平台会报错）
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
 #设置可执行文件输出目录
