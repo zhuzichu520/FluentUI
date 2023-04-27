@@ -40,7 +40,6 @@ public:
     Q_INVOKABLE void setFluApp(FluApp* val);
     Q_INVOKABLE void setFluTheme(FluTheme* val);
     Q_INVOKABLE void setFluColors(FluColors* val);
-
 public:
     QMap<quint64, QQuickWindow*> wnds;
     static FluApp* fluApp;

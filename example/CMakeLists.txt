@@ -5,6 +5,9 @@ project(example VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#设置版本号
+add_definitions(-DVERSION=1,2,9,0)
+
 #获取文件路径分隔符（解决执行命令的时候有些平台会报错）
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
@@ -39,9 +42,16 @@ foreach(filepath ${RES_PATHS})
 endforeach(filepath)
 
 #添加可执行文件
-qt_add_executable(example
-    ${sources_files}
-)
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    qt_add_executable(example
+        ${sources_files}
+        example.rc
+    )
+else ()
+    qt_add_executable(example
+        ${sources_files}
+    )
+endif ()
 
 #复制动态库到可执行文件同级目录下
 if(WIN32)

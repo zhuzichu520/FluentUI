@@ -1,11 +1,17 @@
 ﻿#include "AppInfo.h"
 #include "lang/En.h"
 #include "lang/Zh.h"
+#include <QDebug>
+
+#define STR(x) #x
+#define VER_JOIN(a,b,c,d) STR(a.b.c.d)
+#define VER_JOIN_(x) VER_JOIN x
+#define VER_STR VER_JOIN_((VERSION))
 
 AppInfo::AppInfo(QObject *parent)
     : QObject{parent}
 {
-    version("1.2.8");
+    version(VER_STR);
     lang(new En());
 }
 

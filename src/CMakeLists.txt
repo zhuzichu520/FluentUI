@@ -4,6 +4,9 @@ project(fluentui LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#设置版本号
+add_definitions(-DVERSION=1,2,9,0)
+
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
 else()
@@ -39,7 +42,7 @@ qt_add_qml_module(fluentui
     OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FluentUI
     VERSION 1.0
     URI "FluentUI"
-    SOURCES ${sources_files}
+    SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
 )
