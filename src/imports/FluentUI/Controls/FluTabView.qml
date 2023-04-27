@@ -133,9 +133,9 @@ Item {
                         drag.axis: Drag.XAxis
 
                         onWheel: (wheel)=>{
-                            if (wheel.angleDelta.y > 0) scroll_nav.decrease()
-                            else scroll_nav.increase()
-                        }
+                                     if (wheel.angleDelta.y > 0) scroll_nav.decrease()
+                                     else scroll_nav.increase()
+                                 }
 
                         onPressed: {
                             d.itemPress = true
@@ -264,6 +264,11 @@ Item {
                             Layout.preferredWidth: visible?item_container.width - 41 - item_btn_close.width:0
                             elide: Text.ElideRight
                             Layout.alignment: Qt.AlignVCenter
+                            FluTooltip{
+                                visible: item_mouse_hove.containsMouse
+                                text:item_text.text
+                                delay: 1000
+                            }
                         }
                     }
 
