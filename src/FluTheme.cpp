@@ -11,7 +11,7 @@ FluTheme::FluTheme(QObject *parent)
     connect(this,&FluTheme::darkModeChanged,this,[=]{
         Q_EMIT darkChanged();
     });
-    primaryColor(FluApp::flutColors->Blue());
+    primaryColor(FluApp::fluColors->Blue());
     textSize(13);
     nativeText(false);
     frameless(true);

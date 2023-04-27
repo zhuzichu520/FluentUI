@@ -36,7 +36,7 @@ FluExpander{
             topMargin: 5
         }
         onClicked:{
-            FluApp.clipText(content.text)
+            FluTools.clipText(content.text)
             showSuccess("复制成功")
         }
     }

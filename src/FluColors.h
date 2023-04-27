@@ -6,6 +6,9 @@
 #include "FluColorSet.h"
 #include "stdafx.h"
 
+/**
+ * @brief The FluColors class
+ */
 class FluColors : public QObject
 {
     Q_OBJECT
@@ -33,7 +36,6 @@ class FluColors : public QObject
     Q_PROPERTY_AUTO(QString,Grey200);
     Q_PROPERTY_AUTO(QString,Grey210);
     Q_PROPERTY_AUTO(QString,Grey220);
-
     Q_PROPERTY_AUTO(FluColorSet*,Yellow);
     Q_PROPERTY_AUTO(FluColorSet*,Orange);
     Q_PROPERTY_AUTO(FluColorSet*,Red);

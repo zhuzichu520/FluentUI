@@ -10,6 +10,7 @@ QtObject {
         FluApp.setFluApp(FluApp)
         FluApp.setFluColors(FluColors)
         FluApp.setFluTheme(FluTheme)
+        FluApp.setFluTools(FluTools)
     }
 
 }

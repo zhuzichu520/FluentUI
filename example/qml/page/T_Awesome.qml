@@ -55,7 +55,7 @@ FluContentPage {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     var text  ="FluentIcons."+modelData.name;
-                    FluApp.clipText(text)
+                    FluTools.clipText(text)
                     showSuccess("您复制了 "+text)
                 }
             }

@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QAbstractNativeEventFilter>
 
+/**
+ * @brief The NativeEventFilter class
+ */
 class NativeEventFilter : public QAbstractNativeEventFilter
 {
 

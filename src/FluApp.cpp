@@ -8,9 +8,7 @@
 #include <QUuid>
 #include <QFontDatabase>
 #include <QClipboard>
-#include "FluTheme.h"
 #include "Def.h"
-
 #ifdef Q_OS_WIN
 #pragma comment(lib, "Dwmapi.lib")
 #pragma comment(lib, "User32.lib")
@@ -26,23 +24,40 @@ static bool isCompositionEnabled()
 #endif
 
 FluApp* FluApp::fluApp = nullptr;
-FluTheme* FluApp::fluTheme = nullptr;
-FluColors* FluApp::flutColors = nullptr;
 
-void FluApp::setFluApp(FluApp* val){
-    FluApp::fluApp = val;
-}
-void FluApp::setFluTheme(FluTheme* val){
-    FluApp::fluTheme = val;
-}
-void FluApp::setFluColors(FluColors* val){
-    FluApp::flutColors = val;
-}
+FluTheme* FluApp::fluTheme = nullptr;
+
+FluColors* FluApp::fluColors = nullptr;
+
+FluTools* FluApp::fluTools = nullptr;
 
 FluApp::FluApp(QObject *parent)
     : QObject{parent}
 {
     QFontDatabase::addApplicationFont(":/FluentUI/Font/Segoe_Fluent_Icons.ttf");
+}
+
+FluApp::~FluApp(){
+    if (nativeEvent != Q_NULLPTR) {
+        delete nativeEvent;
+        nativeEvent = Q_NULLPTR;
+    }
+}
+
+void FluApp::setFluApp(FluApp* val){
+    FluApp::fluApp = val;
+}
+
+void FluApp::setFluTheme(FluTheme* val){
+    FluApp::fluTheme = val;
+}
+
+void FluApp::setFluColors(FluColors* val){
+    FluApp::fluColors = val;
+}
+
+void FluApp::setFluTools(FluTools* val){
+    FluApp::fluTools = val;
 }
 
 void FluApp::init(QQuickWindow *window){
@@ -131,14 +146,6 @@ QJsonArray FluApp::awesomelist(const QString& keyword)
         }
     }
     return arr;
-}
-
-void FluApp::clipText(const QString& text){
-    QGuiApplication::clipboard()->setText(text);
-}
-
-QString FluApp::uuid(){
-    return QUuid::createUuid().toString();
 }
 
 void FluApp::closeApp(){

@@ -4,9 +4,11 @@
 #include <QObject>
 #include "stdafx.h"
 
+/**
+ * @brief The FluColorSet class
+ */
 class FluColorSet : public QObject
 {
-
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,darkest)
     Q_PROPERTY_AUTO(QString,darker)

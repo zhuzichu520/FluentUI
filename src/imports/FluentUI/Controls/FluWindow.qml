@@ -28,6 +28,11 @@ ApplicationWindow {
     }
     signal initArgument(var argument)
 
+    QtObject{
+        id:d
+        property bool firstFlag: true
+    }
+
     id:window
     background: Rectangle{
         color: {
@@ -51,8 +56,9 @@ ApplicationWindow {
     }
 
     onActiveChanged: {
-        if(active){
+        if(d.firstFlag){
             helper.firstUpdate()
+            d.firstFlag = false
         }
     }
 
