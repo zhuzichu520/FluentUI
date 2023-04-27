@@ -32,7 +32,7 @@ foreach(filepath ${QML_PATHS})
 endforeach(filepath)
 
 #遍历所有资源文件
-file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp)
+file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp qmldir)
 foreach(filepath ${RES_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND resource_files ${filename})
@@ -45,7 +45,7 @@ qt_add_executable(example
 
 #复制动态库到可执行文件同级目录下
 if(WIN32)
-    if(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/msvc/*.dll)
     else()
         set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
@@ -63,7 +63,7 @@ endif()
 qt_add_qml_module(example
     URI example
     VERSION 1.0
-    QML_FILES ${qml_files} qml/global/qmldir
+    QML_FILES ${qml_files}
     RESOURCES ${resource_files}
 )
 
@@ -77,8 +77,8 @@ set_target_properties(example PROPERTIES
 )
 
 #链接库
-target_link_libraries(example
-    PRIVATE Qt6::Quick
+target_link_libraries(example PRIVATE
+        Qt6::Quick
 )
 
 #安装

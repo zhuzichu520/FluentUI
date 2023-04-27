@@ -35,3 +35,5 @@ src/build-preset/plugins.qmltypes
 bin
 .DS_Store
 build
+cmake-build-*
+.idea
