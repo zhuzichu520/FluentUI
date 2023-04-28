@@ -83,12 +83,5 @@ FluContentPage {
                 textSize = value/100*6+FluTheme.textSize
             }
         }
-
     }
-
-
-
-
-
-
 }

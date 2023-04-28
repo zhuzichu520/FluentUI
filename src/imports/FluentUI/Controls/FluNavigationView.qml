@@ -581,7 +581,7 @@ Item {
 
     MouseArea{
         anchors.fill: parent
-        enabled: d.isMinimalAndPanel||d.isCompactAndPanel
+        visible: d.isMinimalAndPanel||d.isCompactAndPanel
         onClicked: {
             d.enableNavigationPanel = false
         }
