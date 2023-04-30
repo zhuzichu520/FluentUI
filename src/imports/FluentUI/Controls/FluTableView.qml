@@ -57,6 +57,7 @@ Item {
                     width: model.width
                     FluText{
                         text:model.title
+                        wrapMode: Text.WordWrap
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left: parent.left
@@ -111,18 +112,20 @@ Item {
         }
         model:model_data_source
         delegate: Item{
-            height: list_coumns.height
+            height: table_row.maxHeight
             width: layout_table.width
             property var model_values : getObjectValues(index)
             property var itemObject: getObject(index)
             property var listModel: model
             Row{
+                id: table_row
                 spacing: 0
                 anchors.fill: parent
+                property int maxHeight: itemHeight
                 Repeater{
                     model: model_values
                     delegate:Item{
-                        height: list_coumns.height
+                        height: table_row.maxHeight
                         width: modelData.width
                         Loader{
                             property var model : modelData
@@ -134,6 +137,12 @@ Item {
                                     return model.itemData
                                 }
                                 return com_text
+                            }
+                            onHeightChanged:
+                            {
+                                table_row.maxHeight = Math.max(table_row.maxHeight,height,itemHeight)
+                                parent.height = table_row.maxHeight
+                                table_row.parent.height = table_row.maxHeight
                             }
                         }
                     }
@@ -157,9 +166,11 @@ Item {
                 anchors.fill: parent
             }
             FluText{
+                id:table_value
                 text:String(model.itemData)
                 width: parent.width - 14
-                elide: Text.ElideRight
+                wrapMode: Text.WordWrap
+                onImplicitHeightChanged: parent.parent.parent.height = Math.max(implicitHeight + 20,itemHeight)
                 anchors{
                     verticalCenter: parent.verticalCenter
                     left: parent.left
