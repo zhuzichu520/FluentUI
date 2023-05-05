@@ -41,7 +41,6 @@ Item {
         for(var i=0;i<model_coumns.count;i++){
             var item = model_coumns.get(i)
             w=w+item.width
-            console.debug(item.width)
         }
         d.coumnsWidth = w
     }
@@ -126,7 +125,7 @@ Item {
                             control.requestPage(page,count)
                         }
                     anchors{
-                        verticalCenter: parent.verticalCenter
+                        top: parent.top
                         right: parent.right
                     }
                 }
