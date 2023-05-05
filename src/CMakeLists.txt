@@ -1,24 +1,23 @@
 ﻿cmake_minimum_required(VERSION 3.16)
 
-if(APPLE)
-#配置通用编译
-set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
-endif()
-
 project(fluentui LANGUAGES CXX)
 
+#配置通用编译
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-#设置版本号
-add_definitions(-DVERSION=1,2,9,0)
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+endif()
 
 #设置插件输出目录
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
 else()
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
 endif()
+
+#设置版本号
+add_definitions(-DVERSION=1,2,9,0)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 

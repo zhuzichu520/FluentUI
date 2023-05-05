@@ -1,20 +1,13 @@
 ﻿cmake_minimum_required(VERSION 3.16)
 
-if(APPLE)
-#配置通用编译
-set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
-endif()
-
 project(example VERSION 0.1 LANGUAGES CXX)
 
+#配置通用编译
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-#设置版本号
-add_definitions(-DVERSION=1,2,9,0)
-
-#获取文件路径分隔符（解决执行命令的时候有些平台会报错）
-file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+endif()
 
 #设置可执行文件输出目录
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -22,6 +15,12 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
 endif()
+
+#获取文件路径分隔符（解决执行命令的时候有些平台会报错）
+file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
+
+#设置版本号
+add_definitions(-DVERSION=1,2,9,0)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick REQUIRED)
 
@@ -93,7 +92,7 @@ set_target_properties(example PROPERTIES
 
 #链接库
 target_link_libraries(example PRIVATE
-        Qt6::Quick
+    Qt6::Quick
 )
 
 #安装
