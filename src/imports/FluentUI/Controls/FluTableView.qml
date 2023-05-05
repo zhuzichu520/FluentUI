@@ -14,7 +14,12 @@ Item {
     signal requestPage(int page,int count)
 
     id:control
-    implicitHeight: layout_coumns.height + layout_table.height
+    implicitHeight: layout_table.height
+
+    QtObject{
+        id:d
+        property int coumnsWidth: parent.width
+    }
 
     MouseArea{
         anchors.fill: parent
@@ -32,6 +37,13 @@ Item {
     onColumnsChanged: {
         model_coumns.clear()
         model_coumns.append(columns)
+        var w = 0
+        for(var i=0;i<model_coumns.count;i++){
+            var item = model_coumns.get(i)
+            w=w+item.width
+            console.debug(item.width)
+        }
+        d.coumnsWidth = w
     }
 
     onDataSourceChanged: {
@@ -39,123 +51,136 @@ Item {
         model_data_source.append(dataSource)
     }
 
-    FluRectangle{
-        id:layout_coumns
-        height: control.itemHeight
-        width: parent.width
-        color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-        radius: [12,12,0,0]
-
-        Row{
-            id:list_coumns
-            spacing: 0
-            anchors.fill: parent
-            Repeater{
-                model: model_coumns
-                delegate: Item{
-                    height: list_coumns.height
-                    width: model.width
-                    FluText{
-                        text:model.title
-                        wrapMode: Text.WordWrap
-                        anchors{
-                            verticalCenter: parent.verticalCenter
-                            left: parent.left
-                            leftMargin: 14
-                        }
-                        fontStyle: FluText.BodyStrong
-                    }
-                    FluDivider{
-                        width: 1
-                        height: 40
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        visible: index !== list_coumns.count-1
-                    }
-                }
-            }
-        }
-    }
-
-    Rectangle{
-        anchors.fill: layout_table
-        color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
-    }
-
-    ListView{
-        id:layout_table
+    Flickable{
+        id:layout_flickable
+        height: layout_table.height
         anchors{
-            top: layout_coumns.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
         }
-        height: contentHeight
-        clip:true
-        footer: Item{
-            height: 50
-            width:  layout_table.width
-            FluPagination{
-                id:pagination
-                height: 40
-                pageCurrent: control.pageCurrent
-                itemCount: control.itemCount
-                pageCount: control.pageCount
-                onRequestPage:
-                    (page,count)=> {
-                        control.requestPage(page,count)
-                    }
-                anchors{
-                    verticalCenter: parent.verticalCenter
-                    right: parent.right
-                }
-            }
+        contentWidth: layout_table.width
+        ScrollBar.horizontal: FluScrollBar {
         }
-        model:model_data_source
-        delegate: Item{
-            height: table_row.maxHeight
-            width: layout_table.width
-            property var model_values : getObjectValues(index)
-            property var itemObject: getObject(index)
-            property var listModel: model
-            Row{
-                id: table_row
-                spacing: 0
-                anchors.fill: parent
-                property int maxHeight: itemHeight
-                Repeater{
-                    model: model_values
-                    delegate:Item{
-                        height: table_row.maxHeight
-                        width: modelData.width
-                        Loader{
-                            property var model : modelData
-                            property var dataModel : listModel
-                            property var dataObject : itemObject
-                            anchors.fill: parent
-                            sourceComponent: {
-                                if(model.itemData instanceof Component){
-                                    return model.itemData
+        Rectangle{
+            anchors.fill: layout_table
+            radius: 5
+            color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+        }
+        ListView{
+            id:layout_table
+            height: contentHeight
+            width: Math.max(layout_flickable.width,d.coumnsWidth)
+            clip:true
+            interactive: false
+
+            header: FluRectangle{
+                id:layout_coumns
+                height: control.itemHeight
+                width: parent.width
+                color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+                radius: [5,5,0,0]
+
+                Row{
+                    id:list_coumns
+                    spacing: 0
+                    anchors.fill: parent
+                    Repeater{
+                        model: model_coumns
+                        delegate: Item{
+                            height: list_coumns.height
+                            width: model.width
+                            FluText{
+                                text:model.title
+                                wrapMode: Text.WordWrap
+                                anchors{
+                                    verticalCenter: parent.verticalCenter
+                                    left: parent.left
+                                    leftMargin: 14
                                 }
-                                return com_text
+                                fontStyle: FluText.BodyStrong
                             }
-                            onHeightChanged:
-                            {
-                                table_row.maxHeight = Math.max(table_row.maxHeight,height,itemHeight)
-                                parent.height = table_row.maxHeight
-                                table_row.parent.height = table_row.maxHeight
+                            FluDivider{
+                                width: 1
+                                height: 40
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+                                visible: index !== list_coumns.count-1
                             }
                         }
                     }
                 }
             }
-            FluDivider{
-                width: parent.width
-                height: 1
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
+
+            footer: Item{
+                height: 50
+                width:  layout_table.width
+                FluPagination{
+                    id:pagination
+                    height: 40
+                    pageCurrent: control.pageCurrent
+                    itemCount: control.itemCount
+                    pageCount: control.pageCount
+                    onRequestPage:
+                        (page,count)=> {
+                            control.requestPage(page,count)
+                        }
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        right: parent.right
+                    }
+                }
+            }
+            model:model_data_source
+            delegate: Item{
+                height: table_row.maxHeight
+                width: layout_table.width
+                property var model_values : getObjectValues(index)
+                property var itemObject: getObject(index)
+                property var listModel: model
+                Row{
+                    id: table_row
+                    spacing: 0
+                    anchors.fill: parent
+                    property int maxHeight: itemHeight
+                    Repeater{
+                        model: model_values
+                        delegate:Item{
+                            height: table_row.maxHeight
+                            width: modelData.width
+                            Loader{
+                                property var model : modelData
+                                property var dataModel : listModel
+                                property var dataObject : itemObject
+                                anchors.fill: parent
+                                sourceComponent: {
+                                    if(model.itemData instanceof Component){
+                                        return model.itemData
+                                    }
+                                    return com_text
+                                }
+                                onHeightChanged:
+                                {
+                                    table_row.maxHeight = Math.max(table_row.maxHeight,height,itemHeight)
+                                    parent.height = table_row.maxHeight
+                                    table_row.parent.height = table_row.maxHeight
+                                }
+                            }
+                        }
+                    }
+                }
+                FluDivider{
+                    width: parent.width
+                    height: 1
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                }
             }
         }
+
+
     }
+
 
     Component{
         id:com_text
