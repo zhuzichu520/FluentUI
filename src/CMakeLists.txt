@@ -9,7 +9,7 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-#设置插件输出目录
+#设置可执行文件输出目录
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
 else()
@@ -50,18 +50,12 @@ endforeach()
 
 #添加qml模块
 qt_add_qml_module(fluentui
-    OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FluentUI
+    OUTPUT_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI
     VERSION 1.0
     URI "FluentUI"
     SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
-)
-
-#设置属性
-set_target_properties(fluentui PROPERTIES
-    WIN32_EXECUTABLE TRUE
-    MACOSX_BUNDLE TRUE
 )
 
 #链接库

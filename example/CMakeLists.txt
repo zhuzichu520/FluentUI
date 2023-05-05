@@ -93,6 +93,7 @@ set_target_properties(example PROPERTIES
 #链接库
 target_link_libraries(example PRIVATE
     Qt6::Quick
+    fluentui
 )
 
 #安装

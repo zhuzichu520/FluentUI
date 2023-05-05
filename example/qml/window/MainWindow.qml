@@ -4,7 +4,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
-import example
 import "qrc:///example/qml/global/"
 
 FluWindow {
