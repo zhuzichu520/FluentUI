@@ -71,7 +71,6 @@ FluScrollablePage{
                     leftPadding:6
                     rightPadding:6
                     onClicked:{
-                        console.debug(dataModel.index)
                         showSuccess(JSON.stringify(dataObject))
                     }
                 }

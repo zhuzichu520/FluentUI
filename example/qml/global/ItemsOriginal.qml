@@ -9,14 +9,14 @@ FluObject{
 
     FluPaneItem{
         title:lang.home
-        //        icon:FluentIcons.Home
-        cusIcon: Image{
-            anchors.centerIn: parent
-            source: FluTheme.dark ? "qrc:/example/res/svg/home_dark.svg" : "qrc:/example/res/svg/home.svg"
-            sourceSize: Qt.size(30,30)
-            width: 18
-            height: 18
-        }
+        icon:FluentIcons.Home
+        //        cusIcon: Image{
+        //            anchors.centerIn: parent
+        //            source: FluTheme.dark ? "qrc:/example/res/svg/home_dark.svg" : "qrc:/example/res/svg/home.svg"
+        //            sourceSize: Qt.size(30,30)
+        //            width: 18
+        //            height: 18
+        //        }
         onTap:{
             navigationView.push("qrc:/example/qml/page/T_Home.qml")
         }
@@ -32,6 +32,12 @@ FluObject{
             desc:"A control that responds to user input and raisesa Click event."
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_Buttons.qml")
+            }
+        }
+        FluPaneItem{
+            title:"Text"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Text.qml")
             }
         }
         FluPaneItem{

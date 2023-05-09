@@ -120,7 +120,8 @@ FluExpander{
           "FluStatusView",
           "FluRatingControl",
           "FluPasswordBox",
-          "FluBreadcrumbBar"
+          "FluBreadcrumbBar",
+          "FluCopyableText"
       ];
       code = code.replace(/\n/g, "<br>");
       code = code.replace(/ /g, "&nbsp;");

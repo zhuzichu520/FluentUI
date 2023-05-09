@@ -509,7 +509,7 @@ Item {
                 onClicked: {
                     d.enableNavigationPanel = !d.enableNavigationPanel
                 }
-                visible: Layout.preferredWidth !== 0
+                visible: d.isMinimal
                 Behavior on Layout.preferredWidth{
                     NumberAnimation{
                         duration: 167
