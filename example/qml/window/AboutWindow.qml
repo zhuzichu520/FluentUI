@@ -124,15 +124,15 @@ FluWindow {
             Layout.preferredHeight: 252
             Row{
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 60
+                spacing: 30
                 Image{
-                    width: 164.55
-                    height: 224.25
+                    width: 250
+                    height: 250
                     source: "qrc:/example/res/image/qrcode_wx.jpg"
                 }
                 Image{
-                    width: 162
-                    height: 252
+                    width: 250
+                    height: 250
                     source: "qrc:/example/res/image/qrcode_zfb.jpg"
                 }
             }

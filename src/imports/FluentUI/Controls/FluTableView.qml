@@ -11,6 +11,7 @@ Item {
     property int itemCount: 1000
     property int pageCount: 10
     property int itemHeight: 56
+    property bool pageVisible: true
     signal requestPage(int page,int count)
 
     id:control
@@ -59,6 +60,7 @@ Item {
             right: parent.right
         }
         contentWidth: layout_table.width
+        clip:true
         ScrollBar.horizontal: FluScrollBar {
         }
         Rectangle{
@@ -104,7 +106,7 @@ Item {
                                 height: 40
                                 anchors.right: parent.right
                                 anchors.verticalCenter: parent.verticalCenter
-                                visible: index !== list_coumns.count-1
+                                visible: index !== model_coumns.count-1
                             }
                         }
                     }
@@ -112,8 +114,9 @@ Item {
             }
 
             footer: Item{
-                height: 50
-                width:  layout_table.width
+                height: pageVisible ? 50 : 0
+                clip: true
+                width: layout_table.width
                 FluPagination{
                     id:pagination
                     height: 40
@@ -176,8 +179,6 @@ Item {
                 }
             }
         }
-
-
     }
 
 
