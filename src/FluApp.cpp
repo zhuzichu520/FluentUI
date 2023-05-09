@@ -98,6 +98,7 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
             QString r =  pair->property("route").toString();
             if(r == route){
                 pair->setProperty("argument",argument);
+                pair->show();
                 pair->raise();
                 pair->requestActivate();
                 view->deleteLater();
