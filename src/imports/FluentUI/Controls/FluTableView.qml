@@ -195,21 +195,22 @@ Item {
     Component{
         id:com_text
         Item{
-            MouseArea{
-                id:item_mouse
-                hoverEnabled: true
-                anchors.fill: parent
-            }
-            FluText{
+            FluCopyableText{
                 id:table_value
                 text:String(model.itemData)
-                width: parent.width - 14
+                width: Math.min(parent.width - 14,implicitWidth)
                 wrapMode: Text.WordWrap
                 onImplicitHeightChanged: parent.parent.parent.height = Math.max(implicitHeight + 20,itemHeight)
                 anchors{
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                     leftMargin: 14
+                }
+                MouseArea{
+                    id:item_mouse
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
                 }
                 FluTooltip{
                     visible: item_mouse.containsMouse

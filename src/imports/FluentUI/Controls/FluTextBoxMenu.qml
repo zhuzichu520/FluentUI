@@ -14,6 +14,12 @@ FluMenu{
     focus:false
     enableAnimation:false
 
+    onVisibleChanged: {
+        if(visible){
+            inputItem.forceActiveFocus()
+        }
+    }
+
     Connections{
         target: inputItem
         function onTextChanged() {
