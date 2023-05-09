@@ -19,7 +19,6 @@ class FluColorSet : public QObject
     Q_PROPERTY_AUTO(QString,lightest)
 public:
     explicit FluColorSet(QObject *parent = nullptr);
-
 };
 
 #endif // FLUCOLORSET_H
