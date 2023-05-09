@@ -18,7 +18,7 @@ Item {
 
     FluText{
         id:text_title
-        fontStyle: FluText.TitleLarge
+        font: FluTextStyle.TitleLarge
         visible: text !== ""
         height: visible?implicitHeight:0
         anchors{

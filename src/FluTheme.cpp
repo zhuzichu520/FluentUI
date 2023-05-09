@@ -12,7 +12,6 @@ FluTheme::FluTheme(QObject *parent)
         Q_EMIT darkChanged();
     });
     primaryColor(FluApp::fluColors->Blue());
-    textSize(13);
     nativeText(false);
     frameless(true);
     darkMode(Fluent_DarkMode::Fluent_DarkModeType::Light);

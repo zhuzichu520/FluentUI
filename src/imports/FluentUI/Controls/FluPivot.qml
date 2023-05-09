@@ -57,8 +57,7 @@ Item {
             contentItem: Item{
                 FluText {
                     id:item_title
-                    fontStyle: FluText.Title
-                    font.bold: false
+                    font: FluTextStyle.Title
                     text: modelData.title
                     anchors.centerIn: parent
                     color: {

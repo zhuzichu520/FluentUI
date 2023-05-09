@@ -58,7 +58,7 @@ Item{
             visible: statusMode === FluStatusView.Empty
             FluText{
                 text:"空空如也"
-                fontStyle: FluText.BodyStrong
+                font: FluTextStyle.BodyStrong
                 Layout.alignment: Qt.AlignHCenter
             }
         }
@@ -77,7 +77,7 @@ Item{
             anchors.centerIn: parent
             FluText{
                 text:"页面出错了..."
-                fontStyle: FluText.BodyStrong
+                font: FluTextStyle.BodyStrong
                 Layout.alignment: Qt.AlignHCenter
             }
             FluFilledButton{

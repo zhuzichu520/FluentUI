@@ -41,7 +41,7 @@ FluScrollablePage{
         }
         FluText{
             text:"FluentUI Gallery"
-            fontStyle: FluText.TitleLarge
+            font: FluTextStyle.TitleLarge
             anchors{
                 top: parent.top
                 left: parent.left
@@ -101,7 +101,7 @@ FluScrollablePage{
                         }
                         FluText{
                             text: model.title
-                            fontStyle: FluText.Body
+                            font: FluTextStyle.Body
                             Layout.topMargin: 20
                             Layout.leftMargin: 20
                         }
@@ -184,7 +184,7 @@ FluScrollablePage{
                 FluText{
                     id:item_title
                     text:modelData.title
-                    fontStyle: FluText.BodyStrong
+                    font: FluTextStyle.BodyStrong
                     anchors{
                         left: item_icon.right
                         leftMargin: 20
@@ -198,7 +198,7 @@ FluScrollablePage{
                     color:FluColors.Grey120
                     wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight
-                    fontStyle: FluText.Caption
+                    font: FluTextStyle.Caption
                     maximumLineCount: 2
                     anchors{
                         left: item_title.left
@@ -236,7 +236,7 @@ FluScrollablePage{
 
     FluText{
         text: "Recently added samples"
-        fontStyle: FluText.Title
+        font: FluTextStyle.Title
         Layout.topMargin: 20
         Layout.leftMargin: 20
     }
@@ -253,7 +253,7 @@ FluScrollablePage{
 
     FluText{
         text: "Recently updated samples"
-        fontStyle: FluText.Title
+        font: FluTextStyle.Title
         Layout.topMargin: 20
         Layout.leftMargin: 20
     }

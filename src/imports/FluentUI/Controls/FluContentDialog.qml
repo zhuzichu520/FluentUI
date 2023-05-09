@@ -65,7 +65,7 @@ Popup {
 
         FluText{
             id:text_title
-            fontStyle: FluText.TitleLarge
+            font: FluTextStyle.TitleLarge
             text:title
             topPadding: 20
             leftPadding: 20
@@ -80,7 +80,7 @@ Popup {
 
         FluText{
             id:text_message
-            fontStyle: FluText.Body
+            font: FluTextStyle.Body
             wrapMode: Text.WrapAnywhere
             text:message
             topPadding: 14

@@ -37,11 +37,6 @@ class FluTheme : public QObject
      */
     Q_PROPERTY_AUTO(bool,nativeText);
 
-    /**
-     * @brief textSize 文字大小
-     */
-    Q_PROPERTY_AUTO(int,textSize);
-
     QML_NAMED_ELEMENT(FluTheme)
     QML_SINGLETON
 public:

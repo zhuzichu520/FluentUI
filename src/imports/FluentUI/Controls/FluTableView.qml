@@ -99,7 +99,7 @@ Item {
                                     left: parent.left
                                     leftMargin: 14
                                 }
-                                fontStyle: FluText.BodyStrong
+                                font: FluTextStyle.BodyStrong
                             }
                             FluDivider{
                                 width: 1

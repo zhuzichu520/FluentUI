@@ -148,7 +148,7 @@ Item {
             width: layout_list.width
             FluText{
                 text:model.title
-                fontStyle: FluText.BodyStrong
+                font: FluTextStyle.BodyStrong
                 anchors{
                     bottom: parent.bottom
                     left:parent.left
@@ -535,7 +535,7 @@ Item {
                 Layout.alignment: Qt.AlignVCenter
                 text:control.title
                 Layout.leftMargin: 12
-                fontStyle: FluText.Body
+                font: FluTextStyle.Body
             }
         }
     }

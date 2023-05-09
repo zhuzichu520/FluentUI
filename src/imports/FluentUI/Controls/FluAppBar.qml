@@ -55,9 +55,6 @@ Rectangle{
             leftMargin: 10
         }
         color:root.textColor
-        fontStyle: FluText.Title
-        font.pixelSize: 14
-        font.bold: true
     }
 
     RowLayout{

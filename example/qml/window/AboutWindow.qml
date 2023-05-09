@@ -34,11 +34,11 @@ FluWindow {
             spacing: 14
             FluText{
                 text:"FluentUI"
-                fontStyle: FluText.Title
+                font: FluTextStyle.Title
             }
             FluText{
                 text:"v%1".arg(appInfo.version)
-                fontStyle: FluText.Body
+                font: FluTextStyle.Body
                 Layout.alignment: Qt.AlignBottom
             }
         }
