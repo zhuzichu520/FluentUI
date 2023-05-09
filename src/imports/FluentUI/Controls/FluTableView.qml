@@ -118,6 +118,7 @@ Item {
                     id:pagination
                     height: 40
                     pageCurrent: control.pageCurrent
+                    onPageCurrentChanged: control.pageCurrent = pageCurrent
                     itemCount: control.itemCount
                     pageCount: control.pageCount
                     onRequestPage:
@@ -127,6 +128,15 @@ Item {
                     anchors{
                         top: parent.top
                         right: parent.right
+                    }
+                    Connections{
+                        target: control
+                        function onPageCurrentChanged(){
+                            if (control.pageCurrent!==pagination.pageCurrent)
+                            {
+                                pagination.calcNewPage(control.pageCurrent)
+                            }
+                        }
                     }
                 }
             }
