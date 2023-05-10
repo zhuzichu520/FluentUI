@@ -35,6 +35,12 @@ FluWindow {
             FluText{
                 text:"FluentUI"
                 font: FluTextStyle.Title
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        FluApp.navigate("/")
+                    }
+                }
             }
             FluText{
                 text:"v%1".arg(appInfo.version)

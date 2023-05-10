@@ -15,6 +15,7 @@ FluWindow {
     closeDestory:false
     minimumWidth: 520
     minimumHeight: 460
+    launchMode: FluWindow.SingleTask
 
     closeFunc:function(event){
         close_app.open()

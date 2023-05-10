@@ -91,29 +91,28 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         properties.insert("pageRegister",QVariant::fromValue(fluRegister));
     }
     properties.insert("argument",argument);
-    QQuickWindow *view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
-    int launchMode = view->property("launchMode").toInt();
-    if(launchMode==1){
-        for (auto& pair : wnds) {
-            QString r =  pair->property("route").toString();
-            if(r == route){
-                pair->setProperty("argument",argument);
-                pair->show();
-                pair->raise();
-                pair->requestActivate();
-                view->deleteLater();
-                return;
-            }
-        }
-    }else if(launchMode==2){
-        for (auto& pair : wnds) {
-            QString r =  pair->property("route").toString();
-            if(r == route){
-                pair->close();
-                break;
-            }
+    QQuickWindow *view=nullptr;
+    for (auto& pair : wnds) {
+        QString r =  pair->property("route").toString();
+        if(r == route){
+            view = pair;
+            break;
         }
     }
+    if(view){
+        //如果窗口存在，则判断启动模式
+        int launchMode = view->property("launchMode").toInt();
+        if(launchMode == 1){
+            view->setProperty("argument",argument);
+            view->show();
+            view->raise();
+            view->requestActivate();
+            return;
+        }else if(launchMode == 2){
+            view->close();
+        }
+    }
+    view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
     if(fluTheme->frameless()){
         view->setFlag(Qt::FramelessWindowHint,true);
     }

@@ -210,6 +210,7 @@ Item {
                     id:item_mouse
                     hoverEnabled: true
                     anchors.fill: parent
+                    cursorShape: Qt.IBeamCursor
                     acceptedButtons: Qt.NoButton
                 }
                 FluTooltip{
