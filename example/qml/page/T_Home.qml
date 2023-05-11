@@ -7,11 +7,6 @@ import FluentUI
 
 FluScrollablePage{
 
-
-    leftPadding:10
-    rightPadding:0
-    bottomPadding:20
-
     ListModel{
         id:model_header
         ListElement{

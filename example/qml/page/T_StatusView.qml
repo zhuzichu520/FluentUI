@@ -8,10 +8,6 @@ import "../component"
 FluScrollablePage{
 
     title:"StatusView"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
 
     FluArea{
         id:layout_actions

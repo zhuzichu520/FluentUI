@@ -7,13 +7,9 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"TabView"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
-
     property var colors : [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
+
+    title:"TabView"
 
     Component{
         id:com_page

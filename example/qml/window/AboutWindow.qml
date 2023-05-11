@@ -119,6 +119,7 @@ FluWindow {
 
         RowLayout{
             spacing: 14
+            Layout.topMargin: 20
             Layout.leftMargin: 15
             FluText{
                 text:"捐赠："
@@ -147,12 +148,11 @@ FluWindow {
         RowLayout{
             spacing: 14
             Layout.leftMargin: 15
+            Layout.topMargin: 20
             FluText{
                 id:text_desc
                 text:"个人开发，维护不易，你们的捐赠就是我继续更新的动力！\n有什么问题提Issues，只要时间充足我就会解决的！！"
             }
         }
-
-
     }
 }

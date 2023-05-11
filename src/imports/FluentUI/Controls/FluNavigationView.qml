@@ -19,12 +19,8 @@ Item {
     property FluObject items
     property FluObject footerItems
     property int displayMode: FluNavigationView.Auto
-    property Component  autoSuggestBox
-    property var window : {
-        if(Window.window == null)
-            return null
-        return Window.window
-    }
+    property Component autoSuggestBox
+    property Component actionItem
 
     id:control
 
@@ -471,7 +467,7 @@ Item {
     Item {
         id:nav_app_bar
         width: parent.width
-        height: 50
+        height: 40
         z:999
         RowLayout{
             height:parent.height
@@ -479,8 +475,8 @@ Item {
             FluIconButton{
                 iconSource: FluentIcons.ChromeBack
                 Layout.leftMargin: 5
-                Layout.preferredWidth: 40
-                Layout.preferredHeight: 40
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
                 disabled:  nav_swipe.depth === 1
                 iconSize: 13
@@ -503,8 +499,8 @@ Item {
                 id:btn_nav
                 iconSource: FluentIcons.GlobalNavButton
                 iconSize: 15
-                Layout.preferredWidth: d.isMinimal ? 40 : 0
-                Layout.preferredHeight: 40
+                Layout.preferredWidth: d.isMinimal ? 30 : 0
+                Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
                 onClicked: {
                     d.enableNavigationPanel = !d.enableNavigationPanel
@@ -529,6 +525,7 @@ Item {
                     }
                     return 5
                 }
+                sourceSize: Qt.size(40,40)
                 Layout.alignment: Qt.AlignVCenter
             }
             FluText{
@@ -536,6 +533,22 @@ Item {
                 text:control.title
                 Layout.leftMargin: 12
                 font: FluTextStyle.Body
+            }
+        }
+
+        Item{
+            anchors.right: parent.right
+            height: parent.height
+            width: {
+                if(loader_action.item){
+                    return loader_action.item.width
+                }
+                return 0
+            }
+            Loader{
+                id:loader_action
+                anchors.centerIn: parent
+                sourceComponent: actionItem
             }
         }
     }
@@ -620,7 +633,7 @@ Item {
             if(d.isMinimal || d.isCompactAndPanel){
                 return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             }
-            if(window && window.active){
+            if(Window.window.active){
                 return FluTheme.dark ? Qt.rgba(26/255,34/255,41/255,1) : Qt.rgba(238/255,244/255,249/255,1)
             }
             return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)

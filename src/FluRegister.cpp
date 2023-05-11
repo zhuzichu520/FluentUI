@@ -12,7 +12,7 @@ FluRegister::FluRegister(QObject *parent)
 }
 
 void FluRegister::launch(const QJsonObject& argument){
-    FluApp::fluApp->navigate(path(),argument,this);
+    FluApp::getInstance()->navigate(path(),argument,this);
 }
 
 void FluRegister::onResult(const QJsonObject& data){

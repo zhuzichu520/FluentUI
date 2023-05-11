@@ -31,7 +31,7 @@ Rectangle{
 
     id:root
     color: Qt.rgba(0,0,0,0)
-    visible: FluTheme.frameless
+    visible: false
     height: visible ? 30 : 0
     opacity: visible
     z: 65535

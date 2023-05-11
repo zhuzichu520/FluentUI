@@ -25,9 +25,9 @@ public:
     Q_INVOKABLE void initWindow(QQuickWindow* window);
 
     /**
-     * @brief destoryWindow 销毁窗口，释放资源，QML中的Window close并不会销毁窗口，只是把窗口隐藏了
+     * @brief deleteWindow 销毁窗口，释放资源，QML中的Window close并不会销毁窗口，只是把窗口隐藏了
      */
-    Q_INVOKABLE void destoryWindow();
+    Q_INVOKABLE void deleteWindow();
 
     /**
      * @brief createRegister 创建一个FluRegsiter对象，在FluWindow中registerForWindowResult方法调用
@@ -36,11 +36,6 @@ public:
      * @return
      */
     Q_INVOKABLE QVariant createRegister(QQuickWindow* window,const QString& path);
-
-    /**
-     * @brief firstUpdate 窗口创建成功后调用，只调用一次
-     */
-    Q_INVOKABLE void firstUpdate();
 
 private:
     QQuickWindow* window;

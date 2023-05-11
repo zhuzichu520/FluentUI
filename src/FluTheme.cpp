@@ -5,15 +5,24 @@
 #include "FluApp.h"
 #include <QGuiApplication>
 
+FluTheme* FluTheme::m_instance = nullptr;
+
+FluTheme *FluTheme::getInstance()
+{
+    if(FluTheme::m_instance == nullptr){
+        FluTheme::m_instance = new FluTheme;
+    }
+    return FluTheme::m_instance;
+}
+
 FluTheme::FluTheme(QObject *parent)
     : QObject{parent}
 {
     connect(this,&FluTheme::darkModeChanged,this,[=]{
         Q_EMIT darkChanged();
     });
-    primaryColor(FluApp::fluColors->Blue());
+    primaryColor(FluColors::getInstance()->Blue());
     nativeText(false);
-    frameless(true);
     darkMode(Fluent_DarkMode::Fluent_DarkModeType::Light);
     qApp->installEventFilter(this);
 }

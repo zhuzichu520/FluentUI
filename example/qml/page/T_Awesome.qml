@@ -8,10 +8,6 @@ FluContentPage {
 
     title:"Awesome"
 
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-
     FluTextBox{
         id:text_box
         placeholderText: "请输入关键字"

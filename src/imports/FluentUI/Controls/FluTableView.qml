@@ -1,5 +1,6 @@
 ﻿import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import FluentUI
 
@@ -144,12 +145,22 @@ Item {
                 }
             }
             model:model_data_source
-            delegate: Item{
+            delegate: Control{
+                id:item_control
                 height: table_row.maxHeight
                 width: layout_table.width
                 property var model_values : getObjectValues(index)
                 property var itemObject: getObject(index)
                 property var listModel: model
+                Rectangle{
+                    anchors.fill: parent
+                    color: {
+                        if(item_control.hovered){
+                            return FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+                        }
+                        return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(1,1,1,1)
+                    }
+                }
                 Row{
                     id: table_row
                     spacing: 0

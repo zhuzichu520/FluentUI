@@ -11,10 +11,6 @@ FluScrollablePage{
     property var loginPageRegister: registerForWindowResult("/login")
 
     title:"MultiWindow"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
 
     Connections{
         target: loginPageRegister

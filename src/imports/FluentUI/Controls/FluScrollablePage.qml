@@ -8,19 +8,20 @@ Item {
 
     property alias title: text_title.text
     default property alias content: container.data
-    property int spacing : 5
-    property int leftPadding: 0
+    property int spacing : 0
+    property int leftPadding: 10
     property int topPadding: 0
-    property int rightPadding: 0
-    property int bottomPadding: 0
+    property int rightPadding: 10
+    property int bottomPadding: 10
 
     id:control
 
     FluText{
         id:text_title
-        font: FluTextStyle.TitleLarge
+        font: FluTextStyle.Title
         visible: text !== ""
-        height: visible?implicitHeight:0
+        height: visible ? implicitHeight : 0
+        padding: 0
         anchors{
             top: parent.top
             topMargin: control.topPadding

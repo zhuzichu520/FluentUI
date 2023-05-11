@@ -23,11 +23,6 @@ class FluTheme : public QObject
     Q_PROPERTY_AUTO(FluColorSet*,primaryColor)
 
     /**
-     * @brief frameless 是否是无边框窗口，只支持windows部分电脑
-     */
-    Q_PROPERTY_AUTO(bool,frameless);
-
-    /**
      * @brief darkMode 夜间模式，支持System=0、Light=1、Dark=2
      */
     Q_PROPERTY_AUTO(int,darkMode);
@@ -39,8 +34,15 @@ class FluTheme : public QObject
 
     QML_NAMED_ELEMENT(FluTheme)
     QML_SINGLETON
-public:
+private:
+    static FluTheme* m_instance;
     explicit FluTheme(QObject *parent = nullptr);
+public:
+    static FluTheme *getInstance();
+    static FluTheme *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return getInstance();
+    }
     bool dark();
     Q_SIGNAL void darkChanged();
 private:

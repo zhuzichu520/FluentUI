@@ -48,7 +48,7 @@ FluWindow {
             MenuItem {
                 text: "退出"
                 onTriggered: {
-                    window.destoryWindow()
+                    window.deleteWindow()
                     FluApp.closeApp()
                 }
             }
@@ -76,7 +76,7 @@ FluWindow {
         positiveText:"退出"
         neutralText:"取消"
         onPositiveClicked:{
-            window.destoryWindow()
+            window.deleteWindow()
             FluApp.closeApp()
         }
 
@@ -101,6 +101,27 @@ FluWindow {
                 (data)=>{
                     ItemsOriginal.startPageByItem(data)
                 }
+        }
+        actionItem:Item{
+            height: 40
+            width: 148
+            RowLayout{
+                anchors.centerIn: parent
+                spacing: 5
+                FluText{
+                    text:lang.dark_mode
+                }
+                FluToggleSwitch{
+                    selected: FluTheme.dark
+                    clickFunc:function(){
+                        if(FluTheme.dark){
+                            FluTheme.darkMode = FluDarkMode.Light
+                        }else{
+                            FluTheme.darkMode = FluDarkMode.Dark
+                        }
+                    }
+                }
+            }
         }
         Component.onCompleted: {
             ItemsOriginal.navigationView = nav_view

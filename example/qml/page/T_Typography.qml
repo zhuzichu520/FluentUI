@@ -5,11 +5,9 @@ import FluentUI
 
 FluContentPage {
 
-    title: "Typography"
     property real textScale: 1
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
+
+    title: "Typography"
 
     Component.onCompleted: {
         slider.seek(0)

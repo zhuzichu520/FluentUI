@@ -9,12 +9,15 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-#设置可执行文件输出目录
+##设置可执行文件输出目录
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_PREFIX_PATH}/bin)
 else()
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_PREFIX_PATH}/bin)
 endif()
+
+#设置QML路径
+set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_PREFIX_PATH}/qml)
 
 #设置版本号
 add_definitions(-DVERSION=1,2,9,0)
@@ -36,7 +39,7 @@ foreach(filepath ${QML_PATHS})
 endforeach(filepath)
 
 #遍历所有资源文件
-file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp)
+file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.metainfo)
 foreach(filepath ${RES_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND resource_files ${filename})
@@ -49,8 +52,8 @@ foreach(filepath IN LISTS qml_files resource_files)
 endforeach()
 
 #添加qml模块
+qt_add_library(fluentui SHARED)
 qt_add_qml_module(fluentui
-    OUTPUT_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI
     VERSION 1.0
     URI "FluentUI"
     SOURCES ${sources_files} fluentui.rc
