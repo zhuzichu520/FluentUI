@@ -56,6 +56,7 @@ qt_add_qml_module(fluentui
     SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
+    DESIGNER_SUPPORTED
 )
 
 #链接库

@@ -1,4 +1,4 @@
-﻿MetaInfo {
+MetaInfo {
     Type {
         name: "FluentUI.Controls.FluButton"
         icon: "images/button-icon16.png"
