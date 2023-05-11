@@ -16,9 +16,6 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_PREFIX_PATH}/bin)
 endif()
 
-#设置QML路径
-set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_PREFIX_PATH}/qml)
-
 #设置版本号
 add_definitions(-DVERSION=1,2,9,0)
 
@@ -54,6 +51,7 @@ endforeach()
 #添加qml模块
 qt_add_library(fluentui SHARED)
 qt_add_qml_module(fluentui
+    OUTPUT_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI
     VERSION 1.0
     URI "FluentUI"
     SOURCES ${sources_files} fluentui.rc
