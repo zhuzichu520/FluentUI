@@ -8,10 +8,6 @@ import "../component"
 FluScrollablePage {
 
     title:"TreeView"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
 
     function randomName() {
         var names = ["张三", "李四", "王五", "赵六", "钱七", "孙八", "周九", "吴十"]

@@ -1,0 +1,33 @@
+﻿MetaInfo {
+    Type {
+        name: "FluentUI.Controls.FluButton"
+        icon: "images/button-icon16.png"
+
+        ItemLibraryEntry {
+            name: "FluButton"
+            category: "FluentUI - Controls"
+            libraryIcon: "images/button-icon.png"
+            version: "1.0"
+            requiredImport: "FluentUI"
+            toolTip: qsTr("A button with text.")
+
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Button\")" }
+        }
+    }
+
+    Type {
+        name: "FluentUI.Controls.FluText"
+        icon: "images/label-icon16.png"
+
+        ItemLibraryEntry {
+            name: "FluText"
+            category: "FluentUI - Controls"
+            libraryIcon: "images/label-icon.png"
+            version: "1.0"
+            requiredImport: "FluentUI"
+            toolTip: qsTr("A text.")
+
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Text\")" }
+        }
+    }
+}

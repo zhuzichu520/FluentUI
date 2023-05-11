@@ -5,11 +5,9 @@ import FluentUI
 
 FluContentPage {
 
+    property real textScale: 1
+
     title: "Typography"
-    property int textSize: FluTheme.textSize
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
 
     Component.onCompleted: {
         slider.seek(0)
@@ -26,47 +24,49 @@ FluContentPage {
         paddings: 10
         ColumnLayout{
             spacing: 0
+            scale: textScale
+            transformOrigin: Item.TopLeft
             FluText{
+                id:text_Display
                 text:"Display"
                 padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.Display
+                font: FluTextStyle.Display
             }
             FluText{
+                id:text_TitleLarge
                 text:"Title Large"
                 padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.TitleLarge
+                font: FluTextStyle.TitleLarge
             }
             FluText{
+                id:text_Title
                 text:"Title"
                 padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.Title
+                font: FluTextStyle.Title
             }
             FluText{
+                id:text_Subtitle
                 text:"Subtitle"
                 padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.SubTitle
+                font: FluTextStyle.Subtitle
             }
             FluText{
+                id:text_BodyStrong
                 text:"Body Strong"
                 padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.BodyStrong
+                font: FluTextStyle.BodyStrong
             }
             FluText{
+                id:text_Body
                 text:"Body"
                 padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.Body
+                font: FluTextStyle.Body
             }
             FluText{
+                id:text_Caption
                 text:"Caption"
                 padding: 0
-                pixelSize: textSize
-                fontStyle: FluText.Caption
+                font: FluTextStyle.Caption
             }
         }
 
@@ -80,7 +80,7 @@ FluContentPage {
                 topMargin: 30
             }
             onValueChanged:{
-                textSize = value/100*6+FluTheme.textSize
+                textScale = 1+value/100
             }
         }
     }

@@ -4,11 +4,13 @@ import QtQuick
 import FluentUI
 
 FluObject{
-    id:footer_items
 
     property var navigationView
 
+    id:footer_items
+
     FluPaneItemSeparator{}
+
     FluPaneItem{
         title:lang.about
         icon:FluentIcons.Contact
@@ -16,6 +18,7 @@ FluObject{
             FluApp.navigate("/about")
         }
     }
+
     FluPaneItem{
         title:lang.settings
         icon:FluentIcons.Settings
@@ -23,4 +26,5 @@ FluObject{
             navigationView.push("qrc:/example/qml/page/T_Settings.qml")
         }
     }
+
 }

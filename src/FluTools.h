@@ -13,10 +13,15 @@ class FluTools : public QObject
 
     QML_NAMED_ELEMENT(FluTools)
     QML_SINGLETON
-
-public:
+private:
     explicit FluTools(QObject *parent = nullptr);
-
+    static FluTools* m_instance;
+public:
+    static FluTools *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return getInstance();
+    }
+    static FluTools *getInstance();
     /**
      * @brief clipText 将字符串添加到剪切板
      * @param text

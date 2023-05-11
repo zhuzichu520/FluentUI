@@ -9,11 +9,6 @@ FluScrollablePage{
 
     title:"Badge"
 
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
-
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20

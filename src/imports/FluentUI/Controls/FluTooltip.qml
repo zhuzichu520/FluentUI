@@ -6,10 +6,11 @@ ToolTip {
 
     id:tool_tip
 
+//    property var font: FluTextStyle.Body
+
     contentItem: FluText {
         text: tool_tip.text
-        font: tool_tip.font
-        fontStyle: FluText.Body
+//        font: tool_tip.font
         padding: 4
         wrapMode: Text.WrapAnywhere
     }

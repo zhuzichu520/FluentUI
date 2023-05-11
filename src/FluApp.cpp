@@ -9,27 +9,16 @@
 #include <QFontDatabase>
 #include <QClipboard>
 #include "Def.h"
-#ifdef Q_OS_WIN
-#pragma comment(lib, "Dwmapi.lib")
-#pragma comment(lib, "User32.lib")
-#include <dwmapi.h>
-#include <Windows.h>
-#include <windowsx.h>
-static bool isCompositionEnabled()
+
+FluApp* FluApp::m_instance = nullptr;
+
+FluApp *FluApp::getInstance()
 {
-    BOOL composition_enabled = FALSE;
-    bool success = ::DwmIsCompositionEnabled(&composition_enabled) == S_OK;
-    return composition_enabled && success;
+    if(FluApp::m_instance == nullptr){
+        FluApp::m_instance = new FluApp;
+    }
+    return FluApp::m_instance;
 }
-#endif
-
-FluApp* FluApp::fluApp = nullptr;
-
-FluTheme* FluApp::fluTheme = nullptr;
-
-FluColors* FluApp::fluColors = nullptr;
-
-FluTools* FluApp::fluTools = nullptr;
 
 FluApp::FluApp(QObject *parent)
     : QObject{parent}
@@ -38,43 +27,14 @@ FluApp::FluApp(QObject *parent)
 }
 
 FluApp::~FluApp(){
-    if (nativeEvent != Q_NULLPTR) {
-        delete nativeEvent;
-        nativeEvent = Q_NULLPTR;
-    }
-}
 
-void FluApp::setFluApp(FluApp* val){
-    FluApp::fluApp = val;
-}
-
-void FluApp::setFluTheme(FluTheme* val){
-    FluApp::fluTheme = val;
-}
-
-void FluApp::setFluColors(FluColors* val){
-    FluApp::fluColors = val;
-}
-
-void FluApp::setFluTools(FluTools* val){
-    FluApp::fluTools = val;
 }
 
 void FluApp::init(QQuickWindow *window){
     this->appWindow = window;
-    QQmlEngine *engine = qmlEngine(appWindow);
-    QQmlComponent component(engine, ":/FluentUI/Controls/FluSingleton.qml");
-    component.create();
-    nativeEvent = new NativeEventFilter();
-    qApp->installNativeEventFilter(nativeEvent);
 }
 
 void FluApp::run(){
-#ifdef Q_OS_WIN
-    if(!isCompositionEnabled()){
-        fluTheme->frameless(false);
-    }
-#endif
     navigate(initialRoute());
 }
 
@@ -91,31 +51,28 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         properties.insert("pageRegister",QVariant::fromValue(fluRegister));
     }
     properties.insert("argument",argument);
-    QQuickWindow *view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
-    int launchMode = view->property("launchMode").toInt();
-    if(launchMode==1){
-        for (auto& pair : wnds) {
-            QString r =  pair->property("route").toString();
-            if(r == route){
-                pair->setProperty("argument",argument);
-                pair->raise();
-                pair->requestActivate();
-                view->deleteLater();
-                return;
-            }
-        }
-    }else if(launchMode==2){
-        for (auto& pair : wnds) {
-            QString r =  pair->property("route").toString();
-            if(r == route){
-                pair->close();
-                break;
-            }
+    QQuickWindow *view=nullptr;
+    for (auto& pair : wnds) {
+        QString r =  pair->property("route").toString();
+        if(r == route){
+            view = pair;
+            break;
         }
     }
-    if(fluTheme->frameless()){
-        view->setFlag(Qt::FramelessWindowHint,true);
+    if(view){
+        //如果窗口存在，则判断启动模式
+        int launchMode = view->property("launchMode").toInt();
+        if(launchMode == 1){
+            view->setProperty("argument",argument);
+            view->show();
+            view->raise();
+            view->requestActivate();
+            return;
+        }else if(launchMode == 2){
+            view->close();
+        }
     }
+    view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
     wnds.insert(view->winId(),view);
     if(fluRegister){
         fluRegister->to(view);

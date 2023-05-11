@@ -7,12 +7,8 @@ import FluentUI
 import "../component"
 
 FluScrollablePage{
-    title:"Buttons"
 
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
+    title:"Buttons"
 
     FluText{
         Layout.topMargin: 20

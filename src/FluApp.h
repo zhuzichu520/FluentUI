@@ -11,7 +11,6 @@
 #include "FluTheme.h"
 #include "FluTools.h"
 #include "FluColors.h"
-#include "NativeEventFilter.h"
 #include "FluRegister.h"
 #include "stdafx.h"
 
@@ -33,11 +32,19 @@ class FluApp : public QObject
 
     QML_NAMED_ELEMENT(FluApp)
     QML_SINGLETON
-
-public:
+private:
+    /**
+     * @brief FluApp 将默认构造函数设置为私有，则qml创建单例就会走create工厂方法创建单例
+     * @param parent
+     */
     explicit FluApp(QObject *parent = nullptr);
+public:
     ~FluApp();
-
+    static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return getInstance();
+    }
+    static FluApp *getInstance();
     /**
      * @brief run
      */
@@ -69,62 +76,14 @@ public:
      */
     Q_INVOKABLE void closeApp();
 
-    /**
-     * @brief setFluApp 在FluSingleton.qml调用，拿到QML中FluApp的单例
-     * @param val
-     */
-    Q_INVOKABLE void setFluApp(FluApp* val);
-
-    /**
-     * @brief setFluTheme 在FluSingleton.qml调用，拿到QML中FluTheme的单例
-     * @param val
-     */
-    Q_INVOKABLE void setFluTheme(FluTheme* val);
-
-    /**
-     * @brief setFluColors 在FluSingleton.qml调用，拿到QML中FluColors的单例
-     * @param val
-     */
-    Q_INVOKABLE void setFluColors(FluColors* val);
-
-    /**
-     * @brief setFluColors 在FluSingleton.qml调用，拿到QML中FluTools的单例
-     * @param val
-     */
-    Q_INVOKABLE void setFluTools(FluTools* val);
-
 public:
     /**
      * @brief wnds
      */
     QMap<quint64, QQuickWindow*> wnds;
 
-    /**
-     * @brief fluApp
-     */
-    static FluApp* fluApp;
-
-    /**
-     * @brief fluTheme
-     */
-    static FluTheme* fluTheme;
-
-    /**
-     * @brief fluColors
-     */
-    static FluColors* fluColors;
-
-    /**
-     * @brief fluTools
-     */
-    static FluTools* fluTools;
-
 private:
-    /**
-     * @brief nativeEvent
-     */
-    NativeEventFilter *nativeEvent = Q_NULLPTR;
-
+    static FluApp* m_instance;
     /**
      * @brief appWindow
      */

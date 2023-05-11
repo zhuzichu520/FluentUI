@@ -8,10 +8,6 @@ import "../component"
 FluScrollablePage{
 
     title:"TableView"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
 
     Component.onCompleted: {
         const columns = [
@@ -71,7 +67,6 @@ FluScrollablePage{
                     leftPadding:6
                     rightPadding:6
                     onClicked:{
-                        console.debug(dataModel.index)
                         showSuccess(JSON.stringify(dataObject))
                     }
                 }

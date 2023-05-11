@@ -8,10 +8,6 @@ import "../component"
 FluScrollablePage{
 
     title:"Rectangle"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
 
     FluArea{
         Layout.fillWidth: true
@@ -67,7 +63,7 @@ FluScrollablePage{
             }
             FluText{
                 text:"配合图片使用"
-                fontStyle: FluText.SubTitle
+                font: FluTextStyle.Subtitle
                 Layout.topMargin: 20
             }
             RowLayout{

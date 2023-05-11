@@ -141,6 +141,7 @@ Item {
                                 currentParentElement = item_layout.parent.itemModel
                             }
                         }
+                        itemClicked(model)
                     }
                     if(selectionMode === FluTreeView.Multiple){
 
@@ -300,8 +301,8 @@ Item {
         return result
     }
 
-    function createItem(text="Title",expanded=true,items=[]){
-        return {text:text,expanded:expanded,items:items,key:uniqueRandom(),multipSelected:false,multipIndex:0,multipParentKey:""};
+    function createItem(text="",expanded=true,items=[],data={}){
+        return {text:text,expanded:expanded,items:items,key:uniqueRandom(),multipSelected:false,multipIndex:0,multipParentKey:"",data:data};
     }
 
     function uniqueRandom() {

@@ -3,6 +3,17 @@
 #include <QClipboard>
 #include <QUuid>
 
+FluTools* FluTools::m_instance = nullptr;
+
+FluTools *FluTools::getInstance()
+{
+    if(FluTools::m_instance == nullptr){
+        FluTools::m_instance = new FluTools;
+    }
+    return FluTools::m_instance;
+}
+
+
 FluTools::FluTools(QObject *parent)
     : QObject{parent}
 {

@@ -1,5 +1,15 @@
 ﻿#include "FluColors.h"
 
+FluColors* FluColors::m_instance = nullptr;
+
+FluColors *FluColors::getInstance()
+{
+    if(FluColors::m_instance == nullptr){
+        FluColors::m_instance = new FluColors;
+    }
+    return FluColors::m_instance;
+}
+
 FluColors::FluColors(QObject *parent)
     : QObject{parent}
 {

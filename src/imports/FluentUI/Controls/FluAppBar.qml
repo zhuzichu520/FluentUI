@@ -31,7 +31,7 @@ Rectangle{
 
     id:root
     color: Qt.rgba(0,0,0,0)
-    visible: FluTheme.frameless
+    visible: false
     height: visible ? 30 : 0
     opacity: visible
     z: 65535
@@ -55,9 +55,6 @@ Rectangle{
             leftMargin: 10
         }
         color:root.textColor
-        fontStyle: FluText.Title
-        font.pixelSize: 14
-        font.bold: true
     }
 
     RowLayout{

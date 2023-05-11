@@ -9,10 +9,6 @@ import "../component"
 FluScrollablePage{
 
     title:"Settings"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
 
     FluArea{
         Layout.fillWidth: true
@@ -28,7 +24,7 @@ FluScrollablePage{
             }
             FluText{
                 text:lang.dark_mode
-                fontStyle: FluText.BodyStrong
+                font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
             Repeater{
@@ -62,7 +58,7 @@ FluScrollablePage{
 
             FluText{
                 text:lang.navigation_view_display_mode
-                fontStyle: FluText.BodyStrong
+                font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
             Repeater{
@@ -93,7 +89,7 @@ FluScrollablePage{
 
             FluText{
                 text:lang.locale
-                fontStyle: FluText.BodyStrong
+                font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
 

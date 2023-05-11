@@ -34,11 +34,17 @@ FluWindow {
             spacing: 14
             FluText{
                 text:"FluentUI"
-                fontStyle: FluText.Title
+                font: FluTextStyle.Title
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        FluApp.navigate("/")
+                    }
+                }
             }
             FluText{
                 text:"v%1".arg(appInfo.version)
-                fontStyle: FluText.Body
+                font: FluTextStyle.Body
                 Layout.alignment: Qt.AlignBottom
             }
         }
@@ -113,6 +119,7 @@ FluWindow {
 
         RowLayout{
             spacing: 14
+            Layout.topMargin: 20
             Layout.leftMargin: 15
             FluText{
                 text:"捐赠："
@@ -124,15 +131,15 @@ FluWindow {
             Layout.preferredHeight: 252
             Row{
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 60
+                spacing: 30
                 Image{
-                    width: 164.55
-                    height: 224.25
+                    width: 250
+                    height: 250
                     source: "qrc:/example/res/image/qrcode_wx.jpg"
                 }
                 Image{
-                    width: 162
-                    height: 252
+                    width: 250
+                    height: 250
                     source: "qrc:/example/res/image/qrcode_zfb.jpg"
                 }
             }
@@ -141,12 +148,11 @@ FluWindow {
         RowLayout{
             spacing: 14
             Layout.leftMargin: 15
+            Layout.topMargin: 20
             FluText{
                 id:text_desc
                 text:"个人开发，维护不易，你们的捐赠就是我继续更新的动力！\n有什么问题提Issues，只要时间充足我就会解决的！！"
             }
         }
-
-
     }
 }

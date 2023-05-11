@@ -4,7 +4,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
 
-ApplicationWindow {
+Window {
 
     enum LaunchMode {
         Standard,
@@ -20,7 +20,7 @@ ApplicationWindow {
     property var pageRegister
     property var closeFunc: function(event){
         if(closeDestory){
-            destoryWindow()
+            deleteWindow()
         }else{
             visible = false
             event.accepted = false
@@ -28,13 +28,9 @@ ApplicationWindow {
     }
     signal initArgument(var argument)
 
-    QtObject{
-        id:d
-        property bool firstFlag: true
-    }
-
     id:window
-    background: Rectangle{
+    Rectangle{
+        anchors.fill: parent
         color: {
             if(active){
                 return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
@@ -51,15 +47,7 @@ ApplicationWindow {
     Item{
         id:container
         anchors.fill: parent
-        anchors.margins: window.visibility === Window.Maximized && FluTheme.frameless ? 8/Screen.devicePixelRatio : 0
         clip: true
-    }
-
-    onActiveChanged: {
-        if(d.firstFlag){
-            helper.firstUpdate()
-            d.firstFlag = false
-        }
     }
 
     onClosing:(event)=>closeFunc(event)
@@ -76,8 +64,6 @@ ApplicationWindow {
     Component.onCompleted: {
         helper.initWindow(window)
         initArgument(argument)
-        window.x = (Screen.width - window.width)/2
-        window.y = (Screen.desktopAvailableHeight - window.height)/2
     }
 
     function showSuccess(text,duration,moremsg){
@@ -100,8 +86,8 @@ ApplicationWindow {
         return helper.createRegister(window,path)
     }
 
-    function destoryWindow(){
-        helper.destoryWindow()
+    function deleteWindow(){
+        helper.deleteWindow()
     }
 
     function onResult(data){

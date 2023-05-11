@@ -17,7 +17,7 @@ Item {
 
     FluText{
         id:text_title
-        fontStyle: FluText.TitleLarge
+        font: FluTextStyle.TitleLarge
         anchors{
             top: parent.top
             topMargin: control.topPadding

@@ -8,10 +8,6 @@ import "../component"
 FluScrollablePage{
 
     title:"Tooltip"
-    leftPadding:10
-    rightPadding:10
-    bottomPadding:20
-    spacing: 0
 
     FluText{
         Layout.topMargin: 20

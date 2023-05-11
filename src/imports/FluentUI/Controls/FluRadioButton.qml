@@ -18,6 +18,7 @@ Button {
             visible: control.visualFocus
         }
     }
+    font:FluTextStyle.Body
     Keys.onSpacePressed: control.visualFocus&&clicked()
     contentItem: RowLayout{
         Rectangle{
@@ -97,6 +98,7 @@ Button {
         FluText{
             text: control.text
             Layout.alignment: Qt.AlignVCenter
+            font: control.font
         }
     }
 }

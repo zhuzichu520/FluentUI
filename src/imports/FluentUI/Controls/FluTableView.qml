@@ -1,5 +1,6 @@
 ﻿import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import FluentUI
 
@@ -11,6 +12,7 @@ Item {
     property int itemCount: 1000
     property int pageCount: 10
     property int itemHeight: 56
+    property bool pageVisible: true
     signal requestPage(int page,int count)
 
     id:control
@@ -59,6 +61,7 @@ Item {
             right: parent.right
         }
         contentWidth: layout_table.width
+        clip:true
         ScrollBar.horizontal: FluScrollBar {
         }
         Rectangle{
@@ -97,14 +100,14 @@ Item {
                                     left: parent.left
                                     leftMargin: 14
                                 }
-                                fontStyle: FluText.BodyStrong
+                                font: FluTextStyle.BodyStrong
                             }
                             FluDivider{
                                 width: 1
                                 height: 40
                                 anchors.right: parent.right
                                 anchors.verticalCenter: parent.verticalCenter
-                                visible: index !== list_coumns.count-1
+                                visible: index !== model_coumns.count-1
                             }
                         }
                     }
@@ -112,12 +115,14 @@ Item {
             }
 
             footer: Item{
-                height: 50
-                width:  layout_table.width
+                height: pageVisible ? 50 : 0
+                clip: true
+                width: layout_table.width
                 FluPagination{
                     id:pagination
                     height: 40
                     pageCurrent: control.pageCurrent
+                    onPageCurrentChanged: control.pageCurrent = pageCurrent
                     itemCount: control.itemCount
                     pageCount: control.pageCount
                     onRequestPage:
@@ -128,15 +133,34 @@ Item {
                         top: parent.top
                         right: parent.right
                     }
+                    Connections{
+                        target: control
+                        function onPageCurrentChanged(){
+                            if (control.pageCurrent!==pagination.pageCurrent)
+                            {
+                                pagination.calcNewPage(control.pageCurrent)
+                            }
+                        }
+                    }
                 }
             }
             model:model_data_source
-            delegate: Item{
+            delegate: Control{
+                id:item_control
                 height: table_row.maxHeight
                 width: layout_table.width
                 property var model_values : getObjectValues(index)
                 property var itemObject: getObject(index)
                 property var listModel: model
+                Rectangle{
+                    anchors.fill: parent
+                    color: {
+                        if(item_control.hovered){
+                            return FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+                        }
+                        return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(1,1,1,1)
+                    }
+                }
                 Row{
                     id: table_row
                     spacing: 0
@@ -176,29 +200,29 @@ Item {
                 }
             }
         }
-
-
     }
 
 
     Component{
         id:com_text
         Item{
-            MouseArea{
-                id:item_mouse
-                hoverEnabled: true
-                anchors.fill: parent
-            }
-            FluText{
+            FluCopyableText{
                 id:table_value
                 text:String(model.itemData)
-                width: parent.width - 14
+                width: Math.min(parent.width - 14,implicitWidth)
                 wrapMode: Text.WordWrap
                 onImplicitHeightChanged: parent.parent.parent.height = Math.max(implicitHeight + 20,itemHeight)
                 anchors{
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                     leftMargin: 14
+                }
+                MouseArea{
+                    id:item_mouse
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    cursorShape: Qt.IBeamCursor
+                    acceptedButtons: Qt.NoButton
                 }
                 FluTooltip{
                     visible: item_mouse.containsMouse

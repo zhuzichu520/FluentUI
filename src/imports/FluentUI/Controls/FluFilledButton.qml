@@ -19,6 +19,7 @@ Button {
     rightPadding:15
     Keys.onSpacePressed: control.visualFocus&&clicked()
     focusPolicy:Qt.TabFocus
+    font:FluTextStyle.Body
     background: Rectangle{
         radius: 4
         FluFocusRectangle{
@@ -37,6 +38,7 @@ Button {
     }
     contentItem: FluText {
         text: control.text
+        font: control.font
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         color: {

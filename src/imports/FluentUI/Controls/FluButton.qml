@@ -18,6 +18,7 @@ Button {
     enabled: !disabled
     focusPolicy:Qt.TabFocus
     Keys.onSpacePressed: control.visualFocus&&clicked()
+    font:FluTextStyle.Body
 
     background: Rectangle{
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
@@ -38,6 +39,7 @@ Button {
         text: control.text
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        font: control.font
         color: {
             if(FluTheme.dark){
                 if(disabled){
