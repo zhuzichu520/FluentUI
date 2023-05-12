@@ -20,12 +20,6 @@ FluWindow {
             textbox_password.focus =  true
         }
 
-    FluAppBar{
-        id:appbar
-        title:"登录"
-        width:parent.width
-    }
-
     ColumnLayout{
         anchors{
             left: parent.left

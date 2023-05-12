@@ -31,14 +31,6 @@ FluWindow {
         }
     }
 
-    FluAppBar{
-        id:appbar
-        z:9
-        showDark: true
-        width:parent.width
-        darkText: lang.dark_mode
-    }
-
     SystemTrayIcon {
         id:system_tray
         visible: true

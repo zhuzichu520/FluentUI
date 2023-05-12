@@ -247,6 +247,12 @@ FluObject{
         title:lang.theming
         icon:FluentIcons.Brightness
         FluPaneItem{
+            title:"Acrylic"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Acrylic.qml")
+            }
+        }
+        FluPaneItem{
             title:"Theme"
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_Theme.qml")

@@ -15,12 +15,6 @@ FluWindow {
     maximumHeight: 600
     launchMode: FluWindow.SingleInstance
 
-    FluAppBar{
-        id:appbar
-        title:"SingleInstance"
-        width:parent.width
-    }
-
     FluTextBox{
         anchors{
             top:parent.top

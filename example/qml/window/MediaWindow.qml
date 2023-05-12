@@ -16,18 +16,12 @@ FluWindow {
             player.source = argument.source
         }
 
-    FluAppBar{
-        id:appbar
-        title:"视频播放器"
-        width:parent.width
-    }
-
     FluMediaPlayer{
         id:player
         anchors{
             left: parent.left
             right: parent.right
-            top: appbar.bottom
+            top: parent.top
             bottom: parent.bottom
         }
     }

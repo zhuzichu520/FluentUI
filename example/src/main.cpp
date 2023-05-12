@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     });
     context->setContextProperty("appInfo",appInfo);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
-//    const QUrl url(QStringLiteral("qrc:/example/qml/window/main.qml"));
+//    const QUrl url(QStringLiteral("qrc:/example/qml/TestWindow.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl)

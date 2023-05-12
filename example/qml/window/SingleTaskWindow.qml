@@ -15,12 +15,6 @@ FluWindow {
     maximumHeight: 600
     launchMode: FluWindow.SingleTask
 
-    FluAppBar{
-        id:appbar
-        title:"SingleTask"
-        width:parent.width
-    }
-
     FluText{
         anchors.centerIn: parent
         text:"我是一个SingleTask模式的窗口，如果我存在，我就激活窗口"

@@ -13,9 +13,9 @@ endif()
 set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 
 #设置版本号
-add_definitions(-DVERSION=1,2,9,0)
+add_definitions(-DVERSION=1,3,0,0)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml ShaderTools)
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
@@ -32,7 +32,7 @@ foreach(filepath ${QML_PATHS})
 endforeach(filepath)
 
 #遍历所有资源文件
-file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.metainfo)
+file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.qsb *.metainfo)
 foreach(filepath ${RES_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND resource_files ${filename})
@@ -58,7 +58,6 @@ qt_add_qml_module(fluentuiplugin
     #支持designer
     DESIGNER_SUPPORTED
 )
-
 
 #链接库
 target_link_libraries(fluentuiplugin PUBLIC

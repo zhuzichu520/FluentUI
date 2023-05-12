@@ -15,15 +15,9 @@ FluWindow {
     maximumHeight: 600
     launchMode: FluWindow.SingleTask
 
-    FluAppBar{
-        id:appbar
-        title:"关于"
-        width:parent.width
-    }
-
     ColumnLayout{
         anchors{
-            top: appbar.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
         }

@@ -1,7 +1,7 @@
 ﻿import QtQuick
 import FluentUI
 
-Window {
+FluWindow {
     id:window
     width: 400
     height: 400

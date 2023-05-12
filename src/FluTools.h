@@ -2,6 +2,7 @@
 #define FLUTOOLS_H
 
 #include <QObject>
+#include <QFile>
 #include <QtQml/qqml.h>
 
 /**
@@ -33,6 +34,13 @@ public:
      * @return
      */
     Q_INVOKABLE QString uuid();
+
+    /**
+     * @brief readFile 读取文件内容
+     * @param fileName
+     * @return
+     */
+    Q_INVOKABLE QString readFile(const QString &fileName);
 
 };
 

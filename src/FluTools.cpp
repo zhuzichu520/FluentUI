@@ -27,3 +27,16 @@ void FluTools::clipText(const QString& text){
 QString FluTools::uuid(){
     return QUuid::createUuid().toString();
 }
+
+QString FluTools::readFile(const QString &fileName)
+{
+    QString content;
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream stream(&file);
+        content = stream.readAll();
+    }
+    return content;
+}
+
+
