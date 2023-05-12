@@ -12,23 +12,21 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 1439/5+20
+        height: 1200/5+20
         paddings: 10
 
         FluRectangle{
-            width: 1080/5
-            height: 1439/5
-            radius:[25,25,25,25]
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 20
+            width: 1920/5
+            height: 1200/5
+            radius:[15,15,15,15]
             Image {
                 asynchronous: true
-                source: "qrc:/example/res/image/image_huoyin.webp"
+                source: "qrc:/example/res/image/banner_3.jpg"
                 anchors.fill: parent
                 sourceSize: Qt.size(width,height)
                 FluAcrylic {
-                    anchors.centerIn: parent
+                    anchors.bottom: parent.bottom
+                    anchors.right: parent.right
                     width: 100
                     height: 100
                     FluText {
@@ -39,7 +37,9 @@ FluScrollablePage{
                     }
                 }
             }
+            Layout.topMargin: 20
         }
+
     }
     CodeExpander{
         Layout.fillWidth: true

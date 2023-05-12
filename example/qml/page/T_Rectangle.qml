@@ -114,18 +114,17 @@ FluScrollablePage{
                 }
             }
             FluRectangle{
-                width: 1080/5
-                height: 1439/5
-                radius:[25,25,25,25]
+                width: 1920/5
+                height: 1200/5
+                radius:[15,15,15,15]
                 Image {
                     asynchronous: true
-                    source: "qrc:/example/res/image/image_huoyin.webp"
+                    source: "qrc:/example/res/image/banner_1.jpg"
                     anchors.fill: parent
                     sourceSize: Qt.size(width,height)
                 }
-                Layout.topMargin: 10
+                Layout.topMargin: 20
             }
-
         }
     }
     CodeExpander{
