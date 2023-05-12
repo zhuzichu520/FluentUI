@@ -14,16 +14,14 @@ Button {
     property alias items: menu.content
 
     id: control
-    topPadding:5
-    bottomPadding:5
-    leftPadding:15
     rightPadding:35
     enabled: !disabled
     focusPolicy:Qt.TabFocus
-
+    horizontalPadding:12
     Keys.onSpacePressed: control.visualFocus&&clicked()
-
     background: Rectangle{
+        implicitWidth: 100
+        implicitHeight: 28
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1
         radius: 4

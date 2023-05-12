@@ -13,14 +13,13 @@ Button {
 
     id: control
     enabled: !disabled
-    topPadding:5
-    bottomPadding:5
-    leftPadding:15
-    rightPadding:15
     Keys.onSpacePressed: control.visualFocus&&clicked()
     focusPolicy:Qt.TabFocus
     font:FluTextStyle.Body
+    horizontalPadding:12
     background: Rectangle{
+        implicitWidth: 100
+        implicitHeight: 28
         radius: 4
         FluFocusRectangle{
             visible: control.visualFocus

@@ -109,7 +109,7 @@ FluScrollablePage{
             disabled:filled_button_switch.selected
             text:"Filled Button"
             onClicked: {
-                showWarning("点击FilledButton")
+                showWarning("点击FilledButton"+height)
             }
             anchors{
                 verticalCenter: parent.verticalCenter

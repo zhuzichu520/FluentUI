@@ -11,16 +11,14 @@ Button {
     property color disableColor: FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
 
     id: control
-    topPadding:5
-    bottomPadding:5
-    leftPadding:15
-    rightPadding:15
     enabled: !disabled
     focusPolicy:Qt.TabFocus
+    horizontalPadding:12
     Keys.onSpacePressed: control.visualFocus&&clicked()
     font:FluTextStyle.Body
-
     background: Rectangle{
+        implicitWidth: 100
+        implicitHeight: 28
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1
         radius: 4
