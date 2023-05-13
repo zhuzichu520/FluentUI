@@ -7,6 +7,7 @@ Item {
 
     property alias color: rect.color
     property alias acrylicOpacity: rect.opacity
+    property var sourceItem: control.parent
 
     Rectangle {
         id: rect
@@ -18,7 +19,7 @@ Item {
     ShaderEffectSource {
         id: effect_source
         anchors.fill: parent
-        sourceItem: control.parent
+        sourceItem: control.sourceItem
         sourceRect: Qt.rect(control.x, control.y, control.width, control.height)
     }
 

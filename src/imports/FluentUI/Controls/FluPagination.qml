@@ -22,9 +22,8 @@ Item {
     Row{
         id: content
         height: control.height
-        spacing: 25
+        spacing: 10
         padding: 10
-
 
         FluToggleButton{
             visible: control.pageCount>1
