@@ -17,7 +17,7 @@ Button {
     Keys.onSpacePressed: control.visualFocus&&clicked()
     font:FluTextStyle.Body
     background: Rectangle{
-        implicitWidth: 100
+        implicitWidth: 28
         implicitHeight: 28
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1

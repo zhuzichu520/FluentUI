@@ -20,7 +20,7 @@ Button {
     horizontalPadding:12
     Keys.onSpacePressed: control.visualFocus&&clicked()
     background: Rectangle{
-        implicitWidth: 100
+        implicitWidth: 28
         implicitHeight: 28
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1

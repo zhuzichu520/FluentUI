@@ -37,7 +37,7 @@ Button {
     focusPolicy:Qt.TabFocus
     horizontalPadding:12
     background: Rectangle{
-        implicitWidth: 100
+        implicitWidth: 28
         implicitHeight: 28
         radius: 4
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"

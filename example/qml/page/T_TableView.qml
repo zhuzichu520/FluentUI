@@ -62,20 +62,12 @@ FluScrollablePage{
                 spacing: 10
                 FluFilledButton{
                     text:"编辑"
-                    topPadding:3
-                    bottomPadding:3
-                    leftPadding:6
-                    rightPadding:6
                     onClicked:{
                         showSuccess(JSON.stringify(dataObject))
                     }
                 }
                 FluFilledButton{
                     text:"删除"
-                    topPadding:3
-                    bottomPadding:3
-                    leftPadding:6
-                    rightPadding:6
                     onClicked:{
                         showError(JSON.stringify(dataObject))
                     }

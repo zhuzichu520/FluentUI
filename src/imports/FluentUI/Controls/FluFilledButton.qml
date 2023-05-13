@@ -18,7 +18,7 @@ Button {
     font:FluTextStyle.Body
     horizontalPadding:12
     background: Rectangle{
-        implicitWidth: 100
+        implicitWidth: 28
         implicitHeight: 28
         radius: 4
         FluFocusRectangle{
