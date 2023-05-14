@@ -7,26 +7,32 @@ Item {
 
     property alias color: rect.color
     property alias acrylicOpacity: rect.opacity
-    property int radius: 50
+    property alias radius:bg.radius
+    property alias blurRadius: blur.radius
     property var sourceItem: control.parent
-
-    Rectangle {
-        id: rect
+    FluRectangle{
+        id:bg
         anchors.fill: parent
-        color: "white"
-        opacity: 0.1
-    }
+        radius: [8,8,8,8]
 
-    ShaderEffectSource {
-        id: effect_source
-        anchors.fill: parent
-        sourceItem: control.sourceItem
-        sourceRect: Qt.rect(control.x, control.y, control.width, control.height)
-    }
+        ShaderEffectSource {
+            id: effect_source
+            anchors.fill: parent
+            sourceItem: control.sourceItem
+            sourceRect: Qt.rect(control.x, control.y, control.width, control.height)
+            Rectangle {
+                id: rect
+                anchors.fill: parent
+                color: "white"
+                opacity: 0.5
+            }
+        }
 
-    FastBlur {
-        radius: control.radius
-        anchors.fill: effect_source
-        source: effect_source
+        FastBlur {
+            id:blur
+            radius: 50
+            anchors.fill: effect_source
+            source: effect_source
+        }
     }
 }
