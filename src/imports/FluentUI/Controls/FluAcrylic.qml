@@ -23,11 +23,9 @@ Item {
         sourceRect: Qt.rect(control.x, control.y, control.width, control.height)
     }
 
-    GaussianBlur {
+    FastBlur {
         radius: 20
         anchors.fill: effect_source
         source: effect_source
-        samples: 1 + radius * 2
     }
-
 }
