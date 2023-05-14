@@ -22,6 +22,12 @@ Item {
     property Component autoSuggestBox
     property Component actionItem
 
+    enum PageModeFlag{
+        Standard = 0,
+        SingleTop = 1,
+        SingleTask = 2
+    }
+
     id:control
 
     QtObject{
@@ -900,7 +906,32 @@ Item {
     }
 
     function push(url){
-        nav_swipe.push(url)
+        if (nav_swipe.depth>0)
+        {
+            let page = nav_swipe.find(function(item) {
+                return item.url === url;
+            })
+            if (page)
+            {
+                switch(page.pageMode)
+                {
+                    case FluNavigationView.SingleTask:
+                        while(nav_swipe.currentItem !== page)
+                        {
+                            nav_swipe.pop()
+                            d.stackItems.pop()
+                        }
+                        return
+                    case FluNavigationView.SingleTop:
+                        if (nav_swipe.currentItem.url === url)
+                            return
+                        break
+                    case FluNavigationView.Standard:
+                    default:
+                }
+            }
+        }
+        nav_swipe.push(url,{url:url})
     }
 
     function getCurrentIndex(){
