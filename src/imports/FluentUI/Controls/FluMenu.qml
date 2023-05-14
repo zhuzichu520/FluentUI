@@ -61,4 +61,8 @@ Menu {
         return container.height
     }
 
+    function getContainerCount(){
+        return container.children.length
+    }
+
 }

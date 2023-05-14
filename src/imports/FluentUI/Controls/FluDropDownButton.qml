@@ -74,16 +74,18 @@ Button {
     }
 
     onClicked: {
-        var pos = control.mapToItem(null, 0, 0)
-        var containerHeight = menu.getContainerHeight()
-        if(window.height>pos.y+control.height+containerHeight){
-            menu.y = control.height
-        }else if(pos.y>containerHeight){
-            menu.y = -containerHeight
-        }else{
-            menu.y = window.height-(pos.y+containerHeight)
+        if(items && menu.getContainerCount()!==0){
+            var pos = control.mapToItem(null, 0, 0)
+            var containerHeight = menu.getContainerHeight()
+            if(window.height>pos.y+control.height+containerHeight){
+                menu.y = control.height
+            }else if(pos.y>containerHeight){
+                menu.y = -containerHeight
+            }else{
+                menu.y = window.height-(pos.y+containerHeight)
+            }
+            menu.open()
         }
-        menu.open()
     }
 
     FluMenu{
