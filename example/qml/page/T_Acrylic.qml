@@ -20,21 +20,23 @@ FluScrollablePage{
             height: 1200/5
             radius:[15,15,15,15]
             Image {
+                id:image
                 asynchronous: true
                 source: "qrc:/example/res/image/banner_3.jpg"
                 anchors.fill: parent
                 sourceSize: Qt.size(width,height)
-                FluAcrylic {
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    width: 100
-                    height: 100
-                    FluText {
-                        anchors.centerIn: parent
-                        text: "Acrylic"
-                        color: "#FFFFFF"
-                        font.bold: true
-                    }
+            }
+            FluAcrylic {
+                sourceItem:image
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                width: 100
+                height: 100
+                FluText {
+                    anchors.centerIn: parent
+                    text: "Acrylic"
+                    color: "#FFFFFF"
+                    font.bold: true
                 }
             }
             Layout.topMargin: 20
@@ -45,15 +47,17 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'Image{
+    id:image
     width: 800
     height: 600
     source: "qrc:/example/res/image/image_huoyin.webp"
     radius: 8
+    }
     FluAcrylic{
+        sourceItem:image
         width: 100
         height: 100
         anchors.centerIn: parent
-    }
 }'
     }
 
