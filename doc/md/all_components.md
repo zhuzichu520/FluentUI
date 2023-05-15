@@ -1,38 +1,37 @@
 # 支持的组件
 
-|目录|说明|备注|
-|----|----|----|
-|FluApp|初始化入口|支持路由跳转|
-|FluWindow|无边框窗口|解决windows拖动闪烁问题|
-|FluAppBar|窗口顶部标题栏|支持拖动窗口，最小化、最大化、关闭窗口|
-|FluText|Text文本||
-|FluButton|按钮||
-|FluFilledButton|实心按钮||
-|FluIconButton|图标按钮||
-|FluTextButton|文本按钮||
-|FluIcon|图标||
-|FluRadioButton|单选按钮||
-|FluTextBox|单行输入框||
-|FluMultiLineTextBox|多行输入框||
-|FluToggleSwitch|开关按钮||
-|FluSlider|拖动条||
-|FluInfoBar|提示Toast||
-|FluContentDialog|对话框||
-|FluProgressBar|条形进度条||
-|FluProgressRing|圆形进度条||
-|FluRectangle|矩形|支持部分圆角、clip|
-|FluMenu|菜单框||
-|FluTooltip|tooltip提示框||
-|FluTreeView|树控件||
-|FluTheme|主题设置|支持主题颜色切换，夜间模式|
-|FluCarousel|轮播图组件|支持无限轮播|
-|FluTimePicker|时间选择器||
-|FluDatePicker|日期选择器||
-|FluMenu|菜单Popup||
-|FluNavigationView|响应式导航布局||
-|FluScrollbar|滚动条||
-|FluToggleButton|开关按钮||
-|FluPagination|分页组件||
-|FluTableView|表格组件||
-|FluMediaPlayer|播放器||
-|FluFlipView|FlipView||
+|Catalog|Detail|Notes / Demos|
+|:----:|:----:|:----:|
+|FluApp|The initial entry of the program|Router supported(SPA)|
+|FluWindow|Frameless Window|*This only works on windows|
+|FluAppBar|Title bar on top of the window|Drag, minimize, maximize and close are supported.|
+|FluText|Common text||
+|FluButton|Common button|![btn](../preview/demo_standardbtn.png) |
+|FluFilledButton|Filled button|![filledbtn](../preview/demo_filledbtn.png)|
+|FluTextButton|Text button|![textbtn](../preview/demo_textbtn.png)|
+|FluToggleButton|Toggle buttons|![togglebtn](../preview/demo_toggle_btn.png)|
+|FluIcon|fluent icons|![icons](../preview/demo_icon.png)|
+|FluRadioButton|radio button|![radiobtn](../preview/demo_radiobtn.png)|
+|FluTextBox|Single-line input box|![textbox](../preview/demo_textbox.png)|
+|FluMultiLineTextBox|Multi-lines input area|![textarea](../preview/demo_multiline_textbox.png)|
+|FluToggleSwitch|toggle switch|![toggleswitch](../preview/demo_toggle_switch.png)|
+|FluSlider|Slider|![slider](../preview/demo_slider.png)|
+|FluInfoBar|提示Toast|![infobar](../preview/demo_infobar.png)|
+|FluContentDialog| dialog |![dialog](../preview/demo_content_dialog.png)|
+|FluProgressBar| progress bar |![progress](../preview/demo_progress_bar_ring.png)|
+|FluProgressRing|circle progress||
+|FluRectangle|reactangle| ![rect](../preview/demo_rectangle.png)</br>*partially support `round` and `clip` feature|
+|FluMenu|menu||
+|FluTooltip|tooltip|![tooltip](../preview/demo_tooltip.png)|
+|FluTreeView|tree view component|![treeview](../preview/demo_tree_view.png)|
+|FluTheme|theme settings|theme color changes, dark mode are supported|
+|FluCarousel|-||
+|FluTimePicker| time picker ||
+|FluDatePicker|date picker||
+|FluMenu|the menu popup||
+|FluNavigationView|responsive navigation view||
+|FluScrollbar|scroll bar||
+|FluPagination|||
+|FluTableView|table component||
+|FluMediaPlayer|multimedia components||
+|FluFlipView| flip view||
