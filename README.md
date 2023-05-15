@@ -12,7 +12,7 @@
 ![win-badge] ![ubuntu-badge] ![macos-badge] ![release-badge] ![download-badge] ![download-latest]
 
 <p align="center">
-English | <a href="README_zh.md">简体中文</a>
+English | <a href="README_zh_CN.md">简体中文</a>
 </p>
 <div align=center>
   <img src="doc/preview/demo_large.png">
