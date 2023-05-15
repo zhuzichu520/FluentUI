@@ -21,9 +21,7 @@ Button {
         }
         selected = !selected
     }
-
     contentItem: Item{}
-
     background : RowLayout{
         spacing: 0
         Rectangle {

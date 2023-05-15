@@ -4,26 +4,21 @@ import QtQuick.Layouts
 import FluentUI
 
 Item {
-
     property int textSize: 15
     property string separator: "/"
     property var items: []
     property int spacing: 5
     signal clickItem(var model)
-
     id:control
     implicitWidth: 300
     height: 30
-
     onItemsChanged: {
         list_model.clear()
         list_model.append(items)
     }
-
     ListModel{
         id:list_model
     }
-
     ListView{
         id:list_view
         width: parent.width
@@ -88,13 +83,10 @@ Item {
             }
         }
     }
-
     function remove(index,count){
         list_model.remove(index,count)
     }
-
     function count(){
         return list_model.count
     }
-
 }

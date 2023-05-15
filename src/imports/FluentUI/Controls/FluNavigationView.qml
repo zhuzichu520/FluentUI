@@ -6,14 +6,12 @@ import QtQuick.Layouts
 import FluentUI
 
 Item {
-
     enum DisplayMode {
         Open,
         Compact,
         Minimal,
         Auto
     }
-
     property url logo
     property string title: ""
     property FluObject items
@@ -21,15 +19,12 @@ Item {
     property int displayMode: FluNavigationView.Auto
     property Component autoSuggestBox
     property Component actionItem
-
     enum PageModeFlag{
         Standard = 0,
         SingleTop = 1,
         SingleTask = 2
     }
-
     id:control
-
     QtObject{
         id:d
         property bool enableStack: true
@@ -52,11 +47,9 @@ Item {
         property bool isCompactAndPanel: d.displayMode === FluNavigationView.Compact && d.enableNavigationPanel
         property bool isCompactAndNotPanel:d.displayMode === FluNavigationView.Compact && !d.enableNavigationPanel
         property bool isMinimalAndPanel: d.displayMode === FluNavigationView.Minimal && d.enableNavigationPanel
-
         onIsCompactAndNotPanelChanged: {
             collapseAll()
         }
-
         onDisplayModeChanged: {
             if(d.displayMode === FluNavigationView.Compact){
                 collapseAll()
@@ -67,7 +60,6 @@ Item {
                 timer_anim_x_enable.restart()
             }
         }
-
         function handleItems(){
             var idx = 0
             var data = []
@@ -103,14 +95,12 @@ Item {
             return data
         }
     }
-
     Component{
         id:com_panel_item_empty
         Item{
             visible: false
         }
     }
-
     Component{
         id:com_panel_item_separatorr
         FluDivider{
@@ -130,7 +120,6 @@ Item {
             }
         }
     }
-
     Component{
         id:com_panel_item_header
         Item{
@@ -159,7 +148,6 @@ Item {
             }
         }
     }
-
     Component{
         id:com_panel_item_expander
         Item{
@@ -265,7 +253,6 @@ Item {
                         iconSize: 15
                     }
                 }
-
                 Item{
                     id:item_icon
                     width: 30
@@ -314,7 +301,6 @@ Item {
             }
         }
     }
-
     Component{
         id:com_panel_item
         Item{
@@ -418,7 +404,6 @@ Item {
                         iconSize: 15
                     }
                 }
-
                 Item{
                     id:item_icon
                     width: 30
@@ -438,7 +423,6 @@ Item {
                         }
                     }
                 }
-
                 FluText{
                     id:item_title
                     text:model.title
@@ -468,8 +452,6 @@ Item {
             }
         }
     }
-
-
     Item {
         id:nav_app_bar
         width: parent.width
@@ -541,7 +523,6 @@ Item {
                 font: FluTextStyle.Body
             }
         }
-
         Item{
             anchors.right: parent.right
             height: parent.height
@@ -558,7 +539,6 @@ Item {
             }
         }
     }
-
     Item{
         anchors{
             left: d.isMinimal || d.isCompactAndPanel  ? parent.left : layout_list.right
@@ -597,7 +577,6 @@ Item {
             replaceExit : Transition{}
         }
     }
-
     MouseArea{
         anchors.fill: parent
         visible: d.isMinimalAndPanel||d.isCompactAndPanel
@@ -605,7 +584,6 @@ Item {
             d.enableNavigationPanel = false
         }
     }
-
     Rectangle{
         id:layout_list
         width: {
@@ -677,7 +655,6 @@ Item {
                     }
                 }
             }
-
             FluIconButton{
                 visible:opacity
                 opacity:d.isCompactAndNotPanel
@@ -705,7 +682,6 @@ Item {
                 }
             }
         }
-
         ListView{
             id:nav_list
             clip: true
@@ -812,7 +788,6 @@ Item {
             }
         }
     }
-
     Popup{
         property var childModel
         id:control_popup
@@ -878,7 +853,6 @@ Item {
             control_popup.open()
         }
     }
-
     Timer{
         id:timer_anim_x_enable
         interval: 150
@@ -886,7 +860,6 @@ Item {
             anim_layout_list_x.enabled = true
         }
     }
-
     function collapseAll(){
         for(var i=0;i<nav_list.model.length;i++){
             var item = nav_list.model[i]
@@ -895,16 +868,13 @@ Item {
             }
         }
     }
-
     function setCurrentIndex(index){
         nav_list.currentIndex = index
 
     }
-
     function getItems(){
         return nav_list.model
     }
-
     function push(url){
         if (nav_swipe.depth>0)
         {
@@ -933,11 +903,9 @@ Item {
         }
         nav_swipe.push(url,{url:url})
     }
-
     function getCurrentIndex(){
         return nav_list.currentIndex
     }
-
     function startPageByItem(data){
         var items = getItems();
         for(var i=0;i<items.length;i++){
@@ -954,5 +922,4 @@ Item {
             }
         }
     }
-
 }

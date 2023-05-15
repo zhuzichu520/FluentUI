@@ -3,22 +3,18 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-
     property int number: 5
     property int spacing: 4
     property int size: 18
     property int value:0
-
     id:control
     implicitWidth: container.width
     implicitHeight: container.height
-
     QtObject{
         id:d
         property int mouseValue: 0
         property int itemSize: control.size+spacing*2
     }
-
     Row{
         id:container
         spacing: 0
@@ -42,7 +38,6 @@ Item {
             }
         }
     }
-
     MouseArea{
         anchors.fill: container
         hoverEnabled: true
@@ -56,5 +51,4 @@ Item {
             control.value = Number(mouse.x / d.itemSize)+1
         }
     }
-
 }

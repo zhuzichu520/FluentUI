@@ -5,13 +5,11 @@ import QtQuick.Window
 import FluentUI
 
 Rectangle {
-
     property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property string text: "请选择日期"
     property var window : Window.window
-
     id:control
     color: {
         if(mouse_area.containsMouse){
@@ -24,7 +22,6 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
-
     MouseArea{
         id:mouse_area
         hoverEnabled: true
@@ -33,7 +30,6 @@ Rectangle {
             popup.showPopup()
         }
     }
-
     FluText{
         id:text_date
         anchors{
@@ -47,7 +43,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         text:control.text
     }
-
     FluIcon{
         iconSource: FluentIcons.Calendar
         iconSize: 14
@@ -58,8 +53,6 @@ Rectangle {
             rightMargin: 12
         }
     }
-
-
     Menu{
         id:popup
         height: container.height
@@ -75,7 +68,6 @@ Rectangle {
                 duration: 83
             }
         }
-
         exit:Transition {
             NumberAnimation {
                 property: "opacity"
@@ -84,7 +76,6 @@ Rectangle {
                 duration: 83
             }
         }
-
         contentItem: Item{
             clip: true
             FluCalendarView{

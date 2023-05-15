@@ -3,20 +3,16 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-
     property bool flagXChanged: true
     property int radius : 5
     property int loopTime: 2000
     property bool showIndicator: true
-
     id:control
     width: 400
     height: 300
-
     ListModel{
         id:content_model
     }
-
     FluRectangle{
         anchors.fill: parent
         radius: [control.radius,control.radius,control.radius,control.radius]
@@ -80,14 +76,6 @@ Item {
             }
         }
     }
-    function setData(data){
-        content_model.clear()
-        content_model.append(data[data.length-1])
-        content_model.append(data)
-        content_model.append(data[0])
-        list_view.currentIndex = 1
-        timer_run.restart()
-    }
     Row{
         spacing: 10
         anchors{
@@ -132,5 +120,13 @@ Item {
             list_view.currentIndex = list_view.currentIndex+1
             timer_anim.start()
         }
+    }
+    function setData(data){
+        content_model.clear()
+        content_model.append(data[data.length-1])
+        content_model.append(data)
+        content_model.append(data[0])
+        list_view.currentIndex = 1
+        timer_run.restart()
     }
 }

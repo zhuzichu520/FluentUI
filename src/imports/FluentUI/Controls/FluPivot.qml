@@ -3,27 +3,22 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-
     default property alias content: d.children
     property alias currentIndex: nav_list.currentIndex
     property color normalColor: FluTheme.dark ? FluColors.Grey120 : FluColors.Grey120
     property color hoverColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
-
     id:control
     width: 400
     height: 300
     implicitHeight: height
     implicitWidth: width
-
     MouseArea{
         anchors.fill: parent
         preventStealing: true
     }
-
     FluObject{
         id:d
     }
-
     ListView{
         id:nav_list
         height: 40
@@ -77,7 +72,6 @@ Item {
             }
         }
     }
-
     Item{
         id:container
         anchors{
@@ -87,7 +81,6 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-
         Repeater{
             model:d.children
             Loader{
@@ -98,6 +91,4 @@ Item {
             }
         }
     }
-
-
 }

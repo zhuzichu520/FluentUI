@@ -4,7 +4,6 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 Button {
-
     property int iconSize: 20
     property int iconSource
     property bool disabled: false
@@ -35,7 +34,6 @@ Button {
             return Qt.rgba(0,0,0,1)
         }
     }
-
     id:control
     width: 30
     height: 30

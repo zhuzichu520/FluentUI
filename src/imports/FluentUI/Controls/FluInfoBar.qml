@@ -3,21 +3,17 @@ import QtQuick.Controls
 import FluentUI
 
 FluObject {
-    id:infoBar
-
     property var root;
-    property int layoutY: 75;
-
+    property int layoutY: 75
+    id:control
     FluObject{
         id:mcontrol
-
         property string const_success: "success";
         property string const_info:    "info";
         property string const_warning: "warning";
         property string const_error:   "error";
         property int maxWidth: 300;
         property var screenLayout: null;
-
         function create(type,text,duration,moremsg){
             if(screenLayout){
                 var last = screenLayout.getLastloader();
@@ -26,7 +22,6 @@ FluObject {
                     return;
                 }
             }
-
             initScreenLayout();
             contentComponent.createObject(screenLayout,{
                                               type:type,
@@ -35,22 +30,19 @@ FluObject {
                                               moremsg:moremsg,
                                           });
         }
-
         function createCustom(itemcomponent,duration){
             initScreenLayout();
             if(itemcomponent){
                 contentComponent.createObject(screenLayout,{itemcomponent:itemcomponent,duration:duration});
             }
         }
-
         function initScreenLayout(){
             if(screenLayout == null){
                 screenLayout = screenlayoutComponent.createObject(root);
-                screenLayout.y = infoBar.layoutY;
+                screenLayout.y = control.layoutY;
                 screenLayout.z = 100000;
             }
         }
-
         Component{
             id:screenlayoutComponent
             Column{
@@ -59,9 +51,7 @@ FluObject {
                 move: Transition {
                     NumberAnimation { properties: "y"; easing.type: Easing.OutBack; duration: 300 }
                 }
-
                 onChildrenChanged: if(children.length === 0)  destroy();
-
                 function getLastloader(){
                     if(children.length > 0){
                         return children[children.length - 1];
@@ -70,7 +60,6 @@ FluObject {
                 }
             }
         }
-
         Component{
             id:contentComponent
             Item{
@@ -80,45 +69,35 @@ FluObject {
                 property string type
                 property string text
                 property string moremsg
-
                 width:  parent.width;
                 height: loader.height;
-
                 function close(){
                     content.destroy();
                 }
-
                 function restart(){
                     delayTimer.restart();
                 }
-
                 Timer {
                     id:delayTimer
                     interval: duration; running: true; repeat: true
                     onTriggered: content.close();
                 }
-
                 Loader{
                     id:loader;
                     x:(parent.width - width) / 2;
                     property var _super: content;
-
                     scale: item ? 1 : 0;
                     asynchronous: true
-
                     Behavior on scale {
                         NumberAnimation {
                             easing.type: Easing.OutBack;
                             duration: 100
                         }
                     }
-
                     sourceComponent:itemcomponent ? itemcomponent : mcontrol.fluent_sytle;
                 }
-
             }
         }
-
         property Component fluent_sytle:  Rectangle{
             width:  rowlayout.width  + (_super.moremsg ? 25 : 80);
             height: rowlayout.height + 20;
@@ -208,26 +187,19 @@ FluObject {
             }
         }
     }
-
     function showSuccess(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_success,text,duration,moremsg ? moremsg : "");
     }
-
     function showInfo(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_info,text,duration,moremsg ? moremsg : "");
     }
-
     function showWarning(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_warning,text,duration,moremsg ? moremsg : "");
     }
-
     function showError(text,duration=1000,moremsg){
         mcontrol.create(mcontrol.const_error,text,duration,moremsg ? moremsg : "");
     }
-
     function showCustom(itemcomponent,duration=1000){
         mcontrol.createCustom(itemcomponent,duration);
     }
-
-
 }

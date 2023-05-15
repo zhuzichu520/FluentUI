@@ -1,20 +1,17 @@
 ﻿import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 import FluentUI
 
 ScrollBar {
-
     property color handleNormalColor: Qt.rgba(134/255,134/255,134/255,1)
     property color handleHoverColor: Qt.lighter(handleNormalColor)
     property color handlePressColor: Qt.darker(handleNormalColor)
     property bool expand: false
-
     id: control
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
-
     visible: control.policy !== ScrollBar.AlwaysOff
     minimumSize: 0.3
     topPadding:{
@@ -128,7 +125,6 @@ ScrollBar {
             duration: 150
         }
     }
-
     FluIconButton{
         id:btn_top
         iconSource: FluentIcons.CaretSolidUp
@@ -190,5 +186,4 @@ ScrollBar {
             increase()
         }
     }
-
 }

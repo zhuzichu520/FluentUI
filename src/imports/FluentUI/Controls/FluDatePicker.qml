@@ -5,7 +5,6 @@ import QtQuick.Window
 import FluentUI
 
 Rectangle {
-
     property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
@@ -13,7 +12,6 @@ Rectangle {
     property bool showYear: true
     property bool changeFlag: true
     readonly property var rowData: ["","",""]
-
     id:root
     color: {
         if(mouse_area.containsMouse){
@@ -26,7 +24,6 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
-
     MouseArea{
         id:mouse_area
         hoverEnabled: true
@@ -35,7 +32,6 @@ Rectangle {
             popup.showPopup()
         }
     }
-
     Rectangle{
         id:divider_1
         width: 1
@@ -44,8 +40,6 @@ Rectangle {
         color: dividerColor
         visible: showYear
     }
-
-
     Rectangle{
         id:divider_2
         width: 1
@@ -53,7 +47,6 @@ Rectangle {
         height: parent.height
         color: dividerColor
     }
-
     FluText{
         id:text_year
         anchors{
@@ -67,8 +60,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         text:"年"
     }
-
-
     FluText{
         id:text_month
         anchors{
@@ -81,8 +72,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         text:"月"
     }
-
-
     FluText{
         id:text_day
         anchors{
@@ -95,7 +84,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         text:"日"
     }
-
     Menu{
         id:popup
         modal: true
@@ -111,7 +99,6 @@ Rectangle {
                 duration: 83
             }
         }
-
         exit:Transition {
             NumberAnimation {
                 property: "opacity"
@@ -139,20 +126,16 @@ Rectangle {
                 FluShadow{
                     radius: 4
                 }
-
                 RowLayout{
                     id:layout_content
                     spacing: 0
                     width: parent.width
                     height: 300
-
                     Component{
                         id:list_delegate
-
                         Item{
                             height:38
                             width:getListView().width
-
                             function getListView(){
                                 if(type === 0)
                                     return list_view_1
@@ -161,8 +144,6 @@ Rectangle {
                                 if(type === 2)
                                     return list_view_3
                             }
-
-
                             Rectangle{
                                 anchors.fill: parent
                                 anchors.topMargin: 2
@@ -226,7 +207,6 @@ Rectangle {
                             }
                         }
                     }
-
                     ListView{
                         id:list_view_1
                         width: 100
@@ -292,14 +272,12 @@ Rectangle {
                         }
                     }
                 }
-
                 Rectangle{
                     width: parent.width
                     height: 1
                     anchors.top: layout_content.bottom
                     color: dividerColor
                 }
-
                 Rectangle{
                     id:layout_actions
                     height: 40
@@ -310,14 +288,12 @@ Rectangle {
                         left: parent.left
                         right: parent.right
                     }
-
                     Item {
                         id:divider
                         width: 1
                         height: parent.height
                         anchors.centerIn: parent
                     }
-
                     FluButton{
                         anchors{
                             left: parent.left
@@ -331,7 +307,6 @@ Rectangle {
                             popup.close()
                         }
                     }
-
                     FluFilledButton{
                         anchors{
                             right: parent.right
@@ -355,23 +330,18 @@ Rectangle {
             rowData[0] = text_year.text
             rowData[1] = text_month.text
             rowData[2] = text_day.text
-
             const now = new Date();
             var year = text_year.text === "年"? now.getFullYear() : Number(text_year.text);
             var month = text_month.text === "月"? now.getMonth() + 1 : Number(text_month.text);
             var day =  text_day.text === "日" ? now.getDate() : Number(text_day.text);
-
             list_view_1.currentIndex = list_view_1.model.indexOf(year)
             text_year.text = year
-
             list_view_2.model = generateMonthArray(1,12)
             list_view_2.currentIndex = list_view_2.model.indexOf(month)
             text_month.text = month
-
             list_view_3.model = generateMonthDaysArray(year,month)
             list_view_3.currentIndex = list_view_3.model.indexOf(day)
             text_day.text = day
-
             var pos = root.mapToItem(null, 0, 0)
             if(window.height>pos.y+root.height+container.height){
                 popup.y = root.height
@@ -382,7 +352,6 @@ Rectangle {
             }
             popup.open()
         }
-
         onClosed: {
             if(changeFlag){
                 text_year.text = rowData[0]
@@ -391,7 +360,6 @@ Rectangle {
             }
         }
     }
-
     function generateYearArray(startYear, endYear) {
         const yearArray = [];
         for (let year = startYear; year <= endYear; year++) {
@@ -399,7 +367,6 @@ Rectangle {
         }
         return yearArray;
     }
-
     function generateMonthArray(startMonth, endMonth) {
         const monthArray = [];
         for (let month = startMonth; month <= endMonth; month++) {
@@ -407,7 +374,6 @@ Rectangle {
         }
         return monthArray;
     }
-
     function generateMonthDaysArray(year, month) {
         const monthDaysArray = [];
         const lastDayOfMonth = new Date(year, month, 0).getDate();
@@ -416,6 +382,4 @@ Rectangle {
         }
         return monthDaysArray;
     }
-
-
 }

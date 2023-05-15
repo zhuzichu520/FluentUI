@@ -34,7 +34,7 @@ FluScrollablePage{
                           {
                               title: '操作',
                               dataIndex: 'action',
-                              width:100
+                              width:120
                           },
                       ];
         table_view.columns = columns
@@ -62,32 +62,20 @@ FluScrollablePage{
                 spacing: 10
                 FluFilledButton{
                     text:"编辑"
+                    horizontalPadding: 6
                     onClicked:{
                         showSuccess(JSON.stringify(dataObject))
                     }
                 }
                 FluFilledButton{
                     text:"删除"
+                    horizontalPadding: 6
                     onClicked:{
                         showError(JSON.stringify(dataObject))
                     }
                 }
             }
         }
-    }
-
-    function loadData(page,count){
-        const dataSource = []
-        for(var i=0;i<count;i++){
-            dataSource.push({
-                                name: "孙悟空%1".arg(((page-1)*count+i)),
-                                age: 500,
-                                address: "钟灵毓秀的花果山,如神仙仙境的水帘洞",
-                                nickname: "齐天大圣",
-                                action:com_action
-                            })
-        }
-        table_view.dataSource = dataSource
     }
 
     CodeExpander{
@@ -141,6 +129,17 @@ FluScrollablePage{
 }'
     }
 
-
-
+    function loadData(page,count){
+        const dataSource = []
+        for(var i=0;i<count;i++){
+            dataSource.push({
+                                name: "孙悟空%1".arg(((page-1)*count+i)),
+                                age: 500,
+                                address: "钟灵毓秀的花果山,如神仙仙境的水帘洞",
+                                nickname: "齐天大圣",
+                                action:com_action
+                            })
+        }
+        table_view.dataSource = dataSource
+    }
 }

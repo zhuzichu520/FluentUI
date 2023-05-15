@@ -4,18 +4,15 @@ import QtQuick.Window
 import FluentUI
 
 Item {
-
     property string  headerText: "Titlte"
     property bool expand: false
     property int contentHeight : 300
     default property alias content: container.data
-
-    id:root
+    id:control
     height: layout_header.height + container.height
     width: 400
     implicitWidth: width
     implicitHeight: height
-
     Rectangle{
         id:layout_header
         width: parent.width
@@ -23,28 +20,24 @@ Item {
         radius: 4
         color: FluTheme.dark ? Window.active ? Qt.rgba(38/255,44/255,54/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
         border.color: FluTheme.dark ?  Window.active ? Qt.rgba(55/255,55/255,55/255,1) : Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
-
         Behavior on color{
             ColorAnimation {
                 duration: 300
             }
         }
-
         Behavior on border.color{
             ColorAnimation {
                 duration: 300
             }
         }
-
         MouseArea{
-            id:root_mouse
+            id:control_mouse
             anchors.fill: parent
             hoverEnabled: true
             onClicked: {
                 expand = !expand
             }
         }
-
         FluText{
             text: headerText
             anchors{
@@ -53,7 +46,6 @@ Item {
                 leftMargin: 15
             }
         }
-
         FluIconButton{
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -61,7 +53,7 @@ Item {
                 rightMargin: 15
             }
             color:{
-                if(root_mouse.containsMouse || hovered){
+                if(control_mouse.containsMouse || hovered){
                     return FluTheme.dark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(245/255,245/255,245/255,1)
                 }
                 return FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
@@ -81,8 +73,6 @@ Item {
             }
         }
     }
-
-
     Rectangle{
         id:container
         width: parent.width
@@ -104,5 +94,4 @@ Item {
             }
         }
     }
-
 }

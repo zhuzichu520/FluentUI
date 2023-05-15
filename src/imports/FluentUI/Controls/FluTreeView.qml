@@ -5,19 +5,16 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-
     enum TreeViewSelectionMode  {
         None,
         Single,
         Multiple
     }
-
     property int selectionMode: FluTreeView.None
     property var currentElement
     property var currentParentElement
     property var rootModel: tree_model.get(0).items
     signal itemClicked(var item)
-
     id:root
     ListModel{
         id:tree_model
@@ -31,7 +28,6 @@ Item {
             multipParentKey:""
         }
     }
-
     Component{
         id: delegate_root
         Column{
@@ -54,13 +50,10 @@ Item {
             }
         }
     }
-
     Component{
         id:delegate_items
-
         Column{
             id:item_layout
-
             property real level: (mapToItem(list_root,0,0).x+list_root.contentX)/0.001
             property var text: model.text??"Item"
             property bool hasChild : (model.items !== undefined) && (model.items.count !== 0)
@@ -69,7 +62,6 @@ Item {
             property int width_hint: calculateWidth()
             property bool singleSelected: currentElement === model
             property var itemModel: model
-
             function calculateWidth(){
                 var w = Math.max(list_root.width, item_layout_row.implicitWidth + 10);
                 if(expanded){
@@ -86,8 +78,6 @@ Item {
                 id:item_layout_rect
                 width: list_root.contentWidth
                 height: item_layout_row.implicitHeight
-
-
                 Rectangle{
                     anchors.fill: parent
                     anchors.margins: 2
@@ -104,7 +94,6 @@ Item {
                             return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(0,0,0,0.03):Qt.rgba(0,0,0,0)
                         }
                     }
-
                     Rectangle{
                         width: 3
                         color:FluTheme.primaryColor.dark
@@ -126,8 +115,6 @@ Item {
                         }
                     }
                 }
-
-
                 function onClickItem(){
                     if(selectionMode === FluTreeView.None){
                         itemClicked(model)
@@ -147,23 +134,19 @@ Item {
 
                     }
                 }
-
                 RowLayout{
                     id:item_layout_row
                     anchors.verticalCenter: item_layout_rect.verticalCenter
-
                     Item{
                         width: 15*level
                         Layout.alignment: Qt.AlignVCenter
                     }
-
                     FluCheckBox{
                         id:item_layout_checkbox
                         text:""
                         selected: itemModel.multipSelected
                         visible: selectionMode === FluTreeView.Multiple
                         Layout.leftMargin: 5
-
                         function refreshCheckBox(){
                             const stack = [tree_model.get(0)];
                             const result = [];
@@ -195,7 +178,6 @@ Item {
                                 }
                             }
                         }
-
                         clickFunc:function(){
                             if(hasChild){
                                 const stack = [itemModel];
@@ -215,7 +197,6 @@ Item {
                             }
                         }
                     }
-
                     FluIconButton{
                         id:item_layout_expanded
                         color:"#00000000"
@@ -230,7 +211,6 @@ Item {
                             model.expanded = !model.expanded
                         }
                     }
-
                     FluText {
                         text:  item_layout.text
                         Layout.alignment: Qt.AlignVCenter
@@ -239,7 +219,6 @@ Item {
                     }
                 }
             }
-
             Item{
                 id:item_sub
                 visible: {
@@ -263,7 +242,6 @@ Item {
             }
         }
     }
-
     ListView {
         id: list_root
         anchors.fill: parent
@@ -275,16 +253,13 @@ Item {
         ScrollBar.vertical: FluScrollBar {}
         ScrollBar.horizontal: FluScrollBar { }
     }
-
     function updateData(items){
         rootModel.clear()
         rootModel.append(items)
     }
-
     function signleData(){
         return currentElement
     }
-
     function multipData(){
         const stack = [tree_model.get(0)];
         const result = [];
@@ -300,11 +275,9 @@ Item {
         }
         return result
     }
-
     function createItem(text="",expanded=true,items=[],data={}){
         return {text:text,expanded:expanded,items:items,key:uniqueRandom(),multipSelected:false,multipIndex:0,multipParentKey:"",data:data};
     }
-
     function uniqueRandom() {
         var timestamp = Date.now();
         var random = Math.floor(Math.random() * 1000000);

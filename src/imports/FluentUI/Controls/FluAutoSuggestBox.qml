@@ -3,25 +3,20 @@ import QtQuick.Controls
 import FluentUI
 
 FluTextBox{
-
     property var items:[]
     property string emptyText: "没有找到结果"
     property int autoSuggestBoxReplacement: FluentIcons.Search
     signal itemClicked(var data)
     signal handleClicked
-
     id:control
     width: 300
-
     Component.onCompleted: {
         loadData()
     }
-
     QtObject{
         id:d
         property bool flagVisible: true
     }
-
     Popup{
         id:control_popup
         y:control.height
@@ -126,19 +121,16 @@ FluTextBox{
             control_popup.visible = true
         }
     }
-
     function handleClick(modelData){
         control_popup.visible = false
         control.itemClicked(modelData)
         updateText(modelData.title)
     }
-
     function updateText(text){
         d.flagVisible = false
         control.text = text
         d.flagVisible = true
     }
-
     function loadData(){
         var result = []
         if(items==null){
@@ -152,5 +144,4 @@ FluTextBox{
         })
         list_view.model = result
     }
-
 }

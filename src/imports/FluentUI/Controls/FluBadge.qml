@@ -3,11 +3,9 @@ import QtQuick.Controls
 import FluentUI
 
 Rectangle{
-
     property bool isDot: false
     property bool showZero: true
     property int count: 0
-
     id:control
     color:Qt.rgba(255/255,77/255,79/255,1)
     width: {
@@ -61,7 +59,6 @@ Rectangle{
             return  -10
         }
     }
-
     Text{
         anchors.centerIn: parent
         color: Qt.rgba(1,1,1,1)
@@ -72,7 +69,4 @@ Rectangle{
             return count+"+"
         }
     }
-
-
-
 }

@@ -5,7 +5,6 @@ import QtQuick.Layouts
 import FluentUI
 
 Item {
-
     property var columns : []
     property var dataSource : []
     property int pageCurrent: 1
@@ -14,28 +13,22 @@ Item {
     property int itemHeight: 56
     property bool pageVisible: true
     signal requestPage(int page,int count)
-
     id:control
     implicitHeight: layout_table.height
-
     QtObject{
         id:d
         property int coumnsWidth: parent.width
     }
-
     MouseArea{
         anchors.fill: parent
         preventStealing: true
     }
-
     ListModel{
         id:model_coumns
     }
-
     ListModel{
         id:model_data_source
     }
-
     onColumnsChanged: {
         model_coumns.clear()
         model_coumns.append(columns)
@@ -46,12 +39,10 @@ Item {
         }
         d.coumnsWidth = w
     }
-
     onDataSourceChanged: {
         model_data_source.clear()
         model_data_source.append(dataSource)
     }
-
     Flickable{
         id:layout_flickable
         height: layout_table.height
@@ -75,14 +66,12 @@ Item {
             width: Math.max(layout_flickable.width,d.coumnsWidth)
             clip:true
             interactive: false
-
             header: FluRectangle{
                 id:layout_coumns
                 height: control.itemHeight
                 width: parent.width
                 color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
                 radius: [5,5,0,0]
-
                 Row{
                     id:list_coumns
                     spacing: 0
@@ -113,7 +102,6 @@ Item {
                     }
                 }
             }
-
             footer: Item{
                 height: pageVisible ? 50 : 0
                 clip: true
@@ -201,8 +189,6 @@ Item {
             }
         }
     }
-
-
     Component{
         id:com_text
         Item{
@@ -232,11 +218,9 @@ Item {
             }
         }
     }
-
     function getObject(index){
         return model_data_source.get(index)
     }
-
     function getObjectValues(index) {
         var obj = model_data_source.get(index)
         if(!obj)
@@ -248,5 +232,4 @@ Item {
         }
         return data;
     }
-
 }

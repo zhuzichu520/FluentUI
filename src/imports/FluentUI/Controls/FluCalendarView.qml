@@ -3,27 +3,22 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-
     enum DisplayMode {
         Month,
         Year,
         Decade
     }
-
     property int displayMode: FluCalendarView.Month
     property var date: new Date()
     property var currentDate : new Date()
     property var toDay: new Date()
     signal dateClicked(var date)
-
     id:control
     width: 280
     height: 325
-
     Component.onCompleted: {
         updateMouth(date)
     }
-
     Component{
         id:com_week
         Item{
@@ -35,7 +30,6 @@ Item {
             }
         }
     }
-
     Component{
         id:com_year
         Button{
@@ -94,7 +88,6 @@ Item {
             contentItem: Item{}
         }
     }
-
     Component{
         id:com_month
         Button{
@@ -154,8 +147,6 @@ Item {
             contentItem: Item{}
         }
     }
-
-
     Component{
         id:com_day
         Button{
@@ -189,7 +180,6 @@ Item {
                         }
                     }
                 }
-
                 Rectangle{
                     id:backgound_today
                     anchors.centerIn: parent
@@ -201,7 +191,6 @@ Item {
                     border.color: FluTheme.primaryColor.dark
                     border.width: 1
                 }
-
                 Rectangle{
                     id:backgound_selected
                     anchors.centerIn: parent
@@ -211,7 +200,6 @@ Item {
                     visible: isToDay
                     color: FluTheme.primaryColor.dark
                 }
-
                 FluText{
                     text:date.getDate()
                     anchors.centerIn: parent
@@ -229,15 +217,12 @@ Item {
             contentItem: Item{}
         }
     }
-
     FluArea{
         anchors.fill: parent
         radius: 5
-
         FluShadow{
             radius: 5
         }
-
         Rectangle{
             id:layout_divider
             height: 1
@@ -248,7 +233,6 @@ Item {
                 topMargin: 44
             }
         }
-
         Item{
             id:layout_top
             anchors{
@@ -257,7 +241,6 @@ Item {
                 top: parent.top
                 bottom: layout_divider.top
             }
-
             FluTextButton{
                 id:title
                 leftPadding: 0
@@ -278,7 +261,6 @@ Item {
                     }
                 }
             }
-
             FluIconButton{
                 id:icon_up
                 iconSource: FluentIcons.CaretUpSolid8
@@ -309,7 +291,6 @@ Item {
                     }
                 }
             }
-
             FluIconButton{
                 id:icon_down
                 iconSource: FluentIcons.CaretDownSolid8
@@ -341,11 +322,9 @@ Item {
                 }
             }
         }
-
         ListModel {
             id:list_model
         }
-
         Item{
             id:layout_bottom
             anchors{
@@ -354,7 +333,6 @@ Item {
                 top: layout_divider.bottom
                 bottom: parent.bottom
             }
-
             GridView{
                 model: list_model
                 anchors.fill: parent
@@ -388,23 +366,18 @@ Item {
             }
         }
     }
-
     function createItemWeek(name){
         return {type:0,date:new Date(),name:name,isDecade:false}
     }
-
     function createItemDay(date){
         return {type:1,date:date,name:"",isDecade:false}
     }
-
     function createItemMonth(date){
         return {type:2,date:date,name:"",isDecade:false}
     }
-
     function createItemYear(date,isDecade){
         return {type:3,date:date,name:"",isDecade:isDecade}
     }
-
     function updateDecade(date){
         list_model.clear()
         var year = date.getFullYear()
@@ -417,7 +390,6 @@ Item {
         }
         title.text = decadeStart+"-"+(decadeStart+10)
     }
-
     function updateYear(date){
         list_model.clear()
         var year = date.getFullYear()
@@ -429,7 +401,6 @@ Item {
         }
         title.text = year+"年"
     }
-
     function updateMouth(date){
         list_model.clear()
         list_model.append([createItemWeek("一"),createItemWeek("二"),createItemWeek("三"),createItemWeek("四"),createItemWeek("五"),createItemWeek("六"),createItemWeek("日")])
@@ -468,6 +439,4 @@ Item {
         }
         title.text = year+"年"+(month+1)+"月"
     }
-
-
 }

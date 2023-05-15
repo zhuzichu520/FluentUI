@@ -4,7 +4,6 @@ import QtQuick.Layouts
 import FluentUI
 
 Item{
-
     enum StatusMode  {
         Loading,
         Empty,
@@ -14,13 +13,11 @@ Item{
     default property alias content: container.data
     property int statusMode: FluStatusView.Loading
     signal errorClicked
-
     Item{
         id:container
         anchors.fill: parent
         visible: statusMode === FluStatusView.Success
     }
-
     FluArea{
         paddings: 0
         border.width: 0
@@ -43,7 +40,6 @@ Item{
             }
         }
     }
-
     FluArea{
         paddings: 0
         border.width: 0
@@ -63,7 +59,6 @@ Item{
             }
         }
     }
-
     FluArea{
         paddings: 0
         border.width: 0
@@ -90,8 +85,6 @@ Item{
             }
         }
     }
-
-
     function showSuccessView(){
         statusMode = FluStatusView.Success
     }
@@ -104,5 +97,4 @@ Item{
     function showErrorView(){
         statusMode = FluStatusView.Error
     }
-
 }

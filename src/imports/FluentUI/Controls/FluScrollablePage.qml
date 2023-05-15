@@ -5,7 +5,6 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-
     property alias title: text_title.text
     default property alias content: container.data
     property int spacing : 0
@@ -15,9 +14,7 @@ Item {
     property int bottomPadding: 10
     property int pageMode: FluNavigationView.Standard
     property string url: ''
-
     id:control
-
     FluText{
         id:text_title
         font: FluTextStyle.Title
@@ -33,7 +30,6 @@ Item {
             rightMargin: control.rightPadding
         }
     }
-
     Flickable{
         id:flickview
         clip: true

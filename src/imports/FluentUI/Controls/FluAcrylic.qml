@@ -4,7 +4,6 @@ import FluentUI
 
 Item {
     id: control
-
     property alias color: rect.color
     property alias acrylicOpacity: rect.opacity
     property alias radius:bg.radius
@@ -14,7 +13,6 @@ Item {
         id:bg
         anchors.fill: parent
         radius: [8,8,8,8]
-
         ShaderEffectSource {
             id: effect_source
             anchors.fill: parent
@@ -27,7 +25,6 @@ Item {
                 opacity: 0.5
             }
         }
-
         FastBlur {
             id:blur
             radius: 50

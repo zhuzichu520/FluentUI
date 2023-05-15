@@ -6,7 +6,6 @@ import FluentUI
 
 Popup {
     id: popup
-
     property string title: "Title"
     property string message: "Message"
     property string neutralText: "Neutral"
@@ -30,7 +29,6 @@ Popup {
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape
     background:Item{}
-
     enter: Transition {
         reversible: true
         NumberAnimation {
@@ -58,11 +56,9 @@ Popup {
         implicitHeight: text_title.height + text_message.height + layout_actions.height
         color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
         radius:5
-
         FluShadow{
             radius: 5
         }
-
         FluText{
             id:text_title
             font: FluTextStyle.TitleLarge
@@ -77,7 +73,6 @@ Popup {
                 right: parent.right
             }
         }
-
         FluText{
             id:text_message
             font: FluTextStyle.Body
@@ -93,7 +88,6 @@ Popup {
                 right: parent.right
             }
         }
-
         Rectangle{
             id:layout_actions
             height: 68
@@ -104,7 +98,6 @@ Popup {
                 left: parent.left
                 right: parent.right
             }
-
             RowLayout{
                 anchors
                 {
@@ -124,7 +117,6 @@ Popup {
                         neutralClicked()
                     }
                 }
-
                 FluButton{
                     id:negative_btn
                     Layout.fillWidth: true
@@ -136,7 +128,6 @@ Popup {
                         negativeClicked()
                     }
                 }
-
                 FluFilledButton{
                     id:positive_btn
                     Layout.fillWidth: true

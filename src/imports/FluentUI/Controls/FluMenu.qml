@@ -4,7 +4,6 @@ import QtQuick.Controls
 import FluentUI
 
 Menu {
-
     default property alias content: container.data
     property bool enableAnimation: true
     id: popup
@@ -21,7 +20,6 @@ Menu {
             duration: enableAnimation ? 83 : 0
         }
     }
-
     exit:Transition {
         NumberAnimation {
             property: "opacity"
@@ -30,7 +28,6 @@ Menu {
             duration: enableAnimation ? 83 : 0
         }
     }
-
     background:Item{
         FluShadow{
             radius: 5
@@ -56,13 +53,10 @@ Menu {
             }
         }
     }
-
     function getContainerHeight(){
         return container.height
     }
-
     function getContainerCount(){
         return container.children.length
     }
-
 }

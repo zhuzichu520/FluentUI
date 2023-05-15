@@ -4,9 +4,7 @@ import Qt5Compat.GraphicalEffects
 import FluentUI
 
 Rectangle{
-
     property Item inputItem
-
     id:content
     radius: 4
     layer.enabled: true

@@ -4,12 +4,10 @@ import Qt5Compat.GraphicalEffects
 import FluentUI
 
 Item{
-
     property var radius:[0,0,0,0]
     property color color : "#FFFFFF"
     property bool shadow: true
     default property alias contentItem: container.data
-
     id:control
     FluShadow{
         anchors.fill: container
@@ -21,7 +19,6 @@ Item{
             return false
         }
     }
-
     Rectangle{
         id:container
         width: control.width
@@ -29,7 +26,6 @@ Item{
         opacity: 0
         color:control.color
     }
-
     Canvas {
         id: canvas
         anchors.fill: parent
@@ -59,11 +55,9 @@ Item{
             ctx.restore();
         }
     }
-
     OpacityMask {
         anchors.fill: container
         source: container
         maskSource: canvas
     }
-
 }

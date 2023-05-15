@@ -38,7 +38,6 @@ Rectangle {
             popup.showPopup()
         }
     }
-
     Rectangle{
         id:divider_1
         width: 1
@@ -46,8 +45,6 @@ Rectangle {
         height: parent.height
         color: dividerColor
     }
-
-
     Rectangle{
         id:divider_2
         width: 1
@@ -56,7 +53,6 @@ Rectangle {
         color: dividerColor
         visible: isH
     }
-
     FluText{
         id:text_hour
         anchors{
@@ -69,8 +65,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         text:"时"
     }
-
-
     FluText{
         id:text_minute
         anchors{
@@ -83,8 +77,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         text:"分"
     }
-
-
     FluText{
         id:text_ampm
         visible: isH
@@ -98,7 +90,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         text:"AM/PM"
     }
-
     Menu{
         id:popup
         width: container.width
@@ -114,7 +105,6 @@ Rectangle {
                 duration: 83
             }
         }
-
         exit:Transition {
             NumberAnimation {
                 property: "opacity"
@@ -144,14 +134,11 @@ Rectangle {
                     spacing: 0
                     width: parent.width
                     height: 300
-
                     Component{
                         id:list_delegate
-
                         Item{
                             height:38
                             width:getListView().width
-
                             function getListView(){
                                 if(type === 0)
                                     return list_view_1
@@ -160,8 +147,6 @@ Rectangle {
                                 if(type === 2)
                                     return list_view_3
                             }
-
-
                             Rectangle{
                                 anchors.fill: parent
                                 anchors.topMargin: 2
@@ -217,7 +202,6 @@ Rectangle {
                             }
                         }
                     }
-
                     ListView{
                         id:list_view_1
                         width: isH ? 100 : 150
@@ -286,14 +270,12 @@ Rectangle {
                         }
                     }
                 }
-
                 Rectangle{
                     width: parent.width
                     height: 1
                     anchors.top: layout_content.bottom
                     color: dividerColor
                 }
-
                 Rectangle{
                     id:layout_actions
                     height: 40
@@ -304,14 +286,12 @@ Rectangle {
                         left: parent.left
                         right: parent.right
                     }
-
                     Item {
                         id:divider
                         width: 1
                         height: parent.height
                         anchors.centerIn: parent
                     }
-
                     FluButton{
                         anchors{
                             left: parent.left
@@ -325,7 +305,6 @@ Rectangle {
                             popup.close()
                         }
                     }
-
                     FluFilledButton{
                         anchors{
                             right: parent.right
@@ -388,7 +367,6 @@ Rectangle {
             }
             popup.open()
         }
-
         onClosed: {
             if(changeFlag){
                 text_hour.text = rowData[0]
@@ -396,13 +374,9 @@ Rectangle {
                 text_ampm.text = rowData[2]
             }
         }
-
     }
-
     property bool changeFlag: true
     readonly property var rowData: ["","",""]
-
-
     function generateArray(start, n) {
         var arr = [];
         for (var i = start; i <= n; i++) {
@@ -410,5 +384,4 @@ Rectangle {
         }
         return arr;
     }
-
 }

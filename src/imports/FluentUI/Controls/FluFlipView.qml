@@ -4,22 +4,18 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 Item{
-
     property bool vertical: false
     default property alias content : swipe.contentData
     property alias currentIndex: swipe.currentIndex
-
     id:control
     width: 400
     height: 300
     implicitWidth: width
     implicitHeight: height
-
     QtObject{
         id:d
         property bool flag: true
     }
-
     MouseArea{
         anchors.fill: parent
         preventStealing: true
@@ -36,7 +32,6 @@ Item{
                 timer.restart()
             }
     }
-
     Timer{
         id:timer
         interval: 250
@@ -44,7 +39,6 @@ Item{
             d.flag = true
         }
     }
-
     SwipeView {
         id:swipe
         clip: true
@@ -52,7 +46,6 @@ Item{
         orientation:control.vertical ? Qt.Vertical : Qt.Horizontal
         anchors.fill: parent
     }
-
     Button{
         id:btn_start
         height: vertical ? 20 : 40
@@ -82,7 +75,6 @@ Item{
             swipe.currentIndex = Math.max(swipe.currentIndex - 1, 0)
         }
     }
-
     Button{
         id:btn_end
         height: vertical ? 20 : 40
@@ -112,6 +104,4 @@ Item{
             swipe.currentIndex = Math.min(swipe.currentIndex + 1,swipe.count-1)
         }
     }
-
 }
-

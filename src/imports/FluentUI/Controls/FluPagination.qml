@@ -4,7 +4,6 @@ import QtQuick.Layouts
 import FluentUI
 
 Item {
-    id: control
     signal requestPage(int page,int count)
     property string previousText: "<上一页"
     property string nextText: "下一页>"
@@ -14,17 +13,14 @@ Item {
     property int __itemPerPage: 10
     property int pageButtonCount: 5
     property int __pageButtonHalf: Math.floor(pageButtonCount/2)+1
-
-
+    id: control
     implicitHeight: 40
     implicitWidth: content.width
-
     Row{
         id: content
         height: control.height
         spacing: 10
         padding: 10
-
         FluToggleButton{
             visible: control.pageCount>1
             disabled: control.pageCurrent<=1
@@ -33,7 +29,6 @@ Item {
                 control.calcNewPage(control.pageCurrent-1);
             }
         }
-
         Row{
             spacing: 5
             FluToggleButton{
@@ -93,7 +88,6 @@ Item {
             }
         }
     }
-
     function calcNewPage(page)
     {
         if(!page)
@@ -104,6 +98,4 @@ Item {
         control.pageCurrent=page_num
         control.requestPage(page_num,control.__itemPerPage)
     }
-
-
 }

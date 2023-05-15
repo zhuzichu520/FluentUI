@@ -4,7 +4,6 @@ import Qt5Compat.GraphicalEffects
 import FluentUI
 
 Item{
-
     property int size: 180
     property int dotSize: 24
     property int value: 50
@@ -14,16 +13,13 @@ Item{
     property var onLineClickFunc
     signal pressed
     signal released
-
     id:root
     height: control.height
     width: control.width
     rotation: vertical ? 180 : 0
-
     Component.onCompleted: {
         seek(value)
     }
-
     MouseArea{
         id:mouse_line
         anchors.centerIn: control
@@ -45,7 +41,6 @@ Item{
                 }
             }
     }
-
     Rectangle {
         id: control
         width: vertical ? 4 :size
@@ -61,7 +56,6 @@ Item{
             color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
     }
-
     Rectangle{
         id:dot
         width: dotSize
@@ -109,20 +103,17 @@ Item{
                 }
                 root.pressed()
             }
-
             onReleased: {
                 tool_tip.visible  =  false
                 root.released()
             }
         }
-
         FluTooltip{
             id:tool_tip
             text:String(root.value)
             y: vertical ? 32 : -40
         }
     }
-
     function seek(val){
         if(vertical){
             dot.y =val/maxValue*control.height - dotSize/2

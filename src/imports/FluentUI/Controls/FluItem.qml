@@ -3,29 +3,24 @@ import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
 Item{
-    id:control
     property var radius:[0,0,0,0]
     default property alias contentItem: container.data
-
+    id:control
     Item{
         id:container
         width: control.width
         height: control.height
         opacity: 0
     }
-
     onWidthChanged: {
         canvas.requestPaint()
     }
-
     onHeightChanged: {
         canvas.requestPaint()
     }
-
     onRadiusChanged: {
         canvas.requestPaint()
     }
-
     Canvas {
         id: canvas
         anchors.fill: parent
@@ -55,11 +50,9 @@ Item{
             ctx.restore();
         }
     }
-
     OpacityMask {
         anchors.fill: container
         source: container
         maskSource: canvas
     }
-
 }

@@ -3,11 +3,9 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-
     property string text: "MenuItem"
     property var onClickFunc
     signal clicked
-
     id:control
     width: {
         if(control.parent){
@@ -16,7 +14,6 @@ Item {
         return 140
     }
     height: 32
-
     Rectangle{
         anchors.centerIn: parent
         width: control.width-40
@@ -35,12 +32,10 @@ Item {
                 return Qt.rgba(0,0,0,0)
             }
         }
-
         FluText{
             text: control.text
             anchors.centerIn: parent
         }
-
         MouseArea{
             id:mouse_area
             hoverEnabled: true

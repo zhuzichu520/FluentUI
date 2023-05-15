@@ -3,9 +3,7 @@ import QtQuick.Controls
 import FluentUI
 
 TextField {
-
     property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
-
     id:control
     color: textColor
     readOnly: true
@@ -34,5 +32,4 @@ TextField {
         id:menu
         inputItem: control
     }
-
 }

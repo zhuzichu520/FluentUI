@@ -5,10 +5,8 @@ import QtQuick.Layouts
 import FluentUI
 
 Button {
-
     property bool selected: false
     property bool disabled: false
-
     id:control
     enabled: !disabled
     focusPolicy:Qt.TabFocus
@@ -102,4 +100,3 @@ Button {
         }
     }
 }
-

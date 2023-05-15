@@ -4,17 +4,14 @@ import QtMultimedia
 import FluentUI
 
 Rectangle {
-
     property url source
     property bool showControl: false
     property real volume: 30
-
     id:control
     width: 480
     height: 270
     color: FluColors.Black
     clip: true
-
     MouseArea{
         anchors.fill: parent
         preventStealing: true
@@ -22,7 +19,6 @@ Rectangle {
             showControl = !showControl
         }
     }
-
     MediaPlayer {
         id: mediaplayer
         property bool autoSeek:true
@@ -49,16 +45,13 @@ Rectangle {
                 }
             }
     }
-
     onSourceChanged: {
         slider.seek(0)
     }
-
     VideoOutput {
         id:video_output
         anchors.fill: parent
     }
-
     Item{
         height: 100
         y:showControl ? control.height - 110 : control.height
@@ -110,7 +103,6 @@ Rectangle {
                 mediaplayer.position = val*mediaplayer.duration/slider.maxValue
             }
         }
-
         FluText{
             id:start_time
             anchors{
@@ -120,7 +112,6 @@ Rectangle {
             }
             text: formatDuration(slider.value*mediaplayer.duration/slider.maxValue)
         }
-
         FluText{
             id:end_time
             anchors{
@@ -130,7 +121,6 @@ Rectangle {
             }
             text: formatDuration(mediaplayer.duration)
         }
-
         Row{
             spacing: 10
             anchors{
@@ -164,7 +154,6 @@ Rectangle {
                 }
             }
         }
-
         FluIconButton{
             id:btn_volume
             iconSize: 17
@@ -179,7 +168,6 @@ Rectangle {
                 audio_output.muted = !audio_output.muted
             }
         }
-
         FluSlider{
             id:slider_volume
             size: 80
@@ -195,7 +183,6 @@ Rectangle {
             }
         }
     }
-
     function formatDuration(duration) {
         const seconds = Math.floor(duration / 1000);
         const hours = Math.floor(seconds / 3600);
@@ -203,18 +190,13 @@ Rectangle {
         const remainingSeconds = seconds % 60;
         return `${pad(hours)}:${pad(minutes)}:${pad(remainingSeconds)}`;
     }
-
     function pad(value) {
         return value.toString().padStart(2, '0');
     }
-
     function pause(){
         mediaplayer.pause()
     }
-
     function play(){
         mediaplayer.play()
     }
-
 }
-

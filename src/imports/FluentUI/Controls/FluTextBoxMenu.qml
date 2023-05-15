@@ -3,30 +3,25 @@ import QtQuick.Controls
 import FluentUI
 
 FluMenu{
-
     property string cutText : "剪切"
     property string copyText : "复制"
     property string pasteText : "粘贴"
     property string selectAllText : "全选"
     property var inputItem
-
     id:menu
     focus:false
     enableAnimation:false
-
     onVisibleChanged: {
         if(visible){
             inputItem.forceActiveFocus()
         }
     }
-
     Connections{
         target: inputItem
         function onTextChanged() {
             menu.close()
         }
     }
-
     FluMenuItem{
         text: cutText
         visible: inputItem.selectedText !== "" && !inputItem.readOnly
@@ -34,7 +29,6 @@ FluMenu{
             inputItem.cut()
         }
     }
-
     FluMenuItem{
         text: copyText
         visible: inputItem.selectedText !== ""

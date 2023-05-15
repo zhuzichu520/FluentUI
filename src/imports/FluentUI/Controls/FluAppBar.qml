@@ -5,7 +5,6 @@ import QtQuick.Layouts
 import FluentUI
 
 Rectangle{
-
     property string title: ""
     property string darkText : "夜间模式"
     property string minimizeText : "最小化"
@@ -21,32 +20,27 @@ Rectangle{
     property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
     property bool showDark: false
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
-
-    Item{
-        id:d
-        property var win: Window.window
-        property bool isRestore: win && Window.Maximized === win.visibility
-        property bool resizable: win && !(win.minimumHeight === win.maximumHeight && win.maximumWidth === win.minimumWidth)
-    }
-
     id:root
     color: Qt.rgba(0,0,0,0)
     visible: false
     height: visible ? 30 : 0
     opacity: visible
     z: 65535
-
+    Item{
+        id:d
+        property var win: Window.window
+        property bool isRestore: win && Window.Maximized === win.visibility
+        property bool resizable: win && !(win.minimumHeight === win.maximumHeight && win.maximumWidth === win.minimumWidth)
+    }
     TapHandler {
         onTapped: if (tapCount === 2) toggleMaximized()
         gesturePolicy: TapHandler.DragThreshold
     }
-
     DragHandler {
         target: null
         grabPermissions: TapHandler.CanTakeOverFromAnything
         onActiveChanged: if (active) { d.win.startSystemMove(); }
     }
-
     FluText {
         text: title
         anchors{
@@ -56,12 +50,10 @@ Rectangle{
         }
         color:root.textColor
     }
-
     RowLayout{
         anchors.right: parent.right
         height: root.height
         spacing: 0
-
         RowLayout{
             Layout.alignment: Qt.AlignVCenter
             Layout.rightMargin: 5
@@ -82,7 +74,6 @@ Rectangle{
                 }
             }
         }
-
         FluIconButton{
             width: 40
             height: 30
@@ -127,7 +118,6 @@ Rectangle{
             }
         }
     }
-
     function toggleMaximized() {
         if(!d.resizable)
             return
@@ -137,5 +127,4 @@ Rectangle{
             d.win.showMaximized();
         }
     }
-
 }

@@ -4,25 +4,21 @@ import QtQuick.Layouts
 import FluentUI
 
 Item {
-
     enum TabWidthBehavior {
         Equal,
         SizeToContent,
         Compact
     }
-
     enum CloseButtonVisibility{
         Nerver,
         Always,
         OnHover
     }
-
     property int tabWidthBehavior : FluTabView.Equal
     property int closeButtonVisibility : FluTabView.Always
     property int itemWidth: 146
     property bool addButtonVisibility: true
     signal newPressed
-
     id:control
     implicitHeight: height
     implicitWidth: width
@@ -31,7 +27,6 @@ Item {
             return parent
         return undefined
     }
-
     QtObject {
         id: d
         property int dragIndex: -1
@@ -39,16 +34,13 @@ Item {
         property bool itemPress: false
         property int maxEqualWidth: 240
     }
-
     MouseArea{
         anchors.fill: parent
         preventStealing: true
     }
-
     ListModel{
         id:tab_model
     }
-
     FluIconButton{
         id:btn_new
         visible: addButtonVisibility
@@ -61,7 +53,6 @@ Item {
             newPressed()
         }
     }
-
     ListView{
         id:tab_nav
         height: 34
@@ -88,21 +79,16 @@ Item {
             policy: ScrollBar.AlwaysOff
         }
         delegate:  Item{
-
             width: item_layout.width
             height: item_container.height
             z: item_mouse_drag.pressed ? 1000 : 1
-
             Item{
                 id:item_layout
                 width: item_container.width
                 height: item_container.height
-
                 FluItem{
                     id:item_container
-
                     property real timestamp: new Date().getTime()
-
                     height: tab_nav.height
                     width: {
                         if(tabWidthBehavior === FluTabView.Equal){
@@ -119,24 +105,20 @@ Item {
                     radius: [6,6,0,0]
                     Behavior on x { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
                     Behavior on y { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
-
                     MouseArea{
                         id:item_mouse_hove
                         anchors.fill: parent
                         hoverEnabled: true
                     }
-
                     MouseArea{
                         id:item_mouse_drag
                         anchors.fill: parent
                         drag.target: item_container
                         drag.axis: Drag.XAxis
-
                         onWheel: (wheel)=>{
                                      if (wheel.angleDelta.y > 0) scroll_nav.decrease()
                                      else scroll_nav.increase()
                                  }
-
                         onPressed: {
                             d.itemPress = true
                             item_container.timestamp = new Date().getTime();
@@ -147,7 +129,6 @@ Item {
                             item_container.x = pos.x
                             item_container.y = pos.y
                         }
-
                         onReleased: {
                             d.itemPress = false
                             timer.stop()
@@ -164,7 +145,6 @@ Item {
                             item_container.x = 0;
                             item_container.y = 0;
                         }
-
                         onPositionChanged: {
                             var pos = tab_nav.mapFromItem(item_container, 0, 0)
                             updatePosition(pos)
@@ -211,7 +191,6 @@ Item {
                             }
                         }
                     }
-
                     Rectangle{
                         anchors.fill: parent
                         color: {
@@ -234,7 +213,6 @@ Item {
                             }
                         }
                     }
-
                     RowLayout{
                         spacing: 0
                         height: parent.height
@@ -271,7 +249,6 @@ Item {
                             }
                         }
                     }
-
                     FluIconButton{
                         id:item_btn_close
                         iconSource: FluentIcons.ChromeClose
@@ -294,7 +271,6 @@ Item {
                             tab_model.remove(index)
                         }
                     }
-
                     FluDivider{
                         width: 1
                         height: 16
@@ -307,8 +283,6 @@ Item {
             }
         }
     }
-
-
     Item{
         id:container
         anchors{
@@ -317,7 +291,6 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-
         Repeater{
             model:tab_model
             Loader{
@@ -328,23 +301,17 @@ Item {
             }
         }
     }
-
-
     function createTab(icon,text,page,argument={}){
         return {icon:icon,text:text,page:page,argument:argument}
     }
-
     function appendTab(icon,text,page,argument){
         tab_model.append(createTab(icon,text,page,argument))
     }
-
     function setTabList(list){
         tab_model.clear()
         tab_model.append(list)
     }
-
     function count(){
         return tab_nav.count
     }
-
 }
