@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
 
-Window {
+FluWindow {
 
     id:window
     title:"SingleTask"
