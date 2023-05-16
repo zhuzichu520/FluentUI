@@ -58,6 +58,18 @@ or
 git clone https://github.com/zhuzichu520/FluentUI.git
 ```
 
++ Build
+
+```
+git clone --recursive https://github.com/zhuzichu520/FluentUI.git
+cd FluentUI
+mkdir build
+cd build
+cmake -DCMAKE_PREFIX_PATH=<YOUR_QT_SDK_DIR_PATH> -DCMAKE_BUILD_TYPE=Release -GNinja <PATH_TO_THE_REPOSITORY>
+cmake --build . --config Release --target all --parallel
+cmake --install . --config Release --strip
+```
+
 + Use your IDE (`Qt Creator` or `CLion`) to open the project. (only **CMake** supported).
 
 <div align=center>
