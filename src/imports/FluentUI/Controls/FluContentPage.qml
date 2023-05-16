@@ -7,10 +7,10 @@ import FluentUI
 Item {
     property alias title: text_title.text
     default property alias content: container.data
-    property int leftPadding: 0
+    property int leftPadding: 10
     property int topPadding: 0
-    property int rightPadding: 0
-    property int bottomPadding: 0
+    property int rightPadding: 10
+    property int bottomPadding: 10
     property int pageMode: FluNavigationView.Standard
     property string url: ''
     id:control
