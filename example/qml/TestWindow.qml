@@ -2,61 +2,68 @@
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt.labs.platform
 import FluentUI
+import "qrc:///example/qml/global/"
 
-Window {
+FluWindow {
+
     id:window
-    title: "132"
+    title: "FluentUI"
+    width: 1000
+    height: 640
+    closeDestory:false
+    minimumWidth: 520
+    minimumHeight: 460
+    launchMode: FluWindow.SingleTask
     visible: true
-    width: 600
-    color: "#00000000"
-    height: 480
 
-    FluInfoBar{
-        id:info_bar
-        root: window
-    }
-
-    Rectangle{
+    FluNavigationView2{
+        id:nav_view
         anchors.fill: parent
-        color: "#FFFFFF"
-    }
-
-    FluButton{
-        x: 23
-        y: 31
-        text:"123"
-        onClicked: {
-            info_bar.showSuccess("asdasd")
+        items: ItemsOriginal
+        footerItems:ItemsFooter
+        z:11
+        displayMode:MainEvent.displayMode
+        logo: "qrc:/example/res/image/favicon.ico"
+        title:"FluentUI"
+        autoSuggestBox:FluAutoSuggestBox{
+            width: 280
+            anchors.centerIn: parent
+            iconSource: FluentIcons.Search
+            items: ItemsOriginal.getSearchData()
+            placeholderText: lang.search
+            onItemClicked:
+                (data)=>{
+                    ItemsOriginal.startPageByItem(data)
+                }
         }
-    }
-
-    FluFilledButton{
-        x: 23
-        y: 95
-        text: "asdasd"
-        onClicked: {
-            info_bar.showInfo("123132")
+        actionItem:Item{
+            height: 40
+            width: 148
+            RowLayout{
+                anchors.centerIn: parent
+                spacing: 5
+                FluText{
+                    text:lang.dark_mode
+                }
+                FluToggleSwitch{
+                    selected: FluTheme.dark
+                    clickFunc:function(){
+                        if(FluTheme.dark){
+                            FluTheme.darkMode = FluDarkMode.Light
+                        }else{
+                            FluTheme.darkMode = FluDarkMode.Dark
+                        }
+                    }
+                }
+            }
         }
-    }
-
-    FluTextBox{
-        text: "asdasd"
-        anchors.verticalCenterOffset: -59
-        anchors.horizontalCenterOffset: -127
-        anchors.centerIn: parent
-    }
-
-    FluProgressBar{
-        x: 23
-        y: 238
-
-    }
-
-    FluProgressRing{
-        x: 18
-        y: 283
-
+        Component.onCompleted: {
+            ItemsOriginal.navigationView = nav_view
+            ItemsFooter.navigationView = nav_view
+//            nav_view.setCurrentIndex(0)
+        }
     }
 
 }

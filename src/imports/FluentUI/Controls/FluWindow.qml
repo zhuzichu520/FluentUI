@@ -32,6 +32,7 @@ Window {
     }
     signal initArgument(var argument)
     id:window
+    color:Qt.rgba(0,0,0,0)
     onClosing:(event)=>closeFunc(event)
     Component.onCompleted: {
         helper.initWindow(window)
