@@ -1,0 +1,3 @@
+[submodule "3rdparty/framelesshelper"]
+	path = 3rdparty/framelesshelper
+	url = https://github.com/wangwenx190/framelesshelper.git

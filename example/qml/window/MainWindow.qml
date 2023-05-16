@@ -10,6 +10,7 @@ FluWindow {
 
     id:window
     title: "FluentUI"
+    windowIcon: "qrc:/example/res/image/favicon.ico"
     width: 1000
     height: 640
     closeDestory:false
@@ -18,6 +19,9 @@ FluWindow {
     launchMode: FluWindow.SingleTask
 
     closeFunc:function(event){
+        window.show()
+        window.raise()
+        window.requestActivate()
         close_app.open()
         event.accepted = false
     }

@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
+import org.wangwenx190.FramelessHelper
 
 Window {
     enum LaunchMode {
@@ -11,6 +12,7 @@ Window {
         SingleInstance
     }
     default property alias content: container.data
+    property alias windowIcon: titleBar.windowIcon
     property bool closeDestory: true
     property int launchMode: FluWindow.Standard
     property string route
@@ -32,24 +34,69 @@ Window {
     }
     signal initArgument(var argument)
     id:window
-    color:Qt.rgba(0,0,0,0)
+    visible: false
+    objectName: title
     onClosing:(event)=>closeFunc(event)
     Component.onCompleted: {
         helper.initWindow(window)
         initArgument(argument)
     }
-    Rectangle{
-        anchors.fill: parent
-        color: backgroundColor
-        Behavior on color{
-            ColorAnimation {
-                duration: 300
+    color: {
+        if (FramelessHelper.blurBehindWindowEnabled) {
+            return "transparent";
+        }
+        return backgroundColor;
+    }
+    Behavior on color{
+        ColorAnimation {
+            duration: 300
+        }
+    }
+    StandardTitleBar {
+        id: titleBar
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        windowIconVisible: windowIcon!==null
+        RowLayout{
+            spacing: 10
+            Item {
+                width: 10
+            }
+            FluIconButton{
+                iconSize: 10
+                iconSource: FluentIcons.ChromeClose
+                onClicked: window.close()
+            }
+            FluIconButton{
+                iconSize: 10
+                iconSource: FluentIcons.ChromeMinimize
+                onClicked: window.visibility = Window.Minimized
+            }
+            FluIconButton{
+                iconSize: 10
+                iconSource: FluentIcons.ChromeMaximize
+                onClicked:
+                {
+                    if (window.visibility === Window.Maximized)
+                        window.visibility = Window.Windowed
+                    else
+                        window.visibility = Window.Maximized
+                }
             }
         }
     }
     Item{
         id:container
-        anchors.fill: parent
+        anchors{
+            top: titleBar.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+
         clip: true
     }
     FluInfoBar{
@@ -59,6 +106,12 @@ Window {
     WindowHelper{
         id:helper
     }
+    FramelessHelper.onReady: {
+        FramelessHelper.titleBarItem = titleBar;
+        FramelessHelper.moveWindowToDesktopCenter();
+        window.visible = true;
+    }
+
     function showSuccess(text,duration,moremsg){
         infoBar.showSuccess(text,duration,moremsg);
     }
