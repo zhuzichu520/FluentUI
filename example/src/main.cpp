@@ -10,7 +10,7 @@
 #include "AppInfo.h"
 #include "tool/IPC.h"
 
-FRAMELESSHELPER_USE_NAMESPACE;
+FRAMELESSHELPER_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
     //    QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
     FramelessHelper::Core::setApplicationOSThemeAware();
-//    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-//    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     AppInfo* appInfo = new AppInfo();
     IPC ipc(0);
     QString activeWindowEvent = "activeWindow";

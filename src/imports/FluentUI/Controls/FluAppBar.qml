@@ -20,6 +20,7 @@ Rectangle{
     property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
     property bool showDark: false
     property bool titleVisible: true
+    property bool isMac: Qt.platform.os === "osx"
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     id:root
     color: Qt.rgba(0,0,0,0)
@@ -45,14 +46,16 @@ Rectangle{
         text: title
         anchors{
             verticalCenter: parent.verticalCenter
-            left: parent.left
-            leftMargin: 10
+            left: isMac ? undefined : parent.left
+            leftMargin: isMac ? undefined : 10
+            horizontalCenter: isMac ? parent.horizontalCenter : undefined
         }
         visible: root.titleVisible
         color:root.textColor
     }
     RowLayout{
         anchors.right: parent.right
+        visible: !isMac
         height: root.height
         spacing: 0
         RowLayout{

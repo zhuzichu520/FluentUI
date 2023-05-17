@@ -103,6 +103,7 @@ CustomWindow {
         z:999
         items: ItemsOriginal
         footerItems:ItemsFooter
+        topPadding:Qt.platform.os === "osx" ? 20 : 5
         displayMode:MainEvent.displayMode
         logo: "qrc:/example/res/image/favicon.ico"
         title:"FluentUI"

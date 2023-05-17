@@ -19,6 +19,7 @@ Item {
     property int displayMode: FluNavigationView.Auto
     property Component autoSuggestBox
     property Component actionItem
+    property int topPadding: 0
     enum PageModeFlag{
         Standard = 0,
         SingleTop = 1,
@@ -456,6 +457,10 @@ Item {
         id:nav_app_bar
         width: parent.width
         height: 40
+        anchors{
+            top: parent.top
+            topMargin: control.topPadding
+        }
         z:999
         RowLayout{
             height:parent.height
@@ -637,7 +642,7 @@ Item {
             id:layout_header
             width: layout_list.width
             clip: true
-            y:nav_app_bar.height
+            y:nav_app_bar.height+control.topPadding
             height: autoSuggestBox ? 38 : 0
             Loader{
                 id:loader_auto_suggest_box
