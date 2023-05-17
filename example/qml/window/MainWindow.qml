@@ -94,8 +94,7 @@ CustomWindow {
     FluNavigationView{
         id:nav_view
         anchors{
-            top: title_bar.bottom
-            topMargin: -20
+            top: parent.top
             left: parent.left
             right: parent.right
             bottom: parent.bottom
@@ -121,6 +120,8 @@ CustomWindow {
             ItemsOriginal.navigationView = nav_view
             ItemsFooter.navigationView = nav_view
             nav_view.setCurrentIndex(0)
+            setHitTestVisible(nav_view.backButton())
+            setHitTestVisible(nav_view.navButton())
         }
     }
 }

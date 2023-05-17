@@ -461,6 +461,7 @@ Item {
             height:parent.height
             spacing: 0
             FluIconButton{
+                id:btn_back
                 iconSource: FluentIcons.ChromeBack
                 Layout.leftMargin: 5
                 Layout.preferredWidth: 30
@@ -921,5 +922,11 @@ Item {
                 return
             }
         }
+    }
+    function backButton(){
+        return btn_back
+    }
+    function navButton(){
+        return btn_nav
     }
 }
