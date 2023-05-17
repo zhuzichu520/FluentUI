@@ -12,11 +12,6 @@ FluWindow {
     property bool appBarVisible: true
     default property alias content: container.data
 
-    onFixSizeChanged: {
-        framless_helper.setWindowFixedSize(fixSize)
-        title_bar.maximizeButton.visible = !fixSize
-    }
-
     FluAppBar {
         id: title_bar
         title: window.title
@@ -47,6 +42,8 @@ FluWindow {
             setHitTestVisible(title_bar.minimizeButton())
             setHitTestVisible(title_bar.maximizeButton())
             setHitTestVisible(title_bar.closeButton())
+            framless_helper.setWindowFixedSize(fixSize)
+            title_bar.maximizeButton.visible = !fixSize
             window.visible = true
         }
     }
