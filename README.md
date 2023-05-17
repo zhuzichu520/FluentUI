@@ -55,7 +55,7 @@ or
 + Clone the repository.
 
 ```SHELL
-git clone https://github.com/zhuzichu520/FluentUI.git
+git clone --recursive https://github.com/zhuzichu520/FluentUI.git
 ```
 
 + Build
