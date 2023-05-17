@@ -83,12 +83,6 @@ CustomWindow {
             right: parent.right
         }
         showDark: true
-        Component.onCompleted: {
-            setTitleBarItem(title_bar)
-            setHitTestVisible(title_bar.minimizeButton())
-            setHitTestVisible(title_bar.maximizeButton())
-            setHitTestVisible(title_bar.closeButton())
-        }
         z:7
     }
 
