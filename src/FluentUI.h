@@ -8,8 +8,8 @@ class Q_DECL_EXPORT FluentUI
 {
 
 public:
-    static void init();
-
+    static void preInit();
+    static void postInit();
 };
 
 #endif // FLUENTUI_H

@@ -3,8 +3,9 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
+import org.wangwenx190.FramelessHelper
 
-Window {
+FramelessWindow {
     enum LaunchMode {
         Standard,
         SingleTask,
@@ -32,7 +33,7 @@ Window {
     }
     signal initArgument(var argument)
     id:window
-    color:Qt.rgba(0,0,0,0)
+    color:"transparent"
     onClosing:(event)=>closeFunc(event)
     Component.onCompleted: {
         helper.initWindow(window)
@@ -47,9 +48,26 @@ Window {
             }
         }
     }
+    StandardTitleBar {
+        id: title_bar
+        z:999
+        anchors {
+            top: parent.top
+            topMargin: window.visibility === Window.Windowed ? 1 : 0
+            left: parent.left
+            right: parent.right
+        }
+        //         windowIcon: "qrc:///images/microsoft.svg"
+        windowIconVisible: false
+    }
     Item{
         id:container
-        anchors.fill: parent
+        anchors{
+            top: title_bar.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         clip: true
     }
     FluInfoBar{
@@ -59,17 +77,27 @@ Window {
     WindowHelper{
         id:helper
     }
+    FramelessHelper.onReady: {
+        FramelessHelper.titleBarItem = title_bar
+        FramelessHelper.moveWindowToDesktopCenter()
+        if (Qt.platform.os !== "macos") {
+            FramelessHelper.setSystemButton(title_bar.minimizeButton, FramelessHelperConstants.Minimize);
+            FramelessHelper.setSystemButton(title_bar.maximizeButton, FramelessHelperConstants.Maximize);
+            FramelessHelper.setSystemButton(title_bar.closeButton, FramelessHelperConstants.Close);
+        }
+        window.visible = true
+    }
     function showSuccess(text,duration,moremsg){
-        infoBar.showSuccess(text,duration,moremsg);
+        infoBar.showSuccess(text,duration,moremsg)
     }
     function showInfo(text,duration,moremsg){
-        infoBar.showInfo(text,duration,moremsg);
+        infoBar.showInfo(text,duration,moremsg)
     }
     function showWarning(text,duration,moremsg){
-        infoBar.showWarning(text,duration,moremsg);
+        infoBar.showWarning(text,duration,moremsg)
     }
     function showError(text,duration,moremsg){
-        infoBar.showError(text,duration,moremsg);
+        infoBar.showError(text,duration,moremsg)
     }
     function registerForWindowResult(path){
         return helper.createRegister(window,path)

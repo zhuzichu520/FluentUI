@@ -66,6 +66,8 @@ target_link_libraries(fluentuiplugin PUBLIC
     Qt::Core
     Qt::Quick
     Qt::Qml
+    FramelessHelper::Core
+    FramelessHelper::Quick
 )
 
 #链接库 win32库 不然mingw会编译错误

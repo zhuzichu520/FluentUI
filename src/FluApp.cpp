@@ -78,7 +78,6 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         fluRegister->to(view);
     }
     view->setColor(QColor(Qt::transparent));
-    view->show();
 }
 
 QJsonArray FluApp::awesomelist(const QString& keyword)
