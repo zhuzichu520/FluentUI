@@ -2,10 +2,12 @@
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtMultimedia
 import FluentUI
 
 Window {
     id:app
+    MediaPlayer{}
     Component.onCompleted: {
         FluApp.init(app)
         FluTheme.darkMode = FluDarkMode.System

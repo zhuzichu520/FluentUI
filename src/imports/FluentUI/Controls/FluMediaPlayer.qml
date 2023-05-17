@@ -27,9 +27,9 @@ Rectangle {
         audioOutput: AudioOutput{
             id:audio_output
         }
-        onErrorChanged:
+        onErrorStringChanged:
             (error)=> {
-                console.debug(error)
+                console.debug(errorString)
             }
         onPositionChanged: {
             if(autoSeek){
