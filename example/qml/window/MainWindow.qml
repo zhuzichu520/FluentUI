@@ -82,6 +82,7 @@ CustomWindow {
             left: parent.left
             right: parent.right
         }
+        darkText: lang.dark_mode
         showDark: true
         z:7
     }

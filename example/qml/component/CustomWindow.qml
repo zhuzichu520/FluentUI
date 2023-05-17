@@ -21,6 +21,7 @@ FluWindow {
             left: parent.left
             right: parent.right
         }
+        darkText: lang.dark_mode
     }
 
     Item{
