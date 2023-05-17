@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QQuickWindow>
 #include <QProcess>
+#include <FluentUI/FluentUI.h>
 #include "lang/Lang.h"
 #include "AppInfo.h"
 #include "tool/IPC.h"
@@ -11,6 +12,7 @@
 int main(int argc, char *argv[])
 {
     //将样式设置为Basic，不然会导致组件显示异常
+    FluentUI::init();
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     //6.4及以下监听系统深色模式变化
 #ifdef Q_OS_WIN

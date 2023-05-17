@@ -8,9 +8,6 @@
 #include <QQmlContext>
 #include <QJsonObject>
 #include <QQmlEngine>
-#include "FluTheme.h"
-#include "FluTools.h"
-#include "FluColors.h"
 #include "FluRegister.h"
 #include "stdafx.h"
 
