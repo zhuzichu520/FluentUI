@@ -61,9 +61,9 @@ qt_add_qml_module(fluentuiplugin
 
 #链接库
 target_link_libraries(fluentuiplugin PUBLIC
-    Qt::Core
-    Qt::Quick
-    Qt::Qml
+    Qt::CorePrivate
+    Qt::QuickPrivate
+    Qt::QmlPrivate
 )
 
 #链接库 win32库 不然mingw会编译错误

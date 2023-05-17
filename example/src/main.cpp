@@ -15,20 +15,16 @@ FRAMELESSHELPER_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     FramelessHelper::Quick::initialize();
-    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
-    //6.4及以下监听系统深色模式变化
-#ifdef Q_OS_WIN
-    qputenv("QT_QPA_PLATFORM","windows:darkmode=2");
-#endif
     //将样式设置为Basic，不然会导致组件显示异常
+    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
     //    QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
-    FramelessHelper::Core::setApplicationOSThemeAware();
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
+//    FramelessHelper::Core::setApplicationOSThemeAware();
+//    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+//    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     AppInfo* appInfo = new AppInfo();
     IPC ipc(0);
     QString activeWindowEvent = "activeWindow";
