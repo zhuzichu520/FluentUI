@@ -55,7 +55,6 @@ Rectangle{
     }
     RowLayout{
         anchors.right: parent.right
-        visible: !isMac
         height: root.height
         spacing: 0
         RowLayout{
@@ -87,6 +86,7 @@ Rectangle{
             iconSize: 11
             text:minimizeText
             radius: 0
+            visible: !isMac
             iconColor: root.textColor
             color: hovered ? minimizeHoverColor : minimizeNormalColor
             onClicked: {
@@ -100,7 +100,7 @@ Rectangle{
             iconSource : d.isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
             color: hovered ? maximizeHoverColor : maximizeNormalColor
             Layout.alignment: Qt.AlignVCenter
-            visible: d.resizable
+            visible: d.resizable && !isMac
             radius: 0
             iconColor: root.textColor
             text:d.isRestore?restoreText:maximizeText
@@ -119,6 +119,7 @@ Rectangle{
             text:closeText
             width: 40
             height: 30
+            visible: !isMac
             radius: 0
             iconSize: 10
             iconColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
