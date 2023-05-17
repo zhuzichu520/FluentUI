@@ -47,6 +47,7 @@ FluScrollablePage{
         }
 
         ListView{
+            id: list
             anchors{
                 left: parent.left
                 right: parent.right
@@ -75,8 +76,8 @@ FluScrollablePage{
                         sourceItem:bg
                         anchors.fill: parent
                         color: FluTheme.dark ? 'black' : 'white'
-                        rectX: control.parent.x-control.parent.contentX+10+(control.width)*index
-                        rectY: control.parent.y+10
+                        rectX: list.x-list.contentX+10+(control.width)*index
+                        rectY: list.y+10
                         acrylicOpacity:0.5
                     }
                     Rectangle{
