@@ -89,6 +89,7 @@ CustomWindow {
             setHitTestVisible(title_bar.maximizeButton())
             setHitTestVisible(title_bar.closeButton())
         }
+        z:7
     }
 
     FluNavigationView{
@@ -99,9 +100,9 @@ CustomWindow {
             right: parent.right
             bottom: parent.bottom
         }
+        z:999
         items: ItemsOriginal
         footerItems:ItemsFooter
-        z:11
         displayMode:MainEvent.displayMode
         logo: "qrc:/example/res/image/favicon.ico"
         title:"FluentUI"
@@ -120,8 +121,6 @@ CustomWindow {
             ItemsOriginal.navigationView = nav_view
             ItemsFooter.navigationView = nav_view
             nav_view.setCurrentIndex(0)
-            setHitTestVisible(nav_view.backButton())
-            setHitTestVisible(nav_view.navButton())
         }
     }
 }
