@@ -2,17 +2,15 @@
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
+import "../component"
 
-FluWindow {
+CustomWindow {
 
     id:window
     title:"SingleInstance"
     width: 500
     height: 600
-    minimumWidth: 500
-    minimumHeight: 600
-    maximumWidth: 500
-    maximumHeight: 600
+    fixSize: true
     launchMode: FluWindow.SingleInstance
 
     FluTextBox{
@@ -35,4 +33,9 @@ FluWindow {
         text:"我是一个SingleInstance模式的窗口，如果我存在，我会销毁之前的窗口，并创建一个新窗口"
     }
 
+    FluAppBar{
+        id:appbar
+        width: parent.width
+        height: 30
+    }
 }

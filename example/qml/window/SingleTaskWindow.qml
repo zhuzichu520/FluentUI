@@ -2,17 +2,15 @@
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
+import "../component"
 
-FluWindow {
+CustomWindow {
 
     id:window
     title:"SingleTask"
     width: 500
     height: 600
-    minimumWidth: 500
-    minimumHeight: 600
-    maximumWidth: 500
-    maximumHeight: 600
+    fixSize: true
     launchMode: FluWindow.SingleTask
 
     FluText{

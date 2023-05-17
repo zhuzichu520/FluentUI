@@ -94,6 +94,8 @@ set_target_properties(example PROPERTIES
 target_link_libraries(example PRIVATE
     Qt6::Quick
     fluentuiplugin
+    FramelessHelper::Core
+    FramelessHelper::Quick
 )
 
 #安装

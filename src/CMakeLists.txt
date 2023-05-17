@@ -44,8 +44,6 @@ foreach(filepath IN LISTS qml_files resource_files)
     set_source_files_properties(${filepath} PROPERTIES QT_RESOURCE_ALIAS ${filename})
 endforeach()
 
-set_source_files_properties(FluentUI.h PROPERTIES QT_RESOURCE_ALIAS "../../include/FluentUI/FluentUI.h")
-
 #添加qml模块
 qt_add_library(fluentuiplugin SHARED)
 qt_add_qml_module(fluentuiplugin
@@ -56,7 +54,7 @@ qt_add_qml_module(fluentuiplugin
     URI "FluentUI"
     SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
-    RESOURCES ${resource_files} FluentUI.h
+    RESOURCES ${resource_files}
     #支持designer
     DESIGNER_SUPPORTED
 )
@@ -66,8 +64,6 @@ target_link_libraries(fluentuiplugin PUBLIC
     Qt::Core
     Qt::Quick
     Qt::Qml
-    FramelessHelper::Core
-    FramelessHelper::Quick
 )
 
 #链接库 win32库 不然mingw会编译错误

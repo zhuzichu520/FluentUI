@@ -3,7 +3,6 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
-import org.wangwenx190.FramelessHelper
 
 Window {
     enum LaunchMode {
@@ -25,7 +24,6 @@ Window {
             event.accepted = false
         }
     }
-    visible: true
     property color backgroundColor: {
         if(active){
             return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
@@ -49,26 +47,9 @@ Window {
             }
         }
     }
-//    StandardTitleBar {
-//        id: title_bar
-//        z:999
-//        anchors {
-//            top: parent.top
-//            topMargin: window.visibility === Window.Windowed ? 1 : 0
-//            left: parent.left
-//            right: parent.right
-//        }
-//        //         windowIcon: "qrc:///images/microsoft.svg"
-//        windowIconVisible: false
-//    }
     Item{
         id:container
-        anchors{
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
+        anchors.fill: parent
         clip: true
     }
     FluInfoBar{
@@ -78,16 +59,6 @@ Window {
     WindowHelper{
         id:helper
     }
-//    FramelessHelper.onReady: {
-//        FramelessHelper.titleBarItem = title_bar
-//        FramelessHelper.moveWindowToDesktopCenter()
-//        if (Qt.platform.os !== "macos") {
-//            FramelessHelper.setSystemButton(title_bar.minimizeButton, FramelessHelperConstants.Minimize);
-//            FramelessHelper.setSystemButton(title_bar.maximizeButton, FramelessHelperConstants.Maximize);
-//            FramelessHelper.setSystemButton(title_bar.closeButton, FramelessHelperConstants.Close);
-//        }
-//        window.visible = true
-//    }
     function showSuccess(text,duration,moremsg){
         infoBar.showSuccess(text,duration,moremsg)
     }
@@ -111,5 +82,4 @@ Window {
             pageRegister.onResult(data)
         }
     }
-
 }

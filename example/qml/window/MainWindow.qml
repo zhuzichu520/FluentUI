@@ -4,9 +4,10 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
+import "../component"
 import "qrc:///example/qml/global/"
 
-FluWindow {
+CustomWindow {
 
     id:window
     title: "FluentUI"
@@ -15,6 +16,7 @@ FluWindow {
     closeDestory:false
     minimumWidth: 520
     minimumHeight: 460
+    appBarVisible: false
     launchMode: FluWindow.SingleTask
 
     closeFunc:function(event){
@@ -71,12 +73,33 @@ FluWindow {
             window.deleteWindow()
             FluApp.closeApp()
         }
+    }
 
+    FluAppBar {
+        id: title_bar
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        showDark: true
+        Component.onCompleted: {
+            setTitleBarItem(title_bar)
+            setHitTestVisible(title_bar.minimizeButton())
+            setHitTestVisible(title_bar.maximizeButton())
+            setHitTestVisible(title_bar.closeButton())
+        }
     }
 
     FluNavigationView{
         id:nav_view
-        anchors.fill: parent
+        anchors{
+            top: title_bar.bottom
+            topMargin: -20
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         items: ItemsOriginal
         footerItems:ItemsFooter
         z:11
@@ -94,32 +117,10 @@ FluWindow {
                     ItemsOriginal.startPageByItem(data)
                 }
         }
-        actionItem:Item{
-            height: 40
-            width: 148
-            RowLayout{
-                anchors.centerIn: parent
-                spacing: 5
-                FluText{
-                    text:lang.dark_mode
-                }
-                FluToggleSwitch{
-                    selected: FluTheme.dark
-                    clickFunc:function(){
-                        if(FluTheme.dark){
-                            FluTheme.darkMode = FluDarkMode.Light
-                        }else{
-                            FluTheme.darkMode = FluDarkMode.Dark
-                        }
-                    }
-                }
-            }
-        }
         Component.onCompleted: {
             ItemsOriginal.navigationView = nav_view
             ItemsFooter.navigationView = nav_view
             nav_view.setCurrentIndex(0)
         }
     }
-
 }
