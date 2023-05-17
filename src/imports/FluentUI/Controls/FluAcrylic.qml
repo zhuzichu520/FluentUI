@@ -8,6 +8,8 @@ Item {
     property alias acrylicOpacity: rect.opacity
     property alias radius:bg.radius
     property alias blurRadius: blur.radius
+    property int rectX: control.x
+    property int rectY: control.y
     property var sourceItem: control.parent
     FluRectangle{
         id:bg
@@ -17,7 +19,7 @@ Item {
             id: effect_source
             anchors.fill: parent
             sourceItem: control.sourceItem
-            sourceRect: Qt.rect(control.x, control.y, control.width, control.height)
+            sourceRect: Qt.rect(rectX, rectY, control.width, control.height)
             Rectangle {
                 id: rect
                 anchors.fill: parent

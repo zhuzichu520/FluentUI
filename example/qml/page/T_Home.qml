@@ -22,6 +22,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         height: 320
         Image {
+            id: bg
             fillMode:Image.PreserveAspectCrop
             anchors.fill: parent
             verticalAlignment: Qt.AlignTop
@@ -61,6 +62,7 @@ FluScrollablePage{
             }
             clip: false
             delegate:Item{
+                id: control
                 width: 220
                 height: 240
                 FluArea{
@@ -68,6 +70,15 @@ FluScrollablePage{
                     width: 200
                     height: 220
                     anchors.centerIn: parent
+                    color: 'transparent'
+                    FluAcrylic {
+                        sourceItem:bg
+                        anchors.fill: parent
+                        color: FluTheme.dark ? 'black' : 'white'
+                        rectX: control.parent.x-control.parent.contentX+10+(control.width)*index
+                        rectY: control.parent.y+10
+                        acrylicOpacity:0.5
+                    }
                     Rectangle{
                         anchors.fill: parent
                         radius: 8
