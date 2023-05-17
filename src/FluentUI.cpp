@@ -19,3 +19,7 @@ void FluentUI::postInit(){
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
 }
+
+void FluentUI::initEngine(QQmlApplicationEngine *engine){
+    FramelessHelper::Quick::registerTypes(engine);
+}

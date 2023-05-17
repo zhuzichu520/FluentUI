@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     }
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
+    FluentUI::initEngine(&engine);
     QQmlContext * context = engine.rootContext();
     Lang* lang = appInfo->lang();
     context->setContextProperty("lang",lang);

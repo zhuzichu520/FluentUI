@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import FluentUI
 import org.wangwenx190.FramelessHelper
 
-FramelessWindow {
+Window {
     enum LaunchMode {
         Standard,
         SingleTask,
@@ -25,6 +25,7 @@ FramelessWindow {
             event.accepted = false
         }
     }
+    visible: true
     property color backgroundColor: {
         if(active){
             return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
@@ -48,22 +49,22 @@ FramelessWindow {
             }
         }
     }
-    StandardTitleBar {
-        id: title_bar
-        z:999
-        anchors {
-            top: parent.top
-            topMargin: window.visibility === Window.Windowed ? 1 : 0
-            left: parent.left
-            right: parent.right
-        }
-        //         windowIcon: "qrc:///images/microsoft.svg"
-        windowIconVisible: false
-    }
+//    StandardTitleBar {
+//        id: title_bar
+//        z:999
+//        anchors {
+//            top: parent.top
+//            topMargin: window.visibility === Window.Windowed ? 1 : 0
+//            left: parent.left
+//            right: parent.right
+//        }
+//        //         windowIcon: "qrc:///images/microsoft.svg"
+//        windowIconVisible: false
+//    }
     Item{
         id:container
         anchors{
-            top: title_bar.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
             bottom: parent.bottom
@@ -77,16 +78,16 @@ FramelessWindow {
     WindowHelper{
         id:helper
     }
-    FramelessHelper.onReady: {
-        FramelessHelper.titleBarItem = title_bar
-        FramelessHelper.moveWindowToDesktopCenter()
-        if (Qt.platform.os !== "macos") {
-            FramelessHelper.setSystemButton(title_bar.minimizeButton, FramelessHelperConstants.Minimize);
-            FramelessHelper.setSystemButton(title_bar.maximizeButton, FramelessHelperConstants.Maximize);
-            FramelessHelper.setSystemButton(title_bar.closeButton, FramelessHelperConstants.Close);
-        }
-        window.visible = true
-    }
+//    FramelessHelper.onReady: {
+//        FramelessHelper.titleBarItem = title_bar
+//        FramelessHelper.moveWindowToDesktopCenter()
+//        if (Qt.platform.os !== "macos") {
+//            FramelessHelper.setSystemButton(title_bar.minimizeButton, FramelessHelperConstants.Minimize);
+//            FramelessHelper.setSystemButton(title_bar.maximizeButton, FramelessHelperConstants.Maximize);
+//            FramelessHelper.setSystemButton(title_bar.closeButton, FramelessHelperConstants.Close);
+//        }
+//        window.visible = true
+//    }
     function showSuccess(text,duration,moremsg){
         infoBar.showSuccess(text,duration,moremsg)
     }
