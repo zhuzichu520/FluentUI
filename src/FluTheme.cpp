@@ -1,4 +1,4 @@
-﻿#include "FluTheme.h"
+#include "FluTheme.h"
 
 #include "Def.h"
 #include "FluColors.h"
@@ -26,6 +26,7 @@ FluTheme::FluTheme(QObject *parent)
     primaryColor(FluColors::getInstance()->Blue());
     nativeText(false);
     darkMode(Fluent_DarkMode::Fluent_DarkModeType::Light);
+    _systemDark = systemDark();
     qApp->installEventFilter(this);
 }
 
