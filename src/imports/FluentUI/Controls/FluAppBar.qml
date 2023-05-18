@@ -20,7 +20,7 @@ Rectangle{
     property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
     property bool showDark: false
     property bool titleVisible: true
-    property bool isMac: Qt.platform.os === "osx"
+    property bool isMac: FluTools.isMacos()
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     id:root
     color: Qt.rgba(0,0,0,0)

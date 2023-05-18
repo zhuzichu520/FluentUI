@@ -39,4 +39,27 @@ QString FluTools::readFile(const QString &fileName)
     return content;
 }
 
+bool FluTools::isMacos(){
+#if defined(Q_OS_MACOS)
+    return true;
+#else
+    return false;
+#endif
+}
+
+bool FluTools::isLinux(){
+#if defined(Q_OS_LINUX)
+    return true;
+#else
+    return false;
+#endif
+}
+
+bool FluTools::isWin(){
+#if defined(Q_OS_WIN)
+    return true;
+#else
+    return false;
+#endif
+}
 

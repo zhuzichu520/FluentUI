@@ -42,6 +42,12 @@ public:
      */
     Q_INVOKABLE QString readFile(const QString &fileName);
 
+    Q_INVOKABLE bool isMacos();
+
+    Q_INVOKABLE bool isLinux();
+
+    Q_INVOKABLE bool isWin();
+
 };
 
 #endif // FLUTOOLS_H
