@@ -23,17 +23,7 @@ Rectangle{
     property bool isMac: FluTools.isMacos()
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     id:root
-    color: {
-        if(active){
-            return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
-        }
-        return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-    }
-    Behavior on color{
-        ColorAnimation {
-            duration: 300
-        }
-    }
+    color: Qt.rgba(0,0,0,0)
     height: visible ? 30 : 0
     opacity: visible
     z: 65535
@@ -62,6 +52,18 @@ Rectangle{
         }
         visible: root.titleVisible
         color:root.textColor
+    }
+    //临时解决方案，加个背景挡住系统按钮
+    Rectangle{
+        width: 120
+        height: root.height
+        anchors.right: parent.right
+        color:{
+            if(active){
+                return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+            }
+            return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+        }
     }
     RowLayout{
         anchors.right: parent.right

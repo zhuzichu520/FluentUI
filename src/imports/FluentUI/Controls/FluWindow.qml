@@ -81,6 +81,9 @@ Window {
         id:framless_helper
         onReady: {
             setTitleBarItem(title_bar)
+            title_bar.maximizeButton.visible = false
+            title_bar.minimizeButton.visible = false
+            title_bar.closeButton.visible = false
             framless_helper.moveWindowToDesktopCenter()
             setHitTestVisible(title_bar.minimizeButton())
             setHitTestVisible(title_bar.maximizeButton())
