@@ -54,7 +54,7 @@ qt_add_qml_module(fluentuiplugin
     URI "FluentUI"
     SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
-    RESOURCES ${resource_files}
+    RESOURCES ${resource_files} FluGlobal.h
     #支持designer
     DESIGNER_SUPPORTED
 )
