@@ -17,8 +17,8 @@ void preInit(){
 void postInit(){
     qDebug()<<"postInit";
     FramelessHelper::Core::setApplicationOSThemeAware();
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
+//    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+//    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
 }
 void initEngine(QQmlApplicationEngine* engine){
     qDebug()<<"initEngine";

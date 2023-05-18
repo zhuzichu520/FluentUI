@@ -46,7 +46,11 @@ Window {
     Rectangle{
         anchors.fill: parent
         color: backgroundColor
-        visible: FluTheme.darkMode !== FluDarkMode.System
+        visible: {
+            if(!FramelessHelper.blurBehindWindowEnabled)
+                return true
+            return FluTheme.darkMode !== FluDarkMode.System && !FramelessHelper.blurBehindWindowEnabled
+        }
         Behavior on color{
             ColorAnimation {
                 duration: 300
