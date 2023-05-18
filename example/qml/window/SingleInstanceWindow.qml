@@ -32,10 +32,4 @@ CustomWindow {
         }
         text:"我是一个SingleInstance模式的窗口，如果我存在，我会销毁之前的窗口，并创建一个新窗口"
     }
-
-    FluAppBar{
-        id:appbar
-        width: parent.width
-        height: 30
-    }
 }
