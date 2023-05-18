@@ -90,12 +90,20 @@ set_target_properties(example PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+
 #链接库
 target_link_libraries(example PRIVATE
     Qt6::Quick
     FramelessHelper::Core
     FramelessHelper::Quick
     fluentuiplugin
+)
+
+#导入头文件
+set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
+target_include_directories(
+    example PRIVATE
+    ${QML_PLUGIN_DIRECTORY}
 )
 
 #安装
