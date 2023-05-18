@@ -2,9 +2,8 @@
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
-import "../component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title:"SingleTask"

@@ -4,30 +4,20 @@
 #include <QDir>
 #include <QQuickWindow>
 #include <QProcess>
-#include <FramelessHelper/Quick/framelessquickmodule.h>
-#include <FramelessHelper/Core/private/framelessconfig_p.h>
 #include <FluGlobal.h>
 #include "lang/Lang.h"
 #include "AppInfo.h"
 #include "tool/IPC.h"
 
-FRAMELESSHELPER_USE_NAMESPACE
-
-    int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     FluentUI::preInit();
-    FramelessHelper::Quick::initialize();
-    //将样式设置为Basic，不然会导致组件显示异常
-    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
     //    QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
     FluentUI::postInit();
-    //    FramelessHelper::Core::setApplicationOSThemeAware();
-    //    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-    //    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     AppInfo* appInfo = new AppInfo();
     IPC ipc(0);
     QString activeWindowEvent = "activeWindow";
@@ -45,7 +35,6 @@ FRAMELESSHELPER_USE_NAMESPACE
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     FluentUI::initEngine(&engine);
-    FramelessHelper::Quick::registerTypes(&engine);
     QQmlContext * context = engine.rootContext();
     Lang* lang = appInfo->lang();
     context->setContextProperty("lang",lang);

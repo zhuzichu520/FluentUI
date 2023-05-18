@@ -4,10 +4,9 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
-import "../component"
 import "qrc:///example/qml/global/"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title: "FluentUI"
