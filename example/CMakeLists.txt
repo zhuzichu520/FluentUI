@@ -99,6 +99,7 @@ target_link_libraries(example PRIVATE
     Qt6::Quick
     FramelessHelper::Core
     FramelessHelper::Quick
+    fluentuiplugin
     ${FluentUI}
 )
 
