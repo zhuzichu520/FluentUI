@@ -4,9 +4,10 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
+import "../component"
 import "qrc:///example/qml/global/"
 
-FluWindow {
+CustomWindow {
 
     id:window
     title: "FluentUI"
@@ -97,7 +98,7 @@ FluWindow {
         z:999
         items: ItemsOriginal
         footerItems:ItemsFooter
-        topPadding:FluTools.isMacos() ? 20 : 5
+        topPadding:Qt.platform.os === FluTools.isMacos() ? 20 : 5
         displayMode:MainEvent.displayMode
         logo: "qrc:/example/res/image/favicon.ico"
         title:"FluentUI"

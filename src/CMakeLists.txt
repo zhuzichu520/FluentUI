@@ -54,11 +54,9 @@ qt_add_qml_module(fluentuiplugin
     URI "FluentUI"
     SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
-    RESOURCES ${resource_files} FluGlobal.h
+    RESOURCES ${resource_files}
     #支持designer
     DESIGNER_SUPPORTED
-    DEPENDENCIES
-        org.wangwenx190.FramelessHelper/auto
 )
 
 #链接库
@@ -66,8 +64,6 @@ target_link_libraries(fluentuiplugin PUBLIC
     Qt::CorePrivate
     Qt::QuickPrivate
     Qt::QmlPrivate
-    FramelessHelper::Core
-    FramelessHelper::Quick
 )
 
 #链接库 win32库 不然mingw会编译错误

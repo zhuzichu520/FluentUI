@@ -623,7 +623,15 @@ Item {
             if(d.isMinimal || d.isCompactAndPanel){
                 return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             }
-            return "transparent"
+            if(Window.window.active){
+                return FluTheme.dark ? Qt.rgba(26/255,34/255,41/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+            }
+            return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+        }
+        Behavior on color{
+            ColorAnimation {
+                duration: 300
+            }
         }
         x: {
             if(d.displayMode !== FluNavigationView.Minimal)

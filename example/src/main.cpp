@@ -4,20 +4,23 @@
 #include <QDir>
 #include <QQuickWindow>
 #include <QProcess>
-#include <FluGlobal.h>
+#include <FramelessHelper/Quick/framelessquickmodule.h>
+#include <FramelessHelper/Core/private/framelessconfig_p.h>
 #include "lang/Lang.h"
 #include "AppInfo.h"
 #include "tool/IPC.h"
 
+FRAMELESSHELPER_USE_NAMESPACE
+
 int main(int argc, char *argv[])
 {
-    FluentUI::preInit();
+    //将样式设置为Basic，不然会导致组件显示异常
+    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
+    FramelessHelper::Quick::initialize();
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
-    //    QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QGuiApplication app(argc, argv);
-    FluentUI::postInit();
     AppInfo* appInfo = new AppInfo();
     IPC ipc(0);
     QString activeWindowEvent = "activeWindow";
@@ -34,7 +37,7 @@ int main(int argc, char *argv[])
     }
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
-    FluentUI::initEngine(&engine);
+    FramelessHelper::Quick::registerTypes(&engine);
     QQmlContext * context = engine.rootContext();
     Lang* lang = appInfo->lang();
     context->setContextProperty("lang",lang);

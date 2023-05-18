@@ -2,8 +2,9 @@
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
+import "../component"
 
-FluWindow {
+CustomWindow {
 
     id:window
     title:"关于"
