@@ -1,6 +1,7 @@
 ﻿import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import FluentUI
 import org.wangwenx190.FramelessHelper
@@ -28,15 +29,15 @@ Window {
             event.accepted = false
         }
     }
-    property color backgroundColor: {
-        if(active){
-            return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
-        }
-        return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-    }
     signal initArgument(var argument)
     id:window
-    color:"transparent"
+    property color backgroundColor: {
+          if(active){
+              return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+          }
+          return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+      }
+    color: "transparent"
     onClosing:(event)=>closeFunc(event)
     Component.onCompleted: {
         helper.initWindow(window)
@@ -45,6 +46,7 @@ Window {
     Rectangle{
         anchors.fill: parent
         color: backgroundColor
+        visible: FluTheme.darkMode !== FluDarkMode.System
         Behavior on color{
             ColorAnimation {
                 duration: 300
