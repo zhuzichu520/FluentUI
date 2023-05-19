@@ -101,7 +101,6 @@ FluScrollablePage{
                         selected : appInfo.lang.objectName === modelData
                         text:modelData
                         onClicked:{
-                            console.debug(modelData)
                             appInfo.changeLang(modelData)
                         }
                     }

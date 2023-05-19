@@ -16,6 +16,7 @@ Item {
     property string title: ""
     property FluObject items
     property FluObject footerItems
+    property bool dontPageAnimation: false
     property int displayMode: FluNavigationView.Auto
     property Component autoSuggestBox
     property Component actionItem
@@ -482,7 +483,6 @@ Item {
                     if(item.idx<(nav_list.count - layout_footer.count)){
                         layout_footer.currentIndex = -1
                     }else{
-                        console.debug(item.idx-(nav_list.count-layout_footer.count))
                         layout_footer.currentIndex = item.idx-(nav_list.count-layout_footer.count)
                     }
                     nav_list.currentIndex = item.idx
@@ -563,7 +563,7 @@ Item {
                     properties: "y"
                     from: 0
                     to: nav_swipe.height
-                    duration: 167
+                    duration: dontPageAnimation ? 0 : 167
                     easing.type: Easing.BezierSpline
                     easing.bezierCurve: [ 1, 0, 0, 0 ]
                 }
@@ -573,7 +573,7 @@ Item {
                     properties: "y";
                     from: nav_swipe.height;
                     to: 0
-                    duration: 167
+                    duration: dontPageAnimation ? 0 : 167
                     easing.type: Easing.BezierSpline
                     easing.bezierCurve: [ 0, 0, 0, 1 ]
                 }

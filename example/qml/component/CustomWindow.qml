@@ -12,10 +12,6 @@ FluWindow {
     property bool appBarVisible: true
     default property alias content: container.data
 
-    Component.onCompleted: {
-        console.debug(FramelessUtils.frameBorderVisible)
-    }
-
     FluAppBar {
         id: title_bar
         title: window.title
