@@ -6,7 +6,7 @@
   QML FluentUI 
 </h1>
 <p align="center">
-  A fluent design component library for Qt QML [official wasm app.](https://zhuzichu520.github.io/)
+  A fluent design component library for Qt QML <a href="https://zhuzichu520.github.io">official wasm app.</a>
 </p>
 
 ![win-badge] ![ubuntu-badge] ![macos-badge] ![release-badge] ![download-badge] ![download-latest]
