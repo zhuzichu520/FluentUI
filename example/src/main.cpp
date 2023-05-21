@@ -22,7 +22,7 @@ FRAMELESSHELPER_USE_NAMESPACE
     QGuiApplication::setApplicationName("FluentUI");
     QGuiApplication app(argc, argv);
     FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+//    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     AppInfo* appInfo = new AppInfo();
