@@ -590,6 +590,7 @@ Item {
             d.enableNavigationPanel = false
         }
     }
+
     Rectangle{
         id:layout_list
         width: {
@@ -620,16 +621,30 @@ Item {
         border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
         border.width:  d.isMinimal || d.isCompactAndPanel ? 1 : 0
         color: {
-            if(d.isMinimal || d.isCompactAndPanel){
+            if(d.isMinimal){
                 return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             }
-            return "#00000000"
+            return "transparent"
         }
 
         x: {
             if(d.displayMode !== FluNavigationView.Minimal)
                 return 0
             return d.isMinimalAndPanel  ? 0 : -width
+        }
+        FluAcrylic {
+            sourceItem:nav_swipe
+            anchors.fill: layout_list
+            color: {
+                if(d.isMinimal){
+                    return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+                }
+                return "transparent"
+            }
+            visible: d.isMinimal
+            rectX: layout_list.x
+            rectY: layout_list.y - 60
+            acrylicOpacity:0.9
         }
         Item{
             id:layout_header

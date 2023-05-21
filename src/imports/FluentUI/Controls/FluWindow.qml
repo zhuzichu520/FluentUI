@@ -30,6 +30,7 @@ Window {
         }
         return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
     }
+    property alias backgroundOpacity: bg.opacity
     signal initArgument(var argument)
     id:window
     color:"transparent"
@@ -39,6 +40,7 @@ Window {
         initArgument(argument)
     }
     Rectangle{
+        id: bg
         anchors.fill: parent
         color: backgroundColor
         Behavior on color{

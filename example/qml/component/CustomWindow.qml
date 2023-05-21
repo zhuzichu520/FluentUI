@@ -45,7 +45,18 @@ FluWindow {
             setHitTestVisible(title_bar.closeButton())
             framless_helper.setWindowFixedSize(fixSize)
             title_bar.maximizeButton.visible = !fixSize
+            if (blurBehindWindowEnabled)
+                window.backgroundOpacity = 0.8
             window.visible = true
+        }
+    }
+    Connections{
+        target: FluTheme
+        function onDarkChanged(){
+            if (FluTheme.dark)
+                FramelessUtils.systemTheme = FramelessHelperConstants.Dark
+            else
+                FramelessUtils.systemTheme = FramelessHelperConstants.Light
         }
     }
 
