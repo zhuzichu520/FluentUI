@@ -75,10 +75,10 @@ FluScrollablePage{
                     FluAcrylic {
                         sourceItem:bg
                         anchors.fill: parent
-                        color: FluTheme.dark ? 'black' : 'white'
+                        color: FluTheme.dark ? Window.active ?  Qt.rgba(38/255,44/255,54/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
                         rectX: list.x-list.contentX+10+(control.width)*index
                         rectY: list.y+10
-                        acrylicOpacity:0.5
+                        acrylicOpacity:0.8
                     }
                     Rectangle{
                         anchors.fill: parent
