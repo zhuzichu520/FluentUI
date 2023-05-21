@@ -24,9 +24,9 @@ FRAMELESSHELPER_USE_NAMESPACE
     FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-#ifndef QT_OS_WIN
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
+#ifdef Q_OS_MACOS
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,true);
 #endif
     AppInfo* appInfo = new AppInfo();
     IPC ipc(0);

@@ -46,7 +46,7 @@ FluWindow {
             framless_helper.setWindowFixedSize(fixSize)
             title_bar.maximizeButton.visible = !fixSize
             if (blurBehindWindowEnabled)
-                window.backgroundOpacity = 0.8
+                window.backgroundOpacity = 0.1
             window.visible = true
         }
     }
