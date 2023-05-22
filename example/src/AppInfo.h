@@ -1,4 +1,4 @@
-﻿#ifndef APPINFO_H
+#ifndef APPINFO_H
 #define APPINFO_H
 
 #include <QObject>

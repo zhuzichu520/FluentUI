@@ -1,4 +1,4 @@
-﻿#include "Zh.h"
+#include "Zh.h"
 
 Zh::Zh(QObject *parent)
     : Lang{parent}

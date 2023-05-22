@@ -1,4 +1,4 @@
-﻿#ifndef FLUAPP_H
+#ifndef FLUAPP_H
 #define FLUAPP_H
 
 #include <QObject>

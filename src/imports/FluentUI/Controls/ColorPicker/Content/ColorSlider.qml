@@ -1,4 +1,4 @@
-﻿import QtQuick
+import QtQuick
 
 Item {
     property int cursorHeight: 7

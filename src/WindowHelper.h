@@ -1,4 +1,4 @@
-﻿#ifndef WINDOWHELPER_H
+#ifndef WINDOWHELPER_H
 #define WINDOWHELPER_H
 
 #include <QObject>

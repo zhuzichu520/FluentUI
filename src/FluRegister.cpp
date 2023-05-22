@@ -1,4 +1,4 @@
-﻿#include "FluRegister.h"
+#include "FluRegister.h"
 
 #include "FluApp.h"
 #include <QCoreApplication>

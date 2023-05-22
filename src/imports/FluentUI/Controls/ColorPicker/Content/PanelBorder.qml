@@ -1,4 +1,4 @@
-﻿import QtQuick
+import QtQuick
 
 Rectangle {
     width : 40; height : 15; radius: 2
@@ -14,5 +14,3 @@ Rectangle {
         color: "transparent"
     }
 }
-
-

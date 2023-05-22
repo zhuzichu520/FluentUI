@@ -1,4 +1,4 @@
-﻿#include "FluTools.h"
+#include "FluTools.h"
 #include <QGuiApplication>
 #include <QClipboard>
 #include <QUuid>

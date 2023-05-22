@@ -1,4 +1,4 @@
-﻿#include "FluColors.h"
+#include "FluColors.h"
 
 FluColors* FluColors::m_instance = nullptr;
 

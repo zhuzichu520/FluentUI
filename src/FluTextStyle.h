@@ -1,4 +1,4 @@
-﻿#ifndef FLUTEXTSTYLE_H
+#ifndef FLUTEXTSTYLE_H
 #define FLUTEXTSTYLE_H
 
 #include <QObject>

@@ -1,4 +1,4 @@
-﻿#include "AppInfo.h"
+#include "AppInfo.h"
 #include "lang/En.h"
 #include "lang/Zh.h"
 #include <QDebug>
@@ -26,5 +26,4 @@ void AppInfo::changeLang(const QString& locale){
     }else {
         lang(new En());
     }
-
 }

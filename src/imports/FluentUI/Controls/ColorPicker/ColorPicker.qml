@@ -1,4 +1,4 @@
-﻿import QtQuick
+import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "Content"
@@ -20,7 +20,6 @@ Rectangle {
     implicitHeight: picker.implicitHeight
     color: "#00000000"
     clip: true
-
 
     RowLayout {
         id: picker

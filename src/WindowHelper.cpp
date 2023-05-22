@@ -1,4 +1,4 @@
-﻿#include "WindowHelper.h"
+#include "WindowHelper.h"
 
 #include "FluRegister.h"
 #include "FluApp.h"

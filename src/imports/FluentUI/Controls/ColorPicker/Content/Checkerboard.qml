@@ -1,4 +1,4 @@
-﻿import QtQuick
+import QtQuick
 Grid {
     id: root
     property int cellSide: 5

@@ -1,4 +1,4 @@
-﻿#ifndef FLUTHEME_H
+#ifndef FLUTHEME_H
 #define FLUTHEME_H
 
 #include <QObject>

@@ -1,4 +1,4 @@
-﻿#include "FluApp.h"
+#include "FluApp.h"
 
 #include <QQmlEngine>
 #include <QGuiApplication>

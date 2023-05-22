@@ -1,4 +1,4 @@
-﻿#ifndef FLUCOLORS_H
+#ifndef FLUCOLORS_H
 #define FLUCOLORS_H
 
 #include <QObject>

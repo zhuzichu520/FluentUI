@@ -1,4 +1,4 @@
-﻿#ifndef FLUREGISTER_H
+#ifndef FLUREGISTER_H
 #define FLUREGISTER_H
 
 #include <QObject>

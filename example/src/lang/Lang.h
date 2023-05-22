@@ -1,4 +1,4 @@
-﻿#ifndef LANG_H
+#ifndef LANG_H
 #define LANG_H
 
 #include <QObject>

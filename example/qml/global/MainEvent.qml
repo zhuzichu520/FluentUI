@@ -1,4 +1,4 @@
-﻿pragma Singleton
+pragma Singleton
 
 import QtQuick
 import QtQuick.Controls

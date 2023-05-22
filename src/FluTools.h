@@ -1,4 +1,4 @@
-﻿#ifndef FLUTOOLS_H
+#ifndef FLUTOOLS_H
 #define FLUTOOLS_H
 
 #include <QObject>

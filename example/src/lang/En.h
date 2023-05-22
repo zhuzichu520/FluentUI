@@ -1,4 +1,4 @@
-﻿#ifndef EN_H
+#ifndef EN_H
 #define EN_H
 
 #include <QObject>

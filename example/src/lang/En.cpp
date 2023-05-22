@@ -1,4 +1,4 @@
-﻿#include "En.h"
+#include "En.h"
 
 En::En(QObject *parent)
     : Lang{parent}

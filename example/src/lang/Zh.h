@@ -1,4 +1,4 @@
-﻿#ifndef ZH_H
+#ifndef ZH_H
 #define ZH_H
 
 #include <QObject>

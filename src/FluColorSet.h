@@ -1,4 +1,4 @@
-﻿#ifndef FLUCOLORSET_H
+#ifndef FLUCOLORSET_H
 #define FLUCOLORSET_H
 
 #include <QObject>

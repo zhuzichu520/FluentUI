@@ -1,4 +1,4 @@
-﻿#include "FluTextStyle.h"
+#include "FluTextStyle.h"
 
 FluTextStyle::FluTextStyle(QObject *parent)
     : QObject{parent}
