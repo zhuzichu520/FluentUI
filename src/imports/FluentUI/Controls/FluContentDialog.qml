@@ -1,4 +1,4 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
@@ -11,6 +11,8 @@ Popup {
     property string neutralText: "Neutral"
     property string negativeText: "Negative"
     property string positiveText: "Positive"
+    property alias blurSource: blur.sourceItem
+    property bool blurBackground: true
     signal neutralClicked
     signal negativeClicked
     signal positiveClicked
@@ -50,14 +52,27 @@ Popup {
             easing.bezierCurve: [ 1, 0, 0, 0 ]
         }
     }
-    contentItem: Rectangle {
+    contentItem:
+        Rectangle {
         id:layout_content
+        anchors.fill: parent
         implicitWidth:minWidth
         implicitHeight: text_title.height + text_message.height + layout_actions.height
-        color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
+        color: 'transparent'
         radius:5
-        FluShadow{
-            radius: 5
+        FluAcrylic{
+            id:blur
+            anchors{
+                top:parent.top
+                left: parent.left
+                right: parent.right
+                bottom: layout_actions.bottom
+            }
+            height: parent.height
+            color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
+            rectX: popup.x
+            rectY: popup.y
+            acrylicOpacity:blurBackground ? 0.8 : 1
         }
         FluText{
             id:text_title
@@ -92,7 +107,7 @@ Popup {
             id:layout_actions
             height: 68
             radius: 5
-            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255, blurBackground ? blur.acrylicOpacity - 0.4 : 1) : Qt.rgba(243/255,243/255,243/255,blurBackground ? blur.acrylicOpacity - 0.4 : 1)
             anchors{
                 top:text_message.bottom
                 left: parent.left
