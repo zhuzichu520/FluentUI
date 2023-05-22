@@ -69,6 +69,7 @@ CustomWindow {
         }
         positiveText:"退出"
         neutralText:"取消"
+        blurSource: nav_view
         onPositiveClicked:{
             window.deleteWindow()
             FluApp.closeApp()
