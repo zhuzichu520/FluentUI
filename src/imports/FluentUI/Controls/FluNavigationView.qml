@@ -813,9 +813,9 @@ Item {
                 duration: 83
             }
         }
-        background: Rectangle{
+        background: FluRectangle{
             width: 160
-            radius: 4
+            radius: [4,4,4,4]
             FluShadow{
                 radius: 4
             }
