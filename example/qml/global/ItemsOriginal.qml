@@ -167,6 +167,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"ComboBox"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_ComboBox.qml")
+            }
+        }
+        FluPaneItem{
             title:"Tooltip"
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_Tooltip.qml")
