@@ -36,7 +36,6 @@ FluScrollablePage{
         }
     }
 
-
     FluArea{
         Layout.fillWidth: true
         height: 80
