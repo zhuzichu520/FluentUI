@@ -39,6 +39,7 @@ ComboBox {
     }
 
     contentItem: T.TextField {
+        property bool disabled: !control.editable
         leftPadding: !control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
         rightPadding: control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
         topPadding: 6 - control.padding
@@ -53,9 +54,14 @@ ComboBox {
         color: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
         inputMethodHints: control.inputMethodHints
         validator: control.validator
-        selectByMouse: control.selectTextByMouse
+        selectByMouse: true
         verticalAlignment: Text.AlignVCenter
+        leftInset:1
+        topInset:1
+        bottomInset:1
+        rightInset:1
         background: FluTextBoxBackground{
+            border.width: 0
             inputItem: contentItem
         }
     }
