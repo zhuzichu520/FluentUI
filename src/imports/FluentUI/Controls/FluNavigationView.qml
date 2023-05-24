@@ -636,13 +636,13 @@ Item {
             sourceItem:nav_swipe
             anchors.fill: layout_list
             color: {
-                if(d.isMinimal){
+                if(d.isMinimalAndPanel || d.isCompactAndPanel){
                     return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
                 }
                 return "transparent"
             }
-            visible: d.isMinimal
-            rectX: layout_list.x
+            visible: d.isMinimalAndPanel || d.isCompactAndPanel
+            rectX: d.isCompactAndPanel ? (layout_list.x - 50) : layout_list.x
             rectY: layout_list.y - 60
             acrylicOpacity:0.9
         }
