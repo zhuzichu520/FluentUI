@@ -102,6 +102,27 @@ FluWindow {
                     ItemsOriginal.startPageByItem(data)
                 }
         }
+        actionItem:Item{
+            height: 40
+            width: 148
+            RowLayout{
+                anchors.centerIn: parent
+                spacing: 5
+                FluText{
+                    text:lang.dark_mode
+                }
+                FluToggleSwitch{
+                    selected: G.FluTheme.dark
+                    clickFunc:function(){
+                        if(G.FluTheme.dark){
+                            G.FluTheme.darkMode = FluDarkMode.Light
+                        }else{
+                            G.FluTheme.darkMode = FluDarkMode.Dark
+                        }
+                    }
+                }
+            }
+        }
         Component.onCompleted: {
             ItemsOriginal.navigationView = nav_view
             ItemsFooter.navigationView = nav_view
