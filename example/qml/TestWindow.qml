@@ -18,6 +18,10 @@ FluWindow {
     launchMode: FluWindow.SingleTask
     visible: true
 
+    Component.onCompleted: {
+//        FluApp.init(window)
+    }
+
     FluNavigationView2{
         id:nav_view
         anchors.fill: parent
