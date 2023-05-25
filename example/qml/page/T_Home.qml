@@ -254,6 +254,7 @@ FluScrollablePage{
         implicitHeight: contentHeight
         cellHeight: 120
         cellWidth: 320
+        clip: true
         model:ItemsOriginal.getRecentlyAddedData()
         interactive: false
         delegate: com_item
@@ -272,6 +273,7 @@ FluScrollablePage{
         cellHeight: 120
         cellWidth: 320
         interactive: false
+        clip: true
         model: ItemsOriginal.getRecentlyUpdatedData()
         delegate: com_item
     }
