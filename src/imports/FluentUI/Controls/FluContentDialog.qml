@@ -4,15 +4,13 @@ import QtQuick.Controls
 import QtQuick.Window
 import FluentUI
 
-Popup {
+FluPopup {
     id: popup
     property string title: "Title"
     property string message: "Message"
     property string neutralText: "Neutral"
     property string negativeText: "Negative"
     property string positiveText: "Positive"
-    property alias blurSource: blur.sourceItem
-    property bool blurBackground: true
     signal neutralClicked
     signal negativeClicked
     signal positiveClicked
@@ -27,53 +25,14 @@ Popup {
             return 400
         return  Math.min(Window.window.width,400)
     }
-    modal:true
-    anchors.centerIn: Overlay.overlay
-    closePolicy: Popup.CloseOnEscape
-    background:Item{}
-    enter: Transition {
-        reversible: true
-        NumberAnimation {
-            properties: "opacity,scale"
-            from:0
-            to:1
-            duration: 167
-            easing.type: Easing.BezierSpline
-            easing.bezierCurve: [ 0, 0, 0, 1 ]
-        }
-    }
-    exit:Transition {
-        NumberAnimation {
-            properties: "opacity,scale"
-            from:1
-            to:0
-            duration: 167
-            easing.type: Easing.BezierSpline
-            easing.bezierCurve: [ 1, 0, 0, 0 ]
-        }
-    }
-    contentItem:
-        Rectangle {
+
+    Rectangle {
         id:layout_content
         anchors.fill: parent
         implicitWidth:minWidth
         implicitHeight: text_title.height + text_message.height + layout_actions.height
         color: 'transparent'
         radius:5
-        FluAcrylic{
-            id:blur
-            anchors{
-                top:parent.top
-                left: parent.left
-                right: parent.right
-                bottom: layout_actions.bottom
-            }
-            height: parent.height
-            color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
-            rectX: popup.x
-            rectY: popup.y
-            acrylicOpacity:blurBackground ? 0.8 : 1
-        }
         FluText{
             id:text_title
             font: FluTextStyle.TitleLarge
@@ -107,7 +66,7 @@ Popup {
             id:layout_actions
             height: 68
             radius: 5
-            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255, blurBackground ? blur.acrylicOpacity - 0.4 : 1) : Qt.rgba(243/255,243/255,243/255,blurBackground ? blur.acrylicOpacity - 0.4 : 1)
+            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255, blurBackground ? blurOpacity - 0.4 : 1) : Qt.rgba(243/255,243/255,243/255,blurBackground ? blurOpacity - 0.4 : 1)
             anchors{
                 top:text_message.bottom
                 left: parent.left
