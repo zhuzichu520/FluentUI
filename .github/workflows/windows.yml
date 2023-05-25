@@ -50,7 +50,7 @@ jobs:
       # 拉取代码
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          submodules: recursive
       # msvc编译
       - name: msvc-build
         id: build
