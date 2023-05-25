@@ -54,6 +54,7 @@ public:
     static FluColors *getInstance();
     static QJSValue create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
     {
+        Q_UNUSED(qmlEngine)
         return jsEngine->newQObject(getInstance());
     }
 };

@@ -18,6 +18,8 @@ class FluentUIPlugin : public QQmlEngineExtensionPlugin
 
 public:
     void initializeEngine(QQmlEngine *engine, const char *uri) override{
+    Q_UNUSED(engine)
+    Q_UNUSED(uri)
 #ifdef Q_OS_WIN
         QFont font;
         font.setFamily("Microsoft YaHei");

@@ -124,7 +124,6 @@
         <file>qml/App.qml</file>
         <file>qml/TestWindow.qml</file>
         <file>qml/component/CodeExpander.qml</file>
-        <file>qml/component/CustomWindow.qml</file>
         <file>qml/global/ItemsFooter.qml</file>
         <file>qml/global/ItemsOriginal.qml</file>
         <file>qml/global/MainEvent.qml</file>

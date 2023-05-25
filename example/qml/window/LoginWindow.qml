@@ -4,13 +4,12 @@ import QtQuick.Controls 2.12
 import FluentUI 1.0
 import "../component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title:"登录"
     width: 400
     height: 400
-    fixSize: true
 
     onInitArgument:
         (argument)=>{

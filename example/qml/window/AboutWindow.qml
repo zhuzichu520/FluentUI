@@ -5,13 +5,12 @@ import FluentUI 1.0
 import FluentGlobal 1.0 as G
 import "../component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title:"关于"
     width: 600
     height: 600
-    fixSize: true
     launchMode: FluWindow.SingleTask
 
     ColumnLayout{

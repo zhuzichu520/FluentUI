@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.12
 import FluentUI 1.0
 import "../component"
 
-CustomWindow {
+FluWindow {
 
     title:"视频播放器"
     width: 640

@@ -8,7 +8,7 @@ import FluentGlobal 1.0 as G
 import "../component"
 import "qrc:///example/qml/global/"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title: "FluentUI"
@@ -17,7 +17,6 @@ CustomWindow {
     closeDestory:false
     minimumWidth: 520
     minimumHeight: 460
-    appBarVisible: false
     launchMode: FluWindow.SingleTask
 
     closeFunc:function(event){
@@ -75,18 +74,6 @@ CustomWindow {
             window.deleteWindow()
             G.FluApp.closeApp()
         }
-    }
-
-    FluAppBar {
-        id: title_bar
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        darkText: lang.dark_mode
-        showDark: true
-        z:7
     }
 
     FluNavigationView{

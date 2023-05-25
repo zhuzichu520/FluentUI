@@ -47,7 +47,3 @@ contains(QMAKE_CC, cl) {
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-
-include(../framelesshelper/qmake/core.pri)
-include(../framelesshelper/qmake/quick.pri)
