@@ -1,24 +1,26 @@
 QT += quick concurrent network multimedia
 CONFIG += c++17
-DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT
+DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT QUICK_USE_QMAKE
+
+DEFINES += VERSION=1,3,1,0
 
 HEADERS += \
-    lang/En.h \
-    lang/Lang.h \
-    lang/Zh.h \
-    stdafx.h \
-    ChatController.h \
-    AppInfo.h
+    src/lang/En.h \
+    src/lang/Lang.h \
+    src/lang/Zh.h \
+    src/stdafx.h \
+    src/AppInfo.h \
+    src/tool/IPC.h
 
 SOURCES += \
-        ChatController.cpp \
-        AppInfo.cpp \
-        lang/En.cpp \
-        lang/Lang.cpp \
-        lang/Zh.cpp \
-        main.cpp
+    src/AppInfo.cpp \
+    src/lang/En.cpp \
+    src/lang/Lang.cpp \
+    src/lang/Zh.cpp \
+    src/main.cpp \
+    src/tool/IPC.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += example.qrc
 
 RC_ICONS = favicon.ico
 
@@ -32,21 +34,20 @@ CONFIG(debug,debug|release) {
 }
 
 win32 {
-
+RC_FILE += example.rc
 contains(QMAKE_CC, cl) {
-    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/msvc/*.dll) $$DESTDIR
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../3rdparty/msvc/*.dll) $$DESTDIR
     QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, $$QMAKE_DIR_SEP)
 } else {
-    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../third/mingw/*.dll) $$DESTDIR
+    COPYDLL = $$absolute_path($${_PRO_FILE_PWD_}/../3rdparty/mingw/*.dll) $$DESTDIR
     QMAKE_PRE_LINK += $$QMAKE_COPY $$replace(COPYDLL, /, $$QMAKE_DIR_SEP)
 }
-
 }
 
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-mac: {
-    QMAKE_INFO_PLIST = Info.plist
-}
+
+include(../framelesshelper/qmake/core.pri)
+include(../framelesshelper/qmake/quick.pri)

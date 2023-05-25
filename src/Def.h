@@ -1,16 +1,18 @@
-﻿#ifndef DEF_H
+#ifndef DEF_H
 #define DEF_H
 
 #include <QObject>
+#include <QtQml/qqml.h>
 
 namespace Fluent_DarkMode {
 Q_NAMESPACE
-    enum Fluent_DarkModeType {
-        System      = 0x0,
-        Light    = 0x1,
-        Dark     = 0x2,
-    };
-Q_ENUMS(Fluent_DarkModeType);
+enum Fluent_DarkModeType {
+    System      = 0x0,
+    Light    = 0x1,
+    Dark     = 0x2,
+};
+Q_ENUM_NS(Fluent_DarkModeType)
+QML_NAMED_ELEMENT(FluDarkMode)
 }
 
 namespace Fluent_Awesome {
@@ -1420,7 +1422,8 @@ enum class Fluent_AwesomeType {
     SpeechSolidBold=0xf8b2,
     ClickedOutLoudSolidBold=0xf8b3,
 };
-Q_ENUMS(Fluent_AwesomeType)
+Q_ENUM_NS(Fluent_AwesomeType)
+QML_NAMED_ELEMENT(FluentIcons)
 }
 
 #endif // DEF_H

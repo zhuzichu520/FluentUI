@@ -1,4 +1,4 @@
-﻿#include "FluApp.h"
+#include "FluApp.h"
 
 #include <QQmlEngine>
 #include <QGuiApplication>
@@ -6,21 +6,9 @@
 #include <QQuickItem>
 #include <QTimer>
 #include <QUuid>
+#include <QFontDatabase>
 #include <QClipboard>
-#include "FluTheme.h"
 #include "Def.h"
-
-#ifdef Q_OS_WIN
-#include <dwmapi.h>
-#include <Windows.h>
-#include <windowsx.h>
-static bool isCompositionEnabled()
-{
-    BOOL composition_enabled = FALSE;
-    bool success = ::DwmIsCompositionEnabled(&composition_enabled) == S_OK;
-    return composition_enabled && success;
-}
-#endif
 
 FluApp* FluApp::m_instance = nullptr;
 
@@ -37,16 +25,15 @@ FluApp::FluApp(QObject *parent)
 {
 }
 
+FluApp::~FluApp(){
+
+}
+
 void FluApp::init(QQuickWindow *window){
     this->appWindow = window;
 }
 
 void FluApp::run(){
-#ifdef Q_OS_WIN
-    if(!isCompositionEnabled()){
-        FluTheme::getInstance()->frameless(false);
-    }
-#endif
     navigate(initialRoute());
 }
 
@@ -63,37 +50,33 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         properties.insert("pageRegister",QVariant::fromValue(fluRegister));
     }
     properties.insert("argument",argument);
-    QQuickWindow *view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
-
-    int launchMode = view->property("launchMode").toInt();
-    if(launchMode==1){
-        for (auto& pair : wnds) {
-            QString r =  pair->property("route").toString();
-            if(r == route){
-                pair->requestActivate();
-                view->deleteLater();
-                return;
-            }
-        }
-    }else if(launchMode==2){
-        for (auto& pair : wnds) {
-            QString r =  pair->property("route").toString();
-            if(r == route){
-                pair->close();
-                break;
-            }
+    QQuickWindow *view=nullptr;
+    for (auto& pair : wnds) {
+        QString r =  pair->property("route").toString();
+        if(r == route){
+            view = pair;
+            break;
         }
     }
-
-    if(FluTheme::getInstance()->frameless()){
-        view->setFlag(Qt::FramelessWindowHint,true);
+    if(view){
+        //如果窗口存在，则判断启动模式
+        int launchMode = view->property("launchMode").toInt();
+        if(launchMode == 1){
+            view->setProperty("argument",argument);
+            view->show();
+            view->raise();
+            view->requestActivate();
+            return;
+        }else if(launchMode == 2){
+            view->close();
+        }
     }
+    view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
     wnds.insert(view->winId(),view);
     if(fluRegister){
         fluRegister->to(view);
     }
     view->setColor(QColor(Qt::transparent));
-    view->show();
 }
 
 QJsonArray FluApp::awesomelist(const QString& keyword)
@@ -118,14 +101,6 @@ QJsonArray FluApp::awesomelist(const QString& keyword)
         }
     }
     return arr;
-}
-
-void FluApp::clipText(const QString& text){
-    QGuiApplication::clipboard()->setText(text);
-}
-
-QString FluApp::uuid(){
-    return QUuid::createUuid().toString();
 }
 
 void FluApp::closeApp(){

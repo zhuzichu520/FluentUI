@@ -1,12 +1,14 @@
-﻿#ifndef FLUCOLORSET_H
+#ifndef FLUCOLORSET_H
 #define FLUCOLORSET_H
 
 #include <QObject>
 #include "stdafx.h"
 
+/**
+ * @brief The FluColorSet class
+ */
 class FluColorSet : public QObject
 {
-
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,darkest)
     Q_PROPERTY_AUTO(QString,darker)
@@ -17,7 +19,6 @@ class FluColorSet : public QObject
     Q_PROPERTY_AUTO(QString,lightest)
 public:
     explicit FluColorSet(QObject *parent = nullptr);
-
 };
 
 #endif // FLUCOLORSET_H

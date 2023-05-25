@@ -1,10 +1,15 @@
-﻿#ifndef FLUCOLORS_H
+#ifndef FLUCOLORS_H
 #define FLUCOLORS_H
 
 #include <QObject>
+#include <QtQml/qqml.h>
+#include <QQmlEngine>
 #include "FluColorSet.h"
 #include "stdafx.h"
 
+/**
+ * @brief The FluColors class
+ */
 class FluColors : public QObject
 {
     Q_OBJECT
@@ -32,7 +37,6 @@ class FluColors : public QObject
     Q_PROPERTY_AUTO(QString,Grey200);
     Q_PROPERTY_AUTO(QString,Grey210);
     Q_PROPERTY_AUTO(QString,Grey220);
-
     Q_PROPERTY_AUTO(FluColorSet*,Yellow);
     Q_PROPERTY_AUTO(FluColorSet*,Orange);
     Q_PROPERTY_AUTO(FluColorSet*,Red);
@@ -41,13 +45,17 @@ class FluColors : public QObject
     Q_PROPERTY_AUTO(FluColorSet*,Blue);
     Q_PROPERTY_AUTO(FluColorSet*,Teal);
     Q_PROPERTY_AUTO(FluColorSet*,Green);
-
-public:
-    explicit FluColors(QObject *parent = nullptr);
-    static FluColors *getInstance();
+    QML_NAMED_ELEMENT(FluColors)
+    QML_SINGLETON
 private:
+    explicit FluColors(QObject *parent = nullptr);
     static FluColors* m_instance;
-
+public:
+    static FluColors *getInstance();
+    static QJSValue create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return jsEngine->newQObject(getInstance());
+    }
 };
 
 #endif // FLUCOLORS_H

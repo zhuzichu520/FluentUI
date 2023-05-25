@@ -1,63 +1,68 @@
-﻿cmake_minimum_required(VERSION 3.16)
-project(example)
+cmake_minimum_required(VERSION 3.16)
 
+project(example VERSION 0.1 LANGUAGES CXX)
+
+#配置通用编译
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+endif()
 
-set(CMAKE_CXX_STANDARD 17)
+#设置可执行文件输出目录
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
+else()
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
+endif()
 
+#获取文件路径分隔符（解决执行命令的时候有些平台会报错）
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
-if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-  set(platform 64)
-else()
-  set(platform 32)
-endif()
+#设置版本号
+add_definitions(-DVERSION=1,3,1,0)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin/debug)
-else()
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin/release)
-endif()
+find_package(Qt6 REQUIRED COMPONENTS Quick REQUIRED)
 
-find_package(Qt5 COMPONENTS Core Quick QuickControls2 Concurrent Network Multimedia REQUIRED)
+#遍历所有Cpp文件
+file(GLOB_RECURSE CPP_FILES *.cpp *.h)
+foreach(filepath ${CPP_FILES})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND sources_files ${filename})
+endforeach(filepath)
 
-set(SOURCES
-    ChatController.cpp
-    AppInfo.cpp
-    main.cpp
-    lang/Lang.cpp
-    lang/En.cpp
-    lang/Zh.cpp
-)
+#遍历所有qml文件
+file(GLOB_RECURSE QML_PATHS *.qml)
+foreach(filepath ${QML_PATHS})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND qml_files ${filename})
+endforeach(filepath)
 
-set(HEADERS
-    ChatController.h
-    AppInfo.h
-    stdafx.h
-    lang/Lang.h
-    lang/En.h
-    lang/Zh.h
-)
+#遍历所有资源文件
+file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp qmldir)
+foreach(filepath ${RES_PATHS})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND resource_files ${filename})
+endforeach(filepath)
 
-set(RESOURCES
-    qml.qrc
-)
+#添加可执行文件
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    qt_add_executable(example
+        ${sources_files}
+        example.rc
+    )
+else ()
+    qt_add_executable(example
+        ${sources_files}
+    )
+endif ()
 
-set(RC_ICONS
-    favicon.ico
-)
-
-qt_add_resources(QT_RESOURCES ${RESOURCES})
-
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${QT_RESOURCES} ${RC_ICONS})
-
+#复制动态库到可执行文件同级目录下
 if(WIN32)
-    if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
-        set(DLLPATH ${CMAKE_CURRENT_SOURCE_DIR}/../third/msvc/*.dll)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/msvc/*.dll)
     else()
-        set(DLLPATH ${CMAKE_CURRENT_SOURCE_DIR}/../third/mingw/*.dll)
+        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
     endif()
     string(REPLACE "/" ${PATH_SEPARATOR} DLLPATH "${DLLPATH}")
     file(GLOB DLL_FILES ${DLLPATH})
@@ -68,27 +73,32 @@ if(WIN32)
     )
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE
-    QT_DEPRECATED_WARNINGS
-    QT_NO_WARNING_OUTPUT
+#添加qml模块
+qt_add_qml_module(example
+    URI example
+    VERSION 1.0
+    QML_FILES ${qml_files}
+    RESOURCES ${resource_files}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt5::Core
-    Qt5::Quick
-    Qt5::QuickControls2
-    Qt5::Concurrent
-    Qt5::Network
-    Qt5::Multimedia
+#设置属性
+set_target_properties(example PROPERTIES
+    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
 )
 
-if(WIN32)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE UNICODE WIN32 _WINDOWS)
-    target_link_libraries(${PROJECT_NAME} PRIVATE dwmapi user32)
-endif()
+#链接库
+target_link_libraries(example PRIVATE
+    Qt6::Quick
+    fluentuiplugin
+    FramelessHelper::Core
+    FramelessHelper::Quick
+)
 
-if(APPLE)
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        MACOSX_BUNDLE_INFO_PLIST Info.plist
-    )
-endif()
+#安装
+install(TARGETS example
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

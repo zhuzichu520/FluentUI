@@ -1,4 +1,4 @@
-﻿#ifndef STDAFX_H
+#ifndef STDAFX_H
 #define STDAFX_H
 
 #define Q_PROPERTY_AUTO(TYPE, M)                                                                                       \

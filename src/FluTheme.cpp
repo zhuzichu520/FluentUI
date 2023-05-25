@@ -1,8 +1,10 @@
-﻿#include "FluTheme.h"
+#include "FluTheme.h"
 
-#include "FluColors.h"
 #include "Def.h"
+#include "FluColors.h"
 #include <QPalette>
+#include <QtGui/qpa/qplatformtheme.h>
+#include <QtGui/private/qguiapplication_p.h>
 #include <QGuiApplication>
 
 FluTheme* FluTheme::m_instance = nullptr;
@@ -22,18 +24,18 @@ FluTheme::FluTheme(QObject *parent)
         Q_EMIT darkChanged();
     });
     primaryColor(FluColors::getInstance()->Blue());
-    textSize(13);
     nativeText(false);
-    frameless(true);
     darkMode(Fluent_DarkMode::Fluent_DarkModeType::Light);
+    _systemDark = systemDark();
     qApp->installEventFilter(this);
 }
 
 bool FluTheme::eventFilter(QObject *obj, QEvent *event)
 {
     Q_UNUSED(obj);
-    if (event->type() == QEvent::ApplicationPaletteChange)
+    if (event->type() == QEvent::ApplicationPaletteChange || event->type() == QEvent::ThemeChange)
     {
+        _systemDark = systemDark();
         Q_EMIT darkChanged();
         event->accept();
         return true;
@@ -54,7 +56,7 @@ bool FluTheme::dark(){
     }else if(_darkMode == Fluent_DarkMode::Fluent_DarkModeType::Light){
         return false;
     }else if(_darkMode == Fluent_DarkMode::Fluent_DarkModeType::System){
-        return systemDark();
+        return _systemDark;
     }else{
         return false;
     }

@@ -1,99 +1,119 @@
-# FluentUI
+<div align=center>
+  <img width=64 src="doc/preview/fluent_design.svg">
+</div>
 
-## 简介
+<h1 align="center">
+  QML FluentUI 
+</h1>
+<p align="center">
+  A fluent design component library for Qt QML。 <a href="https://zhuzichu520.github.io">official wasm app.</a>
+</p>
 
-这是一个漂亮的Fluent组件库，使用QML插件开发的。main分支是Qt6.4.3，如果需要qt5的请切换至qt5分支
+![win-badge] ![ubuntu-badge] ![macos-badge] ![release-badge] ![download-badge] ![download-latest]
 
-## 编译状态
-| [Windows][win-link]| [Ubuntu][ubuntu-link]|[MacOS][macos-link]|
-|---------------|---------------|-----------------|
-| ![win-badge]  | ![ubuntu-badge]      | ![macos-badge] |
+<p align="center">
+English | <a href="README_zh_CN.md">简体中文</a>
+</p>
+<div align=center>
+  <img src="doc/preview/demo_large.png">
+</div>
+
 
 [win-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AWindows "WindowsAction"
 [win-badge]: https://github.com/zhuzichu520/FluentUI/workflows/Windows/badge.svg  "Windows"
-
 [ubuntu-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AUbuntu "UbuntuAction"
 [ubuntu-badge]: https://github.com/zhuzichu520/FluentUI/workflows/Ubuntu/badge.svg "Ubuntu"
-
 [macos-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AMacOS "MacOSAction"
 [macos-badge]: https://github.com/zhuzichu520/FluentUI/workflows/MacOS/badge.svg "MacOS"
-
-## 发布
-
-|[已发布][release-link]|[下载][download-link]|下载次数|
-|:--:|:--:|:--:|
-|![release-badge] |![download-badge]|![download-latest]|
-
 [release-link]: https://github.com/zhuzichu520/FluentUI/releases "Release status"
 [release-badge]: https://img.shields.io/github/release/zhuzichu520/FluentUI.svg?style=flat-square "Release status"
 [download-link]: https://github.com/zhuzichu520/FluentUI/releases/latest "Download status"
 [download-badge]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/total.svg "Download status"
 [download-latest]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/latest/total.svg "latest status"
 
-## 支持的组件
 
-|目录|说明|备注|
-|----|----|----|
-|FluApp|初始化入口|支持路由跳转|
-|FluWindow|无边框窗口|解决windows拖动闪烁问题|
-|FluAppBar|窗口顶部标题栏|支持拖动窗口，最小化、最大化、关闭窗口|
-|FluText|Text文本||
-|FluButton|按钮||
-|FluFilledButton|实心按钮||
-|FluIconButton|图标按钮||
-|FluTextButton|文本按钮||
-|FluIcon|图标||
-|FluRadioButton|单选按钮||
-|FluTextBox|单行输入框||
-|FluMultiLineTextBox|多行输入框||
-|FluToggleSwitch|开关按钮||
-|FluSlider|拖动条||
-|FluInfoBar|提示Toast||
-|FluContentDialog|对话框||
-|FluProgressBar|条形进度条||
-|FluProgressRing|圆形进度条||
-|FluRectangle|矩形|支持部分圆角、clip|
-|FluMenu|菜单框||
-|FluTooltip|tooltip提示框||
-|FluTreeView|树控件||
-|FluTheme|主题设置|支持主题颜色切换，夜间模式|
-|FluCarousel|轮播图组件|支持无限轮播|
-|FluTimePicker|时间选择器||
-|FluDatePicker|日期选择器||
-|FluMenu|菜单Popup||
-|FluNavigationView|响应式导航布局||
-|FluScrollbar|滚动条||
-|FluToggleButton|开关按钮||
-|FluPagination|分页组件||
-|FluTableView|表格组件||
-|FluMediaPlayer|播放器||
-|FluFlipView|FlipView||
+<p align=center>
+This is a beautiful FluentUI component library based on Qt QML. Currently the main branch supports Qt 6. If you want to use it in Qt 5, checkout the Qt 5 branch.
+</p>
 
-# 部分效果预览
+## Requirements
 
-## 首页
++ Qt Core, Qt Quick, Qt QML, Qt ShaderTool, Qt 5 Compatibility Module. (**Essential**)
++ Qt LinguistTool (optional,for translations)
++ Qt Svg (optional, however essential for Qt 5)
 
-![](doc/preview/home.png)
+Use [Qt Online Installers](https://download.qt.io/archive/online_installers/) to aquire the moudules (**Recommanded**) or compile them first before using the library.
 
-## 各种Button按钮
+## ⚽ Get started
 
-![](doc/preview/buttons.png)
++ Download the [pre-built release](https://github.com/zhuzichu520/FluentUI/releases). (Please pecify your platform and compilers.)
 
-## 主题颜色切换、夜间模式
++ run `example` program.
 
-![](doc/preview/theme.png)
+or 
 
-## TableView表格组件
++ Clone the repository.
 
-![](doc/preview/tableview.png)
+```SHELL
+git clone --recursive https://github.com/zhuzichu520/FluentUI.git
+```
 
-## FluTreeView树组件
++ Build
 
-![](doc/preview/treeview.png)
+```
+git clone --recursive https://github.com/zhuzichu520/FluentUI.git
+cd FluentUI
+mkdir build
+cd build
+cmake -DCMAKE_PREFIX_PATH=<YOUR_QT_SDK_DIR_PATH> -DCMAKE_BUILD_TYPE=Release -GNinja <PATH_TO_THE_REPOSITORY>
+cmake --build . --config Release --target all --parallel
+```
 
-## 轮播图组件
++ Use your IDE (`Qt Creator` or `CLion`) to open the project. (only **CMake** supported).
 
-![](doc/preview/carousel.png)
+<div align=center>
+  <img src="doc/preview/qt_creator_project.png">
+</div>
 
-### ⚡ Visitor count
++ Compile the project. Then try to execute the `example` demo program.
+
++ Great! Now you are ready to write your first QML FluentUI program! Check the documentations for more details.
+
+
+## 📑 Documentations
+
+(Work in progress...🚀)
+
+## Supported components
+
+|Catalog|Detail|Notes / Demos|
+|:----:|:----:|:----:|
+|FluApp|The initial entry of the program|Router supported(SPA)|
+|FluWindow|Frameless Window|*This only works on windows|
+|FluAppBar|Title bar on top of the window|Drag, minimize, maximize and close are supported.|
+|FluText|Common text||
+|FluButton|Common button|![btn](doc/preview/demo_standardbtn.png) |
+|FluFilledButton|Filled button|![filledbtn](doc/preview/demo_filledbtn.png)|
+|FluTextButton|Text button|![textbtn](doc/preview/demo_textbtn.png)|
+|FluToggleButton|Toggle buttons|![togglebtn](doc/preview/demo_toggle_btn.png)|
+|FluIcon|Common icon|![icons](doc/preview/demo_icon.png)|
+|FluRadioButton|radio button|![radiobtn](doc/preview/demo_radiobtn.png)|
+|FluTextBox|Single-line input box|![textbox](doc/preview/demo_textbox.png)|
+|FluMultiLineTextBox|Multi-lines input area|![textarea](doc/preview/demo_multiline_textbox.png)|
+|FluToggleSwitch|toggle switch|![toggleswitch](doc/preview/demo_toggle_switch.png)|
+
+
+View more [`here`](doc/md/all_components.md)!
+
+
+## Reference
++ [**Windows design**: Design guidelines and toolkits of Microsoft.](https://learn.microsoft.com/en-us/windows/apps/design/)
++ [**Microsoft/WinUI-Gallery**: Microsoft's demo](https://github.com/microsoft/WinUI-Gallery)
+
+
+## License
+
+This FluentUI library currently licensed under [MIT License](./License)
+
+## ⚡ Visitor count
 ![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
