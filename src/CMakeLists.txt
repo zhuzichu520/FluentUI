@@ -72,4 +72,9 @@ if(WIN32)
 endif()
 
 #如果是debug，则生成的库文件名后面拼接d
-set_target_properties(fluentuiplugin PROPERTIES DEBUG_POSTFIX "d")
+# 在MinGW和GCC/Clang中, 默认不会链接带`d`后缀的动态库
+if(MSVC)
+    set_target_properties(fluentuiplugin PROPERTIES DEBUG_POSTFIX "d")  
+endif(MSVC)
+
+
