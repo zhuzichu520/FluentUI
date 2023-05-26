@@ -23,11 +23,9 @@ FluApp *FluApp::getInstance()
 FluApp::FluApp(QObject *parent)
     : QObject{parent}
 {
-    QFontDatabase::addApplicationFont(":/FluentUI/Font/Segoe_Fluent_Icons.ttf");
 }
 
 FluApp::~FluApp(){
-
 }
 
 void FluApp::init(QQuickWindow *window){

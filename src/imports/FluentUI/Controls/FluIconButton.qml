@@ -51,17 +51,15 @@ Button {
         }
     }
     contentItem: Item{
-        Text {
+        FluIcon {
             id:text_icon
-            font.family: "Segoe Fluent Icons"
             font.pixelSize: iconSize
-            width: iconSize
-            height: iconSize
+            iconSize: control.iconSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
-            color:control.iconColor
-            text: (String.fromCharCode(iconSource).toString(16));
+            iconColor: control.iconColor
+            iconSource: control.iconSource;
         }
         FluTooltip{
             id:tool_tip
