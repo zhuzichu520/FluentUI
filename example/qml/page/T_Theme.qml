@@ -52,8 +52,8 @@ FluScrollablePage{
             }
             FluToggleSwitch{
                 Layout.topMargin: 5
-                selected: FluTheme.dark
-                clickFunc:function(){
+                checked: FluTheme.dark
+                onClicked: {
                     if(FluTheme.dark){
                         FluTheme.darkMode = FluDarkMode.Light
                     }else{
@@ -67,8 +67,8 @@ FluScrollablePage{
             }
             FluToggleSwitch{
                 Layout.topMargin: 5
-                selected: FluTheme.nativeText
-                clickFunc:function(){
+                checked: FluTheme.nativeText
+                onClicked: {
                     FluTheme.nativeText = !FluTheme.nativeText
                 }
             }

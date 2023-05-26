@@ -19,7 +19,7 @@ FluScrollablePage{
             Layout.topMargin: 20
             placeholderText: "单行输入框"
             Layout.preferredWidth: 300
-            disabled:text_box_switch.selected
+            disabled:text_box_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -57,7 +57,7 @@ FluScrollablePage{
             Layout.topMargin: 20
             placeholderText: "请输入密码"
             Layout.preferredWidth: 300
-            disabled:password_box_switch.selected
+            disabled:password_box_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -97,7 +97,7 @@ FluScrollablePage{
             Layout.topMargin: 20
             placeholderText: "多行输入框"
             Layout.preferredWidth: 300
-            disabled:text_box_multi_switch.selected
+            disabled:text_box_multi_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -137,7 +137,7 @@ FluScrollablePage{
             placeholderText: "AutoSuggestBox"
             Layout.preferredWidth: 300
             items:generateRandomNames(100)
-            disabled:text_box_suggest_switch.selected
+            disabled:text_box_suggest_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left

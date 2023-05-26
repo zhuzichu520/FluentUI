@@ -6,42 +6,43 @@ import FluentUI
 Button {
 
     property bool disabled: false
-    property bool selected: false
     property color normalColor: {
-        if(selected){
+        if(checked){
            return FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
         }else{
            return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
         }
     }
     property color hoverColor: {
-        if(selected){
+        if(checked){
             return FluTheme.dark ? Qt.darker(normalColor,1.1) : Qt.lighter(normalColor,1.1)
         }else{
             return FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
         }
     }
     property color disableColor: {
-        if(selected){
+        if(checked){
             return FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
         }else{
             return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
         }
     }
-
+    property var clickListener : function(){
+        checked = !checked
+    }
     property color pressedColor: FluTheme.dark ? Qt.darker(normalColor,1.2) : Qt.lighter(normalColor,1.2)
-
     id: control
     enabled: !disabled
     Keys.onSpacePressed: control.visualFocus&&clicked()
     focusPolicy:Qt.TabFocus
     horizontalPadding:12
+    onClicked: clickListener()
     background: Rectangle{
         implicitWidth: 28
         implicitHeight: 28
         radius: 4
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
-        border.width: selected ? 0 : 1
+        border.width: checked ? 0 : 1
         FluFocusRectangle{
             visible: control.visualFocus
             radius:8
@@ -50,7 +51,7 @@ Button {
             if(disabled){
                 return disableColor
             }
-            if(selected){
+            if(checked){
                 if(pressed){
                     return pressedColor
                 }
@@ -63,7 +64,7 @@ Button {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         color: {
-            if(selected){
+            if(checked){
                 if(FluTheme.dark){
                     if(disabled){
                         return Qt.rgba(173/255,173/255,173/255,1)
@@ -77,7 +78,7 @@ Button {
                     if(disabled){
                         return Qt.rgba(131/255,131/255,131/255,1)
                     }
-                    if(!selected){
+                    if(!checked){
                         if(pressed){
                             return Qt.rgba(162/255,162/255,162/255,1)
                         }
@@ -87,7 +88,7 @@ Button {
                     if(disabled){
                         return Qt.rgba(160/255,160/255,160/255,1)
                     }
-                    if(!selected){
+                    if(!checked){
                         if(pressed){
                             return Qt.rgba(96/255,96/255,96/255,1)
                         }

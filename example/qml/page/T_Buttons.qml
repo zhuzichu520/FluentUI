@@ -22,7 +22,7 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluTextButton{
-            disabled:text_button_switch.selected
+            disabled:text_button_switch.checked
             text:"Text Button"
             onClicked: {
                 showInfo("点击Text Button")
@@ -32,18 +32,13 @@ FluScrollablePage{
                 left: parent.left
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:text_button_switch
             anchors{
-                verticalCenter: parent.verticalCenter
                 right: parent.right
+                verticalCenter: parent.verticalCenter
             }
-            FluToggleSwitch{
-                id:text_button_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -64,7 +59,7 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluButton{
-            disabled:button_switch.selected
+            disabled:button_switch.checked
             text:"Standard Button"
             onClicked: {
                 showInfo("点击StandardButton")
@@ -74,18 +69,13 @@ FluScrollablePage{
                 left: parent.left
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:button_switch
             anchors{
-                verticalCenter: parent.verticalCenter
                 right: parent.right
+                verticalCenter: parent.verticalCenter
             }
-            FluToggleSwitch{
-                id:button_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -106,7 +96,7 @@ FluScrollablePage{
         paddings: 10
 
         FluFilledButton{
-            disabled:filled_button_switch.selected
+            disabled:filled_button_switch.checked
             text:"Filled Button"
             onClicked: {
                 showWarning("点击FilledButton"+height)
@@ -116,18 +106,13 @@ FluScrollablePage{
                 left: parent.left
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:filled_button_switch
             anchors{
-                verticalCenter: parent.verticalCenter
                 right: parent.right
+                verticalCenter: parent.verticalCenter
             }
-            FluToggleSwitch{
-                id:filled_button_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -148,28 +133,20 @@ FluScrollablePage{
         paddings: 10
 
         FluToggleButton{
-            disabled:toggle_button_switch.selected
+            disabled:toggle_button_switch.checked
             text:"Toggle Button"
-            onClicked: {
-               selected = !selected
-            }
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:toggle_button_switch
             anchors{
-                verticalCenter: parent.verticalCenter
                 right: parent.right
+                verticalCenter: parent.verticalCenter
             }
-            FluToggleSwitch{
-                id:toggle_button_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -178,7 +155,7 @@ FluScrollablePage{
         code:'FluToggleButton{
     text:"Toggle Button"
     onClicked: {
-        selected = !selected
+        checked = !checked
     }
 }'
     }
@@ -191,7 +168,7 @@ FluScrollablePage{
         Layout.topMargin: 20
         FluIconButton{
             iconSource:FluentIcons.ChromeCloseContrast
-            disabled:icon_button_switch.selected
+            disabled:icon_button_switch.checked
             iconSize: 15
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -201,18 +178,13 @@ FluScrollablePage{
                 showSuccess("点击IconButton")
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:icon_button_switch
             anchors{
-                verticalCenter: parent.verticalCenter
                 right: parent.right
+                verticalCenter: parent.verticalCenter
             }
-            FluToggleSwitch{
-                id:icon_button_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -232,7 +204,7 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         FluDropDownButton{
-            disabled:drop_down_button_switch.selected
+            disabled:drop_down_button_switch.checked
             text:"DropDownButton"
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -253,17 +225,13 @@ FluScrollablePage{
                 }
             ]
         }
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:drop_down_button_switch
             anchors{
-                verticalCenter: parent.verticalCenter
                 right: parent.right
+                verticalCenter: parent.verticalCenter
             }
-            FluToggleSwitch{
-                id:drop_down_button_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -304,35 +272,29 @@ FluScrollablePage{
                 property int selecIndex : 0
                 model: 3
                 delegate:  FluRadioButton{
-                    selected : repeater.selecIndex===index
-                    disabled:radio_button_switch.selected
+                    checked : repeater.selecIndex===index
+                    disabled:radio_button_switch.checked
                     text:"Radio Button_"+index
-                    onClicked:{
+                    clickListener:function(){
                         repeater.selecIndex = index
                     }
                 }
             }
         }
-
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:radio_button_switch
             anchors{
-                verticalCenter: parent.verticalCenter
                 right: parent.right
+                verticalCenter: parent.verticalCenter
             }
-            FluToggleSwitch{
-                id:radio_button_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluRadioButton{
-    selected:true
+    checked:true
     text:"Text Button"
     onClicked: {
 
@@ -340,38 +302,4 @@ FluScrollablePage{
 }'
     }
 
-
-    FluArea{
-        Layout.fillWidth: true
-        height: 68
-        paddings: 10
-        Layout.topMargin: 20
-        FluCheckBox{
-            disabled:check_box_switch.selected
-            text:"Check Box"
-            anchors{
-                verticalCenter: parent.verticalCenter
-                left: parent.left
-            }
-        }
-        Row{
-            spacing: 5
-            anchors{
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-            }
-            FluToggleSwitch{
-                id:check_box_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
-        }
-    }
-    CodeExpander{
-        Layout.fillWidth: true
-        Layout.topMargin: -1
-        code:'FluCheckBox{
-    text:"Check Box"
-}'
-    }
 }

@@ -52,8 +52,8 @@ FluWindow {
                     text:lang.dark_mode
                 }
                 FluToggleSwitch{
-                    selected: FluTheme.dark
-                    clickFunc:function(){
+                    checked: FluTheme.dark
+                    onClicked: {
                         if(FluTheme.dark){
                             FluTheme.darkMode = FluDarkMode.Light
                         }else{

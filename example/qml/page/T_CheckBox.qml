@@ -18,10 +18,20 @@ FluScrollablePage{
             spacing: 30
             anchors.verticalCenter: parent.verticalCenter
             FluCheckBox{
+                disabled: check_box_switch.checked
             }
             FluCheckBox{
+                disabled: check_box_switch.checked
                 text:"Text"
             }
+        }
+        FluToggleSwitch{
+            id:check_box_switch
+            anchors{
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+            text:"Disabled"
         }
     }
     CodeExpander{

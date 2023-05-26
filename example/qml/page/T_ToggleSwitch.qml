@@ -18,10 +18,19 @@ FluScrollablePage{
             spacing: 30
             anchors.verticalCenter: parent.verticalCenter
             FluToggleSwitch{
+                disabled: toggle_switch.checked
             }
             FluToggleSwitch{
-                text:"Text"
+                disabled: toggle_switch.checked
             }
+        }
+        FluToggleSwitch{
+            id:toggle_switch
+            anchors{
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+            text:"Disabled"
         }
     }
     CodeExpander{

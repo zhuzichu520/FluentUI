@@ -25,7 +25,7 @@ Item {
             visible: control.pageCount>1
             disabled: control.pageCurrent<=1
             text:control.previousText
-            onClicked: {
+            clickListener:function() {
                 control.calcNewPage(control.pageCurrent-1);
             }
         }
@@ -35,9 +35,9 @@ Item {
                 property int pageNumber:1
                 visible: control.pageCount>0
                 enabled: control.pageCurrent>1
-                selected: pageNumber === control.pageCurrent
+                checked: pageNumber === control.pageCurrent
                 text:String(pageNumber)
-                onClicked: {
+                clickListener:function() {
                     control.calcNewPage(pageNumber);
                 }
             }
@@ -58,8 +58,8 @@ Item {
                                   :(control.pageCurrent+2+index-control.__pageButtonHalf)
                     }
                     text:String(pageNumber)
-                    selected: pageNumber === control.pageCurrent
-                    onClicked: {
+                    checked: pageNumber === control.pageCurrent
+                    clickListener:function(){
                         control.calcNewPage(pageNumber);
                     }
                 }
@@ -72,9 +72,9 @@ Item {
             FluToggleButton{
                 property int pageNumber:control.pageCount
                 visible: control.pageCount>1
-                selected: pageNumber === control.pageCurrent
+                checked: pageNumber === control.pageCurrent
                 text:String(pageNumber)
-                onClicked: {
+                clickListener:function(){
                     control.calcNewPage(pageNumber);
                 }
             }
@@ -83,7 +83,7 @@ Item {
             visible: control.pageCount>1
             disabled: control.pageCurrent>=control.pageCount
             text:control.nextText
-            onClicked: {
+            clickListener:function() {
                 control.calcNewPage(control.pageCurrent+1);
             }
         }
