@@ -1,11 +1,12 @@
-TEMPLATE = lib
-CONFIG += plugin
 QT += qml core quick
+CONFIG += plugin c++11
+TEMPLATE = lib
 
 QML_IMPORT_NAME = FluentUI
 
 DESTDIR = $$[QT_INSTALL_QML]/$$QML_IMPORT_NAME
-TARGET  = fluentuiplugin
+TARGET = fluentuiplugin
+TARGET = $$qtLibraryTarget($$TARGET)
 
 DEFINES += VERSION=1,3,1,0
 
@@ -40,7 +41,7 @@ RC_FILE += fluentui.rc
 
 target.path = imports/$$QML_IMPORT_NAME
 
-PLUGIN_FILES = $$files(imports/$$QML_IMPORT_NAME/qmldir) $$files(imports/$$QML_IMPORT_NAME/plugin.qmltypes)
+PLUGIN_FILES = $$files(imports/$$QML_IMPORT_NAME/qmldir) $$files(imports/$$QML_IMPORT_NAME/plugins.qmltypes)
 plugin_files.files = $$PLUGIN_FILES
 plugin_files.path = $$DESTDIR
 

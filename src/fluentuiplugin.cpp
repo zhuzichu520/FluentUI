@@ -13,11 +13,6 @@ int major = 1;
 int minor = 0;
 void FluentUIPlugin::registerTypes(const char *uri)
 {
-    qmlRegisterSingletonType(uri,major,minor, "FluApp", &FluApp::create);
-    qmlRegisterSingletonType(uri,major,minor, "FluColors", &FluColors::create);
-    qmlRegisterSingletonType(uri,major,minor, "FluTheme", &FluTheme::create);
-    qmlRegisterSingletonType(uri,major,minor, "FluTools", &FluTools::create);
-    qmlRegisterSingletonType(uri,major,minor, "FluTextStyle", &FluTextStyle::create);
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
@@ -33,4 +28,14 @@ void FluentUIPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
     font.setFamily("Microsoft YaHei");
     QGuiApplication::setFont(font);
 #endif
+    FluApp* app = FluApp::getInstance();
+    engine->rootContext()->setContextProperty("FluApp",app);
+    FluColors* colors = FluColors::getInstance();
+    engine->rootContext()->setContextProperty("FluColors",colors);
+    FluTheme* theme = FluTheme::getInstance();
+    engine->rootContext()->setContextProperty("FluTheme",theme);
+    FluTools* tools = FluTools::getInstance();
+    engine->rootContext()->setContextProperty("FluTools",tools);
+    FluTextStyle* textStyle = FluTextStyle::getInstance();
+    engine->rootContext()->setContextProperty("FluTextStyle",textStyle);
 }

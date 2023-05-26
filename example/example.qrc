@@ -144,7 +144,6 @@
         <file>qml/page/T_FlipView.qml</file>
         <file>qml/page/T_Home.qml</file>
         <file>qml/page/T_InfoBar.qml</file>
-        <file>qml/page/T_MediaPlayer.qml</file>
         <file>qml/page/T_Menu.qml</file>
         <file>qml/page/T_MultiWindow.qml</file>
         <file>qml/page/T_Pivot.qml</file>
@@ -167,7 +166,6 @@
         <file>qml/window/AboutWindow.qml</file>
         <file>qml/window/LoginWindow.qml</file>
         <file>qml/window/MainWindow.qml</file>
-        <file>qml/window/MediaWindow.qml</file>
         <file>qml/window/SingleInstanceWindow.qml</file>
         <file>qml/window/SingleTaskWindow.qml</file>
         <file>qml/window/StandardWindow.qml</file>
