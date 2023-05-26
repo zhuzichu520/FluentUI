@@ -144,7 +144,7 @@ Item {
                     FluCheckBox{
                         id:item_layout_checkbox
                         text:""
-                        selected: itemModel.multipSelected
+                        checked: itemModel.multipSelected
                         visible: selectionMode === FluTreeView.Multiple
                         Layout.leftMargin: 5
                         function refreshCheckBox(){
@@ -178,7 +178,7 @@ Item {
                                 }
                             }
                         }
-                        clickFunc:function(){
+                        clickListener:function(){
                             if(hasChild){
                                 const stack = [itemModel];
                                 while (stack.length > 0) {
