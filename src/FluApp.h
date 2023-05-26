@@ -35,11 +35,6 @@ private:
     explicit FluApp(QObject *parent = nullptr);
 public:
     ~FluApp();
-    static QJSValue create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-    {
-        Q_UNUSED(qmlEngine)
-        return jsEngine->newQObject(getInstance());
-    }
     static FluApp *getInstance();
     /**
      * @brief run

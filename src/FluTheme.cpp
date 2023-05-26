@@ -15,13 +15,6 @@ FluTheme *FluTheme::getInstance()
     return FluTheme::m_instance;
 }
 
-QJSValue FluTheme::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){
-    Q_UNUSED(qmlEngine)
-    QJSValue value = jsEngine->newQObject(getInstance());
-    FluTheme::getInstance()->setJsValue(value);
-    return value;
-}
-
 FluTheme::FluTheme(QObject *parent)
     : QObject{parent}
 {

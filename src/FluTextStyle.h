@@ -23,12 +23,6 @@ private:
     explicit FluTextStyle(QObject *parent = nullptr);
 public:
     static FluTextStyle *getInstance();
-    static QJSValue create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-    {
-        Q_UNUSED(qmlEngine)
-        return jsEngine->newQObject(getInstance());
-    }
-
 };
 
 #endif // FLUTEXTSTYLE_H

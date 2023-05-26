@@ -25,7 +25,7 @@ Rectangle {
         }
     }
     Connections{
-        target: FluTheme.getJsValue()
+        target: FluTheme
         function onDarkChanged(){
             canvas.requestPaint()
         }

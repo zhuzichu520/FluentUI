@@ -18,11 +18,6 @@ private:
     static FluTools* m_instance;
 public:
     static FluTools *getInstance();
-    static QJSValue create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-    {
-        Q_UNUSED(qmlEngine)
-        return jsEngine->newQObject(getInstance());
-    }
     /**
      * @brief clipText 将字符串添加到剪切板
      * @param text

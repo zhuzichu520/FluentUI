@@ -36,20 +36,12 @@ private:
     static FluTheme* m_instance;
     explicit FluTheme(QObject *parent = nullptr);
 public:
-    static QJSValue create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
     static FluTheme *getInstance();
     bool dark();
     Q_SIGNAL void darkChanged();
-    void setJsValue(QJSValue value){
-        m_jsvalue =value;
-    }
-    Q_INVOKABLE QJSValue getJsValue(){
-        return m_jsvalue;
-    }
 private:
     bool _dark;
     bool _systemDark;
-    QJSValue m_jsvalue;
     bool eventFilter(QObject *obj, QEvent *event);
     bool systemDark();
 };
