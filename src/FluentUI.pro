@@ -40,7 +40,7 @@ RC_FILE += fluentui.rc
 
 target.path = imports/$$QML_IMPORT_NAME
 
-PLUGIN_FILES = $$files(imports/$$QML_IMPORT_NAME/qmldir)
+PLUGIN_FILES = $$files(imports/$$QML_IMPORT_NAME/qmldir) $$files(imports/$$QML_IMPORT_NAME/plugin.qmltypes)
 plugin_files.files = $$PLUGIN_FILES
 plugin_files.path = $$DESTDIR
 

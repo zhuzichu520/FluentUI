@@ -1,4 +1,7 @@
 module FluentUI
+plugin fluentuiplugin
+classname FluentUIPlugin
+typeinfo plugins.qmltypes
 ColorPicker 1.0 Controls/ColorPicker/ColorPicker.qml
 Checkerboard 1.0 Controls/ColorPicker/Content/Checkerboard.qml
 ColorSlider 1.0 Controls/ColorPicker/Content/ColorSlider.qml
@@ -74,4 +77,3 @@ FluTooltip 1.0 Controls/FluTooltip.qml
 FluTreeView 1.0 Controls/FluTreeView.qml
 FluWindow 1.0 Controls/FluWindow.qml
 FluWindowResize 1.0 Controls/FluWindowResize.qml
-plugin fluentuiplugin
