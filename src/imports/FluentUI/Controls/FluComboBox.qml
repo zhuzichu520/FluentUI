@@ -3,13 +3,13 @@ import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
 import QtQuick.Templates 2.12 as T
-import FluentGlobal 1.0 as G
+
 ComboBox {
     id: control
     property bool disabled: false
-    property color normalColor: G.FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-    property color hoverColor: G.FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
-    property color disableColor: G.FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
+    property color normalColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+    property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+    property color disableColor: FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -20,7 +20,7 @@ ComboBox {
     rightPadding: padding + (control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     enabled: !disabled
     delegate: FluItemDelegate {
-        width: ListView.view.width
+        width: contentItem.width
         text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
         palette.text: control.palette.text
         palette.highlightedText: control.palette.highlightedText
@@ -44,14 +44,14 @@ ComboBox {
         rightPadding: control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
         topPadding: 6 - control.padding
         bottomPadding: 6 - control.padding
-        renderType: G.FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-        selectionColor: G.FluTheme.primaryColor.lightest
+        renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
+        selectionColor: FluTheme.primaryColor.lightest
         text: control.editable ? control.editText : control.displayText
         enabled: control.editable
         autoScroll: control.editable
         font:FluTextStyle.Body
         readOnly: control.down
-        color: G.FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
+        color: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
         inputMethodHints: control.inputMethodHints
         validator: control.validator
         selectByMouse: true
@@ -69,7 +69,7 @@ ComboBox {
     background: Rectangle {
         implicitWidth: 140
         implicitHeight: 28
-        border.color: G.FluTheme.dark ? "#505050" : "#DFDFDF"
+        border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1
         visible: !control.flat || control.down
         radius: 4
@@ -116,8 +116,8 @@ ComboBox {
             }
         }
         background:Rectangle{
-            color:G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
-            border.color: G.FluTheme.dark ? Window.active ? Qt.rgba(55/255,55/255,55/255,1):Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+            color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
+            border.color: FluTheme.dark ? Window.active ? Qt.rgba(55/255,55/255,55/255,1):Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
             border.width: 1
             radius: 5
             FluShadow{

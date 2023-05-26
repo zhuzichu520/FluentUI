@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 import "../component"
 
 FluScrollablePage{
@@ -23,7 +22,7 @@ FluScrollablePage{
             RowLayout{
                 Layout.topMargin: 10
                 Repeater{
-                    model: [G.FluColors.Yellow,G.FluColors.Orange,G.FluColors.Red,G.FluColors.Magenta,G.FluColors.Purple,G.FluColors.Blue,G.FluColors.Teal,G.FluColors.Green]
+                    model: [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
                     delegate:  FluRectangle{
                         width: 42
                         height: 42
@@ -33,15 +32,15 @@ FluScrollablePage{
                             anchors.centerIn: parent
                             iconSource: FluentIcons.AcceptMedium
                             iconSize: 15
-                            visible: modelData === G.FluTheme.primaryColor
-                            color: G.FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                            visible: modelData === FluTheme.primaryColor
+                            color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                         }
                         MouseArea{
                             id:mouse_item
                             anchors.fill: parent
                             hoverEnabled: true
                             onClicked: {
-                                G.FluTheme.primaryColor = modelData
+                                FluTheme.primaryColor = modelData
                             }
                         }
                     }
@@ -53,12 +52,12 @@ FluScrollablePage{
             }
             FluToggleSwitch{
                 Layout.topMargin: 5
-                selected: G.FluTheme.dark
+                selected: FluTheme.dark
                 clickFunc:function(){
-                    if(G.FluTheme.dark){
-                        G.FluTheme.darkMode = FluDarkMode.Light
+                    if(FluTheme.dark){
+                        FluTheme.darkMode = FluDarkMode.Light
                     }else{
-                        G.FluTheme.darkMode = FluDarkMode.Dark
+                        FluTheme.darkMode = FluDarkMode.Dark
                     }
                 }
             }
@@ -68,9 +67,9 @@ FluScrollablePage{
             }
             FluToggleSwitch{
                 Layout.topMargin: 5
-                selected: G.FluTheme.nativeText
+                selected: FluTheme.nativeText
                 clickFunc:function(){
-                    G.FluTheme.nativeText = !G.FluTheme.nativeText
+                    FluTheme.nativeText = !FluTheme.nativeText
                 }
             }
         }
@@ -78,11 +77,11 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'G.FluTheme.primaryColor = G.FluColors.Orange
+        code:'FluTheme.primaryColor = FluColors.Orange
 
-G.FluTheme.dark = true
+FluTheme.dark = true
 
-G.FluTheme.nativeText = true'
+FluTheme.nativeText = true'
     }
 
 

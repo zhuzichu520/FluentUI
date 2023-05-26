@@ -1,12 +1,12 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     default property alias content: d.children
     property alias currentIndex: nav_list.currentIndex
-    property color normalColor: G.FluTheme.dark ? G.FluColors.Grey120 : G.FluColors.Grey120
-    property color hoverColor: G.FluTheme.dark ? G.FluColors.Grey10 : G.FluColors.Black
+    property color normalColor: FluTheme.dark ? FluColors.Grey120 : FluColors.Grey120
+    property color hoverColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
     id:control
     width: 400
     height: 300
@@ -33,7 +33,7 @@ Item {
             Rectangle{
                 height: 3
                 radius: 1.5
-                color: G.FluTheme.primaryColor.dark
+                color: FluTheme.primaryColor.dark
                 width: nav_list.currentItem ? nav_list.currentItem.width : 0
                 y:37
                 Behavior on width {

@@ -3,8 +3,6 @@
 #include "Def.h"
 #include "FluColors.h"
 #include <QPalette>
-#include <QtGui/qpa/qplatformtheme.h>
-#include <QtGui/private/qguiapplication_p.h>
 #include <QGuiApplication>
 
 FluTheme* FluTheme::m_instance = nullptr;

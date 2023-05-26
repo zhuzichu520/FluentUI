@@ -50,7 +50,7 @@ FluScrollablePage{
             text:"跳转到视频播放器窗口"
             anchors.verticalCenter: parent.verticalCenter
             onClicked:{
-                G.FluApp.navigate("/media",{source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"})
+                FluApp.navigate("/media",{source:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"})
             }
         }
     }

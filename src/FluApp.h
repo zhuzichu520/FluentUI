@@ -27,8 +27,6 @@ class FluApp : public QObject
      */
     Q_PROPERTY_AUTO(QJsonObject,routes);
 
-    QML_NAMED_ELEMENT(FluApp)
-    QML_SINGLETON
 private:
     /**
      * @brief FluApp 将默认构造函数设置为私有，则qml创建单例就会走create工厂方法创建单例

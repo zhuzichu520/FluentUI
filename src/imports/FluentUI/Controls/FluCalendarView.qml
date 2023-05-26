@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     enum DisplayMode {
         Month,
@@ -49,7 +49,7 @@ Item {
                     radius: 4
                     anchors.centerIn: parent
                     color:{
-                        if(G.FluTheme.dark){
+                        if(FluTheme.dark){
                             if(item_control.hovered){
                                 return Qt.rgba(1,1,1,0.05)
                             }
@@ -69,7 +69,7 @@ Item {
                     height: 50
                     radius: 25
                     visible: isYear
-                    color: G.FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor.dark
                 }
                 FluText{
                     text:date.getFullYear()
@@ -79,7 +79,7 @@ Item {
                             return "#FFFFFF"
                         }
                         if(isDecade){
-                            return G.FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                         }
                         return Qt.rgba(150/255,150/255,150/255,1)
                     }
@@ -108,7 +108,7 @@ Item {
                     radius: 4
                     anchors.centerIn: parent
                     color:{
-                        if(G.FluTheme.dark){
+                        if(FluTheme.dark){
                             if(item_control.hovered){
                                 return Qt.rgba(1,1,1,0.05)
                             }
@@ -128,7 +128,7 @@ Item {
                     height: 50
                     radius: 25
                     visible: isMonth
-                    color: G.FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor.dark
                 }
                 FluText{
                     text:(date.getMonth()+1)+"月"
@@ -138,7 +138,7 @@ Item {
                             return "#FFFFFF"
                         }
                         if(isYear){
-                            return G.FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                         }
                         return Qt.rgba(150/255,150/255,150/255,1)
                     }
@@ -167,7 +167,7 @@ Item {
                     radius: 4
                     anchors.centerIn: parent
                     color:{
-                        if(G.FluTheme.dark){
+                        if(FluTheme.dark){
                             if(item_control.hovered){
                                 return Qt.rgba(1,1,1,0.05)
                             }
@@ -188,7 +188,7 @@ Item {
                     radius: 18
                     color:"#00000000"
                     visible: isDay
-                    border.color: G.FluTheme.primaryColor.dark
+                    border.color: FluTheme.primaryColor.dark
                     border.width: 1
                 }
                 Rectangle{
@@ -198,7 +198,7 @@ Item {
                     height: 30
                     radius: 15
                     visible: isToDay
-                    color: G.FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor.dark
                 }
                 FluText{
                     text:date.getDate()
@@ -208,7 +208,7 @@ Item {
                             return "#FFFFFF"
                         }
                         if(isMonth){
-                            return G.FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                         }
                         return Qt.rgba(150/255,150/255,150/255,1)
                     }
@@ -227,7 +227,7 @@ Item {
             id:layout_divider
             height: 1
             width: parent.width
-            color: G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+            color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
             anchors{
                 top: parent.top
                 topMargin: 44

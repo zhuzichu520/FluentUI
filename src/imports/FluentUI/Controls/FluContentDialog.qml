@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Popup {
     id: popup
     property string title: "Title"
@@ -65,7 +65,7 @@ Popup {
                 bottom: layout_actions.bottom
             }
             height: parent.height
-            color: G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
+            color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
             rectX: popup.x
             rectY: popup.y
             acrylicOpacity:blurBackground ? 0.8 : 1
@@ -103,7 +103,7 @@ Popup {
             id:layout_actions
             height: 68
             radius: 5
-            color: G.FluTheme.dark ? Qt.rgba(32/255,32/255,32/255, blurBackground ? blur.acrylicOpacity - 0.4 : 1) : Qt.rgba(243/255,243/255,243/255,blurBackground ? blur.acrylicOpacity - 0.4 : 1)
+            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255, blurBackground ? blur.acrylicOpacity - 0.4 : 1) : Qt.rgba(243/255,243/255,243/255,blurBackground ? blur.acrylicOpacity - 0.4 : 1)
             anchors{
                 top:text_message.bottom
                 left: parent.left

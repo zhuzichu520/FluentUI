@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.0
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item{
     property int size: 180
     property int dotSize: 24
@@ -47,13 +47,13 @@ Item{
         height:  vertical ? size : 4
         radius: 2
         anchors.verticalCenter: parent.verticalCenter
-        color:G.FluTheme.dark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
+        color:FluTheme.dark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
         Rectangle{
             id:rect
             radius: 2.5
             width: vertical ? 5 : control.width*(value/maxValue)
             height: vertical ? control.height*(value/maxValue) :  5
-            color:G.FluTheme.dark ? G.FluTheme.primaryColor.lighter :G.FluTheme.primaryColor.dark
+            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
         }
     }
     Rectangle{
@@ -66,12 +66,12 @@ Item{
         radius: dotSize/2
         anchors.verticalCenter: vertical ? undefined : parent.verticalCenter
         anchors.horizontalCenter: vertical ? parent.horizontalCenter : undefined
-        color:G.FluTheme.dark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
+        color:FluTheme.dark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
         Rectangle{
             width: dotSize
             height: dotSize
             radius: dotSize/2
-            color:G.FluTheme.dark ? G.FluTheme.primaryColor.lighter :G.FluTheme.primaryColor.dark
+            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
             scale: {
                 if(control_mouse.pressed){

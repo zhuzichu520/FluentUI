@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Button {
     property bool selected: false
     property bool disabled: false
@@ -50,21 +50,21 @@ Button {
             }
             border.color: {
                 if(disabled){
-                    if(G.FluTheme.dark){
+                    if(FluTheme.dark){
                         return Qt.rgba(82/255,82/255,82/255,1)
                     }else{
                         return Qt.rgba(198/255,198/255,198/255,1)
                     }
                 }
                 if(selected){
-                    if(G.FluTheme.dark){
-                        return G.FluTheme.primaryColor.lighter
+                    if(FluTheme.dark){
+                        return FluTheme.primaryColor.lighter
                     }else{
 
-                        return G.FluTheme.primaryColor.dark
+                        return FluTheme.primaryColor.dark
                     }
                 }else{
-                    if(G.FluTheme.dark){
+                    if(FluTheme.dark){
                         return Qt.rgba(161/255,161/255,161/255,1)
                     }else{
 
@@ -76,7 +76,7 @@ Button {
                 if(disabled&&selected){
                     return Qt.rgba(159/255,159/255,159/255,1)
                 }
-                if(G.FluTheme.dark){
+                if(FluTheme.dark){
                     if(hovered){
                         return Qt.rgba(43/255,43/255,43/255,1)
                     }

@@ -3,16 +3,16 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Rectangle {
 
     enum HourFormat {
         H,
         HH
     }
-    property color dividerColor: G.FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
-    property color hoverColor: G.FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
-    property color normalColor: G.FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+    property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
+    property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+    property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property var window : Window.window
     property int hourFormat: FluTimePicker.H
     property int isH: hourFormat === FluTimePicker.H
@@ -125,7 +125,7 @@ Rectangle {
                 height: 340
                 width: 300
                 radius: 4
-                color: G.FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+                color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
                 MouseArea{
                     anchors.fill: parent
                 }
@@ -155,16 +155,16 @@ Rectangle {
                                 anchors.rightMargin: 5
                                 color:  {
                                     if(getListView().currentIndex === position){
-                                        if(G.FluTheme.dark){
-                                            return  item_mouse.containsMouse ? Qt.darker(G.FluTheme.primaryColor.lighter,1.1) : G.FluTheme.primaryColor.lighter
+                                        if(FluTheme.dark){
+                                            return  item_mouse.containsMouse ? Qt.darker(FluTheme.primaryColor.lighter,1.1) : FluTheme.primaryColor.lighter
                                         }else{
-                                            return  item_mouse.containsMouse ? Qt.lighter(G.FluTheme.primaryColor.dark,1.1): G.FluTheme.primaryColor.dark
+                                            return  item_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor.dark,1.1): FluTheme.primaryColor.dark
                                         }
                                     }
                                     if(item_mouse.containsMouse){
-                                        return G.FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                        return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                                     }
-                                    return G.FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                                    return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                                 }
                                 radius: 3
                                 MouseArea{
@@ -188,13 +188,13 @@ Rectangle {
                                     text:model
                                     color: {
                                         if(getListView().currentIndex === position){
-                                            if(G.FluTheme.dark){
+                                            if(FluTheme.dark){
                                                 return Qt.rgba(0,0,0,1)
                                             }else{
                                                 return Qt.rgba(1,1,1,1)
                                             }
                                         }else{
-                                            return G.FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+                                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                                         }
                                     }
                                     anchors.centerIn: parent
@@ -280,7 +280,7 @@ Rectangle {
                     id:layout_actions
                     height: 40
                     radius: 5
-                    color: G.FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+                    color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
                     anchors{
                         bottom:parent.bottom
                         left: parent.left

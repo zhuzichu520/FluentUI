@@ -1,10 +1,10 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
 
-    property color color: G.FluTheme.dark ? "#FFFFFF" : "#999999"
+    property color color: FluTheme.dark ? "#FFFFFF" : "#999999"
     property int radius: 4
     id:control
     anchors.fill: parent

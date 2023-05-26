@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     property string text: "MenuItem"
     property var onClickFunc
@@ -20,7 +20,7 @@ Item {
         height: 32
         radius: 4
         color:{
-            if(G.FluTheme.dark){
+            if(FluTheme.dark){
                 if(mouse_area.containsMouse){
                     return Qt.rgba(1,1,1,0.05)
                 }

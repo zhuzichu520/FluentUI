@@ -1,20 +1,20 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Rectangle {
     property real linWidth : width/8
     property real progress: 0.25
     property bool indeterminate: true
     readonly property real radius2 : radius - linWidth/2
-    property color primaryColor : G.FluTheme.dark ? G.FluTheme.primaryColor.lighter : G.FluTheme.primaryColor.dark
+    property color primaryColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     id: control
     width: 44
     height: 44
     radius: width/2
     border.width: linWidth
     color: "#00000000"
-    border.color: G.FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    border.color: FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
     onProgressChanged: {
         canvas.requestPaint()
     }
@@ -25,7 +25,7 @@ Rectangle {
         }
     }
     Connections{
-        target: G.FluTheme.getJsValue()
+        target: FluTheme.getJsValue()
         function onDarkChanged(){
             canvas.requestPaint()
         }

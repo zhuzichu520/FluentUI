@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item{
     property bool vertical: false
     default property alias content : swipe.contentData
@@ -59,14 +59,14 @@ Item{
         }
         background: Rectangle{
             radius: 4
-            color:G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
+            color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
         }
         contentItem:FluIcon{
             iconSource: vertical ? FluentIcons.CaretUpSolid8 : FluentIcons.CaretLeftSolid8
             width: 10
             height: 10
             iconSize: 10
-            iconColor: btn_start.hovered ? G.FluColors.Grey220  :  G.FluColors.Grey120
+            iconColor: btn_start.hovered ? FluColors.Grey220  :  FluColors.Grey120
             anchors.centerIn: parent
         }
         visible: swipe.currentIndex !==0
@@ -88,7 +88,7 @@ Item{
         }
         background: Rectangle{
             radius: 4
-            color:G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
+            color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
         }
         visible: swipe.currentIndex !== swipe.count - 1
         contentItem:FluIcon{
@@ -96,7 +96,7 @@ Item{
             width: 10
             height: 10
             iconSize: 10
-            iconColor: btn_end.hovered ? G.FluColors.Grey220  :  G.FluColors.Grey120
+            iconColor: btn_end.hovered ? FluColors.Grey220  :  FluColors.Grey120
             anchors.centerIn: parent
         }
         onClicked: {

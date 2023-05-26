@@ -4,7 +4,6 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import Qt.labs.platform 1.0
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 import "qrc:///example/qml/global/"
 
 FluWindow {
@@ -49,12 +48,12 @@ FluWindow {
                     text:lang.dark_mode
                 }
                 FluToggleSwitch{
-                    selected: G.FluTheme.dark
+                    selected: FluTheme.dark
                     clickFunc:function(){
-                        if(G.FluTheme.dark){
-                            G.FluTheme.darkMode = FluDarkMode.Light
+                        if(FluTheme.dark){
+                            FluTheme.darkMode = FluDarkMode.Light
                         }else{
-                            G.FluTheme.darkMode = FluDarkMode.Dark
+                            FluTheme.darkMode = FluDarkMode.Dark
                         }
                     }
                 }

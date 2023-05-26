@@ -2,7 +2,6 @@ pragma Singleton
 
 import QtQuick 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 
 FluObject{
 
@@ -13,7 +12,7 @@ FluObject{
         icon:FluentIcons.Home
         //        cusIcon: Image{
         //            anchors.centerIn: parent
-        //            source: G.FluTheme.dark ? "qrc:/example/res/svg/home_dark.svg" : "qrc:/example/res/svg/home.svg"
+        //            source: FluTheme.dark ? "qrc:/example/res/svg/home_dark.svg" : "qrc:/example/res/svg/home.svg"
         //            sourceSize: Qt.size(30,30)
         //            width: 18
         //            height: 18

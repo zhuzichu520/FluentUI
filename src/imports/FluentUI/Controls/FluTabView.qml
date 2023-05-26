@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     enum TabWidthBehavior {
         Equal,
@@ -194,7 +194,7 @@ Item {
                     Rectangle{
                         anchors.fill: parent
                         color: {
-                            if(G.FluTheme.dark){
+                            if(FluTheme.dark){
                                 if(item_mouse_hove.containsMouse || item_btn_close.hovered){
                                     return Qt.rgba(1,1,1,0.03)
                                 }

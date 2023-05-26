@@ -32,9 +32,6 @@ class FluTheme : public QObject
      * @brief nativeText 本地渲染文本
      */
     Q_PROPERTY_AUTO(bool,nativeText);
-
-    QML_NAMED_ELEMENT(FluTheme)
-    QML_SINGLETON
 private:
     static FluTheme* m_instance;
     explicit FluTheme(QObject *parent = nullptr);

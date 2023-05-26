@@ -3,7 +3,6 @@ import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 
 Rectangle{
     property string title: ""
@@ -12,17 +11,17 @@ Rectangle{
     property string restoreText : "向下还原"
     property string maximizeText : "最大化"
     property string closeText : "关闭"
-    property color textColor: G.FluTheme.dark ? "#FFFFFF" : "#000000"
+    property color textColor: FluTheme.dark ? "#FFFFFF" : "#000000"
     property color minimizeNormalColor: Qt.rgba(0,0,0,0)
-    property color minimizeHoverColor: G.FluTheme.dark ? Qt.rgba(1,1,1,0.1) : Qt.rgba(0,0,0,0.06)
+    property color minimizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.1) : Qt.rgba(0,0,0,0.06)
     property color maximizeNormalColor: Qt.rgba(0,0,0,0)
-    property color maximizeHoverColor: G.FluTheme.dark ? Qt.rgba(1,1,1,0.1) : Qt.rgba(0,0,0,0.06)
+    property color maximizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.1) : Qt.rgba(0,0,0,0.06)
     property color closeNormalColor: Qt.rgba(0,0,0,0)
     property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
     property bool showDark: false
     property bool titleVisible: true
-    property bool isMac: G.FluTools.isMacos()
-    property color borerlessColor : G.FluTheme.dark ? G.FluTheme.primaryColor.lighter : G.FluTheme.primaryColor.dark
+    property bool isMac: FluTools.isMacos()
+    property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     id:root
     color: Qt.rgba(0,0,0,0)
     height: visible ? 30 : 0
@@ -68,12 +67,12 @@ Rectangle{
                 color:root.textColor
             }
             FluToggleSwitch{
-                selected: G.FluTheme.dark
+                selected: FluTheme.dark
                 clickFunc:function(){
-                    if(G.FluTheme.dark){
-                        G.FluTheme.darkMode = FluDarkMode.Light
+                    if(FluTheme.dark){
+                        FluTheme.darkMode = FluDarkMode.Light
                     }else{
-                        G.FluTheme.darkMode = FluDarkMode.Dark
+                        FluTheme.darkMode = FluDarkMode.Dark
                     }
                 }
             }

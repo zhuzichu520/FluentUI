@@ -3,12 +3,11 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 import "../component"
 
 FluScrollablePage{
 
-    property var colors : [G.FluColors.Yellow,G.FluColors.Orange,G.FluColors.Red,G.FluColors.Magenta,G.FluColors.Purple,G.FluColors.Blue,G.FluColors.Teal,G.FluColors.Green]
+    property var colors : [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
 
     title:"TabView"
 

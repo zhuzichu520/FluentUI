@@ -4,7 +4,6 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import "qrc:///example/qml/global/"
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 
 FluScrollablePage{
 
@@ -32,8 +31,8 @@ FluScrollablePage{
         Rectangle{
             anchors.fill: parent
             gradient: Gradient{
-                GradientStop { position: 0.8; color: G.FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(1,1,1,0) }
-                GradientStop { position: 1.0; color: G.FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1) }
+                GradientStop { position: 0.8; color: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(1,1,1,0) }
+                GradientStop { position: 1.0; color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1) }
             }
         }
         FluText{
@@ -76,7 +75,7 @@ FluScrollablePage{
                     FluAcrylic {
                         sourceItem:bg
                         anchors.fill: parent
-                        color: G.FluTheme.dark ? Window.active ?  Qt.rgba(38/255,44/255,54/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+                        color: FluTheme.dark ? Window.active ?  Qt.rgba(38/255,44/255,54/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
                         rectX: list.x-list.contentX+10+(control.width)*index
                         rectY: list.y+10
                         acrylicOpacity:0.8
@@ -85,7 +84,7 @@ FluScrollablePage{
                         anchors.fill: parent
                         radius: 8
                         color:{
-                            if(G.FluTheme.dark){
+                            if(FluTheme.dark){
                                 if(item_mouse.containsMouse){
                                     return Qt.rgba(1,1,1,0.03)
                                 }
@@ -118,7 +117,7 @@ FluScrollablePage{
                             Layout.topMargin: 5
                             Layout.preferredWidth: 160
                             Layout.leftMargin: 20
-                            color: G.FluColors.Grey120
+                            color: FluColors.Grey120
                             font.pixelSize: 12
                             wrapMode: Text.WrapAnywhere
                         }
@@ -164,7 +163,7 @@ FluScrollablePage{
                     anchors.fill: parent
                     radius: 8
                     color:{
-                        if(G.FluTheme.dark){
+                        if(FluTheme.dark){
                             if(item_mouse.containsMouse){
                                 return Qt.rgba(1,1,1,0.03)
                             }
@@ -203,7 +202,7 @@ FluScrollablePage{
                 FluText{
                     id:item_desc
                     text:modelData.desc
-                    color:G.FluColors.Grey120
+                    color:FluColors.Grey120
                     wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight
                     font: FluTextStyle.Caption
@@ -221,7 +220,7 @@ FluScrollablePage{
                     height: 12
                     width: 12
                     radius:  6
-                    color: G.FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor.dark
                     anchors{
                         right: parent.right
                         top: parent.top

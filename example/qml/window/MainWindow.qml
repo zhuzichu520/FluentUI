@@ -4,7 +4,6 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import Qt.labs.platform 1.1
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 import "../component"
 import "qrc:///example/qml/global/"
 
@@ -43,7 +42,7 @@ FluWindow {
                 text: "退出"
                 onTriggered: {
                     window.deleteWindow()
-                    G.FluApp.closeApp()
+                    FluApp.closeApp()
                 }
             }
         }
@@ -72,7 +71,7 @@ FluWindow {
         blurSource: nav_view
         onPositiveClicked:{
             window.deleteWindow()
-            G.FluApp.closeApp()
+            FluApp.closeApp()
         }
     }
 
@@ -87,7 +86,7 @@ FluWindow {
         z:999
         items: ItemsOriginal
         footerItems:ItemsFooter
-        topPadding:G.FluTools.isMacos() ? 20 : 5
+        topPadding:FluTools.isMacos() ? 20 : 5
         displayMode:MainEvent.displayMode
         logo: "qrc:/example/res/image/favicon.ico"
         title:"FluentUI"
@@ -112,12 +111,12 @@ FluWindow {
                     text:lang.dark_mode
                 }
                 FluToggleSwitch{
-                    selected: G.FluTheme.dark
+                    selected: FluTheme.dark
                     clickFunc:function(){
-                        if(G.FluTheme.dark){
-                            G.FluTheme.darkMode = FluDarkMode.Light
+                        if(FluTheme.dark){
+                            FluTheme.darkMode = FluDarkMode.Light
                         }else{
-                            G.FluTheme.darkMode = FluDarkMode.Dark
+                            FluTheme.darkMode = FluDarkMode.Dark
                         }
                     }
                 }

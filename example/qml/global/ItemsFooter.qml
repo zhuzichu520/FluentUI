@@ -2,7 +2,6 @@ pragma Singleton
 
 import QtQuick 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 
 FluObject{
 
@@ -16,7 +15,7 @@ FluObject{
         title:lang.about
         icon:FluentIcons.Contact
         tapFunc:function(){
-            G.FluApp.navigate("/about")
+            FluApp.navigate("/about")
         }
     }
 

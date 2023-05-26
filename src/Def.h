@@ -12,7 +12,6 @@ enum Fluent_DarkModeType {
     Dark     = 0x2,
 };
 Q_ENUM_NS(Fluent_DarkModeType)
-QML_NAMED_ELEMENT(FluDarkMode)
 }
 
 namespace Fluent_Awesome {
@@ -1423,7 +1422,6 @@ enum class Fluent_AwesomeType {
     ClickedOutLoudSolidBold=0xf8b3,
 };
 Q_ENUM_NS(Fluent_AwesomeType)
-QML_NAMED_ELEMENT(FluentIcons)
 }
 
 #endif // DEF_H

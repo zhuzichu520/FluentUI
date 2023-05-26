@@ -45,8 +45,6 @@ class FluColors : public QObject
     Q_PROPERTY_AUTO(FluColorSet*,Blue);
     Q_PROPERTY_AUTO(FluColorSet*,Teal);
     Q_PROPERTY_AUTO(FluColorSet*,Green);
-    QML_NAMED_ELEMENT(FluColors)
-    QML_SINGLETON
 private:
     explicit FluColors(QObject *parent = nullptr);
     static FluColors* m_instance;

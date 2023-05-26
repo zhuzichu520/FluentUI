@@ -12,7 +12,7 @@ Rectangle {
     id:control
     width: 480
     height: 270
-    color: G.FluColors.Black
+    color: FluColors.Black
     clip: true
 
     MouseArea{
@@ -74,7 +74,7 @@ Rectangle {
 
         Rectangle{
             anchors.fill: parent
-            color:G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
+            color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,0.97) : Qt.rgba(237/255,237/255,237/255,0.97)
             radius: 5
         }
 

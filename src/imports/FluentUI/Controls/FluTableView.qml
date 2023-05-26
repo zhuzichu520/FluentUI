@@ -1,8 +1,9 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtQml 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 
 Item {
     property var columns : []
@@ -58,7 +59,7 @@ Item {
         Rectangle{
             anchors.fill: layout_table
             radius: 5
-            color: G.FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+            color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
         }
         ListView{
             id:layout_table
@@ -70,7 +71,7 @@ Item {
                 id:layout_coumns
                 height: control.itemHeight
                 width: parent.width
-                color:G.FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+                color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
                 radius: [5,5,0,0]
                 Row{
                     id:list_coumns
@@ -144,9 +145,9 @@ Item {
                     anchors.fill: parent
                     color: {
                         if(item_control.hovered){
-                            return G.FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+                            return FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
                         }
-                        return G.FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(1,1,1,1)
+                        return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(1,1,1,1)
                     }
                 }
                 Row{
@@ -165,7 +166,7 @@ Item {
                                 property var dataObject : itemObject
                                 anchors.fill: parent
                                 sourceComponent: {
-                                    if(model.itemData instanceof Component){
+                                    if(typeof(model.itemData)==='object'){
                                         return model.itemData
                                     }
                                     return com_text

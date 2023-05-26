@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     property bool flagXChanged: true
     property int radius : 5
@@ -96,8 +96,8 @@ Item {
                     return true
                 }
                 border.width: 1
-                border.color: G.FluColors.Grey100
-                color:   list_view.currentIndex === index ?  G.FluTheme.primaryColor.dark : Qt.rgba(1,1,1,0.5)
+                border.color: FluColors.Grey100
+                color:   list_view.currentIndex === index ?  FluTheme.primaryColor.dark : Qt.rgba(1,1,1,0.5)
             }
         }
     }

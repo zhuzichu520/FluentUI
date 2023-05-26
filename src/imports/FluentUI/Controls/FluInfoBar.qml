@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 FluObject {
     property var root;
     property int layoutY: 75
@@ -102,7 +102,7 @@ FluObject {
             width:  rowlayout.width  + (_super.moremsg ? 25 : 80);
             height: rowlayout.height + 20;
             color: {
-                if(G.FluTheme.dark){
+                if(FluTheme.dark){
                     switch(_super.type){
                     case mcontrol.const_success: return Qt.rgba(57/255,61/255,27/255,1);
                     case mcontrol.const_warning: return Qt.rgba(67/255,53/255,25/255,1);
@@ -123,7 +123,7 @@ FluObject {
             radius: 4
             border.width: 1
             border.color: {
-                if(G.FluTheme.dark){
+                if(FluTheme.dark){
                     switch(_super.type){
                     case mcontrol.const_success: return Qt.rgba(56/255,61/255,27/255,1);
                     case mcontrol.const_warning: return Qt.rgba(66/255,53/255,25/255,1);
@@ -159,11 +159,11 @@ FluObject {
                     }
                     iconSize:20
                     iconColor: {
-                        if(G.FluTheme.dark){
+                        if(FluTheme.dark){
                             switch(_super.type){
                             case mcontrol.const_success: return Qt.rgba(108/255,203/255,95/255,1);
                             case mcontrol.const_warning: return Qt.rgba(252/255,225/255,0/255,1);
-                            case mcontrol.const_info:    return G.FluTheme.primaryColor.lighter;
+                            case mcontrol.const_info:    return FluTheme.primaryColor.lighter;
                             case mcontrol.const_error:   return Qt.rgba(255/255,153/255,164/255,1);
                             }
                             return "#FFFFFF"

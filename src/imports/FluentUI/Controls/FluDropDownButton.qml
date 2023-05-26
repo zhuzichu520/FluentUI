@@ -2,12 +2,12 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Button {
     property bool disabled: false
-    property color normalColor: G.FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-    property color hoverColor: G.FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
-    property color disableColor: G.FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
+    property color normalColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+    property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+    property color disableColor: FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
     property var window : Window.window
     property alias items: menu.content
     id: control
@@ -19,7 +19,7 @@ Button {
     background: Rectangle{
         implicitWidth: 28
         implicitHeight: 28
-        border.color: G.FluTheme.dark ? "#505050" : "#DFDFDF"
+        border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1
         radius: 4
         FluFocusRectangle{
@@ -49,7 +49,7 @@ Button {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         color: {
-            if(G.FluTheme.dark){
+            if(FluTheme.dark){
                 if(disabled){
                     return Qt.rgba(131/255,131/255,131/255,1)
                 }

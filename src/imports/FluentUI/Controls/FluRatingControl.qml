@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     property int number: 5
     property int spacing: 4
@@ -32,7 +32,7 @@ Item {
                     }
                     iconSize: control.size
                     iconSource: isSelected ? FluentIcons.FavoriteStarFill : FluentIcons.FavoriteStar
-                    iconColor: isSelected ? G.FluTheme.primaryColor.dark : (G.FluTheme.dark ? "#FFFFFF" : "#000000")
+                    iconColor: isSelected ? FluTheme.primaryColor.dark : (FluTheme.dark ? "#FFFFFF" : "#000000")
                     anchors.centerIn: parent
                 }
             }

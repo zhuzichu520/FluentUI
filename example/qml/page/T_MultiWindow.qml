@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 import "../component"
 
 FluScrollablePage{
@@ -38,7 +37,7 @@ FluScrollablePage{
             FluButton{
                 text:"点击创建窗口"
                 onClicked: {
-                    G.FluApp.navigate("/standardWindow")
+                    FluApp.navigate("/standardWindow")
                 }
             }
         }
@@ -62,7 +61,7 @@ FluScrollablePage{
             FluButton{
                 text:"点击创建窗口"
                 onClicked: {
-                    G.FluApp.navigate("/singleTaskWindow")
+                    FluApp.navigate("/singleTaskWindow")
                 }
             }
         }
@@ -85,7 +84,7 @@ FluScrollablePage{
             FluButton{
                 text:"点击创建窗口"
                 onClicked: {
-                    G.FluApp.navigate("/singleInstanceWindow")
+                    FluApp.navigate("/singleInstanceWindow")
                 }
             }
         }
@@ -119,7 +118,7 @@ FluScrollablePage{
             FluButton{
                 text:"点击跳转"
                 onClicked: {
-                    G.FluApp.navigate("/about")
+                    FluApp.navigate("/about")
                 }
             }
         }
@@ -130,7 +129,7 @@ FluScrollablePage{
         code:'FluButton{
     text:"点击跳转"
     onClicked: {
-        G.FluApp.navigate("/about")
+        FluApp.navigate("/about")
     }
 }
 '

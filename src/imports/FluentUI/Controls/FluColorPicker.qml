@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Button{
     id:control
     width: 36
@@ -17,8 +17,8 @@ Button{
         color: container.colorValue
         border.color: {
             if(hovered)
-                return G.FluTheme.primaryColor.light
-            return G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+                return FluTheme.primaryColor.light
+            return FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
         }
         border.width: 1
     }

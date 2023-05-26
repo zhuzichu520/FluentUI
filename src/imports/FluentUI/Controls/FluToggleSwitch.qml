@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Button {
 
     property bool selected: false
@@ -33,9 +33,9 @@ Button {
                 radius: 20
             }
             color: {
-                if(G.FluTheme.dark){
+                if(FluTheme.dark){
                     if(selected){
-                        return G.FluTheme.primaryColor.dark
+                        return FluTheme.primaryColor.dark
                     }
                     if(hovered){
                         return "#3E3E3C"
@@ -43,7 +43,7 @@ Button {
                     return "#323232"
                 }else{
                     if(selected){
-                        return G.FluTheme.primaryColor.dark
+                        return FluTheme.primaryColor.dark
                     }
                     if(hovered){
                         return "#F4F4F4"
@@ -52,7 +52,7 @@ Button {
                 }
             }
             border.width: 1
-            border.color: selected ? Qt.lighter(G.FluTheme.primaryColor.dark,1.2) : "#666666"
+            border.color: selected ? Qt.lighter(FluTheme.primaryColor.dark,1.2) : "#666666"
             Rectangle {
                 width: pressed ? 28 : 20
                 anchors{

@@ -3,8 +3,6 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
-
 FluContentPage {
 
     title:"Awesome"
@@ -26,7 +24,7 @@ FluContentPage {
             leftMargin: 14
         }
         onClicked: {
-            grid_view.model = G.FluApp.awesomelist(text_box.text)
+            grid_view.model = FluApp.awesomelist(text_box.text)
         }
     }
     GridView{
@@ -34,7 +32,7 @@ FluContentPage {
         cellWidth: 80
         cellHeight: 80
         clip: true
-        model:G.FluApp.awesomelist()
+        model:FluApp.awesomelist()
         ScrollBar.vertical: FluScrollBar {}
         anchors{
             topMargin: 10
@@ -52,7 +50,7 @@ FluContentPage {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     var text  ="FluentIcons."+modelData.name;
-                    G.FluTools.clipText(text)
+                    FluTools.clipText(text)
                     showSuccess("您复制了 "+text)
                 }
             }

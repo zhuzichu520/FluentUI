@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 import "../component"
 
 FluScrollablePage{
@@ -69,7 +68,7 @@ FluScrollablePage{
             }
             Rectangle {
                 anchors.fill: parent
-                color:G.FluTheme.primaryColor.dark
+                color:FluTheme.primaryColor.dark
             }
         }
     }
@@ -81,7 +80,7 @@ FluScrollablePage{
     statusMode: FluStatusView.Loading
     Rectangle{
         anchors.fill: parent
-        color:G.FluTheme.primaryColor.dark
+        color:FluTheme.primaryColor.dark
     }
 }'
     }

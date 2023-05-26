@@ -13,8 +13,6 @@ class FluTools : public QObject
 {
     Q_OBJECT
 
-    QML_NAMED_ELEMENT(FluTools)
-    QML_SINGLETON
 private:
     explicit FluTools(QObject *parent = nullptr);
     static FluTools* m_instance;
@@ -36,13 +34,6 @@ public:
      * @return
      */
     Q_INVOKABLE QString uuid();
-
-    /**
-     * @brief readFile 读取文件内容
-     * @param fileName
-     * @return
-     */
-    Q_INVOKABLE QString readFile(const QString &fileName);
 
     Q_INVOKABLE bool isMacos();
 

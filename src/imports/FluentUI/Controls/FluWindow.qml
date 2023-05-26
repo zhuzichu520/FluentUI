@@ -3,7 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 ApplicationWindow {
     enum LaunchMode {
         Standard,
@@ -26,9 +26,9 @@ ApplicationWindow {
     }
     property color backgroundColor: {
         if(active){
-            return G.FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+            return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
         }
-        return G.FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+        return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
     }
     property alias backgroundOpacity: bg.opacity
     property alias backgroundVisible: bg.visible

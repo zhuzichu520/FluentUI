@@ -1,14 +1,11 @@
 TEMPLATE = lib
-CONFIG += plugin qmltypes
-QT += qml-private core-private quick-private
+CONFIG += plugin
+QT += qml core quick
 
 QML_IMPORT_NAME = FluentUI
-QML_IMPORT_MAJOR_VERSION = 1
-QML_IMPORT_MINOR_VERSION = 0
 
 DESTDIR = $$[QT_INSTALL_QML]/$$QML_IMPORT_NAME
 TARGET  = fluentuiplugin
-QMLTYPES_FILENAME = $$DESTDIR/plugin.qmltypes
 
 DEFINES += VERSION=1,3,1,0
 
@@ -33,6 +30,7 @@ HEADERS += \
     FluTextStyle.h \
     FluTheme.h \
     FluTools.h \
+    fluentuiplugin.h \
     stdafx.h \
     WindowHelper.h
 

@@ -1,4 +1,4 @@
-QT += quick concurrent network multimedia
+QT += quick concurrent network
 CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_WARNING_OUTPUT QUICK_USE_QMAKE
 

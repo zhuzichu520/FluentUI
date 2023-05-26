@@ -3,7 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     enum DisplayMode {
         Open,
@@ -170,7 +170,7 @@ Item {
                     width: 3
                     height: 18
                     radius: 1.5
-                    color: G.FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor.dark
                     visible: {
                         for(var i=0;i<model.children.length;i++){
                             var item = model.children[i]
@@ -224,7 +224,7 @@ Item {
                     }
                 }
                 color: {
-                    if(G.FluTheme.dark){
+                    if(FluTheme.dark){
                         if((nav_list.currentIndex === idx)&&type===0){
                             return Qt.rgba(1,1,1,0.06)
                         }
@@ -294,9 +294,9 @@ Item {
                     }
                     color:{
                         if(item_mouse.pressed){
-                            return G.FluTheme.dark ? G.FluColors.Grey80 : G.FluColors.Grey120
+                            return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
                         }
-                        return G.FluTheme.dark ? G.FluColors.White : G.FluColors.Grey220
+                        return FluTheme.dark ? FluColors.White : FluColors.Grey220
                     }
                 }
             }
@@ -363,7 +363,7 @@ Item {
                     }
                 }
                 color: {
-                    if(G.FluTheme.dark){
+                    if(FluTheme.dark){
                         if(type===0){
                             if(nav_list.currentIndex === idx){
                                 return Qt.rgba(1,1,1,0.06)
@@ -441,9 +441,9 @@ Item {
                     }
                     color:{
                         if(item_mouse.pressed){
-                            return G.FluTheme.dark ? G.FluColors.Grey80 : G.FluColors.Grey120
+                            return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
                         }
-                        return G.FluTheme.dark ? G.FluColors.White : G.FluColors.Grey220
+                        return FluTheme.dark ? FluColors.White : FluColors.Grey220
                     }
                     anchors{
                         verticalCenter: parent.verticalCenter
@@ -617,11 +617,11 @@ Item {
             top: parent.top
             bottom: parent.bottom
         }
-        border.color: G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
+        border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
         border.width:  d.isMinimal || d.isCompactAndPanel ? 1 : 0
         color: {
             if(d.isMinimal){
-                return G.FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+                return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             }
             return "transparent"
         }
@@ -636,7 +636,7 @@ Item {
             anchors.fill: layout_list
             color: {
                 if(d.isMinimalAndPanel || d.isCompactAndPanel){
-                    return G.FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+                    return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
                 }
                 return "transparent"
             }
@@ -676,9 +676,9 @@ Item {
                         duration: 83
                     }
                 }
-                hoverColor: G.FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
-                pressedColor: G.FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
-                normalColor: G.FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
+                hoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
+                pressedColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
+                normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
                 width:38
                 height:34
                 x:6
@@ -706,7 +706,7 @@ Item {
                 Rectangle{
                     height: 18
                     radius: 1.5
-                    color: G.FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor.dark
                     width: 3
                     anchors{
                         verticalCenter: parent.verticalCenter
@@ -774,7 +774,7 @@ Item {
                 Rectangle{
                     height: 18
                     radius: 1.5
-                    color: G.FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor.dark
                     width: 3
                     anchors{
                         verticalCenter: parent.verticalCenter
@@ -818,7 +818,7 @@ Item {
             FluShadow{
                 radius: 4
             }
-            color: G.FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
             height: 38*Math.min(Math.max(list_view.count,1),8)
             ListView{
                 id:list_view
@@ -833,9 +833,9 @@ Item {
                     background: Rectangle{
                         color:  {
                             if(hovered){
-                                return G.FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
-                            return G.FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                            return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                         }
                     }
                     contentItem: FluText{

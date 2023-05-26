@@ -3,7 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 Item {
     enum TreeViewSelectionMode  {
         None,
@@ -55,10 +55,14 @@ Item {
         Column{
             id:item_layout
             property real level: (mapToItem(list_root,0,0).x+list_root.contentX)/0.001
-            property var text: model.text??"Item"
+            property var text: model.text
             property bool hasChild : (model.items !== undefined) && (model.items.count !== 0)
-            property var items: model.items??[]
-            property var expanded: model.expanded??true
+            property var items: model.items
+            property var expanded: {
+                if(!model.expanded)
+                    return true
+                return model.expanded
+            }
             property int width_hint: calculateWidth()
             property bool singleSelected: currentElement === model
             property var itemModel: model
@@ -82,7 +86,7 @@ Item {
                     anchors.fill: parent
                     anchors.margins: 2
                     color:{
-                        if(G.FluTheme.dark){
+                        if(FluTheme.dark){
                             if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
                                 return Qt.rgba(62/255,62/255,62/255,1)
                             }
@@ -96,7 +100,7 @@ Item {
                     }
                     Rectangle{
                         width: 3
-                        color:G.FluTheme.primaryColor.dark
+                        color:FluTheme.primaryColor.dark
                         visible: item_layout.singleSelected && (selectionMode === FluTreeView.Single)
                         radius: 3
                         height: 20
@@ -225,7 +229,7 @@ Item {
                     if(!hasChild){
                         return false
                     }
-                    return item_layout.expanded??false
+                    return item_layout.expanded
                 }
 
                 width: item_sub_layout.implicitWidth

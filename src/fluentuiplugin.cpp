@@ -1,36 +1,36 @@
-#include <QtQml/QQmlEngineExtensionPlugin>
-#include <qdebug.h>
-#include <QJSEngine>
-#include <QQmlEngine>
-#include <QJSValue>
+#include "fluentuiplugin.h"
+#include <QtQml/QQmlExtensionPlugin>
 #include <QGuiApplication>
-#include <QFontDatabase>
+#include <qdebug.h>
+#include "WindowHelper.h"
+#include "Def.h"
 #include "FluApp.h"
 #include "FluColors.h"
 #include "FluTheme.h"
 #include "FluTools.h"
-
-//![plugin]
-class FluentUIPlugin : public QQmlEngineExtensionPlugin
+#include "FluTextStyle.h"
+int major = 1;
+int minor = 0;
+void FluentUIPlugin::registerTypes(const char *uri)
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
+    qmlRegisterSingletonType(uri,major,minor, "FluApp", &FluApp::create);
+    qmlRegisterSingletonType(uri,major,minor, "FluColors", &FluColors::create);
+    qmlRegisterSingletonType(uri,major,minor, "FluTheme", &FluTheme::create);
+    qmlRegisterSingletonType(uri,major,minor, "FluTools", &FluTools::create);
+    qmlRegisterSingletonType(uri,major,minor, "FluTextStyle", &FluTextStyle::create);
+    qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
+    qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
+    qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(Fluent_DarkMode::staticMetaObject,  uri,major,minor,"FluDarkMode", "Access to enums & flags only");
+}
 
-public:
-    void initializeEngine(QQmlEngine *engine, const char *uri) override{
+void FluentUIPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
+{
     Q_UNUSED(engine)
     Q_UNUSED(uri)
 #ifdef Q_OS_WIN
-        QFont font;
-        font.setFamily("Microsoft YaHei");
-        QGuiApplication::setFont(font);
+    QFont font;
+    font.setFamily("Microsoft YaHei");
+    QGuiApplication::setFont(font);
 #endif
-        qmlRegisterSingletonType("FluentGlobal", 1, 0, "FluApp", &FluApp::create);
-        qmlRegisterSingletonType("FluentGlobal", 1, 0, "FluColors", &FluColors::create);
-        qmlRegisterSingletonType("FluentGlobal", 1, 0, "FluTheme", &FluTheme::create);
-        qmlRegisterSingletonType("FluentGlobal", 1, 0, "FluTools", &FluTools::create);
-    }
-};
-//![plugin]
-
-#include "fluentuiplugin.moc"
+}

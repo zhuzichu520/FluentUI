@@ -71,7 +71,13 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
             view->close();
         }
     }
-    view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
+    view = qobject_cast<QQuickWindow*>(component.create(engine->rootContext()));
+    QVariantMap::const_iterator it;
+    for (it = properties.constBegin(); it != properties.constEnd(); ++it) {
+        QString key = it.key();
+        QVariant value = it.value();
+        view->setProperty(key.toStdString().data(),value);
+    }
     wnds.insert(view->winId(),view);
     if(fluRegister){
         fluRegister->to(view);

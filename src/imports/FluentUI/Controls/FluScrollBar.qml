@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 ScrollBar {
     property color handleNormalColor: Qt.rgba(134/255,134/255,134/255,1)
     property color handleHoverColor: Qt.lighter(handleNormalColor)
@@ -94,7 +94,7 @@ ScrollBar {
         radius: 5
         color: {
             if(expand && item_react.opacity){
-                if(G.FluTheme.dark){
+                if(FluTheme.dark){
                     return Qt.rgba(0,0,0,1)
                 }
                 return Qt.rgba(1,1,1,1)
@@ -132,7 +132,7 @@ ScrollBar {
         width:10
         height:10
         z:100
-        iconColor: hovered ? G.FluColors.Black : G.FluColors.Grey120
+        iconColor: hovered ? FluColors.Black : FluColors.Grey120
         iconSize: 8
         anchors.top: parent.top
         anchors.topMargin: 4
@@ -148,7 +148,7 @@ ScrollBar {
         width:10
         height:10
         iconSize: 8
-        iconColor: hovered ? G.FluColors.Black : G.FluColors.Grey120
+        iconColor: hovered ? FluColors.Black : FluColors.Grey120
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 4
@@ -163,7 +163,7 @@ ScrollBar {
         width:10
         height:10
         iconSize: 8
-        iconColor: hovered ? G.FluColors.Black : G.FluColors.Grey120
+        iconColor: hovered ? FluColors.Black : FluColors.Grey120
         anchors.leftMargin: 4
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
@@ -178,7 +178,7 @@ ScrollBar {
         width:10
         height:10
         iconSize: 8
-        iconColor: hovered ? G.FluColors.Black : G.FluColors.Grey120
+        iconColor: hovered ? FluColors.Black : FluColors.Grey120
         anchors.rightMargin: 4
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right

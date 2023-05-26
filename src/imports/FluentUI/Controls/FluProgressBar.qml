@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
+
 FluRectangle {
     property real progress: 0.5
     property bool indeterminate: true
@@ -10,7 +10,7 @@ FluRectangle {
     height: 5
     radius: [3,3,3,3]
     clip: true
-    color:  G.FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    color:  FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
     Component.onCompleted: {
         if(indeterminate){
             bar.x = -control.width*0.5
@@ -25,7 +25,7 @@ FluRectangle {
         radius: 3
         width: control.width*progress
         height:  control.height
-        color:G.FluTheme.dark ? G.FluTheme.primaryColor.lighter : G.FluTheme.primaryColor.dark
+        color:FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
         Behavior on x{
             id:behavior
             enabled: false

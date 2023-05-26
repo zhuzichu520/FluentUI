@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 import "qrc:///example/qml/global/"
 import "../component"
 
@@ -31,10 +30,10 @@ FluScrollablePage{
             Repeater{
                 model: [{title:"System",mode:FluDarkMode.System},{title:"Light",mode:FluDarkMode.Light},{title:"Dark",mode:FluDarkMode.Dark}]
                 delegate:  FluRadioButton{
-                    selected : G.FluTheme.darkMode === modelData.mode
+                    selected : FluTheme.darkMode === modelData.mode
                     text:modelData.title
                     onClicked:{
-                        G.FluTheme.darkMode = modelData.mode
+                        FluTheme.darkMode = modelData.mode
                     }
                 }
             }

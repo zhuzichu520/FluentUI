@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 
 FluExpander{
 
@@ -22,8 +21,8 @@ FluExpander{
         KeyNavigation.priority: KeyNavigation.BeforeItem
         background:Rectangle{
             radius: 4
-            color:G.FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-            border.color: G.FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+            color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+            border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
             border.width: 1
         }
     }
@@ -37,7 +36,7 @@ FluExpander{
             topMargin: 5
         }
         onClicked:{
-            G.FluTools.clipText(content.text)
+            FluTools.clipText(content.text)
             showSuccess("复制成功")
         }
     }

@@ -1,7 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import FluentUI 1.0
-import FluentGlobal 1.0 as G
 
 FluTextBox{
     property var items:[]
@@ -47,7 +46,7 @@ FluTextBox{
             FluShadow{
                 radius: 4
             }
-            color: G.FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
             height: 38*Math.min(Math.max(list_view.count,1),8)
             ListView{
                 id:list_view
@@ -74,12 +73,12 @@ FluTextBox{
                     background: Rectangle{
                         color:  {
                             if(list_view.currentIndex === index){
-                                return G.FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
                             if(hovered){
-                                return G.FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
-                            return G.FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                            return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                         }
                         MouseArea{
                             id:mouse_area
@@ -96,7 +95,7 @@ FluTextBox{
                         }
                         Rectangle{
                             width: 3
-                            color:G.FluTheme.primaryColor.dark
+                            color:FluTheme.primaryColor.dark
                             visible: list_view.currentIndex === index
                             radius: 3
                             height: 20

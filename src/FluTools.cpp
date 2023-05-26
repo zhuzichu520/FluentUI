@@ -28,17 +28,6 @@ QString FluTools::uuid(){
     return QUuid::createUuid().toString();
 }
 
-QString FluTools::readFile(const QString &fileName)
-{
-    QString content;
-    QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream stream(&file);
-        content = stream.readAll();
-    }
-    return content;
-}
-
 bool FluTools::isMacos(){
 #if defined(Q_OS_MACOS)
     return true;
