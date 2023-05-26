@@ -13,6 +13,8 @@ Popup {
     property alias blurSource: blur.sourceItem
     property bool blurBackground: true
     property alias blurOpacity: blur.acrylicOpacity
+    property alias blurRectX: blur.rectX
+    property alias blurRectY: blur.rectY
 
     enter: Transition {
         reversible: true
