@@ -21,7 +21,9 @@ FRAMELESSHELPER_USE_NAMESPACE
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
     QGuiApplication app(argc, argv);
+#ifdef Q_OS_WIN // 此设置仅在Windows下生效
     FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
+#endif
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
