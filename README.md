@@ -42,7 +42,7 @@ This is a beautiful FluentUI component library based on Qt QML. Currently the ma
 + Qt LinguistTool (optional,for translations)
 + Qt Svg (optional, however essential for Qt 5)
 
-Use [Qt Online Installers](https://download.qt.io/archive/online_installers/) to aquire the moudules (**Recommanded**) or compile them first before using the library.
+Use [Qt Online Installers](https://download.qt.io/archive/online_installers/) to acquire the modules (**Recommended**) or compile them first before using the library.
 
 ## ⚽ Get started
 
