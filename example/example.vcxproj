@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{14E0AE1F-22B9-346D-BB43-DEC7FD9D7A88}</ProjectGuid>
+    <RootNamespace>example</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <QtDir>C:\Qt\Qt5.14.2\5.14.2\msvc2017_64</QtDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v143</PlatformToolset>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <PrimaryOutput>example</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v143</PlatformToolset>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <PrimaryOutput>example</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\obj\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">example</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <PreLinkEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</PreLinkEventUseInBuild>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\obj\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">example</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
+    <PreLinkEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</PreLinkEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(QtDir)\include;C:\Qt\Qt5.14.2\5.14.2\msvc2017_64\include\QtQuick;$(QtDir)\include\QtGui;$(QtDir)\include\QtANGLE;$(QtDir)\include\QtQmlModels;$(QtDir)\include\QtQml;$(QtDir)\include\QtNetwork;$(QtDir)\include\QtConcurrent;$(QtDir)\include\QtCore;release;/include;$(QtDir)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/permissive- -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>$(SolutionDir)\generated\$(ProjectName)\obj\release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(SolutionDir)\generated\$(ProjectName)\obj\release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_WARNING_OUTPUT;QUICK_USE_QMAKE;VERSION=1,3,1,0;NDEBUG;QT_NO_DEBUG;QT_QUICK_LIB;QT_GUI_LIB;QT_QMLMODELS_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CONCURRENT_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>
+      </ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QtDir)\lib\Qt5Quick.lib;$(QtDir)\lib\Qt5Gui.lib;$(QtDir)\lib\Qt5QmlModels.lib;$(QtDir)\lib\Qt5Qml.lib;$(QtDir)\lib\Qt5Network.lib;$(QtDir)\lib\Qt5Concurrent.lib;$(QtDir)\lib\Qt5Core.lib;$(QtDir)\lib\qtmain.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\openssl\lib;C:\Utils\my_sql\mysql-5.7.25-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)\example.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_WARNING_OUTPUT;QUICK_USE_QMAKE;VERSION=1,3,1,0;NDEBUG;QT_NO_DEBUG;QT_QUICK_LIB;QT_GUI_LIB;QT_QMLMODELS_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CONCURRENT_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PreLinkEvent>
+      <Command>copy /y C:\Users\lyxm1\source\repos\TEST_PROGRAM\TEST_QML\FluentUI-qt5-MSBuild\3rdparty\msvc\*.dll C:\Users\lyxm1\source\repos\TEST_PROGRAM\TEST_QML\FluentUI-qt5-MSBuild\bin\release</Command>
+      <Message>copy /y C:\Users\lyxm1\source\repos\TEST_PROGRAM\TEST_QML\FluentUI-qt5-MSBuild\3rdparty\msvc\*.dll C:\Users\lyxm1\source\repos\TEST_PROGRAM\TEST_QML\FluentUI-qt5-MSBuild\bin\release</Message>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(QtDir)\include;$(QtDir)\include\QtQuick;$(QtDir)\include\QtGui;C$(QtDir)\include\QtANGLE;$(QtDir)\include\QtQmlModels;$(QtDir)\include\QtQml;$(QtDir)\include\QtNetwork;$(QtDir)\include\QtConcurrent;$(QtDir)\include\QtCore;debug;/include;$(QtDir)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/permissive- -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>$(SolutionDir)\generated\$(ProjectName)\obj\debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(SolutionDir)\generated\$(ProjectName)\obj\debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_WARNING_OUTPUT;QUICK_USE_QMAKE;VERSION=1,3,1,0;QT_QUICK_LIB;QT_GUI_LIB;QT_QMLMODELS_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CONCURRENT_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QtDir)\lib\Qt5Quickd.lib;$(QtDir)\lib\Qt5Guid.lib;$(QtDir)\lib\Qt5QmlModelsd.lib;$(QtDir)\lib\Qt5Qmld.lib;$(QtDir)\lib\Qt5Networkd.lib;$(QtDir)\lib\Qt5Concurrentd.lib;$(QtDir)\lib\Qt5Cored.lib;$(QtDir)\lib\qtmaind.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\openssl\lib;C:\Utils\my_sql\mysql-5.7.25-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\example.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_WARNING_OUTPUT;QUICK_USE_QMAKE;VERSION=1,3,1,0;QT_QUICK_LIB;QT_GUI_LIB;QT_QMLMODELS_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CONCURRENT_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PreLinkEvent>
+      <Command>copy /y $(SolutionDir)\3rdparty\msvc\*.dll $(OutDir)</Command>
+      <Message>copy /y $(SolutionDir)\3rdparty\msvc\*.dll $(OutDir)</Message>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AppInfo.cpp" />
+    <ClCompile Include="src\lang\En.cpp" />
+    <ClCompile Include="src\tool\IPC.cpp" />
+    <ClCompile Include="src\lang\Lang.cpp" />
+    <ClCompile Include="src\lang\Zh.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\AppInfo.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\lang\En.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\tool\IPC.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\lang\Lang.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\lang\Zh.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_predefs.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QtDir)\bin\moc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC %(Filename).h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="src\stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_AppInfo.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_AppInfo.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_En.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_En.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_IPC.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_IPC.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_Lang.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_Lang.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_Zh.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_Zh.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <CustomBuild Include="moc_debug_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QtDir)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx$(QtDir)\bin\qmake.exe -E $(QtDir)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="moc_release_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QtDir)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx$(QtDir)\bin\qmake.exe -E $(QtDir)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_predefs.h;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\qrc_example.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\qrc_example.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qml\window\AboutWindow.qml" />
+    <None Include="res\image\control\Acrylic.png" />
+    <None Include="res\image\control\AnimatedIcon.png" />
+    <None Include="res\image\control\AnimatedVisualPlayer.png" />
+    <None Include="res\image\control\AnimationInterop.png" />
+    <None Include="qml\App.qml" />
+    <None Include="res\image\control\AppBarButton.png" />
+    <None Include="res\image\control\AppBarSeparator.png" />
+    <None Include="res\image\control\AppBarToggleButton.png" />
+    <None Include="res\image\control\AutoSuggestBox.png" />
+    <None Include="res\image\control\AutomationProperties.png" />
+    <None Include="res\image\control\Border.png" />
+    <None Include="res\image\control\BreadcrumbBar.png" />
+    <None Include="res\image\control\Button.png" />
+    <None Include="res\image\control\CalendarDatePicker.png" />
+    <None Include="res\image\control\CalendarView.png" />
+    <None Include="res\image\control\Canvas.png" />
+    <None Include="res\image\control\Checkbox.png" />
+    <None Include="res\image\control\Clipboard.png" />
+    <None Include="qml\component\CodeExpander.qml" />
+    <None Include="res\image\control\ColorPaletteResources.png" />
+    <None Include="res\image\control\ColorPicker.png" />
+    <None Include="res\image\control\ComboBox.png" />
+    <None Include="res\image\control\CommandBar.png" />
+    <None Include="res\image\control\CommandBarFlyout.png" />
+    <None Include="res\image\control\CompactSizing.png" />
+    <None Include="res\image\control\ConnectedAnimation.png" />
+    <None Include="res\image\control\ContentDialog.png" />
+    <None Include="res\image\control\CreateMultipleWindows.png" />
+    <None Include="res\image\control\DataGrid.png" />
+    <None Include="res\image\control\DatePicker.png" />
+    <None Include="res\image\control\DropDownButton.png" />
+    <None Include="res\image\control\EasingFunction.png" />
+    <None Include="res\image\control\Expander.png" />
+    <None Include="res\image\control\FilePicker.png" />
+    <None Include="res\image\control\FlipView.png" />
+    <None Include="res\image\control\Flyout.png" />
+    <None Include="res\image\control\Grid.png" />
+    <None Include="res\image\control\GridView.png" />
+    <None Include="res\image\control\HyperlinkButton.png" />
+    <None Include="res\image\control\IconElement.png" />
+    <None Include="res\image\control\Image.png" />
+    <None Include="res\image\control\ImplicitTransition.png" />
+    <None Include="res\image\control\InfoBadge.png" />
+    <None Include="res\image\control\InfoBar.png" />
+    <None Include="res\image\control\InkCanvas.png" />
+    <None Include="res\image\control\InkToolbar.png" />
+    <None Include="res\image\control\InputValidation.png" />
+    <None Include="qml\global\ItemsFooter.qml" />
+    <None Include="qml\global\ItemsOriginal.qml" />
+    <None Include="res\image\control\ItemsRepeater.png" />
+    <None Include="res\image\control\Line.png" />
+    <None Include="res\image\control\ListBox.png" />
+    <None Include="res\image\control\ListView.png" />
+    <None Include="qml\window\LoginWindow.qml" />
+    <None Include="qml\global\MainEvent.qml" />
+    <None Include="qml\window\MainWindow.qml" />
+    <None Include="res\image\control\MediaPlayerElement.png" />
+    <None Include="res\image\control\MenuBar.png" />
+    <None Include="res\image\control\MenuFlyout.png" />
+    <None Include="res\image\control\NavigationView.png" />
+    <None Include="res\image\control\NumberBox.png" />
+    <None Include="res\image\control\PageTransition.png" />
+    <None Include="res\image\control\ParallaxView.png" />
+    <None Include="res\image\control\PasswordBox.png" />
+    <None Include="res\image\control\PersonPicture.png" />
+    <None Include="res\image\control\PipsPager.png" />
+    <None Include="res\image\control\Pivot.png" />
+    <None Include="res\image\control\ProgressBar.png" />
+    <None Include="res\image\control\ProgressRing.png" />
+    <None Include="res\image\control\PullToRefresh.png" />
+    <None Include="res\image\control\RadialGradientBrush.png" />
+    <None Include="res\image\control\RadioButton.png" />
+    <None Include="res\image\control\RadioButtons.png" />
+    <None Include="res\image\control\RatingControl.png" />
+    <None Include="res\image\control\RelativePanel.png" />
+    <None Include="res\image\control\RepeatButton.png" />
+    <None Include="res\image\control\RevealFocus.png" />
+    <None Include="res\image\control\RichEditBox.png" />
+    <None Include="res\image\control\RichTextBlock.png" />
+    <None Include="res\image\control\ScrollViewer.png" />
+    <None Include="res\image\control\SemanticZoom.png" />
+    <None Include="res\image\control\Shape.png" />
+    <None Include="qml\window\SingleInstanceWindow.qml" />
+    <None Include="qml\window\SingleTaskWindow.qml" />
+    <None Include="res\image\control\Slider.png" />
+    <None Include="res\image\control\Sound.png" />
+    <None Include="res\image\control\SplitButton.png" />
+    <None Include="res\image\control\SplitView.png" />
+    <None Include="res\image\control\StackPanel.png" />
+    <None Include="res\image\control\StandardUICommand.png" />
+    <None Include="qml\window\StandardWindow.qml" />
+    <None Include="res\image\control\SwipeControl.png" />
+    <None Include="qml\page\T_Acrylic.qml" />
+    <None Include="qml\page\T_Awesome.qml" />
+    <None Include="qml\page\T_Badge.qml" />
+    <None Include="qml\page\T_BreadcrumbBar.qml" />
+    <None Include="qml\page\T_Buttons.qml" />
+    <None Include="qml\page\T_CalendarPicker.qml" />
+    <None Include="qml\page\T_Carousel.qml" />
+    <None Include="qml\page\T_CheckBox.qml" />
+    <None Include="qml\page\T_ColorPicker.qml" />
+    <None Include="qml\page\T_ComboBox.qml" />
+    <None Include="qml\page\T_DatePicker.qml" />
+    <None Include="qml\page\T_Dialog.qml" />
+    <None Include="qml\page\T_Expander.qml" />
+    <None Include="qml\page\T_FlipView.qml" />
+    <None Include="qml\page\T_Home.qml" />
+    <None Include="qml\page\T_InfoBar.qml" />
+    <None Include="qml\page\T_Menu.qml" />
+    <None Include="qml\page\T_MultiWindow.qml" />
+    <None Include="qml\page\T_Pivot.qml" />
+    <None Include="qml\page\T_Progress.qml" />
+    <None Include="qml\page\T_RatingControl.qml" />
+    <None Include="qml\page\T_Rectangle.qml" />
+    <None Include="qml\page\T_Settings.qml" />
+    <None Include="qml\page\T_Slider.qml" />
+    <None Include="qml\page\T_StatusView.qml" />
+    <None Include="qml\page\T_TabView.qml" />
+    <None Include="qml\page\T_TableView.qml" />
+    <None Include="qml\page\T_Text.qml" />
+    <None Include="qml\page\T_TextBox.qml" />
+    <None Include="qml\page\T_Theme.qml" />
+    <None Include="qml\page\T_TimePicker.qml" />
+    <None Include="qml\page\T_ToggleSwitch.qml" />
+    <None Include="qml\page\T_Tooltip.qml" />
+    <None Include="qml\page\T_TreeView.qml" />
+    <None Include="qml\page\T_Typography.qml" />
+    <None Include="res\image\control\TabView.png" />
+    <None Include="res\image\control\TeachingTip.png" />
+    <None Include="qml\TestWindow.qml" />
+    <None Include="res\image\control\TextBlock.png" />
+    <None Include="res\image\control\TextBox.png" />
+    <None Include="res\image\control\ThemeTransition.png" />
+    <None Include="res\image\control\TimePicker.png" />
+    <None Include="res\image\control\TitleBar.png" />
+    <None Include="res\image\control\ToggleButton.png" />
+    <None Include="res\image\control\ToggleSplitButton.png" />
+    <None Include="res\image\control\ToggleSwitch.png" />
+    <None Include="res\image\control\ToolTip.png" />
+    <None Include="res\image\control\TreeView.png" />
+    <None Include="res\image\control\VariableSizedWrapGrid.png" />
+    <None Include="res\image\control\Viewbox.png" />
+    <None Include="res\image\control\WebView.png" />
+    <None Include="res\image\control\XamlUICommand.png" />
+    <None Include="res\svg\avatar_1.svg" />
+    <None Include="res\svg\avatar_10.svg" />
+    <None Include="res\svg\avatar_11.svg" />
+    <None Include="res\svg\avatar_12.svg" />
+    <None Include="res\svg\avatar_2.svg" />
+    <None Include="res\svg\avatar_3.svg" />
+    <None Include="res\svg\avatar_4.svg" />
+    <None Include="res\svg\avatar_5.svg" />
+    <None Include="res\svg\avatar_6.svg" />
+    <None Include="res\svg\avatar_7.svg" />
+    <None Include="res\svg\avatar_8.svg" />
+    <None Include="res\svg\avatar_9.svg" />
+    <None Include="res\image\banner_1.jpg" />
+    <None Include="res\image\banner_2.jpg" />
+    <None Include="res\image\banner_3.jpg" />
+    <None Include="res\image\bg_home_header.png" />
+    <CustomBuild Include="example.qrc">
+      <FileType>Document</FileType>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QtDir)\bin\rcc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\release\qrc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RCC %(Filename).qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\release\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QtDir)\bin\rcc %(FullPath) -o $(SolutionDir)\generated\$(ProjectName)\moc\debug\qrc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RCC %(Filename).qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\generated\$(ProjectName)\moc\debug\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="res\image\favicon.ico" />
+    <None Include="res\svg\home.svg" />
+    <None Include="res\svg\home_dark.svg" />
+    <None Include="res\image\ic_home_github.png" />
+    <None Include="res\image\logo_openai.png" />
+    <None Include="qml\global\qmldir" />
+    <None Include="res\image\qrcode_wx.jpg" />
+    <None Include="res\image\qrcode_zfb.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="example.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

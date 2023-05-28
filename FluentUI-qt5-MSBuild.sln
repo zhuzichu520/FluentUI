@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example", "example\example.vcxproj", "{14E0AE1F-22B9-346D-BB43-DEC7FD9D7A88}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C2A72B4-E552-38E4-B572-26B6BED54CA8} = {8C2A72B4-E552-38E4-B572-26B6BED54CA8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fluentuiplugin", "src\fluentuiplugin.vcxproj", "{8C2A72B4-E552-38E4-B572-26B6BED54CA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14E0AE1F-22B9-346D-BB43-DEC7FD9D7A88}.Debug|x64.ActiveCfg = Debug|x64
+		{14E0AE1F-22B9-346D-BB43-DEC7FD9D7A88}.Debug|x64.Build.0 = Debug|x64
+		{14E0AE1F-22B9-346D-BB43-DEC7FD9D7A88}.Release|x64.ActiveCfg = Release|x64
+		{14E0AE1F-22B9-346D-BB43-DEC7FD9D7A88}.Release|x64.Build.0 = Release|x64
+		{8C2A72B4-E552-38E4-B572-26B6BED54CA8}.Debug|x64.ActiveCfg = Debug|x64
+		{8C2A72B4-E552-38E4-B572-26B6BED54CA8}.Debug|x64.Build.0 = Debug|x64
+		{8C2A72B4-E552-38E4-B572-26B6BED54CA8}.Release|x64.ActiveCfg = Release|x64
+		{8C2A72B4-E552-38E4-B572-26B6BED54CA8}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDE66BDE-8C86-4165-AD2A-C13E0876CA93}
+	EndGlobalSection
+EndGlobal

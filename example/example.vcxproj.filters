@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AppInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lang\En.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\IPC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lang\Lang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lang\Zh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\AppInfo.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\lang\En.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\tool\IPC.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\lang\Lang.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\lang\Zh.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="src\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_AppInfo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_AppInfo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_En.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_En.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_IPC.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_IPC.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_Lang.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_Lang.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\moc_Zh.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\moc_Zh.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <CustomBuild Include="moc_debug_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="moc_release_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\debug\qrc_example.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\generated\$(ProjectName)\moc\release\qrc_example.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qml\window\AboutWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Acrylic.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AnimatedIcon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AnimatedVisualPlayer.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AnimationInterop.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\App.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AppBarButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AppBarSeparator.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AppBarToggleButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AutoSuggestBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\AutomationProperties.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Border.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\BreadcrumbBar.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Button.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\CalendarDatePicker.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\CalendarView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Canvas.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Checkbox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Clipboard.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\component\CodeExpander.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ColorPaletteResources.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ColorPicker.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ComboBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\CommandBar.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\CommandBarFlyout.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\CompactSizing.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ConnectedAnimation.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ContentDialog.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\CreateMultipleWindows.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\DataGrid.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\DatePicker.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\DropDownButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\EasingFunction.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Expander.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\FilePicker.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\FlipView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Flyout.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Grid.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\GridView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\HyperlinkButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\IconElement.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Image.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ImplicitTransition.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\InfoBadge.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\InfoBar.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\InkCanvas.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\InkToolbar.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\InputValidation.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\global\ItemsFooter.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\global\ItemsOriginal.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ItemsRepeater.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Line.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ListBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ListView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\window\LoginWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\global\MainEvent.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\window\MainWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\MediaPlayerElement.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\MenuBar.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\MenuFlyout.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\NavigationView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\NumberBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\PageTransition.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ParallaxView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\PasswordBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\PersonPicture.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\PipsPager.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Pivot.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ProgressBar.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ProgressRing.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\PullToRefresh.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RadialGradientBrush.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RadioButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RadioButtons.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RatingControl.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RelativePanel.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RepeatButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RevealFocus.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RichEditBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\RichTextBlock.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ScrollViewer.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\SemanticZoom.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Shape.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\window\SingleInstanceWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\window\SingleTaskWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Slider.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Sound.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\SplitButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\SplitView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\StackPanel.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\StandardUICommand.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\window\StandardWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\SwipeControl.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Acrylic.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Awesome.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Badge.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_BreadcrumbBar.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Buttons.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_CalendarPicker.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Carousel.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_CheckBox.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_ColorPicker.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_ComboBox.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_DatePicker.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Dialog.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Expander.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_FlipView.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Home.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_InfoBar.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Menu.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_MultiWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Pivot.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Progress.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_RatingControl.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Rectangle.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Settings.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Slider.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_StatusView.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_TabView.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_TableView.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Text.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_TextBox.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Theme.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_TimePicker.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_ToggleSwitch.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Tooltip.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_TreeView.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\page\T_Typography.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\TabView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\TeachingTip.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\TestWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\TextBlock.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\TextBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ThemeTransition.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\TimePicker.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\TitleBar.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ToggleButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ToggleSplitButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ToggleSwitch.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\ToolTip.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\TreeView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\VariableSizedWrapGrid.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\Viewbox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\WebView.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\control\XamlUICommand.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_1.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_10.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_11.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_12.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_2.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_3.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_4.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_5.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_6.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_7.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_8.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\avatar_9.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\banner_1.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\banner_2.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\banner_3.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\bg_home_header.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <CustomBuild Include="example.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <None Include="res\image\favicon.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\home.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\svg\home_dark.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\ic_home_github.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\logo_openai.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\global\qmldir">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\qrcode_wx.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\image\qrcode_zfb.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="example.rc" />
+  </ItemGroup>
+</Project>
