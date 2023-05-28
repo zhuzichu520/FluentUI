@@ -37,3 +37,5 @@ bin
 build
 cmake-build-*
 .idea
+/generated
+/.vs/FluentUI-qt5-MSBuild
