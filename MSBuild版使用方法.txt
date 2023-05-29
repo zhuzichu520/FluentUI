@@ -1,0 +1,12 @@
+本msbuild不需要安装qt_addin,可在vs2022打开 通过修改sln文件中的vc版本也可改成用vs2019打开或者vs2017打开
+msbuild版本的核心是src文件夹中的fluentuiplugin.vcxproj和example文件夹中的example.vcxproj文件
+用记事本等工具打开上述两文件后，可以看到第17行定义了变量<QtDir>，该变量制定了编译采用的Qt版本所在路径
+以我自己的电脑为例我分别在安装了Qt5.14.2和Qt5.15.2，分别安装在
+C:\Qt\Qt5.14.2以及C:\Qt\Qt5.15.2
+当我想使用Qt5.14.2时，将上述两个文件中<QtDir>设置为<QtDir>C:\Qt\Qt5.14.2\5.14.2\msvc2017_64</QtDir>
+当我想使用Qt5.15.2时，将上述两个文件中<QtDir>设置为<QtDir>C:\Qt\Qt5.15.2\5.15.2\msvc2019_64</QtDir>
+即bin include lib等文件夹所在的qt根目录
+设置完后rebuild工程即可
+编译后在程序文件夹根目录会出现一个叫做generated的文件夹，里面存放了编译过程中产生的qt moc文件以及vc编译后生成的obj文件
+还有一个文件夹是bin，里面存放了最后编译出来的example程序
+这两个文件夹的内容是build后才生成的，可以随时删除
