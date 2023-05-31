@@ -30,17 +30,14 @@ FluScrollablePage{
             Repeater{
                 model: [{title:"System",mode:FluDarkMode.System},{title:"Light",mode:FluDarkMode.Light},{title:"Dark",mode:FluDarkMode.Dark}]
                 delegate:  FluRadioButton{
-                    selected : FluTheme.darkMode === modelData.mode
+                    checked : FluTheme.darkMode === modelData.mode
                     text:modelData.title
-                    onClicked:{
+                    clickListener:function(){
                         FluTheme.darkMode = modelData.mode
                     }
                 }
             }
-
-
         }
-
     }
 
     FluArea{
@@ -63,10 +60,10 @@ FluScrollablePage{
             }
             Repeater{
                 model: [{title:"Open",mode:FluNavigationView.Open},{title:"Compact",mode:FluNavigationView.Compact},{title:"Minimal",mode:FluNavigationView.Minimal},{title:"Auto",mode:FluNavigationView.Auto}]
-                delegate:  FluRadioButton{
-                    selected : MainEvent.displayMode===modelData.mode
+                delegate: FluRadioButton{
+                    checked : MainEvent.displayMode===modelData.mode
                     text:modelData.title
-                    onClicked:{
+                    clickListener:function(){
                         MainEvent.displayMode = modelData.mode
                     }
                 }
@@ -97,10 +94,10 @@ FluScrollablePage{
                 spacing: 5
                 Repeater{
                     model: ["Zh","En"]
-                    delegate:  FluRadioButton{
-                        selected : appInfo.lang.objectName === modelData
+                    delegate: FluRadioButton{
+                        checked: appInfo.lang.objectName === modelData
                         text:modelData
-                        onClicked:{
+                        clickListener:function(){
                             appInfo.changeLang(modelData)
                         }
                     }

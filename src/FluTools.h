@@ -48,6 +48,8 @@ public:
 
     Q_INVOKABLE bool isWin();
 
+    Q_INVOKABLE void setQuitOnLastWindowClosed(bool val);
+
 };
 
 #endif // FLUTOOLS_H

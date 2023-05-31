@@ -352,8 +352,6 @@ Item {
                             if(model.tapFunc){
                                 model.tapFunc()
                             }else{
-                                model.tap()
-                                d.stackItems.push(model)
                                 nav_list.currentIndex = nav_list.count-layout_footer.count+idx
                                 layout_footer.currentIndex = idx
                                 if(d.isMinimal || d.isCompact){
@@ -767,6 +765,15 @@ Item {
             model: {
                 if(footerItems){
                     return footerItems.children
+                }
+            }
+            onCurrentIndexChanged: {
+                if(d.enableStack){
+                    var item = model[currentIndex]
+                    if(item instanceof FluPaneItem){
+                        item.tap()
+                        d.stackItems.push(item)
+                    }
                 }
             }
             highlightMoveDuration: 150

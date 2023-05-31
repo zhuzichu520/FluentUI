@@ -63,4 +63,6 @@ bool FluTools::isWin(){
 #endif
 }
 
-
+void FluTools::setQuitOnLastWindowClosed(bool val){
+    qApp->setQuitOnLastWindowClosed(val);
+}

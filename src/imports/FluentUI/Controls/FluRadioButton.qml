@@ -11,6 +11,7 @@ Button {
     property color normalColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(1,1,1,1)
     property color hoverColor: checked ? FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(1,1,1,1) : FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(222/255,222/255,222/255,1)
     property color disableColor: checked ? FluTheme.dark ? Qt.rgba(159/255,159/255,159/255,1) : Qt.rgba(159/255,159/255,159/255,1)  : FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(222/255,222/255,222/255,1)
+    property alias textColor: btn_text.textColor
     property var clickListener : function(){
         checked = !checked
     }
@@ -34,7 +35,7 @@ Button {
             radius: 10
             border.width: {
                 if(checked&&disabled){
-                    return 3
+                    return 4
                 }
                 if(pressed){
                     if(checked){
@@ -44,7 +45,7 @@ Button {
                 }
                 if(hovered){
                     if(checked){
-                        return 3
+                        return 4
                     }
                     return 1
                 }
@@ -74,6 +75,7 @@ Button {
             }
         }
         FluText{
+            id:btn_text
             text: control.text
             Layout.alignment: Qt.AlignVCenter
             font: control.font
