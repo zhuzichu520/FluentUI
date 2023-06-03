@@ -6,6 +6,7 @@ FluTextBox{
     property var items:[]
     property string emptyText: "没有找到结果"
     property int autoSuggestBoxReplacement: FluentIcons.Search
+    property var window : Window.window
     signal itemClicked(var data)
     signal handleClicked
     id:control
@@ -23,16 +24,10 @@ FluTextBox{
         focus: false
         enter: Transition {
             NumberAnimation {
-                property: "y"
-                from:0
-                to:control_popup.y
-                duration: 150
-            }
-            NumberAnimation {
                 property: "opacity"
                 from:0
                 to:1
-                duration: 150
+                duration: 83
             }
         }
         onVisibleChanged: {
@@ -41,6 +36,7 @@ FluTextBox{
             }
         }
         background: Rectangle{
+            id:container
             width: control.width
             radius: 4
             FluShadow{
@@ -118,6 +114,14 @@ FluTextBox{
     onTextChanged: {
         loadData()
         if(d.flagVisible){
+            var pos = control.mapToItem(null, 0, 0)
+            if(window.height>pos.y+control.height+container.height){
+                control_popup.y = control.height
+            } else if(pos.y>container.height){
+                control_popup.y = -container.height
+            } else {
+                popup.y = window.height-(pos.y+container.height)
+            }
             control_popup.visible = true
         }
     }
