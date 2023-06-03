@@ -20,9 +20,11 @@ endif()
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,1,0)
+add_definitions(-DVERSION=1,3,2,0)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick REQUIRED)
+
+qt_standard_project_setup()
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)

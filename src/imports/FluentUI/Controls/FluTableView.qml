@@ -17,27 +17,27 @@ Item {
     implicitHeight: layout_table.height
     QtObject{
         id:d
-        property int coumnsWidth: parent.width
+        property int columnsWidth: parent.width
     }
     MouseArea{
         anchors.fill: parent
         preventStealing: true
     }
     ListModel{
-        id:model_coumns
+        id:model_columns
     }
     ListModel{
         id:model_data_source
     }
     onColumnsChanged: {
-        model_coumns.clear()
-        model_coumns.append(columns)
+        model_columns.clear()
+        model_columns.append(columns)
         var w = 0
-        for(var i=0;i<model_coumns.count;i++){
-            var item = model_coumns.get(i)
+        for(var i=0;i<model_columns.count;i++){
+            var item = model_columns.get(i)
             w=w+item.width
         }
-        d.coumnsWidth = w
+        d.columnsWidth = w
     }
     onDataSourceChanged: {
         model_data_source.clear()
@@ -63,23 +63,23 @@ Item {
         ListView{
             id:layout_table
             height: contentHeight
-            width: Math.max(layout_flickable.width,d.coumnsWidth)
+            width: Math.max(layout_flickable.width,d.columnsWidth)
             clip:true
             interactive: false
             header: FluRectangle{
-                id:layout_coumns
+                id:layout_columns
                 height: control.itemHeight
                 width: parent.width
                 color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
                 radius: [5,5,0,0]
                 Row{
-                    id:list_coumns
+                    id:list_columns
                     spacing: 0
                     anchors.fill: parent
                     Repeater{
-                        model: model_coumns
+                        model: model_columns
                         delegate: Item{
-                            height: list_coumns.height
+                            height: list_columns.height
                             width: model.width
                             FluText{
                                 text:model.title
@@ -96,7 +96,7 @@ Item {
                                 height: 40
                                 anchors.right: parent.right
                                 anchors.verticalCenter: parent.verticalCenter
-                                visible: index !== model_coumns.count-1
+                                visible: index !== model_columns.count-1
                             }
                         }
                     }
@@ -226,8 +226,8 @@ Item {
         if(!obj)
             return
         var data = []
-        for(var i=0;i<model_coumns.count;i++){
-            var item = model_coumns.get(i)
+        for(var i=0;i<model_columns.count;i++){
+            var item = model_columns.get(i)
             data.push({itemData:obj[item.dataIndex],width:item.width})
         }
         return data;

@@ -896,7 +896,7 @@ Item {
     function getItems(){
         return nav_list.model
     }
-    function push(url){
+    function push(url,argument={}){
         if (nav_swipe.depth>0)
         {
             let page = nav_swipe.find(function(item) {
@@ -922,7 +922,7 @@ Item {
                 }
             }
         }
-        nav_swipe.push(url,{url:url})
+        nav_swipe.push(url,Object.assign(argument,{url:url}))
     }
     function getCurrentIndex(){
         return nav_list.currentIndex
