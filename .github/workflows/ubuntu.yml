@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        qt_ver: [6.4.3]
+        qt_ver: [6.5.0]
         qt_arch: [gcc_64]
     env:
       targetName: example
@@ -47,7 +47,7 @@ jobs:
           version: 1.10.2
           
       - name: ubuntu install GL library
-        run: sudo apt-get install -y libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
+        run: sudo apt-get install -y libxcb-cursor0 libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
         
       - name: build ubuntu
         run: |
@@ -55,7 +55,7 @@ jobs:
           cmake --version
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/FluentUI/Qt/6.4.3/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/FluentUI/Qt/6.5.0/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
           cmake --build . --target all --config Release --parallel
           
       - name: install QT linux deploy
