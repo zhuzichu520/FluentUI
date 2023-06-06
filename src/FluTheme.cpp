@@ -3,8 +3,7 @@
 #include "Def.h"
 #include "FluColors.h"
 #include <QPalette>
-#include <QtGui/qpa/qplatformtheme.h>
-#include <QtGui/private/qguiapplication_p.h>
+#include <QStyleHints>
 #include <QGuiApplication>
 
 FluTheme* FluTheme::m_instance = nullptr;
@@ -45,10 +44,7 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event)
 
 bool FluTheme::systemDark()
 {
-    if (const QPlatformTheme * const theme = QGuiApplicationPrivate::platformTheme()) {
-        return (theme->appearance() == QPlatformTheme::Appearance::Dark);
-    }
-    return false;
+    return QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
 }
 
 bool FluTheme::dark(){
