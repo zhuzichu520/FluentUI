@@ -42,7 +42,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           arch: ${{ matrix.qt_arch }}
           cache: ${{steps.cache-qt.outputs.cache-hit}}
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qtspeech'
           
       - name: msvc-build
         id: build
