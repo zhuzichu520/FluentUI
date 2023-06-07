@@ -61,7 +61,7 @@ FluScrollablePage{
     FluMenuItem:{
         text:"修改"
         onClicked: {
-            showInfo"修改")
+            showInfo("修改")
         }
     }
 }
