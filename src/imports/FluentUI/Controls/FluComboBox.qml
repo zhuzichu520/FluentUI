@@ -28,7 +28,7 @@ ComboBox {
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
     }
-
+    focusPolicy:Qt.TabFocus
     indicator: FluIcon {
         x: control.mirrored ? control.padding : control.width - width - control.padding
         y: control.topPadding + (control.availableHeight - height) / 2
@@ -75,7 +75,8 @@ ComboBox {
         radius: 4
         FluFocusRectangle{
             visible: control.activeFocus
-            radius:8
+            radius:4
+            anchors.margins: -2
         }
         color:{
             if(disabled){
