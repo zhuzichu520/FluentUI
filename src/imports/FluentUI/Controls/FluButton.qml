@@ -42,6 +42,12 @@ Button {
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1
         radius: 4
+        color:{
+            if(disabled){
+                return disableColor
+            }
+            return hovered ? hoverColor :normalColor
+        }
         FluFocusRectangle{
             visible: control.activeFocus
             radius:4
