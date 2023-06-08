@@ -11,7 +11,7 @@ Item {
     property int topPadding: 0
     property int rightPadding: 10
     property int bottomPadding: 10
-    property int pageMode: FluNavigationView.Standard
+    property int pageMode: FluNavigationView.SingleTask
     property string url: ''
     id:control
     FluText{

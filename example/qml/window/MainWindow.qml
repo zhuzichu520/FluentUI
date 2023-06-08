@@ -117,7 +117,7 @@ CustomWindow {
         Component.onCompleted: {
             ItemsOriginal.navigationView = nav_view
             ItemsFooter.navigationView = nav_view
-            nav_view.setCurrentIndex(0)
+            setCurrentIndex(0)
         }
     }
 }

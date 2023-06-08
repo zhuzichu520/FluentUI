@@ -12,6 +12,10 @@ Item {
         Minimal,
         Auto
     }
+    enum PageModeFlag{
+        Standard = 0,
+        SingleTask = 1
+    }
     property url logo
     property string title: ""
     property FluObject items
@@ -21,15 +25,10 @@ Item {
     property Component autoSuggestBox
     property Component actionItem
     property int topPadding: 0
-    enum PageModeFlag{
-        Standard = 0,
-        SingleTop = 1,
-        SingleTask = 2
-    }
     id:control
     QtObject{
         id:d
-        property bool enableStack: true
+        property var stackItems: []
         property int displayMode: {
             if(control.displayMode !==FluNavigationView.Auto){
                 return control.displayMode
@@ -42,7 +41,6 @@ Item {
                 return FluNavigationView.Open
             }
         }
-        property var stackItems: []
         property bool enableNavigationPanel: false
         property bool isCompact: d.displayMode === FluNavigationView.Compact
         property bool isMinimal: d.displayMode === FluNavigationView.Minimal
@@ -345,6 +343,7 @@ Item {
                         }else{
                             nav_list.currentIndex = idx
                             layout_footer.currentIndex = -1
+                            model.tap()
                             if(d.isMinimal || d.isCompact){
                                 d.enableNavigationPanel = false
                             }
@@ -355,6 +354,7 @@ Item {
                         }else{
                             nav_list.currentIndex = nav_list.count-layout_footer.count+idx
                             layout_footer.currentIndex = idx
+                            model.tap()
                             if(d.isMinimal || d.isCompact){
                                 d.enableNavigationPanel = false
                             }
@@ -475,20 +475,18 @@ Item {
                 Layout.preferredWidth: 30
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
-                disabled:  nav_swipe.depth === 1
+                disabled:  nav_swipe.depth <= 1
                 iconSize: 13
                 onClicked: {
                     nav_swipe.pop()
                     d.stackItems.pop()
                     var item = d.stackItems[d.stackItems.length-1]
-                    d.enableStack = false
                     if(item.idx<(nav_list.count - layout_footer.count)){
                         layout_footer.currentIndex = -1
                     }else{
                         layout_footer.currentIndex = item.idx-(nav_list.count-layout_footer.count)
                     }
                     nav_list.currentIndex = item.idx
-                    d.enableStack = true
                 }
             }
             FluIconButton{
@@ -718,15 +716,6 @@ Item {
                     }
                 }
             }
-            onCurrentIndexChanged: {
-                if(d.enableStack){
-                    var item = model[currentIndex]
-                    if(item instanceof FluPaneItem){
-                        item.tap()
-                        d.stackItems.push(item)
-                    }
-                }
-            }
             currentIndex: -1
             anchors{
                 top: layout_header.bottom
@@ -769,15 +758,6 @@ Item {
             model: {
                 if(footerItems){
                     return footerItems.children
-                }
-            }
-            onCurrentIndexChanged: {
-                if(d.enableStack){
-                    var item = model[currentIndex]
-                    if(item instanceof FluPaneItem){
-                        item.tap()
-                        d.stackItems.push(item)
-                    }
                 }
             }
             highlightMoveDuration: 150
@@ -906,44 +886,43 @@ Item {
     }
     function setCurrentIndex(index){
         nav_list.currentIndex = index
-
+        var item = nav_list.model[index]
+        if(item instanceof FluPaneItem){
+            item.tap()
+        }
     }
     function getItems(){
         return nav_list.model
     }
     function push(url,argument={}){
-        if (nav_swipe.depth>0)
-        {
-            let page = nav_swipe.find(function(item) {
-                return item.url === url;
-            })
-            if (page)
+        if(nav_swipe.currentItem && nav_swipe.currentItem.url === url){
+            return
+        }
+        let page = nav_swipe.find(function(item) {
+            return item.url === url;
+        })
+        if(page){
+            switch(page.pageMode)
             {
-                switch(page.pageMode)
+            case FluNavigationView.SingleTask:
+                while(nav_swipe.currentItem !== page)
                 {
-                case FluNavigationView.SingleTask:
-                    while(nav_swipe.currentItem !== page)
-                    {
-                        nav_swipe.pop()
-                        d.stackItems.pop()
-                    }
-                    return
-                case FluNavigationView.SingleTop:
-                    if (nav_swipe.currentItem.url === url)
-                        return
-                    break
-                case FluNavigationView.Standard:
-                default:
+                    nav_swipe.pop()
+                    d.stackItems.pop()
                 }
+                return
+            case FluNavigationView.Standard:
+            default:
             }
         }
         nav_swipe.push(url,Object.assign(argument,{url:url}))
+        d.stackItems.push(nav_list.model[nav_list.currentIndex])
     }
     function getCurrentIndex(){
         return nav_list.currentIndex
     }
     function startPageByItem(data){
-        var items = getItems();
+        var items = getItems()
         for(var i=0;i<items.length;i++){
             var item =  items[i]
             if(item.key === data.key){

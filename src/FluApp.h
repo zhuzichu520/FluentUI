@@ -27,7 +27,6 @@ class FluApp : public QObject
      */
     Q_PROPERTY_AUTO(QJsonObject,routes);
 
-    QML_FOREIGN(FluApp)
     QML_NAMED_ELEMENT(FluApp)
     QML_SINGLETON
 private:
