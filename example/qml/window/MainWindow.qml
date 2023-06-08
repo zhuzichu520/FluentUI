@@ -90,12 +90,8 @@ CustomWindow {
 
     FluNavigationView{
         id:nav_view
-        anchors{
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
+        width: parent.width
+        height: parent.height
         z:999
         items: ItemsOriginal
         footerItems:ItemsFooter

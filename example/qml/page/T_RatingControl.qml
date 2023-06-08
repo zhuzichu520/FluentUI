@@ -5,36 +5,31 @@ import QtQuick.Controls
 import FluentUI
 import "../component"
 
-FluScrollablePage{
+FluScrollablePage {
 
-    title:"RatingControl"
+    title: "RatingControl"
 
-    FluArea{
+    FluArea {
         Layout.fillWidth: true
         height: 100
         paddings: 10
         Layout.topMargin: 20
 
-        Column{
+        Column {
             spacing: 10
             anchors.verticalCenter: parent.verticalCenter
-            FluRatingControl{
-
-            }
-            FluRatingControl{
-                number:10
+            FluRatingControl {}
+            FluRatingControl {
+                number: 10
             }
         }
-
     }
 
-    CodeExpander{
+    CodeExpander {
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'FluRatingControl{
+        code: 'FluRatingControl{
 
 }'
     }
-
-
 }

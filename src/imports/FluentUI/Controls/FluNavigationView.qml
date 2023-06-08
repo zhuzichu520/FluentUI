@@ -7,10 +7,10 @@ import FluentUI
 
 Item {
     enum DisplayMode {
-        Open,
-        Compact,
-        Minimal,
-        Auto
+        Open = 0,
+        Compact = 1,
+        Minimal = 2,
+        Auto = 3
     }
     enum PageModeFlag{
         Standard = 0,
@@ -55,9 +55,7 @@ Item {
                 collapseAll()
             }
             if(d.displayMode === FluNavigationView.Minimal){
-                anim_layout_list_x.enabled = false
                 d.enableNavigationPanel = false
-                timer_anim_x_enable.restart()
             }
         }
         function handleItems(){
@@ -202,17 +200,11 @@ Item {
                             right: parent.right
                             rightMargin: 12
                         }
-                        opacity: {
+                        visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
                             }
                             return true
-                        }
-                        visible:opacity
-                        Behavior on opacity {
-                            NumberAnimation{
-                                duration: 83
-                            }
                         }
                         Behavior on rotation {
                             NumberAnimation{
@@ -273,17 +265,11 @@ Item {
                     FluText{
                         id:item_title
                         text:model.title
-                        opacity: {
+                        visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
                             }
                             return true
-                        }
-                        visible:opacity
-                        Behavior on opacity {
-                            NumberAnimation{
-                                duration: 83
-                            }
                         }
                         anchors{
                             verticalCenter: parent.verticalCenter
@@ -429,17 +415,11 @@ Item {
                     FluText{
                         id:item_title
                         text:model.title
-                        opacity: {
+                        visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
                             }
                             return true
-                        }
-                        visible:opacity
-                        Behavior on opacity {
-                            NumberAnimation{
-                                duration: 83
-                            }
                         }
                         color:{
                             if(item_control.pressed){
@@ -496,11 +476,18 @@ Item {
                 Layout.preferredWidth: d.isMinimal ? 30 : 0
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
+                clip: true
                 onClicked: {
                     d.enableNavigationPanel = !d.enableNavigationPanel
                 }
-                visible: d.isMinimal
-                Behavior on Layout.preferredWidth{
+                visible: opacity
+                opacity: d.isMinimal
+                Behavior on opacity{
+                    NumberAnimation{
+                        duration: 83
+                    }
+                }
+                Behavior on Layout.preferredWidth {
                     NumberAnimation{
                         duration: 167
                         easing.type: Easing.BezierSpline
@@ -547,11 +534,26 @@ Item {
     }
     Item{
         anchors{
-            left: d.isMinimal || d.isCompactAndPanel  ? parent.left : layout_list.right
+            left: parent.left
             top: nav_app_bar.bottom
             right: parent.right
             bottom: parent.bottom
-            leftMargin: d.isCompactAndPanel ? 50 : 0
+            leftMargin: {
+                if(d.isMinimal){
+                    return 0
+                }
+                if(d.isCompact){
+                    return 50
+                }
+                return 300
+            }
+        }
+        Behavior on anchors.leftMargin {
+            NumberAnimation{
+                duration: 167
+                easing.type: Easing.BezierSpline
+                easing.bezierCurve: [ 0, 0, 0, 1 ]
+            }
         }
         StackView{
             id:nav_swipe
@@ -586,11 +588,12 @@ Item {
     MouseArea{
         anchors.fill: parent
         visible: d.isMinimalAndPanel||d.isCompactAndPanel
+        onWheel: {
+        }
         onClicked: {
             d.enableNavigationPanel = false
         }
     }
-
     Rectangle{
         id:layout_list
         width: {
@@ -598,21 +601,6 @@ Item {
                 return 50
             }
             return 300
-        }
-        Behavior on width{
-            NumberAnimation{
-                duration: 167
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: [ 0, 0, 0, 1 ]
-            }
-        }
-        Behavior on x{
-            id:anim_layout_list_x
-            NumberAnimation{
-                duration: 167
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: [ 0, 0, 0, 1 ]
-            }
         }
         anchors{
             top: parent.top
@@ -627,6 +615,13 @@ Item {
             return "transparent"
         }
         x: visible ? 0 : -width
+        Behavior on x {
+            NumberAnimation{
+                duration: 167
+                easing.type: Easing.BezierSpline
+                easing.bezierCurve: [ 0, 0, 0, 1 ]
+            }
+        }
         visible: {
             if(d.displayMode !== FluNavigationView.Minimal)
                 return true
@@ -656,27 +651,15 @@ Item {
                 id:loader_auto_suggest_box
                 anchors.centerIn: parent
                 sourceComponent: autoSuggestBox
-                opacity: {
+                visible: {
                     if(d.isCompactAndNotPanel){
                         return false
                     }
                     return true
                 }
-                visible: opacity
-                Behavior on opacity{
-                    NumberAnimation{
-                        duration: 83
-                    }
-                }
             }
             FluIconButton{
-                visible:opacity
-                opacity:d.isCompactAndNotPanel
-                Behavior on opacity{
-                    NumberAnimation{
-                        duration: 83
-                    }
-                }
+                visible:d.isCompactAndNotPanel
                 hoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
                 pressedColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
                 normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
@@ -868,13 +851,6 @@ Item {
             control_popup.y = pos.y
             control_popup.childModel = model
             control_popup.open()
-        }
-    }
-    Timer{
-        id:timer_anim_x_enable
-        interval: 150
-        onTriggered: {
-            anim_layout_list_x.enabled = true
         }
     }
     function collapseAll(){

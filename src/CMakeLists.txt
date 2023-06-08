@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.20)
 
 project(fluentuiplugin LANGUAGES CXX)
 
@@ -52,6 +52,8 @@ qt_add_qml_module(fluentuiplugin
     OUTPUT_DIRECTORY ${QML_PLUGIN_DIRECTORY}
     VERSION 1.0
     URI "FluentUI"
+    #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
+    TYPEINFO "plugins.qmltypes"
     SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
