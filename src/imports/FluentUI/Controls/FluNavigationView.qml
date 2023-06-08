@@ -155,8 +155,8 @@ Item {
         Item{
             height: 38
             width: layout_list.width
-            Rectangle{
-                radius: 4
+            FluControl{
+                id:item_control
                 anchors{
                     top: parent.top
                     bottom: parent.bottom
@@ -167,141 +167,141 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
+                onClicked: {
+                    if(d.isCompactAndNotPanel){
+                        control_popup.showPopup(Qt.point(50,mapToItem(control,0,0).y),model.children)
+                        return
+                    }
+                    model.isExpand = !model.isExpand
+                }
                 Rectangle{
-                    width: 3
-                    height: 18
-                    radius: 1.5
-                    color: FluTheme.primaryColor.dark
-                    visible: {
-                        for(var i=0;i<model.children.length;i++){
-                            var item = model.children[i]
-                            if(item.idx === nav_list.currentIndex && !model.isExpand){
-                                return true
-                            }
-                        }
-                        return false
-                    }
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                    }
-                }
-                FluIcon{
-                    rotation: model.isExpand?0:180
-                    iconSource:FluentIcons.ChevronUp
-                    iconSize: 15
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        right: parent.right
-                        rightMargin: 12
-                    }
-                    opacity: {
-                        if(d.isCompactAndNotPanel){
-                            return false
-                        }
-                        return true
-                    }
-                    visible:opacity
-                    Behavior on opacity {
-                        NumberAnimation{
-                            duration: 83
-                        }
-                    }
-                    Behavior on rotation {
-                        NumberAnimation{
-                            duration: 83
-                        }
-                    }
-                }
-                MouseArea{
-                    id:item_mouse
-                    hoverEnabled: true
+                    radius: 4
                     anchors.fill: parent
-                    onClicked: {
-                        if(d.isCompactAndNotPanel){
-                            control_popup.showPopup(Qt.point(50,mapToItem(control,0,0).y),model.children)
-                            return
-                        }
-                        model.isExpand = !model.isExpand
-                    }
-                }
-                color: {
-                    if(FluTheme.dark){
-                        if((nav_list.currentIndex === idx)&&type===0){
-                            return Qt.rgba(1,1,1,0.06)
-                        }
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(1,1,1,0.03)
-                        }
-                        return Qt.rgba(0,0,0,0)
-                    }else{
-                        if(nav_list.currentIndex === idx&&type===0){
-                            return Qt.rgba(0,0,0,0.06)
-                        }
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(0,0,0,0.03)
-                        }
-                        return Qt.rgba(0,0,0,0)
-                    }
-                }
-                Component{
-                    id:com_icon
-                    FluIcon{
-                        iconSource: {
-                            if(model.icon){
-                                return model.icon
+                    Rectangle{
+                        width: 3
+                        height: 18
+                        radius: 1.5
+                        color: FluTheme.primaryColor.dark
+                        visible: {
+                            for(var i=0;i<model.children.length;i++){
+                                var item = model.children[i]
+                                if(item.idx === nav_list.currentIndex && !model.isExpand){
+                                    return true
+                                }
                             }
-                            return 0
-                        }
-                        iconSize: 15
-                    }
-                }
-                Item{
-                    id:item_icon
-                    width: 30
-                    height: 30
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        left:parent.left
-                        leftMargin: 3
-                    }
-                    Loader{
-                        anchors.centerIn: parent
-                        sourceComponent: {
-                            if(model.cusIcon){
-                                return model.cusIcon
-                            }
-                            return com_icon
-                        }
-                    }
-                }
-                FluText{
-                    id:item_title
-                    text:model.title
-                    opacity: {
-                        if(d.isCompactAndNotPanel){
                             return false
                         }
-                        return true
-                    }
-                    visible:opacity
-                    Behavior on opacity {
-                        NumberAnimation{
-                            duration: 83
+                        anchors{
+                            verticalCenter: parent.verticalCenter
                         }
                     }
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        left:item_icon.right
-                    }
-                    color:{
-                        if(item_mouse.pressed){
-                            return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                    FluIcon{
+                        rotation: model.isExpand?0:180
+                        iconSource:FluentIcons.ChevronUp
+                        iconSize: 15
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            right: parent.right
+                            rightMargin: 12
                         }
-                        return FluTheme.dark ? FluColors.White : FluColors.Grey220
+                        opacity: {
+                            if(d.isCompactAndNotPanel){
+                                return false
+                            }
+                            return true
+                        }
+                        visible:opacity
+                        Behavior on opacity {
+                            NumberAnimation{
+                                duration: 83
+                            }
+                        }
+                        Behavior on rotation {
+                            NumberAnimation{
+                                duration: 83
+                            }
+                        }
+                    }
+                    color: {
+                        if(FluTheme.dark){
+                            if((nav_list.currentIndex === idx)&&type===0){
+                                return Qt.rgba(1,1,1,0.06)
+                            }
+                            if(item_control.hovered){
+                                return Qt.rgba(1,1,1,0.03)
+                            }
+                            return Qt.rgba(0,0,0,0)
+                        }else{
+                            if(nav_list.currentIndex === idx&&type===0){
+                                return Qt.rgba(0,0,0,0.06)
+                            }
+                            if(item_control.hovered){
+                                return Qt.rgba(0,0,0,0.03)
+                            }
+                            return Qt.rgba(0,0,0,0)
+                        }
+                    }
+                    Component{
+                        id:com_icon
+                        FluIcon{
+                            iconSource: {
+                                if(model.icon){
+                                    return model.icon
+                                }
+                                return 0
+                            }
+                            iconSize: 15
+                        }
+                    }
+                    Item{
+                        id:item_icon
+                        width: 30
+                        height: 30
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            left:parent.left
+                            leftMargin: 3
+                        }
+                        Loader{
+                            anchors.centerIn: parent
+                            sourceComponent: {
+                                if(model.cusIcon){
+                                    return model.cusIcon
+                                }
+                                return com_icon
+                            }
+                        }
+                    }
+                    FluText{
+                        id:item_title
+                        text:model.title
+                        opacity: {
+                            if(d.isCompactAndNotPanel){
+                                return false
+                            }
+                            return true
+                        }
+                        visible:opacity
+                        Behavior on opacity {
+                            NumberAnimation{
+                                duration: 83
+                            }
+                        }
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            left:item_icon.right
+                        }
+                        color:{
+                            if(item_control.pressed){
+                                return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                            }
+                            return FluTheme.dark ? FluColors.White : FluColors.Grey220
+                        }
                     }
                 }
             }
         }
+
     }
     Component{
         id:com_panel_item
@@ -314,15 +314,16 @@ Item {
                 }
             }
             clip: true
-            height: {
+            height: visible ? 38 : 0
+            visible: {
                 if(model.parent){
-                    return model.parent.isExpand ? 38 : 0
+                    return model.parent.isExpand ? true : false
                 }
-                return 38
+                return true
             }
             width: layout_list.width
-            Rectangle{
-                radius: 4
+            FluControl{
+                id:item_control
                 anchors{
                     top: parent.top
                     bottom: parent.bottom
@@ -333,120 +334,119 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
-                MouseArea{
-                    id:item_mouse
-                    hoverEnabled: true
-                    anchors.fill: parent
-                    onClicked: {
-                        if(type === 0){
-                            if(model.tapFunc){
-                                model.tapFunc()
-                            }else{
-                                nav_list.currentIndex = idx
-                                layout_footer.currentIndex = -1
-                                if(d.isMinimal || d.isCompact){
-                                    d.enableNavigationPanel = false
-                                }
-                            }
+                onClicked: {
+                    if(type === 0){
+                        if(model.tapFunc){
+                            model.tapFunc()
                         }else{
-                            if(model.tapFunc){
-                                model.tapFunc()
-                            }else{
-                                nav_list.currentIndex = nav_list.count-layout_footer.count+idx
-                                layout_footer.currentIndex = idx
-                                if(d.isMinimal || d.isCompact){
-                                    d.enableNavigationPanel = false
-                                }
+                            nav_list.currentIndex = idx
+                            layout_footer.currentIndex = -1
+                            if(d.isMinimal || d.isCompact){
+                                d.enableNavigationPanel = false
                             }
                         }
-                    }
-                }
-                color: {
-                    if(FluTheme.dark){
-                        if(type===0){
-                            if(nav_list.currentIndex === idx){
-                                return Qt.rgba(1,1,1,0.06)
-                            }
-                        }else{
-                            if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
-                                return Qt.rgba(1,1,1,0.06)
-                            }
-                        }
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(1,1,1,0.03)
-                        }
-                        return Qt.rgba(0,0,0,0)
                     }else{
-                        if(type===0){
-                            if(nav_list.currentIndex === idx){
-                                return Qt.rgba(0,0,0,0.06)
-                            }
+                        if(model.tapFunc){
+                            model.tapFunc()
                         }else{
-                            if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
-                                return Qt.rgba(0,0,0,0.06)
+                            nav_list.currentIndex = nav_list.count-layout_footer.count+idx
+                            layout_footer.currentIndex = idx
+                            if(d.isMinimal || d.isCompact){
+                                d.enableNavigationPanel = false
                             }
-                        }
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(0,0,0,0.03)
-                        }
-                        return Qt.rgba(0,0,0,0)
-                    }
-                }
-                Component{
-                    id:com_icon
-                    FluIcon{
-                        iconSource: {
-                            if(model.icon){
-                                return model.icon
-                            }
-                            return 0
-                        }
-                        iconSize: 15
-                    }
-                }
-                Item{
-                    id:item_icon
-                    width: 30
-                    height: 30
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        left:parent.left
-                        leftMargin: 3
-                    }
-                    Loader{
-                        anchors.centerIn: parent
-                        sourceComponent: {
-                            if(model.cusIcon){
-                                return model.cusIcon
-                            }
-                            return com_icon
                         }
                     }
                 }
-                FluText{
-                    id:item_title
-                    text:model.title
-                    opacity: {
-                        if(d.isCompactAndNotPanel){
-                            return false
+                Rectangle{
+                    radius: 4
+                    anchors.fill: parent
+                    color: {
+                        if(FluTheme.dark){
+                            if(type===0){
+                                if(nav_list.currentIndex === idx){
+                                    return Qt.rgba(1,1,1,0.06)
+                                }
+                            }else{
+                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
+                                    return Qt.rgba(1,1,1,0.06)
+                                }
+                            }
+                            if(item_control.hovered){
+                                return Qt.rgba(1,1,1,0.03)
+                            }
+                            return Qt.rgba(0,0,0,0)
+                        }else{
+                            if(type===0){
+                                if(nav_list.currentIndex === idx){
+                                    return Qt.rgba(0,0,0,0.06)
+                                }
+                            }else{
+                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
+                                    return Qt.rgba(0,0,0,0.06)
+                                }
+                            }
+                            if(item_control.hovered){
+                                return Qt.rgba(0,0,0,0.03)
+                            }
+                            return Qt.rgba(0,0,0,0)
                         }
-                        return true
                     }
-                    visible:opacity
-                    Behavior on opacity {
-                        NumberAnimation{
-                            duration: 83
+                    Component{
+                        id:com_icon
+                        FluIcon{
+                            iconSource: {
+                                if(model.icon){
+                                    return model.icon
+                                }
+                                return 0
+                            }
+                            iconSize: 15
                         }
                     }
-                    color:{
-                        if(item_mouse.pressed){
-                            return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                    Item{
+                        id:item_icon
+                        width: 30
+                        height: 30
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            left:parent.left
+                            leftMargin: 3
                         }
-                        return FluTheme.dark ? FluColors.White : FluColors.Grey220
+                        Loader{
+                            anchors.centerIn: parent
+                            sourceComponent: {
+                                if(model.cusIcon){
+                                    return model.cusIcon
+                                }
+                                return com_icon
+                            }
+                        }
                     }
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        left:item_icon.right
+                    FluText{
+                        id:item_title
+                        text:model.title
+                        opacity: {
+                            if(d.isCompactAndNotPanel){
+                                return false
+                            }
+                            return true
+                        }
+                        visible:opacity
+                        Behavior on opacity {
+                            NumberAnimation{
+                                duration: 83
+                            }
+                        }
+                        color:{
+                            if(item_control.pressed){
+                                return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                            }
+                            return FluTheme.dark ? FluColors.White : FluColors.Grey220
+                        }
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            left:item_icon.right
+                        }
                     }
                 }
             }
@@ -624,11 +624,11 @@ Item {
             }
             return "transparent"
         }
-
-        x: {
+        x: visible ? 0 : -width
+        visible: {
             if(d.displayMode !== FluNavigationView.Minimal)
-                return 0
-            return d.isMinimalAndPanel  ? 0 : -width
+                return true
+            return d.isMinimalAndPanel  ? true : false
         }
         FluAcrylic {
             sourceItem:nav_swipe
@@ -820,14 +820,9 @@ Item {
                 duration: 83
             }
         }
-        background: FluRectangle{
-            width: 160
-            radius: [4,4,4,4]
-            FluShadow{
-                radius: 4
-            }
-            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
-            height: 38*Math.min(Math.max(list_view.count,1),8)
+        padding: 0
+        focus: true
+        contentItem: Item{
             ListView{
                 id:list_view
                 anchors.fill: parent
@@ -836,6 +831,7 @@ Item {
                 model: control_popup.childModel
                 ScrollBar.vertical: FluScrollBar {}
                 delegate:Button{
+                    id:item_button
                     width: 160
                     padding:10
                     background: Rectangle{
@@ -844,6 +840,10 @@ Item {
                                 return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
                             return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                        }
+                        FluFocusRectangle{
+                            visible: item_button.activeFocus
+                            radius:4
                         }
                     }
                     contentItem: FluText{
@@ -866,6 +866,16 @@ Item {
                     }
                 }
             }
+        }
+        background: FluRectangle{
+            implicitWidth: 160
+            implicitHeight: 38*Math.min(Math.max(list_view.count,1),8)
+            radius: [4,4,4,4]
+            FluShadow{
+                radius: 4
+            }
+            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+
         }
         function showPopup(pos,model){
             control_popup.x = pos.x
@@ -906,19 +916,19 @@ Item {
             {
                 switch(page.pageMode)
                 {
-                    case FluNavigationView.SingleTask:
-                        while(nav_swipe.currentItem !== page)
-                        {
-                            nav_swipe.pop()
-                            d.stackItems.pop()
-                        }
+                case FluNavigationView.SingleTask:
+                    while(nav_swipe.currentItem !== page)
+                    {
+                        nav_swipe.pop()
+                        d.stackItems.pop()
+                    }
+                    return
+                case FluNavigationView.SingleTop:
+                    if (nav_swipe.currentItem.url === url)
                         return
-                    case FluNavigationView.SingleTop:
-                        if (nav_swipe.currentItem.url === url)
-                            return
-                        break
-                    case FluNavigationView.Standard:
-                    default:
+                    break
+                case FluNavigationView.Standard:
+                default:
                 }
             }
         }

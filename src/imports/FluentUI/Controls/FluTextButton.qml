@@ -5,6 +5,7 @@ import FluentUI
 
 Button {
     property bool disabled: false
+    property string contentDescription: ""
     property color normalColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     property color hoverColor: FluTheme.dark ? Qt.darker(normalColor,1.15) : Qt.lighter(normalColor,1.15)
     property color pressedColor: FluTheme.dark ? Qt.darker(normalColor,1.3) : Qt.lighter(normalColor,1.3)
@@ -20,19 +21,21 @@ Button {
         return hovered ? hoverColor :normalColor
     }
     id: control
-    topPadding:0
-    bottomPadding:0
-    leftPadding:0
-    rightPadding:0
+    horizontalPadding:12
     enabled: !disabled
-    focusPolicy:Qt.TabFocus
     Keys.onSpacePressed: control.visualFocus&&clicked()
     background: Item{
+        implicitWidth: 28
+        implicitHeight: 28
         FluFocusRectangle{
             visible: control.visualFocus
             radius:8
         }
     }
+    Accessible.role: Accessible.Button
+    Accessible.name: control.text
+    Accessible.description: contentDescription
+    Accessible.onPressAction: control.clicked()
     contentItem: FluText {
         id:btn_text
         text: control.text

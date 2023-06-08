@@ -6,19 +6,20 @@ import FluentUI
 
 FluExpander{
 
+    id:control
     property string code: ""
 
     headerText: "Source"
     contentHeight:content.height
+    focus: false
 
     FluMultilineTextBox{
         id:content
         width:parent.width
-        readOnly:true
         text:highlightQmlCode(code)
-        focus:false
         textFormat: FluMultilineTextBox.RichText
         KeyNavigation.priority: KeyNavigation.BeforeItem
+        enabled: false
         background:Rectangle{
             radius: 4
             color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
@@ -39,6 +40,11 @@ FluExpander{
             top: parent.top
             rightMargin: 5
             topMargin: 5
+        }
+        onActiveFocusChanged: {
+            if(activeFocus){
+                control.expand = true
+            }
         }
         onClicked:{
             FluTools.clipText(content.text)

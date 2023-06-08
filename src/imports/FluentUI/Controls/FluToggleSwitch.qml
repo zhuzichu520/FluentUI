@@ -22,8 +22,6 @@ Button {
     height: 20
     enabled: !disabled
     implicitHeight: height
-    focusPolicy:Qt.TabFocus
-    Keys.onSpacePressed: control.visualFocus&&clicked()
     onClicked: clickListener()
     contentItem: Item{}
     background : RowLayout{
@@ -34,7 +32,7 @@ Button {
             height: control.height
             radius: height / 2
             FluFocusRectangle{
-                visible: control.visualFocus
+                visible: control.activeFocus
                 radius: 20
             }
             color: {

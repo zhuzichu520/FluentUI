@@ -74,7 +74,7 @@ ComboBox {
         visible: !control.flat || control.down
         radius: 4
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.activeFocus
             radius:8
         }
         color:{

@@ -23,13 +23,11 @@ Button {
     }
     id:control
     enabled: !disabled
-    focusPolicy:Qt.TabFocus
-    Keys.onSpacePressed: control.visualFocus&&clicked()
     padding:0
     onClicked: clickListener()
     background: Item{
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.activeFocus
         }
     }
     contentItem: RowLayout{

@@ -4,16 +4,15 @@ import FluentUI
 
 Item {
     property int radius: 4
-    id:root
+    id:control
     anchors.fill: parent
-    anchors.margins: -3
     Rectangle{
-        width: root.width
-        height: root.height
+        width: control.width
+        height: control.height
         anchors.centerIn: parent
         color: "#00000000"
-        border.width: 3
-        radius: root.radius
+        border.width: 2
+        radius: control.radius
         border.color: FluTheme.dark ? Qt.rgba(1,1,1,1) : Qt.rgba(0,0,0,1)
         z: 65535
     }

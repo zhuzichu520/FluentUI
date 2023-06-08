@@ -1,4 +1,4 @@
-﻿import QtQuick
+import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
@@ -25,7 +25,7 @@ FluPopup {
             return 400
         return  Math.min(Window.window.width,400)
     }
-
+    focus: true
     Rectangle {
         id:layout_content
         anchors.fill: parent

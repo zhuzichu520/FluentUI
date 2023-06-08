@@ -8,6 +8,7 @@ Button {
     property int iconSource
     property bool disabled: false
     property int radius:4
+    property string contentDescription: ""
     property color hoverColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(0,0,0,0.03)
     property color pressedColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(0,0,0,0.06)
     property color normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
@@ -34,6 +35,10 @@ Button {
             return Qt.rgba(0,0,0,1)
         }
     }
+    Accessible.role: Accessible.Button
+    Accessible.name: control.text
+    Accessible.description: contentDescription
+    Accessible.onPressAction: control.clicked()
     id:control
     width: 30
     height: 30
@@ -41,13 +46,11 @@ Button {
     implicitHeight: height
     padding: 0
     enabled: !disabled
-    focusPolicy:Qt.TabFocus
-    Keys.onSpacePressed: control.visualFocus&&clicked()
     background: Rectangle{
         radius: control.radius
         color:control.color
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.activeFocus
         }
     }
     contentItem: Item{

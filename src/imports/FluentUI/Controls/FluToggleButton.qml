@@ -6,6 +6,7 @@ import FluentUI
 Button {
 
     property bool disabled: false
+    property string contentDescription: ""
     property color normalColor: {
         if(checked){
            return FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
@@ -31,10 +32,12 @@ Button {
         checked = !checked
     }
     property color pressedColor: FluTheme.dark ? Qt.darker(normalColor,1.2) : Qt.lighter(normalColor,1.2)
+    Accessible.role: Accessible.Button
+    Accessible.name: control.text
+    Accessible.description: contentDescription
+    Accessible.onPressAction: control.clicked()
     id: control
     enabled: !disabled
-    Keys.onSpacePressed: control.visualFocus&&clicked()
-    focusPolicy:Qt.TabFocus
     horizontalPadding:12
     onClicked: clickListener()
     background: Rectangle{
@@ -44,7 +47,7 @@ Button {
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: checked ? 0 : 1
         FluFocusRectangle{
-            visible: control.visualFocus
+            visible: control.activeFocus
             radius:8
         }
         color:{
