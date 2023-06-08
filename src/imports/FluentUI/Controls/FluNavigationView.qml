@@ -301,7 +301,6 @@ Item {
                 }
             }
         }
-
     }
     Component{
         id:com_panel_item
@@ -314,7 +313,12 @@ Item {
                 }
             }
             clip: true
-            height: visible ? 38 : 0
+            height: {
+                if(model.parent){
+                    return model.parent.isExpand ? 38 : 0
+                }
+                return 38
+            }
             visible: {
                 if(model.parent){
                     return model.parent.isExpand ? true : false
