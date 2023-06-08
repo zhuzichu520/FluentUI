@@ -841,6 +841,7 @@ Item {
                         if(modelData.tapFunc){
                             modelData.tapFunc()
                         }else{
+                            modelData.tap()
                             nav_list.currentIndex = idx
                             layout_footer.currentIndex = -1
                             if(d.isMinimal || d.isCompact){
