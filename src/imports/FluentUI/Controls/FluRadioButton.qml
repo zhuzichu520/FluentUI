@@ -28,6 +28,7 @@ Button {
             visible: control.activeFocus
         }
     }
+    focusPolicy:Qt.TabFocus
     font:FluTextStyle.Body
     onClicked: clickListener()
     contentItem: RowLayout{

@@ -838,6 +838,7 @@ Item {
                     id:item_button
                     width: 160
                     padding:10
+                    focusPolicy:Qt.TabFocus
                     background: Rectangle{
                         color:  {
                             if(hovered){

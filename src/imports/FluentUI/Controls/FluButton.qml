@@ -36,6 +36,7 @@ Button {
     enabled: !disabled
     horizontalPadding:12
     font:FluTextStyle.Body
+    focusPolicy:Qt.TabFocus
     background: Rectangle{
         implicitWidth: 28
         implicitHeight: 28

@@ -38,6 +38,7 @@ Button {
     id: control
     rightPadding:35
     enabled: !disabled
+    focusPolicy:Qt.TabFocus
     horizontalPadding:12
     background: Rectangle{
         implicitWidth: 28

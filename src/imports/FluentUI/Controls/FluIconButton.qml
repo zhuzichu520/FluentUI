@@ -41,6 +41,7 @@ Button {
     Accessible.onPressAction: control.clicked()
     id:control
     width: 30
+    focusPolicy:Qt.TabFocus
     height: 30
     implicitWidth: width
     implicitHeight: height

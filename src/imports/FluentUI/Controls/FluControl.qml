@@ -13,6 +13,7 @@ T.Button {
     horizontalPadding: 0
     spacing: 0
     contentItem: Item{}
+    focusPolicy:Qt.TabFocus
     background: Item{
         FluFocusRectangle{
             visible: control.activeFocus

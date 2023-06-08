@@ -26,7 +26,7 @@ Button {
     Accessible.onPressAction: control.clicked()
     id: control
     enabled: !disabled
-    Keys.onSpacePressed: control.visualFocus&&clicked()
+    focusPolicy:Qt.TabFocus
     font:FluTextStyle.Body
     horizontalPadding:12
     background: Rectangle{

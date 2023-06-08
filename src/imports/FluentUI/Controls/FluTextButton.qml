@@ -21,7 +21,7 @@ Button {
         return hovered ? hoverColor :normalColor
     }
     id: control
-    horizontalPadding:12
+    horizontalPadding:2
     enabled: !disabled
     Keys.onSpacePressed: control.visualFocus&&clicked()
     background: Item{
@@ -32,6 +32,7 @@ Button {
             radius:8
         }
     }
+    focusPolicy:Qt.TabFocus
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: contentDescription

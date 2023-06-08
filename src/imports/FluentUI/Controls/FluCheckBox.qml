@@ -30,6 +30,7 @@ Button {
             visible: control.activeFocus
         }
     }
+    focusPolicy:Qt.TabFocus
     contentItem: RowLayout{
         spacing: 4
         Rectangle{

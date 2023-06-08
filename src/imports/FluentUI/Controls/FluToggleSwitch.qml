@@ -22,6 +22,7 @@ Button {
     height: 20
     enabled: !disabled
     implicitHeight: height
+    focusPolicy:Qt.TabFocus
     onClicked: clickListener()
     contentItem: Item{}
     background : RowLayout{

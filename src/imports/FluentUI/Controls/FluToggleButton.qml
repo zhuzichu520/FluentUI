@@ -36,6 +36,7 @@ Button {
     Accessible.name: control.text
     Accessible.description: contentDescription
     Accessible.onPressAction: control.clicked()
+    focusPolicy:Qt.TabFocus
     id: control
     enabled: !disabled
     horizontalPadding:12
