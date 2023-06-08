@@ -7,6 +7,8 @@ TextField {
     id:control
     color: textColor
     readOnly: true
+    activeFocusOnTab: false
+    activeFocusOnPress: false
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     padding: 0
     leftPadding: 0

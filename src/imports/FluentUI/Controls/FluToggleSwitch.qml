@@ -6,6 +6,7 @@ import FluentUI
 
 Button {
     property bool disabled: false
+    property string contentDescription: ""
     property color disableColor: checked ? FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(159/255,159/255,159/255,1) :FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(240/255,240/255,240/255,1)
     property color checkColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     property color hoverColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(240/255,240/255,240/255,1)
@@ -19,6 +20,10 @@ Button {
         checked = !checked
     }
     id: control
+    Accessible.role: Accessible.Button
+    Accessible.name: control.text
+    Accessible.description: contentDescription
+    Accessible.onPressAction: control.clicked()
     height: 20
     enabled: !disabled
     implicitHeight: height

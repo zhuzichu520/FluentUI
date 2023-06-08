@@ -64,8 +64,8 @@ CustomWindow {
         negativeText:"最小化"
         buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
         onNegativeClicked:{
-            system_tray.showMessage("友情提示","FluentUI已隐藏至托盘,点击托盘可再次激活窗口");
             window.hide()
+            system_tray.showMessage("友情提示","FluentUI已隐藏至托盘,点击托盘可再次激活窗口");
         }
         positiveText:"退出"
         neutralText:"取消"

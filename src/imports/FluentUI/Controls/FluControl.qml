@@ -5,6 +5,7 @@ import QtQuick.Templates as T
 
 T.Button {
     id: control
+    property string contentDescription: ""
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -20,4 +21,8 @@ T.Button {
             radius:8
         }
     }
+    Accessible.role: Accessible.Button
+    Accessible.name: control.text
+    Accessible.description: contentDescription
+    Accessible.onPressAction: control.clicked()
 }

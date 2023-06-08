@@ -4,7 +4,6 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 Button {
-
     property bool disabled: false
     property string contentDescription: ""
     property color normalColor: {

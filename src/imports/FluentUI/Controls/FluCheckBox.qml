@@ -6,6 +6,7 @@ import FluentUI
 
 Button {
     property bool disabled: false
+    property string contentDescription: ""
     property color borderNormalColor: FluTheme.dark ? Qt.rgba(160/255,160/255,160/255,1) : Qt.rgba(136/255,136/255,136/255,1)
     property color bordercheckedColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     property color borderHoverColor: FluTheme.dark ? Qt.rgba(167/255,167/255,167/255,1) : Qt.rgba(135/255,135/255,135/255,1)
@@ -30,6 +31,10 @@ Button {
             visible: control.activeFocus
         }
     }
+    Accessible.role: Accessible.Button
+    Accessible.name: control.text
+    Accessible.description: contentDescription
+    Accessible.onPressAction: control.clicked()
     focusPolicy:Qt.TabFocus
     contentItem: RowLayout{
         spacing: 4

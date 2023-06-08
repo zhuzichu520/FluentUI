@@ -8,7 +8,6 @@ FluExpander{
 
     id:control
     property string code: ""
-
     headerText: "Source"
     contentHeight:content.height
     focus: false
@@ -16,10 +15,12 @@ FluExpander{
     FluMultilineTextBox{
         id:content
         width:parent.width
+        activeFocusOnTab: false
+        activeFocusOnPress: false
+        readOnly: true
         text:highlightQmlCode(code)
         textFormat: FluMultilineTextBox.RichText
         KeyNavigation.priority: KeyNavigation.BeforeItem
-        enabled: false
         background:Rectangle{
             radius: 4
             color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
