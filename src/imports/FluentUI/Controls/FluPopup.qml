@@ -15,26 +15,32 @@ Popup {
     property alias blurOpacity: blur.acrylicOpacity
     property alias blurRectX: blur.rectX
     property alias blurRectY: blur.rectY
-
     enter: Transition {
-        reversible: true
         NumberAnimation {
-            properties: "opacity,scale"
+            properties: "scale"
+            from:1.2
+            to:1
+            duration: 83
+        }
+        NumberAnimation {
+            property: "opacity"
+            duration: 83
             from:0
             to:1
-            duration: 167
-            easing.type: Easing.BezierSpline
-            easing.bezierCurve: [ 0, 0, 0, 1 ]
         }
     }
     exit:Transition {
         NumberAnimation {
-            properties: "opacity,scale"
+            properties: "scale"
+            from:1
+            to:1.2
+            duration: 83
+        }
+        NumberAnimation {
+            property: "opacity"
+            duration: 83
             from:1
             to:0
-            duration: 167
-            easing.type: Easing.BezierSpline
-            easing.bezierCurve: [ 1, 0, 0, 0 ]
         }
     }
 
