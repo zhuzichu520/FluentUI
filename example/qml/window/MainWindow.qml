@@ -76,44 +76,110 @@ CustomWindow {
         }
     }
 
-    FluAppBar {
-        id: title_bar
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        darkText: lang.dark_mode
-        showDark: true
-        z:7
-    }
+    Flipable{
+        id:flipable
+        anchors.fill: parent
+        property bool flipped: false
+        transform: Rotation {
+            id: rotation
+            origin.x: flipable.width/2
+            origin.y: flipable.height/2
+            axis { x: 0; y: 1; z: 0 }
+            angle: 0
 
-    FluNavigationView{
-        id:nav_view
-        width: parent.width
-        height: parent.height
-        z:999
-        items: ItemsOriginal
-        footerItems:ItemsFooter
-        topPadding:FluTools.isMacos() ? 20 : 5
-        displayMode:MainEvent.displayMode
-        logo: "qrc:/example/res/image/favicon.ico"
-        title:"FluentUI"
-        autoSuggestBox:FluAutoSuggestBox{
-            width: 280
-            anchors.centerIn: parent
-            iconSource: FluentIcons.Search
-            items: ItemsOriginal.getSearchData()
-            placeholderText: lang.search
-            onItemClicked:
-                (data)=>{
-                    ItemsOriginal.startPageByItem(data)
-                }
         }
-        Component.onCompleted: {
-            ItemsOriginal.navigationView = nav_view
-            ItemsFooter.navigationView = nav_view
-            setCurrentIndex(0)
+        states: State {
+            name: "back"
+            PropertyChanges { target: rotation; angle: 180 }
+            when: flipable.flipped
+        }
+        transitions: Transition {
+            NumberAnimation { target: rotation; property: "angle"; duration: 1000 ; easing.type: Easing.OutQuad}
+        }
+        back: Item{
+            anchors.fill: flipable
+            visible: rotation.angle !== 0
+            FluAppBar {
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+                darkText: lang.dark_mode
+                showDark: true
+                z:7
+            }
+            FluIconButton{
+                iconSource: FluentIcons.ChromeBack
+                width: 30
+                height: 30
+                iconSize: 13
+                z:8
+                onClicked: {
+                    flipable.flipped = false
+                }
+            }
+            FluText{
+                font: FluTextStyle.Title
+                text:"建设中..."
+                anchors.centerIn: parent
+            }
+        }
+        front: Item{
+            visible: rotation.angle !== 180
+            anchors.fill: flipable
+            FluAppBar {
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+                darkText: lang.dark_mode
+                showDark: true
+                z:7
+            }
+            FluNavigationView{
+                property int clickCount: 0
+                id:nav_view
+                width: parent.width
+                height: parent.height
+                z:999
+                items: ItemsOriginal
+                footerItems:ItemsFooter
+                topPadding:FluTools.isMacos() ? 20 : 5
+                displayMode:MainEvent.displayMode
+                logo: "qrc:/example/res/image/favicon.ico"
+                title:"FluentUI"
+                Behavior on rotation {
+                    NumberAnimation{
+                        duration: 167
+                    }
+                }
+                transformOrigin: Item.Center
+                onLoginClicked:{
+                    clickCount += 1
+                    if(clickCount === 5){
+                        flipable.flipped = true
+                        clickCount = 0
+                    }
+                }
+                autoSuggestBox:FluAutoSuggestBox{
+                    width: 280
+                    anchors.centerIn: parent
+                    iconSource: FluentIcons.Search
+                    items: ItemsOriginal.getSearchData()
+                    placeholderText: lang.search
+                    onItemClicked:
+                        (data)=>{
+                            ItemsOriginal.startPageByItem(data)
+                        }
+                }
+                Component.onCompleted: {
+                    ItemsOriginal.navigationView = nav_view
+                    ItemsFooter.navigationView = nav_view
+                    setCurrentIndex(0)
+                }
+            }
         }
     }
 }

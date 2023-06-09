@@ -25,6 +25,7 @@ Item {
     property Component autoSuggestBox
     property Component actionItem
     property int topPadding: 0
+    signal loginClicked
     id:control
     QtObject{
         id:d
@@ -514,6 +515,12 @@ Item {
                 }
                 sourceSize: Qt.size(40,40)
                 Layout.alignment: Qt.AlignVCenter
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        loginClicked()
+                    }
+                }
             }
             FluText{
                 Layout.alignment: Qt.AlignVCenter

@@ -22,7 +22,8 @@ Button {
     Accessible.onPressAction: control.clicked()
     id:control
     enabled: !disabled
-    padding:0
+    horizontalPadding:2
+    verticalPadding: 2
     background: Item{
         FluFocusRectangle{
             visible: control.activeFocus

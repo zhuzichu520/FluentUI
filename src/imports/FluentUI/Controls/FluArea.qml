@@ -16,16 +16,6 @@ Rectangle {
     border.width: 1
     implicitHeight: height
     implicitWidth: width
-    Behavior on color{
-        ColorAnimation {
-            duration: 300
-        }
-    }
-    Behavior on border.color{
-        ColorAnimation {
-            duration: 300
-        }
-    }
     Item {
         id: container
         anchors.fill: parent

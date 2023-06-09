@@ -24,13 +24,15 @@ Button {
     }
     id:control
     enabled: !disabled
-    padding:0
     onClicked: clickListener()
     background: Item{
         FluFocusRectangle{
+            radius: 4
             visible: control.activeFocus
         }
     }
+    horizontalPadding:2
+    verticalPadding: 2
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: contentDescription

@@ -20,16 +20,6 @@ Item {
         radius: 4
         color: FluTheme.dark ? Window.active ? Qt.rgba(38/255,44/255,54/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
         border.color: FluTheme.dark ?  Window.active ? Qt.rgba(55/255,55/255,55/255,1) : Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
-        Behavior on color{
-            ColorAnimation {
-                duration: 300
-            }
-        }
-        Behavior on border.color{
-            ColorAnimation {
-                duration: 300
-            }
-        }
         MouseArea{
             id:control_mouse
             anchors.fill: parent
