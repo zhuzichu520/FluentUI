@@ -39,15 +39,15 @@ FluWindow {
         id:framless_helper
         onReady: {
             setTitleBarItem(title_bar)
-            framless_helper.moveWindowToDesktopCenter()
+            moveWindowToDesktopCenter()
             setHitTestVisible(title_bar.minimizeButton())
             setHitTestVisible(title_bar.maximizeButton())
             setHitTestVisible(title_bar.closeButton())
-            framless_helper.setWindowFixedSize(fixSize)
+            setWindowFixedSize(fixSize)
             title_bar.maximizeButton.visible = !fixSize
             if (blurBehindWindowEnabled)
                 window.backgroundVisible = false
-            window.visible = true
+            window.show()
         }
     }
     Connections{

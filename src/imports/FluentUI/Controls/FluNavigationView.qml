@@ -29,18 +29,7 @@ Item {
     QtObject{
         id:d
         property var stackItems: []
-        property int displayMode: {
-            if(control.displayMode !==FluNavigationView.Auto){
-                return control.displayMode
-            }
-            if(control.width<=700){
-                return FluNavigationView.Minimal
-            }else if(control.width<=900){
-                return FluNavigationView.Compact
-            }else{
-                return FluNavigationView.Open
-            }
-        }
+        property int displayMode: FluNavigationView.Open
         property bool enableNavigationPanel: false
         property bool isCompact: d.displayMode === FluNavigationView.Compact
         property bool isMinimal: d.displayMode === FluNavigationView.Minimal
@@ -49,14 +38,6 @@ Item {
         property bool isMinimalAndPanel: d.displayMode === FluNavigationView.Minimal && d.enableNavigationPanel
         onIsCompactAndNotPanelChanged: {
             collapseAll()
-        }
-        onDisplayModeChanged: {
-            if(d.displayMode === FluNavigationView.Compact){
-                collapseAll()
-            }
-            if(d.displayMode === FluNavigationView.Minimal){
-                d.enableNavigationPanel = false
-            }
         }
         function handleItems(){
             var idx = 0
@@ -91,6 +72,31 @@ Item {
                 }
             }
             return data
+        }
+    }
+    Component.onCompleted: {
+        d.displayMode = Qt.binding(function(){
+            if(control.displayMode !==FluNavigationView.Auto){
+                return control.displayMode
+            }
+            if(control.width<=700){
+                return FluNavigationView.Minimal
+            }else if(control.width<=900){
+                return FluNavigationView.Compact
+            }else{
+                return FluNavigationView.Open
+            }
+        })
+    }
+    Connections{
+        target: d
+        function onDisplayModeChanged(){
+            if(d.displayMode === FluNavigationView.Compact){
+                collapseAll()
+            }
+            if(d.displayMode === FluNavigationView.Minimal){
+                d.enableNavigationPanel = false
+            }
         }
     }
     Component{
@@ -614,7 +620,15 @@ Item {
             }
             return "transparent"
         }
+        clip: true
         x: visible ? 0 : -width
+        Behavior on width {
+            NumberAnimation{
+                duration: 167
+                easing.type: Easing.BezierSpline
+                easing.bezierCurve: [ 0, 0, 0, 1 ]
+            }
+        }
         Behavior on x {
             NumberAnimation{
                 duration: 167
