@@ -161,7 +161,7 @@ CustomWindow {
                 transformOrigin: Item.Center
                 onLoginClicked:{
                     clickCount += 1
-                    if(clickCount === 5){
+                    if(clickCount === 1){
                         flipable.flipped = true
                         clickCount = 0
                     }
@@ -243,7 +243,7 @@ CustomWindow {
     }
 
     function handleDarkChanged(button){
-        var pos = button.mapToItem(flipable,0,0)
+        var pos = button.mapToItem(window.contentItem,0,0)
         var mouseX = pos.x
         var mouseY = pos.y
         canvas.maxRadius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,canvas.width,0),distance(mouseX,mouseY,0,canvas.height),distance(mouseX,mouseY,canvas.width,canvas.height))
