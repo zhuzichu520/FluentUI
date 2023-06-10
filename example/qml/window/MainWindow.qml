@@ -243,25 +243,33 @@ CustomWindow {
     }
 
     function handleDarkChanged(button){
-        var pos = button.mapToItem(window.contentItem,0,0)
-        var mouseX = pos.x
-        var mouseY = pos.y
-        canvas.maxRadius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,canvas.width,0),distance(mouseX,mouseY,0,canvas.height),distance(mouseX,mouseY,canvas.width,canvas.height))
-        window.contentItem.grabToImage(function(result) {
-            img_cache.source = result.url
-            canvas.requestPaint()
+        if(Screen.devicePixelRatio===1){
+            var pos = button.mapToItem(window.contentItem,0,0)
+            var mouseX = pos.x
+            var mouseY = pos.y
+            canvas.maxRadius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,canvas.width,0),distance(mouseX,mouseY,0,canvas.height),distance(mouseX,mouseY,canvas.width,canvas.height))
+            window.contentItem.grabToImage(function(result) {
+                img_cache.source = result.url
+                canvas.requestPaint()
+                if(FluTheme.dark){
+                    FluTheme.darkMode = FluDarkMode.Light
+                }else{
+                    FluTheme.darkMode = FluDarkMode.Dark
+                }
+                canvas.centerX = mouseX
+                canvas.centerY = mouseY
+                anim_radius.enabled = false
+                canvas.radius = 0
+                anim_radius.enabled = true
+                canvas.radius = canvas.maxRadius
+            })
+        }else{
             if(FluTheme.dark){
                 FluTheme.darkMode = FluDarkMode.Light
             }else{
                 FluTheme.darkMode = FluDarkMode.Dark
             }
-            canvas.centerX = mouseX
-            canvas.centerY = mouseY
-            anim_radius.enabled = false
-            canvas.radius = 0
-            anim_radius.enabled = true
-            canvas.radius = canvas.maxRadius
-        })
+        }
     }
 
 }
