@@ -22,6 +22,25 @@ Rectangle{
     property bool titleVisible: true
     property bool isMac: FluTools.isMacos()
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property var maxClickListener : function(){
+        if (d.win.visibility === Window.Maximized)
+            d.win.visibility = Window.Windowed
+        else
+            d.win.visibility = Window.Maximized
+    }
+    property var minClickListener: function(){
+        d.win.visibility = Window.Minimized
+    }
+    property var closeClickListener : function(){
+        d.win.close()
+    }
+    property var darkClickListener: function(){
+        if(FluTheme.dark){
+            FluTheme.darkMode = FluDarkMode.Light
+        }else{
+            FluTheme.darkMode = FluDarkMode.Dark
+        }
+    }
     id:root
     color: Qt.rgba(0,0,0,0)
     height: visible ? 30 : 0
@@ -67,14 +86,9 @@ Rectangle{
                 color:root.textColor
             }
             FluToggleSwitch{
+                id:btn_dark
                 checked: FluTheme.dark
-                clickListener: function(){
-                    if(FluTheme.dark){
-                        FluTheme.darkMode = FluDarkMode.Light
-                    }else{
-                        FluTheme.darkMode = FluDarkMode.Dark
-                    }
-                }
+                clickListener:()=> darkClickListener(btn_dark)
             }
         }
         FluIconButton{
@@ -89,9 +103,7 @@ Rectangle{
             visible: !isMac
             iconColor: root.textColor
             color: hovered ? minimizeHoverColor : minimizeNormalColor
-            onClicked: {
-                d.win.visibility = Window.Minimized
-            }
+            onClicked: minClickListener()
         }
         FluIconButton{
             id:btn_maximize
@@ -105,12 +117,7 @@ Rectangle{
             iconColor: root.textColor
             text:d.isRestore?restoreText:maximizeText
             iconSize: 11
-            onClicked: {
-                if (d.win.visibility === Window.Maximized)
-                    d.win.visibility = Window.Windowed
-                else
-                    d.win.visibility = Window.Maximized
-            }
+            onClicked: maxClickListener()
         }
         FluIconButton{
             id:btn_close
@@ -124,9 +131,7 @@ Rectangle{
             iconSize: 10
             iconColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
             color:hovered ? closeHoverColor : closeNormalColor
-            onClicked: {
-                d.win.close()
-            }
+            onClicked: closeClickListener()
         }
     }
 

@@ -80,25 +80,25 @@ CustomWindow {
         id:flipable
         anchors.fill: parent
         property bool flipped: false
+        property real flipAngle: 0
         transform: Rotation {
             id: rotation
             origin.x: flipable.width/2
             origin.y: flipable.height/2
             axis { x: 0; y: 1; z: 0 }
-            angle: 0
+            angle: flipable.flipAngle
 
         }
         states: State {
-            name: "back"
-            PropertyChanges { target: rotation; angle: 180 }
+            PropertyChanges { target: flipable; flipAngle: 180 }
             when: flipable.flipped
         }
         transitions: Transition {
-            NumberAnimation { target: rotation; property: "angle"; duration: 1000 ; easing.type: Easing.OutQuad}
+            NumberAnimation { target: flipable; property: "flipAngle"; duration: 1000 ; easing.type: Easing.OutQuad}
         }
         back: Item{
             anchors.fill: flipable
-            visible: rotation.angle !== 0
+            visible: flipable.flipAngle !== 0
             FluAppBar {
                 anchors {
                     top: parent.top
@@ -108,6 +108,7 @@ CustomWindow {
                 darkText: lang.dark_mode
                 showDark: true
                 z:7
+                darkClickListener:(button)=>handleDarkChanged(button)
             }
             FluIconButton{
                 iconSource: FluentIcons.ChromeBack
@@ -126,7 +127,8 @@ CustomWindow {
             }
         }
         front: Item{
-            visible: rotation.angle !== 180
+            id:page_front
+            visible: flipable.flipAngle !== 180
             anchors.fill: flipable
             FluAppBar {
                 anchors {
@@ -136,6 +138,7 @@ CustomWindow {
                 }
                 darkText: lang.dark_mode
                 showDark: true
+                darkClickListener:(button)=>handleDarkChanged(button)
                 z:7
             }
             FluNavigationView{
@@ -182,4 +185,83 @@ CustomWindow {
             }
         }
     }
+
+    Image{
+        id:img_cache
+        visible: false
+        anchors.fill: flipable
+    }
+
+    Canvas{
+        id:canvas
+        anchors.fill: flipable
+        property int centerX: canvas.width / 2
+        property int centerY: canvas.height / 2
+        property real radius: 0
+        property int maxRadius: 0
+        property url imageUrl
+        Behavior on radius{
+            id:anim_radius
+            NumberAnimation {
+                target: canvas
+                property: "radius"
+                duration: 666
+                easing.type: Easing.BezierSpline
+                easing.bezierCurve: [0,0,0,1]
+            }
+        }
+        onRadiusChanged: {
+            canvas.requestPaint()
+        }
+        onPaint: {
+            var ctx = canvas.getContext("2d");
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save()
+            if(img_cache.source.toString().length!==0){
+                try{
+                    ctx.drawImage(img_cache.source, 0, 0,  canvas.width, canvas.height, 0, 0,  canvas.width, canvas.height)
+                }catch(e){
+                    img_cache.source = ""
+                }
+            }
+            clearArc(ctx, centerX, centerY, radius)
+            ctx.restore()
+        }
+        function clearArc(ctx,x, y, radius, startAngle, endAngle) {
+            ctx.beginPath()
+            ctx.globalCompositeOperation = 'destination-out'
+            ctx.fillStyle = 'black'
+            ctx.arc(x, y, radius, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
+    function distance(x1,y1,x2,y2){
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
+    }
+
+    function handleDarkChanged(button){
+        var pos = button.mapToItem(flipable,0,0)
+        var mouseX = pos.x
+        var mouseY = pos.y
+        canvas.maxRadius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,canvas.width,0),distance(mouseX,mouseY,0,canvas.height),distance(mouseX,mouseY,canvas.width,canvas.height))
+        window.contentItem.grabToImage(function(result) {
+            img_cache.source = result.url
+            canvas.requestPaint()
+            if(FluTheme.dark){
+                FluTheme.darkMode = FluDarkMode.Light
+            }else{
+                FluTheme.darkMode = FluDarkMode.Dark
+            }
+            canvas.centerX = mouseX
+            canvas.centerY = mouseY
+            anim_radius.enabled = false
+            canvas.radius = 0
+            anim_radius.enabled = true
+            canvas.radius = canvas.maxRadius
+        })
+    }
+
 }
