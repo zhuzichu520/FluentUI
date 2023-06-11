@@ -206,8 +206,7 @@ CustomWindow {
                 target: canvas
                 property: "radius"
                 duration: 666
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: [0,0,0,1]
+                easing.type: Easing.OutCubic
             }
         }
         onRadiusChanged: {
