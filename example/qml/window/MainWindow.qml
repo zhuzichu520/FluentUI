@@ -243,7 +243,14 @@ CustomWindow {
     }
 
     function handleDarkChanged(button){
-        if(Screen.devicePixelRatio===1){
+        var changeDark = function(){
+            if(FluTheme.dark){
+                FluTheme.darkMode = FluDarkMode.Light
+            }else{
+                FluTheme.darkMode = FluDarkMode.Dark
+            }
+        }
+        if(Screen.devicePixelRatio===1 && FluTools.isWin()){
             var pos = button.mapToItem(window.contentItem,0,0)
             var mouseX = pos.x
             var mouseY = pos.y
@@ -251,11 +258,7 @@ CustomWindow {
             window.contentItem.grabToImage(function(result) {
                 img_cache.source = result.url
                 canvas.requestPaint()
-                if(FluTheme.dark){
-                    FluTheme.darkMode = FluDarkMode.Light
-                }else{
-                    FluTheme.darkMode = FluDarkMode.Dark
-                }
+                changeDark()
                 canvas.centerX = mouseX
                 canvas.centerY = mouseY
                 anim_radius.enabled = false
@@ -264,11 +267,7 @@ CustomWindow {
                 canvas.radius = canvas.maxRadius
             })
         }else{
-            if(FluTheme.dark){
-                FluTheme.darkMode = FluDarkMode.Light
-            }else{
-                FluTheme.darkMode = FluDarkMode.Dark
-            }
+            changeDark()
         }
     }
 
