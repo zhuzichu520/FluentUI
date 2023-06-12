@@ -13,7 +13,6 @@ FRAMELESSHELPER_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     //将样式设置为Basic，不然会导致组件显示异常
-//    qputenv("QT_FONT_DPI","1");
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     FramelessHelper::Quick::initialize();
     QGuiApplication::setOrganizationName("ZhuZiChu");

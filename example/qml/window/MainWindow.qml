@@ -135,6 +135,7 @@ CustomWindow {
             FluRemoteLoader{
                 id:loader
                 anchors.fill: parent
+//                source: "http://localhost:9000/RemoteComponent.qml"
                 source: "https://zhu-zichu.gitee.io/RemoteComponent.qml"
             }
         }
@@ -283,5 +284,16 @@ CustomWindow {
             changeDark()
         }
     }
+
+    Shortcut {
+        sequence: "F5"
+        context: Qt.WindowShortcut
+        onActivated: {
+            if(flipable.flipped){
+                loader.reload()
+            }
+        }
+    }
+
 
 }

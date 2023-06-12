@@ -296,7 +296,7 @@ FluObject{
 
     FluPaneItemExpander{
         title:lang.other
-        icon:FluentIcons.Media
+        icon:FluentIcons.Shop
         FluPaneItem{
             title:"RemoteLoader"
             onTap:{
