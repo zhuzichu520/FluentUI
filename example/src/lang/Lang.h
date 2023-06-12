@@ -22,6 +22,7 @@ class Lang : public QObject
     Q_PROPERTY_AUTO(QString,settings);
     Q_PROPERTY_AUTO(QString,navigation_view_display_mode);
     Q_PROPERTY_AUTO(QString,locale);
+    Q_PROPERTY_AUTO(QString,other);
 public:
     explicit Lang(QObject *parent = nullptr);
 

@@ -291,6 +291,18 @@ FluObject{
                 navigationView.push("qrc:/example/qml/page/T_MediaPlayer.qml")
             }
         }
+
+    }
+
+    FluPaneItemExpander{
+        title:lang.other
+        icon:FluentIcons.Media
+        FluPaneItem{
+            title:"RemoteLoader"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_RemoteLoader.qml")
+            }
+        }
     }
 
     function getRecentlyAddedData(){

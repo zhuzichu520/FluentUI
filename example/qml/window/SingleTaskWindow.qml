@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 CustomWindow {
 

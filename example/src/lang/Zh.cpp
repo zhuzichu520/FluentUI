@@ -19,4 +19,5 @@ Zh::Zh(QObject *parent)
     settings("设置");
     locale("语言环境");
     navigation_view_display_mode("导航视图显示模式");
+    other("其他");
 }

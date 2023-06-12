@@ -134,7 +134,8 @@ FluExpander{
                     "FluPasswordBox",
                     "FluBreadcrumbBar",
                     "FluCopyableText",
-                    "FluAcrylic"
+                    "FluAcrylic",
+                    "FluRemoteLoader"
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");

@@ -4,8 +4,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
-import "../component"
-import "qrc:///example/qml/global/"
+import "qrc:///example/qml/component"
+import "qrc:///example/qml/global"
 
 CustomWindow {
 
@@ -110,20 +110,32 @@ CustomWindow {
                 z:7
                 darkClickListener:(button)=>handleDarkChanged(button)
             }
-            FluIconButton{
-                iconSource: FluentIcons.ChromeBack
-                width: 30
-                height: 30
-                iconSize: 13
+            Row{
                 z:8
-                onClicked: {
-                    flipable.flipped = false
+                FluIconButton{
+                    iconSource: FluentIcons.ChromeBack
+                    width: 30
+                    height: 30
+                    iconSize: 13
+                    onClicked: {
+                        flipable.flipped = false
+                    }
+                }
+                FluIconButton{
+                    iconSource: FluentIcons.Sync
+                    width: 30
+                    height: 30
+                    iconSize: 13
+                    onClicked: {
+                        loader.reload()
+                    }
                 }
             }
-            FluText{
-                font: FluTextStyle.Title
-                text:"建设中..."
-                anchors.centerIn: parent
+
+            FluRemoteLoader{
+                id:loader
+                anchors.fill: parent
+                source: "https://zhu-zichu.gitee.io/RemoteComponent.qml"
             }
         }
         front: Item{
@@ -162,6 +174,7 @@ CustomWindow {
                 onLoginClicked:{
                     clickCount += 1
                     if(clickCount === 1){
+                        loader.reload()
                         flipable.flipped = true
                         clickCount = 0
                     }
