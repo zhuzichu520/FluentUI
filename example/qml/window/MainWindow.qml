@@ -189,12 +189,12 @@ CustomWindow {
     Image{
         id:img_cache
         visible: false
-        anchors.fill: flipable
+        anchors.fill: parent
     }
 
     Canvas{
         id:canvas
-        anchors.fill: flipable
+        anchors.fill: parent
         property int centerX: canvas.width / 2
         property int centerY: canvas.height / 2
         property real radius: 0
@@ -215,11 +215,11 @@ CustomWindow {
         onPaint: {
             var ctx = canvas.getContext("2d");
             ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
             ctx.save()
             if(img_cache.source.toString().length!==0){
                 try{
-                    ctx.drawImage(img_cache.source, 0, 0,  canvas.width, canvas.height, 0, 0,  canvas.width, canvas.height)
+                    ctx.drawImage(img_cache, 0, 0,  canvasSize.width, canvasSize.height, 0, 0,  canvasSize.width, canvasSize.height)
                 }catch(e){
                     img_cache.source = ""
                 }
@@ -249,12 +249,13 @@ CustomWindow {
                 FluTheme.darkMode = FluDarkMode.Dark
             }
         }
-        if(Screen.devicePixelRatio===1 && FluTools.isWin()){
-            var pos = button.mapToItem(window.contentItem,0,0)
+        if(FluTools.isWin()){
+            var target = window.contentItem
+            var pos = button.mapToItem(target,0,0)
             var mouseX = pos.x
             var mouseY = pos.y
-            canvas.maxRadius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,canvas.width,0),distance(mouseX,mouseY,0,canvas.height),distance(mouseX,mouseY,canvas.width,canvas.height))
-            window.contentItem.grabToImage(function(result) {
+            canvas.maxRadius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,target.width,0),distance(mouseX,mouseY,0,target.height),distance(mouseX,mouseY,target.width,target.height))
+            target.grabToImage(function(result) {
                 img_cache.source = result.url
                 canvas.requestPaint()
                 changeDark()
@@ -264,7 +265,7 @@ CustomWindow {
                 canvas.radius = 0
                 anim_radius.enabled = true
                 canvas.radius = canvas.maxRadius
-            })
+            },canvas.canvasSize)
         }else{
             changeDark()
         }
