@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import FluentUI
 
 Item{
+    id:control
     enum StatusMode  {
         Loading,
         Empty,
@@ -80,7 +81,7 @@ Item{
                 Layout.alignment: Qt.AlignHCenter
                 text:"重新加载"
                 onClicked:{
-                    errorClicked.call()
+                    control.errorClicked()
                 }
             }
         }
