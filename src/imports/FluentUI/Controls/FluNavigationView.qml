@@ -893,7 +893,7 @@ Item {
         return nav_list.model
     }
     function push(url,argument={}){
-        if(nav_swipe.currentItem && nav_swipe.currentItem.url === url){
+        if(nav_swipe.currentItem && nav_swipe.currentItem.url === url && nav_swipe.currentItem.pageMode === FluNavigationView.SingleTask){
             return
         }
         let page = nav_swipe.find(function(item) {
