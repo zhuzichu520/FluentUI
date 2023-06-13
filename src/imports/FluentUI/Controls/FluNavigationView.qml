@@ -440,6 +440,19 @@ Item {
                             left:item_icon.right
                         }
                     }
+                    Loader{
+                        anchors{
+                            right: parent.right
+                            rightMargin: 10
+                            verticalCenter: parent.verticalCenter
+                        }
+                        sourceComponent: {
+                            if(model.infoBadge){
+                                return model.infoBadge
+                            }
+                            return undefined
+                        }
+                    }
                 }
             }
         }
@@ -921,6 +934,12 @@ Item {
     }
     function getCurrentIndex(){
         return nav_list.currentIndex
+    }
+    function getCurrentUrl(){
+        if(nav_swipe.currentItem){
+            return nav_swipe.currentItem.url
+        }
+        return undefined
     }
     function startPageByItem(data){
         var items = getItems()

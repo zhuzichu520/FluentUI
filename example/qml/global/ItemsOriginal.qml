@@ -8,16 +8,17 @@ FluObject{
     property var navigationView
 
     FluPaneItem{
+        id:item_home
+        property int count: 8
         title:lang.home
+        infoBadge:FluBadge{
+            count: item_home.count
+        }
         icon:FluentIcons.Home
-        //        cusIcon: Image{
-        //            anchors.centerIn: parent
-        //            source: FluTheme.dark ? "qrc:/example/res/svg/home_dark.svg" : "qrc:/example/res/svg/home.svg"
-        //            sourceSize: Qt.size(30,30)
-        //            width: 18
-        //            height: 18
-        //        }
         onTap:{
+            if(navigationView.getCurrentUrl()){
+                item_home.count = 0
+            }
             navigationView.push("qrc:/example/qml/page/T_Home.qml")
         }
     }

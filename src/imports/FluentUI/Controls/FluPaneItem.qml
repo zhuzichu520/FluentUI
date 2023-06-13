@@ -9,6 +9,7 @@ QtObject {
     property int order : 0
     property int icon
     property Component cusIcon
+    property Component infoBadge
     property bool recentlyAdded: false
     property bool recentlyUpdated: false
     property string desc

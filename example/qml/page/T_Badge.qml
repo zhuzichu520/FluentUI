@@ -33,6 +33,8 @@ FluScrollablePage{
                     radius:  8
                     color: Qt.rgba(191/255,191/255,191/255,1)
                     FluBadge{
+                        topRight: true
+                        showZero: true
                         count:0
                     }
                 }
@@ -43,6 +45,8 @@ FluScrollablePage{
                     radius:  8
                     color: Qt.rgba(191/255,191/255,191/255,1)
                     FluBadge{
+                        topRight: true
+                        showZero: true
                         count:5
                     }
                 }
@@ -52,6 +56,8 @@ FluScrollablePage{
                     radius:  8
                     color: Qt.rgba(191/255,191/255,191/255,1)
                     FluBadge{
+                        topRight: true
+                        showZero: true
                         count:50
                     }
                 }
@@ -61,6 +67,8 @@ FluScrollablePage{
                     radius:  8
                     color: Qt.rgba(191/255,191/255,191/255,1)
                     FluBadge{
+                        topRight: true
+                        showZero: true
                         count:100
                     }
                 }
@@ -70,6 +78,8 @@ FluScrollablePage{
                     radius:  8
                     color: Qt.rgba(191/255,191/255,191/255,1)
                     FluBadge{
+                        topRight: true
+                        showZero: true
                         isDot:true
                     }
                 }
@@ -79,6 +89,8 @@ FluScrollablePage{
                     radius:  8
                     color: Qt.rgba(191/255,191/255,191/255,1)
                     FluBadge{
+                        topRight: true
+                        showZero: true
                         count:99
                         color: Qt.rgba(250/255,173/255,20/255,1)
                     }
@@ -89,6 +101,8 @@ FluScrollablePage{
                     radius:  8
                     color: Qt.rgba(191/255,191/255,191/255,1)
                     FluBadge{
+                        topRight: true
+                        showZero: true
                         count:99
                         color: Qt.rgba(82/255,196/255,26/255,1)
                     }
