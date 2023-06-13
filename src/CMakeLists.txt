@@ -13,9 +13,9 @@ endif()
 set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,3,0)
+add_definitions(-DVERSION=1,3,4,0)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml ShaderTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)

@@ -280,22 +280,6 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:lang.media
-        icon:FluentIcons.Media
-        FluPaneItem{
-            title:"MediaPlayer"
-            image:"qrc:/example/res/image/control/MediaPlayerElement.png"
-            recentlyAdded:true
-            order:0
-            desc:"A control to display video and image content."
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_MediaPlayer.qml")
-            }
-        }
-
-    }
-
-    FluPaneItemExpander{
         title:lang.other
         icon:FluentIcons.Shop
         FluPaneItem{
