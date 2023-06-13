@@ -6,7 +6,7 @@ import FluentUI
 import "qrc:///example/qml/component"
 
 FluRemoteLoader{
-    property int pageMode: FluNavigationView.Standard
+    property int pageMode: FluNavigationView.SingleTop
     property string url: ''
     source: "https://zhu-zichu.gitee.io/T_RemoteLoader.qml"
 }

@@ -14,7 +14,8 @@ Item {
     }
     enum PageModeFlag{
         Standard = 0,
-        SingleTask = 1
+        SingleTask = 1,
+        SingleTop = 2
     }
     property url logo
     property string title: ""
@@ -893,9 +894,6 @@ Item {
         return nav_list.model
     }
     function push(url,argument={}){
-        if(nav_swipe.currentItem && nav_swipe.currentItem.url === url && nav_swipe.currentItem.pageMode === FluNavigationView.SingleTask){
-            return
-        }
         let page = nav_swipe.find(function(item) {
             return item.url === url;
         })
@@ -909,6 +907,11 @@ Item {
                     d.stackItems.pop()
                 }
                 return
+            case FluNavigationView.SingleTop:
+                if (nav_swipe.currentItem.url === url){
+                    return
+                }
+                break
             case FluNavigationView.Standard:
             default:
             }

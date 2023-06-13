@@ -12,14 +12,14 @@ Item {
     property int topPadding: 0
     property int rightPadding: 10
     property int bottomPadding: 10
-    property int pageMode: FluNavigationView.Standard
+    property int pageMode: FluNavigationView.SingleTop
     property string url: ''
     id:control
     FluText{
         id:text_title
         font: FluTextStyle.Title
         visible: text !== ""
-        height: visible ? implicitHeight : 0
+        height: visible ? contentHeight : 0
         padding: 0
         anchors{
             top: parent.top
