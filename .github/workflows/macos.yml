@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-12]
-        qt_ver: [6.5.1]
+        qt_ver: [6.5.0]
         qt_arch: [clang_64]
     env:
       targetName: example
@@ -50,7 +50,7 @@ jobs:
           cmake --version
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/FluentUI/Qt/6.5.1/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/FluentUI/Qt/6.5.0/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
           cmake --build . --target all --config Release --parallel
           
       - name: package
