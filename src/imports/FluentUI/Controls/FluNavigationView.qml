@@ -179,6 +179,33 @@ Item {
                     model.isExpand = !model.isExpand
                 }
                 Rectangle{
+                    color:Qt.rgba(255/255,77/255,79/255,1)
+                    width: 10
+                    height: 10
+                    radius: 5
+                    border.width: 1
+                    border.color: Qt.rgba(1,1,1,1)
+                    anchors{
+                        right: parent.right
+                        verticalCenter: parent.verticalCenter
+                        rightMargin: 3
+                        verticalCenterOffset: -8
+                    }
+                    visible: {
+                        if(!model.isExpand){
+
+                            for(var i=0;i<model.children.length;i++){
+                                var item = model.children[i]
+                                if(item.infoBadge && item.count !==0){
+                                    return true
+                                }
+                            }
+                        }
+                        return false
+                    }
+                }
+
+                Rectangle{
                     radius: 4
                     anchors.fill: parent
                     Rectangle{
@@ -199,7 +226,9 @@ Item {
                             verticalCenter: parent.verticalCenter
                         }
                     }
+
                     FluIcon{
+                        id:item_icon_expand
                         rotation: model.isExpand?0:180
                         iconSource:FluentIcons.ChevronUp
                         iconSize: 15
@@ -279,9 +308,11 @@ Item {
                             }
                             return true
                         }
+                        elide: Text.ElideRight
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left:item_icon.right
+                            right: item_icon_expand.left
                         }
                         color:{
                             if(item_control.pressed){
@@ -429,6 +460,7 @@ Item {
                             }
                             return true
                         }
+                        elide: Text.ElideRight
                         color:{
                             if(item_control.pressed){
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
@@ -438,19 +470,31 @@ Item {
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left:item_icon.right
+                            right: item_dot_loader.left
                         }
                     }
                     Loader{
+                        id:item_dot_loader
+                        property bool isDot: (item_dot_loader.item&&item_dot_loader.item.isDot)
                         anchors{
                             right: parent.right
-                            rightMargin: 10
                             verticalCenter: parent.verticalCenter
+                            rightMargin: isDot ? 3 : 10
+                            verticalCenterOffset: isDot ? -8 : 0
                         }
                         sourceComponent: {
                             if(model.infoBadge){
                                 return model.infoBadge
                             }
                             return undefined
+                        }
+                        Connections{
+                            target: d
+                           function onIsCompactAndNotPanelChanged(){
+                                if(item_dot_loader.item){
+                                    item_dot_loader.item.isDot = d.isCompactAndNotPanel
+                                }
+                            }
                         }
                     }
                 }
@@ -822,6 +866,14 @@ Item {
                 duration: 83
             }
         }
+        Connections{
+            target: d
+            function onIsCompactChanged(){
+                if(!d.isCompact){
+                    control_popup.close()
+                }
+           }
+        }
         padding: 0
         focus: true
         contentItem: Item{
@@ -834,7 +886,7 @@ Item {
                 ScrollBar.vertical: FluScrollBar {}
                 delegate:Button{
                     id:item_button
-                    width: 160
+                    width: 180
                     padding:10
                     focusPolicy:Qt.TabFocus
                     background: Rectangle{
@@ -848,9 +900,27 @@ Item {
                             visible: item_button.activeFocus
                             radius:4
                         }
+
+                        Loader{
+                            id:item_dot_loader
+                            anchors{
+                                right: parent.right
+                                verticalCenter: parent.verticalCenter
+                                rightMargin: 10
+                            }
+                            sourceComponent: {
+                                if(model.infoBadge){
+                                    return model.infoBadge
+                                }
+                                return undefined
+                            }
+                        }
+
                     }
                     contentItem: FluText{
                         text:modelData.title
+                        elide: Text.ElideRight
+                        rightPadding: item_dot_loader.width
                         anchors{
                             verticalCenter: parent.verticalCenter
                         }
@@ -872,7 +942,7 @@ Item {
             }
         }
         background: FluRectangle{
-            implicitWidth: 160
+            implicitWidth: 180
             implicitHeight: 38*Math.min(Math.max(list_view.count,1),8)
             radius: [4,4,4,4]
             FluShadow{

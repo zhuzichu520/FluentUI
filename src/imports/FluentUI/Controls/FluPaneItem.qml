@@ -16,6 +16,7 @@ QtObject {
     property var image
     property var parent
     property int idx
+    property int count: 0
     signal tap
     property var tapFunc
 }

@@ -9,7 +9,7 @@ FluObject{
 
     FluPaneItem{
         id:item_home
-        property int count: 8
+        count: 9
         title:lang.home
         infoBadge:FluBadge{
             count: item_home.count
@@ -27,11 +27,17 @@ FluObject{
         title:lang.basic_input
         icon:FluentIcons.CheckboxComposite
         FluPaneItem{
+            id:item_buttons
+            count: 99
+            infoBadge:FluBadge{
+                count: item_buttons.count
+            }
             title:"Buttons"
             image:"qrc:/example/res/image/control/Button.png"
             recentlyUpdated:true
             desc:"A control that responds to user input and raisesa Click event."
             onTap:{
+                item_buttons.count = 0
                 navigationView.push("qrc:/example/qml/page/T_Buttons.qml")
             }
         }
@@ -168,8 +174,15 @@ FluObject{
             }
         }
         FluPaneItem{
+            id:item_combobox
             title:"ComboBox"
+            count: 9
+            infoBadge:FluBadge{
+                count: item_combobox.count
+                color: Qt.rgba(250/255,173/255,20/255,1)
+            }
             onTap:{
+                item_combobox.count = 0
                 navigationView.push("qrc:/example/qml/page/T_ComboBox.qml")
             }
         }
@@ -283,8 +296,15 @@ FluObject{
         title:lang.other
         icon:FluentIcons.Shop
         FluPaneItem{
+            id:item_other
             title:"RemoteLoader"
+            count: 99
+            infoBadge:FluBadge{
+                count: item_other.count
+                color: Qt.rgba(82/255,196/255,26/255,1)
+            }
             onTap:{
+                item_other.count = 0
                 navigationView.push("qrc:/example/qml/page/T_RemoteLoader.qml")
             }
         }
