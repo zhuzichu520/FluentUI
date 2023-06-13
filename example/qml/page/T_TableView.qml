@@ -57,6 +57,7 @@ FluScrollablePage{
     Component{
         id:com_action
         Item{
+            height: 60
             Row{
                 anchors.centerIn: parent
                 spacing: 10
