@@ -42,8 +42,15 @@ FluObject{
             }
         }
         FluPaneItem{
+            id:item_text
             title:"Text"
+            count: 5
+            infoBadge:FluBadge{
+                count: item_text.count
+                color: Qt.rgba(82/255,196/255,26/255,1)
+            }
             onTap:{
+                item_text.count = 0
                 navigationView.push("qrc:/example/qml/page/T_Text.qml")
             }
         }
