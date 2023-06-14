@@ -28,10 +28,6 @@ FluScrollablePage{
                     ListElement { text: "Apple" }
                     ListElement { text: "Coconut" }
                 }
-                onAccepted: {
-                    if (find(editText) === -1)
-                        model_1.append({text: editText})
-                }
             }
         }
     }

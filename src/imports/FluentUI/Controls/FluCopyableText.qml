@@ -17,6 +17,9 @@ TextEdit {
     bottomPadding: 0
     selectionColor: FluTheme.primaryColor.lightest
     font:FluTextStyle.Body
+    onSelectedTextChanged: {
+        control.forceActiveFocus()
+    }
     TapHandler {
         acceptedButtons: Qt.RightButton
         onTapped: control.echoMode !== TextInput.Password && menu.popup()

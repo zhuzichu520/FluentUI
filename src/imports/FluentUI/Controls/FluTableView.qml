@@ -102,7 +102,11 @@ Item {
                             onPositionChanged:
                                 (mouse)=>{
                                     var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
-                                    item_column.width = Math.max(item_column.width+delta.x,item_column_text.implicitWidth+28)
+                                    var minimumWidth = item_column_text.implicitWidth+28
+                                    if(model.minimumWidth){
+                                        minimumWidth = model.minimumWidth
+                                    }
+                                    item_column.width = Math.max(item_column.width+delta.x,minimumWidth)
                                 }
                         }
                     }
@@ -136,7 +140,7 @@ Item {
             interactive: false
             header: header_columns
             footer: Item{
-                height: pageVisible ? 50 : 0
+                height: pageVisible ? 54 : 0
                 clip: true
                 width: layout_table.width
                 FluPagination{
@@ -189,19 +193,6 @@ Item {
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
                 }
-                //                Row{
-                //                    id: table_row_back
-                //                    spacing: 0
-                //                    anchors.fill: parent
-                //                    Repeater{
-                //                        model: model_values
-                //                        delegate:Rectangle{
-                //                             width: layout_table.headerItem.widthByColumnIndex(index)
-                //                             height: item_control.height
-                //                             color:"red"
-                //                        }
-                //                    }
-                //                }
                 Row{
                     id: table_row
                     spacing: 0
@@ -210,8 +201,16 @@ Item {
                         id:repeater_rows
                         model: model_values
                         delegate:FluControl{
+                            id:item_row_control
                             width: layout_table.headerItem.widthByColumnIndex(index)
                             height: item_control.height
+                            focusPolicy:Qt.TabFocus | Qt.ClickFocus
+                            background: Item{
+                                FluFocusRectangle{
+                                    visible: item_row_control.activeFocus
+                                    radius:8
+                                }
+                            }
                             Loader{
                                 id:item_column_loader
                                 property var model : modelData
@@ -243,6 +242,7 @@ Item {
             }
         }
     }
+
     Component{
         id:com_text
         Item{
