@@ -87,7 +87,7 @@ FluScrollablePage{
                     text:"删除"
                     horizontalPadding: 6
                     onClicked:{
-                        showError(JSON.stringify(dataObject))
+                        table_view.remove(dataModel.index)
                     }
                 }
             }

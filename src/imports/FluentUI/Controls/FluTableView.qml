@@ -138,6 +138,9 @@ Item {
             width: Math.max(layout_flickable.width,d.columnsWidth)
             clip:true
             interactive: false
+            removeDisplaced: Transition {
+                NumberAnimation { properties: "x,y"; duration: 167 }
+            }
             header: header_columns
             footer: Item{
                 height: pageVisible ? 54 : 0
@@ -286,5 +289,9 @@ Item {
             data.push({itemData:obj[item.dataIndex],width:item.width})
         }
         return data;
+    }
+    function remove(index){
+        model_data_source.remove(index)
+        console.debug(index)
     }
 }
