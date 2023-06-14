@@ -13,7 +13,7 @@ TableView {
         id:model_columns
     }
     columnWidthProvider: function (column) {
-        return 100
+        return columnSource[column].width
     }
     rowHeightProvider: function (column) {
         return 60

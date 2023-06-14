@@ -7,7 +7,7 @@ import "qrc:///example/qml/component"
 
 FluContentPage{
 
-    title:"TableView"
+    title:"TableView2"
 
     Component.onCompleted: {
         loadData(1,10)
