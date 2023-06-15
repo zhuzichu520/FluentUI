@@ -82,7 +82,6 @@ Rectangle {
                 }
                 return implicitRowHeight(row)
             }
-
             model: table_model
             clip: true
             delegate: Rectangle {
