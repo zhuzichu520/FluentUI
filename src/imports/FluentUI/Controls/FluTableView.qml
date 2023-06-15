@@ -93,7 +93,7 @@ Item {
                             width: 6
                             anchors.centerIn: item_divider
                             visible: item_divider.visible
-                            cursorShape: Qt.SizeHorCursor
+                            cursorShape: Qt.SplitHCursor
                             onPressed:
                                 (mouse)=>{
                                     clickPos = Qt.point(mouse.x, mouse.y)
@@ -207,7 +207,7 @@ Item {
                             id:item_row_control
                             width: layout_table.headerItem.widthByColumnIndex(index)
                             height: item_control.height
-                            focusPolicy:Qt.TabFocus | Qt.ClickFocus
+                            focusPolicy:Qt.TabFocus
                             background: Item{
                                 FluFocusRectangle{
                                     visible: item_row_control.activeFocus
@@ -292,6 +292,5 @@ Item {
     }
     function remove(index){
         model_data_source.remove(index)
-        console.debug(index)
     }
 }

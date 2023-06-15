@@ -24,7 +24,7 @@ ComboBox {
         text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
         palette.text: control.palette.text
         palette.highlightedText: control.palette.highlightedText
-        font.weight: control.currentIndex === index ? Font.DemiBold : Font.Normal
+        font.bold: control.currentIndex === index
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
     }
@@ -37,7 +37,6 @@ ComboBox {
         iconSize: 15
         opacity: enabled ? 1 : 0.3
     }
-
     contentItem: T.TextField {
         property bool disabled: !control.editable
         leftPadding: !control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
@@ -59,6 +58,7 @@ ComboBox {
         leftInset:1
         topInset:1
         bottomInset:1
+        focus: true
         rightInset:1
         background: FluTextBoxBackground{
             border.width: 0
@@ -74,7 +74,7 @@ ComboBox {
         visible: !control.flat || control.down
         radius: 4
         FluFocusRectangle{
-            visible: control.activeFocus
+            visible: control.visualFocus
             radius:4
             anchors.margins: -2
         }

@@ -94,6 +94,10 @@ FluScrollablePage{
         }
     }
 
+    FluText{
+        Layout.topMargin: 20
+        text:"此TableView适用于小数据量，带分页的表格，大数据量请使用TableView2。"
+    }
 
     FluTableView{
         id:table_view

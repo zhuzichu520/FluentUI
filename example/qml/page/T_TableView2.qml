@@ -10,7 +10,7 @@ FluContentPage{
     title:"TableView2"
 
     Component.onCompleted: {
-        loadData(1,10)
+        loadData(1,2000)
     }
 
     function loadData(page,count){
@@ -46,6 +46,29 @@ FluContentPage{
         table_view.dataSource = dataSource
     }
 
+    Component{
+        id:com_combobox
+
+        FluComboBox {
+            anchors.fill: parent
+            currentIndex: display
+            editable: true
+            model: ListModel {
+                ListElement { text: 100 }
+                ListElement { text: 300 }
+                ListElement { text: 500 }
+                ListElement { text: 1000 }
+            }
+            Component.onCompleted: {
+                currentIndex=[100,300,500,1000].findIndex((element) => element === Number(display))
+                selectAll()
+            }
+            TableView.onCommit: {
+                display = editText
+            }
+        }
+    }
+
     FluTableView2{
         id:table_view
         anchors.fill: parent
@@ -60,6 +83,7 @@ FluContentPage{
             {
                 title: '年龄',
                 dataIndex: 'age',
+                editDelegate:com_combobox,
                 width:100,
                 minimumWidth:100
             },

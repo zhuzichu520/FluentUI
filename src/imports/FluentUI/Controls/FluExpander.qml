@@ -57,7 +57,7 @@ Item {
                 iconSize: 15
                 Behavior on rotation {
                     NumberAnimation{
-                        duration: 150
+                        duration: 167
                     }
                 }
             }
