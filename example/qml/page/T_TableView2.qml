@@ -78,6 +78,7 @@ FluContentPage{
                 title: '姓名',
                 dataIndex: 'name',
                 width:100,
+                minimumWidth:50
 
             },
             {
@@ -85,7 +86,8 @@ FluContentPage{
                 dataIndex: 'age',
                 editDelegate:com_combobox,
                 width:100,
-                minimumWidth:100
+                minimumWidth:100,
+                maximumWidth: 100
             },
             {
                 title: '住址',
@@ -95,7 +97,8 @@ FluContentPage{
             {
                 title: '别名',
                 dataIndex: 'nickname',
-                width:100
+                width:100,
+
             }
         ]
     }

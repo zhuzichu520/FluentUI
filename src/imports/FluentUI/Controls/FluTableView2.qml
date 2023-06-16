@@ -71,7 +71,16 @@ Rectangle {
             columnWidthProvider: function(column) {
                 let w = explicitColumnWidth(column)
                 if (w >= 0){
-                    return Math.max(100, w)
+                    var minimumWidth = columnSource[column].minimumWidth
+                    var maximumWidth = columnSource[column].maximumWidth
+                    if(!minimumWidth){
+                        minimumWidth = 100
+                    }
+                    if(!maximumWidth){
+                        maximumWidth = 65535
+                    }
+
+                    return Math.min(Math.max(minimumWidth, w),maximumWidth)
                 }
                 return implicitColumnWidth(column)
             }
