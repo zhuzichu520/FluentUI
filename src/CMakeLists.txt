@@ -16,6 +16,7 @@ set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 add_definitions(-DVERSION=1,3,4,0)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+qt_standard_project_setup()
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
@@ -63,20 +64,7 @@ qt_add_qml_module(fluentuiplugin
 
 #链接库
 target_link_libraries(fluentuiplugin PUBLIC
-    Qt::CorePrivate
-    Qt::QuickPrivate
-    Qt::QmlPrivate
+    Qt::Core
+    Qt::Quick
+    Qt::Qml
 )
-
-#链接库 win32库 不然mingw会编译错误
-if(WIN32)
-    target_link_libraries(fluentuiplugin PRIVATE dwmapi user32)
-endif()
-
-#如果是debug，则生成的库文件名后面拼接d
-# 在MinGW和GCC/Clang中, 默认不会链接带`d`后缀的动态库
-if(MSVC)
-    set_target_properties(fluentuiplugin PROPERTIES DEBUG_POSTFIX "d")  
-endif(MSVC)
-
-

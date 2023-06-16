@@ -22,7 +22,8 @@ file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 #设置版本号
 add_definitions(-DVERSION=1,3,4,0)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Quick)
+qt_standard_project_setup()
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
@@ -101,4 +102,13 @@ target_link_libraries(example PRIVATE
 #安装
 install(TARGETS example
     BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+qt_generate_deploy_app_script(
+    TARGET example
+    OUTPUT_SCRIPT deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(SCRIPT ${deploy_script})
