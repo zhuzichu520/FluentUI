@@ -115,5 +115,9 @@ View more [`here`](doc/md/all_components.md)!
 
 This FluentUI library currently licensed under [MIT License](./License)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zhuzichu520/FluentUI&type=Date)](https://star-history.com/#zhuzichu520/FluentUI&Date)
+
 ## ⚡ Visitor count
 ![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
