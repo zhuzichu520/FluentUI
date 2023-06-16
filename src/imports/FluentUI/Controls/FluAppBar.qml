@@ -147,4 +147,8 @@ Rectangle{
         return btn_close
     }
 
+    function darkButton(){
+        return btn_dark
+    }
+
 }
