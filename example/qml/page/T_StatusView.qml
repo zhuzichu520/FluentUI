@@ -21,36 +21,34 @@ FluScrollablePage{
                 id:btn_status_mode
                 Layout.preferredWidth: 140
                 text:"Loading"
-                items:[
-                    FluMenuItem{
-                        text:"Loading"
-                        onClicked: {
-                            btn_status_mode.text = text
-                            status_view.statusMode = FluStatusView.Loading
-                        }
-                    },
-                    FluMenuItem{
-                        text:"Empty"
-                        onClicked: {
-                            btn_status_mode.text = text
-                            status_view.statusMode = FluStatusView.Empty
-                        }
-                    },
-                    FluMenuItem{
-                        text:"Error"
-                        onClicked: {
-                            btn_status_mode.text = text
-                            status_view.statusMode = FluStatusView.Error
-                        }
-                    },
-                    FluMenuItem{
-                        text:"Success"
-                        onClicked: {
-                            btn_status_mode.text = text
-                            status_view.statusMode = FluStatusView.Success
-                        }
+                FluMenuItem{
+                    text:"Loading"
+                    onClicked: {
+                        btn_status_mode.text = text
+                        status_view.statusMode = FluStatusView.Loading
                     }
-                ]
+                }
+                FluMenuItem{
+                    text:"Empty"
+                    onClicked: {
+                        btn_status_mode.text = text
+                        status_view.statusMode = FluStatusView.Empty
+                    }
+                }
+                FluMenuItem{
+                    text:"Error"
+                    onClicked: {
+                        btn_status_mode.text = text
+                        status_view.statusMode = FluStatusView.Error
+                    }
+                }
+                FluMenuItem{
+                    text:"Success"
+                    onClicked: {
+                        btn_status_mode.text = text
+                        status_view.statusMode = FluStatusView.Success
+                    }
+                }
             }
         }
     }

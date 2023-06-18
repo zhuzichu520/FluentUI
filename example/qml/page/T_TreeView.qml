@@ -60,29 +60,27 @@ FluScrollablePage {
                 id:btn_selection_model
                 Layout.preferredWidth: 140
                 text:"None"
-                items:[
-                    FluMenuItem{
-                        text:"None"
-                        onClicked: {
-                            btn_selection_model.text = text
-                            tree_view.selectionMode = FluTabView.Equal
-                        }
-                    },
-                    FluMenuItem{
-                        text:"Single"
-                        onClicked: {
-                            btn_selection_model.text = text
-                            tree_view.selectionMode = FluTabView.SizeToContent
-                        }
-                    },
-                    FluMenuItem{
-                        text:"Muiltple"
-                        onClicked: {
-                            btn_selection_model.text = text
-                            tree_view.selectionMode = FluTabView.Compact
-                        }
+                FluMenuItem{
+                    text:"None"
+                    onClicked: {
+                        btn_selection_model.text = text
+                        tree_view.selectionMode = FluTabView.Equal
                     }
-                ]
+                }
+                FluMenuItem{
+                    text:"Single"
+                    onClicked: {
+                        btn_selection_model.text = text
+                        tree_view.selectionMode = FluTabView.SizeToContent
+                    }
+                }
+                FluMenuItem{
+                    text:"Muiltple"
+                    onClicked: {
+                        btn_selection_model.text = text
+                        tree_view.selectionMode = FluTabView.Compact
+                    }
+                }
             }
             FluFilledButton{
                 text:"获取选中的数据"
