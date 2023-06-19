@@ -35,8 +35,9 @@ FluScrollablePage{
             FluSlider{
                 value:50
                 onValueChanged:{
-                    progress_bar.progress = value/100
-                    progress_ring.progress = value/100
+                    var progress = value/100
+                    progress_bar.progress = progress
+                    progress_ring.progress = progress
                 }
             }
         }

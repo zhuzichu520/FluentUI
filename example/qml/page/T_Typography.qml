@@ -10,10 +10,6 @@ FluContentPage {
     title: "Typography"
     rightPadding: 10
 
-    Component.onCompleted: {
-        slider.seek(0)
-    }
-
     FluArea{
         anchors{
             top:parent.top
@@ -73,7 +69,7 @@ FluContentPage {
 
         FluSlider{
             id:slider
-            vertical:true
+            orientation: Qt.Vertical
             anchors{
                 right: parent.right
                 rightMargin: 45

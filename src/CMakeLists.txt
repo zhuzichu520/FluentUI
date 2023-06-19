@@ -33,7 +33,7 @@ foreach(filepath ${QML_PATHS})
 endforeach(filepath)
 
 #遍历所有资源文件
-file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.qsb *.metainfo)
+file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp)
 foreach(filepath ${RES_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND resource_files ${filename})
@@ -58,8 +58,6 @@ qt_add_qml_module(fluentuiplugin
     SOURCES ${sources_files} fluentui.rc
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
-    #支持designer
-    DESIGNER_SUPPORTED
 )
 
 #链接库
@@ -68,3 +66,6 @@ target_link_libraries(fluentuiplugin PUBLIC
     Qt::Quick
     Qt::Qml
 )
+
+#安装
+install(DIRECTORY ${QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)

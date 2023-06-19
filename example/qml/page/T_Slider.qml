@@ -15,7 +15,6 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         FluSlider{
-            value: 50
             anchors.verticalCenter: parent.verticalCenter
         }
     }
@@ -34,10 +33,8 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         FluSlider{
-            value: 50
-            vertical:true
+            orientation: Qt.Vertical
             anchors.left: parent.left
-            anchors.leftMargin: 20
             anchors.verticalCenter: parent.verticalCenter
         }
     }
@@ -45,7 +42,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluSlider{
-    vertical:true
+    orientation: Qt.Vertical
     value:50
 }'
     }
