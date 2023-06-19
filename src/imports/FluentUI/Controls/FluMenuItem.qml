@@ -15,13 +15,10 @@ T.MenuItem {
 
     padding: 6
     spacing: 6
-
     icon.width: 24
     icon.height: 24
     icon.color: control.palette.windowText
-
     height: visible ? implicitHeight : 0
-
     contentItem: FluText {
         readonly property real arrowPadding: control.subMenu && control.arrow ? control.arrow.width + control.spacing : 0
         readonly property real indicatorPadding: control.checkable && control.indicator ? control.indicator.width + control.spacing : 0
@@ -30,21 +27,18 @@ T.MenuItem {
         verticalAlignment: Text.AlignVCenter
         text: control.text
     }
-
     indicator: FluIcon {
         x: control.mirrored ? control.width - width - control.rightPadding : control.leftPadding
         y: control.topPadding + (control.availableHeight - height) / 2
         visible: control.checked
         iconSource: FluentIcons.CheckMark
     }
-
     arrow: FluIcon {
         x: control.mirrored ? control.leftPadding : control.width - width - control.rightPadding
         y: control.topPadding + (control.availableHeight - height) / 2
         visible: control.subMenu
         iconSource: FluentIcons.ChevronRightMed
     }
-
     background: Rectangle {
         implicitWidth: 150
         implicitHeight: 40

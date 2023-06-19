@@ -20,7 +20,7 @@ endif()
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,5,0)
+add_definitions(-DVERSION=1,3,5,1)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup()

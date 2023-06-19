@@ -5,7 +5,6 @@ import QtQuick.Window
 import FluentUI
 
 Rectangle {
-
     enum HourFormat {
         H,
         HH
@@ -16,7 +15,6 @@ Rectangle {
     property var window : Window.window
     property int hourFormat: FluTimePicker.H
     property int isH: hourFormat === FluTimePicker.H
-
     id:root
     color: {
         if(mouse_area.containsMouse){
@@ -29,7 +27,6 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
-
     MouseArea{
         id:mouse_area
         hoverEnabled: true

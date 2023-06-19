@@ -6,33 +6,31 @@ import FluentUI
 
 T.Menu {
     id: control
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              contentHeight + topPadding + bottomPadding)
-
     margins: 0
     overlap: 1
     spacing: 0
     delegate: FluMenuItem { }
     enter: Transition {
-         reversible: true
-         NumberAnimation {
-             property: "opacity"
-             from:0
-             to:1
-             duration:  83
-         }
-     }
-     exit:Transition {
-         NumberAnimation {
-             property: "opacity"
-             from:1
-             to:0
-             duration: 83
-         }
-     }
+        reversible: true
+        NumberAnimation {
+            property: "opacity"
+            from:0
+            to:1
+            duration:  83
+        }
+    }
+    exit:Transition {
+        NumberAnimation {
+            property: "opacity"
+            from:1
+            to:0
+            duration: 83
+        }
+    }
     contentItem: ListView {
         implicitHeight: contentHeight
         model: control.contentModel

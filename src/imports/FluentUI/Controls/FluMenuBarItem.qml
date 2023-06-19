@@ -5,27 +5,22 @@ import FluentUI
 
 T.MenuBarItem {
     id: control
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
-
     spacing: 6
     padding: 6
     leftPadding: 12
     rightPadding: 16
-
     icon.width: 24
     icon.height: 24
     icon.color: control.palette.buttonText
-
     contentItem: FluText {
         verticalAlignment: Text.AlignVCenter
         text: control.text
     }
-
     background: Rectangle {
         implicitWidth: 30
         implicitHeight: 30

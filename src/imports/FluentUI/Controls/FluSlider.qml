@@ -42,14 +42,11 @@ T.Slider {
             }
         }
     }
-
-
     FluTooltip{
-          parent: control.handle
-          visible: control.tooltipEnabled && control.pressed
-          text:String(control.value)
-      }
-
+        parent: control.handle
+        visible: control.tooltipEnabled && control.pressed
+        text:String(control.value)
+    }
     background: Rectangle {
         x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : 0)
