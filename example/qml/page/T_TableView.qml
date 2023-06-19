@@ -87,7 +87,7 @@ FluScrollablePage{
                     text:"删除"
                     horizontalPadding: 6
                     onClicked:{
-                        table_view.remove(dataModel.index)
+                        tableView.remove(dataModel.index)
                     }
                 }
             }

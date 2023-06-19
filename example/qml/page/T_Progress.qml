@@ -33,11 +33,13 @@ FluScrollablePage{
                 indeterminate: false
             }
             FluSlider{
-                value:50
                 onValueChanged:{
                     var progress = value/100
                     progress_bar.progress = progress
                     progress_ring.progress = progress
+                }
+                Component.onCompleted: {
+                    value = 50
                 }
             }
         }

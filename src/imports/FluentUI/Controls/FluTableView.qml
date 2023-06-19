@@ -37,7 +37,6 @@ Item {
         model_data_source.clear()
         model_data_source.append(dataSource)
     }
-
     Component{
         id:header_columns
         FluRectangle{
@@ -114,7 +113,6 @@ Item {
             }
         }
     }
-
     Flickable{
         id:layout_flickable
         height: layout_table.height
@@ -219,6 +217,7 @@ Item {
                                 property var model : modelData
                                 property var dataModel : listModel
                                 property var dataObject : itemObject
+                                property var tableView : control
                                 anchors.verticalCenter: parent.verticalCenter
                                 width: parent.width
                                 sourceComponent: {
@@ -245,7 +244,6 @@ Item {
             }
         }
     }
-
     Component{
         id:com_text
         Item{

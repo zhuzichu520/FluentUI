@@ -110,6 +110,11 @@ Item {
                         anchors.fill: parent
                         hoverEnabled: true
                     }
+                    FluTooltip{
+                        visible: item_mouse_hove.containsMouse
+                        text:item_text.text
+                        delay: 1000
+                    }
                     MouseArea{
                         id:item_mouse_drag
                         anchors.fill: parent
@@ -242,11 +247,6 @@ Item {
                             Layout.preferredWidth: visible?item_container.width - 41 - item_btn_close.width:0
                             elide: Text.ElideRight
                             Layout.alignment: Qt.AlignVCenter
-                            FluTooltip{
-                                visible: item_mouse_hove.containsMouse
-                                text:item_text.text
-                                delay: 1000
-                            }
                         }
                     }
                     FluIconButton{

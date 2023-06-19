@@ -43,8 +43,6 @@ T.Menu {
         currentIndex: control.currentIndex
         ScrollIndicator.vertical: ScrollIndicator {}
     }
-
-
     background: Rectangle {
         implicitWidth: 150
         implicitHeight: 40
@@ -54,11 +52,9 @@ T.Menu {
         radius: 5
         FluShadow{}
     }
-
     T.Overlay.modal: Rectangle {
         color: Color.transparent(control.palette.shadow, 0.5)
     }
-
     T.Overlay.modeless: Rectangle {
         color: Color.transparent(control.palette.shadow, 0.12)
     }

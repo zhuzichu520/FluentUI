@@ -4,6 +4,7 @@ import QtQuick.Templates as T
 import FluentUI
 
 T.Slider {
+    property bool tooltipEnabled: true
     id: control
     to:100
     stepSize:1
@@ -11,9 +12,7 @@ T.Slider {
                             implicitHandleWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
-
     padding: 6
-
     handle: Rectangle {
         x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
@@ -43,6 +42,13 @@ T.Slider {
             }
         }
     }
+
+
+    FluTooltip{
+          parent: control.handle
+          visible: control.tooltipEnabled && control.pressed
+          text:String(control.value)
+      }
 
     background: Rectangle {
         x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
