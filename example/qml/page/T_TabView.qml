@@ -40,57 +40,53 @@ FluScrollablePage{
                 id:btn_tab_width_behavior
                 Layout.preferredWidth: 140
                 text:"Equal"
-                items:[
-                    FluMenuItem{
-                        text:"Equal"
-                        onClicked: {
-                            btn_tab_width_behavior.text = text
-                            tab_view.tabWidthBehavior = FluTabView.Equal
-                        }
-                    },
-                    FluMenuItem{
-                        text:"SizeToContent"
-                        onClicked: {
-                            btn_tab_width_behavior.text = text
-                            tab_view.tabWidthBehavior = FluTabView.SizeToContent
-                        }
-                    },
-                    FluMenuItem{
-                        text:"Compact"
-                        onClicked: {
-                            btn_tab_width_behavior.text = text
-                            tab_view.tabWidthBehavior = FluTabView.Compact
-                        }
+                FluMenuItem{
+                    text:"Equal"
+                    onClicked: {
+                        btn_tab_width_behavior.text = text
+                        tab_view.tabWidthBehavior = FluTabView.Equal
                     }
-                ]
+                }
+                FluMenuItem{
+                    text:"SizeToContent"
+                    onClicked: {
+                        btn_tab_width_behavior.text = text
+                        tab_view.tabWidthBehavior = FluTabView.SizeToContent
+                    }
+                }
+                FluMenuItem{
+                    text:"Compact"
+                    onClicked: {
+                        btn_tab_width_behavior.text = text
+                        tab_view.tabWidthBehavior = FluTabView.Compact
+                    }
+                }
             }
             FluDropDownButton{
                 id:btn_close_button_visibility
                 text:"Always"
                 Layout.preferredWidth: 120
-                items:[
-                    FluMenuItem{
-                        text:"Nerver"
-                        onClicked: {
-                            btn_close_button_visibility.text = text
-                            tab_view.closeButtonVisibility = FluTabView.Nerver
-                        }
-                    },
-                    FluMenuItem{
-                        text:"Always"
-                        onClicked: {
-                            btn_close_button_visibility.text = text
-                            tab_view.closeButtonVisibility = FluTabView.Always
-                        }
-                    },
-                    FluMenuItem{
-                        text:"OnHover"
-                        onClicked: {
-                            btn_close_button_visibility.text = text
-                            tab_view.closeButtonVisibility = FluTabView.OnHover
-                        }
+                FluMenuItem{
+                    text:"Nerver"
+                    onClicked: {
+                        btn_close_button_visibility.text = text
+                        tab_view.closeButtonVisibility = FluTabView.Nerver
                     }
-                ]
+                }
+                FluMenuItem{
+                    text:"Always"
+                    onClicked: {
+                        btn_close_button_visibility.text = text
+                        tab_view.closeButtonVisibility = FluTabView.Always
+                    }
+                }
+                FluMenuItem{
+                    text:"OnHover"
+                    onClicked: {
+                        btn_close_button_visibility.text = text
+                        tab_view.closeButtonVisibility = FluTabView.OnHover
+                    }
+                }
             }
         }
     }

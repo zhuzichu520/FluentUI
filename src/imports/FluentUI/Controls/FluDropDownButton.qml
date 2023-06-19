@@ -30,7 +30,7 @@ Button {
         }
     }
     property var window : Window.window
-    property alias items: menu.content
+    default property alias contentData: menu.contentData
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: contentDescription
@@ -75,9 +75,9 @@ Button {
         color: control.textColor
     }
     onClicked: {
-        if(items && menu.getContainerCount()!==0){
+        if(items && menu.count !==0){
             var pos = control.mapToItem(null, 0, 0)
-            var containerHeight = menu.getContainerHeight()
+            var containerHeight = menu.height
             if(window.height>pos.y+control.height+containerHeight){
                 menu.y = control.height
             }else if(pos.y>containerHeight){

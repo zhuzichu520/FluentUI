@@ -8,7 +8,7 @@ FluTextStyle::FluTextStyle(QObject *parent)
     Caption(caption);
 
     QFont body;
-    body.setPixelSize(14);
+    body.setPixelSize(13);
     Body(body);
 
     QFont bodyStrong;

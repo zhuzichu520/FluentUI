@@ -73,6 +73,5 @@ TextField{
         id:menu
         inputItem: control
     }
-
 }
 

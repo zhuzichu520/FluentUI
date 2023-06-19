@@ -9,8 +9,7 @@ FluMenu{
     property string selectAllText : "全选"
     property var inputItem
     id:menu
-    focus:false
-    enableAnimation:false
+    width: 120
     onVisibleChanged: {
         if(visible){
             inputItem.forceActiveFocus()
