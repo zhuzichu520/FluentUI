@@ -9,9 +9,9 @@ Item {
     property string nextText: "下一页>"
     property int pageCurrent: 0
     property int itemCount: 0
+    property int pageButtonCount: 5
     property int pageCount: itemCount>0?Math.ceil(itemCount/__itemPerPage):0
     property int __itemPerPage: 10
-    property int pageButtonCount: 5
     property int __pageButtonHalf: Math.floor(pageButtonCount/2)+1
     id: control
     implicitHeight: 40
@@ -34,7 +34,6 @@ Item {
             FluToggleButton{
                 property int pageNumber:1
                 visible: control.pageCount>0
-                enabled: control.pageCurrent>1
                 checked: pageNumber === control.pageCurrent
                 text:String(pageNumber)
                 clickListener:function() {

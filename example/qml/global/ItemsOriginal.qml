@@ -259,9 +259,9 @@ FluObject{
             }
         }
         FluPaneItem{
-            title:"TableView2"
+            title:"Pagination"
             onTap:{
-                navigationView.push("qrc:/example/qml/page/T_TableView2.qml")
+                navigationView.push("qrc:/example/qml/page/T_Pagination.qml")
             }
         }
         FluPaneItem{

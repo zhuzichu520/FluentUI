@@ -5,162 +5,12 @@ import QtQuick.Window
 import FluentUI
 import "qrc:///example/qml/component"
 
-FluScrollablePage{
+FluContentPage{
 
     title:"TableView"
 
     Component.onCompleted: {
-        const columns = [
-                          {
-                              title: '姓名',
-                              dataIndex: 'name',
-                              width:100,
-
-                          },
-                          {
-                              title: '年龄',
-                              dataIndex: 'item_age',
-                              width:100,
-                              minimumWidth:100
-                          },
-                          {
-                              title: '住址',
-                              dataIndex: 'address',
-                              width:200
-                          },
-                          {
-                              title: '别名',
-                              dataIndex: 'nickname',
-                              width:100
-                          },
-                          {
-                              title: '操作',
-                              dataIndex: 'action',
-                              width:120
-                          },
-                      ];
-        table_view.columns = columns
-        loadData(1,10)
-    }
-
-    Component{
-        id:com_age
-        Item{
-            id:item_age
-            property var ageArr: [100,300,500,1000]
-            height: 60
-            FluComboBox{
-                width: 80
-                anchors{
-                    verticalCenter: parent.verticalCenter
-                    left: parent.left
-                    leftMargin: 10
-                }
-                model: ListModel {
-                    ListElement { text: 100 }
-                    ListElement { text: 300 }
-                    ListElement { text: 500 }
-                    ListElement { text: 1000 }
-                }
-                Component.onCompleted: {
-                    currentIndex=ageArr.findIndex((element) => element === dataModel.age)
-                }
-            }
-        }
-    }
-
-    Component{
-        id:com_action
-        Item{
-            height: 60
-            Row{
-                anchors.centerIn: parent
-                spacing: 10
-                FluFilledButton{
-                    text:"编辑"
-                    horizontalPadding: 6
-                    onClicked:{
-                        showError(JSON.stringify(dataObject))
-                    }
-                }
-                FluFilledButton{
-                    text:"删除"
-                    horizontalPadding: 6
-                    onClicked:{
-                        tableView.remove(dataModel.index)
-                    }
-                }
-            }
-        }
-    }
-
-    FluText{
-        Layout.topMargin: 20
-        text:"此TableView适用于小数据量，带分页的表格，大数据量请使用TableView2。"
-    }
-
-    FluTableView{
-        id:table_view
-        Layout.fillWidth: true
-        Layout.topMargin: 20
-        pageCurrent:1
-        pageCount:10
-        itemCount: 1000
-        onRequestPage:
-            (page,count)=> {
-                loadData(page,count)
-            }
-    }
-
-    CodeExpander{
-        Layout.fillWidth: true
-        Layout.topMargin: 10
-        code:'FluTableView{
-    id:table_view
-    Layout.fillWidth: true
-    Layout.topMargin: 20
-    pageCurrent:1
-    pageCount:10
-    itemCount: 1000
-    onRequestPage:
-            (page,count)=> {
-                loadData(page,count)
-            }
-    Component.onCompleted: {
-        const columns = [
-                          {
-                              title: "姓名",
-                              dataIndex: "name",
-                              width:100
-                          },
-                          {
-                              title: "年龄",
-                              dataIndex: "age",
-                              width:100
-                          },
-                          {
-                              title: "住址",
-                              dataIndex: "address",
-                              width:200
-                          },
-                          {
-                              title: "别名",
-                              dataIndex: "nickname",
-                              width:100
-                          }
-                      ];
-        table_view.columns = columns
-        const dataSource = [
-                {
-                    name: "孙悟空”,
-                    age: 500,
-                    address:"钟灵毓秀的花果山,如神仙仙境的水帘洞",
-                    nickname:"齐天大圣"
-                }
-        ];
-        table_view.dataSource = columns
-    }
-}'
+        loadData(1,2000)
     }
 
     function loadData(page,count){
@@ -188,13 +38,68 @@ FluScrollablePage{
         for(var i=0;i<count;i++){
             dataSource.push({
                                 name: getRandomName(),
-                                item_age: com_age,
                                 age:getRandomAge(),
                                 address: getRandomAddresses(),
-                                nickname: getRandomNickname(),
-                                action:com_action
+                                nickname: getRandomNickname()
                             })
         }
         table_view.dataSource = dataSource
+    }
+
+    Component{
+        id:com_combobox
+
+        FluComboBox {
+            anchors.fill: parent
+            currentIndex: display
+            editable: true
+            model: ListModel {
+                ListElement { text: 100 }
+                ListElement { text: 300 }
+                ListElement { text: 500 }
+                ListElement { text: 1000 }
+            }
+            Component.onCompleted: {
+                currentIndex=[100,300,500,1000].findIndex((element) => element === Number(display))
+                selectAll()
+            }
+            TableView.onCommit: {
+                display = editText
+            }
+        }
+    }
+
+    FluTableView{
+        id:table_view
+        anchors.fill: parent
+        anchors.topMargin: 20
+        columnSource:[
+            {
+                title: '姓名',
+                dataIndex: 'name',
+                width:100,
+                minimumWidth:50
+
+            },
+            {
+                title: '年龄',
+                dataIndex: 'age',
+                editDelegate:com_combobox,
+                width:100,
+                minimumWidth:100,
+                maximumWidth: 100
+            },
+            {
+                title: '住址',
+                dataIndex: 'address',
+                width:200
+            },
+            {
+                title: '别名',
+                dataIndex: 'nickname',
+                width:100,
+
+            }
+        ]
     }
 }
