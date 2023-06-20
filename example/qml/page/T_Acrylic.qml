@@ -58,6 +58,7 @@ FluScrollablePage{
         width: 100
         height: 100
         anchors.centerIn: parent
+    }
 }'
     }
 
