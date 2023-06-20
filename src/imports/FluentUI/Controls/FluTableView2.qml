@@ -5,13 +5,10 @@ import QtQuick.Layouts
 import Qt.labs.qmlmodels
 import FluentUI
 
-
 Rectangle {
-
-    id:control
-
     property var columnSource
     property var dataSource
+    id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
         if(columnSource.length!==0){
@@ -26,18 +23,15 @@ Rectangle {
             }
         }
     }
-
-    TableModel {
-        id:table_model
-    }
-
     onDataSourceChanged: {
         table_model.clear()
         dataSource.forEach(function(item){
             table_model.appendRow(item)
         })
     }
-
+    TableModel {
+        id:table_model
+    }
     Component{
         id:com_edit
         FluTextBox {
@@ -50,7 +44,6 @@ Rectangle {
             }
         }
     }
-
     ScrollView{
         id:scroll_table
         anchors.left: header_vertical.right
@@ -116,7 +109,6 @@ Rectangle {
             }
         }
     }
-
     Component{
         id:com_handle
         FluControl {
@@ -145,14 +137,11 @@ Rectangle {
             }
         }
     }
-
     SelectionRectangle {
         target: table_view
         bottomRightHandle:com_handle
         topLeftHandle: com_handle
     }
-
-
     FluHorizontalHeaderView {
         id: header_horizontal
         textRole: "title"
@@ -163,7 +152,6 @@ Rectangle {
         boundsBehavior: Flickable.StopAtBounds
         clip: true
     }
-
     FluVerticalHeaderView {
         id: header_vertical
         boundsBehavior: Flickable.StopAtBounds
@@ -172,7 +160,5 @@ Rectangle {
         syncView: table_view
         clip: true
     }
-
-
 }
 

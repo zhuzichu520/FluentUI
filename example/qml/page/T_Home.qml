@@ -17,7 +17,6 @@ FluScrollablePage{
             desc:"The latest FluentUI controls and styles for your applications."
             url:"https://github.com/zhuzichu520/FluentUI"
         }
-
     }
 
     Item{

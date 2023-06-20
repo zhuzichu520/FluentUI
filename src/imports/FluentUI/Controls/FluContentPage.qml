@@ -4,15 +4,13 @@ import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
 
-Item {
+FluPage {
     property alias title: text_title.text
     default property alias content: container.data
     property int leftPadding: 10
     property int topPadding: 0
     property int rightPadding: 10
     property int bottomPadding: 10
-    property int pageMode: FluNavigationView.SingleTop
-    property string url: ''
     id:control
     FluText{
         id:text_title

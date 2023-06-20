@@ -15,7 +15,8 @@ Item {
     enum PageModeFlag{
         Standard = 0,
         SingleTask = 1,
-        SingleTop = 2
+        SingleTop = 2,
+        SingleInstance = 3
     }
     property url logo
     property string title: ""
@@ -30,6 +31,7 @@ Item {
     id:control
     QtObject{
         id:d
+        property var pageMap: ({})
         property var stackItems: []
         property int displayMode: FluNavigationView.Open
         property bool enableNavigationPanel: false
@@ -490,7 +492,7 @@ Item {
                         }
                         Connections{
                             target: d
-                           function onIsCompactAndNotPanelChanged(){
+                            function onIsCompactAndNotPanelChanged(){
                                 if(item_dot_loader.item){
                                     item_dot_loader.item.isDot = d.isCompactAndNotPanel
                                 }
@@ -532,6 +534,20 @@ Item {
                         layout_footer.currentIndex = item.idx-(nav_list.count-layout_footer.count)
                     }
                     nav_list.currentIndex = item.idx
+                    if(nav_swipe.currentItem.pageMode === FluNavigationView.SingleInstance){
+                        var url = nav_swipe.currentItem.url
+                        var pageIndex = -1
+                        for(var i=0;i<nav_swipe2.children.length;i++){
+                            var obj =  nav_swipe2.children[i]
+                            if(obj.url === url){
+                                pageIndex = i
+                                break
+                            }
+                        }
+                        if(pageIndex !== -1){
+                            nav_swipe2.currentIndex = pageIndex
+                        }
+                    }
                 }
             }
             FluIconButton{
@@ -630,30 +646,19 @@ Item {
             id:nav_swipe
             anchors.fill: parent
             clip: true
+            visible: !nav_swipe2.visible
             popEnter : Transition{}
-            popExit : Transition {
-                NumberAnimation {
-                    properties: "y"
-                    from: 0
-                    to: nav_swipe.height
-                    duration: dontPageAnimation ? 0 : 167
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: [ 1, 0, 0, 0 ]
-                }
-            }
-            pushEnter: Transition {
-                NumberAnimation {
-                    properties: "y";
-                    from: nav_swipe.height;
-                    to: 0
-                    duration: dontPageAnimation ? 0 : 167
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: [ 0, 0, 0, 1 ]
-                }
-            }
+            popExit : Transition {}
+            pushEnter: Transition {}
             pushExit : Transition{}
             replaceEnter : Transition{}
             replaceExit : Transition{}
+        }
+        StackLayout{
+            id:nav_swipe2
+            anchors.fill: nav_swipe
+            clip: true
+            visible: nav_swipe.currentItem.pageMode === FluNavigationView.SingleInstance
         }
     }
     MouseArea{
@@ -872,7 +877,7 @@ Item {
                 if(!d.isCompact){
                     control_popup.close()
                 }
-           }
+            }
         }
         padding: 0
         focus: true
@@ -976,6 +981,16 @@ Item {
     function getItems(){
         return nav_list.model
     }
+
+
+    Component{
+        id:com_placeholder
+        Item{
+            property int pageMode: FluNavigationView.SingleInstance
+            property string url
+        }
+    }
+
     function push(url,argument={}){
         let page = nav_swipe.find(function(item) {
             return item.url === url;
@@ -999,8 +1014,35 @@ Item {
             default:
             }
         }
-        nav_swipe.push(url,Object.assign(argument,{url:url}))
-        d.stackItems.push(nav_list.model[nav_list.currentIndex])
+        var comp = Qt.createComponent(url)
+        if (comp.status === Component.Ready) {
+            //先判断nav_swipe2中是否有当前url数据
+            var pageIndex = -1
+            for(var i=0;i<nav_swipe2.children.length;i++){
+                var item =  nav_swipe2.children[i]
+                if(item.url === url){
+                    pageIndex = i
+                    break
+                }
+            }
+            var options = Object.assign(argument,{url:url})
+            if(pageIndex!==-1){
+                nav_swipe2.currentIndex = pageIndex
+                nav_swipe.push(com_placeholder,options)
+            }else{
+                var obj  = comp.createObject(nav_swipe,options)
+                if(obj.pageMode === FluNavigationView.SingleInstance){
+                    nav_swipe.push(com_placeholder,options)
+                    nav_swipe2.children.push(obj)
+                    nav_swipe2.currentIndex = nav_swipe2.count - 1
+                }else{
+                    nav_swipe.push(obj)
+                }
+            }
+            d.stackItems.push(nav_list.model[nav_list.currentIndex])
+        }else{
+            console.error(comp.errorString())
+        }
     }
     function getCurrentIndex(){
         return nav_list.currentIndex

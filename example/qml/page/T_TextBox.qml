@@ -7,8 +7,9 @@ import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title:"TextBox"
+    pageMode: FluNavigationView.SingleInstance
 
+    title:"TextBox"
     FluArea{
         Layout.fillWidth: true
         height: 68
