@@ -892,14 +892,21 @@ Item {
                 delegate:Button{
                     id:item_button
                     width: 180
-                    padding:10
+                    height: 38
                     focusPolicy:Qt.TabFocus
                     background: Rectangle{
                         color:  {
-                            if(hovered){
-                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                            if(FluTheme.dark){
+                                if(item_button.hovered){
+                                    return Qt.rgba(1,1,1,0.06)
+                                }
+                                return Qt.rgba(0,0,0,0)
+                            }else{
+                                if(item_button.hovered){
+                                    return Qt.rgba(0,0,0,0.03)
+                                }
+                                return Qt.rgba(0,0,0,0)
                             }
-                            return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                         }
                         FluFocusRectangle{
                             visible: item_button.activeFocus
@@ -926,6 +933,7 @@ Item {
                         text:modelData.title
                         elide: Text.ElideRight
                         rightPadding: item_dot_loader.width
+                        verticalAlignment: Qt.AlignVCenter
                         anchors{
                             verticalCenter: parent.verticalCenter
                         }
