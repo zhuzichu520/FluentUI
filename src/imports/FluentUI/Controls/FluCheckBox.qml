@@ -19,6 +19,10 @@ Button {
     property color checkedPreesedColor: FluTheme.dark ? Qt.darker(checkedColor,1.3) : Qt.lighter(checkedColor,1.3)
     property color checkedDisableColor: FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
     property color disableColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(253/255,253/255,253/255,1)
+    property real size: 18
+    property alias textColor: btn_text.textColor
+    property bool textRight: true
+    property real textSpacing: 6
     property var clickListener : function(){
         checked = !checked
     }
@@ -39,13 +43,14 @@ Button {
     Accessible.onPressAction: control.clicked()
     focusPolicy:Qt.TabFocus
     contentItem: RowLayout{
-        spacing: 4
+        spacing: control.textSpacing
+        layoutDirection:control.textRight ? Qt.LeftToRight : Qt.RightToLeft
         Rectangle{
-            width: 20
-            height: 20
+            width: control.size
+            height: control.size
             radius: 4
             border.color: {
-                if(disabled){
+                if(!enabled){
                     return borderDisableColor
                 }
                 if(checked){
@@ -62,7 +67,7 @@ Button {
             border.width: 1
             color: {
                 if(checked){
-                    if(disabled){
+                    if(!enabled){
                         return checkedDisableColor
                     }
                     if(pressed){
@@ -73,7 +78,7 @@ Button {
                     }
                     return checkedColor
                 }
-                if(disabled){
+                if(!enabled){
                     return disableColor
                 }
                 if(hovered){
@@ -100,8 +105,9 @@ Button {
             }
         }
         FluText{
+            id:btn_text
             text: control.text
-            Layout.leftMargin: 5
+            Layout.alignment: Qt.AlignVCenter
             visible: text !== ""
         }
     }

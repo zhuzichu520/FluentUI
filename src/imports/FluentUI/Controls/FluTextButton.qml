@@ -12,7 +12,7 @@ Button {
     property color disableColor: FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
     property bool textBold: true
     property color textColor: {
-        if(disabled){
+        if(!enabled){
             return disableColor
         }
         if(pressed){

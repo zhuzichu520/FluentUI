@@ -13,11 +13,11 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 136
+        height: 128
         paddings: 10
 
         ColumnLayout{
-            spacing: 10
+            spacing: 5
             anchors{
                 top: parent.top
                 left: parent.left
@@ -43,16 +43,15 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 168
+        height: 160
         paddings: 10
 
         ColumnLayout{
-            spacing: 10
+            spacing: 5
             anchors{
                 top: parent.top
                 left: parent.left
             }
-
             FluText{
                 text:lang.navigation_view_display_mode
                 font: FluTextStyle.BodyStrong

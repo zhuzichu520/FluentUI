@@ -73,6 +73,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"RadioButton"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_RadioButton.qml")
+            }
+        }
+        FluPaneItem{
             title:"ToggleSwitch"
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_ToggleSwitch.qml")

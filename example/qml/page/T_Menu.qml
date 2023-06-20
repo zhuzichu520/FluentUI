@@ -16,7 +16,19 @@ FluScrollablePage{
         Action { text: qsTr("Open...") }
         Action { text: qsTr("Save") }
         FluMenuSeparator { }
-        Action { text: qsTr("Quit") }
+        Action {
+            text: qsTr("Quit")
+            onTriggered: {
+                showError("Quit")
+            }
+        }
+        Action {
+            text: qsTr("Disable")
+            enabled:false
+            onTriggered: {
+                showError("Disable")
+            }
+        }
         FluMenuSeparator { }
         Action { text: qsTr("Check");checkable: true;checked: true}
         FluMenu{
@@ -104,6 +116,10 @@ menu.popup()
                     Action { text: qsTr("Save") }
                     FluMenuSeparator { }
                     Action { text: qsTr("Quit") }
+                    Action {
+                        text: qsTr("Disable")
+                        enabled:false
+                    }
                     FluMenu{
                         title: "Save As..."
                         Action { text: qsTr("Doc") }

@@ -14,7 +14,7 @@ Button {
     property color normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
     property color disableColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
     property color color: {
-        if(disabled){
+        if(!enabled){
             return disableColor
         }
         if(pressed){
@@ -24,12 +24,12 @@ Button {
     }
     property color iconColor: {
         if(FluTheme.dark){
-            if(disabled){
+            if(!enabled){
                 return Qt.rgba(130/255,130/255,130/255,1)
             }
             return Qt.rgba(1,1,1,1)
         }else{
-            if(disabled){
+            if(!enabled){
                 return Qt.rgba(161/255,161/255,161/255,1)
             }
             return Qt.rgba(0,0,0,1)

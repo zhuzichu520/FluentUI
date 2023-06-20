@@ -6,13 +6,17 @@ import FluentUI
 
 Item {
     property int pageMode: FluNavigationView.SingleTop
-    property string url
+    property string url : ""
     id: control
-    visible: false
     opacity: visible
-    Behavior on opacity {
+    visible: false
+    Behavior on opacity{
         NumberAnimation{
             duration: 83
         }
     }
+    Component.onCompleted: {
+        visible = true
+    }
+
 }

@@ -13,6 +13,9 @@ Button {
     property color hoverColor: checked ? FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(1,1,1,1) : FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(222/255,222/255,222/255,1)
     property color disableColor: checked ? FluTheme.dark ? Qt.rgba(159/255,159/255,159/255,1) : Qt.rgba(159/255,159/255,159/255,1)  : FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(222/255,222/255,222/255,1)
     property alias textColor: btn_text.textColor
+    property real size: 18
+    property bool textRight: true
+    property real textSpacing: 6
     property var clickListener : function(){
         checked = !checked
     }
@@ -33,28 +36,30 @@ Button {
     font:FluTextStyle.Body
     onClicked: clickListener()
     contentItem: RowLayout{
+        spacing: control.textSpacing
+        layoutDirection:control.textRight ? Qt.LeftToRight : Qt.RightToLeft
         Rectangle{
             id:rect_check
-            width: 20
-            height: 20
-            radius: 10
+            width: control.size
+            height: control.size
+            radius: size/2
             border.width: {
-                if(checked&&disabled){
-                    return 4
+                if(checked&&!enabled){
+                    return 3
                 }
                 if(pressed){
-                    if(checked){
-                        return 5
-                    }
-                    return 1
-                }
-                if(hovered){
                     if(checked){
                         return 4
                     }
                     return 1
                 }
-                return checked ? 5 : 1
+                if(hovered){
+                    if(checked){
+                        return 3
+                    }
+                    return 1
+                }
+                return checked ? 4 : 1
             }
             Behavior on border.width {
                 NumberAnimation{
@@ -64,13 +69,13 @@ Button {
                 }
             }
             border.color: {
-                if(disabled){
+                if(!enabled){
                     return borderDisableColor
                 }
                 return  borderNormalColor
             }
             color:{
-                if(disabled){
+                if(!enabled){
                     return disableColor
                 }
                 if(hovered){

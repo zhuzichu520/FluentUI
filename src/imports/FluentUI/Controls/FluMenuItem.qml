@@ -5,14 +5,31 @@ import QtQuick.Templates as T
 import FluentUI
 
 T.MenuItem {
+    property color textColor: {
+        if(FluTheme.dark){
+            if(!enabled){
+                return Qt.rgba(131/255,131/255,131/255,1)
+            }
+            if(pressed){
+                return Qt.rgba(162/255,162/255,162/255,1)
+            }
+            return Qt.rgba(1,1,1,1)
+        }else{
+            if(!enabled){
+                return Qt.rgba(160/255,160/255,160/255,1)
+            }
+            if(pressed){
+                return Qt.rgba(96/255,96/255,96/255,1)
+            }
+            return Qt.rgba(0,0,0,1)
+        }
+    }
     id: control
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
-
     padding: 6
     spacing: 6
     icon.width: 24
@@ -22,10 +39,12 @@ T.MenuItem {
     contentItem: FluText {
         readonly property real arrowPadding: control.subMenu && control.arrow ? control.arrow.width + control.spacing : 0
         readonly property real indicatorPadding: control.checkable && control.indicator ? control.indicator.width + control.spacing : 0
-        leftPadding: !control.mirrored ? indicatorPadding : arrowPadding
-        rightPadding: control.mirrored ? indicatorPadding : arrowPadding
+        leftPadding: (!control.mirrored ? indicatorPadding : arrowPadding)+5
+        rightPadding: (control.mirrored ? indicatorPadding : arrowPadding)+5
         verticalAlignment: Text.AlignVCenter
         text: control.text
+        color: control.textColor
+
     }
     indicator: FluIcon {
         x: control.mirrored ? control.width - width - control.rightPadding : control.leftPadding
@@ -39,24 +58,29 @@ T.MenuItem {
         visible: control.subMenu
         iconSource: FluentIcons.ChevronRightMed
     }
-    background: Rectangle {
+    background: Item {
         implicitWidth: 150
-        implicitHeight: 40
+        implicitHeight: 34
         x: 1
         y: 1
         width: control.width - 2
         height: control.height - 2
-        color:{
-            if(FluTheme.dark){
-                if(control.highlighted){
-                    return Qt.rgba(1,1,1,0.06)
+        Rectangle{
+            anchors.fill: parent
+            anchors.margins: 2
+            radius: 4
+            color:{
+                if(FluTheme.dark){
+                    if(control.highlighted){
+                        return Qt.rgba(1,1,1,0.06)
+                    }
+                    return Qt.rgba(0,0,0,0)
+                }else{
+                    if(control.highlighted){
+                        return Qt.rgba(0,0,0,0.03)
+                    }
+                    return Qt.rgba(0,0,0,0)
                 }
-                return Qt.rgba(0,0,0,0)
-            }else{
-                if(control.highlighted){
-                    return Qt.rgba(0,0,0,0.03)
-                }
-                return Qt.rgba(0,0,0,0)
             }
         }
     }

@@ -76,20 +76,16 @@ Rectangle{
         anchors.right: parent.right
         height: root.height
         spacing: 0
-        RowLayout{
+        FluToggleSwitch{
+            id:btn_dark
             Layout.alignment: Qt.AlignVCenter
             Layout.rightMargin: 5
             visible: showDark
-            spacing: 5
-            FluText{
-                text:darkText
-                color:root.textColor
-            }
-            FluToggleSwitch{
-                id:btn_dark
-                checked: FluTheme.dark
-                clickListener:()=> darkClickListener(btn_dark)
-            }
+            text:darkText
+            textColor:root.textColor
+            checked: FluTheme.dark
+            textRight: false
+            clickListener:()=> darkClickListener(btn_dark)
         }
         FluIconButton{
             id:btn_minimize

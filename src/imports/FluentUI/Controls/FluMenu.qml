@@ -5,6 +5,7 @@ import QtQuick.Templates as T
 import FluentUI
 
 T.Menu {
+    property bool animEnabled: true
     id: control
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding)
@@ -20,7 +21,7 @@ T.Menu {
             property: "opacity"
             from:0
             to:1
-            duration:  83
+            duration: animEnabled ? 83 : 0
         }
     }
     exit:Transition {
@@ -28,7 +29,7 @@ T.Menu {
             property: "opacity"
             from:1
             to:0
-            duration: 83
+            duration: animEnabled ? 83 : 0
         }
     }
     contentItem: ListView {
@@ -43,7 +44,7 @@ T.Menu {
     }
     background: Rectangle {
         implicitWidth: 150
-        implicitHeight: 40
+        implicitHeight: 34
         color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(240/255,240/255,240/255,1)
         border.color: FluTheme.dark ? Window.active ? Qt.rgba(55/255,55/255,55/255,1):Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
         border.width: 1

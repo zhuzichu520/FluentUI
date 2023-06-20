@@ -11,7 +11,7 @@ Button {
     property color disableColor: FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
     property color textColor: {
         if(FluTheme.dark){
-            if(disabled){
+            if(!enabled){
                 return Qt.rgba(131/255,131/255,131/255,1)
             }
             if(pressed){
@@ -19,7 +19,7 @@ Button {
             }
             return Qt.rgba(1,1,1,1)
         }else{
-            if(disabled){
+            if(!enabled){
                 return Qt.rgba(160/255,160/255,160/255,1)
             }
             if(pressed){
@@ -44,7 +44,7 @@ Button {
         border.width: 1
         radius: 4
         color:{
-            if(disabled){
+            if(!enabled){
                 return disableColor
             }
             return hovered ? hoverColor :normalColor

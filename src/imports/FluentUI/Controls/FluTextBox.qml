@@ -15,7 +15,7 @@ TextField{
     width: 300
     enabled: !disabled
     color: {
-        if(disabled){
+        if(!enabled){
             return disableColor
         }
         return normalColor
@@ -24,7 +24,7 @@ TextField{
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectionColor: FluTheme.primaryColor.lightest
     placeholderTextColor: {
-        if(disabled){
+        if(!enabled){
             return placeholderDisableColor
         }
         if(focus){

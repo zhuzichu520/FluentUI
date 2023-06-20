@@ -12,7 +12,7 @@ Button {
     property color pressedColor: FluTheme.dark ? Qt.darker(normalColor,1.2) : Qt.lighter(normalColor,1.2)
     property color textColor: {
         if(FluTheme.dark){
-            if(disabled){
+            if(!enabled){
                 return Qt.rgba(173/255,173/255,173/255,1)
             }
             return Qt.rgba(0,0,0,1)
@@ -38,7 +38,7 @@ Button {
             radius:4
         }
         color:{
-            if(disabled){
+            if(!enabled){
                 return disableColor
             }
             if(pressed){

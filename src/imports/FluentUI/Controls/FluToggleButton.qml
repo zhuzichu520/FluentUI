@@ -51,7 +51,7 @@ Button {
             radius:8
         }
         color:{
-            if(disabled){
+            if(!enabled){
                 return disableColor
             }
             if(checked){
@@ -69,7 +69,7 @@ Button {
         color: {
             if(checked){
                 if(FluTheme.dark){
-                    if(disabled){
+                    if(!enabled){
                         return Qt.rgba(173/255,173/255,173/255,1)
                     }
                     return Qt.rgba(0,0,0,1)
@@ -78,7 +78,7 @@ Button {
                 }
             }else{
                 if(FluTheme.dark){
-                    if(disabled){
+                    if(!enabled){
                         return Qt.rgba(131/255,131/255,131/255,1)
                     }
                     if(!checked){
@@ -88,7 +88,7 @@ Button {
                     }
                     return Qt.rgba(1,1,1,1)
                 }else{
-                    if(disabled){
+                    if(!enabled){
                         return Qt.rgba(160/255,160/255,160/255,1)
                     }
                     if(!checked){

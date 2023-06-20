@@ -7,7 +7,7 @@ import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title:"ToggleSwitch"
+    title:"RadioButton"
 
     FluArea{
         Layout.fillWidth: true
@@ -17,21 +17,21 @@ FluScrollablePage{
         Row{
             spacing: 30
             anchors.verticalCenter: parent.verticalCenter
-            FluToggleSwitch{
-                disabled: toggle_switch.checked
+            FluRadioButton{
+                disabled: radio_button_switch.checked
             }
-            FluToggleSwitch{
-                disabled: toggle_switch.checked
+            FluRadioButton{
+                disabled: radio_button_switch.checked
                 text:"Right"
             }
-            FluToggleSwitch{
-                disabled: toggle_switch.checked
+            FluRadioButton{
+                disabled: radio_button_switch.checked
                 text:"Left"
                 textRight: false
             }
         }
         FluToggleSwitch{
-            id:toggle_switch
+            id:radio_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
@@ -42,10 +42,9 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'FluToggleSwitch{
+        code:'FluRadioButton{
     text:"Text"
 }'
     }
-
 
 }

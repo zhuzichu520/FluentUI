@@ -22,7 +22,12 @@ FluScrollablePage{
             }
             FluCheckBox{
                 disabled: check_box_switch.checked
-                text:"Text"
+                text:"Right"
+            }
+            FluCheckBox{
+                disabled: check_box_switch.checked
+                text:"Left"
+                textRight: false
             }
         }
         FluToggleSwitch{

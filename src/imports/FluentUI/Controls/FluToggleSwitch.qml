@@ -7,7 +7,7 @@ import FluentUI
 Button {
     property bool disabled: false
     property string contentDescription: ""
-    property color disableColor: checked ? FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(233/255,233/255,233/255,1) :FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(233/255,233/255,233/255,1)
+    property color disableColor: FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(233/255,233/255,233/255,1)
     property color checkColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     property color hoverColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(240/255,240/255,240/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(253/255,253/255,253/255,1)
@@ -17,6 +17,9 @@ Button {
     property color dotNormalColor: FluTheme.dark ? Qt.rgba(208/255,208/255,208/255,1) : Qt.rgba(93/255,93/255,93/255,1)
     property color dotCheckColor: FluTheme.dark ? Qt.rgba(0/255,0/255,0/255,1) : Qt.rgba(255/255,255/255,255/255,1)
     property color dotDisableColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(150/255,150/255,150/255,1)
+    property real textSpacing: 6
+    property bool textRight: true
+    property alias textColor: btn_text.textColor
     property var clickListener : function(){
         checked = !checked
     }
@@ -32,7 +35,8 @@ Button {
     onClicked: clickListener()
     contentItem: Item{}
     background : RowLayout{
-        spacing: 0
+        spacing: control.textSpacing
+        layoutDirection:control.textRight ? Qt.LeftToRight : Qt.RightToLeft
         Rectangle {
             id:control_backgound
             width: 40
@@ -43,7 +47,7 @@ Button {
                 radius: 20
             }
             color: {
-                if(disabled){
+                if(!enabled){
                     return disableColor
                 }
                 if(checked){
@@ -56,7 +60,7 @@ Button {
             }
             border.width: 1
             border.color: {
-                if(disabled){
+                if(!enabled){
                     return borderDisableColor
                 }
                 if(checked){
@@ -74,10 +78,10 @@ Button {
                 }
                 height: 20
                 radius: 10
-                scale: hovered&!disabled ? 7/10 : 6/10
+                scale: hovered&enabled ? 7/10 : 6/10
                 anchors.verticalCenter: parent.verticalCenter
                 color: {
-                    if(disabled){
+                    if(!enabled){
                         return dotDisableColor
                     }
                     if(checked){
@@ -96,28 +100,25 @@ Button {
                     NumberAnimation {
                         duration: 167
                         easing.type: Easing.BezierSpline
-                        easing.bezierCurve: [ 1, 0, 0, 0 ]
+                        easing.bezierCurve: [ 0, 0, 0, 1 ]
                     }
                 }
                 Behavior on width {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.BezierSpline
-                        easing.bezierCurve: [ 1, 0, 0, 0 ]
                     }
                 }
                 Behavior on scale {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.BezierSpline
-                        easing.bezierCurve: [ 1, 0, 0, 0 ]
                     }
                 }
             }
         }
         FluText{
+            id:btn_text
             text: control.text
-            Layout.leftMargin: 5
+            Layout.alignment: Qt.AlignVCenter
             visible: text !== ""
         }
     }

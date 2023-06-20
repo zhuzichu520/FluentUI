@@ -219,7 +219,7 @@ CustomWindow {
             NumberAnimation {
                 target: canvas
                 property: "radius"
-                duration: 666
+                duration: 333
                 easing.type: Easing.OutCubic
             }
         }

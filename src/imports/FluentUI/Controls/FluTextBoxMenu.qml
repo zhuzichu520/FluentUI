@@ -9,6 +9,7 @@ FluMenu{
     property string selectAllText : "全选"
     property var inputItem
     id:menu
+    animEnabled: false
     width: 120
     onVisibleChanged: {
         if(visible){
