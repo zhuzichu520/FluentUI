@@ -60,14 +60,14 @@ T.MenuItem {
     }
     background: Item {
         implicitWidth: 150
-        implicitHeight: 34
+        implicitHeight: 36
         x: 1
         y: 1
         width: control.width - 2
         height: control.height - 2
         Rectangle{
             anchors.fill: parent
-            anchors.margins: 2
+            anchors.margins: 3
             radius: 4
             color:{
                 if(FluTheme.dark){
@@ -77,7 +77,7 @@ T.MenuItem {
                     return Qt.rgba(0,0,0,0)
                 }else{
                     if(control.highlighted){
-                        return Qt.rgba(0,0,0,0.03)
+                        return Qt.rgba(0,0,0,0.06)
                     }
                     return Qt.rgba(0,0,0,0)
                 }

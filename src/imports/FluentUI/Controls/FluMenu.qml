@@ -44,7 +44,7 @@ T.Menu {
     }
     background: Rectangle {
         implicitWidth: 150
-        implicitHeight: 34
+        implicitHeight: 36
         color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(240/255,240/255,240/255,1)
         border.color: FluTheme.dark ? Window.active ? Qt.rgba(55/255,55/255,55/255,1):Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
         border.width: 1
