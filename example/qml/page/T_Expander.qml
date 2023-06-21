@@ -27,7 +27,7 @@ FluScrollablePage{
                 Layout.topMargin: 20
                 Item{
                     anchors.fill: parent
-                    ColumnLayout{
+                    FluRadioButtons{
                         spacing: 8
                         anchors{
                             top: parent.top
@@ -35,17 +35,14 @@ FluScrollablePage{
                             topMargin: 15
                             leftMargin: 15
                         }
-                        Repeater{
-                            id:repeater
-                            property int selecIndex : 0
-                            model: 3
-                            delegate:  FluRadioButton{
-                                checked : repeater.selecIndex===index
-                                text:"Radio Button_"+index
-                                clickListener:function() {
-                                    repeater.selecIndex = index
-                                }
-                            }
+                        FluRadioButton{
+                            text:"Radio Button_1"
+                        }
+                        FluRadioButton{
+                            text:"Radio Button_2"
+                        }
+                        FluRadioButton{
+                            text:"Radio Button_3"
                         }
                     }
                 }

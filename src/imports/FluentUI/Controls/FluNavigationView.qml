@@ -122,8 +122,7 @@ Item {
             Behavior on height {
                 NumberAnimation{
                     duration: 167
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: [ 0, 0, 0, 1 ]
+                    easing.type: Easing.InCubic
                 }
             }
         }
@@ -140,8 +139,7 @@ Item {
             Behavior on height {
                 NumberAnimation{
                     duration: 167
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: [ 0, 0, 0, 1 ]
+                    easing.type: Easing.InCubic
                 }
             }
             width: layout_list.width
@@ -333,8 +331,7 @@ Item {
             Behavior on height {
                 NumberAnimation{
                     duration: 167
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: [ 0, 0, 0, 1 ]
+                    easing.type: Easing.InCubic
                 }
             }
             clip: true
@@ -571,8 +568,7 @@ Item {
                 Behavior on Layout.preferredWidth {
                     NumberAnimation{
                         duration: 167
-                        easing.type: Easing.BezierSpline
-                        easing.bezierCurve: [ 0, 0, 0, 1 ]
+                        easing.type: Easing.InCubic
                     }
                 }
             }
@@ -638,8 +634,7 @@ Item {
         Behavior on anchors.leftMargin {
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: [ 0, 0, 0, 1 ]
+                easing.type: Easing.InCubic
             }
         }
         StackView{
@@ -695,15 +690,13 @@ Item {
         Behavior on width {
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: [ 0, 0, 0, 1 ]
+                easing.type: Easing.InCubic
             }
         }
         Behavior on x {
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: [ 0, 0, 0, 1 ]
+                easing.type: Easing.InCubic
             }
         }
         visible: {
@@ -768,7 +761,7 @@ Item {
             clip: true
             ScrollBar.vertical: FluScrollBar {}
             model:d.handleItems()
-            highlightMoveDuration: 150
+            highlightMoveDuration: 167
             highlight: Item{
                 clip: true
                 Rectangle{

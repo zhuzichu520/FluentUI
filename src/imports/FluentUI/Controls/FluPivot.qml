@@ -27,7 +27,8 @@ Item {
         clip: true
         spacing: 20
         interactive: false
-        orientation:ListView.Horizontal
+        orientation: ListView.Horizontal
+        highlightMoveDuration: 167
         highlight: Item{
             clip: true
             Rectangle{
@@ -38,7 +39,8 @@ Item {
                 y:37
                 Behavior on width {
                     NumberAnimation{
-                        duration: 150
+                        duration: 167
+                        easing.type: Easing.InCubic
                     }
                 }
             }
@@ -59,11 +61,6 @@ Item {
                         if(item_button.hovered)
                             return hoverColor
                         return normalColor
-                    }
-                }
-                transitions: Transition {
-                    NumberAnimation{
-                        duration: 400;
                     }
                 }
             }

@@ -221,6 +221,9 @@ FluScrollablePage{
             }
             FluMenuItem{
                 text:"Menu_4"
+                onClicked: {
+                    console.debug(parent.height)
+                }
             }
         }
         FluToggleSwitch{
@@ -259,24 +262,23 @@ FluScrollablePage{
         height: 100
         paddings: 10
         Layout.topMargin: 20
-        ColumnLayout{
+        FluRadioButtons{
             spacing: 8
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-            Repeater{
-                id:repeater
-                property int selecIndex : 0
-                model: 3
-                delegate:  FluRadioButton{
-                    checked : repeater.selecIndex===index
-                    disabled:radio_button_switch.checked
-                    text:"Radio Button_"+index
-                    clickListener:function(){
-                        repeater.selecIndex = index
-                    }
-                }
+            FluRadioButton{
+                disabled:radio_button_switch.checked
+                text:"Radio Button_1"
+            }
+            FluRadioButton{
+                disabled:radio_button_switch.checked
+                text:"Radio Button_2"
+            }
+            FluRadioButton{
+                disabled:radio_button_switch.checked
+                text:"Radio Button_3"
             }
         }
         FluToggleSwitch{

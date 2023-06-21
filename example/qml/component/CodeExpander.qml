@@ -132,7 +132,8 @@ FluExpander{
                     "FluAcrylic",
                     "FluRemoteLoader",
                     "FluMenuBar",
-                    "FluPagination"
+                    "FluPagination",
+                    "FluRadioButtons"
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");

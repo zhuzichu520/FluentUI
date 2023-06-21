@@ -16,7 +16,6 @@ T.Menu {
     spacing: 0
     delegate: FluMenuItem { }
     enter: Transition {
-        reversible: true
         NumberAnimation {
             property: "opacity"
             from:0

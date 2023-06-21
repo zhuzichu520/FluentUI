@@ -77,7 +77,7 @@ Button {
     onClicked: {
         if(items && menu.count !==0){
             var pos = control.mapToItem(null, 0, 0)
-            var containerHeight = menu.height
+            var containerHeight = menu.count*36
             if(window.height>pos.y+control.height+containerHeight){
                 menu.y = control.height
             }else if(pos.y>containerHeight){
@@ -90,6 +90,7 @@ Button {
     }
     FluMenu{
         id:menu
+        modal:true
         width: control.width
     }
 }
