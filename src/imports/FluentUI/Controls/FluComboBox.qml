@@ -24,7 +24,6 @@ ComboBox {
         text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
         palette.text: control.palette.text
         palette.highlightedText: control.palette.highlightedText
-        font.bold: control.currentIndex === index
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
     }
