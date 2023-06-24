@@ -42,27 +42,31 @@ T.Slider {
             }
         }
     }
+    background: Item {
+        x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
+        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : 0)
+        implicitWidth: control.horizontal ? 180 : 6
+        implicitHeight: control.horizontal ? 6 : 180
+        width: control.horizontal ? control.availableWidth : implicitWidth
+        height: control.horizontal ? implicitHeight : control.availableHeight
+        Rectangle{
+            anchors.fill: parent
+            anchors.margins: 1
+            radius: 2
+            color:FluTheme.dark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
+        }
+        scale: control.horizontal && control.mirrored ? -1 : 1
+        Rectangle {
+            y: control.horizontal ? 0 : control.visualPosition * parent.height
+            width: control.horizontal ? control.position * parent.width : 6
+            height: control.horizontal ? 6 : control.position * parent.height
+            radius: 3
+            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+        }
+    }
     FluTooltip{
         parent: control.handle
         visible: control.tooltipEnabled && control.pressed
         text:String(control.value)
-    }
-    background: Rectangle {
-        x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
-        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : 0)
-        implicitWidth: control.horizontal ? 180 : 4
-        implicitHeight: control.horizontal ? 4 : 180
-        width: control.horizontal ? control.availableWidth : implicitWidth
-        height: control.horizontal ? implicitHeight : control.availableHeight
-        radius: 3
-        color:FluTheme.dark ? Qt.rgba(162/255,162/255,162/255,1) : Qt.rgba(138/255,138/255,138/255,1)
-        scale: control.horizontal && control.mirrored ? -1 : 1
-        Rectangle {
-            y: control.horizontal ? 0 : control.visualPosition * parent.height
-            width: control.horizontal ? control.position * parent.width : 4
-            height: control.horizontal ? 4 : control.position * parent.height
-            radius: 2
-            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
-        }
     }
 }
