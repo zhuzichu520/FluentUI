@@ -685,7 +685,6 @@ Item {
             }
             return "transparent"
         }
-        clip: true
         x: visible ? 0 : -width
         Behavior on width {
             NumberAnimation{
@@ -955,7 +954,6 @@ Item {
                 radius: 4
             }
             color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
-
         }
         function showPopup(pos,model){
             control_popup.x = pos.x
