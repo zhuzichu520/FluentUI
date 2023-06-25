@@ -16,7 +16,15 @@ set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 add_definitions(-DVERSION=1,3,6,0)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
-qt_standard_project_setup()
+
+if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
+    qt_standard_project_setup()
+else()
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+    set(CMAKE_AUTOUIC ON)
+endif()
+
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
