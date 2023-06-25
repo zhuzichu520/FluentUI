@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.20)
 project(fluentuiplugin LANGUAGES CXX)
 
 #配置通用编译
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
@@ -13,7 +12,7 @@ endif()
 set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,6,0)
+add_definitions(-DVERSION=1,3,6,1)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 
@@ -24,7 +23,6 @@ else()
     set(CMAKE_AUTORCC ON)
     set(CMAKE_AUTOUIC ON)
 endif()
-
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)

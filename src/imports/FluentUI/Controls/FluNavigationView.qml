@@ -121,8 +121,7 @@ Item {
             }
             Behavior on height {
                 NumberAnimation{
-                    duration: 167
-                    easing.type: Easing.InCubic
+                    duration: 83
                 }
             }
         }
@@ -138,8 +137,7 @@ Item {
             }
             Behavior on height {
                 NumberAnimation{
-                    duration: 167
-                    easing.type: Easing.InCubic
+                    duration: 83
                 }
             }
             width: layout_list.width
@@ -330,8 +328,7 @@ Item {
         Item{
             Behavior on height {
                 NumberAnimation{
-                    duration: 167
-                    easing.type: Easing.InCubic
+                    duration: 83
                 }
             }
             clip: true

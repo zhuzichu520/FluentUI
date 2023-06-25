@@ -243,8 +243,6 @@ Item {
             }
             FluTextButton{
                 id:title
-                leftPadding: 0
-                rightPadding: 0
                 anchors{
                     verticalCenter: parent.verticalCenter
                     left: parent.left
