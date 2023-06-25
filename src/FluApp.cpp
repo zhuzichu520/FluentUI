@@ -38,13 +38,13 @@ void FluApp::run(){
 
 void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegister* fluRegister){
     if(!routes().contains(route)){
-        qErrnoWarning("没有找到当前路由");
+        qFatal()<<"No route found "<<route;
         return;
     }
     QQmlEngine *engine = qmlEngine(appWindow);
     QQmlComponent component(engine, routes().value(route).toString());
     if (component.isError()) {
-        qWarning() << component.errors();
+        qFatal() << component.errors();
         return;
     }
     QVariantMap properties;
