@@ -79,7 +79,11 @@ Rectangle {
                         if(!maximumWidth){
                             maximumWidth = 65535
                         }
-                        return Math.min(Math.max(minimumWidth, w),maximumWidth)
+                        w = Math.min(Math.max(minimumWidth, w),maximumWidth)
+                        if(column === item_loader.column){
+                            item_loader.width = w
+                        }
+                        return w
                     }
                     return implicitColumnWidth(column)
                 }else{
@@ -98,7 +102,11 @@ Rectangle {
                 if(FluTools.qtMajor()>=6 && FluTools.qtMinor()>=5){
                     h = explicitRowHeight(row)
                     if (h >= 0){
-                        return Math.max(40, h)
+                        h = Math.max(40, h)
+                        if(row === item_loader.row){
+                            item_loader.height = h
+                        }
+                        return h
                     }
                     return implicitRowHeight(row)
                 }else{
@@ -153,8 +161,8 @@ Rectangle {
         var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
         item_loader.column = column
         item_loader.row = row
-        item_loader.x =table_view.contentX + cellPosition.x
-        item_loader.y =table_view.contentY + cellPosition.y
+        item_loader.x = table_view.contentX + cellPosition.x
+        item_loader.y = table_view.contentY + cellPosition.y
         item_loader.width = table_view.columnWidthProvider(column)
         item_loader.height = table_view.rowHeightProvider(row)
         item_loader.display = display
