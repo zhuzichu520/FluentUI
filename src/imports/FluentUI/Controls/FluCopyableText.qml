@@ -14,6 +14,7 @@ TextEdit {
     leftPadding: 0
     rightPadding: 0
     topPadding: 0
+    selectedTextColor: FluColors.Grey220
     bottomPadding: 0
     selectionColor: FluTheme.primaryColor.lightest
     font:FluTextStyle.Body

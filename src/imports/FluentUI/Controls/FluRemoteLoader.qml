@@ -4,15 +4,20 @@ import FluentUI
 
 FluStatusView {
     property url source: ""
+    property bool lazy: false
     color:"transparent"
     id:control
     onErrorClicked: {
         reload()
     }
+    Component.onCompleted: {
+        if(!lazy){
+            loader.source = control.source
+        }
+    }
     Loader{
         id:loader
         anchors.fill: parent
-        source: control.source
         asynchronous: true
         onStatusChanged: {
             if(status === Loader.Error){

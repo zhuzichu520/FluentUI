@@ -44,6 +44,7 @@ ComboBox {
         bottomPadding: 6 - control.padding
         renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         selectionColor: FluTheme.primaryColor.lightest
+        selectedTextColor: control.palette.highlightedText
         text: control.editable ? control.editText : control.displayText
         enabled: control.editable
         autoScroll: control.editable
@@ -57,11 +58,13 @@ ComboBox {
         leftInset:1
         topInset:1
         bottomInset:1
-        focus: true
         rightInset:1
         background: FluTextBoxBackground{
             border.width: 0
             inputItem: contentItem
+        }
+        Component.onCompleted: {
+            focus = true
         }
     }
 
