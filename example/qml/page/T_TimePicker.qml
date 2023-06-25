@@ -27,6 +27,9 @@ FluScrollablePage{
             }
 
             FluTimePicker{
+                onCurrentChanged: {
+                    showSuccess(current.toLocaleTimeString(Qt.locale("de_DE")))
+                }
             }
 
         }
@@ -53,11 +56,14 @@ FluScrollablePage{
             }
 
             FluText{
-                text:"hourFormat=FluTimePicker.H"
+                text:"hourFormat=FluTimePicker.HH"
             }
 
             FluTimePicker{
                  hourFormat:FluTimePicker.HH
+                 onCurrentChanged: {
+                     showSuccess(current.toLocaleTimeString(Qt.locale("de_DE")))
+                 }
             }
 
         }

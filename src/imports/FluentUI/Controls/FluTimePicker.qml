@@ -12,10 +12,10 @@ Rectangle {
     property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-    property var window : Window.window
     property int hourFormat: FluTimePicker.H
     property int isH: hourFormat === FluTimePicker.H
-    id:root
+    property var current
+    id:control
     color: {
         if(mouse_area.containsMouse){
             return hoverColor
@@ -27,6 +27,13 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
+    Item{
+        id:d
+        property var window: Window.window
+        property bool changeFlag: true
+        property var rowData: ["","",""]
+        visible: false
+    }
     MouseArea{
         id:mouse_area
         hoverEnabled: true
@@ -312,8 +319,24 @@ Rectangle {
                         }
                         text: "确定"
                         onClicked: {
-                            changeFlag = false
+                            d.changeFlag = false
                             popup.close()
+                            const hours = text_hour.text
+                            const minutes = text_minute.text
+                            const period = text_ampm.text
+                            const date = new Date()
+                            var hours24 = parseInt(hours);
+                            if(control.hourFormat === FluTimePicker.H){
+                                if (hours === "12") {
+                                    hours24 = (period === "上午") ? 0 : 12;
+                                } else {
+                                    hours24 = (period === "上午") ? hours24 : hours24 + 12;
+                                }
+                            }
+                            date.setHours(hours24);
+                            date.setMinutes(parseInt(minutes));
+                            date.setSeconds(0);
+                            current = date
                         }
                     }
                 }
@@ -321,10 +344,10 @@ Rectangle {
         }
         y:35
         function showPopup() {
-            changeFlag = true
-            rowData[0] = text_hour.text
-            rowData[1] = text_minute.text
-            rowData[2] = text_ampm.text
+            d.changeFlag = true
+            d.rowData[0] = text_hour.text
+            d.rowData[1] = text_minute.text
+            d.rowData[2] = text_ampm.text
 
             var now = new Date();
 
@@ -353,27 +376,24 @@ Rectangle {
             if(isH){
                 text_ampm.text = ampm
             }
-
-            var pos = root.mapToItem(null, 0, 0)
-            if(window.height>pos.y+root.height+container.height){
-                popup.y = root.height
+            var pos = control.mapToItem(null, 0, 0)
+            if(d.window.height>pos.y+control.height+container.height){
+                popup.y = control.height
             } else if(pos.y>container.height){
                 popup.y = -container.height
             } else {
-                popup.y = window.height-(pos.y+container.height)
+                popup.y = d.window.height-(pos.y+container.height)
             }
             popup.open()
         }
         onClosed: {
-            if(changeFlag){
-                text_hour.text = rowData[0]
-                text_minute.text = rowData[1]
-                text_ampm.text = rowData[2]
+            if(d.changeFlag){
+                text_hour.text = d.rowData[0]
+                text_minute.text = d.rowData[1]
+                text_ampm.text = d.rowData[2]
             }
         }
     }
-    property bool changeFlag: true
-    readonly property var rowData: ["","",""]
     function generateArray(start, n) {
         var arr = [];
         for (var i = start; i <= n; i++) {

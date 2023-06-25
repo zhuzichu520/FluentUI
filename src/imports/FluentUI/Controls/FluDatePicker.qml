@@ -8,11 +8,9 @@ Rectangle {
     property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-    property var window : Window.window
     property bool showYear: true
-    property bool changeFlag: true
-    readonly property var rowData: ["","",""]
-    id:root
+    property var current
+    id:control
     color: {
         if(mouse_area.containsMouse){
             return hoverColor
@@ -24,6 +22,13 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
+    Item{
+        id:d
+        property var window: Window.window
+        property bool changeFlag: true
+        property var rowData: ["","",""]
+        visible: false
+    }
     MouseArea{
         id:mouse_area
         hoverEnabled: true
@@ -317,8 +322,19 @@ Rectangle {
                         }
                         text: "确定"
                         onClicked: {
-                            changeFlag = false
+                            d.changeFlag = false
                             popup.close()
+                            const year = text_year.text
+                            const month = text_month.text
+                            const day = text_day.text
+                            const date = new Date()
+                            date.setFullYear(parseInt(year));
+                            date.setMonth(parseInt(month) - 1);
+                            date.setDate(parseInt(day));
+                            date.setHours(0);
+                            date.setMinutes(0);
+                            date.setSeconds(0);
+                            current = date
                         }
                     }
                 }
@@ -326,10 +342,10 @@ Rectangle {
         }
         y:35
         function showPopup() {
-            changeFlag = true
-            rowData[0] = text_year.text
-            rowData[1] = text_month.text
-            rowData[2] = text_day.text
+            d.changeFlag = true
+            d.rowData[0] = text_year.text
+            d.rowData[1] = text_month.text
+            d.rowData[2] = text_day.text
             const now = new Date();
             var year = text_year.text === "年"? now.getFullYear() : Number(text_year.text);
             var month = text_month.text === "月"? now.getMonth() + 1 : Number(text_month.text);
@@ -342,21 +358,21 @@ Rectangle {
             list_view_3.model = generateMonthDaysArray(year,month)
             list_view_3.currentIndex = list_view_3.model.indexOf(day)
             text_day.text = day
-            var pos = root.mapToItem(null, 0, 0)
-            if(window.height>pos.y+root.height+container.height){
-                popup.y = root.height
+            var pos = control.mapToItem(null, 0, 0)
+            if(d.window.height>pos.y+control.height+container.height){
+                popup.y = control.height
             } else if(pos.y>container.height){
                 popup.y = -container.height
             } else {
-                popup.y = window.height-(pos.y+container.height)
+                popup.y = d.window.height-(pos.y+container.height)
             }
             popup.open()
         }
         onClosed: {
-            if(changeFlag){
-                text_year.text = rowData[0]
-                text_month.text = rowData[1]
-                text_day.text = rowData[2]
+            if(d.changeFlag){
+                text_year.text = d.rowData[0]
+                text_month.text = d.rowData[1]
+                text_day.text = d.rowData[2]
             }
         }
     }

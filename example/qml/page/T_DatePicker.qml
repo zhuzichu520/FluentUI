@@ -23,6 +23,9 @@ FluScrollablePage{
                 text:"showYear=true"
             }
             FluDatePicker{
+                onCurrentChanged: {
+                    showSuccess(current.toLocaleDateString())
+                }
             }
         }
     }
@@ -50,7 +53,9 @@ FluScrollablePage{
 
             FluDatePicker{
                 showYear:false
-
+                onCurrentChanged: {
+                    showSuccess(current.toLocaleDateString())
+                }
             }
         }
     }
