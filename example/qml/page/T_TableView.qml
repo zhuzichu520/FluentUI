@@ -48,9 +48,9 @@ FluContentPage{
 
     Component{
         id:com_combobox
-
         FluComboBox {
             anchors.fill: parent
+            focus: true
             currentIndex: display
             editable: true
             model: ListModel {
@@ -63,8 +63,9 @@ FluContentPage{
                 currentIndex=[100,300,500,1000].findIndex((element) => element === Number(display))
                 selectAll()
             }
-            TableView.onCommit: {
+            onCommit: {
                 display = editText
+                tableView.closeEditor()
             }
         }
     }
@@ -97,8 +98,7 @@ FluContentPage{
             {
                 title: '别名',
                 dataIndex: 'nickname',
-                width:100,
-
+                width:100
             }
         ]
     }

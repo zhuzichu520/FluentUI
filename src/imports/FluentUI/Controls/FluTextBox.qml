@@ -4,6 +4,7 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 TextField{
+    signal commit
     property bool disabled: false
     property int iconSource: 0
     property color normalColor: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
@@ -31,6 +32,12 @@ TextField{
             return placeholderFocusColor
         }
         return placeholderNormalColor
+    }
+    Keys.onEnterPressed: {
+        control.commit()
+    }
+    Keys.onReturnPressed: {
+        control.commit()
     }
     selectByMouse: true
     rightPadding: icon_end.visible ? 50 : 30

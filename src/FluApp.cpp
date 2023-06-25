@@ -38,13 +38,13 @@ void FluApp::run(){
 
 void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegister* fluRegister){
     if(!routes().contains(route)){
-        qFatal()<<"No route found "<<route;
+        qCritical()<<"No route found "<<route;
         return;
     }
     QQmlEngine *engine = qmlEngine(appWindow);
     QQmlComponent component(engine, routes().value(route).toString());
     if (component.isError()) {
-        qFatal() << component.errors();
+        qCritical() << component.errors();
         return;
     }
     QVariantMap properties;

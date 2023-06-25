@@ -6,6 +6,7 @@ import QtQuick.Templates as T
 
 ComboBox {
     id: control
+    signal commit
     property bool disabled: false
     property color normalColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
@@ -64,7 +65,13 @@ ComboBox {
             inputItem: contentItem
         }
         Component.onCompleted: {
-            focus = true
+            forceActiveFocus()
+        }
+        Keys.onEnterPressed: {
+            control.commit()
+        }
+        Keys.onReturnPressed: {
+            control.commit()
         }
     }
 

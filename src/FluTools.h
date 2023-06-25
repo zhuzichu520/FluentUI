@@ -50,6 +50,10 @@ public:
 
     Q_INVOKABLE void setQuitOnLastWindowClosed(bool val);
 
+    Q_INVOKABLE int qtMajor();
+
+    Q_INVOKABLE int qtMinor();
+
 };
 
 #endif // FLUTOOLS_H

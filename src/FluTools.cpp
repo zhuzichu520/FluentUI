@@ -63,6 +63,18 @@ bool FluTools::isWin(){
 #endif
 }
 
+int FluTools::qtMajor(){
+    const QString qtVersion = QString::fromLatin1(qVersion());
+    const QStringList versionParts = qtVersion.split('.');
+    return versionParts[0].toInt();
+}
+
+int FluTools::qtMinor(){
+    const QString qtVersion = QString::fromLatin1(qVersion());
+    const QStringList versionParts = qtVersion.split('.');
+    return versionParts[1].toInt();
+}
+
 void FluTools::setQuitOnLastWindowClosed(bool val){
     qApp->setQuitOnLastWindowClosed(val);
 }

@@ -38,9 +38,13 @@ Rectangle {
             anchors.fill: parent
             text: display
             verticalAlignment: TextInput.AlignVCenter
-            Component.onCompleted: selectAll()
-            TableView.onCommit: {
+            Component.onCompleted: {
+                forceActiveFocus()
+                selectAll()
+            }
+            onCommit: {
                 display = text
+                tableView.closeEditor()
             }
         }
     }
@@ -52,6 +56,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+
         TableView {
             id:table_view
             ListModel{
@@ -62,27 +67,44 @@ Rectangle {
             ScrollBar.vertical: FluScrollBar{}
             selectionModel: ItemSelectionModel {}
             columnWidthProvider: function(column) {
-                let w = explicitColumnWidth(column)
-                if (w >= 0){
-                    var minimumWidth = columnSource[column].minimumWidth
-                    var maximumWidth = columnSource[column].maximumWidth
+                var w
+                var minimumWidth = columnSource[column].minimumWidth
+                var maximumWidth = columnSource[column].maximumWidth
+                if(FluTools.qtMajor()>=6 && FluTools.qtMinor()>=5){
+                    w = explicitColumnWidth(column)
+                    if (w >= 0){
+                        if(!minimumWidth){
+                            minimumWidth = 100
+                        }
+                        if(!maximumWidth){
+                            maximumWidth = 65535
+                        }
+                        return Math.min(Math.max(minimumWidth, w),maximumWidth)
+                    }
+                    return implicitColumnWidth(column)
+                }else{
+                    w = implicitColumnWidth(column)
                     if(!minimumWidth){
                         minimumWidth = 100
                     }
                     if(!maximumWidth){
                         maximumWidth = 65535
                     }
-
                     return Math.min(Math.max(minimumWidth, w),maximumWidth)
                 }
-                return implicitColumnWidth(column)
             }
             rowHeightProvider: function(row) {
-                let h = explicitRowHeight(row)
-                if (h >= 0){
+                var h
+                if(FluTools.qtMajor()>=6 && FluTools.qtMinor()>=5){
+                    h = explicitRowHeight(row)
+                    if (h >= 0){
+                        return Math.max(40, h)
+                    }
+                    return implicitRowHeight(row)
+                }else{
+                    h = implicitRowHeight(row)
                     return Math.max(40, h)
                 }
-                return implicitRowHeight(row)
             }
             model: table_model
             clip: true
@@ -92,6 +114,17 @@ Rectangle {
                 color: selected ? FluTheme.primaryColor.lightest: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
+                TapHandler{
+                    onDoubleTapped: {
+                        item_loader.sourceComponent = obtEditDelegate(column,row)
+                        var index = table_view.index(row,column)
+                    }
+                    onTapped: {
+                        if(!current){
+                            item_loader.sourceComponent = null
+                        }
+                    }
+                }
                 FluText {
                     text: display
                     anchors.fill: parent
@@ -99,16 +132,39 @@ Rectangle {
                     elide: Text.ElideRight
                     verticalAlignment: Text.AlignVCenter
                 }
-                TableView.editDelegate: {
-                    var obj =columnSource[column].editDelegate
-                    if(obj){
-                        return obj
-                    }
-                    return com_edit
-                }
+            }
+        }
+        Loader{
+            id:item_loader
+            z:2
+            property var display
+            property int column
+            property int row
+            property var tableView: control
+            onDisplayChanged: {
+                table_model.setData(table_view.index(row,column),"display",display)
             }
         }
     }
+
+    function obtEditDelegate(column,row){
+        var display = table_model.data(table_view.index(row,column),"display")
+        var cellItem = table_view.itemAtCell(column, row)
+        var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
+        item_loader.column = column
+        item_loader.row = row
+        item_loader.x =table_view.contentX + cellPosition.x
+        item_loader.y =table_view.contentY + cellPosition.y
+        item_loader.width = table_view.columnWidthProvider(column)
+        item_loader.height = table_view.rowHeightProvider(row)
+        item_loader.display = display
+        var obj =columnSource[column].editDelegate
+        if(obj){
+            return obj
+        }
+        return com_edit
+    }
+
     Component{
         id:com_handle
         FluControl {
@@ -160,5 +216,10 @@ Rectangle {
         syncView: table_view
         clip: true
     }
+
+    function closeEditor(){
+        item_loader.sourceComponent = null
+    }
+
 }
 

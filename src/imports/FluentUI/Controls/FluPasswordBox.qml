@@ -4,6 +4,7 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 TextField{
+    signal commit
     property bool disabled: false
     property int iconSource: 0
     property color normalColor: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
@@ -49,6 +50,12 @@ TextField{
                 rightMargin: 5
             }
         }
+    }
+    Keys.onEnterPressed: {
+        control.commit()
+    }
+    Keys.onBackPressed: {
+        control.commit()
     }
     FluIconButton{
         id:btn_reveal
