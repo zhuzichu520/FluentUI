@@ -75,6 +75,7 @@ Rectangle {
             ScrollBar.vertical: FluScrollBar{}
             selectionModel: ItemSelectionModel {
                 id:selection_model
+                model: table_model
             }
             columnWidthProvider: function(column) {
                 var w = columnSource[column].width
@@ -108,7 +109,7 @@ Rectangle {
             clip: true
             delegate: Rectangle {
                 required property bool selected
-                required property bool current
+                property bool current: selection_model.currentIndex === table_model.index(row,column)
                 property var readOnly: columnSource[column].readOnly
                 color: selected ? FluTheme.primaryColor.lightest: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
@@ -116,11 +117,12 @@ Rectangle {
                 TapHandler{
                     acceptedButtons: Qt.LeftButton
                     onDoubleTapped: {
+                        selection_model.setCurrentIndex(table_model.index(row,column), ItemSelectionModel.Current)
                         if(readOnly){
                             return
                         }
                         item_loader.sourceComponent = obtEditDelegate(column,row)
-                        var index = table_view.index(row,column)
+                        var index = table_model.index(row,column)
                     }
                     onTapped: {
                         if(!current){
@@ -145,13 +147,13 @@ Rectangle {
             property int row
             property var tableView: control
             onDisplayChanged: {
-                table_model.setData(table_view.index(row,column),"display",display)
+                table_model.setData(table_model.index(row,column),"display",display)
             }
         }
     }
 
     function obtEditDelegate(column,row){
-        var display = table_model.data(table_view.index(row,column),"display")
+        var display = table_model.data(table_model.index(row,column),"display")
         var cellItem = table_view.itemAtCell(column, row)
         var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
         item_loader.column = column
