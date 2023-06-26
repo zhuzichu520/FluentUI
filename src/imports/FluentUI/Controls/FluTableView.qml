@@ -242,7 +242,7 @@ Rectangle {
                 onDoubleTapped: {
                     selection_model.clear()
                     for(var i=0;i<=table_view.rows;i++){
-                        selection_model.select(table_view.index(i,column),ItemSelectionModel.Select)
+                        selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
                     }
                 }
             }
@@ -315,7 +315,7 @@ Rectangle {
                 onDoubleTapped: {
                     selection_model.clear()
                     for(var i=0;i<=columnSource.length;i++){
-                        selection_model.select(table_view.index(row,i),ItemSelectionModel.Select)
+                        selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
                     }
                 }
             }
