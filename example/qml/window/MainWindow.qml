@@ -112,6 +112,12 @@ CustomWindow {
             }
             Row{
                 z:8
+                anchors{
+                    top: parent.top
+                    left: parent.left
+                    topMargin: FluTools.isMacos() ? 20 : 5
+                    leftMargin: 5
+                }
                 FluIconButton{
                     iconSource: FluentIcons.ChromeBack
                     width: 30
