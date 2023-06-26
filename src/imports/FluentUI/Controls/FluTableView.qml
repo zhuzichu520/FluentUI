@@ -361,7 +361,7 @@ Rectangle {
     }
 
     function resetPosition(){
-       table_view.positionViewAtCell(Qt.point(0, 0),TableView.AlignTop|TableView.AlignLeft)
+       table_view.positionViewAtCell(Qt.point(0, 0),Qt.AlignTop|Qt.AlignLeft)
     }
 
 }
