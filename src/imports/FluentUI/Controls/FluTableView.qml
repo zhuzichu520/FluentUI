@@ -48,6 +48,7 @@ Rectangle {
             }
         }
     }
+
     ScrollView{
         id:scroll_table
         anchors.left: header_vertical.right
@@ -83,6 +84,13 @@ Rectangle {
                         if(column === item_loader.column){
                             item_loader.width = w
                         }
+                        if(column === item_loader.column-1){
+                            let cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
+                            if(cellItem){
+                                let cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
+                                item_loader.x = table_view.contentX + cellPosition.x
+                            }
+                        }
                         return w
                     }
                     return implicitColumnWidth(column)
@@ -105,6 +113,13 @@ Rectangle {
                         h = Math.max(40, h)
                         if(row === item_loader.row){
                             item_loader.height = h
+                        }
+                        if(row === item_loader.row - 1){
+                            var cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
+                            if(cellItem){
+                                var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
+                                item_loader.y = table_view.contentY + cellPosition.y
+                            }
                         }
                         return h
                     }
