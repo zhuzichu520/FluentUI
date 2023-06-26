@@ -12,9 +12,7 @@ FluMenu{
     animEnabled: false
     width: 120
     onVisibleChanged: {
-        if(visible){
-            inputItem.forceActiveFocus()
-        }
+        inputItem.forceActiveFocus()
     }
     Connections{
         target: inputItem
