@@ -75,7 +75,12 @@ FluContentPage{
 
     FluTableView{
         id:table_view
-        anchors.fill: parent
+        anchors{
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            bottom: gagination.top
+        }
         anchors.topMargin: 20
         columnSource:[
             {
@@ -83,7 +88,8 @@ FluContentPage{
                 dataIndex: 'name',
                 width:100,
                 minimumWidth:80,
-                maximumWidth:200
+                maximumWidth:200,
+                readOnly:true
             },
             {
                 title: '年龄',
@@ -109,4 +115,25 @@ FluContentPage{
             }
         ]
     }
+
+    FluPagination{
+        id:gagination
+        anchors{
+            bottom: parent.bottom
+            left: parent.left
+        }
+        pageCurrent: 1
+        itemCount: 100000
+        pageButtonCount: 7
+        __itemPerPage: 1000
+        onRequestPage:
+            (page,count)=> {
+                table_view.closeEditor()
+                loadData(page,count)
+                table_view.resetPosition()
+            }
+    }
+
+
+
 }

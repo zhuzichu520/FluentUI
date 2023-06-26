@@ -12,7 +12,7 @@ endif()
 set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,6,1)
+add_definitions(-DVERSION=1,3,6,2)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 

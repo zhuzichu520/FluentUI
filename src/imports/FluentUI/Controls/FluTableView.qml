@@ -23,7 +23,6 @@ Rectangle {
                 })
                 table_model.columns = columns
                 header_model.columns = columns
-                console.debug(JSON.stringify(header_rows))
                 d.header_rows = [header_rows]
             }
         }
@@ -110,11 +109,16 @@ Rectangle {
             delegate: Rectangle {
                 required property bool selected
                 required property bool current
+                property var readOnly: columnSource[column].readOnly
                 color: selected ? FluTheme.primaryColor.lightest: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
                 TapHandler{
+                    acceptedButtons: Qt.LeftButton
                     onDoubleTapped: {
+                        if(readOnly){
+                            return
+                        }
                         item_loader.sourceComponent = obtEditDelegate(column,row)
                         var index = table_view.index(row,column)
                     }
@@ -352,6 +356,10 @@ Rectangle {
 
     function closeEditor(){
         item_loader.sourceComponent = null
+    }
+
+    function resetPosition(){
+       table_view.positionViewAtCell(Qt.point(0, 0),TableView.AlignTop|TableView.AlignLeft)
     }
 
 }
