@@ -10,7 +10,7 @@ FluContentPage{
     title:"TableView"
 
     Component.onCompleted: {
-        loadData(1,2000)
+        loadData(1,1000)
     }
 
     function loadData(page,count){
@@ -40,7 +40,10 @@ FluContentPage{
                                 name: getRandomName(),
                                 age:getRandomAge(),
                                 address: getRandomAddresses(),
-                                nickname: getRandomNickname()
+                                nickname: getRandomNickname(),
+                                height:40,
+                                minimumHeight:40,
+                                maximumHeight:200
                             })
         }
         table_view.dataSource = dataSource
@@ -79,8 +82,8 @@ FluContentPage{
                 title: '姓名',
                 dataIndex: 'name',
                 width:100,
-                minimumWidth:50
-
+                minimumWidth:80,
+                maximumWidth:200
             },
             {
                 title: '年龄',
@@ -88,17 +91,21 @@ FluContentPage{
                 editDelegate:com_combobox,
                 width:100,
                 minimumWidth:100,
-                maximumWidth: 100
+                maximumWidth:100
             },
             {
                 title: '住址',
                 dataIndex: 'address',
-                width:200
+                width:200,
+                minimumWidth:100,
+                maximumWidth:250
             },
             {
                 title: '别名',
                 dataIndex: 'nickname',
-                width:100
+                width:100,
+                minimumWidth:80,
+                maximumWidth:200
             }
         ]
     }

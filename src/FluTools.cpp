@@ -2,6 +2,7 @@
 #include <QGuiApplication>
 #include <QClipboard>
 #include <QUuid>
+#include <QCursor>
 
 FluTools* FluTools::m_instance = nullptr;
 
@@ -77,4 +78,12 @@ int FluTools::qtMinor(){
 
 void FluTools::setQuitOnLastWindowClosed(bool val){
     qApp->setQuitOnLastWindowClosed(val);
+}
+
+void FluTools::setOverrideCursor(Qt::CursorShape shape){
+    qApp->setOverrideCursor(QCursor(shape));
+}
+
+void FluTools::restoreOverrideCursor(){
+    qApp->restoreOverrideCursor();
 }

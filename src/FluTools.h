@@ -54,6 +54,10 @@ public:
 
     Q_INVOKABLE int qtMinor();
 
+    Q_INVOKABLE void setOverrideCursor(Qt::CursorShape shape);
+
+    Q_INVOKABLE void restoreOverrideCursor();
+
 };
 
 #endif // FLUTOOLS_H
