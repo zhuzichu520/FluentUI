@@ -14,6 +14,7 @@ TextEdit {
     leftPadding: 0
     rightPadding: 0
     topPadding: 0
+    selectByMouse: true
     selectedTextColor: FluColors.Grey220
     bottomPadding: 0
     selectionColor: FluTheme.primaryColor.lightest
@@ -21,9 +22,11 @@ TextEdit {
     onSelectedTextChanged: {
         control.forceActiveFocus()
     }
-    TapHandler {
+    MouseArea{
+        anchors.fill: parent
+        cursorShape: Qt.IBeamCursor
         acceptedButtons: Qt.RightButton
-        onTapped: control.echoMode !== TextInput.Password && menu.popup()
+        onClicked: control.echoMode !== TextInput.Password && menu.popup()
     }
     FluTextBoxMenu{
         id:menu

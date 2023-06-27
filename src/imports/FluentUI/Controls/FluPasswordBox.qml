@@ -71,10 +71,6 @@ TextField{
             rightMargin: icon_end.visible ? 25 : 5
         }
     }
-    TapHandler {
-        acceptedButtons: Qt.RightButton
-        onTapped: control.echoMode !== TextInput.Password && menu.popup()
-    }
     FluTextBoxMenu{
         id:menu
         inputItem: control

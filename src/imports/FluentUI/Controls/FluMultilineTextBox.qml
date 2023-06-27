@@ -41,9 +41,11 @@ TextArea{
     Keys.onBackPressed: {
         control.commit()
     }
-    TapHandler {
+    MouseArea{
+        anchors.fill: parent
+        cursorShape: Qt.IBeamCursor
         acceptedButtons: Qt.RightButton
-        onTapped: control.echoMode !== TextInput.Password && menu.popup()
+        onClicked: control.echoMode !== TextInput.Password && menu.popup()
     }
     FluTextBoxMenu{
         id:menu

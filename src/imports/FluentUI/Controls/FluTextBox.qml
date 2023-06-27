@@ -56,6 +56,12 @@ TextField{
             }
         }
     }
+    MouseArea{
+        anchors.fill: parent
+        cursorShape: Qt.IBeamCursor
+        acceptedButtons: Qt.RightButton
+        onClicked: control.echoMode !== TextInput.Password && menu.popup()
+    }
     FluIconButton{
         iconSource:FluentIcons.ChromeClose
         iconSize: 10
@@ -75,10 +81,6 @@ TextField{
         onClicked:{
             control.text = ""
         }
-    }
-    TapHandler {
-        acceptedButtons: Qt.RightButton
-        onTapped: control.echoMode !== TextInput.Password && menu.popup()
     }
     FluTextBoxMenu{
         id:menu

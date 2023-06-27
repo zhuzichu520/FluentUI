@@ -59,7 +59,6 @@ Rectangle {
             }
         }
     }
-
     ScrollView{
         id:scroll_table
         anchors.left: header_vertical.right
