@@ -51,7 +51,8 @@ Rectangle {
                 selectAll()
             }
             onCommit: {
-                display = text
+                if(!columnSource[column].readOnly)
+                    display = text
                 tableView.closeEditor()
             }
         }
@@ -110,7 +111,6 @@ Rectangle {
             delegate: Rectangle {
                 required property bool selected
                 property bool current: selection_model.currentIndex === table_model.index(row,column)
-                property var readOnly: columnSource[column].readOnly
                 color: selected ? FluTheme.primaryColor.lightest: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
@@ -118,9 +118,6 @@ Rectangle {
                     acceptedButtons: Qt.LeftButton
                     onDoubleTapped: {
                         selection_model.setCurrentIndex(table_model.index(row,column), ItemSelectionModel.Current)
-                        if(readOnly){
-                            return
-                        }
                         item_loader.sourceComponent = obtEditDelegate(column,row)
                         var index = table_model.index(row,column)
                     }
