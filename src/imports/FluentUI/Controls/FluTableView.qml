@@ -250,7 +250,7 @@ Rectangle {
                 width: 4
                 anchors.right: parent.right
                 acceptedButtons: Qt.LeftButton
-                visible: !(obj.width === obj.maximumWidth && obj.width === obj.maximumWidth)
+                visible: !(obj.width === obj.minimumWidth && obj.width === obj.maximumWidth)
                 cursorShape: Qt.SplitHCursor
                 preventStealing: true
                 propagateComposedEvents: true
