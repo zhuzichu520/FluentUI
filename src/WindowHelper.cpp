@@ -1,7 +1,6 @@
 #include "WindowHelper.h"
 
 #include "FluRegister.h"
-#include "FluApp.h"
 
 WindowHelper::WindowHelper(QObject *parent)
     : QObject{parent}
@@ -18,11 +17,4 @@ QVariant WindowHelper::createRegister(QQuickWindow* window,const QString& path){
     p->from(window);
     p->path(path);
     return  QVariant::fromValue(p);
-}
-
-void WindowHelper::deleteWindow(){
-    if(this->window){
-        FluApp::getInstance()->wnds.remove(this->window->winId());
-        this->window->deleteLater();
-    }
 }

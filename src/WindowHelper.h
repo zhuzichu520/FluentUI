@@ -25,11 +25,6 @@ public:
     Q_INVOKABLE void initWindow(QQuickWindow* window);
 
     /**
-     * @brief deleteWindow 销毁窗口，释放资源，QML中的Window close并不会销毁窗口，只是把窗口隐藏了
-     */
-    Q_INVOKABLE void deleteWindow();
-
-    /**
      * @brief createRegister 创建一个FluRegsiter对象，在FluWindow中registerForWindowResult方法调用
      * @param window
      * @param path

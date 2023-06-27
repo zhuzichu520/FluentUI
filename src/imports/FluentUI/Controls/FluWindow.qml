@@ -44,11 +44,6 @@ Window {
         id: bg
         anchors.fill: parent
         color: backgroundColor
-        Behavior on color{
-            ColorAnimation {
-                duration: 300
-            }
-        }
     }
     Item{
         id:container
@@ -78,7 +73,7 @@ Window {
         return helper.createRegister(window,path)
     }
     function deleteWindow(){
-        helper.deleteWindow()
+        FluApp.deleteWindow(window)
     }
     function onResult(data){
         if(pageRegister){

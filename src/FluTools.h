@@ -58,6 +58,7 @@ public:
 
     Q_INVOKABLE void restoreOverrideCursor();
 
+    Q_INVOKABLE void deleteItem(QObject *p);
 };
 
 #endif // FLUTOOLS_H

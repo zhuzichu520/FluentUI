@@ -13,6 +13,10 @@ FluContentPage{
         loadData(1,1000)
     }
 
+    Component.onDestruction: {
+        console.debug("T_TableView已经销毁")
+    }
+
     function loadData(page,count){
         var numbers = [100, 300, 500, 1000];
         function getRandomAge() {

@@ -87,3 +87,7 @@ void FluTools::setOverrideCursor(Qt::CursorShape shape){
 void FluTools::restoreOverrideCursor(){
     qApp->restoreOverrideCursor();
 }
+
+void FluTools::deleteItem(QObject *p){
+    p->deleteLater();
+}

@@ -109,3 +109,8 @@ QJsonArray FluApp::awesomelist(const QString& keyword)
 void FluApp::closeApp(){
     qApp->exit(0);
 }
+
+void FluApp::deleteWindow(QQuickWindow* window){
+    wnds.remove(window->winId());
+    window->deleteLater();
+}

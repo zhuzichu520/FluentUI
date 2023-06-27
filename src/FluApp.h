@@ -73,6 +73,8 @@ public:
      */
     Q_INVOKABLE void closeApp();
 
+    Q_INVOKABLE void deleteWindow(QQuickWindow* window);
+
 public:
     /**
      * @brief wnds

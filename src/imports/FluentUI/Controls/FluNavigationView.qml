@@ -31,7 +31,6 @@ Item {
     id:control
     QtObject{
         id:d
-        property var pageMap: ({})
         property var stackItems: []
         property int displayMode: FluNavigationView.Open
         property bool enableNavigationPanel: false
@@ -519,7 +518,7 @@ Item {
                 disabled:  nav_swipe.depth <= 1
                 iconSize: 13
                 onClicked: {
-                    nav_swipe.pop()
+                    FluTools.deleteItem(nav_swipe.pop())
                     d.stackItems.pop()
                     var item = d.stackItems[d.stackItems.length-1]
                     if(item.idx<(nav_list.count - layout_footer.count)){
@@ -997,7 +996,7 @@ Item {
             case FluNavigationView.SingleTask:
                 while(nav_swipe.currentItem !== page)
                 {
-                    nav_swipe.pop()
+                    FluTools.deleteItem(nav_swipe.pop())
                     d.stackItems.pop()
                 }
                 return
