@@ -62,7 +62,11 @@ TextField{
         width: 20
         height: 20
         opacity: 0.5
-        visible: control.text !== ""
+        visible: {
+            if(control.readOnly)
+                return false
+            return control.text !== ""
+        }
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right

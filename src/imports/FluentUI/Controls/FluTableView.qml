@@ -45,14 +45,16 @@ Rectangle {
         FluTextBox {
             anchors.fill: parent
             text: display
+            readOnly: true === columnSource[column].readOnly
             verticalAlignment: TextInput.AlignVCenter
             Component.onCompleted: {
                 forceActiveFocus()
                 selectAll()
             }
             onCommit: {
-                if(!columnSource[column].readOnly)
+                if(!readOnly){
                     display = text
+                }
                 tableView.closeEditor()
             }
         }
@@ -358,7 +360,7 @@ Rectangle {
     }
 
     function resetPosition(){
-       table_view.positionViewAtCell(Qt.point(0, 0),Qt.AlignTop|Qt.AlignLeft)
+        table_view.positionViewAtCell(Qt.point(0, 0),Qt.AlignTop|Qt.AlignLeft)
     }
 
 }
