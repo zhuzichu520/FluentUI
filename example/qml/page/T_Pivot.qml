@@ -5,7 +5,7 @@ import QtQuick.Window
 import FluentUI
 import "qrc:///example/qml/component"
 
-FluPage{
+FluScrollablePage{
 
     title:"Pivot"
 
