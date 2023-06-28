@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
-#ifdef Q_OS_MACOS
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+#ifdef Q_OS_MACOS
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
 #endif
     AppInfo* appInfo = new AppInfo();
