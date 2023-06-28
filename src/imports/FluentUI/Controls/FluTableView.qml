@@ -59,6 +59,16 @@ Rectangle {
             }
         }
     }
+    Component{
+        id:com_text
+        FluText {
+            text: itemData
+            anchors.fill: parent
+            anchors.margins: 10
+            elide: Text.ElideRight
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
     ScrollView{
         id:scroll_table
         anchors.left: header_vertical.right
@@ -110,6 +120,8 @@ Rectangle {
             model: table_model
             clip: true
             delegate: Rectangle {
+                id:item_table
+                property var position: Qt.point(column,row)
                 required property bool selected
                 property bool current: selection_model.currentIndex === table_model.index(row,column)
                 color: selected ? FluTheme.primaryColor.lightest: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
@@ -118,6 +130,9 @@ Rectangle {
                 TapHandler{
                     acceptedButtons: Qt.LeftButton
                     onDoubleTapped: {
+                        if(display instanceof Component){
+                            return
+                        }
                         selection_model.setCurrentIndex(table_model.index(row,column), ItemSelectionModel.Current)
                         item_loader.sourceComponent = obtEditDelegate(column,row)
                         var index = table_model.index(row,column)
@@ -128,12 +143,20 @@ Rectangle {
                         }
                     }
                 }
-                FluText {
-                    text: display
+                Loader{
+                    property var itemData: display
+                    property var tableView: table_view
+                    property var tableModel: table_model
+                    property var position: item_table.position
+                    property int row: position.y
+                    property int column: position.x
                     anchors.fill: parent
-                    anchors.margins: 10
-                    elide: Text.ElideRight
-                    verticalAlignment: Text.AlignVCenter
+                    sourceComponent: {
+                        if(itemData instanceof Component){
+                            return itemData
+                        }
+                        return com_text
+                    }
                 }
             }
         }
@@ -353,13 +376,10 @@ Rectangle {
             }
         }
     }
-
     function closeEditor(){
         item_loader.sourceComponent = null
     }
-
     function resetPosition(){
         table_view.positionViewAtCell(Qt.point(0, 0),Qt.AlignTop|Qt.AlignLeft)
     }
-
 }

@@ -13,8 +13,26 @@ FluContentPage{
         loadData(1,1000)
     }
 
-    Component.onDestruction: {
-        console.debug("T_TableView已经销毁")
+    Component{
+        id:com_action
+        Item{
+            RowLayout{
+                anchors.centerIn: parent
+                FluButton{
+                    text:"删除"
+                    onClicked: {
+                        table_view.closeEditor()
+                        tableModel.removeRow(row)
+                    }
+                }
+                FluFilledButton{
+                    text:"编辑"
+                    onClicked: {
+                        showSuccess(JSON.stringify(tableModel.getRow(row)))
+                    }
+                }
+            }
+        }
     }
 
     function loadData(page,count){
@@ -47,7 +65,8 @@ FluContentPage{
                                 nickname: getRandomNickname(),
                                 height:40,
                                 minimumHeight:40,
-                                maximumHeight:200
+                                maximumHeight:200,
+                                action:com_action
                             })
         }
         table_view.dataSource = dataSource
@@ -116,6 +135,13 @@ FluContentPage{
                 width:100,
                 minimumWidth:80,
                 maximumWidth:200
+            },
+            {
+                title: '操作',
+                dataIndex: 'action',
+                width:160,
+                minimumWidth:160,
+                maximumWidth:160
             }
         ]
     }

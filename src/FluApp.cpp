@@ -111,6 +111,9 @@ void FluApp::closeApp(){
 }
 
 void FluApp::deleteWindow(QQuickWindow* window){
-    wnds.remove(window->winId());
-    window->deleteLater();
+    if(window){
+        wnds.remove(window->winId());
+        window->deleteLater();
+        window = nullptr;
+    }
 }
