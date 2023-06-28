@@ -55,6 +55,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"Image"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Image.qml")
+            }
+        }
+        FluPaneItem{
             title:"Slider"
             image:"qrc:/example/res/image/control/Slider.png"
             recentlyUpdated:true
