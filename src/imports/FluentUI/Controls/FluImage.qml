@@ -3,6 +3,8 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
+    property alias sourceSize : image.sourceSize
+    property alias fillMode : image.fillMode
     property url source
     property string errorButtonText: "重新加载"
     property var status
