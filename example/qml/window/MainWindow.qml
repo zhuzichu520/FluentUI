@@ -240,12 +240,13 @@ CustomWindow {
             ctx.save()
             if(img_cache.source.toString().length!==0){
                 try{
-                    ctx.drawImage(img_cache, 0, 0,  canvasSize.width, canvasSize.height, 0, 0,  canvasSize.width, canvasSize.height)
+                    ctx.drawImage(img_cache.source, 0, 0,  canvasSize.width, canvasSize.height, 0, 0,  canvasSize.width, canvasSize.height)
                 }catch(e){
                     img_cache.source = ""
                 }
             }
             clearArc(ctx, centerX, centerY, radius)
+            canvas.unloadImage(img_cache.source)
             ctx.restore()
         }
         function clearArc(ctx,x, y, radius, startAngle, endAngle) {
