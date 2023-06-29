@@ -185,25 +185,27 @@ Rectangle {
                 id:item_table
                 property var position: Qt.point(column,row)
                 required property bool selected
-                property bool current: selection_model.currentIndex === table_model.index(row,column)
                 color: selected ? FluTheme.primaryColor.lightest: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
-                TapHandler{
+                MouseArea{
+                    anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
-                    onDoubleTapped: {
+                    onDoubleClicked: {
                         if(display instanceof Component){
                             return
                         }
-                        selection_model.setCurrentIndex(table_model.index(row,column), ItemSelectionModel.Current)
+                        selection_model.clear()
                         item_loader.sourceComponent = d.obtEditDelegate(column,row)
-                        var index = table_model.index(row,column)
                     }
-                    onTapped: {
-                        if(!current){
+                    onClicked:
+                        (event)=>{
                             item_loader.sourceComponent = null
+                            if(!(event.modifiers & Qt.ControlModifier)){
+                                selection_model.clear()
+                            }
+                            selection_model.select(table_model.index(row,column),ItemSelectionModel.Select)
                         }
-                    }
                 }
                 Loader{
                     property var itemData: display
@@ -238,30 +240,7 @@ Rectangle {
     }
     Component{
         id:com_handle
-        FluControl {
-            width: 24
-            height: 24
-            background: Rectangle{
-                radius: 12
-                color: FluTheme.dark ? Qt.rgba(69/255,69/255,69/255,1) :Qt.rgba(1,1,1,1)
-            }
-            visible: SelectionRectangle.control.active
-            FluShadow{
-                radius: 12
-            }
-            Rectangle{
-                width: 24
-                height: 24
-                radius: 12
-                scale: pressed?4/10:hovered?6/10:5/10
-                color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
-                anchors.centerIn: parent
-                Behavior on scale {
-                    NumberAnimation{
-                        duration: 167
-                    }
-                }
-            }
+        Item {
         }
     }
     SelectionRectangle {
