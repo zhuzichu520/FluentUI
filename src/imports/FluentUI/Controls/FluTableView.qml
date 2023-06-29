@@ -69,18 +69,14 @@ Rectangle {
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
             verticalAlignment: Text.AlignVCenter
-            MouseArea{
-                id:item_mouse
-                hoverEnabled: true
-                anchors.fill: parent
-                acceptedButtons: Qt.NoButton
-                FluTooltip{
-                    text: item_text.text
-                    delay: 500
-                    visible: item_text.contentWidth < item_text.implicitWidth && item_text.contentHeight < item_text.implicitHeight &&  item_mouse.containsMouse
-                }
+            HoverHandler{
+                id: hover_handler
             }
-
+            FluTooltip{
+                text: item_text.text
+                delay: 500
+                visible: item_text.contentWidth < item_text.implicitWidth && item_text.contentHeight < item_text.implicitHeight &&  hover_handler.hovered
+            }
         }
     }
     ScrollView{
