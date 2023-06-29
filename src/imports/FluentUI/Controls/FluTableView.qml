@@ -61,12 +61,23 @@ Rectangle {
     }
     Component{
         id:com_text
-        FluText {
-            text: itemData
+        Item{
             anchors.fill: parent
             anchors.margins: 10
-            elide: Text.ElideRight
-            verticalAlignment: Text.AlignVCenter
+            HoverHandler{
+                id: hover_handler
+            }
+            FluTooltip{
+                visible: hover_handler.hovered
+                text: itemData
+                delay: 1000
+            }
+            FluText {
+                text: itemData
+                anchors.fill: parent
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignVCenter
+            }
         }
     }
     ScrollView{
