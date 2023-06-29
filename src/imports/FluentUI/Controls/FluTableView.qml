@@ -30,6 +30,23 @@ Rectangle {
     QtObject{
         id:d
         property var header_rows:[]
+        function obtEditDelegate(column,row){
+            var display = table_model.data(table_model.index(row,column),"display")
+            var cellItem = table_view.itemAtCell(column, row)
+            var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
+            item_loader.column = column
+            item_loader.row = row
+            item_loader.x = table_view.contentX + cellPosition.x
+            item_loader.y = table_view.contentY + cellPosition.y
+            item_loader.width = table_view.columnWidthProvider(column)
+            item_loader.height = table_view.rowHeightProvider(row)
+            item_loader.display = display
+            var obj =columnSource[column].editDelegate
+            if(obj){
+                return obj
+            }
+            return com_edit
+        }
     }
     onDataSourceChanged: {
         table_model.clear()
@@ -42,20 +59,55 @@ Rectangle {
     }
     Component{
         id:com_edit
-        FluTextBox {
+        Item{
             anchors.fill: parent
-            text: display
-            readOnly: true === columnSource[column].readOnly
-            verticalAlignment: TextInput.AlignVCenter
-            Component.onCompleted: {
-                forceActiveFocus()
-                selectAll()
-            }
-            onCommit: {
-                if(!readOnly){
-                    display = text
+            ScrollView{
+                id:item_scroll
+                clip: true
+                anchors.fill: parent
+                ScrollBar.vertical: FluScrollBar{
+                    parent: item_scroll
+                    x: item_scroll.mirrored ? 0 : item_scroll.width - width
+                    y: item_scroll.topPadding
+                    height: item_scroll.availableHeight
+                    active: item_scroll.ScrollBar.horizontal.active
                 }
-                tableView.closeEditor()
+                FluMultilineTextBox {
+                    id:text_box
+                    text: display
+                    readOnly: true === columnSource[column].readOnly
+                    verticalAlignment: TextInput.AlignVCenter
+                    Component.onCompleted: {
+                        forceActiveFocus()
+                        selectAll()
+                    }
+                    rightPadding: 24
+                    onCommit: {
+                        if(!readOnly){
+                            display = text
+                        }
+                        tableView.closeEditor()
+                    }
+                }
+            }
+            FluIconButton{
+                iconSource:FluentIcons.ChromeClose
+                iconSize: 10
+                width: 20
+                height: 20
+                visible: {
+                    if(text_box.readOnly)
+                        return false
+                    return text_box.text !== ""
+                }
+                anchors{
+                    verticalCenter: parent.verticalCenter
+                    right: parent.right
+                    rightMargin: 5
+                }
+                onClicked:{
+                    text_box.text = ""
+                }
             }
         }
     }
@@ -144,7 +196,7 @@ Rectangle {
                             return
                         }
                         selection_model.setCurrentIndex(table_model.index(row,column), ItemSelectionModel.Current)
-                        item_loader.sourceComponent = obtEditDelegate(column,row)
+                        item_loader.sourceComponent = d.obtEditDelegate(column,row)
                         var index = table_model.index(row,column)
                     }
                     onTapped: {
@@ -178,29 +230,12 @@ Rectangle {
             property int row
             property var tableView: control
             onDisplayChanged: {
-                table_model.setData(table_model.index(row,column),"display",display)
+                var obj = table_model.getRow(row)
+                obj[columnSource[column].dataIndex] = display
+                table_model.setRow(row,obj)
             }
         }
     }
-
-    function obtEditDelegate(column,row){
-        var display = table_model.data(table_model.index(row,column),"display")
-        var cellItem = table_view.itemAtCell(column, row)
-        var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
-        item_loader.column = column
-        item_loader.row = row
-        item_loader.x = table_view.contentX + cellPosition.x
-        item_loader.y = table_view.contentY + cellPosition.y
-        item_loader.width = table_view.columnWidthProvider(column)
-        item_loader.height = table_view.rowHeightProvider(row)
-        item_loader.display = display
-        var obj =columnSource[column].editDelegate
-        if(obj){
-            return obj
-        }
-        return com_edit
-    }
-
     Component{
         id:com_handle
         FluControl {
@@ -332,7 +367,6 @@ Rectangle {
         }
         delegate: Rectangle{
             readonly property real cellPadding: 8
-            readonly property var obj : table_model.getRow(row)
             implicitWidth: Math.max(header_vertical.width, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
             color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
@@ -358,7 +392,10 @@ Rectangle {
                 acceptedButtons: Qt.LeftButton
                 cursorShape: Qt.SplitVCursor
                 preventStealing: true
-                visible: !(obj.height === obj.minimumHeight && obj.width === obj.maximumHeight)
+                visible: {
+                    var obj = table_model.getRow(row)
+                    return !(obj.height === obj.minimumHeight && obj.width === obj.maximumHeight)
+                }
                 propagateComposedEvents: true
                 onPressed :
                     (mouse)=>{
@@ -370,11 +407,12 @@ Rectangle {
                 }
                 onPositionChanged:
                     (mouse)=>{
+                        var obj = table_model.getRow(row)
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
                         var minimumHeight = obj.minimumHeight
                         var maximumHeight = obj.maximumHeight
                         if(!minimumHeight){
-                            minimumHeight = 40
+                            minimumHeight = 46
                         }
                         if(!maximumHeight){
                             maximumHeight = 65535

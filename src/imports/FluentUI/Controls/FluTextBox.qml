@@ -33,12 +33,6 @@ TextField{
         }
         return placeholderNormalColor
     }
-    Keys.onEnterPressed: {
-        control.commit()
-    }
-    Keys.onReturnPressed: {
-        control.commit()
-    }
     selectByMouse: true
     rightPadding: icon_end.visible ? 50 : 30
     background: FluTextBoxBackground{
@@ -56,6 +50,14 @@ TextField{
             }
         }
     }
+    Keys.onEnterPressed: (event)=> d.handleCommit(event)
+    Keys.onReturnPressed:(event)=> d.handleCommit(event)
+    QtObject{
+        id:d
+        function handleCommit(event){
+            control.commit()
+        }
+    }
     MouseArea{
         anchors.fill: parent
         cursorShape: Qt.IBeamCursor
@@ -67,7 +69,6 @@ TextField{
         iconSize: 10
         width: 20
         height: 20
-        opacity: 0.5
         visible: {
             if(control.readOnly)
                 return false

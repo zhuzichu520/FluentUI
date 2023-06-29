@@ -63,9 +63,10 @@ FluContentPage{
                                 age:getRandomAge(),
                                 address: getRandomAddresses(),
                                 nickname: getRandomNickname(),
-                                height:40,
-                                minimumHeight:40,
-                                maximumHeight:200,
+                                longstring:"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
+                                height:46,
+                                minimumHeight:46,
+                                maximumHeight:300,
                                 action:com_action
                             })
         }
@@ -135,6 +136,13 @@ FluContentPage{
                 width:100,
                 minimumWidth:80,
                 maximumWidth:200
+            },
+            {
+                title: '长字符串',
+                dataIndex: 'longstring',
+                width:200,
+                minimumWidth:100,
+                maximumWidth:300
             },
             {
                 title: '操作',

@@ -41,6 +41,8 @@ FluPage {
         contentWidth: parent.width
         contentHeight: container.height
         ScrollBar.vertical: FluScrollBar {
+            anchors.right: flickview.right
+            anchors.rightMargin: 2
         }
         anchors{
             top: text_title.bottom

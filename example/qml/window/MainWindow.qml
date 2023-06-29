@@ -271,7 +271,9 @@ CustomWindow {
                 FluTheme.darkMode = FluDarkMode.Dark
             }
         }
-        if(FluTools.isWin()){
+        if(FluTools.isMacos()){
+            changeDark()
+        }else{
             var target = window.contentItem
             var pos = button.mapToItem(target,0,0)
             var mouseX = pos.x
@@ -288,8 +290,6 @@ CustomWindow {
                 anim_radius.enabled = true
                 canvas.radius = canvas.maxRadius
             },canvas.canvasSize)
-        }else{
-            changeDark()
         }
     }
 

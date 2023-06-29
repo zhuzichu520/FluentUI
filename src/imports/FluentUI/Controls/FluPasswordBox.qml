@@ -51,11 +51,13 @@ TextField{
             }
         }
     }
-    Keys.onEnterPressed: {
-        control.commit()
-    }
-    Keys.onBackPressed: {
-        control.commit()
+    Keys.onEnterPressed: (event)=> d.handleCommit(event)
+    Keys.onReturnPressed:(event)=> d.handleCommit(event)
+    QtObject{
+        id:d
+        function handleCommit(event){
+            control.commit()
+        }
     }
     FluIconButton{
         id:btn_reveal

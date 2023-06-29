@@ -67,10 +67,9 @@ ComboBox {
         Component.onCompleted: {
             forceActiveFocus()
         }
-        Keys.onEnterPressed: {
-            control.commit()
-        }
-        Keys.onReturnPressed: {
+        Keys.onEnterPressed: (event)=> handleCommit(event)
+        Keys.onReturnPressed:(event)=> handleCommit(event)
+        function handleCommit(event){
             control.commit()
         }
     }

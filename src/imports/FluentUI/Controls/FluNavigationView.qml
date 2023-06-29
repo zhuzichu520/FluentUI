@@ -958,6 +958,13 @@ Item {
             control_popup.open()
         }
     }
+    Component{
+        id:com_placeholder
+        Item{
+            property int pageMode: FluNavigationView.SingleInstance
+            property string url
+        }
+    }
     function collapseAll(){
         for(var i=0;i<nav_list.model.length;i++){
             var item = nav_list.model[i]
@@ -976,18 +983,8 @@ Item {
     function getItems(){
         return nav_list.model
     }
-
-
-    Component{
-        id:com_placeholder
-        Item{
-            property int pageMode: FluNavigationView.SingleInstance
-            property string url
-        }
-    }
-
     function push(url,argument={}){
-        let page = nav_swipe.find(function(item) {
+        var page = nav_swipe.find(function(item) {
             return item.url === url;
         })
         if(page){
@@ -1009,22 +1006,22 @@ Item {
             default:
             }
         }
-        var comp = Qt.createComponent(url)
-        if (comp.status === Component.Ready) {
-            //先判断nav_swipe2中是否有当前url数据
-            var pageIndex = -1
-            for(var i=0;i<nav_swipe2.children.length;i++){
-                var item =  nav_swipe2.children[i]
-                if(item.url === url){
-                    pageIndex = i
-                    break
-                }
+
+        var pageIndex = -1
+        for(var i=0;i<nav_swipe2.children.length;i++){
+            var item =  nav_swipe2.children[i]
+            if(item.url === url){
+                pageIndex = i
+                break
             }
-            var options = Object.assign(argument,{url:url})
-            if(pageIndex!==-1){
-                nav_swipe2.currentIndex = pageIndex
-                nav_swipe.push(com_placeholder,options)
-            }else{
+        }
+        var options = Object.assign(argument,{url:url})
+        if(pageIndex!==-1){
+            nav_swipe2.currentIndex = pageIndex
+            nav_swipe.push(com_placeholder,options)
+        }else{
+            var comp = Qt.createComponent(url)
+            if (comp.status === Component.Ready) {
                 var obj  = comp.createObject(nav_swipe,options)
                 if(obj.pageMode === FluNavigationView.SingleInstance){
                     nav_swipe.push(com_placeholder,options)
@@ -1033,11 +1030,11 @@ Item {
                 }else{
                     nav_swipe.push(obj)
                 }
+            }else{
+                console.error(comp.errorString())
             }
-            d.stackItems.push(nav_list.model[nav_list.currentIndex])
-        }else{
-            console.error(comp.errorString())
         }
+        d.stackItems.push(nav_list.model[nav_list.currentIndex])
     }
     function getCurrentIndex(){
         return nav_list.currentIndex

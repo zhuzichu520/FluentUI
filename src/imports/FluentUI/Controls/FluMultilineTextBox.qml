@@ -35,11 +35,17 @@ TextArea{
     }
     selectByMouse: true
     background: FluTextBoxBackground{ inputItem: control }
-    Keys.onEnterPressed: {
-        control.commit()
-    }
-    Keys.onBackPressed: {
-        control.commit()
+    Keys.onEnterPressed: (event)=> d.handleCommit(event)
+    Keys.onReturnPressed:(event)=> d.handleCommit(event)
+    QtObject{
+        id:d
+        function handleCommit(event){
+            if(event.modifiers & Qt.ControlModifier){
+                insert(control.cursorPosition, "\n")
+                return
+            }
+            control.commit()
+        }
     }
     MouseArea{
         anchors.fill: parent
