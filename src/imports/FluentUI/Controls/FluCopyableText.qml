@@ -15,9 +15,9 @@ TextEdit {
     rightPadding: 0
     topPadding: 0
     selectByMouse: true
-    selectedTextColor: FluColors.Grey220
+    selectedTextColor: color
     bottomPadding: 0
-    selectionColor: FluTheme.primaryColor.lightest
+    selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
     font:FluTextStyle.Body
     onSelectedTextChanged: {
         control.forceActiveFocus()

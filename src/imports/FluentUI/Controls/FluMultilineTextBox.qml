@@ -23,7 +23,8 @@ TextArea{
     font:FluTextStyle.Body
     wrapMode: Text.WrapAnywhere
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    selectionColor: FluTheme.primaryColor.lightest
+    selectedTextColor: color
+    selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
     placeholderTextColor: {
         if(!enabled){
             return placeholderDisableColor

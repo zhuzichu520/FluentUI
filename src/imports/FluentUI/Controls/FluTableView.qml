@@ -8,6 +8,7 @@ import FluentUI
 Rectangle {
     property var columnSource
     property var dataSource
+    property color selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -185,17 +186,28 @@ Rectangle {
                 id:item_table
                 property var position: Qt.point(column,row)
                 required property bool selected
-                color: selected ? FluTheme.primaryColor.lightest: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
+                color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
+                Rectangle{
+                    anchors.fill: parent
+                    visible: item_loader.sourceComponent === null
+                    color: selected ? control.selectionColor : "#00000000"
+                }
                 MouseArea{
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
-                    onDoubleClicked: {
+                    onPressed:{
+                        closeEditor()
+                        table_view.interactive = false
+                    }
+                    onReleased: {
+                        table_view.interactive = true
+                    }
+                    onDoubleClicked:{
                         if(display instanceof Component){
                             return
                         }
-                        selection_model.clear()
                         item_loader.sourceComponent = d.obtEditDelegate(column,row)
                     }
                     onClicked:
@@ -205,6 +217,7 @@ Rectangle {
                                 selection_model.clear()
                             }
                             selection_model.select(table_model.index(row,column),ItemSelectionModel.Select)
+                            event.accepted = true
                         }
                 }
                 Loader{
@@ -231,6 +244,7 @@ Rectangle {
             property int column
             property int row
             property var tableView: control
+            sourceComponent: null
             onDisplayChanged: {
                 var obj = table_model.getRow(row)
                 obj[columnSource[column].dataIndex] = display
@@ -252,6 +266,11 @@ Rectangle {
         }
         bottomRightHandle:com_handle
         topLeftHandle: com_handle
+        onDraggingChanged: {
+            if(dragging === false){
+                table_view.interactive = true
+            }
+        }
     }
     TableView {
         id: header_horizontal
@@ -272,7 +291,7 @@ Rectangle {
             readonly property var obj : columnSource[column]
             implicitWidth: column_text.implicitWidth + (cellPadding * 2)
             implicitHeight: Math.max(header_horizontal.height, column_text.implicitHeight + (cellPadding * 2))
-            color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+            color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
             FluText {
                 id: column_text
@@ -354,6 +373,7 @@ Rectangle {
                 id:row_text
                 anchors.centerIn: parent
                 text: row + 1
+                font.bold: true
             }
             TapHandler{
                 onDoubleTapped: {

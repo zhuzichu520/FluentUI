@@ -44,8 +44,8 @@ ComboBox {
         topPadding: 6 - control.padding
         bottomPadding: 6 - control.padding
         renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-        selectionColor: FluTheme.primaryColor.lightest
-        selectedTextColor: control.palette.highlightedText
+        selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+        selectedTextColor: color
         text: control.editable ? control.editText : control.displayText
         enabled: control.editable
         autoScroll: control.editable

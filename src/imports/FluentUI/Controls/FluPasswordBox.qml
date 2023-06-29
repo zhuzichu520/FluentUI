@@ -24,7 +24,8 @@ TextField{
     font:FluTextStyle.Body
     echoMode:btn_reveal.pressed ? TextField.Normal : TextField.Password
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    selectionColor: FluTheme.primaryColor.lightest
+    selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+    selectedTextColor: color
     placeholderTextColor: {
         if(!enabled){
             return placeholderDisableColor
