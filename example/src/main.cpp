@@ -6,6 +6,7 @@
 #include <QProcess>
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
+#include "src/component/CircularReveal.h"
 #include "AppInfo.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
@@ -37,6 +38,8 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
+    qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
+
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

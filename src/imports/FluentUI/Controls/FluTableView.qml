@@ -191,7 +191,7 @@ Rectangle {
                 implicitWidth: columnSource[column].width
                 Rectangle{
                     anchors.fill: parent
-                    visible: item_loader.sourceComponent === null
+                    visible: item_loader.sourceComponent == null
                     color: selected ? control.selectionColor : "#00000000"
                 }
                 MouseArea{
@@ -304,6 +304,7 @@ Rectangle {
             }
             TapHandler{
                 onDoubleTapped: {
+                    closeEditor()
                     selection_model.clear()
                     for(var i=0;i<=table_view.rows;i++){
                         selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
@@ -377,6 +378,7 @@ Rectangle {
             }
             TapHandler{
                 onDoubleTapped: {
+                    closeEditor()
                     selection_model.clear()
                     for(var i=0;i<=columnSource.length;i++){
                         selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
