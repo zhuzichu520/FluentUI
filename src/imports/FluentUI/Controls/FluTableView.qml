@@ -11,7 +11,6 @@ Rectangle {
     property color selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
     property color hoverButtonColor: Qt.alpha(selectionColor,0.2)
     property color pressedButtonColor: Qt.alpha(selectionColor,0.4)
-
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -190,9 +189,6 @@ Rectangle {
                 id:item_table
                 property var position: Qt.point(column,row)
                 required property bool selected
-                //                onSelectedChanged: {
-                //                    d.selectionFlag = !d.selectionFlag
-                //                }
                 color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width

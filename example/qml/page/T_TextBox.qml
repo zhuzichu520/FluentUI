@@ -166,6 +166,41 @@ FluScrollablePage{
 }'
     }
 
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        paddings: 10
+        Layout.topMargin: 20
+
+        FluSpinBox{
+            Layout.topMargin: 20
+            disabled: spin_box_switch.checked
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+        }
+
+        Row{
+            spacing: 5
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+            }
+            FluToggleSwitch{
+                id:spin_box_switch
+                Layout.alignment: Qt.AlignRight
+                text:"Disabled"
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -1
+        code:'FluSpinBox{
+
+}'
+    }
 
     function generateRandomNames(numNames) {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

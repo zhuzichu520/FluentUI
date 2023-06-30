@@ -134,13 +134,11 @@ FluExpander{
                     "FluMenuBar",
                     "FluPagination",
                     "FluRadioButtons",
-                    "FluImage"
+                    "FluImage",
+                    "FluSpinBox"
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");
         return code.replace(RegExp("\\b(" + qmlKeywords.join("|") + ")\\b", "g"), "<span style='color: #c23a80'>$1</span>");
     }
-
-
-
 }
