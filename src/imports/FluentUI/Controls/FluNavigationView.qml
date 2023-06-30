@@ -27,7 +27,7 @@ Item {
     property Component autoSuggestBox
     property Component actionItem
     property int topPadding: 0
-    signal loginClicked
+    signal logoClicked
     id:control
     QtObject{
         id:d
@@ -584,7 +584,7 @@ Item {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        loginClicked()
+                        logoClicked()
                     }
                 }
             }

@@ -452,7 +452,7 @@ Rectangle {
                         var minimumHeight = obj.minimumHeight
                         var maximumHeight = obj.maximumHeight
                         if(!minimumHeight){
-                            minimumHeight = 44
+                            minimumHeight = 46
                         }
                         if(!maximumHeight){
                             maximumHeight = 65535

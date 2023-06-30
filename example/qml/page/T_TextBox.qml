@@ -174,7 +174,7 @@ FluScrollablePage{
 
         FluSpinBox{
             Layout.topMargin: 20
-//            disabled: spin_box_switch.checked
+            disabled: spin_box_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left

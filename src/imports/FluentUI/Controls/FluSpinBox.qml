@@ -5,6 +5,7 @@ import FluentUI
 
 Rectangle{
     readonly property string displayText : d._displayText
+    property bool disabled: false
     property int from: 0
     property int to: 99
     property var validator: IntValidator {
@@ -27,6 +28,7 @@ Rectangle{
         FluTextBox{
             rightPadding: 80
             closeRightMargin: 55
+            disabled: control.disabled
             validator: control.validator
             text: d._displayText
             Component.onCompleted: {
@@ -51,6 +53,7 @@ Rectangle{
         anchors.fill: parent
         readOnly: true
         rightPadding: 80
+        disabled: control.disabled
         text: control.displayText
         MouseArea{
             anchors.fill: parent
@@ -68,8 +71,13 @@ Rectangle{
         width: 20
         height: 20
         iconSize: 16
+        disabled: {
+            if(control.disabled===true){
+                return true
+            }
+            return Number(control.displayText) === control.to
+        }
         iconSource: FluentIcons.ChevronUp
-        enabled: Number(control.displayText) !== control.to
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right
@@ -102,8 +110,13 @@ Rectangle{
         iconSource: FluentIcons.ChevronDown
         width: 20
         height: 20
+        disabled: {
+            if(control.disabled === true){
+                return true
+            }
+            return Number(control.displayText) === control.from
+        }
         iconSize: 16
-        enabled: Number(control.displayText) !== control.from
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right

@@ -18,5 +18,4 @@ Item {
     Component.onCompleted: {
         visible = true
     }
-
 }

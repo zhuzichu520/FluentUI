@@ -64,8 +64,8 @@ FluContentPage{
                                 address: getRandomAddresses(),
                                 nickname: getRandomNickname(),
                                 longstring:"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
-                                height:44,
-                                minimumHeight:44,
+                                height:46,
+                                minimumHeight:46,
                                 maximumHeight:300,
                                 action:com_action
                             })

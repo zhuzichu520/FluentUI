@@ -180,7 +180,7 @@ CustomWindow {
                     }
                 }
                 transformOrigin: Item.Center
-                onLoginClicked:{
+                onLogoClicked:{
                     clickCount += 1
                     if(clickCount === 1){
                         loader.reload()
