@@ -5,14 +5,12 @@
 
 CircularReveal::CircularReveal(QQuickItem* parent) : QQuickPaintedItem(parent)
 {
-
     _anim = new QPropertyAnimation(this, "radius", this);
     _anim->setDuration(333);
     _anim->setEasingCurve(QEasingCurve::OutCubic);
     connect(_anim, &QPropertyAnimation::finished,this,[=](){
         setVisible(false);
     });
-
     connect(this,&CircularReveal::radiusChanged,this,[=](){
         update();
     });

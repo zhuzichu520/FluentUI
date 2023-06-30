@@ -9,6 +9,9 @@ Rectangle {
     property var columnSource
     property var dataSource
     property color selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+    property color hoverButtonColor: Qt.alpha(selectionColor,0.2)
+    property color pressedButtonColor: Qt.alpha(selectionColor,0.4)
+
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -31,6 +34,7 @@ Rectangle {
     QtObject{
         id:d
         property var header_rows:[]
+        property bool selectionFlag: true
         function obtEditDelegate(column,row){
             var display = table_model.data(table_model.index(row,column),"display")
             var cellItem = table_view.itemAtCell(column, row)
@@ -186,6 +190,9 @@ Rectangle {
                 id:item_table
                 property var position: Qt.point(column,row)
                 required property bool selected
+                onSelectedChanged: {
+                    d.selectionFlag = !d.selectionFlag
+                }
                 color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
@@ -267,7 +274,7 @@ Rectangle {
         bottomRightHandle:com_handle
         topLeftHandle: com_handle
         onDraggingChanged: {
-            if(dragging === false){
+            if(!dragging){
                 table_view.interactive = true
             }
         }
@@ -286,29 +293,43 @@ Rectangle {
         syncView: table_view
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        delegate: Rectangle {
+        delegate: FluControl {
+            id:column_item_control
             readonly property real cellPadding: 8
             readonly property var obj : columnSource[column]
             implicitWidth: column_text.implicitWidth + (cellPadding * 2)
             implicitHeight: Math.max(header_horizontal.height, column_text.implicitHeight + (cellPadding * 2))
-            color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-            border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+            Rectangle{
+                anchors.fill: parent
+                color:{
+                    d.selectionFlag
+                    if(column_item_control.pressed){
+                        return control.pressedButtonColor
+                    }
+                    if(selection_model.isColumnSelected(column)){
+                        return control.hoverButtonColor
+                    }
+                    return column_item_control.hovered ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+                }
+                border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+            }
             FluText {
                 id: column_text
-                text: display
+                text: model.display
                 width: parent.width
                 height: parent.height
-                font.bold: true
+                font.bold:{
+                    d.selectionFlag
+                    return selection_model.columnIntersectsSelection(column)
+                }
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
-            TapHandler{
-                onDoubleTapped: {
-                    closeEditor()
-                    selection_model.clear()
-                    for(var i=0;i<=table_view.rows;i++){
-                        selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
-                    }
+            onClicked: {
+                closeEditor()
+                selection_model.clear()
+                for(var i=0;i<=table_view.rows;i++){
+                    selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
                 }
             }
             MouseArea{
@@ -364,25 +385,39 @@ Rectangle {
                 return []
             }
         }
-        delegate: Rectangle{
+        delegate: FluControl{
+            id:item_control
             readonly property real cellPadding: 8
             implicitWidth: Math.max(header_vertical.width, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
-            color:FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-            border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+            Rectangle{
+                anchors.fill: parent
+                color: {
+                    d.selectionFlag
+                    if(item_control.pressed){
+                        return control.pressedButtonColor
+                    }
+                    if(selection_model.isRowSelected(row)){
+                        return control.hoverButtonColor
+                    }
+                    return item_control.hovered ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+                }
+                border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+            }
             FluText{
                 id:row_text
                 anchors.centerIn: parent
                 text: row + 1
-                font.bold: true
+                font.bold:{
+                    d.selectionFlag
+                    return selection_model.rowIntersectsSelection(row)
+                }
             }
-            TapHandler{
-                onDoubleTapped: {
-                    closeEditor()
-                    selection_model.clear()
-                    for(var i=0;i<=columnSource.length;i++){
-                        selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
-                    }
+            onClicked: {
+                closeEditor()
+                selection_model.clear()
+                for(var i=0;i<=columnSource.length;i++){
+                    selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
                 }
             }
             MouseArea{

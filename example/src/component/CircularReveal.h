@@ -15,7 +15,6 @@ class CircularReveal : public QQuickPaintedItem
 public:
     CircularReveal(QQuickItem* parent = nullptr);
     void paint(QPainter* painter) override;
-
     Q_INVOKABLE void start(int w,int h,const QPoint& center,int radius);
     Q_SIGNAL void imageChanged();
     Q_SLOT void handleGrabResult();
