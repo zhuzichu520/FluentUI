@@ -190,9 +190,9 @@ Rectangle {
                 id:item_table
                 property var position: Qt.point(column,row)
                 required property bool selected
-                onSelectedChanged: {
-                    d.selectionFlag = !d.selectionFlag
-                }
+                //                onSelectedChanged: {
+                //                    d.selectionFlag = !d.selectionFlag
+                //                }
                 color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
@@ -224,6 +224,7 @@ Rectangle {
                                 selection_model.clear()
                             }
                             selection_model.select(table_model.index(row,column),ItemSelectionModel.Select)
+                            d.selectionFlag = !d.selectionFlag
                             event.accepted = true
                         }
                 }
@@ -262,6 +263,12 @@ Rectangle {
     Component{
         id:com_handle
         Item {
+            onYChanged: {
+                d.selectionFlag = !d.selectionFlag
+            }
+            onXChanged: {
+                d.selectionFlag = !d.selectionFlag
+            }
         }
     }
     SelectionRectangle {
@@ -331,11 +338,12 @@ Rectangle {
                 for(var i=0;i<=table_view.rows;i++){
                     selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
                 }
+                d.selectionFlag = !d.selectionFlag
             }
             MouseArea{
                 property point clickPos: "0,0"
                 height: parent.height
-                width: 4
+                width: 6
                 anchors.right: parent.right
                 acceptedButtons: Qt.LeftButton
                 visible: !(obj.width === obj.minimumWidth && obj.width === obj.maximumWidth)
@@ -419,10 +427,11 @@ Rectangle {
                 for(var i=0;i<=columnSource.length;i++){
                     selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
                 }
+                d.selectionFlag = !d.selectionFlag
             }
             MouseArea{
                 property point clickPos: "0,0"
-                height: 4
+                height: 6
                 width: parent.width
                 anchors.bottom: parent.bottom
                 acceptedButtons: Qt.LeftButton
