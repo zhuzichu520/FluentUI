@@ -76,7 +76,7 @@ ComboBox {
 
     background: Rectangle {
         implicitWidth: 140
-        implicitHeight: 28
+        implicitHeight: 32
         border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
         border.width: 1
         visible: !control.flat || control.down

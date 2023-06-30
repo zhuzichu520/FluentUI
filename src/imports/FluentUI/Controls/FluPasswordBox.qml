@@ -22,6 +22,8 @@ TextField{
         return normalColor
     }
     font:FluTextStyle.Body
+    padding: 8
+    leftPadding: 8
     echoMode:btn_reveal.pressed ? TextField.Normal : TextField.Password
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)

@@ -154,6 +154,11 @@ Rectangle {
             selectionModel: ItemSelectionModel {
                 id:selection_model
                 model: table_model
+                onSelectionChanged: {
+                    if(selection_rect.dragging){
+                        d.selectionFlag = !d.selectionFlag
+                    }
+                }
             }
             columnWidthProvider: function(column) {
                 var w = columnSource[column].width
@@ -194,7 +199,7 @@ Rectangle {
                 implicitWidth: columnSource[column].width
                 Rectangle{
                     anchors.fill: parent
-                    visible: item_loader.sourceComponent == null
+                    visible: item_loader.sourceComponent === null
                     color: selected ? control.selectionColor : "#00000000"
                 }
                 MouseArea{
@@ -258,16 +263,10 @@ Rectangle {
     }
     Component{
         id:com_handle
-        Item {
-            onYChanged: {
-                d.selectionFlag = !d.selectionFlag
-            }
-            onXChanged: {
-                d.selectionFlag = !d.selectionFlag
-            }
-        }
+        Item {}
     }
     SelectionRectangle {
+        id:selection_rect
         target: {
             if(item_loader.sourceComponent){
                 return null
@@ -453,7 +452,7 @@ Rectangle {
                         var minimumHeight = obj.minimumHeight
                         var maximumHeight = obj.maximumHeight
                         if(!minimumHeight){
-                            minimumHeight = 46
+                            minimumHeight = 44
                         }
                         if(!maximumHeight){
                             maximumHeight = 65535

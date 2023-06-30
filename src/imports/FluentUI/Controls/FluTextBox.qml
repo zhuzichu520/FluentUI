@@ -15,6 +15,8 @@ TextField{
     property int closeRightMargin: icon_end.visible ? 25 : 5
     id:control
     width: 300
+    padding: 8
+    leftPadding: 8
     enabled: !disabled
     color: {
         if(!enabled){

@@ -22,6 +22,8 @@ TextArea{
     }
     font:FluTextStyle.Body
     wrapMode: Text.WrapAnywhere
+    padding: 8
+    leftPadding: 8
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectedTextColor: color
     selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
