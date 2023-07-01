@@ -175,6 +175,9 @@ Rectangle {
                 return w
             }
             rowHeightProvider: function(row) {
+                if(row>=table_model.rowCount){
+                    return 0
+                }
                 var h = table_model.getRow(row).height
                 if(row === item_loader.row){
                     item_loader.height = h
@@ -186,7 +189,7 @@ Rectangle {
                         item_loader.y = table_view.contentY + cellPosition.y
                     }
                 }
-                return h
+                return 48
             }
             model: table_model
             clip: true
