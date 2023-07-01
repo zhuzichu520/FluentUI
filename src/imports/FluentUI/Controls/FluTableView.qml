@@ -189,7 +189,7 @@ Rectangle {
                         item_loader.y = table_view.contentY + cellPosition.y
                     }
                 }
-                return 48
+                return h
             }
             model: table_model
             clip: true
