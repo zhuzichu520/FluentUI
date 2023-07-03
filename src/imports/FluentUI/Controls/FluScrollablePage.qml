@@ -44,6 +44,7 @@ FluPage {
             anchors.right: flickview.right
             anchors.rightMargin: 2
         }
+        boundsBehavior: Flickable.StopAtBounds
         anchors{
             top: text_title.bottom
             bottom: parent.bottom

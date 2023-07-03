@@ -9,10 +9,8 @@ Item {
     property int contentHeight : 300
     default property alias content: container.data
     id:control
-    height: layout_header.height + container.height
-    width: 400
-    implicitWidth: width
-    implicitHeight: height
+    implicitHeight: Math.max((layout_header.height + container.height),layout_header.height)
+    implicitWidth: 400
     Rectangle{
         id:layout_header
         width: parent.width
@@ -58,29 +56,65 @@ Item {
                 Behavior on rotation {
                     NumberAnimation{
                         duration: 167
+                        easing.type: Easing.OutCubic
                     }
                 }
             }
         }
     }
-    Rectangle{
-        id:container
-        width: parent.width
-        clip: true
+    Item{
         anchors{
             top: layout_header.bottom
             topMargin: -1
             left: layout_header.left
         }
-        radius: 4
-        color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
-        border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
-        height: expand ? contentHeight : 0
-        Behavior on height {
-            NumberAnimation{
-                duration: 167
-                easing.type: Easing.InCubic
-            }
+        width: parent.width
+        clip: true
+        height: contentHeight+container.y
+        Rectangle{
+            id:container
+            width: parent.width
+            height: parent.height
+            radius: 4
+            color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+            border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
+            y: -contentHeight
+            states: [
+                State{
+                    name:"expand"
+                    when: control.expand
+                    PropertyChanges {
+                        target: container
+                        y:0
+                    }
+                },
+                State{
+                    name:"collapsed"
+                    when: !control.expand
+                    PropertyChanges {
+                        target: container
+                        y:-contentHeight
+                    }
+                }
+            ]
+            transitions: [
+                Transition {
+                    to:"expand"
+                    NumberAnimation {
+                        properties: "y"
+                        duration: 167
+                        easing.type: Easing.OutCubic
+                    }
+                },
+                Transition {
+                    to:"collapsed"
+                    NumberAnimation {
+                        properties: "y"
+                        duration: 167
+                        easing.type: Easing.OutCubic
+                    }
+                }
+            ]
         }
     }
 }

@@ -51,7 +51,7 @@ T.ScrollBar {
             }
             ,State{
                 name:"show"
-                when: !contentItem.expand
+                when: !contentItem.collapsed
                 PropertyChanges {
                     target: rect_bar
                     width:  vertical ? 2 : parent.width
@@ -68,7 +68,7 @@ T.ScrollBar {
                         target: rect_bar
                         properties: vertical ? "width"  : "height"
                         duration: 167
-                        easing.type: Easing.InCubic
+                        easing.type: Easing.OutCubic
                         to:2
                     }
                 }
@@ -79,7 +79,7 @@ T.ScrollBar {
                     target: rect_bar
                     properties: vertical ? "width"  : "height"
                     duration: 167
-                    easing.type: Easing.InCubic
+                    easing.type: Easing.OutCubic
                     to:6
                 }
             }

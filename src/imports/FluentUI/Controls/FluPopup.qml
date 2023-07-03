@@ -21,6 +21,7 @@ Popup {
             from:1.2
             to:1
             duration: 83
+            easing.type: Easing.OutCubic
         }
         NumberAnimation {
             property: "opacity"
@@ -35,6 +36,7 @@ Popup {
             from:1
             to:1.2
             duration: 83
+            easing.type: Easing.OutCubic
         }
         NumberAnimation {
             property: "opacity"

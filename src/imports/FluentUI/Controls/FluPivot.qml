@@ -40,7 +40,7 @@ Item {
                 Behavior on width {
                     NumberAnimation{
                         duration: 167
-                        easing.type: Easing.InCubic
+                        easing.type: Easing.OutCubic
                     }
                 }
             }

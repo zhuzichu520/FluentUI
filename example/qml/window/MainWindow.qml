@@ -16,7 +16,7 @@ CustomWindow {
     height: 640
     closeDestory:false
     minimumWidth: 520
-    minimumHeight: 460
+    minimumHeight: 200
     appBarVisible: false
     launchMode: FluWindow.SingleTask
 
@@ -95,7 +95,7 @@ CustomWindow {
             when: flipable.flipped
         }
         transitions: Transition {
-            NumberAnimation { target: flipable; property: "flipAngle"; duration: 1000 ; easing.type: Easing.OutQuad}
+            NumberAnimation { target: flipable; property: "flipAngle"; duration: 1000 ; easing.type: Easing.OutCubic}
         }
         back: Item{
             anchors.fill: flipable

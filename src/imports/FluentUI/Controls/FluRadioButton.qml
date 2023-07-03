@@ -64,8 +64,7 @@ Button {
             Behavior on border.width {
                 NumberAnimation{
                     duration: 167
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: [ 0, 0, 0, 1 ]
+                    easing.type: Easing.OutCubic
                 }
             }
             border.color: {

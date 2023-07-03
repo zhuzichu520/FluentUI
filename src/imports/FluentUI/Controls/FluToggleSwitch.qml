@@ -92,25 +92,25 @@ Button {
                 Behavior on anchors.leftMargin  {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.BezierSpline
-                        easing.bezierCurve: [ 1, 0, 0, 0 ]
+                        easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on anchors.rightMargin  {
                     NumberAnimation {
                         duration: 167
-                        easing.type: Easing.BezierSpline
-                        easing.bezierCurve: [ 0, 0, 0, 1 ]
+                        easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on width {
                     NumberAnimation {
                         duration: 167
+                        easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on scale {
                     NumberAnimation {
                         duration: 167
+                        easing.type: Easing.OutCubic
                     }
                 }
             }

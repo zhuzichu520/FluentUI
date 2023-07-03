@@ -49,8 +49,7 @@ Rectangle{
         Behavior on height{
             NumberAnimation{
                 duration: 83
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: [ 1, 0, 0, 0 ]
+                easing.type: Easing.OutCubic
             }
         }
     }

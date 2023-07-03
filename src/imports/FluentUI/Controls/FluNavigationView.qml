@@ -118,11 +118,6 @@ Item {
                 }
                 return 1
             }
-            Behavior on height {
-                NumberAnimation{
-                    duration: 83
-                }
-            }
         }
     }
     Component{
@@ -242,7 +237,8 @@ Item {
                         }
                         Behavior on rotation {
                             NumberAnimation{
-                                duration: 83
+                                duration: 167
+                                easing.type: Easing.OutCubic
                             }
                         }
                     }
@@ -564,7 +560,7 @@ Item {
                 Behavior on Layout.preferredWidth {
                     NumberAnimation{
                         duration: 167
-                        easing.type: Easing.InCubic
+                        easing.type: Easing.OutCubic
                     }
                 }
             }
@@ -630,7 +626,7 @@ Item {
         Behavior on anchors.leftMargin {
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.InCubic
+                easing.type: Easing.OutCubic
             }
         }
         StackView{
@@ -685,13 +681,13 @@ Item {
         Behavior on width {
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.InCubic
+                easing.type: Easing.OutCubic
             }
         }
         Behavior on x {
             NumberAnimation{
                 duration: 167
-                easing.type: Easing.InCubic
+                easing.type: Easing.OutCubic
             }
         }
         visible: {
@@ -756,6 +752,7 @@ Item {
             clip: true
             ScrollBar.vertical: FluScrollBar {}
             model:d.handleItems()
+            boundsBehavior: ListView.StopAtBounds
             highlightMoveDuration: 167
             highlight: Item{
                 clip: true
@@ -809,6 +806,7 @@ Item {
             height: childrenRect.height
             anchors.bottom: parent.bottom
             interactive: false
+            boundsBehavior: ListView.StopAtBounds
             currentIndex: -1
             model: {
                 if(footerItems){

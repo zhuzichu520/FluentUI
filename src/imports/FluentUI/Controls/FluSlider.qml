@@ -38,6 +38,7 @@ T.Slider {
             Behavior on scale {
                 NumberAnimation{
                     duration: 167
+                    easing.type: Easing.OutCubic
                 }
             }
         }
