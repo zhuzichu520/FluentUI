@@ -6,8 +6,8 @@ Rectangle {
     property real linWidth : width/8
     property real progress: 0.25
     property bool indeterminate: true
-    readonly property real radius2 : radius - linWidth/2
     property color primaryColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property bool progressVisible: false
     id: control
     width: 44
     height: 44
@@ -23,6 +23,10 @@ Rectangle {
             behavior.enabled = true
             control.rotation = 360
         }
+    }
+    QtObject{
+        id:d
+        property real _radius: control.radius-control.linWidth/2
     }
     Connections{
         target: FluTheme
@@ -53,18 +57,29 @@ Rectangle {
         antialiasing: true
         renderTarget: Canvas.Image
         onPaint: {
-            var ctx = canvas.getContext("2d");
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.save();
-            ctx.lineWidth = linWidth;
-            ctx.strokeStyle = primaryColor;
-            ctx.fillStyle = primaryColor;
-            ctx.beginPath();
-            ctx.arc(width/2, height/2, radius2 ,-0.5 * Math.PI,-0.5 * Math.PI + progress * 2 * Math.PI);
-            ctx.stroke();
-            ctx.closePath();
-            ctx.restore();
+            var ctx = canvas.getContext("2d")
+            ctx.setTransform(1, 0, 0, 1, 0, 0)
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.save()
+            ctx.lineWidth = linWidth
+            ctx.strokeStyle = primaryColor
+            ctx.fillStyle = primaryColor
+            ctx.beginPath()
+            ctx.arc(width/2, height/2, d._radius ,-0.5 * Math.PI,-0.5 * Math.PI + progress * 2 * Math.PI)
+            ctx.stroke()
+            ctx.closePath()
+            ctx.restore()
         }
+    }
+    FluText{
+        text:(control.progress * 100).toFixed(0) + "%"
+        font.pixelSize: 10
+        visible: {
+            if(control.indeterminate){
+                return false
+            }
+            return control.progressVisible
+        }
+        anchors.centerIn: parent
     }
 }

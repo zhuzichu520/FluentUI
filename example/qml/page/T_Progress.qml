@@ -12,32 +12,71 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 260
+        height: 110
         paddings: 10
+
         ColumnLayout{
-            spacing: 20
+            spacing: 10
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
+            FluText{
+                text: "indeterminate = true"
+            }
             FluProgressBar{
             }
             FluProgressRing{
             }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -1
+        code:'FluProgressBar{
+
+}
+FluProgressRing{
+
+}
+'
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height: 230
+        paddings: 10
+
+        ColumnLayout{
+            spacing: 10
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            FluText{
+                text: "indeterminate = false"
+            }
             FluProgressBar{
-                id:progress_bar
                 indeterminate: false
+                progress: slider.value/100
             }
             FluProgressRing{
-                id:progress_ring
                 indeterminate: false
+                progress: slider.value/100
+            }
+            FluProgressBar{
+                indeterminate: false
+                progressVisible: true
+                progress: slider.value/100
+            }
+            FluProgressRing{
+                indeterminate: false
+                progressVisible: true
+                progress: slider.value/100
             }
             FluSlider{
-                onValueChanged:{
-                    var progress = value/100
-                    progress_bar.progress = progress
-                    progress_ring.progress = progress
-                }
+                id:slider
                 Component.onCompleted: {
                     value = 50
                 }
@@ -48,22 +87,14 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluProgressBar{
-
-}
-
-FluProgressRing{
-
-}
-
-FluProgressBar{
     indeterminate: false
 }
-
 FluProgressRing{
     indeterminate: false
-}'
+    progressVisible: true
+}
+'
     }
-
 
 
 }

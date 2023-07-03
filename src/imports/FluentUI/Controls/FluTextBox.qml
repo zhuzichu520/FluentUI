@@ -16,7 +16,7 @@ TextField{
     id:control
     width: 300
     padding: 8
-    leftPadding: 8
+    leftPadding: padding+2
     enabled: !disabled
     color: {
         if(!enabled){

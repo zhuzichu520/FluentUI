@@ -39,8 +39,8 @@ ComboBox {
     }
     contentItem: T.TextField {
         property bool disabled: !control.editable
-        leftPadding: !control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
-        rightPadding: control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
+        leftPadding: !control.mirrored ? 10 : control.editable && activeFocus ? 3 : 1
+        rightPadding: control.mirrored ? 10 : control.editable && activeFocus ? 3 : 1
         topPadding: 6 - control.padding
         bottomPadding: 6 - control.padding
         renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering

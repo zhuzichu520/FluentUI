@@ -49,6 +49,9 @@ Rectangle {
             if(obj){
                 return obj
             }
+            if(columnSource[column].editMultiline === true){
+                return com_edit_multiline
+            }
             return com_edit
         }
     }
@@ -63,6 +66,23 @@ Rectangle {
     }
     Component{
         id:com_edit
+        FluTextBox{
+            text: display
+            readOnly: true === columnSource[column].readOnly
+            Component.onCompleted: {
+                forceActiveFocus()
+                selectAll()
+            }
+            onCommit: {
+                if(!readOnly){
+                    display = text
+                }
+                tableView.closeEditor()
+            }
+        }
+    }
+    Component{
+        id:com_edit_multiline
         Item{
             anchors.fill: parent
             ScrollView{
@@ -455,7 +475,7 @@ Rectangle {
                         var minimumHeight = obj.minimumHeight
                         var maximumHeight = obj.maximumHeight
                         if(!minimumHeight){
-                            minimumHeight = 46
+                            minimumHeight = 42
                         }
                         if(!maximumHeight){
                             maximumHeight = 65535
