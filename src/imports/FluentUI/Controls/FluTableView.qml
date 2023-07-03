@@ -232,6 +232,9 @@ Rectangle {
                         closeEditor()
                         table_view.interactive = false
                     }
+                    onCanceled: {
+                        table_view.interactive = true
+                    }
                     onReleased: {
                         table_view.interactive = true
                     }
@@ -290,12 +293,7 @@ Rectangle {
     }
     SelectionRectangle {
         id:selection_rect
-        target: {
-            if(item_loader.sourceComponent){
-                return null
-            }
-            return table_view
-        }
+        target: table_view
         bottomRightHandle:com_handle
         topLeftHandle: com_handle
         onDraggingChanged: {
