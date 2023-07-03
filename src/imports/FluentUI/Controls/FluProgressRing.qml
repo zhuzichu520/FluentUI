@@ -39,8 +39,6 @@ Rectangle {
         enabled: false
         NumberAnimation{
             duration: 999
-            easing.type: Easing.BezierSpline
-            easing.bezierCurve: [0.55,0.55,0,1]
             onRunningChanged: {
                 if(!running){
                     behavior.enabled = false
