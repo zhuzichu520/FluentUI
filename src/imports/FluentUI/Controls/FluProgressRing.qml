@@ -3,7 +3,7 @@ import QtQuick.Controls
 import FluentUI
 
 Rectangle {
-    property real linWidth : width/8
+    property real linWidth : 5
     property real progress: 0.25
     property bool indeterminate: true
     property color primaryColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark

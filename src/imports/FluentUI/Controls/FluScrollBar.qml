@@ -41,7 +41,7 @@ T.ScrollBar {
         }
         states: [
             State{
-                name:"hide"
+                name:"show"
                 when: contentItem.collapsed
                 PropertyChanges {
                     target: rect_bar
@@ -50,7 +50,7 @@ T.ScrollBar {
                 }
             }
             ,State{
-                name:"show"
+                name:"hide"
                 when: !contentItem.collapsed
                 PropertyChanges {
                     target: rect_bar
@@ -61,7 +61,7 @@ T.ScrollBar {
         ]
         transitions:[
             Transition {
-                from: "hide"
+                to: "hide"
                 SequentialAnimation {
                     PauseAnimation { duration: 450 }
                     NumberAnimation {
@@ -69,18 +69,19 @@ T.ScrollBar {
                         properties: vertical ? "width"  : "height"
                         duration: 167
                         easing.type: Easing.OutCubic
-                        to:2
                     }
                 }
             }
             ,Transition {
-                from: "show"
-                NumberAnimation {
-                    target: rect_bar
-                    properties: vertical ? "width"  : "height"
-                    duration: 167
-                    easing.type: Easing.OutCubic
-                    to:6
+                to: "show"
+                SequentialAnimation{
+                    PauseAnimation { duration: 100 }
+                    NumberAnimation {
+                        target: rect_bar
+                        properties: vertical ? "width"  : "height"
+                        duration: 167
+                        easing.type: Easing.OutCubic
+                    }
                 }
             }
         ]

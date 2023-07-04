@@ -222,7 +222,7 @@ Rectangle {
                 implicitWidth: columnSource[column].width
                 Rectangle{
                     anchors.fill: parent
-                    visible: item_loader.sourceComponent === null
+                    visible: !item_loader.sourceComponent
                     color: selected ? control.selectionColor : "#00000000"
                 }
                 MouseArea{
@@ -316,26 +316,24 @@ Rectangle {
         syncView: table_view
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        delegate: FluControl {
+        delegate: Rectangle {
             id:column_item_control
             readonly property real cellPadding: 8
+            property bool canceled: false
             readonly property var obj : columnSource[column]
             implicitWidth: column_text.implicitWidth + (cellPadding * 2)
             implicitHeight: Math.max(header_horizontal.height, column_text.implicitHeight + (cellPadding * 2))
-            Rectangle{
-                anchors.fill: parent
-                color:{
-                    d.selectionFlag
-                    if(column_item_control.pressed){
-                        return control.pressedButtonColor
-                    }
-                    if(selection_model.isColumnSelected(column)){
-                        return control.hoverButtonColor
-                    }
-                    return column_item_control.hovered ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+            color:{
+                d.selectionFlag
+                if(column_item_control_mouse.pressed){
+                    return control.pressedButtonColor
                 }
-                border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+                if(selection_model.isColumnSelected(column)){
+                    return control.hoverButtonColor
+                }
+                return column_item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             }
+            border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
             FluText {
                 id: column_text
                 text: model.display
@@ -348,13 +346,30 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
-            onClicked: {
-                closeEditor()
-                selection_model.clear()
-                for(var i=0;i<=table_view.rows;i++){
-                    selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
+            MouseArea{
+                id:column_item_control_mouse
+                anchors.fill: parent
+                anchors.rightMargin: 6
+                hoverEnabled: true
+                onCanceled: {
+                    column_item_control.canceled = true
                 }
-                d.selectionFlag = !d.selectionFlag
+                onContainsMouseChanged: {
+                    if(!containsMouse){
+                        column_item_control.canceled = false
+                    }
+                }
+                onClicked:
+                    (event)=>{
+                        closeEditor()
+                        if(!(event.modifiers & Qt.ControlModifier)){
+                            selection_model.clear()
+                        }
+                        for(var i=0;i<=table_view.rows;i++){
+                            selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
+                        }
+                        d.selectionFlag = !d.selectionFlag
+                    }
             }
             MouseArea{
                 property point clickPos: "0,0"
@@ -362,20 +377,28 @@ Rectangle {
                 width: 6
                 anchors.right: parent.right
                 acceptedButtons: Qt.LeftButton
+                hoverEnabled: true
                 visible: !(obj.width === obj.minimumWidth && obj.width === obj.maximumWidth)
                 cursorShape: Qt.SplitHCursor
-                preventStealing: true
-                propagateComposedEvents: true
                 onPressed :
                     (mouse)=>{
+                        header_horizontal.interactive = false
                         FluTools.setOverrideCursor(Qt.SplitHCursor)
                         clickPos = Qt.point(mouse.x, mouse.y)
                     }
                 onReleased:{
+                    header_horizontal.interactive = true
+                    FluTools.restoreOverrideCursor()
+                }
+                onCanceled: {
+                    header_horizontal.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onPositionChanged:
                     (mouse)=>{
+                        if(!pressed){
+                            return
+                        }
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
                         var minimumWidth = obj.minimumWidth
                         var maximumWidth = obj.maximumWidth
@@ -409,25 +432,23 @@ Rectangle {
                 return []
             }
         }
-        delegate: FluControl{
+        delegate: Rectangle{
             id:item_control
             readonly property real cellPadding: 8
+            property bool canceled: false
             implicitWidth: Math.max(header_vertical.width, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
-            Rectangle{
-                anchors.fill: parent
-                color: {
-                    d.selectionFlag
-                    if(item_control.pressed){
-                        return control.pressedButtonColor
-                    }
-                    if(selection_model.isRowSelected(row)){
-                        return control.hoverButtonColor
-                    }
-                    return item_control.hovered ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+            color: {
+                d.selectionFlag
+                if(item_control_mouse.pressed){
+                    return control.pressedButtonColor
                 }
-                border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+                if(selection_model.isRowSelected(row)){
+                    return control.hoverButtonColor
+                }
+                return item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             }
+            border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
             FluText{
                 id:row_text
                 anchors.centerIn: parent
@@ -437,13 +458,30 @@ Rectangle {
                     return selection_model.rowIntersectsSelection(row)
                 }
             }
-            onClicked: {
-                closeEditor()
-                selection_model.clear()
-                for(var i=0;i<=columnSource.length;i++){
-                    selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
+            MouseArea{
+                id:item_control_mouse
+                anchors.fill: parent
+                anchors.bottomMargin: 6
+                hoverEnabled: true
+                onCanceled: {
+                    item_control.canceled = true
                 }
-                d.selectionFlag = !d.selectionFlag
+                onContainsMouseChanged: {
+                    if(!containsMouse){
+                        item_control.canceled = false
+                    }
+                }
+                onClicked:
+                    (event)=>{
+                        closeEditor()
+                        if(!(event.modifiers & Qt.ControlModifier)){
+                            selection_model.clear()
+                        }
+                        for(var i=0;i<=columnSource.length;i++){
+                            selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
+                        }
+                        d.selectionFlag = !d.selectionFlag
+                    }
             }
             MouseArea{
                 property point clickPos: "0,0"
@@ -452,22 +490,29 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 acceptedButtons: Qt.LeftButton
                 cursorShape: Qt.SplitVCursor
-                preventStealing: true
                 visible: {
                     var obj = table_model.getRow(row)
                     return !(obj.height === obj.minimumHeight && obj.width === obj.maximumHeight)
                 }
-                propagateComposedEvents: true
                 onPressed :
                     (mouse)=>{
+                        header_vertical.interactive = false
                         FluTools.setOverrideCursor(Qt.SplitVCursor)
                         clickPos = Qt.point(mouse.x, mouse.y)
                     }
                 onReleased:{
+                    header_vertical.interactive = true
+                    FluTools.restoreOverrideCursor()
+                }
+                onCanceled: {
+                    header_vertical.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onPositionChanged:
                     (mouse)=>{
+                        if(!pressed){
+                            return
+                        }
                         var obj = table_model.getRow(row)
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
                         var minimumHeight = obj.minimumHeight

@@ -76,7 +76,6 @@ FluScrollablePage{
                 Image{
                     source: "qrc:/example/res/image/banner_1.jpg"
                     asynchronous: true
-                    sourceSize: Qt.size(400,300)
                     fillMode:Image.PreserveAspectCrop
                 }
                 Image{

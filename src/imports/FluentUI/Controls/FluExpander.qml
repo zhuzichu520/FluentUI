@@ -70,6 +70,7 @@ Item {
         }
         width: parent.width
         clip: true
+        visible: contentHeight+container.y !== 0
         height: contentHeight+container.y
         Rectangle{
             id:container

@@ -747,28 +747,8 @@ Item {
                 }
             }
         }
-        ListView{
-            id:nav_list
-            clip: true
-            ScrollBar.vertical: FluScrollBar {}
-            model:d.handleItems()
-            boundsBehavior: ListView.StopAtBounds
-            highlightMoveDuration: 167
-            highlight: Item{
-                clip: true
-                Rectangle{
-                    height: 18
-                    radius: 1.5
-                    color: FluTheme.primaryColor.dark
-                    width: 3
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        left: parent.left
-                        leftMargin: 6
-                    }
-                }
-            }
-            currentIndex: -1
+        Flickable{
+            id:layout_flickable
             anchors{
                 top: layout_header.bottom
                 topMargin: 6
@@ -776,29 +756,58 @@ Item {
                 right: parent.right
                 bottom: layout_footer.top
             }
-            delegate: Loader{
-                property var model: modelData
-                property var idx: index
-                property int type: 0
-                sourceComponent: {
-                    if(modelData instanceof FluPaneItem){
-                        return com_panel_item
+            boundsBehavior: ListView.StopAtBounds
+            clip: true
+            contentHeight: nav_list.contentHeight
+            ScrollBar.vertical: FluScrollBar {}
+            ListView{
+                id:nav_list
+                clip: true
+                anchors.fill: parent
+                model:d.handleItems()
+                boundsBehavior: ListView.StopAtBounds
+                highlightMoveDuration: 167
+                highlight: Item{
+                    clip: true
+                    Rectangle{
+                        height: 18
+                        radius: 1.5
+                        color: FluTheme.primaryColor.dark
+                        width: 3
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            left: parent.left
+                            leftMargin: 6
+                        }
                     }
-                    if(modelData instanceof FluPaneItemHeader){
-                        return com_panel_item_header
-                    }
-                    if(modelData instanceof FluPaneItemSeparator){
-                        return com_panel_item_separatorr
-                    }
-                    if(modelData instanceof FluPaneItemExpander){
-                        return com_panel_item_expander
-                    }
-                    if(modelData instanceof FluPaneItemEmpty){
-                        return com_panel_item_empty
+                }
+                currentIndex: -1
+
+                delegate: Loader{
+                    property var model: modelData
+                    property var idx: index
+                    property int type: 0
+                    sourceComponent: {
+                        if(modelData instanceof FluPaneItem){
+                            return com_panel_item
+                        }
+                        if(modelData instanceof FluPaneItemHeader){
+                            return com_panel_item_header
+                        }
+                        if(modelData instanceof FluPaneItemSeparator){
+                            return com_panel_item_separatorr
+                        }
+                        if(modelData instanceof FluPaneItemExpander){
+                            return com_panel_item_expander
+                        }
+                        if(modelData instanceof FluPaneItemEmpty){
+                            return com_panel_item_empty
+                        }
                     }
                 }
             }
         }
+
         ListView{
             id:layout_footer
             clip: true

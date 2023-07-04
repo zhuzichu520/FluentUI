@@ -37,11 +37,6 @@ FluExpander{
             rightMargin: 5
             topMargin: 5
         }
-        onActiveFocusChanged: {
-            if(activeFocus){
-                control.expand = true
-            }
-        }
         onClicked:{
             FluTools.clipText(content.text)
             showSuccess("复制成功")
