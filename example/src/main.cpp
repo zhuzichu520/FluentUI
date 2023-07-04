@@ -39,7 +39,6 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
-
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
