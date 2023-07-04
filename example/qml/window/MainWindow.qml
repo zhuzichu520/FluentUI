@@ -168,6 +168,7 @@ CustomWindow {
                 width: parent.width
                 height: parent.height
                 z:999
+//                pageMode: FluNavigationView.NoStack
                 items: ItemsOriginal
                 footerItems:ItemsFooter
                 topPadding:FluTools.isMacos() ? 20 : 5

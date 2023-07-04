@@ -12,21 +12,19 @@ Item {
         Minimal = 2,
         Auto = 3
     }
-    enum PageModeFlag{
-        Standard = 0,
-        SingleTask = 1,
-        SingleTop = 2,
-        SingleInstance = 3
+    enum PageMode {
+        Stack = 0,
+        NoStack = 1
     }
     property url logo
     property string title: ""
     property FluObject items
     property FluObject footerItems
-    property bool dontPageAnimation: false
     property int displayMode: FluNavigationView.Auto
     property Component autoSuggestBox
     property Component actionItem
     property int topPadding: 0
+    property int pageMode: FluNavigationView.Stack
     signal logoClicked
     id:control
     QtObject{
@@ -43,21 +41,21 @@ Item {
             collapseAll()
         }
         function handleItems(){
-            var idx = 0
+            var _idx = 0
             var data = []
             if(items){
                 for(var i=0;i<items.children.length;i++){
                     var item = items.children[i]
-                    item.idx = idx
+                    item._idx = _idx
                     data.push(item)
-                    idx++
+                    _idx++
                     if(item instanceof FluPaneItemExpander){
                         for(var j=0;j<item.children.length;j++){
                             var itemChild = item.children[j]
                             itemChild.parent = item
-                            itemChild.idx = idx
+                            itemChild._idx = _idx
                             data.push(itemChild)
-                            idx++
+                            _idx++
                         }
                     }
                 }
@@ -66,10 +64,10 @@ Item {
                     for(var k=0;k<footerItems.children.length;k++){
                         var itemFooter = footerItems.children[k]
                         if (comEmpty.status === Component.Ready) {
-                            var objEmpty = comEmpty.createObject(items,{idx:idx});
-                            itemFooter.idx = idx;
+                            var objEmpty = comEmpty.createObject(items,{_idx:_idx});
+                            itemFooter._idx = _idx;
                             data.push(objEmpty)
-                            idx++
+                            _idx++
                         }
                     }
                 }
@@ -196,7 +194,6 @@ Item {
                         return false
                     }
                 }
-
                 Rectangle{
                     radius: 4
                     anchors.fill: parent
@@ -208,7 +205,7 @@ Item {
                         visible: {
                             for(var i=0;i<model.children.length;i++){
                                 var item = model.children[i]
-                                if(item.idx === nav_list.currentIndex && !model.isExpand){
+                                if(item._idx === nav_list.currentIndex && !model.isExpand){
                                     return true
                                 }
                             }
@@ -218,7 +215,6 @@ Item {
                             verticalCenter: parent.verticalCenter
                         }
                     }
-
                     FluIcon{
                         id:item_icon_expand
                         rotation: model.isExpand?0:180
@@ -244,7 +240,7 @@ Item {
                     }
                     color: {
                         if(FluTheme.dark){
-                            if((nav_list.currentIndex === idx)&&type===0){
+                            if((nav_list.currentIndex === _idx)&&type===0){
                                 return Qt.rgba(1,1,1,0.06)
                             }
                             if(item_control.hovered){
@@ -252,7 +248,7 @@ Item {
                             }
                             return Qt.rgba(0,0,0,0)
                         }else{
-                            if(nav_list.currentIndex === idx&&type===0){
+                            if(nav_list.currentIndex === _idx&&type===0){
                                 return Qt.rgba(0,0,0,0.06)
                             }
                             if(item_control.hovered){
@@ -357,7 +353,7 @@ Item {
                         if(model.tapFunc){
                             model.tapFunc()
                         }else{
-                            nav_list.currentIndex = idx
+                            nav_list.currentIndex = _idx
                             layout_footer.currentIndex = -1
                             model.tap()
                             if(d.isMinimal || d.isCompact){
@@ -368,8 +364,8 @@ Item {
                         if(model.tapFunc){
                             model.tapFunc()
                         }else{
-                            nav_list.currentIndex = nav_list.count-layout_footer.count+idx
-                            layout_footer.currentIndex = idx
+                            nav_list.currentIndex = nav_list.count-layout_footer.count+_idx
+                            layout_footer.currentIndex = _idx
                             model.tap()
                             if(d.isMinimal || d.isCompact){
                                 d.enableNavigationPanel = false
@@ -383,11 +379,11 @@ Item {
                     color: {
                         if(FluTheme.dark){
                             if(type===0){
-                                if(nav_list.currentIndex === idx){
+                                if(nav_list.currentIndex === _idx){
                                     return Qt.rgba(1,1,1,0.06)
                                 }
                             }else{
-                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
+                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+_idx)){
                                     return Qt.rgba(1,1,1,0.06)
                                 }
                             }
@@ -397,11 +393,11 @@ Item {
                             return Qt.rgba(0,0,0,0)
                         }else{
                             if(type===0){
-                                if(nav_list.currentIndex === idx){
+                                if(nav_list.currentIndex === _idx){
                                     return Qt.rgba(0,0,0,0.06)
                                 }
                             }else{
-                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+idx)){
+                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+_idx)){
                                     return Qt.rgba(0,0,0,0.06)
                                 }
                             }
@@ -511,31 +507,39 @@ Item {
                 Layout.preferredWidth: 30
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
-                disabled:  nav_swipe.depth <= 1
+                disabled:  {
+                    return d.stackItems.length <= 1
+                }
                 iconSize: 13
                 onClicked: {
-                    FluTools.deleteItem(nav_swipe.pop())
-                    d.stackItems.pop()
+                    d.stackItems = d.stackItems.slice(0, -1)
                     var item = d.stackItems[d.stackItems.length-1]
-                    if(item.idx<(nav_list.count - layout_footer.count)){
+                    if(item._idx<(nav_list.count - layout_footer.count)){
                         layout_footer.currentIndex = -1
                     }else{
-                        layout_footer.currentIndex = item.idx-(nav_list.count-layout_footer.count)
+                        layout_footer.currentIndex = item._idx-(nav_list.count-layout_footer.count)
                     }
-                    nav_list.currentIndex = item.idx
-                    if(nav_swipe.currentItem.pageMode === FluNavigationView.SingleInstance){
-                        var url = nav_swipe.currentItem.url
-                        var pageIndex = -1
-                        for(var i=0;i<nav_swipe2.children.length;i++){
-                            var obj =  nav_swipe2.children[i]
-                            if(obj.url === url){
-                                pageIndex = i
-                                break
+                    nav_list.currentIndex = item._idx
+                    if(pageMode === FluNavigationView.Stack){
+                        var nav_stack = loader_content.item.navStack()
+                        var nav_stack2 = loader_content.item.navStack()
+                        nav_stack.pop()
+                        if(nav_stack.currentItem.launchMode === FluPage.SingleInstance){
+                            var url = nav_stack.currentItem.url
+                            var pageIndex = -1
+                            for(var i=0;i<nav_stack2.children.length;i++){
+                                var obj =  nav_stack2.children[i]
+                                if(obj.url === url){
+                                    pageIndex = i
+                                    break
+                                }
+                            }
+                            if(pageIndex !== -1){
+                                nav_stack2.currentIndex = pageIndex
                             }
                         }
-                        if(pageIndex !== -1){
-                            nav_swipe2.currentIndex = pageIndex
-                        }
+                    }else if(pageMode === FluNavigationView.NoStack){
+                        loader_content.setSource(item._ext.url,item._ext.argument)
                     }
                 }
             }
@@ -607,7 +611,39 @@ Item {
             }
         }
     }
-    Item{
+
+    Component{
+        id:com_stack_content
+        Item{
+            StackView{
+                id:nav_stack
+                anchors.fill: parent
+                clip: true
+                visible: !nav_stack2.visible
+                popEnter : Transition{}
+                popExit : Transition {}
+                pushEnter: Transition {}
+                pushExit : Transition{}
+                replaceEnter : Transition{}
+                replaceExit : Transition{}
+            }
+            StackLayout{
+                id:nav_stack2
+                anchors.fill: nav_stack
+                clip: true
+                visible: nav_stack.currentItem?.launchMode === FluPage.SingleInstance
+            }
+            function navStack(){
+                return nav_stack
+            }
+            function navStack2(){
+                return nav_stack2
+            }
+        }
+    }
+
+    Loader{
+        id:loader_content
         anchors{
             left: parent.left
             top: nav_app_bar.bottom
@@ -629,24 +665,7 @@ Item {
                 easing.type: Easing.OutCubic
             }
         }
-        StackView{
-            id:nav_swipe
-            anchors.fill: parent
-            clip: true
-            visible: !nav_swipe2.visible
-            popEnter : Transition{}
-            popExit : Transition {}
-            pushEnter: Transition {}
-            pushExit : Transition{}
-            replaceEnter : Transition{}
-            replaceExit : Transition{}
-        }
-        StackLayout{
-            id:nav_swipe2
-            anchors.fill: nav_swipe
-            clip: true
-            visible: nav_swipe.currentItem.pageMode === FluNavigationView.SingleInstance
-        }
+        sourceComponent: com_stack_content
     }
     MouseArea{
         anchors.fill: parent
@@ -696,7 +715,7 @@ Item {
             return d.isMinimalAndPanel  ? true : false
         }
         FluAcrylic {
-            sourceItem:nav_swipe
+            sourceItem:loader_content
             anchors.fill: layout_list
             color: {
                 if(d.isMinimalAndPanel || d.isCompactAndPanel){
@@ -785,7 +804,7 @@ Item {
 
                 delegate: Loader{
                     property var model: modelData
-                    property var idx: index
+                    property var _idx: index
                     property int type: 0
                     sourceComponent: {
                         if(modelData instanceof FluPaneItem){
@@ -839,7 +858,7 @@ Item {
             }
             delegate: Loader{
                 property var model: modelData
-                property var idx: index
+                property var _idx: index
                 property int type: 1
                 sourceComponent: {
                     if(modelData instanceof FluPaneItem){
@@ -938,7 +957,7 @@ Item {
                             modelData.tapFunc()
                         }else{
                             modelData.tap()
-                            nav_list.currentIndex = idx
+                            nav_list.currentIndex = _idx
                             layout_footer.currentIndex = -1
                             if(d.isMinimal || d.isCompact){
                                 d.enableNavigationPanel = false
@@ -968,7 +987,7 @@ Item {
     Component{
         id:com_placeholder
         Item{
-            property int pageMode: FluNavigationView.SingleInstance
+            property int launchMode: FluPage.SingleInstance
             property string url
         }
     }
@@ -990,73 +1009,95 @@ Item {
     function getItems(){
         return nav_list.model
     }
-    function push(url,argument={}){
-        var page = nav_swipe.find(function(item) {
-            return item.url === url;
-        })
-        if(page){
-            switch(page.pageMode)
-            {
-            case FluNavigationView.SingleTask:
-                while(nav_swipe.currentItem !== page)
-                {
-                    FluTools.deleteItem(nav_swipe.pop())
-                    d.stackItems.pop()
-                }
-                return
-            case FluNavigationView.SingleTop:
-                if (nav_swipe.currentItem.url === url){
-                    return
-                }
-                break
-            case FluNavigationView.Standard:
-            default:
-            }
-        }
-
-        var pageIndex = -1
-        for(var i=0;i<nav_swipe2.children.length;i++){
-            var item =  nav_swipe2.children[i]
-            if(item.url === url){
-                pageIndex = i
-                break
-            }
-        }
-        var options = Object.assign(argument,{url:url})
-        if(pageIndex!==-1){
-            nav_swipe2.currentIndex = pageIndex
-            nav_swipe.push(com_placeholder,options)
-        }else{
-            var comp = Qt.createComponent(url)
-            if (comp.status === Component.Ready) {
-                var obj  = comp.createObject(nav_swipe,options)
-                if(obj.pageMode === FluNavigationView.SingleInstance){
-                    nav_swipe.push(com_placeholder,options)
-                    nav_swipe2.children.push(obj)
-                    nav_swipe2.currentIndex = nav_swipe2.count - 1
-                }else{
-                    nav_swipe.push(obj)
-                }
-            }else{
-                console.error(comp.errorString())
-            }
-        }
-        d.stackItems.push(nav_list.model[nav_list.currentIndex])
-    }
     function getCurrentIndex(){
         return nav_list.currentIndex
     }
     function getCurrentUrl(){
-        if(nav_swipe.currentItem){
-            return nav_swipe.currentItem.url
+        if(pageMode === FluNavigationView.Stack){
+            var nav_stack = loader_content.item.navStack()
+            if(nav_stack.currentItem){
+                return nav_stack.currentItem.url
+            }
+        }else if(pageMode === FluNavigationView.NoStack){
+            return loader_content.source.toString()
         }
         return undefined
+    }
+    function push(url,argument={}){
+        function stackPush(){
+            var nav_stack = loader_content.item.navStack()
+            var nav_stack2 = loader_content.item.navStack2()
+            var page = nav_stack.find(function(item) {
+                return item.url === url;
+            })
+            if(page){
+                switch(page.launchMode)
+                {
+                case FluPage.SingleTask:
+                    while(nav_stack.currentItem !== page)
+                    {
+                        nav_stack.pop()
+                        d.stackItems = d.stackItems.slice(0, -1)
+                    }
+                    return
+                case FluPage.SingleTop:
+                    if (nav_stack.currentItem.url === url){
+                        return
+                    }
+                    break
+                case FluPage.Standard:
+                default:
+                }
+            }
+            var pageIndex = -1
+            for(var i=0;i<nav_stack2.children.length;i++){
+                var item =  nav_stack2.children[i]
+                if(item.url === url){
+                    pageIndex = i
+                    break
+                }
+            }
+            var options = Object.assign(argument,{url:url})
+            if(pageIndex!==-1){
+                nav_stack2.currentIndex = pageIndex
+                nav_stack.push(com_placeholder,options)
+            }else{
+                var comp = Qt.createComponent(url)
+                if (comp.status === Component.Ready) {
+                    var obj  = comp.createObject(nav_stack,options)
+                    if(obj.launchMode === FluPage.SingleInstance){
+                        nav_stack.push(com_placeholder,options)
+                        nav_stack2.children.push(obj)
+                        nav_stack2.currentIndex = nav_stack2.count - 1
+                    }else{
+                        nav_stack.push(obj)
+                    }
+                }else{
+                    console.error(comp.errorString())
+                }
+            }
+            d.stackItems = d.stackItems.concat(nav_list.model[nav_list.currentIndex])
+        }
+        function noStackPush(){
+            if(loader_content.source.toString() === url){
+                return
+            }
+            loader_content.setSource(url,argument)
+            var obj = nav_list.model[nav_list.currentIndex]
+            obj._ext = {url:url,argument:argument}
+            d.stackItems = d.stackItems.concat(obj)
+        }
+        if(pageMode === FluNavigationView.Stack){
+            stackPush()
+        }else if(pageMode === FluNavigationView.NoStack){
+            noStackPush()
+        }
     }
     function startPageByItem(data){
         var items = getItems()
         for(var i=0;i<items.length;i++){
             var item =  items[i]
-            if(item.key === data.key){
+            if(item._key === data._key){
                 if(getCurrentIndex() === i){
                     return
                 }

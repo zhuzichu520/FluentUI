@@ -7,7 +7,7 @@ import FluentUI
 
 FluScrollablePage{
 
-    pageMode: FluNavigationView.SingleTask
+    launchMode: FluPage.SingleTask
     animDisabled: true
 
     ListModel{

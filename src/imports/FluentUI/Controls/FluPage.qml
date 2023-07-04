@@ -5,12 +5,19 @@ import QtQuick.Window
 import FluentUI
 
 Item {
-    property int pageMode: FluNavigationView.SingleTop
+    enum LaunchMode{
+        Standard = 0,
+        SingleTask = 1,
+        SingleTop = 2,
+        SingleInstance = 3
+    }
+    property int launchMode: FluPage.SingleTop
     property bool animDisabled: false
     property string url : ""
     id: control
     opacity: visible
     visible: false
+    StackView.onRemoved: destroy()
     Behavior on opacity{
         enabled: !animDisabled
         NumberAnimation{

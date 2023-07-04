@@ -3,8 +3,9 @@ import QtQuick.Controls
 import FluentUI
 
 QtObject {
-    readonly property string key : FluTools.uuid()
-    readonly property int flag : 0
+    readonly property string _key : FluTools.uuid()
+    property int _idx
+    property var _ext
     property string title
     property int order : 0
     property int icon
@@ -15,7 +16,6 @@ QtObject {
     property string desc
     property var image
     property var parent
-    property int idx
     property int count: 0
     signal tap
     property var tapFunc

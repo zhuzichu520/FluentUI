@@ -7,7 +7,7 @@ import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    pageMode: FluNavigationView.SingleInstance
+    launchMode: FluPage.SingleInstance
 
     title:"TextBox"
     FluArea{
