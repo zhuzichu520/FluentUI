@@ -9,6 +9,15 @@ Item{
     property bool shadow: true
     default property alias contentItem: container.data
     id:control
+    onWidthChanged: {
+        canvas.requestPaint()
+    }
+    onHeightChanged: {
+        canvas.requestPaint()
+    }
+    onRadiusChanged: {
+        canvas.requestPaint()
+    }
     FluShadow{
         anchors.fill: container
         radius: control.radius[0]
@@ -36,7 +45,6 @@ Item{
             var y = 0;
             var w = control.width;
             var h = control.height;
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.save();
             ctx.beginPath();

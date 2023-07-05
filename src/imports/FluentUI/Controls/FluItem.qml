@@ -31,7 +31,6 @@ Item{
             var y = 0;
             var w = control.width;
             var h = control.height;
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.save();
             ctx.beginPath();

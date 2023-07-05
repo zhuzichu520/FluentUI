@@ -175,12 +175,6 @@ CustomWindow {
                 displayMode:MainEvent.displayMode
                 logo: "qrc:/example/res/image/favicon.ico"
                 title:"FluentUI"
-                Behavior on rotation {
-                    NumberAnimation{
-                        duration: 167
-                    }
-                }
-                transformOrigin: Item.Center
                 onLogoClicked:{
                     clickCount += 1
                     if(clickCount === 1){
