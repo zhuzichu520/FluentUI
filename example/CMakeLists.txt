@@ -4,8 +4,10 @@ project(example VERSION 0.1 LANGUAGES CXX)
 
 #配置通用编译
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+if(APPLE AND QT_VERSION VERSION_GREATER_EQUAL "6.0")
+    if(APPLE)
+        set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+    endif()
 endif()
 
 #设置可执行文件输出目录
@@ -21,7 +23,8 @@ file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 #设置版本号
 add_definitions(-DVERSION=1,3,7,3)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
@@ -42,26 +45,53 @@ endforeach(filepath)
 file(GLOB_RECURSE QML_PATHS *.qml)
 foreach(filepath ${QML_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND qml_files ${filename})
+    if (NOT (${filepath} MATCHES "qml/") AND QT_VERSION VERSION_GREATER_EQUAL "6.2")
+        string(REPLACE "qml-Qt6" "qml" filealias ${filename})
+        set_source_files_properties(${filename} PROPERTIES QT_RESOURCE_ALIAS ${filealias})
+        list(APPEND qml_files ${filename})
+    elseif(NOT (${filepath} MATCHES "qml-Qt6/") AND QT_VERSION VERSION_LESS "6.0")
+        list(APPEND qml_files ${filename})
+    endif()
+
 endforeach(filepath)
 
 #遍历所有资源文件
 file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp qmldir)
 foreach(filepath ${RES_PATHS})
-    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND resource_files ${filename})
+    if (NOT (${filepath} MATCHES "qml/") AND QT_VERSION VERSION_GREATER_EQUAL "6.2")
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+        string(REPLACE "qml-Qt6" "qml" filealias ${filename})
+        set_source_files_properties(${filename} PROPERTIES QT_RESOURCE_ALIAS ${filealias})
+        list(APPEND resource_files ${filename})
+    elseif(NOT (${filepath} MATCHES "qml-Qt6/") AND QT_VERSION VERSION_LESS "6.0")
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+        list(APPEND resource_files ${filename})
+    endif()
 endforeach(filepath)
 
 #添加可执行文件
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    qt_add_executable(example
-        ${sources_files}
-        example.rc
-    )
+    if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+        qt_add_executable(example
+            ${sources_files}
+            example.rc
+        )
+    else()
+        add_executable(example
+                    ${sources_files}
+                    example.rc
+                )
+    endif()
 else ()
-    qt_add_executable(example
-        ${sources_files}
-    )
+    if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+        qt_add_executable(example
+            ${sources_files}
+        )
+    else()
+        add_executable(example
+                    ${sources_files}
+                )
+    endif()
 endif ()
 
 #复制动态库到可执行文件同级目录下
@@ -80,13 +110,17 @@ if(WIN32)
     )
 endif()
 
-#添加qml模块
-qt_add_qml_module(example
-    URI example
-    VERSION 1.0
-    QML_FILES ${qml_files}
-    RESOURCES ${resource_files}
-)
+if(QT_VERSION VERSION_GREATER_EQUAL "6.0")
+    #添加qml模块
+    qt_add_qml_module(example
+        URI example
+        VERSION 1.0
+        QML_FILES ${qml_files}
+        RESOURCES ${resource_files}
+    )
+else()
+    target_sources(example PRIVATE example.qrc)
+endif()
 
 #设置属性
 set_target_properties(example PROPERTIES
@@ -99,7 +133,7 @@ set_target_properties(example PROPERTIES
 
 #链接库
 target_link_libraries(example PRIVATE
-    Qt6::Quick
+    Qt${QT_VERSION_MAJOR}::Quick
     fluentuiplugin
     FramelessHelper::Core
     FramelessHelper::Quick

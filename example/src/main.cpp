@@ -6,7 +6,7 @@
 #include <QProcess>
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
-#include "src/component/CircularReveal.h"
+#include "component/CircularReveal.h"
 #include "AppInfo.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
