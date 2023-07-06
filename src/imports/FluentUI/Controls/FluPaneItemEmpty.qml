@@ -5,5 +5,6 @@ import FluentUI
 QtObject {
     readonly property string _key : FluTools.uuid()
     property int _idx
+    property var _ext
     property var parent
 }
