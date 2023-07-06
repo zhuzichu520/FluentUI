@@ -24,6 +24,7 @@ FluScrollablePage{
         FluTextButton{
             disabled:text_button_switch.checked
             text:"Text Button"
+            contentDescription: "文本按钮"
             onClicked: {
                 showInfo("点击Text Button")
             }

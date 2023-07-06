@@ -7,9 +7,9 @@
 namespace Fluent_DarkMode {
 Q_NAMESPACE
 enum Fluent_DarkModeType {
-    System      = 0x0,
-    Light    = 0x1,
-    Dark     = 0x2,
+    System = 0x0,
+    Light = 0x1,
+    Dark = 0x2,
 };
 Q_ENUM_NS(Fluent_DarkModeType)
 QML_NAMED_ELEMENT(FluDarkMode)
