@@ -21,7 +21,7 @@ CustomWindow {
     launchMode: FluWindow.SingleTask
 
     closeFunc:function(event){
-        close_app.open()
+        dialog_close.open()
         event.accepted = false
     }
 
@@ -59,7 +59,7 @@ CustomWindow {
     }
 
     FluContentDialog{
-        id:close_app
+        id:dialog_close
         title:"退出"
         message:"确定要退出程序吗？"
         negativeText:"最小化"

@@ -785,6 +785,7 @@ Item {
             }
             boundsBehavior: ListView.StopAtBounds
             clip: true
+            maximumFlickVelocity: 1680
             contentHeight: nav_list.contentHeight
             ScrollBar.vertical: FluScrollBar {}
             ListView{
