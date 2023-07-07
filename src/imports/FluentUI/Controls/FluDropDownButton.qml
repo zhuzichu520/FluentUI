@@ -75,7 +75,7 @@ Button {
         color: control.textColor
     }
     onClicked: {
-        if(items && menu.count !==0){
+        if(menu.count !==0){
             var pos = control.mapToItem(null, 0, 0)
             var containerHeight = menu.count*36
             if(window.height>pos.y+control.height+containerHeight){

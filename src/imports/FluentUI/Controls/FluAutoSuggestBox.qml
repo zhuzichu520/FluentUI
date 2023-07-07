@@ -22,6 +22,10 @@ FluTextBox{
         id:control_popup
         y:control.height
         focus: false
+//        modal: true
+//        Overlay.modal: Item{}
+
+        padding: 0
         enter: Transition {
             NumberAnimation {
                 property: "opacity"
@@ -30,15 +34,12 @@ FluTextBox{
                 duration: FluTheme.enableAnimation ? 83 : 0
             }
         }
-        background: FluRectangle{
-            id:container
-            width: control.width
+        contentItem: FluRectangle{
             radius: [4,4,4,4]
             FluShadow{
                 radius: 4
             }
             color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
-            height: 38*Math.min(Math.max(list_view.count,1),8)
             ListView{
                 id:list_view
                 anchors.fill: parent
@@ -85,6 +86,11 @@ FluTextBox{
                     }
                 }
             }
+        }
+        background: Item{
+            id:container
+            implicitWidth: control.width
+            implicitHeight: 38*Math.min(Math.max(list_view.count,1),8)
         }
     }
     onTextChanged: {

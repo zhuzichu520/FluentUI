@@ -223,7 +223,7 @@ FluScrollablePage{
             FluMenuItem{
                 text:"Menu_4"
                 onClicked: {
-                    console.debug(parent.height)
+
                 }
             }
         }
@@ -241,20 +241,18 @@ FluScrollablePage{
         Layout.topMargin: -1
         code:'FluDropDownButton{
     text:"DropDownButton"
-    items:[
-        FluMenuItem{
-            text:"Menu_1"
-        },
-        FluMenuItem{
-            text:"Menu_2"
-        },
-        FluMenuItem{
-            text:"Menu_3"
-        },
-        FluMenuItem{
-            text:"Menu_4"
-        }
-    ]
+    FluMenuItem{
+        text:"Menu_1"
+    },
+    FluMenuItem{
+        text:"Menu_2"
+    },
+    FluMenuItem{
+        text:"Menu_3"
+    },
+    FluMenuItem{
+        text:"Menu_4"
+    }
 }'
     }
 
