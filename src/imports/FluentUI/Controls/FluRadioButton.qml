@@ -62,6 +62,7 @@ Button {
                 return checked ? 4 : 1
             }
             Behavior on border.width {
+                enabled: FluTheme.enableAnimation
                 NumberAnimation{
                     duration: 167
                     easing.type: Easing.OutCubic

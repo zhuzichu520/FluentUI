@@ -87,6 +87,7 @@ Button {
                 return normalColor
             }
             Behavior on color {
+                enabled: FluTheme.enableAnimation
                 ColorAnimation{
                     duration: 83
                 }
@@ -98,6 +99,7 @@ Button {
                 visible: checked
                 iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                 Behavior on visible {
+                    enabled: FluTheme.enableAnimation
                     NumberAnimation{
                         duration: 83
                     }

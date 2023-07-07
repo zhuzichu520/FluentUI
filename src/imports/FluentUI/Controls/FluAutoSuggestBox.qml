@@ -27,7 +27,7 @@ FluTextBox{
                 property: "opacity"
                 from:0
                 to:1
-                duration: 83
+                duration: FluTheme.enableAnimation ? 83 : 0
             }
         }
         background: FluRectangle{

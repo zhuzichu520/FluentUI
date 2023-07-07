@@ -19,7 +19,7 @@ Item {
     visible: false
     StackView.onRemoved: destroy()
     Behavior on opacity{
-        enabled: !animDisabled
+        enabled: !animDisabled && FluTheme.enableAnimation
         NumberAnimation{
             duration: 167
         }
@@ -27,7 +27,7 @@ Item {
     transform: Translate {
         y: control.visible ? 0 : 80
         Behavior on y{
-            enabled: !animDisabled
+            enabled: !animDisabled && FluTheme.enableAnimation
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic

@@ -32,6 +32,11 @@ class FluTheme : public QObject
      */
     Q_PROPERTY_AUTO(bool,nativeText);
 
+    /**
+     * @brief 是否开启动画效果
+     */
+    Q_PROPERTY_AUTO(bool,enableAnimation);
+
     QML_NAMED_ELEMENT(FluTheme)
     QML_SINGLETON
 private:

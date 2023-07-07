@@ -12,7 +12,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 210
+        height: 270
         paddings: 10
         ColumnLayout{
             spacing:0
@@ -70,6 +70,17 @@ FluScrollablePage{
                 checked: FluTheme.nativeText
                 onClicked: {
                     FluTheme.nativeText = !FluTheme.nativeText
+                }
+            }
+            FluText{
+                text:"开启动画效果"
+                Layout.topMargin: 20
+            }
+            FluToggleSwitch{
+                Layout.topMargin: 5
+                checked: FluTheme.enableAnimation
+                onClicked: {
+                    FluTheme.enableAnimation = !FluTheme.enableAnimation
                 }
             }
         }

@@ -10,6 +10,7 @@ Window {
     Component.onCompleted: {
         FluApp.init(app)
         FluTheme.darkMode = FluDarkMode.System
+        FluTheme.enableAnimation = true
         FluApp.routes = {
             "/":"qrc:/example/qml/window/MainWindow.qml",
             "/about":"qrc:/example/qml/window/AboutWindow.qml",

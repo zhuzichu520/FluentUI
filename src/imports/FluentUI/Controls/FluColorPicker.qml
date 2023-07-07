@@ -50,7 +50,7 @@ Button{
                 property: "opacity"
                 from:0
                 to:1
-                duration: 83
+                duration: FluTheme.enableAnimation ? 83 : 0
             }
         }
 
@@ -59,7 +59,7 @@ Button{
                 property: "opacity"
                 from:1
                 to:0
-                duration: 83
+                duration: FluTheme.enableAnimation ? 83 : 0
             }
         }
         function showPopup() {

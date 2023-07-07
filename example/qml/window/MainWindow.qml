@@ -220,7 +220,7 @@ CustomWindow {
     }
 
     function handleDarkChanged(button){
-        if(FluTools.isMacos()){
+        if(FluTools.isMacos() || !FluTheme.enableAnimation){
             changeDark()
         }else{
             var target = window.contentItem

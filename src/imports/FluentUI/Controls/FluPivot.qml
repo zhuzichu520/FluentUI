@@ -28,7 +28,7 @@ Item {
         spacing: 20
         interactive: false
         orientation: ListView.Horizontal
-        highlightMoveDuration: 167
+        highlightMoveDuration: FluTheme.enableAnimation ? 167 : 0
         highlight: Item{
             clip: true
             Rectangle{
@@ -38,6 +38,7 @@ Item {
                 width: nav_list.currentItem ? nav_list.currentItem.width : 0
                 y:37
                 Behavior on width {
+                    enabled: FluTheme.enableAnimation
                     NumberAnimation{
                         duration: 167
                         easing.type: Easing.OutCubic

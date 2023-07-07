@@ -36,6 +36,7 @@ T.Slider {
                 return control.hovered ? 6/10 : 5/10
             }
             Behavior on scale {
+                enabled: FluTheme.enableAnimation
                 NumberAnimation{
                     duration: 167
                     easing.type: Easing.OutCubic

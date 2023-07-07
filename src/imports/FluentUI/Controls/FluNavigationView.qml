@@ -128,6 +128,7 @@ Item {
                 return 30
             }
             Behavior on height {
+                enabled: FluTheme.enableAnimation
                 NumberAnimation{
                     duration: 83
                 }
@@ -232,6 +233,7 @@ Item {
                             return true
                         }
                         Behavior on rotation {
+                            enabled: FluTheme.enableAnimation
                             NumberAnimation{
                                 duration: 167
                                 easing.type: Easing.OutCubic
@@ -318,6 +320,7 @@ Item {
         id:com_panel_item
         Item{
             Behavior on height {
+                enabled: FluTheme.enableAnimation
                 NumberAnimation{
                     duration: 83
                 }
@@ -557,11 +560,13 @@ Item {
                 visible: opacity
                 opacity: d.isMinimal
                 Behavior on opacity{
+                    enabled: FluTheme.enableAnimation
                     NumberAnimation{
                         duration: 83
                     }
                 }
                 Behavior on Layout.preferredWidth {
+                    enabled: FluTheme.enableAnimation
                     NumberAnimation{
                         duration: 167
                         easing.type: Easing.OutCubic
@@ -660,6 +665,7 @@ Item {
             }
         }
         Behavior on anchors.leftMargin {
+            enabled: FluTheme.enableAnimation
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
@@ -698,12 +704,14 @@ Item {
         }
         x: visible ? 0 : -width
         Behavior on width {
+            enabled: FluTheme.enableAnimation
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
             }
         }
         Behavior on x {
+            enabled: FluTheme.enableAnimation
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
@@ -785,7 +793,7 @@ Item {
                 anchors.fill: parent
                 model:d.handleItems()
                 boundsBehavior: ListView.StopAtBounds
-                highlightMoveDuration: 167
+                highlightMoveDuration: FluTheme.enableAnimation ? 167 : 0
                 highlight: Item{
                     clip: true
                     Rectangle{
