@@ -23,8 +23,6 @@ FluScrollablePage{
                 text:"此颜色组件是Github上的开源项目"
             }
             FluTextButton{
-                leftPadding: 0
-                rightPadding: 0
                 text:"https://github.com/rshest/qml-colorpicker"
                 onClicked: {
                     Qt.openUrlExternally(text)

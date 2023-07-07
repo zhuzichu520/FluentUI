@@ -42,7 +42,7 @@ Item{
             if(statusMode === FluStatusView.Error){
                 return errorItem
             }
-            return null
+            return undefined
         }
     }
     Component{

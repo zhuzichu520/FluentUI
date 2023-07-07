@@ -3,7 +3,7 @@ import QtQuick.Controls
 import FluentUI
 
 QtObject {
-    readonly property string _key : FluTools.uuid()
+    readonly property string key : FluTools.uuid()
     property int _idx
     property var parent
 }

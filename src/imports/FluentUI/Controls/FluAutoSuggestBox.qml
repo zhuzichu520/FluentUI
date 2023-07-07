@@ -30,15 +30,10 @@ FluTextBox{
                 duration: 83
             }
         }
-        onVisibleChanged: {
-            if(visible){
-                list_view.currentIndex = -1
-            }
-        }
-        background: Rectangle{
+        background: FluRectangle{
             id:container
             width: control.width
-            radius: 4
+            radius: [4,4,4,4]
             FluShadow{
                 radius: 4
             }
@@ -48,7 +43,7 @@ FluTextBox{
                 id:list_view
                 anchors.fill: parent
                 clip: true
-                currentIndex: -1
+                boundsBehavior: ListView.StopAtBounds
                 ScrollBar.vertical: FluScrollBar {}
                 header: Item{
                     width: control.width
@@ -63,49 +58,30 @@ FluTextBox{
                         }
                     }
                 }
-                delegate:Control{
+                delegate:FluControl{
+                    id:item_control
+                    height: 38
                     width: control.width
-                    padding:10
+                    onClicked:{
+                        handleClick(modelData)
+                    }
                     background: Rectangle{
+                        FluFocusRectangle{
+                            visible: item_control.activeFocus
+                            radius:4
+                        }
                         color:  {
-                            if(list_view.currentIndex === index){
-                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
-                            }
                             if(hovered){
                                 return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
                             }
                             return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
                         }
-                        MouseArea{
-                            id:mouse_area
-                            anchors.fill: parent
-                            Connections{
-                                target: control
-                                function onHandleClicked(){
-                                    if((list_view.currentIndex === index)){
-                                        handleClick(modelData)
-                                    }
-                                }
-                            }
-                            onClicked: handleClick(modelData)
-                        }
-                        Rectangle{
-                            width: 3
-                            color:FluTheme.primaryColor.dark
-                            visible: list_view.currentIndex === index
-                            radius: 3
-                            height: 20
-                            anchors{
-                                left: parent.left
-                                verticalCenter: parent.verticalCenter
-                            }
-                        }
                     }
                     contentItem: FluText{
                         text:modelData.title
-                        anchors{
-                            verticalCenter: parent.verticalCenter
-                        }
+                        leftPadding: 10
+                        rightPadding: 10
+                        verticalAlignment : Qt.AlignVCenter
                     }
                 }
             }
