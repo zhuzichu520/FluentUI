@@ -1,7 +1,7 @@
-import QtQuick
-import QtQuick.Controls.Basic
-import QtQuick.Templates as T
-import FluentUI
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Templates 2.12 as T
+import FluentUI 1.0
 
 T.ItemDelegate {
     id: control

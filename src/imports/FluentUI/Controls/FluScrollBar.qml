@@ -1,7 +1,6 @@
-import QtQuick
-import QtQuick.Controls.impl
-import QtQuick.Templates as T
-import FluentUI
+import QtQuick 2.12
+import QtQuick.Templates 2.12 as T
+import FluentUI 1.0
 
 T.ScrollBar {
     id: control

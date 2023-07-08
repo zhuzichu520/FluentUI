@@ -1,12 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(example VERSION 0.1 LANGUAGES CXX)
-
-#配置通用编译
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
-endif()
 
 #设置可执行文件输出目录
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -21,15 +17,13 @@ file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 #设置版本号
 add_definitions(-DVERSION=1,3,7,3)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt5 REQUIRED COMPONENTS Quick)
 
-if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
-    qt_standard_project_setup()
-else()
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTORCC ON)
-    set(CMAKE_AUTOUIC ON)
-endif()
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
@@ -54,14 +48,14 @@ endforeach(filepath)
 
 #添加可执行文件
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    qt_add_executable(example
-        ${sources_files}
-        example.rc
-    )
+    add_executable(example
+                ${sources_files}
+                example.rc
+            )
 else ()
-    qt_add_executable(example
-        ${sources_files}
-    )
+    add_executable(example
+                ${sources_files}
+            )
 endif ()
 
 #复制动态库到可执行文件同级目录下
@@ -80,13 +74,8 @@ if(WIN32)
     )
 endif()
 
-#添加qml模块
-qt_add_qml_module(example
-    URI example
-    VERSION 1.0
-    QML_FILES ${qml_files}
-    RESOURCES ${resource_files}
-)
+#设置编译对象
+target_sources(example PRIVATE example.qrc)
 
 #设置属性
 set_target_properties(example PROPERTIES
@@ -99,7 +88,7 @@ set_target_properties(example PROPERTIES
 
 #链接库
 target_link_libraries(example PRIVATE
-    Qt6::Quick
+    Qt${QT_VERSION_MAJOR}::Quick
     fluentuiplugin
     FramelessHelper::Core
     FramelessHelper::Quick

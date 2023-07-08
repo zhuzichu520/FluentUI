@@ -1,10 +1,10 @@
-import QtQuick
-import QtQuick.Window
-import QtQuick.Controls
-import QtQuick.Layouts
-import Qt.labs.platform
-import FluentUI
-import example
+import QtQuick 2.12
+import QtQuick.Window 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import Qt.labs.platform 1.0
+import FluentUI 1.0
+import example 1.0
 import "qrc:///example/qml/component"
 import "qrc:///example/qml/global"
 
@@ -37,7 +37,7 @@ CustomWindow {
     SystemTrayIcon {
         id:system_tray
         visible: true
-        icon.source: "qrc:/example/res/image/favicon.ico"
+        iconSource: "qrc:/example/res/image/favicon.ico"
         tooltip: "FluentUI"
         menu: Menu {
             MenuItem {

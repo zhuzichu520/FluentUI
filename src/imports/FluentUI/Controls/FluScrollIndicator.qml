@@ -1,6 +1,5 @@
-import QtQuick
-import QtQuick.Controls.impl
-import QtQuick.Templates as T
+import QtQuick 2.12
+import QtQuick.Templates 2.12 as T
 
 T.ScrollIndicator {
     id: control

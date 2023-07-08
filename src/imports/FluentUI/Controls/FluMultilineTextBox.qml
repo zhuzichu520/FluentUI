@@ -1,7 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Basic
-import FluentUI
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import FluentUI 1.0
 
 TextArea{
     signal commit
@@ -26,7 +25,7 @@ TextArea{
     leftPadding: padding+2
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectedTextColor: color
-    selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+    selectionColor: FluTheme.primaryColor.lightest
     placeholderTextColor: {
         if(!enabled){
             return placeholderDisableColor

@@ -1,9 +1,8 @@
-import QtQuick
-import QtQuick.Window
-import QtQuick.Controls
-import QtQuick.Controls.Basic
-import QtQuick.Layouts
-import FluentUI
+import QtQuick 2.12
+import QtQuick.Window 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import FluentUI 1.0
 
 Item {
     enum DisplayMode {
@@ -636,7 +635,7 @@ Item {
                 id:nav_stack2
                 anchors.fill: nav_stack
                 clip: true
-                visible: nav_stack.currentItem?.launchMode === FluPage.SingleInstance
+                visible: nav_stack.currentItem.launchMode === FluPage.SingleInstance
             }
             function navStack(){
                 return nav_stack

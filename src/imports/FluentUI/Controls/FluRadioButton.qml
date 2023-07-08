@@ -1,8 +1,7 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Basic
-import QtQuick.Layouts
-import FluentUI
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import FluentUI 1.0
 
 Button {
     property string contentDescription: ""

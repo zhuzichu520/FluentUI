@@ -1,38 +1,166 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-import QtQuick.Window
-import FluentUI
-import "qrc:///example/qml/component"
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Window 2.12
+import FluentUI 1.0
+import "../component"
 
-FluContentPage{
+FluScrollablePage{
 
     title:"TableView"
 
     Component.onCompleted: {
-        loadData(1,1000)
+        const columns = [
+                          {
+                              title: '姓名',
+                              dataIndex: 'name',
+                              width:100,
+
+                          },
+                          {
+                              title: '年龄',
+                              dataIndex: 'item_age',
+                              width:100,
+                              minimumWidth:100
+                          },
+                          {
+                              title: '住址',
+                              dataIndex: 'address',
+                              width:200
+                          },
+                          {
+                              title: '别名',
+                              dataIndex: 'nickname',
+                              width:100
+                          },
+                          {
+                              title: '操作',
+                              dataIndex: 'action',
+                              width:120
+                          },
+                      ];
+        table_view.columns = columns
+        loadData(1,10)
+    }
+
+    Component{
+        id:com_age
+        Item{
+            id:item_age
+            property var ageArr: [100,300,500,1000]
+            height: 60
+            FluComboBox{
+                width: 80
+                anchors{
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: 10
+                }
+                model: ListModel {
+                    ListElement { text: 100 }
+                    ListElement { text: 300 }
+                    ListElement { text: 500 }
+                    ListElement { text: 1000 }
+                }
+                onDisplayTextChanged: {
+                    dataModel.age = Number(displayText)
+                    console.debug(displayText)
+                }
+                Component.onCompleted: {
+                    currentIndex=ageArr.findIndex((element) => element === dataModel.age)
+                }
+            }
+        }
     }
 
     Component{
         id:com_action
         Item{
-            RowLayout{
+            height: 60
+            Row{
                 anchors.centerIn: parent
-                FluButton{
-                    text:"删除"
-                    onClicked: {
-                        table_view.closeEditor()
-                        tableModel.removeRow(row)
+                spacing: 10
+                FluFilledButton{
+                    text:"编辑"
+                    horizontalPadding: 6
+                    onClicked:{
+                        showError(JSON.stringify(dataObject))
+                        console.debug(dataModel)
                     }
                 }
                 FluFilledButton{
-                    text:"编辑"
-                    onClicked: {
-                        showSuccess(JSON.stringify(tableModel.getRow(row)))
+                    text:"删除"
+                    horizontalPadding: 6
+                    onClicked:{
+                        table_view.remove(dataModel.index)
                     }
                 }
             }
         }
+    }
+
+    FluTableView{
+        id:table_view
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        pageCurrent:1
+        pageCount:10
+        itemCount: 1000
+        onRequestPage:
+            (page,count)=> {
+                loadData(page,count)
+            }
+    }
+
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: 10
+        code:'FluTableView{
+    id:table_view
+    Layout.fillWidth: true
+    Layout.topMargin: 20
+    pageCurrent:1
+    pageCount:10
+    itemCount: 1000
+    onRequestPage:
+            (page,count)=> {
+                loadData(page,count)
+            }
+    Component.onCompleted: {
+        const columns = [
+                          {
+                              title: "姓名",
+                              dataIndex: "name",
+                              width:100
+                          },
+                          {
+                              title: "年龄",
+                              dataIndex: "age",
+                              width:100
+                          },
+                          {
+                              title: "住址",
+                              dataIndex: "address",
+                              width:200
+                          },
+                          {
+                              title: "别名",
+                              dataIndex: "nickname",
+                              width:100
+                          }
+                      ];
+        table_view.columns = columns
+        const dataSource = [
+                {
+                    name: "孙悟空”,
+                    age: 500,
+                    address:"钟灵毓秀的花果山,如神仙仙境的水帘洞",
+                    nickname:"齐天大圣"
+                }
+        ];
+        table_view.dataSource = columns
+    }
+}'
     }
 
     function loadData(page,count){
@@ -60,118 +188,13 @@ FluContentPage{
         for(var i=0;i<count;i++){
             dataSource.push({
                                 name: getRandomName(),
+                                item_age: com_age,
                                 age:getRandomAge(),
                                 address: getRandomAddresses(),
                                 nickname: getRandomNickname(),
-                                longstring:"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
-                                height:42,
-                                minimumHeight:42,
-                                maximumHeight:300,
                                 action:com_action
                             })
         }
         table_view.dataSource = dataSource
     }
-
-    Component{
-        id:com_combobox
-        FluComboBox {
-            anchors.fill: parent
-            focus: true
-            currentIndex: display
-            editable: true
-            model: ListModel {
-                ListElement { text: 100 }
-                ListElement { text: 300 }
-                ListElement { text: 500 }
-                ListElement { text: 1000 }
-            }
-            Component.onCompleted: {
-                currentIndex=[100,300,500,1000].findIndex((element) => element === Number(display))
-                selectAll()
-            }
-            onCommit: {
-                display = editText
-                tableView.closeEditor()
-            }
-        }
-    }
-
-    FluTableView{
-        id:table_view
-        anchors{
-            left: parent.left
-            right: parent.right
-            top: parent.top
-            bottom: gagination.top
-        }
-        anchors.topMargin: 20
-        columnSource:[
-            {
-                title: '姓名',
-                dataIndex: 'name',
-                width:100,
-                minimumWidth:80,
-                maximumWidth:200,
-                readOnly:true
-            },
-            {
-                title: '年龄',
-                dataIndex: 'age',
-                editDelegate:com_combobox,
-                width:100,
-                minimumWidth:100,
-                maximumWidth:100
-            },
-            {
-                title: '住址',
-                dataIndex: 'address',
-                width:200,
-                minimumWidth:100,
-                maximumWidth:250
-            },
-            {
-                title: '别名',
-                dataIndex: 'nickname',
-                width:100,
-                minimumWidth:80,
-                maximumWidth:200
-            },
-            {
-                title: '长字符串',
-                dataIndex: 'longstring',
-                width:200,
-                minimumWidth:100,
-                maximumWidth:300
-            },
-            {
-                title: '操作',
-                dataIndex: 'action',
-                width:160,
-                minimumWidth:160,
-                maximumWidth:160
-            }
-        ]
-    }
-
-    FluPagination{
-        id:gagination
-        anchors{
-            bottom: parent.bottom
-            left: parent.left
-        }
-        pageCurrent: 1
-        itemCount: 100000
-        pageButtonCount: 7
-        __itemPerPage: 1000
-        onRequestPage:
-            (page,count)=> {
-                table_view.closeEditor()
-                loadData(page,count)
-                table_view.resetPosition()
-            }
-    }
-
-
-
 }

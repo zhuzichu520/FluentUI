@@ -1,6 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import FluentUI
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import FluentUI 1.0
 
 Text {
     property int iconSource

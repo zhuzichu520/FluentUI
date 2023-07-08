@@ -1,7 +1,7 @@
-import QtQuick
-import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
-import FluentUI
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtGraphicalEffects 1.0
+import FluentUI 1.0
 
 Item{
     property var radius:[0,0,0,0]
