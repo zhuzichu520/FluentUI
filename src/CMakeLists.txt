@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(fluentuiplugin LANGUAGES CXX)
-
+if (FLUENTUI_BUILD_STATIC_LIB)
+    project(fluentui LANGUAGES CXX)
+else()
+    project(fluentuiplugin LANGUAGES CXX)
+endif()
 #配置通用编译
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(APPLE)
@@ -52,22 +55,41 @@ foreach(filepath IN LISTS qml_files resource_files)
 endforeach()
 
 #添加qml模块
-qt_add_library(fluentuiplugin SHARED)
-qt_add_qml_module(fluentuiplugin
-    #没有下面这行代码就会生成fluentuiplugin.dll与fluentuipluginplugin.dll两个动态库
-    PLUGIN_TARGET fluentuiplugin
-    OUTPUT_DIRECTORY ${QML_PLUGIN_DIRECTORY}
-    VERSION 1.0
-    URI "FluentUI"
-    #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
-    TYPEINFO "plugins.qmltypes"
-    SOURCES ${sources_files} fluentui.rc
-    QML_FILES ${qml_files}
-    RESOURCES ${resource_files}
-)
+if (FLUENTUI_BUILD_STATIC_LIB)
+    set(LIB_TYPE "STATIC")
+else()
+    set(LIB_TYPE "SHARED")
+endif()
+qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
+if (FLUENTUI_BUILD_STATIC_LIB)
+    qt_add_qml_module(${PROJECT_NAME}
+        #在静态库编译中使用PLUGIN_TARGET会导致链接失败
+        OUTPUT_DIRECTORY ${QML_PLUGIN_DIRECTORY}
+        VERSION 1.0
+        URI "FluentUI"
+        #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
+        TYPEINFO "plugins.qmltypes"
+        SOURCES ${sources_files} fluentui.rc
+        QML_FILES ${qml_files}
+        RESOURCES ${resource_files}
+    )
+else()
+    qt_add_qml_module(${PROJECT_NAME}
+        #没有下面这行代码就会生成fluentuiplugin.dll与fluentuipluginplugin.dll两个动态库
+        PLUGIN_TARGET fluentuiplugin
+        OUTPUT_DIRECTORY ${QML_PLUGIN_DIRECTORY}
+        VERSION 1.0
+        URI "FluentUI"
+        #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
+        TYPEINFO "plugins.qmltypes"
+        SOURCES ${sources_files} fluentui.rc
+        QML_FILES ${qml_files}
+        RESOURCES ${resource_files}
+    )
+endif()
 
 #链接库
-target_link_libraries(fluentuiplugin PUBLIC
+target_link_libraries(${PROJECT_NAME} PUBLIC
     Qt::CorePrivate
     Qt::QuickPrivate
     Qt::QmlPrivate
