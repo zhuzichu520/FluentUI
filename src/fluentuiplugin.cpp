@@ -11,6 +11,15 @@
 #include "FluTextStyle.h"
 int major = 1;
 int minor = 0;
+static FluentUIPlugin instance;
+
+FluentUIPlugin::FluentUIPlugin()
+{
+#ifdef FLUENTUI_BUILD_STATIC_LIB
+    Q_INIT_RESOURCE(fluentui);
+#endif
+}
+
 void FluentUIPlugin::registerTypes(const char *uri)
 {
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
@@ -19,9 +28,20 @@ void FluentUIPlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableMetaObject(Fluent_DarkMode::staticMetaObject,  uri,major,minor,"FluDarkMode", "Access to enums & flags only");
 }
 
+#ifdef FLUENTUI_BUILD_STATIC_LIB
+void FluentUIPlugin::registerTypes()
+{
+    instance()->registerTypes("FluentUI");
+}
+
+FluentUIPlugin* FluentUIPlugin::instance()
+{
+    static FluentUIPlugin instance;
+    return &instance;
+}
+#endif
 void FluentUIPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
-    Q_UNUSED(engine)
     Q_UNUSED(uri)
 #ifdef Q_OS_WIN
     QFont font;
@@ -38,4 +58,5 @@ void FluentUIPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
     engine->rootContext()->setContextProperty("FluTools",tools);
     FluTextStyle* textStyle = FluTextStyle::getInstance();
     engine->rootContext()->setContextProperty("FluTextStyle",textStyle);
+    engine->addImportPath("qrc:/FluentUI/imports/");
 }

@@ -15,6 +15,12 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+if (FLUENTUI_BUILD_STATIC_LIB)
+    add_definitions(-DQT_PLUGIN)
+    add_definitions(-DQT_STATICPLUGIN=1)
+    add_definitions(-DFLUENTUI_BUILD_STATIC_LIB=1)
+endif()
+
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
 foreach(filepath ${CPP_FILES})
@@ -38,6 +44,12 @@ endforeach(filepath)
 
 #添加qml模块
 include(cmake/QmlPlugin.cmake)
+if (FLUENTUI_BUILD_STATIC_LIB)
+    set(LIB_TYPE "STATIC")
+else()
+    set(LIB_TYPE "SHARED")
+endif()
+
 add_qmlplugin(fluentuiplugin
     URI "FluentUI"
     VERSION 1.0
@@ -45,8 +57,13 @@ add_qmlplugin(fluentuiplugin
     QMLFILES ${qml_files}
     QMLDIR imports/FluentUI
     BINARY_DIR ${QML_PLUGIN_DIRECTORY}
+    LIBTYPE ${LIB_TYPE}
 )
 
+if(FLUENTUI_BUILD_STATIC_LIB)
+    SET_TARGET_PROPERTIES(fluentuiplugin PROPERTIES
+        AUTOMOC_MOC_OPTIONS -Muri=FluentUI)
+endif()
 #链接库
 target_link_libraries(fluentuiplugin PUBLIC
     Qt::CorePrivate

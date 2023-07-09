@@ -1,4 +1,8 @@
 module FluentUI
+classname FluentUIPlugin
+designersupported
+typeinfo plugins.qmltypes
+
 FluAppBar 1.0 Controls/FluAppBar.qml
 FluArea 1.0 Controls/FluArea.qml
 FluAcrylic 1.0 Controls/FluAcrylic.qml
@@ -75,6 +79,5 @@ FluToggleSwitch 1.0 Controls/FluToggleSwitch.qml
 FluTooltip 1.0 Controls/FluTooltip.qml
 FluTreeView 1.0 Controls/FluTreeView.qml
 FluWindow 1.0 Controls/FluWindow.qml
-FluWindowResize 1.0 FluWindowResize.qml
 FluSingleton 1.0 Controls/FluSingleton.qml
 plugin fluentuiplugin
