@@ -1,9 +1,8 @@
-import QtQuick
-import QtQuick.Window
-import QtQuick.Controls
-import QtQuick.Controls.Basic
-import QtQuick.Layouts
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import FluentUI 1.0
 
 Item {
     enum DisplayMode {
@@ -636,7 +635,12 @@ Item {
                 id:nav_stack2
                 anchors.fill: nav_stack
                 clip: true
-                visible: nav_stack.currentItem?.launchMode === FluPage.SingleInstance
+                visible: {
+                    if( nav_stack.currentItem){
+                        return nav_stack.currentItem.launchMode === FluPage.SingleInstance
+                    }
+                    return false
+                }
             }
             function navStack(){
                 return nav_stack
@@ -785,7 +789,6 @@ Item {
             }
             boundsBehavior: ListView.StopAtBounds
             clip: true
-            maximumFlickVelocity: 1680
             contentHeight: nav_list.contentHeight
             ScrollBar.vertical: FluScrollBar {}
             ListView{

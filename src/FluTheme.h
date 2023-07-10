@@ -1,4 +1,4 @@
-#ifndef FLUTHEME_H
+﻿#ifndef FLUTHEME_H
 #define FLUTHEME_H
 
 #include <QObject>
@@ -36,9 +36,6 @@ class FluTheme : public QObject
      * @brief 是否开启动画效果
      */
     Q_PROPERTY_AUTO(bool,enableAnimation);
-
-    QML_NAMED_ELEMENT(FluTheme)
-    QML_SINGLETON
 private:
     static FluTheme* m_instance;
     explicit FluTheme(QObject *parent = nullptr);

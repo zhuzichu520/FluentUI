@@ -1,7 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Basic
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import FluentUI 1.0
 
 TextField{
     signal commit
@@ -26,7 +25,7 @@ TextField{
     }
     font:FluTextStyle.Body
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+    selectionColor: FluTheme.primaryColor.lightest
     selectedTextColor: color
     placeholderTextColor: {
         if(!enabled){

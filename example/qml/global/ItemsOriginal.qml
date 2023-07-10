@@ -1,7 +1,7 @@
 pragma Singleton
 
-import QtQuick
-import FluentUI
+import QtQuick 2.15
+import FluentUI 1.0
 
 FluObject{
 

@@ -1,8 +1,8 @@
-import QtQuick
-import QtQuick.Window
-import QtQuick.Layouts
-import QtQuick.Controls
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
+import FluentUI 1.0
 
 Item {
     enum TreeViewSelectionMode  {
@@ -251,7 +251,6 @@ Item {
         flickableDirection: Flickable.HorizontalAndVerticalFlick
         clip: true
         boundsBehavior: ListView.StopAtBounds
-        maximumFlickVelocity: 1680
         ScrollBar.vertical: FluScrollBar {}
         ScrollBar.horizontal: FluScrollBar { }
     }

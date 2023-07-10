@@ -1,16 +1,15 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Basic
-import QtQuick.Layouts
-import Qt.labs.qmlmodels
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import FluentUI 1.0
+ import Qt.labs.qmlmodels 1.0
 
 Rectangle {
     property var columnSource
     property var dataSource
-    property color selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
-    property color hoverButtonColor: Qt.alpha(selectionColor,0.2)
-    property color pressedButtonColor: Qt.alpha(selectionColor,0.4)
+    property color selectionColor: Qt.lighter(FluTheme.primaryColor.lightest,1.2)
+    property color hoverButtonColor: Qt.lighter(selectionColor,1.2)
+    property color pressedButtonColor: Qt.lighter(selectionColor,1.3)
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -34,9 +33,8 @@ Rectangle {
         id:d
         property var header_rows:[]
         property bool selectionFlag: true
-        function obtEditDelegate(column,row){
+        function obtEditDelegate(column,row,cellItem){
             var display = table_model.data(table_model.index(row,column),"display")
-            var cellItem = table_view.itemAtCell(column, row)
             var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
             item_loader.column = column
             item_loader.row = row
@@ -170,17 +168,7 @@ Rectangle {
             }
             boundsBehavior: Flickable.StopAtBounds
             ScrollBar.horizontal: FluScrollBar{}
-            maximumFlickVelocity: 1680
             ScrollBar.vertical: FluScrollBar{}
-            selectionModel: ItemSelectionModel {
-                id:selection_model
-                model: table_model
-                onSelectionChanged: {
-                    if(selection_rect.dragging){
-                        d.selectionFlag = !d.selectionFlag
-                    }
-                }
-            }
             columnWidthProvider: function(column) {
                 var w = columnSource[column].width
                 if(column === item_loader.column){
@@ -216,15 +204,14 @@ Rectangle {
             clip: true
             delegate: Rectangle {
                 id:item_table
-                property var position: Qt.point(column,row)
-                required property bool selected
+                property point position: Qt.point(column,row)
                 color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: columnSource[column].width
                 Rectangle{
                     anchors.fill: parent
                     visible: !item_loader.sourceComponent
-                    color: selected ? control.selectionColor : "#00000000"
+                    color: "#00000000"
                 }
                 MouseArea{
                     anchors.fill: parent
@@ -243,15 +230,11 @@ Rectangle {
                         if(display instanceof Component){
                             return
                         }
-                        item_loader.sourceComponent = d.obtEditDelegate(column,row)
+                        item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)
                     }
                     onClicked:
                         (event)=>{
                             item_loader.sourceComponent = undefined
-                            if(!(event.modifiers & Qt.ControlModifier)){
-                                selection_model.clear()
-                            }
-                            selection_model.select(table_model.index(row,column),ItemSelectionModel.Select)
                             d.selectionFlag = !d.selectionFlag
                             event.accepted = true
                         }
@@ -292,17 +275,6 @@ Rectangle {
         id:com_handle
         Item {}
     }
-    SelectionRectangle {
-        id:selection_rect
-        target: table_view
-        bottomRightHandle:com_handle
-        topLeftHandle: com_handle
-        onDraggingChanged: {
-            if(!dragging){
-                table_view.interactive = true
-            }
-        }
-    }
     TableView {
         id: header_horizontal
         model: TableModel{
@@ -329,9 +301,6 @@ Rectangle {
                 if(column_item_control_mouse.pressed){
                     return control.pressedButtonColor
                 }
-                if(selection_model.isColumnSelected(column)){
-                    return control.hoverButtonColor
-                }
                 return column_item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             }
             border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
@@ -342,7 +311,7 @@ Rectangle {
                 height: parent.height
                 font.bold:{
                     d.selectionFlag
-                    return selection_model.columnIntersectsSelection(column)
+                    return true
                 }
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -363,12 +332,6 @@ Rectangle {
                 onClicked:
                     (event)=>{
                         closeEditor()
-                        if(!(event.modifiers & Qt.ControlModifier)){
-                            selection_model.clear()
-                        }
-                        for(var i=0;i<=table_view.rows;i++){
-                            selection_model.select(table_model.index(i,column),ItemSelectionModel.Select)
-                        }
                         d.selectionFlag = !d.selectionFlag
                     }
             }
@@ -444,9 +407,6 @@ Rectangle {
                 if(item_control_mouse.pressed){
                     return control.pressedButtonColor
                 }
-                if(selection_model.isRowSelected(row)){
-                    return control.hoverButtonColor
-                }
                 return item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             }
             border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
@@ -456,7 +416,7 @@ Rectangle {
                 text: row + 1
                 font.bold:{
                     d.selectionFlag
-                    return selection_model.rowIntersectsSelection(row)
+                    return true
                 }
             }
             MouseArea{
@@ -475,12 +435,6 @@ Rectangle {
                 onClicked:
                     (event)=>{
                         closeEditor()
-                        if(!(event.modifiers & Qt.ControlModifier)){
-                            selection_model.clear()
-                        }
-                        for(var i=0;i<=columnSource.length;i++){
-                            selection_model.select(table_model.index(row,i),ItemSelectionModel.Select)
-                        }
                         d.selectionFlag = !d.selectionFlag
                     }
             }

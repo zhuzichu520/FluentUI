@@ -1,4 +1,4 @@
-import Qt.labs.qmlmodels
+import Qt.labs.qmlmodels 1.0
 
 TableModelColumn{
 

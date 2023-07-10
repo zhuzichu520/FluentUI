@@ -1,6 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import FluentUI 1.0
 
 FluObject {
     property var root;
@@ -95,7 +95,7 @@ FluObject {
                     Behavior on scale {
                         enabled: FluTheme.enableAnimation
                         NumberAnimation {
-                            easing.type: Easing.OutCubic
+                            easing.type: Easing.OutCubic;
                             duration: 167
                         }
                     }

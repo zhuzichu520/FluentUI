@@ -14,7 +14,6 @@
 class WindowHelper : public QObject
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(WindowHelper)
 public:
     explicit WindowHelper(QObject *parent = nullptr);
 

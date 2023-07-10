@@ -1,4 +1,4 @@
-import QtQuick
+import QtQuick 2.15
 
 Row {
     property alias  caption: captionBox.text

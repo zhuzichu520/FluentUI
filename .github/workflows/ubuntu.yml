@@ -1,21 +1,17 @@
 name: Ubuntu
+# Qt官方没有linux平台的x86包
 on: 
   workflow_dispatch:
   push:
     paths:
-      - '*.txt'
+      - '*.pro'
       - 'src/**'
-      - 'example/**'
-      - 'scripts/**'
       - '.github/workflows/ubuntu.yml'
   pull_request:
     paths:
-      - '*.txt'
+      - '*.pro'
       - 'src/**'
-      - 'example/**'
-      - 'scripts/**'
-      - '.github/workflows/ubuntu.yml'
-      
+      - '.github/workflows/ubuntu.yml' 
 jobs:
   build:
     name: Build
@@ -23,68 +19,49 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        qt_ver: [6.5.0]
+        qt_ver: [5.15.2]
         qt_arch: [gcc_64]
     env:
       targetName: example
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-          
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_ver }}
-          cache: ${{steps.cache-qt.outputs.cache-hit}}
-          arch: ${{ matrix.qt_arch }}
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
-      
-      - name: Set up Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v3
-        with:
-          version: 1.10.2
-          
+          cached: 'false'
       - name: ubuntu install GL library
-        run: sudo apt-get install -y libxcb-cursor0 libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
-        
+        run: sudo apt-get install -y libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: build ubuntu
         run: |
-          ninja --version
-          cmake --version
-          mkdir build
-          cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/FluentUI/Qt/6.5.0/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
-          cmake --build . --target all --config Release --parallel
-          
+          qmake
+          make
       - name: install QT linux deploy
         uses: miurahr/install-linuxdeploy-action@v1
         with:
           plugins: qt appimage
-          
-      - name: Check if svg file exists
-        run: if [ ! -f "${targetName}.svg" ]; then echo "File not found, creating..."; touch ${targetName}.svg; fi
-
+      # 打包
       - name: package
         run: |
           # make sure Qt plugin finds QML sources so it can deploy the imported files
-          export QML_SOURCES_PATHS=./
+          export QML_SOURCES_PATHS=src
           # 拷贝依赖
           linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=bin/release/${targetName} --appdir bin/release/
           mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}.AppImage
-        
+      # 上传artifacts          
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}
           path: ${{ env.targetName }}.AppImage
-
+      # tag 上传Release
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ env.targetName }}.AppImage
-          asset_name: ${{ env.targetName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}.AppImage
+          asset_name: ${{ env.targetName }}_${{ matrix.os }}_${{ matrix.qt_ver }}.AppImage
           tag: ${{ github.ref }}
           overwrite: true

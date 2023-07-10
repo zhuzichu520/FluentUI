@@ -1,6 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.0
 
 Item{
     property var radius:[0,0,0,0]

@@ -1,6 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import FluentUI 1.0
 
 TextEdit {
     property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
@@ -17,7 +17,7 @@ TextEdit {
     selectByMouse: true
     selectedTextColor: color
     bottomPadding: 0
-    selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+    selectionColor: FluTheme.primaryColor.lightest
     font:FluTextStyle.Body
     onSelectedTextChanged: {
         control.forceActiveFocus()

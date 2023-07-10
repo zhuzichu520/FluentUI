@@ -1,8 +1,8 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Basic
-import FluentUI
-import QtQuick.Templates as T
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Window 2.15
+import FluentUI 1.0
+import QtQuick.Templates 2.15 as T
 
 ComboBox {
     id: control
@@ -44,7 +44,7 @@ ComboBox {
         topPadding: 6 - control.padding
         bottomPadding: 6 - control.padding
         renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-        selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+        selectionColor: FluTheme.primaryColor.lightest
         selectedTextColor: color
         text: control.editable ? control.editText : control.displayText
         enabled: control.editable

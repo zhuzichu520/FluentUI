@@ -11,9 +11,6 @@
 class FluTools : public QObject
 {
     Q_OBJECT
-
-    QML_NAMED_ELEMENT(FluTools)
-    QML_SINGLETON
 private:
     explicit FluTools(QObject *parent = nullptr);
     static FluTools* m_instance;
