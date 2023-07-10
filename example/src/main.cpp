@@ -38,6 +38,9 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
+#ifdef FLUENTUI_BUILD_STATIC_LIB
+    engine.addImportPath("qrc:/"); // 让静态资源可以被QML引擎搜索到
+#endif
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
