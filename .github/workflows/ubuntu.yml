@@ -39,7 +39,6 @@ jobs:
           version: ${{ matrix.qt_ver }}
           cache: ${{steps.cache-qt.outputs.cache-hit}}
           arch: ${{ matrix.qt_arch }}
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
       
       - name: Set up Ninja
         uses: seanmiddleditch/gha-setup-ninja@v3
