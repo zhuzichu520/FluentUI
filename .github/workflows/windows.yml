@@ -1,69 +1,63 @@
 name: Windows
 on: 
-  # push代码时触发workflow
   push:
     paths:
-      - '*.pro'
+      - '*.txt'
       - 'src/**'
+      - 'example/**'
+      - 'scripts/**'
       - '.github/workflows/windows.yml'
   pull_request:
     paths:
-      - '*.pro'
+      - '*.txt'
+      - 'example/**'
       - 'src/**'
-      - '.github/workflows/windows.yml' 
+      - 'scripts/**'
+      - '.github/workflows/windows.yml'
+      
 jobs:
   build:
     name: Build
-    # 运行平台， windows-latest目前是windows server 2019 
-    # 参考文档 https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md
-    runs-on: windows-2019
+    runs-on: ${{ matrix.os }}
     strategy:
-      # 矩阵配置
       matrix:
+        os: [windows-2019]
         include:
-          # 5.15.2 参考 https://mirrors.cloud.tencent.com/qt/online/qtsdkrepository/windows_x86/desktop/qt5_5152/
-          - qt_ver: 5.15.2
-            qt_arch: win32_msvc2019
-            msvc_arch: x86
-            qt_arch_install: msvc2019
-          - qt_ver: 5.15.2          
+          - qt_ver: 5.15.2        
             qt_arch: win64_msvc2019_64
             msvc_arch: x64
             qt_arch_install: msvc2019_64          
     env:
       targetName: example.exe
       fileName: example
-    # 步骤
     steps:
-      # 安装Qt
-      - name: Install Qt
-        # 使用外部action。这个action专门用来安装Qt
-        uses: jurplel/install-qt-action@v2
-        with:
-          # Version of Qt to install
-          version: ${{ matrix.qt_ver }}
-          # Target platform for build
-          # target: ${{ matrix.qt_target }}
-          arch: ${{ matrix.qt_arch }}
-          cached: 'false'
-          aqtversion: '==2.0.5'          
-      # 拉取代码
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v3
         with:
           submodules: recursive
-      # msvc编译
+             
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_ver }}
+          arch: ${{ matrix.qt_arch }}
+          cache: ${{steps.cache-qt.outputs.cache-hit}}
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qtspeech'
+          
       - name: msvc-build
         id: build
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.msvc_arch }}
-          qmake
-          nmake
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\FluentUI\Qt\6.5.0\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
           echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
           echo vcToolsRedistDir=%VCToolsRedistDir% >> %GITHUB_ENV%
-      # 打包 
+          
       - name: package
         id: package      
         env:
@@ -74,20 +68,19 @@ jobs:
           & scripts\windows-publish.ps1 ${env:archiveName} ${env:targetName}
           # 记录packageName给后续step
            $name = ${env:archiveName}
-           echo "::set-output name=packageName::$name"       
-      # tag 查询github-Release
-      # 上传artifacts          
+           echo "::set-output name=packageName::$name"     
+           
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.package.outputs.packageName }}
           path: ${{ steps.package.outputs.packageName }}
-      # tag 上传Release
+          
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.package.outputs.packageName }}.zip
-          asset_name: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.fileName }}_${{  github.ref_name }}_${{  matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
           tag: ${{ github.ref }}
           overwrite: true 
