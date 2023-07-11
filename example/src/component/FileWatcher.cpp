@@ -1,7 +1,5 @@
 #include "FileWatcher.h"
 
-#include <qDebug>
-
 FileWatcher::FileWatcher(QObject *parent)
     : QObject{parent}
 {
