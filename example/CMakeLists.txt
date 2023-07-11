@@ -24,7 +24,7 @@ endif()
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,7,3)
+add_definitions(-DVERSION=1,3,7,4)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 

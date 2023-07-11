@@ -251,7 +251,6 @@ Item {
         flickableDirection: Flickable.HorizontalAndVerticalFlick
         clip: true
         boundsBehavior: ListView.StopAtBounds
-        maximumFlickVelocity: 1680
         ScrollBar.vertical: FluScrollBar {}
         ScrollBar.horizontal: FluScrollBar { }
     }

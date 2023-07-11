@@ -38,7 +38,6 @@ FluPage {
             bottom: parent.bottom
             bottomMargin: control.bottomPadding
         }
-        maximumFlickVelocity: 1680
         contentWidth: parent.width
         contentHeight: container.height
         ScrollBar.vertical: FluScrollBar {

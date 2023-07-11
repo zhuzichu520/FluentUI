@@ -33,6 +33,7 @@ FluContentPage {
         cellWidth: 80
         cellHeight: 80
         clip: true
+        boundsBehavior: GridView.StopAtBounds
         model:FluApp.awesomelist()
         ScrollBar.vertical: FluScrollBar {}
         anchors{

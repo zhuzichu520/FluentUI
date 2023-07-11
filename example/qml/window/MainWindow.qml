@@ -25,6 +25,10 @@ CustomWindow {
         event.accepted = false
     }
 
+    Component.onCompleted: {
+        FluTools.setQuitOnLastWindowClosed(false)
+    }
+
     Connections{
         target: appInfo
         function onActiveWindow(){

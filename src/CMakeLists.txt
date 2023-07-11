@@ -15,7 +15,7 @@ endif()
 set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,7,3)
+add_definitions(-DVERSION=1,3,7,4)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 
@@ -67,7 +67,6 @@ if (FLUENTUI_BUILD_STATIC_LIB)
         OUTPUT_DIRECTORY ${QML_PLUGIN_DIRECTORY}
         VERSION 1.0
         URI "FluentUI"
-        #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
         TYPEINFO "plugins.qmltypes"
         SOURCES ${sources_files} fluentui.rc
         QML_FILES ${qml_files}

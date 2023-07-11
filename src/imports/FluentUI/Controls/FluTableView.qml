@@ -170,7 +170,6 @@ Rectangle {
             }
             boundsBehavior: Flickable.StopAtBounds
             ScrollBar.horizontal: FluScrollBar{}
-            maximumFlickVelocity: 1680
             ScrollBar.vertical: FluScrollBar{}
             selectionModel: ItemSelectionModel {
                 id:selection_model
