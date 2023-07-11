@@ -163,6 +163,7 @@
         <file>qml/page/T_TreeView.qml</file>
         <file>qml/page/T_Typography.qml</file>
         <file>qml/window/AboutWindow.qml</file>
+        <file>qml/window/HotloadWindow.qml</file>
         <file>qml/window/LoginWindow.qml</file>
         <file>qml/window/MainWindow.qml</file>
         <file>qml/window/SingleInstanceWindow.qml</file>
