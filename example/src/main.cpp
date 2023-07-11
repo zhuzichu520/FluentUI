@@ -10,7 +10,9 @@
 #include "AppInfo.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
-
+#ifdef FLUENTUI_BUILD_STATIC_LIB
+Q_IMPORT_PLUGIN(FluentUIPlugin)
+#endif
 int main(int argc, char *argv[])
 {
     //将样式设置为Basic，不然会导致组件显示异常
@@ -38,6 +40,10 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
+#ifdef FLUENTUI_BUILD_STATIC_LIB
+    qobject_cast<QQmlExtensionPlugin*>(qt_static_plugin_FluentUIPlugin().instance())->initializeEngine(&engine, "FluentUI"); // 让静态资源可以被QML引擎搜索到
+    //qobject_cast<QQmlExtensionPlugin*>(qt_static_plugin_FluentUIPlugin().instance())->registerTypes("FluentUI");
+#endif
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
