@@ -7,11 +7,12 @@
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
 #include "src/component/CircularReveal.h"
+#include "src/component/FileWatcher.h"
 #include "AppInfo.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
 
-int main(int argc, char *argv[])
+    int main(int argc, char *argv[])
 {
     //将样式设置为Basic，不然会导致组件显示异常
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
     engine.addImportPath("qrc:/"); // 让静态资源可以被QML引擎搜索到
 #endif
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
+    qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
