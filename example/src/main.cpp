@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
     if(!appInfo->isOwnerProcess(&ipc)){
         return 0;
     }
-    app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
 #ifdef FLUENTUI_BUILD_STATIC_LIB

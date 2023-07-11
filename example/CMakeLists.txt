@@ -15,7 +15,7 @@ endif()
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,7,3)
+add_definitions(-DVERSION=1,3,7,4)
 
 #判断FluentUI库类型
 if(FLUENTUI_BUILD_STATIC_LIB)

@@ -7,7 +7,7 @@ project(fluentuiplugin LANGUAGES CXX)
 set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
 
 #设置版本号
-add_definitions(-DVERSION=1,3,7,3)
+add_definitions(-DVERSION=1,3,7,4)
 
 find_package(Qt5 REQUIRED COMPONENTS Core Quick Qml)
 
