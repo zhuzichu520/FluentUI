@@ -333,6 +333,12 @@ FluObject{
                 navigationView.push("qrc:/example/qml/page/T_RemoteLoader.qml")
             }
         }
+        FluPaneItem{
+            title:"HotLoader"
+            tapFunc:function(){
+                 FluApp.navigate("/hotload")
+            }
+        }
     }
 
     function getRecentlyAddedData(){

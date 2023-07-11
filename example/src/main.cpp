@@ -7,6 +7,7 @@
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
 #include "src/component/CircularReveal.h"
+#include "src/component/FileWatcher.h"
 #include "AppInfo.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
     //qobject_cast<QQmlExtensionPlugin*>(qt_static_plugin_FluentUIPlugin().instance())->registerTypes("FluentUI");
 #endif
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
+    qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
