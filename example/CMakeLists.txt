@@ -26,7 +26,7 @@ file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 #设置版本号
 add_definitions(-DVERSION=1,3,7,4)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Quick Svg)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
@@ -106,6 +106,7 @@ set_target_properties(example PROPERTIES
 if (FLUENTUI_BUILD_STATIC_LIB)
     target_link_libraries(example PRIVATE
         Qt6::Quick
+        Qt::Svg
         fluentui
         fluentuiplugin
         FramelessHelper::Core
@@ -114,6 +115,7 @@ if (FLUENTUI_BUILD_STATIC_LIB)
 else()
     target_link_libraries(example PRIVATE
         Qt6::Quick
+        Qt::Svg
         fluentuiplugin
         FramelessHelper::Core
         FramelessHelper::Quick
