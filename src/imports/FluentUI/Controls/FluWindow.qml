@@ -16,6 +16,7 @@ Window {
     property string route
     property var argument:({})
     property var pageRegister
+    property Component loadingItem: com_loading
     property var closeFunc: function(event){
         if(closeDestory){
             deleteWindow()
@@ -50,12 +51,64 @@ Window {
         anchors.fill: parent
         clip: true
     }
+    Loader{
+        property string loadingText: "加载中..."
+        property bool cancel: false
+        id:loader_loading
+        anchors.fill: container
+    }
     FluInfoBar{
         id:infoBar
         root: window
     }
+    Component{
+        id:com_loading
+        Popup{
+            id:popup_loading
+            modal:true
+            focus: true
+            anchors.centerIn: Overlay.overlay
+            closePolicy: {
+                if(cancel){
+                    return Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                }
+                return Popup.NoAutoClose
+            }
+            Overlay.modal: Rectangle {
+                color: "#44000000"
+            }
+            onVisibleChanged: {
+                if(!visible){
+                    loader_loading.sourceComponent = undefined
+                }
+            }
+            visible: true
+            background: Item{}
+            contentItem: Item{
+                ColumnLayout{
+                    spacing: 8
+                    anchors.centerIn: parent
+                    FluProgressRing{
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+                    FluText{
+                        text:loadingText
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+                }
+            }
+        }
+    }
     WindowHelper{
         id:helper
+    }
+    function showLoading(text = "加载中...",cancel = true){
+        loader_loading.loadingText = text
+        loader_loading.cancel = cancel
+        loader_loading.sourceComponent = com_loading
+    }
+    function hideLoading(){
+        loader_loading.sourceComponent = undefined
     }
     function showSuccess(text,duration,moremsg){
         infoBar.showSuccess(text,duration,moremsg)

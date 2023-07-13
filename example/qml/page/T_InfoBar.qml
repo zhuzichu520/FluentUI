@@ -12,7 +12,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 200
+        height: 240
         paddings: 10
         ColumnLayout{
             spacing: 14
@@ -42,6 +42,12 @@ FluScrollablePage{
                 text:"Success"
                 onClicked: {
                     showSuccess("这是一个Success样式的InfoBar这是一个Success样式的InfoBar")
+                }
+            }
+            FluButton{
+                text:"Loading"
+                onClicked: {
+                    showLoading()
                 }
             }
         }
