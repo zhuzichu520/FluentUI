@@ -3,8 +3,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(fluentuiplugin LANGUAGES CXX)
 
-#设置QML插件输出目录->D:\Qt\6.4.3\msvc2019_64\qml\FluentUI
-set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
+#设置QML插件输出目录，可以通过外部设置，如果外部没有设置就默认到<QT_SDK_DIR_PATH>\qml\FluentUI目录下
+set(QML_PLUGIN_DIRECTORY "" CACHE PATH "Path to FluentUI plugin")
+if(NOT QML_PLUGIN_DIRECTORY)
+    set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
+endif()
 
 #设置版本号
 add_definitions(-DVERSION=1,3,7,4)
