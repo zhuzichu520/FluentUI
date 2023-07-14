@@ -525,7 +525,7 @@ Item {
                     nav_list.currentIndex = item._idx
                     if(pageMode === FluNavigationView.Stack){
                         var nav_stack = loader_content.item.navStack()
-                        var nav_stack2 = loader_content.item.navStack()
+                        var nav_stack2 = loader_content.item.navStack2()
                         nav_stack.pop()
                         if(nav_stack.currentItem.launchMode === FluPage.SingleInstance){
                             var url = nav_stack.currentItem.url
