@@ -24,13 +24,15 @@ Item {
     property Component autoSuggestBox
     property Component actionItem
     property int topPadding: 0
+    property int navWidth: 300
     property int pageMode: FluNavigationView.Stack
     signal logoClicked
     id:control
     QtObject{
         id:d
+        property bool animDisabled:false
         property var stackItems: []
-        property int displayMode: FluNavigationView.Open
+        property int displayMode: control.displayMode
         property bool enableNavigationPanel: false
         property bool isCompact: d.displayMode === FluNavigationView.Compact
         property bool isMinimal: d.displayMode === FluNavigationView.Minimal
@@ -88,6 +90,14 @@ Item {
                 return FluNavigationView.Open
             }
         })
+        timer_anim_delay.restart()
+    }
+    Timer{
+        id:timer_anim_delay
+        interval: 200
+        onTriggered: {
+            d.animDisabled = true
+        }
     }
     Connections{
         target: d
@@ -128,7 +138,7 @@ Item {
                 return 30
             }
             Behavior on height {
-                enabled: FluTheme.enableAnimation
+                enabled: FluTheme.enableAnimation && d.animDisabled
                 NumberAnimation{
                     duration: 83
                 }
@@ -233,7 +243,7 @@ Item {
                             return true
                         }
                         Behavior on rotation {
-                            enabled: FluTheme.enableAnimation
+                            enabled: FluTheme.enableAnimation && d.animDisabled
                             NumberAnimation{
                                 duration: 167
                                 easing.type: Easing.OutCubic
@@ -320,7 +330,7 @@ Item {
         id:com_panel_item
         Item{
             Behavior on height {
-                enabled: FluTheme.enableAnimation
+                enabled: FluTheme.enableAnimation && d.animDisabled
                 NumberAnimation{
                     duration: 83
                 }
@@ -560,13 +570,13 @@ Item {
                 visible: opacity
                 opacity: d.isMinimal
                 Behavior on opacity{
-                    enabled: FluTheme.enableAnimation
+                    enabled: FluTheme.enableAnimation && d.animDisabled
                     NumberAnimation{
                         duration: 83
                     }
                 }
                 Behavior on Layout.preferredWidth {
-                    enabled: FluTheme.enableAnimation
+                    enabled: FluTheme.enableAnimation && d.animDisabled
                     NumberAnimation{
                         duration: 167
                         easing.type: Easing.OutCubic
@@ -661,11 +671,11 @@ Item {
                 if(d.isCompact){
                     return 50
                 }
-                return 300
+                return control.navWidth
             }
         }
         Behavior on anchors.leftMargin {
-            enabled: FluTheme.enableAnimation
+            enabled: FluTheme.enableAnimation && d.animDisabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
@@ -688,7 +698,7 @@ Item {
             if(d.isCompactAndNotPanel){
                 return 50
             }
-            return 300
+            return control.navWidth
         }
         anchors{
             top: parent.top
@@ -704,14 +714,14 @@ Item {
         }
         x: visible ? 0 : -width
         Behavior on width {
-            enabled: FluTheme.enableAnimation
+            enabled: FluTheme.enableAnimation && d.animDisabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
             }
         }
         Behavior on x {
-            enabled: FluTheme.enableAnimation
+            enabled: FluTheme.enableAnimation && d.animDisabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
@@ -793,7 +803,7 @@ Item {
                 anchors.fill: parent
                 model:d.handleItems()
                 boundsBehavior: ListView.StopAtBounds
-                highlightMoveDuration: FluTheme.enableAnimation ? 167 : 0
+                highlightMoveDuration: FluTheme.enableAnimation && d.animDisabled ? 167 : 0
                 highlight: Item{
                     clip: true
                     Rectangle{
