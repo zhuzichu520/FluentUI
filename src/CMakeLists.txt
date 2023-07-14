@@ -11,12 +11,6 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-#设置QML插件输出目录，可以通过外部设置，如果外部没有设置就默认到<QT_SDK_DIR_PATH>\qml\FluentUI目录下
-set(QML_PLUGIN_DIRECTORY "" CACHE PATH "Path to FluentUI plugin")
-if(NOT QML_PLUGIN_DIRECTORY)
-    set(QML_PLUGIN_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/FluentUI)
-endif()
-
 #设置版本号
 add_definitions(-DVERSION=1,3,7,4)
 
@@ -67,7 +61,7 @@ qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
 if (FLUENTUI_BUILD_STATIC_LIB)
     qt_add_qml_module(${PROJECT_NAME}
         #在静态库编译中使用PLUGIN_TARGET会导致链接失败
-        OUTPUT_DIRECTORY ${QML_PLUGIN_DIRECTORY}
+        OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
         VERSION 1.0
         URI "FluentUI"
         TYPEINFO "plugins.qmltypes"
@@ -79,7 +73,7 @@ else()
     qt_add_qml_module(${PROJECT_NAME}
         #没有下面这行代码就会生成fluentuiplugin.dll与fluentuipluginplugin.dll两个动态库
         PLUGIN_TARGET fluentuiplugin
-        OUTPUT_DIRECTORY ${QML_PLUGIN_DIRECTORY}
+        OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
         VERSION 1.0
         URI "FluentUI"
         #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
@@ -98,4 +92,4 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 
 #安装
-install(DIRECTORY ${QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)
+install(DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)
