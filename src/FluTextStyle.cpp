@@ -21,7 +21,7 @@ FluTextStyle::FluTextStyle(QObject *parent)
     Body(body);
 
     QFont bodyStrong;
-    bodyStrong.setPixelSize(14);
+    bodyStrong.setPixelSize(13);
     bodyStrong.setBold(true);
     BodyStrong(bodyStrong);
 
