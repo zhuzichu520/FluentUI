@@ -16,7 +16,7 @@ ComboBox {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
-
+    font: FluTextStyle.Body
     leftPadding: padding + (!control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     rightPadding: padding + (control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     enabled: !disabled
@@ -24,6 +24,7 @@ ComboBox {
         width: ListView.view.width
         text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
         palette.text: control.palette.text
+        font: control.font
         palette.highlightedText: control.palette.highlightedText
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
@@ -49,7 +50,7 @@ ComboBox {
         text: control.editable ? control.editText : control.displayText
         enabled: control.editable
         autoScroll: control.editable
-        font:FluTextStyle.Body
+        font:control.font
         readOnly: control.down
         color: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
         inputMethodHints: control.inputMethodHints
