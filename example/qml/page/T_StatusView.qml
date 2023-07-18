@@ -25,28 +25,28 @@ FluScrollablePage{
                     text:"Loading"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusView.Loading
+                        status_view.statusMode = FluStatusViewType.Loading
                     }
                 }
                 FluMenuItem{
                     text:"Empty"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusView.Empty
+                        status_view.statusMode = FluStatusViewType.Empty
                     }
                 }
                 FluMenuItem{
                     text:"Error"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusView.Error
+                        status_view.statusMode = FluStatusViewType.Error
                     }
                 }
                 FluMenuItem{
                     text:"Success"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusView.Success
+                        status_view.statusMode = FluStatusViewType.Success
                     }
                 }
             }
@@ -75,7 +75,7 @@ FluScrollablePage{
         Layout.topMargin: -1
         code:'FluStatusView{
     anchors.fill: parent
-    statusMode: FluStatusView.Loading
+    statusMode: FluStatusViewType.Loading
     Rectangle{
         anchors.fill: parent
         color:FluTheme.primaryColor.dark

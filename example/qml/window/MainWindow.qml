@@ -18,7 +18,7 @@ CustomWindow {
     minimumWidth: 520
     minimumHeight: 200
     appBarVisible: false
-    launchMode: FluWindow.SingleTask
+    launchMode: FluWindowType.SingleTask
 
     closeFunc:function(event){
         dialog_close.open()
@@ -27,15 +27,6 @@ CustomWindow {
 
     Component.onCompleted: {
         FluTools.setQuitOnLastWindowClosed(false)
-    }
-
-    Connections{
-        target: appInfo
-        function onActiveWindow(){
-            window.show()
-            window.raise()
-            window.requestActivate()
-        }
     }
 
     SystemTrayIcon {
@@ -67,7 +58,7 @@ CustomWindow {
         title:"退出"
         message:"确定要退出程序吗？"
         negativeText:"最小化"
-        buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+        buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.NeutralButton | FluContentDialogType.PositiveButton
         onNegativeClicked:{
             window.hide()
             system_tray.showMessage("友情提示","FluentUI已隐藏至托盘,点击托盘可再次激活窗口");
@@ -173,9 +164,9 @@ CustomWindow {
                 height: parent.height
                 z:999
                 //Stack模式，每次切换都会将页面压入栈中，随着栈的页面增多，消耗的内存也越多，内存消耗多就会卡顿，这时候就需要按返回将页面pop掉，释放内存。该模式可以配合FluPage中的launchMode属性，设置页面的启动模式
-                //                 pageMode: FluNavigationView.Stack
+                //                 pageMode: FluNavigationViewType.Stack
                 //NoStack模式，每次切换都会销毁之前的页面然后创建一个新的页面，只需消耗少量内存（推荐）
-//                pageMode: FluNavigationView.NoStack
+//                pageMode: FluNavigationViewType.NoStack
                 items: ItemsOriginal
                 footerItems:ItemsFooter
                 topPadding:FluTools.isMacos() ? 20 : 5
@@ -238,9 +229,9 @@ CustomWindow {
 
     function changeDark(){
         if(FluTheme.dark){
-            FluTheme.darkMode = FluDarkMode.Light
+            FluTheme.darkMode = FluThemeType.Light
         }else{
-            FluTheme.darkMode = FluDarkMode.Dark
+            FluTheme.darkMode = FluThemeType.Dark
         }
     }
 

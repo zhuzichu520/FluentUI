@@ -5,15 +5,11 @@ import QtQuick.Window
 import FluentUI
 
 Rectangle {
-    enum HourFormat {
-        H,
-        HH
-    }
     property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-    property int hourFormat: FluTimePicker.H
-    property int isH: hourFormat === FluTimePicker.H
+    property int hourFormat: FluTimePickerType.H
+    property int isH: hourFormat === FluTimePickerType.H
     property var current
     id:control
     color: {
@@ -326,7 +322,7 @@ Rectangle {
                             const period = text_ampm.text
                             const date = new Date()
                             var hours24 = parseInt(hours);
-                            if(control.hourFormat === FluTimePicker.H){
+                            if(control.hourFormat === FluTimePickerType.H){
                                 if (hours === "12") {
                                     hours24 = (period === "上午") ? 0 : 12;
                                 } else {

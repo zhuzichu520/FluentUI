@@ -5,13 +5,7 @@ import QtQuick.Window
 import FluentUI
 
 Item {
-    enum LaunchMode{
-        Standard = 0,
-        SingleTask = 1,
-        SingleTop = 2,
-        SingleInstance = 3
-    }
-    property int launchMode: FluPage.SingleTop
+    property int launchMode: FluPageType.SingleTop
     property bool animDisabled: false
     property string url : ""
     id: control

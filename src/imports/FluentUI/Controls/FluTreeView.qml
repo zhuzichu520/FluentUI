@@ -5,12 +5,7 @@ import QtQuick.Controls
 import FluentUI
 
 Item {
-    enum TreeViewSelectionMode  {
-        None,
-        Single,
-        Multiple
-    }
-    property int selectionMode: FluTreeView.None
+    property int selectionMode: FluTreeViewType.None
     property var currentElement
     property var currentParentElement
     property var rootModel: tree_model.get(0).items
@@ -83,12 +78,12 @@ Item {
                     anchors.margins: 2
                     color:{
                         if(FluTheme.dark){
-                            if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
+                            if(item_layout.singleSelected && selectionMode === FluTreeViewType.Single){
                                 return Qt.rgba(62/255,62/255,62/255,1)
                             }
                             return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(62/255,62/255,62/255,1):Qt.rgba(0,0,0,0)
                         }else{
-                            if(item_layout.singleSelected && selectionMode === FluTreeView.Single){
+                            if(item_layout.singleSelected && selectionMode === FluTreeViewType.Single){
                                 return Qt.rgba(0,0,0,0.06)
                             }
                             return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(0,0,0,0.03):Qt.rgba(0,0,0,0)
@@ -97,7 +92,7 @@ Item {
                     Rectangle{
                         width: 3
                         color:FluTheme.primaryColor.dark
-                        visible: item_layout.singleSelected && (selectionMode === FluTreeView.Single)
+                        visible: item_layout.singleSelected && (selectionMode === FluTreeViewType.Single)
                         radius: 3
                         height: 20
                         anchors{
@@ -115,10 +110,10 @@ Item {
                     }
                 }
                 function onClickItem(){
-                    if(selectionMode === FluTreeView.None){
+                    if(selectionMode === FluTreeViewType.None){
                         itemClicked(model)
                     }
-                    if(selectionMode === FluTreeView.Single){
+                    if(selectionMode === FluTreeViewType.Single){
                         currentElement = model
                         if(item_layout.parent.parent.parent.itemModel){
                             currentParentElement = item_layout.parent.parent.parent.itemModel
@@ -129,7 +124,7 @@ Item {
                         }
                         itemClicked(model)
                     }
-                    if(selectionMode === FluTreeView.Multiple){
+                    if(selectionMode === FluTreeViewType.Multiple){
 
                     }
                 }
@@ -144,7 +139,7 @@ Item {
                         id:item_layout_checkbox
                         text:""
                         checked: itemModel.multipSelected
-                        visible: selectionMode === FluTreeView.Multiple
+                        visible: selectionMode === FluTreeViewType.Multiple
                         Layout.leftMargin: 5
                         function refreshCheckBox(){
                             const stack = [tree_model.get(0)];

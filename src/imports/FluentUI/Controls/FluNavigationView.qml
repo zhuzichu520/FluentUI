@@ -6,26 +6,16 @@ import QtQuick.Layouts
 import FluentUI
 
 Item {
-    enum DisplayMode {
-        Open = 0,
-        Compact = 1,
-        Minimal = 2,
-        Auto = 3
-    }
-    enum PageMode {
-        Stack = 0,
-        NoStack = 1
-    }
     property url logo
     property string title: ""
     property FluObject items
     property FluObject footerItems
-    property int displayMode: FluNavigationView.Auto
+    property int displayMode: FluNavigationViewType.Auto
     property Component autoSuggestBox
     property Component actionItem
     property int topPadding: 0
     property int navWidth: 300
-    property int pageMode: FluNavigationView.Stack
+    property int pageMode: FluNavigationViewType.Stack
     signal logoClicked
     id:control
     QtObject{
@@ -34,11 +24,11 @@ Item {
         property var stackItems: []
         property int displayMode: control.displayMode
         property bool enableNavigationPanel: false
-        property bool isCompact: d.displayMode === FluNavigationView.Compact
-        property bool isMinimal: d.displayMode === FluNavigationView.Minimal
-        property bool isCompactAndPanel: d.displayMode === FluNavigationView.Compact && d.enableNavigationPanel
-        property bool isCompactAndNotPanel:d.displayMode === FluNavigationView.Compact && !d.enableNavigationPanel
-        property bool isMinimalAndPanel: d.displayMode === FluNavigationView.Minimal && d.enableNavigationPanel
+        property bool isCompact: d.displayMode === FluNavigationViewType.Compact
+        property bool isMinimal: d.displayMode === FluNavigationViewType.Minimal
+        property bool isCompactAndPanel: d.displayMode === FluNavigationViewType.Compact && d.enableNavigationPanel
+        property bool isCompactAndNotPanel:d.displayMode === FluNavigationViewType.Compact && !d.enableNavigationPanel
+        property bool isMinimalAndPanel: d.displayMode === FluNavigationViewType.Minimal && d.enableNavigationPanel
         onIsCompactAndNotPanelChanged: {
             collapseAll()
         }
@@ -79,15 +69,15 @@ Item {
     }
     Component.onCompleted: {
         d.displayMode = Qt.binding(function(){
-            if(control.displayMode !==FluNavigationView.Auto){
+            if(control.displayMode !==FluNavigationViewType.Auto){
                 return control.displayMode
             }
             if(control.width<=700){
-                return FluNavigationView.Minimal
+                return FluNavigationViewType.Minimal
             }else if(control.width<=900){
-                return FluNavigationView.Compact
+                return FluNavigationViewType.Compact
             }else{
-                return FluNavigationView.Open
+                return FluNavigationViewType.Open
             }
         })
         timer_anim_delay.restart()
@@ -102,10 +92,10 @@ Item {
     Connections{
         target: d
         function onDisplayModeChanged(){
-            if(d.displayMode === FluNavigationView.Compact){
+            if(d.displayMode === FluNavigationViewType.Compact){
                 collapseAll()
             }
-            if(d.displayMode === FluNavigationView.Minimal){
+            if(d.displayMode === FluNavigationViewType.Minimal){
                 d.enableNavigationPanel = false
             }
         }
@@ -533,11 +523,11 @@ Item {
                         layout_footer.currentIndex = item._idx-(nav_list.count-layout_footer.count)
                     }
                     nav_list.currentIndex = item._idx
-                    if(pageMode === FluNavigationView.Stack){
+                    if(pageMode === FluNavigationViewType.Stack){
                         var nav_stack = loader_content.item.navStack()
                         var nav_stack2 = loader_content.item.navStack2()
                         nav_stack.pop()
-                        if(nav_stack.currentItem.launchMode === FluPage.SingleInstance){
+                        if(nav_stack.currentItem.launchMode === FluPageType.SingleInstance){
                             var url = nav_stack.currentItem.url
                             var pageIndex = -1
                             for(var i=0;i<nav_stack2.children.length;i++){
@@ -551,7 +541,7 @@ Item {
                                 nav_stack2.currentIndex = pageIndex
                             }
                         }
-                    }else if(pageMode === FluNavigationView.NoStack){
+                    }else if(pageMode === FluNavigationViewType.NoStack){
                         loader_content.setSource(item._ext.url,item._ext.argument)
                     }
                 }
@@ -646,7 +636,7 @@ Item {
                 id:nav_stack2
                 anchors.fill: nav_stack
                 clip: true
-                visible: nav_stack.currentItem?.launchMode === FluPage.SingleInstance
+                visible: nav_stack.currentItem?.launchMode === FluPageType.SingleInstance
             }
             function navStack(){
                 return nav_stack
@@ -728,7 +718,7 @@ Item {
             }
         }
         visible: {
-            if(d.displayMode !== FluNavigationView.Minimal)
+            if(d.displayMode !== FluNavigationViewType.Minimal)
                 return true
             return d.isMinimalAndPanel  ? true : false
         }
@@ -1005,7 +995,7 @@ Item {
     Component{
         id:com_placeholder
         Item{
-            property int launchMode: FluPage.SingleInstance
+            property int launchMode: FluPageType.SingleInstance
             property string url
         }
     }
@@ -1031,12 +1021,12 @@ Item {
         return nav_list.currentIndex
     }
     function getCurrentUrl(){
-        if(pageMode === FluNavigationView.Stack){
+        if(pageMode === FluNavigationViewType.Stack){
             var nav_stack = loader_content.item.navStack()
             if(nav_stack.currentItem){
                 return nav_stack.currentItem.url
             }
-        }else if(pageMode === FluNavigationView.NoStack){
+        }else if(pageMode === FluNavigationViewType.NoStack){
             return loader_content.source.toString()
         }
         return undefined
@@ -1051,19 +1041,19 @@ Item {
             if(page){
                 switch(page.launchMode)
                 {
-                case FluPage.SingleTask:
+                case FluPageType.SingleTask:
                     while(nav_stack.currentItem !== page)
                     {
                         nav_stack.pop()
                         d.stackItems = d.stackItems.slice(0, -1)
                     }
                     return
-                case FluPage.SingleTop:
+                case FluPageType.SingleTop:
                     if (nav_stack.currentItem.url === url){
                         return
                     }
                     break
-                case FluPage.Standard:
+                case FluPageType.Standard:
                 default:
                 }
             }
@@ -1083,7 +1073,7 @@ Item {
                 var comp = Qt.createComponent(url)
                 if (comp.status === Component.Ready) {
                     var obj  = comp.createObject(nav_stack,options)
-                    if(obj.launchMode === FluPage.SingleInstance){
+                    if(obj.launchMode === FluPageType.SingleInstance){
                         nav_stack.push(com_placeholder,options)
                         nav_stack2.children.push(obj)
                         nav_stack2.currentIndex = nav_stack2.count - 1
@@ -1105,9 +1095,9 @@ Item {
             obj._ext = {url:url,argument:argument}
             d.stackItems = d.stackItems.concat(obj)
         }
-        if(pageMode === FluNavigationView.Stack){
+        if(pageMode === FluNavigationViewType.Stack){
             stackPush()
-        }else if(pageMode === FluNavigationView.NoStack){
+        }else if(pageMode === FluNavigationViewType.NoStack){
             noStackPush()
         }
     }

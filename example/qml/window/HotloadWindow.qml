@@ -13,7 +13,7 @@ CustomWindow {
     height: 600
     minimumWidth: 520
     minimumHeight: 200
-    launchMode: FluWindow.SingleTask
+    launchMode: FluWindowType.SingleTask
     FileWatcher{
         id:watcher
         onFileChanged: {
@@ -25,7 +25,7 @@ CustomWindow {
         FluRemoteLoader{
             id:loader
             anchors.fill: parent
-            statusMode: FluStatusView.Success
+            statusMode: FluStatusViewType.Success
             lazy: true
             errorItem: Item{
                 FluText{
@@ -43,7 +43,7 @@ CustomWindow {
             text:"拖入qml文件"
             font.pixelSize: 26
             anchors.centerIn: parent
-            visible: !loader.itemLodaer().item && loader.statusMode === FluStatusView.Success
+            visible: !loader.itemLodaer().item && loader.statusMode === FluStatusViewType.Success
         }
         Rectangle{
             radius: 4

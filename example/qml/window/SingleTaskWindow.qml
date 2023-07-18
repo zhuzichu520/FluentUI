@@ -11,7 +11,7 @@ CustomWindow {
     width: 500
     height: 600
     fixSize: true
-    launchMode: FluWindow.SingleTask
+    launchMode: FluWindowType.SingleTask
 
     FluText{
         anchors.centerIn: parent

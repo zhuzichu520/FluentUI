@@ -64,38 +64,38 @@ FluScrollablePage {
                     text:"None"
                     onClicked: {
                         btn_selection_model.text = text
-                        tree_view.selectionMode = FluTabView.Equal
+                        tree_view.selectionMode = FluTabViewType.Equal
                     }
                 }
                 FluMenuItem{
                     text:"Single"
                     onClicked: {
                         btn_selection_model.text = text
-                        tree_view.selectionMode = FluTabView.SizeToContent
+                        tree_view.selectionMode = FluTabViewType.SizeToContent
                     }
                 }
                 FluMenuItem{
                     text:"Muiltple"
                     onClicked: {
                         btn_selection_model.text = text
-                        tree_view.selectionMode = FluTabView.Compact
+                        tree_view.selectionMode = FluTabViewType.Compact
                     }
                 }
             }
             FluFilledButton{
                 text:"获取选中的数据"
                 onClicked: {
-                    if(tree_view.selectionMode === FluTreeView.None){
+                    if(tree_view.selectionMode === FluTreeViewType.None){
                         showError("当前非选择模式,没有选中的数据")
                     }
-                    if(tree_view.selectionMode === FluTreeView.Single){
+                    if(tree_view.selectionMode === FluTreeViewType.Single){
                         if(!tree_view.signleData()){
                             showError("没有选中数据")
                             return
                         }
                         showSuccess(tree_view.signleData().text)
                     }
-                    if(tree_view.selectionMode === FluTreeView.Multiple){
+                    if(tree_view.selectionMode === FluTreeViewType.Multiple){
                         if(tree_view.multipData().length===0){
                             showError("没有选中数据")
                             return

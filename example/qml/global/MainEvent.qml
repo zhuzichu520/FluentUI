@@ -5,5 +5,5 @@ import QtQuick.Controls
 import FluentUI
 
 QtObject {
-    property int displayMode : FluNavigationView.Auto
+    property int displayMode : FluNavigationViewType.Auto
 }

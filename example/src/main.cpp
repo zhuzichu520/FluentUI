@@ -12,7 +12,7 @@
 
 FRAMELESSHELPER_USE_NAMESPACE
 
-    int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     //将样式设置为Basic，不然会导致组件显示异常
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
@@ -32,10 +32,6 @@ FRAMELESSHELPER_USE_NAMESPACE
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
 #endif
     AppInfo* appInfo = new AppInfo();
-    IPC ipc(0);
-    if(!appInfo->isOwnerProcess(&ipc)){
-        return 0;
-    }
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
 #ifdef FLUENTUI_BUILD_STATIC_LIB
