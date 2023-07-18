@@ -11,7 +11,7 @@ CustomWindow {
     width: 500
     height: 600
     fixSize: true
-    launchMode: FluWindow.Standard
+    launchMode: FluWindowType.Standard
 
     FluMenuBar {
         FluMenu {

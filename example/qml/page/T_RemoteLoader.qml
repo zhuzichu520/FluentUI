@@ -6,7 +6,7 @@ import FluentUI 1.0
 import "qrc:///example/qml/component"
 
 FluPage{
-    launchMode: FluPage.SingleTop
+    launchMode: FluPageType.SingleTop
     FluRemoteLoader{
         anchors.fill: parent
         source: "https://zhu-zichu.gitee.io/T_RemoteLoader.qml"

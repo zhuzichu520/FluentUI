@@ -11,7 +11,7 @@ CustomWindow {
     width: 600
     height: 600
     fixSize: true
-    launchMode: FluWindow.SingleTask
+    launchMode: FluWindowType.SingleTask
 
     ColumnLayout{
         anchors{

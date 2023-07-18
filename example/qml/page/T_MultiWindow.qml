@@ -93,9 +93,9 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluWindow{
-  //launchMode: FluWindow.Standard
-  //launchMode: FluWindow.SingleTask
-     launchMode: FluWindow.SingleInstance
+  //launchMode: FluWindowType.Standard
+  //launchMode: FluWindowType.SingleTask
+     launchMode: FluWindowType.SingleInstance
 }
 '
     }

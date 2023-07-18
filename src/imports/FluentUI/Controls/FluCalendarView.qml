@@ -3,12 +3,7 @@ import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 Item {
-    enum DisplayMode {
-        Month,
-        Year,
-        Decade
-    }
-    property int displayMode: FluCalendarView.Month
+    property int displayMode: FluCalendarViewType.Month
     property var date: new Date()
     property var currentDate : new Date()
     property var toDay: new Date()
@@ -39,7 +34,7 @@ Item {
             width: 70
             onClicked:{
                 control.date = date
-                displayMode = FluCalendarView.Year
+                displayMode = FluCalendarViewType.Year
                 updateYear(date)
             }
             background: Item{
@@ -98,7 +93,7 @@ Item {
             width: 70
             onClicked:{
                 control.date = date
-                displayMode = FluCalendarView.Month
+                displayMode = FluCalendarViewType.Month
                 updateMouth(date)
             }
             background: Item{
@@ -248,13 +243,13 @@ Item {
                     left: parent.left
                     leftMargin: 14
                 }
-                disabled: displayMode === FluCalendarView.Decade
+                disabled: displayMode === FluCalendarViewType.Decade
                 onClicked:{
-                    if(displayMode === FluCalendarView.Month){
-                        displayMode = FluCalendarView.Year
+                    if(displayMode === FluCalendarViewType.Month){
+                        displayMode = FluCalendarViewType.Year
                         updateYear(date)
-                    }else if(displayMode === FluCalendarView.Year){
-                        displayMode = FluCalendarView.Decade
+                    }else if(displayMode === FluCalendarViewType.Year){
+                        displayMode = FluCalendarViewType.Decade
                         updateDecade(date)
                     }
                 }
@@ -271,7 +266,7 @@ Item {
                 onClicked: {
                     var year = date.getFullYear()
                     var month = date.getMonth()
-                    if(displayMode === FluCalendarView.Month){
+                    if(displayMode === FluCalendarViewType.Month){
                         var lastMonthYear = year;
                         var lastMonthMonth = month - 1
                         if (month === 0) {
@@ -280,10 +275,10 @@ Item {
                         }
                         date = new Date(lastMonthYear,lastMonthMonth,1)
                         updateMouth(date)
-                    }else if(displayMode === FluCalendarView.Year){
+                    }else if(displayMode === FluCalendarViewType.Year){
                         date = new Date(year-1,month,1)
                         updateYear(date)
-                    }else if(displayMode === FluCalendarView.Decade){
+                    }else if(displayMode === FluCalendarViewType.Decade){
                         date = new Date(Math.floor(year / 10) * 10-10,month,1)
                         updateDecade(date)
                     }
@@ -301,7 +296,7 @@ Item {
                 onClicked: {
                     var year = date.getFullYear()
                     var month = date.getMonth()
-                    if(displayMode === FluCalendarView.Month){
+                    if(displayMode === FluCalendarViewType.Month){
                         var nextMonthYear = year
                         var nextMonth = month + 1
                         if (month === 11) {
@@ -310,10 +305,10 @@ Item {
                         }
                         date = new Date(nextMonthYear,nextMonth,1)
                         updateMouth(date)
-                    }else if(displayMode === FluCalendarView.Year){
+                    }else if(displayMode === FluCalendarViewType.Year){
                         date = new Date(year+1,month,1)
                         updateYear(date)
-                    }else if(displayMode === FluCalendarView.Decade){
+                    }else if(displayMode === FluCalendarViewType.Decade){
                         date = new Date(Math.floor(year / 10) * 10+10,month,1)
                         updateDecade(date)
                     }
@@ -334,8 +329,8 @@ Item {
             GridView{
                 model: list_model
                 anchors.fill: parent
-                cellHeight: displayMode === FluCalendarView.Month ? 40 : 70
-                cellWidth: displayMode === FluCalendarView.Month ? 40 : 70
+                cellHeight: displayMode === FluCalendarViewType.Month ? 40 : 70
+                cellWidth: displayMode === FluCalendarViewType.Month ? 40 : 70
                 clip: true
                 boundsBehavior:Flickable.StopAtBounds
                 delegate: Loader{

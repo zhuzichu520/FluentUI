@@ -15,12 +15,7 @@ FluPopup {
     signal neutralClicked
     signal negativeClicked
     signal positiveClicked
-    enum ButtonFlag{
-        NegativeButton=1
-        ,NeutralButton=2
-        ,PositiveButton=4
-    }
-    property int buttonFlags: FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+    property int buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
     property var minWidth: {
         if(Window.window==null)
             return 400
@@ -85,11 +80,11 @@ FluPopup {
                     id:neutral_btn
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: popup.buttonFlags&FluContentDialog.NeutralButton
+                    visible: popup.buttonFlags&FluContentDialogType.NeutralButton
                     text: neutralText
                     onClicked: {
                         popup.close()
-                        timer_delay.targetFlags = FluContentDialog.NeutralButton
+                        timer_delay.targetFlags = FluContentDialogType.NeutralButton
                         timer_delay.restart()
                     }
                 }
@@ -97,11 +92,11 @@ FluPopup {
                     id:negative_btn
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: popup.buttonFlags&FluContentDialog.NegativeButton
+                    visible: popup.buttonFlags&FluContentDialogType.NegativeButton
                     text: negativeText
                     onClicked: {
                         popup.close()
-                        timer_delay.targetFlags = FluContentDialog.NegativeButton
+                        timer_delay.targetFlags = FluContentDialogType.NegativeButton
                         timer_delay.restart()
                     }
                 }
@@ -109,11 +104,11 @@ FluPopup {
                     id:positive_btn
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: popup.buttonFlags&FluContentDialog.PositiveButton
+                    visible: popup.buttonFlags&FluContentDialogType.PositiveButton
                     text: positiveText
                     onClicked: {
                         popup.close()
-                        timer_delay.targetFlags = FluContentDialog.PositiveButton
+                        timer_delay.targetFlags = FluContentDialogType.PositiveButton
                         timer_delay.restart()
                     }
                 }
@@ -125,13 +120,13 @@ FluPopup {
         id:timer_delay
         interval: popup.delayTime
         onTriggered: {
-            if(targetFlags === FluContentDialog.NegativeButton){
+            if(targetFlags === FluContentDialogType.NegativeButton){
                 negativeClicked()
             }
-            if(targetFlags === FluContentDialog.NeutralButton){
+            if(targetFlags === FluContentDialogType.NeutralButton){
                 neutralClicked()
             }
-            if(targetFlags === FluContentDialog.PositiveButton){
+            if(targetFlags === FluContentDialogType.PositiveButton){
                 positiveClicked()
             }
         }

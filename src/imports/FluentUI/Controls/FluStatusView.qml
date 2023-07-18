@@ -6,14 +6,8 @@ import FluentUI 1.0
 
 Item{
     id:control
-    enum StatusMode  {
-        Loading,
-        Empty,
-        Error,
-        Success
-    }
     default property alias content: container.data
-    property int statusMode: FluStatusView.Loading
+    property int statusMode: FluStatusViewType.Loading
     property string loadingText:"正在加载..."
     property string emptyText: "空空如也"
     property string errorText: "页面出错了.."
@@ -27,20 +21,20 @@ Item{
     Item{
         id:container
         anchors.fill: parent
-        visible: statusMode===FluStatusView.Success
+        visible: statusMode===FluStatusViewType.Success
     }
     Loader{
         id:loader
         anchors.fill: parent
-        visible: statusMode!==FluStatusView.Success
+        visible: statusMode!==FluStatusViewType.Success
         sourceComponent: {
-            if(statusMode === FluStatusView.Loading){
+            if(statusMode === FluStatusViewType.Loading){
                 return loadingItem
             }
-            if(statusMode === FluStatusView.Empty){
+            if(statusMode === FluStatusViewType.Empty){
                 return emptyItem
             }
-            if(statusMode === FluStatusView.Error){
+            if(statusMode === FluStatusViewType.Error){
                 return errorItem
             }
             return undefined
@@ -109,15 +103,15 @@ Item{
         }
     }
     function showSuccessView(){
-        statusMode = FluStatusView.Success
+        statusMode = FluStatusViewType.Success
     }
     function showLoadingView(){
-        statusMode = FluStatusView.Loading
+        statusMode = FluStatusViewType.Loading
     }
     function showEmptyView(){
-        statusMode = FluStatusView.Empty
+        statusMode = FluStatusViewType.Empty
     }
     function showErrorView(){
-        statusMode = FluStatusView.Error
+        statusMode = FluStatusViewType.Error
     }
 }

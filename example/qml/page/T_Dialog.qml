@@ -31,7 +31,7 @@ FluScrollablePage{
     title:"友情提示"
     message:"确定要退出程序么？"
     negativeText:"取消"
-    buttonFlags: FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+    buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
     onNegativeClicked:{
         showSuccess("点击取消按钮")
     }
@@ -47,7 +47,7 @@ FluScrollablePage{
         id:double_btn_dialog
         title:"友情提示"
         message:"确定要退出程序么？"
-        buttonFlags: FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+        buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
         negativeText:"取消"
         onNegativeClicked:{
             showSuccess("点击取消按钮")
@@ -80,7 +80,7 @@ FluScrollablePage{
     title:"友情提示"
     message:"确定要退出程序么？"
     negativeText:"取消"
-    buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+    buttonFlags: FluContentDialogType.NeutralButton | FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
     negativeText:"取消"
     onNegativeClicked:{
         showSuccess("点击取消按钮")
@@ -101,7 +101,7 @@ FluScrollablePage{
         id:triple_btn_dialog
         title:"友情提示"
         message:"确定要退出程序么？"
-        buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+        buttonFlags: FluContentDialogType.NeutralButton | FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
         negativeText:"取消"
         onNegativeClicked:{
             showSuccess("点击取消按钮")

@@ -5,14 +5,9 @@ import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 Window {
-    enum LaunchMode {
-        Standard,
-        SingleTask,
-        SingleInstance
-    }
     default property alias content: container.data
     property bool closeDestory: true
-    property int launchMode: FluWindow.Standard
+    property int launchMode: FluWindowType.Standard
     property string route
     property var argument:({})
     property var pageRegister

@@ -55,9 +55,9 @@ FluScrollablePage{
                 checked: FluTheme.dark
                 onClicked: {
                     if(FluTheme.dark){
-                        FluTheme.darkMode = FluDarkMode.Light
+                        FluTheme.darkMode = FluThemeType.Light
                     }else{
-                        FluTheme.darkMode = FluDarkMode.Dark
+                        FluTheme.darkMode = FluThemeType.Dark
                     }
                 }
             }

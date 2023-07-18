@@ -34,10 +34,6 @@ int main(int argc, char *argv[])
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
 #endif
     AppInfo* appInfo = new AppInfo();
-    IPC ipc(0);
-    if(!appInfo->isOwnerProcess(&ipc)){
-        return 0;
-    }
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
 #ifdef FLUENTUI_BUILD_STATIC_LIB

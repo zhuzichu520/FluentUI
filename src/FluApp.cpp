@@ -30,6 +30,7 @@ FluApp::~FluApp(){
 
 void FluApp::init(QQuickWindow *window){
     this->appWindow = window;
+    FluContentDialogType::ButtonFlag::NegativeButton;
 }
 
 void FluApp::run(){

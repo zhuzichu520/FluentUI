@@ -4,18 +4,8 @@ import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 Item {
-    enum TabWidthBehavior {
-        Equal,
-        SizeToContent,
-        Compact
-    }
-    enum CloseButtonVisibility{
-        Nerver,
-        Always,
-        OnHover
-    }
-    property int tabWidthBehavior : FluTabView.Equal
-    property int closeButtonVisibility : FluTabView.Always
+    property int tabWidthBehavior : FluTabViewType.Equal
+    property int closeButtonVisibility : FluTabViewType.Always
     property int itemWidth: 146
     property bool addButtonVisibility: true
     signal newPressed
@@ -91,13 +81,13 @@ Item {
                     property real timestamp: new Date().getTime()
                     height: tab_nav.height
                     width: {
-                        if(tabWidthBehavior === FluTabView.Equal){
+                        if(tabWidthBehavior === FluTabViewType.Equal){
                             return Math.max(Math.min(d.maxEqualWidth,tab_nav.width/tab_nav.count),41 + item_btn_close.width)
                         }
-                        if(tabWidthBehavior === FluTabView.SizeToContent){
+                        if(tabWidthBehavior === FluTabViewType.SizeToContent){
                             return itemWidth
                         }
-                        if(tabWidthBehavior === FluTabView.Compact){
+                        if(tabWidthBehavior === FluTabViewType.Compact){
                             return item_mouse_hove.containsMouse || item_btn_close.hovered || tab_nav.currentIndex === index  ? itemWidth : 41 + item_btn_close.width
                         }
                         return Math.max(Math.min(d.maxEqualWidth,tab_nav.width/tab_nav.count),41 + item_btn_close.width)
@@ -233,13 +223,13 @@ Item {
                             text: model.text
                             Layout.leftMargin: 10
                             visible: {
-                                if(tabWidthBehavior === FluTabView.Equal){
+                                if(tabWidthBehavior === FluTabViewType.Equal){
                                     return true
                                 }
-                                if(tabWidthBehavior === FluTabView.SizeToContent){
+                                if(tabWidthBehavior === FluTabViewType.SizeToContent){
                                     return true
                                 }
-                                if(tabWidthBehavior === FluTabView.Compact){
+                                if(tabWidthBehavior === FluTabViewType.Compact){
                                     return item_mouse_hove.containsMouse || item_btn_close.hovered || tab_nav.currentIndex === index
                                 }
                                 return false
@@ -256,9 +246,9 @@ Item {
                         width: visible ? 24 : 0
                         height: 24
                         visible: {
-                            if(closeButtonVisibility === FluTabView.Nerver)
+                            if(closeButtonVisibility === FluTabViewType.Nerver)
                                 return false
-                            if(closeButtonVisibility === FluTabView.OnHover)
+                            if(closeButtonVisibility === FluTabViewType.OnHover)
                                 return item_mouse_hove.containsMouse || item_btn_close.hovered
                             return true
                         }

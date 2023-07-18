@@ -44,21 +44,21 @@ FluScrollablePage{
                     text:"Equal"
                     onClicked: {
                         btn_tab_width_behavior.text = text
-                        tab_view.tabWidthBehavior = FluTabView.Equal
+                        tab_view.tabWidthBehavior = FluTabViewType.Equal
                     }
                 }
                 FluMenuItem{
                     text:"SizeToContent"
                     onClicked: {
                         btn_tab_width_behavior.text = text
-                        tab_view.tabWidthBehavior = FluTabView.SizeToContent
+                        tab_view.tabWidthBehavior = FluTabViewType.SizeToContent
                     }
                 }
                 FluMenuItem{
                     text:"Compact"
                     onClicked: {
                         btn_tab_width_behavior.text = text
-                        tab_view.tabWidthBehavior = FluTabView.Compact
+                        tab_view.tabWidthBehavior = FluTabViewType.Compact
                     }
                 }
             }
@@ -70,21 +70,21 @@ FluScrollablePage{
                     text:"Nerver"
                     onClicked: {
                         btn_close_button_visibility.text = text
-                        tab_view.closeButtonVisibility = FluTabView.Nerver
+                        tab_view.closeButtonVisibility = FluTabViewType.Nerver
                     }
                 }
                 FluMenuItem{
                     text:"Always"
                     onClicked: {
                         btn_close_button_visibility.text = text
-                        tab_view.closeButtonVisibility = FluTabView.Always
+                        tab_view.closeButtonVisibility = FluTabViewType.Always
                     }
                 }
                 FluMenuItem{
                     text:"OnHover"
                     onClicked: {
                         btn_close_button_visibility.text = text
-                        tab_view.closeButtonVisibility = FluTabView.OnHover
+                        tab_view.closeButtonVisibility = FluTabViewType.OnHover
                     }
                 }
             }
