@@ -12,6 +12,16 @@ FluPage {
     property int topPadding: 0
     property int rightPadding: 10
     property int bottomPadding: 10
+    property alias color: status_view.color
+    property alias statusMode: status_view.statusMode
+    property alias loadingText: status_view.loadingText
+    property alias emptyText:status_view.emptyText
+    property alias errorText:status_view.errorText
+    property alias errorButtonText:status_view.errorButtonText
+    property alias loadingItem :status_view.loadingItem
+    property alias emptyItem : status_view.emptyItem
+    property alias errorItem :status_view.errorItem
+    signal errorClicked
     id:control
     FluText{
         id:text_title
@@ -28,9 +38,11 @@ FluPage {
             rightMargin: control.rightPadding
         }
     }
-    Flickable{
-        id:flickview
-        clip: true
+    FluStatusView{
+        id:status_view
+        color: "#00000000"
+        statusMode: FluStatusView.Success
+        onErrorClicked: control.errorClicked()
         anchors{
             left: parent.left
             right: parent.right
@@ -38,29 +50,30 @@ FluPage {
             bottom: parent.bottom
             bottomMargin: control.bottomPadding
         }
-        contentWidth: parent.width
-        contentHeight: container.height
-        ScrollBar.vertical: FluScrollBar {
-            anchors.right: flickview.right
-            anchors.rightMargin: 2
-        }
-        boundsBehavior: Flickable.StopAtBounds
-        anchors{
-            top: text_title.bottom
-            bottom: parent.bottom
-        }
-        ColumnLayout{
-            id:container
-            spacing: control.spacing
+        Flickable{
+            id:flickview
             clip: true
-            anchors{
-                left: parent.left
-                right: parent.right
-                top: parent.top
-                leftMargin: control.leftPadding
-                rightMargin: control.rightPadding
+            anchors.fill: parent
+            contentWidth: parent.width
+            contentHeight: container.height
+            ScrollBar.vertical: FluScrollBar {
+                anchors.right: flickview.right
+                anchors.rightMargin: 2
             }
-            width: parent.width
+            boundsBehavior: Flickable.StopAtBounds
+            ColumnLayout{
+                id:container
+                spacing: control.spacing
+                clip: true
+                anchors{
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                    leftMargin: control.leftPadding
+                    rightMargin: control.rightPadding
+                }
+                width: parent.width
+            }
         }
     }
 }
