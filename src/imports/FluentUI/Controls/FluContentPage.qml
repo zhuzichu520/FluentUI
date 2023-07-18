@@ -11,6 +11,17 @@ FluPage {
     property int topPadding: 0
     property int rightPadding: 10
     property int bottomPadding: 10
+    property alias color: status_view.color
+    property alias statusMode: status_view.statusMode
+    property alias loadingText: status_view.loadingText
+    property alias emptyText:status_view.emptyText
+    property alias errorText:status_view.errorText
+    property alias errorButtonText:status_view.errorButtonText
+    property alias loadingItem :status_view.loadingItem
+    property alias emptyItem : status_view.emptyItem
+    property alias errorItem :status_view.errorItem
+    signal errorClicked
+
     id:control
     FluText{
         id:text_title
@@ -26,9 +37,11 @@ FluPage {
             rightMargin: control.rightPadding
         }
     }
-    Item{
-        clip: true
-        id:container
+    FluStatusView{
+        id:status_view
+        color: "#00000000"
+        statusMode: FluStatusView.Success
+        onErrorClicked: control.errorClicked()
         anchors{
             left: parent.left
             right: parent.right
@@ -37,6 +50,11 @@ FluPage {
             leftMargin: control.leftPadding
             rightMargin: control.rightPadding
             bottomMargin: control.bottomPadding
+        }
+        Item{
+            clip: true
+            id:container
+            anchors.fill: parent
         }
     }
 }
