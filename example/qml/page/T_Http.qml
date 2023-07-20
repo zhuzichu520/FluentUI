@@ -60,8 +60,9 @@ FluScrollablePage{
         }
         onFinish: {
             btn_download.disabled = false
+            btn_download.text = "下载文件"
         }
-        onDownloadFileProgress:
+        onDownloadProgress:
             (recv,total)=>{
                 var precent = (recv/total * 100).toFixed(0) + "%"
                 btn_download.text = "下载中..."+precent
