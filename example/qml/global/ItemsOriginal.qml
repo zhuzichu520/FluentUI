@@ -321,6 +321,12 @@ FluObject{
         title:lang.other
         icon:FluentIcons.Shop
         FluPaneItem{
+            title:"Http"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Http.qml")
+            }
+        }
+        FluPaneItem{
             id:item_other
             title:"RemoteLoader"
             count: 99

@@ -22,7 +22,7 @@ if(FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
 endif()
 
-find_package(Qt5 REQUIRED COMPONENTS Quick Svg)
+find_package(Qt5 REQUIRED COMPONENTS Quick Svg Network)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -95,6 +95,7 @@ set_target_properties(example PROPERTIES
 target_link_libraries(example PRIVATE
     Qt::Quick
     Qt::Svg
+    Qt::Network
     fluentuiplugin
     FramelessHelper::Core
     FramelessHelper::Quick

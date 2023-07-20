@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QQmlEngine>
 #include "FluRegister.h"
+#include "FluHttpInterceptor.h"
 #include "stdafx.h"
 
 /**
@@ -26,6 +27,12 @@ class FluApp : public QObject
      * @brief routes 路由表
      */
     Q_PROPERTY_AUTO(QJsonObject,routes);
+
+    /**
+     * @brief http拦截器
+     */
+    Q_PROPERTY_AUTO(FluHttpInterceptor*,httpInterceptor);
+
 private:
     /**
      * @brief FluApp 将默认构造函数设置为私有，则qml创建单例就会走create工厂方法创建单例
