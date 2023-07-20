@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QQmlEngine>
 #include "FluRegister.h"
+#include "FluHttpInterceptor.h"
 #include "stdafx.h"
 
 /**
@@ -26,6 +27,11 @@ class FluApp : public QObject
      * @brief routes 路由表
      */
     Q_PROPERTY_AUTO(QJsonObject,routes);
+
+    /**
+     * @brief http拦截器
+     */
+    Q_PROPERTY_AUTO(FluHttpInterceptor*,httpInterceptor);
 
     QML_NAMED_ELEMENT(FluApp)
     QML_SINGLETON

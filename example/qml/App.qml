@@ -7,6 +7,23 @@ import FluentUI
 Window {
     id: app
     flags: Qt.SplashScreen
+
+    FluHttpInterceptor{
+        id:interceptor
+        function onIntercept(request){
+            if(request.method === "get"){
+                request.params["method"] = "get"
+            }
+            if(request.method === "post"){
+                request.params["method"] = "post"
+            }
+            request.headers["token"] ="yyds"
+            request.headers["os"] ="pc"
+            console.debug(JSON.stringify(request))
+            return request
+        }
+    }
+
     Component.onCompleted: {
         FluApp.init(app)
         FluTheme.darkMode = FluThemeType.System
@@ -21,6 +38,7 @@ Window {
             "/singleInstanceWindow":"qrc:/example/qml/window/SingleInstanceWindow.qml"
         }
         FluApp.initialRoute = "/"
+        FluApp.httpInterceptor = interceptor
         FluApp.run()
     }
 }
