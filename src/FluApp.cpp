@@ -23,6 +23,7 @@ FluApp *FluApp::getInstance()
 FluApp::FluApp(QObject *parent)
     : QObject{parent}
 {
+    httpInterceptor(nullptr);
 }
 
 FluApp::~FluApp(){

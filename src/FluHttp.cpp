@@ -100,7 +100,6 @@ void FluHttp::get(QVariantMap params,QVariantMap headers){
 
 Q_INVOKABLE void FluHttp::download(QString path,QVariantMap params,QVariantMap headers){
     QVariantMap request = invokeIntercept(params,headers,"download").toMap();
-    qDebug()<<request["headers"].toMap();
     QThreadPool::globalInstance()->start([=](){
         HttpClient client;
         Q_EMIT start();
@@ -110,7 +109,7 @@ Q_INVOKABLE void FluHttp::download(QString path,QVariantMap params,QVariantMap h
             .queryParams(request["params"].toMap())
             .headers(request["headers"].toMap())
             .onDownloadProgress([=](qint64 recv, qint64 total) {
-                Q_EMIT downloadFileProgress(recv,total);
+                Q_EMIT downloadProgress(recv,total);
             })
             .onDownloadFileSuccess([=](QString result) {
                 Q_EMIT success(result);
@@ -131,6 +130,9 @@ QVariant FluHttp::invokeIntercept(const QVariant& params,const QVariant& headers
         {"headers",headers},
         {"method",method}
     };
+    if(!FluApp::getInstance()->httpInterceptor()){
+        return requet;
+    }
     QVariant target;
     QMetaObject::invokeMethod(FluApp::getInstance()->httpInterceptor(), "onIntercept",Q_RETURN_ARG(QVariant,target),Q_ARG(QVariant, requet));
     return target;

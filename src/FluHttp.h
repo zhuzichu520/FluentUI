@@ -20,7 +20,7 @@ public:
     Q_SIGNAL void finish();
     Q_SIGNAL void error(int status,QString errorString);
     Q_SIGNAL void success(QString result);
-    Q_SIGNAL void downloadFileProgress(qint64 recv, qint64 total);
+    Q_SIGNAL void downloadProgress(qint64 recv, qint64 total);
     Q_INVOKABLE void get(QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void post(QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void postJson(QVariantMap params = {},QVariantMap headers = {});
