@@ -1,10 +1,10 @@
-import QtQuick
-import QtCore
-import QtQuick.Layouts
-import QtQuick.Window
-import QtQuick.Controls
-import QtQuick.Dialogs
-import FluentUI
+import QtQuick 2.15
+import Qt.labs.platform 1.0
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Dialogs 1.3
+import FluentUI 1.0
 import "qrc:///example/qml/component"
 
 FluScrollablePage{
@@ -112,7 +112,7 @@ FluScrollablePage{
         id: file_dialog
         currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
         onAccepted: {
-            var path = selectedFolder.toString().replace("file:///","") + "/big_buck_bunny.mp4"
+            var path = currentFolder.toString().replace(FluTools.isMacos() ? "file://" : "file:///","") + "/big_buck_bunny.mp4"
             http_download.download(path)
         }
     }

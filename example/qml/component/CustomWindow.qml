@@ -51,6 +51,16 @@ FluWindow {
         }
     }
 
+    Connections{
+        target: FluTheme
+        function onDarkChanged(){
+            if (FluTheme.dark)
+                FramelessUtils.systemTheme = FramelessHelperConstants.Dark
+            else
+                FramelessUtils.systemTheme = FramelessHelperConstants.Light
+        }
+    }
+
     function setHitTestVisible(com){
         framless_helper.setHitTestVisible(com)
     }

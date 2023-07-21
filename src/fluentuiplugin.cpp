@@ -9,6 +9,9 @@
 #include "FluTheme.h"
 #include "FluTools.h"
 #include "FluTextStyle.h"
+#include "FluHttp.h"
+#include "FluHttpInterceptor.h"
+
 int major = 1;
 int minor = 0;
 static FluentUIPlugin instance;
@@ -24,8 +27,19 @@ void FluentUIPlugin::registerTypes(const char *uri)
 {
     qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
+    qmlRegisterType<FluHttpInterceptor>(uri,major,minor,"FluHttpInterceptor");
+    qmlRegisterType<FluHttp>(uri,major,minor,"FluHttp");
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
-    qmlRegisterUncreatableMetaObject(Fluent_DarkMode::staticMetaObject,  uri,major,minor,"FluDarkMode", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluPageType::staticMetaObject,  uri,major,minor,"FluPageType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluWindowType::staticMetaObject,  uri,major,minor,"FluWindowType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluTreeViewType::staticMetaObject,  uri,major,minor,"FluTreeViewType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluStatusViewType::staticMetaObject,  uri,major,minor,"FluStatusViewType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluContentDialogType::staticMetaObject,  uri,major,minor,"FluContentDialogType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluTimePickerType::staticMetaObject,  uri,major,minor,"FluTimePickerType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluCalendarViewType::staticMetaObject,  uri,major,minor,"FluCalendarViewType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluTabViewType::staticMetaObject,  uri,major,minor,"FluTabViewType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluNavigationViewType::staticMetaObject,  uri,major,minor,"FluNavigationViewType", "Access to enums & flags only");
 }
 
 #ifdef FLUENTUI_BUILD_STATIC_LIB

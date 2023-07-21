@@ -174,5 +174,6 @@
         <file>qml/page/T_Pagination.qml</file>
         <file>qml/page/T_RadioButton.qml</file>
         <file>qml/page/T_RemoteLoader.qml</file>
+        <file>qml/page/T_Http.qml</file>
     </qresource>
 </RCC>

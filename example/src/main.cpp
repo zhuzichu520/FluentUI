@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
 #ifdef Q_OS_MACOS
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,true);
 #endif
     AppInfo* appInfo = new AppInfo();
     QQmlApplicationEngine engine;
