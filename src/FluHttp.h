@@ -15,8 +15,11 @@ class FluHttp : public QObject
     Q_PROPERTY_AUTO(int,retry);
 private:
     QVariant invokeIntercept(const QVariant& params,const QVariant& headers,const QString& method);
+    void handleReply(QNetworkReply* reply);
+    QList<QNetworkReply*> cache;
 public:
     explicit FluHttp(QObject *parent = nullptr);
+    ~FluHttp();
     Q_SIGNAL void start();
     Q_SIGNAL void finish();
     Q_SIGNAL void error(int status,QString errorString);
@@ -26,8 +29,8 @@ public:
     Q_INVOKABLE void post(QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void postJson(QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void postString(QString params = "",QVariantMap headers = {});
-
     Q_INVOKABLE void download(QString path,QVariantMap params = {},QVariantMap headers = {});
+    Q_INVOKABLE void cancel();
 };
 
 #endif // FLUHTTP_H
