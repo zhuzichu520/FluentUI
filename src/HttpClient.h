@@ -51,6 +51,9 @@ class HttpClient : public QNetworkAccessManager
     Q_OBJECT
 public:
     inline static HttpClient* instance();
+    ~HttpClient(){
+        qDebug()<<"HttpClient析构了";
+    }
     inline HttpClient(QObject* parent = nullptr);
     inline QString getVersion() const;
 
@@ -61,20 +64,7 @@ public:
 
     inline HttpRequest send(const QString& url, Operation op = GetOperation);
 
-    HttpClient* timeout(const int& second = 60)
-    {
-        timeoutSecond = second;
-        return this;
-    }
-    int timeoutSecond = 60;
-
-    HttpClient* header(const QString& key, const QVariant& value)
-    {
-        globalHeader.insert(key, value);
-        return this;
-    }
-    QMap<QString, QVariant> globalHeader;
-
+    std::function<void(QNetworkReply*)> initReplyCompleted;
 private:
 #if (QT_VERSION < QT_VERSION_CHECK(5, 8, 0))
     inline QNetworkReply* sendCustomRequest(const QNetworkRequest& request, const QByteArray& verb,
@@ -1347,9 +1337,10 @@ HttpResponse* HttpRequest::exec(const HttpRequest& _httpRequest, HttpResponse* h
     {
         httpRequest.m_reply->setReadBufferSize(httpRequest.m_readBufferSize);
     }
-
     printDebug(httpRequest.m_logLevel, toString().toStdString().c_str());
-
+    if(httpClient->initReplyCompleted){
+        httpClient->initReplyCompleted(httpRequest.m_reply);
+    }
     if (httpResponse)
     {
         httpResponse->setParent(httpRequest.m_reply);
@@ -1564,27 +1555,27 @@ QString HttpClient::getVersion() const
 
 HttpRequest HttpClient::head(const QString& url)
 {
-    return HttpRequest(QNetworkAccessManager::HeadOperation, this).headers(globalHeader).url(url).timeout(timeoutSecond);
+    return HttpRequest(QNetworkAccessManager::HeadOperation, this).url(url);
 }
 
 HttpRequest HttpClient::get(const QString& url)
 {
-    return HttpRequest(QNetworkAccessManager::GetOperation, this).headers(globalHeader).url(url).timeout(timeoutSecond);
+    return HttpRequest(QNetworkAccessManager::GetOperation, this).url(url);
 }
 
 HttpRequest HttpClient::post(const QString& url)
 {
-    return HttpRequest(QNetworkAccessManager::PostOperation, this).headers(globalHeader).url(url).timeout(timeoutSecond);
+    return HttpRequest(QNetworkAccessManager::PostOperation, this).url(url);
 }
 
 HttpRequest HttpClient::put(const QString& url)
 {
-    return HttpRequest(QNetworkAccessManager::PutOperation, this).headers(globalHeader).url(url).timeout(timeoutSecond);
+    return HttpRequest(QNetworkAccessManager::PutOperation, this).url(url);
 }
 
 HttpRequest HttpClient::send(const QString& url, QNetworkAccessManager::Operation op)
 {
-    return HttpRequest(op, this).headers(globalHeader).url(url).timeout(timeoutSecond);
+    return HttpRequest(op, this).url(url);
 }
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 8, 0))
@@ -1791,12 +1782,10 @@ void HttpResponse::setHttpRequest(const HttpRequest& httpRequest)
             }
         }
     }
-
     if (reply && httpRequest.m_isBlock)
     {
         new HttpBlocker(reply, httpRequest.m_isBlock);
     }
-
     HttpRequest oldRequest = m_httpRequest;
     m_httpRequest = httpRequest;
 

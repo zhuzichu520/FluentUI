@@ -11,6 +11,9 @@ FluScrollablePage{
 
     title:"Http"
 
+    Component.onDestruction: {
+        console.debug("T_Http -> onDestruction")
+    }
 
     FluHttp{
         id:http_get
@@ -66,6 +69,7 @@ FluScrollablePage{
         onDownloadProgress:
             (recv,total)=>{
                 var precent = (recv/total * 100).toFixed(0) + "%"
+                console.debug(precent)
                 btn_download.text = "下载中..."+precent
             }
         onError:

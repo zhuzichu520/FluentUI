@@ -93,6 +93,11 @@ qt_add_qml_module(example
     RESOURCES ${resource_files}
 )
 
+#导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
+target_include_directories(example PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/component
+)
+
 #设置属性
 set_target_properties(example PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
