@@ -43,6 +43,7 @@ FluScrollablePage{
         }
         onError:
             (status,errorString)=>{
+                console.debug(status+"->"+errorString)
                 showError(errorString)
             }
         onSuccess:

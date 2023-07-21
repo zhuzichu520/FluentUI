@@ -11,6 +11,8 @@ class FluHttp : public QObject
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,url);
     Q_PROPERTY_AUTO(bool,enabledBreakpointDownload)
+    Q_PROPERTY_AUTO(int,timeout)
+    Q_PROPERTY_AUTO(int,retry);
     QML_NAMED_ELEMENT(FluHttp)
 private:
     QVariant invokeIntercept(const QVariant& params,const QVariant& headers,const QString& method);

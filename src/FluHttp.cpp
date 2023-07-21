@@ -10,6 +10,8 @@ FluHttp::FluHttp(QObject *parent)
     : QObject{parent}
 {
     enabledBreakpointDownload(false);
+    timeout(15);
+    retry(3);
 }
 
 Q_INVOKABLE void FluHttp::postString(QString params,QVariantMap headers){
@@ -18,6 +20,8 @@ Q_INVOKABLE void FluHttp::postString(QString params,QVariantMap headers){
         HttpClient client;
         Q_EMIT start();
         client.post(_url)
+            .retry(retry())
+            .timeout(timeout())
             .bodyWithRaw(request[params].toString().toUtf8())
             .headers(request["headers"].toMap())
             .onSuccess([=](QString result) {
@@ -39,6 +43,8 @@ void FluHttp::post(QVariantMap params,QVariantMap headers){
         HttpClient client;
         Q_EMIT start();
         client.post(_url)
+            .retry(retry())
+            .timeout(timeout())
             .headers(headers)
             .bodyWithFormData(request["params"].toMap())
             .headers(request["headers"].toMap())
@@ -61,6 +67,8 @@ void FluHttp::postJson(QVariantMap params,QVariantMap headers){
         HttpClient client;
         Q_EMIT start();
         client.post(_url)
+            .retry(retry())
+            .timeout(timeout())
             .headers(headers)
             .bodyWithRaw(QJsonDocument::fromVariant(request["params"]).toJson())
             .headers(request["headers"].toMap())
@@ -83,6 +91,8 @@ void FluHttp::get(QVariantMap params,QVariantMap headers){
         HttpClient client;
         Q_EMIT start();
         client.get(_url)
+            .retry(retry())
+            .timeout(timeout())
             .queryParams(request["params"].toMap())
             .headers(request["headers"].toMap())
             .onSuccess([=](QString result) {
@@ -105,6 +115,8 @@ Q_INVOKABLE void FluHttp::download(QString path,QVariantMap params,QVariantMap h
         HttpClient client;
         Q_EMIT start();
         client.get(_url)
+            .retry(retry())
+            .timeout(timeout())
             .download(path)
             .enabledBreakpointDownload(_enabledBreakpointDownload)
             .queryParams(request["params"].toMap())
