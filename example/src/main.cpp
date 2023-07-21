@@ -3,6 +3,8 @@
 #include <QQmlContext>
 #include <QDir>
 #include <QQuickWindow>
+#include <QNetworkProxy>
+#include <QSslConfiguration>
 #include <QProcess>
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
