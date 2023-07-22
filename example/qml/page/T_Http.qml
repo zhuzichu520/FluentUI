@@ -1,5 +1,5 @@
 import QtQuick
-import QtCore
+import Qt.labs.platform
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
@@ -117,7 +117,7 @@ FluScrollablePage{
         id: file_dialog
         currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
         onAccepted: {
-            var path = selectedFolder.toString().replace("file:///","") + "/big_buck_bunny.mp4"
+            var path = currentFolder.toString().replace(FluTools.isMacos() ? "file://" : "file:///","") + "/big_buck_bunny.mp4"
             http_download.download(path)
         }
     }
