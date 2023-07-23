@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtQml/qqml.h>
+#include <QFile>
 #include <QNetworkAccessManager>
 #include "stdafx.h"
 
@@ -10,14 +11,12 @@ class FluHttp : public QObject
 {
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,url);
-    Q_PROPERTY_AUTO(bool,enabledBreakpointDownload)
-    Q_PROPERTY_AUTO(int,timeout)
-    Q_PROPERTY_AUTO(int,retry);
     QML_NAMED_ELEMENT(FluHttp)
 private:
     QVariant invokeIntercept(const QVariant& params,const QVariant& headers,const QString& method);
     void handleReply(QNetworkReply* reply);
-    QList<QNetworkReply*> cache;
+    void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
+    void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& params);
 public:
     explicit FluHttp(QObject *parent = nullptr);
     ~FluHttp();
@@ -32,6 +31,8 @@ public:
     Q_INVOKABLE void postString(QString params = "",QVariantMap headers = {});
     Q_INVOKABLE void download(QString path,QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void cancel();
+private:
+    QList<QPointer<QNetworkReply>> _cache;
 };
 
 #endif // FLUHTTP_H

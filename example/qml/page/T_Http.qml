@@ -26,6 +26,7 @@ FluScrollablePage{
         }
         onError:
             (status,errorString)=>{
+                console.debug(status+"->"+errorString)
                 showError(errorString)
             }
         onSuccess:
@@ -59,6 +60,7 @@ FluScrollablePage{
     FluHttp{
         id:http_download
         url:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+//        url:"https://www.w3school.com.cn/example/html5/mov_bbb.mp4"
         onStart: {
             btn_download.disabled = true
         }
@@ -94,7 +96,8 @@ FluScrollablePage{
             FluButton{
                 text:"Get请求"
                 onClicked: {
-                    http_get.get({q:"FluentUI"})
+                    http_download.cancel()
+//                    http_get.get({q:"FluentUI"})
                 }
             }
             FluButton{
