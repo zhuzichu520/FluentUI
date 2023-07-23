@@ -1,10 +1,11 @@
 #include "FluHttp.h"
 
 #include <QThreadPool>
-#include "HttpClient.h"
+#include <QEventLoop>
+#include <QNetworkReply>
+#include <QUrlQuery>
+#include <QHttpMultiPart>
 #include "FluApp.h"
-
-using namespace  AeaQt;
 
 FluHttp::FluHttp(QObject *parent)
     : QObject{parent}
@@ -28,80 +29,8 @@ void FluHttp::handleReply(QNetworkReply* reply){
     _cache.append(reply);
 }
 
-void FluHttp::postString(QString params,QVariantMap headers){
-    QVariantMap data = invokeIntercept(params,headers,"postString").toMap();
-    QThreadPool::globalInstance()->start([=](){
-        Q_EMIT start();
-        QNetworkAccessManager manager;
-        QUrl url(_url);
-        QNetworkRequest request(url);
-        addHeaders(&request,data["headers"].toMap());
-        QHttpMultiPart* multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-        QString contentType = QString("multipart/form-data;boundary=%1").arg(multiPart->boundary());
-        request.setHeader(QNetworkRequest::ContentTypeHeader, contentType);
-        for (const auto& each : data["params"].toMap().toStdMap())
-        {
-            const QString& key = each.first;
-            const QString& value = each.second.toString();
-            QString dispositionHeader = QString("form-data; name=\"%1\"").arg(key);
-            QHttpPart part;
-            part.setHeader(QNetworkRequest::ContentDispositionHeader, dispositionHeader);
-            part.setBody(value.toUtf8());
-            multiPart->append(part);
-        }
-        QEventLoop loop;
-        QNetworkReply* reply = manager.post(request,multiPart);
-        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-        if (reply->error() == QNetworkReply::NoError) {
-            Q_EMIT success(QString::fromUtf8(reply->readAll()));
-        }else{
-            Q_EMIT error(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString());
-        }
-        reply->deleteLater();
-        reply = nullptr;
-        Q_EMIT finish();
-    });
-}
-
 void FluHttp::post(QVariantMap params,QVariantMap headers){
     QVariantMap data = invokeIntercept(params,headers,"post").toMap();
-    QThreadPool::globalInstance()->start([=](){
-        Q_EMIT start();
-        QNetworkAccessManager manager;
-        QUrl url(_url);
-        QNetworkRequest request(url);
-        addHeaders(&request,data["headers"].toMap());
-        QHttpMultiPart* multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-        QString contentType = QString("multipart/form-data;boundary=%1").arg(multiPart->boundary());
-         request.setHeader(QNetworkRequest::ContentTypeHeader, contentType);
-        for (const auto& each : data["params"].toMap().toStdMap())
-        {
-            const QString& key = each.first;
-            const QString& value = each.second.toString();
-            QString dispositionHeader = QString("form-data; name=\"%1\"").arg(key);
-            QHttpPart part;
-            part.setHeader(QNetworkRequest::ContentDispositionHeader, dispositionHeader);
-            part.setBody(value.toUtf8());
-            multiPart->append(part);
-        }
-        QEventLoop loop;
-        QNetworkReply* reply = manager.post(request,multiPart);
-        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-        if (reply->error() == QNetworkReply::NoError) {
-            Q_EMIT success(QString::fromUtf8(reply->readAll()));
-        }else{
-            Q_EMIT error(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString());
-        }
-        reply->deleteLater();
-        reply = nullptr;
-        Q_EMIT finish();
-    });
-}
-
-void FluHttp::postJson(QVariantMap params,QVariantMap headers){
-    QVariantMap data = invokeIntercept(params,headers,"postJson").toMap();
     QThreadPool::globalInstance()->start([=](){
         Q_EMIT start();
         QNetworkAccessManager manager;
@@ -145,16 +74,21 @@ void FluHttp::get(QVariantMap params,QVariantMap headers){
         addQueryParam(&url,data["params"].toMap());
         QNetworkRequest request(url);
         addHeaders(&request,data["headers"].toMap());
-        QEventLoop loop;
+        QEventLoop *loop = new QEventLoop();
+        connect(&manager,&QNetworkAccessManager::finished,this,[=](QNetworkReply *reply){
+            loop->quit();
+        });
         QNetworkReply* reply = manager.get(request);
-        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
+        _cache.append(reply);
+        loop->exec();
         if (reply->error() == QNetworkReply::NoError) {
             Q_EMIT success(QString::fromUtf8(reply->readAll()));
         }else{
             Q_EMIT error(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString());
         }
+        loop->deleteLater();
         reply->deleteLater();
+        loop = nullptr;
         reply = nullptr;
         Q_EMIT finish();
     });

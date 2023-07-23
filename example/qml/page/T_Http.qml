@@ -96,8 +96,7 @@ FluScrollablePage{
             FluButton{
                 text:"Get请求"
                 onClicked: {
-                    http_download.cancel()
-//                    http_get.get({q:"FluentUI"})
+                    http_get.get({q:"FluentUI"})
                 }
             }
             FluButton{

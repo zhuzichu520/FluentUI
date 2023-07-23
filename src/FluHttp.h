@@ -27,8 +27,6 @@ public:
     Q_SIGNAL void downloadProgress(qint64 recv, qint64 total);
     Q_INVOKABLE void get(QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void post(QVariantMap params = {},QVariantMap headers = {});
-    Q_INVOKABLE void postJson(QVariantMap params = {},QVariantMap headers = {});
-    Q_INVOKABLE void postString(QString params = "",QVariantMap headers = {});
     Q_INVOKABLE void download(QString path,QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void cancel();
 private:
