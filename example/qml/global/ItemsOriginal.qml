@@ -385,7 +385,12 @@ FluObject{
         for(var i=0;i<items.length;i++){
             var item = items[i]
             if(item instanceof FluPaneItem){
-                arr.push({title:item.title,key:item.key})
+                if (item.parent instanceof FluPaneItemExpander)
+                {
+                    arr.push({title:`${item.parent.title} -> ${item.title}`,key:item.key})
+                }
+                else
+                    arr.push({title:item.title,key:item.key})
             }
         }
         return arr
