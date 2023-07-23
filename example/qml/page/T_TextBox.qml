@@ -17,27 +17,22 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluTextBox{
-            Layout.topMargin: 20
             placeholderText: "单行输入框"
-            Layout.preferredWidth: 300
             disabled:text_box_switch.checked
+            cleanEnabled: true
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
         }
 
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:text_box_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            FluToggleSwitch{
-                id:text_box_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -55,27 +50,20 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluPasswordBox{
-            Layout.topMargin: 20
             placeholderText: "请输入密码"
-            Layout.preferredWidth: 300
             disabled:password_box_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:password_box_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            FluToggleSwitch{
-                id:password_box_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -95,9 +83,7 @@ FluScrollablePage{
 
         FluMultilineTextBox{
             id:multiine_textbox
-            Layout.topMargin: 20
             placeholderText: "多行输入框"
-            Layout.preferredWidth: 300
             disabled:text_box_multi_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -105,17 +91,13 @@ FluScrollablePage{
             }
         }
 
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:text_box_multi_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            FluToggleSwitch{
-                id:text_box_multi_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -126,17 +108,13 @@ FluScrollablePage{
 }'
     }
 
-
     FluArea{
         Layout.fillWidth: true
         height: 68
         paddings: 10
         Layout.topMargin: 20
-
         FluAutoSuggestBox{
-            Layout.topMargin: 20
             placeholderText: "AutoSuggestBox"
-            Layout.preferredWidth: 300
             items:generateRandomNames(100)
             disabled:text_box_suggest_switch.checked
             anchors{
@@ -144,18 +122,13 @@ FluScrollablePage{
                 left: parent.left
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:text_box_suggest_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            FluToggleSwitch{
-                id:text_box_suggest_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -171,34 +144,26 @@ FluScrollablePage{
         height: 68
         paddings: 10
         Layout.topMargin: 20
-
         FluSpinBox{
-            Layout.topMargin: 20
             disabled: spin_box_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
         }
-
-        Row{
-            spacing: 5
+        FluToggleSwitch{
+            id:spin_box_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            FluToggleSwitch{
-                id:spin_box_switch
-                Layout.alignment: Qt.AlignRight
-                text:"Disabled"
-            }
+            text:"Disabled"
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluSpinBox{
-
 }'
     }
 

@@ -12,7 +12,8 @@ TextField{
     property color placeholderNormalColor: FluTheme.dark ? Qt.rgba(210/255,210/255,210/255,1) : Qt.rgba(96/255,96/255,96/255,1)
     property color placeholderFocusColor: FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
     property color placeholderDisableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
-    property int closeRightMargin: icon_end.visible ? 25 : 5
+    property int iconRightMargin: icon_end.visible ? 25 : 5
+    property bool cleanEnabled: false
     id:control
     width: 300
     padding: 8
@@ -74,6 +75,9 @@ TextField{
         width: 20
         height: 20
         visible: {
+            if(control.cleanEnabled === false){
+                return false
+            }
             if(control.readOnly)
                 return false
             return control.text !== ""
@@ -81,7 +85,7 @@ TextField{
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right
-            rightMargin: closeRightMargin
+            rightMargin: control.iconRightMargin
         }
         contentDescription:"清空"
         onClicked:{

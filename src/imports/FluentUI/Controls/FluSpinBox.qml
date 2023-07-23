@@ -27,7 +27,7 @@ Rectangle{
         id:com_edit
         FluTextBox{
             rightPadding: 80
-            closeRightMargin: 55
+            iconRightMargin: 55
             disabled: control.disabled
             validator: control.validator
             text: d._displayText
