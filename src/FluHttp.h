@@ -11,6 +11,8 @@ class FluHttp : public QObject
 {
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,url);
+    Q_PROPERTY_AUTO(int,retry);
+    Q_PROPERTY_AUTO(int,timeout)
     QML_NAMED_ELEMENT(FluHttp)
 private:
     QVariant invokeIntercept(const QVariant& params,const QVariant& headers,const QString& method);
@@ -27,6 +29,8 @@ public:
     Q_SIGNAL void downloadProgress(qint64 recv, qint64 total);
     Q_INVOKABLE void get(QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void post(QVariantMap params = {},QVariantMap headers = {});
+    Q_INVOKABLE void postString(QString params = "",QVariantMap headers = {});
+    Q_INVOKABLE void postJson(QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void download(QString path,QVariantMap params = {},QVariantMap headers = {});
     Q_INVOKABLE void cancel();
 private:
