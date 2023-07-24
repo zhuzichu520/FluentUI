@@ -322,7 +322,7 @@ Rectangle {
             property bool canceled: false
             readonly property var obj : columnSource[column]
             implicitWidth: column_text.implicitWidth + (cellPadding * 2)
-            implicitHeight: Math.max(header_horizontal.height, column_text.implicitHeight + (cellPadding * 2))
+            implicitHeight: Math.max(36, column_text.implicitHeight + (cellPadding * 2))
             color:{
                 d.selectionFlag
                 if(column_item_control_mouse.pressed){
@@ -436,7 +436,7 @@ Rectangle {
             id:item_control
             readonly property real cellPadding: 8
             property bool canceled: false
-            implicitWidth: Math.max(header_vertical.width, row_text.implicitWidth + (cellPadding * 2))
+            implicitWidth: Math.max(30, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
             color: {
                 d.selectionFlag
