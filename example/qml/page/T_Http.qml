@@ -11,10 +11,6 @@ FluScrollablePage{
 
     title:"Http"
 
-    Component.onDestruction: {
-        console.debug("T_Http -> onDestruction")
-    }
-
     FluHttp{
         id:http_get
         url:"https://api.github.com/search/repositories"
@@ -60,7 +56,7 @@ FluScrollablePage{
     FluHttp{
         id:http_download
         url:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-//        url:"https://www.w3school.com.cn/example/html5/mov_bbb.mp4"
+        //        url:"https://www.w3school.com.cn/example/html5/mov_bbb.mp4"
         onStart: {
             btn_download.disabled = true
         }
@@ -119,7 +115,7 @@ FluScrollablePage{
         id: file_dialog
         currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
         onAccepted: {
-            var path = currentFolder.toString().replace(FluTools.isMacos() ? "file://" : "file:///","") + "/big_buck_bunny.mp4"
+            var path = FluTools.toLocalPath(currentFolder)+ "/big_buck_bunny.mp4"
             http_download.download(path)
         }
     }
@@ -131,7 +127,6 @@ FluScrollablePage{
         height: 400
         Item{
             anchors.fill: parent
-
             Flickable{
                 id:scrollview
                 width: parent.width
@@ -149,7 +144,4 @@ FluScrollablePage{
             }
         }
     }
-
-
-
 }

@@ -94,3 +94,7 @@ void FluTools::deleteItem(QObject *p){
         p = nullptr;
     }
 }
+
+QString FluTools::toLocalPath(const QUrl& url){
+    return url.toLocalFile();
+}

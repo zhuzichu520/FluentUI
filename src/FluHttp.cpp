@@ -65,6 +65,7 @@ void FluHttp::post(QVariantMap params,QVariantMap headers){
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
             bool isSuccess = reply->error() == QNetworkReply::NoError;
+            _cache.removeOne(reply);
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
@@ -101,6 +102,7 @@ void FluHttp::postString(QString params,QVariantMap headers){
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
             bool isSuccess = reply->error() == QNetworkReply::NoError;
+            _cache.removeOne(reply);
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
@@ -139,6 +141,7 @@ void FluHttp::postJson(QVariantMap params,QVariantMap headers){
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
             bool isSuccess = reply->error() == QNetworkReply::NoError;
+            _cache.removeOne(reply);
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
@@ -176,6 +179,7 @@ void FluHttp::get(QVariantMap params,QVariantMap headers){
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
             bool isSuccess = reply->error() == QNetworkReply::NoError;
+            _cache.removeOne(reply);
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
@@ -228,6 +232,7 @@ void FluHttp::download(QString path,QVariantMap params,QVariantMap headers){
         }else{
             Q_EMIT error(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString());
         }
+        _cache.removeOne(reply);
         file->close();
         file->deleteLater();
         reply->deleteLater();
