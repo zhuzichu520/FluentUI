@@ -2,56 +2,48 @@ import QtQuick
 import QtQuick.Controls
 import FluentUI
 
-Item{
-
-    property real progress: 0.5
-    property bool indeterminate: true
+ProgressBar{
+    property real strokeWidth: 6
     property bool progressVisible: false
-    id: control
-    width: 150
-    height: 5
-
-    FluRectangle {
-        shadow: false
-        radius: [3,3,3,3]
-        anchors.fill: parent
-        color:  FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
-        Component.onCompleted: {
-            if(indeterminate){
-                bar.x = -control.width*0.5
-                behavior.enabled = true
-                bar.x = control.width
-            }else{
-                bar.x = 0
-            }
-        }
-        Rectangle{
-            id:bar
-            radius: 3
-            width: control.width*progress
-            height:  control.height
-            color:FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
-            Behavior on x{
-                id:behavior
-                enabled: false
-                NumberAnimation{
-                    duration: 1000
-                    onRunningChanged: {
-                        if(!running){
-                            behavior.enabled = false
-                            bar.x = -control.width*0.5
-                            behavior.enabled = true
-                            bar.x = control.width
-                        }
-                    }
+    property color color: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color backgroundColor : FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+    id:control
+    indeterminate : true
+    QtObject{
+        id:d
+        property real _radius: strokeWidth/2
+    }
+    background: Rectangle {
+        implicitWidth: 150
+        implicitHeight: control.strokeWidth
+        color: control.backgroundColor
+        radius: d._radius
+    }
+    contentItem: FluItem {
+        clip: true
+        radius: [d._radius,d._radius,d._radius,d._radius]
+        Rectangle {
+            id:rect_progress
+            width: {
+                if(control.indeterminate){
+                    return 0.5 * parent.width
                 }
+                return control.visualPosition * parent.width
+            }
+            height: parent.height
+            radius: d._radius
+            color: control.color
+            PropertyAnimation on x {
+                running: control.indeterminate && control.visible
+                from: -rect_progress.width
+                to:control.width+rect_progress.width
+                loops: Animation.Infinite
+                duration: 888
             }
         }
     }
-
     FluText{
-        text:(control.progress * 100).toFixed(0) + "%"
-        font.pixelSize: 10
+        text:(control.visualPosition * 100).toFixed(0) + "%"
         visible: {
             if(control.indeterminate){
                 return false

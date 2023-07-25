@@ -12,7 +12,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 110
+        height: 130
         paddings: 10
 
         ColumnLayout{
@@ -45,7 +45,7 @@ FluProgressRing{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 230
+        height: 286
         paddings: 10
 
         ColumnLayout{
@@ -59,21 +59,24 @@ FluProgressRing{
             }
             FluProgressBar{
                 indeterminate: false
-                progress: slider.value/100
-            }
-            FluProgressRing{
-                indeterminate: false
-                progress: slider.value/100
+                value:slider.value/100
+                Layout.topMargin: 10
             }
             FluProgressBar{
                 indeterminate: false
+                value:slider.value/100
                 progressVisible: true
-                progress: slider.value/100
+                Layout.topMargin: 10
             }
             FluProgressRing{
                 indeterminate: false
+                value: slider.value/100
+                Layout.topMargin: 10
+            }
+            FluProgressRing{
                 progressVisible: true
-                progress: slider.value/100
+                indeterminate: false
+                value: slider.value/100
             }
             FluSlider{
                 id:slider

@@ -63,12 +63,15 @@ FluScrollablePage{
         onFinish: {
             btn_download.disabled = false
             btn_download.text = "下载文件"
+            text_file_size.text = ""
         }
         onDownloadProgress:
             (recv,total)=>{
+                var locale = Qt.locale()
                 var precent = (recv/total * 100).toFixed(0) + "%"
                 console.debug(precent)
                 btn_download.text = "下载中..."+precent
+                text_file_size.text =  "%1/%2".arg(locale.formattedDataSize(recv)).arg(locale.formattedDataSize(total))
             }
         onError:
             (status,errorString)=>{
@@ -101,13 +104,20 @@ FluScrollablePage{
                     http_post.post({k:"jitpack"})
                 }
             }
-            FluButton{
-                id:btn_download
-                text:disabled ? "下载中..." : "下载文件"
-                onClicked: {
-                    file_dialog.open()
+            RowLayout{
+                FluButton{
+                    id:btn_download
+                    text:disabled ? "下载中..." : "下载文件"
+                    onClicked: {
+                        file_dialog.open()
+                    }
+                }
+                FluText{
+                    id:text_file_size
+                    Layout.alignment: Qt.AlignVCenter
                 }
             }
+
         }
     }
 
@@ -125,6 +135,7 @@ FluScrollablePage{
         id:window_result
         width: 600
         height: 400
+        color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
         Item{
             anchors.fill: parent
             Flickable{
