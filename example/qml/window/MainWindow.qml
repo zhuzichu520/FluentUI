@@ -166,7 +166,7 @@ CustomWindow {
                 //Stack模式，每次切换都会将页面压入栈中，随着栈的页面增多，消耗的内存也越多，内存消耗多就会卡顿，这时候就需要按返回将页面pop掉，释放内存。该模式可以配合FluPage中的launchMode属性，设置页面的启动模式
                 pageMode: FluNavigationViewType.Stack
                 //NoStack模式，每次切换都会销毁之前的页面然后创建一个新的页面，只需消耗少量内存（推荐）
-//                pageMode: FluNavigationViewType.NoStack
+                //                pageMode: FluNavigationViewType.NoStack
                 items: ItemsOriginal
                 footerItems:ItemsFooter
                 topPadding:FluTools.isMacos() ? 20 : 5
@@ -201,13 +201,25 @@ CustomWindow {
         }
     }
 
-    CircularReveal{
-        id:reveal
-        target:window.contentItem
-        anchors.fill: parent
-        onImageChanged: {
-            changeDark()
+    Component{
+        id:com_reveal
+        CircularReveal{
+            id:reveal
+            target:window.contentItem
+            anchors.fill: parent
+            onAnimationFinished:{
+                //动画结束后释放资源
+                loader_reveal.sourceComponent = undefined
+            }
+            onImageChanged: {
+                changeDark()
+            }
         }
+    }
+
+    Loader{
+        id:loader_reveal
+        anchors.fill: parent
     }
 
     function distance(x1,y1,x2,y2){
@@ -218,11 +230,13 @@ CustomWindow {
         if(FluTools.isMacos() || !FluTheme.enableAnimation){
             changeDark()
         }else{
+            loader_reveal.sourceComponent = com_reveal
             var target = window.contentItem
             var pos = button.mapToItem(target,0,0)
             var mouseX = pos.x
             var mouseY = pos.y
             var radius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,target.width,0),distance(mouseX,mouseY,0,target.height),distance(mouseX,mouseY,target.width,target.height))
+            var reveal = loader_reveal.item
             reveal.start(reveal.width*Screen.devicePixelRatio,reveal.height*Screen.devicePixelRatio,Qt.point(mouseX,mouseY),radius)
         }
     }
@@ -244,6 +258,5 @@ CustomWindow {
             }
         }
     }
-
 
 }

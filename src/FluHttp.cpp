@@ -204,13 +204,11 @@ void FluHttp::download(QString path,QVariantMap params,QVariantMap headers){
         addQueryParam(&url,data["params"].toMap());
         QNetworkRequest request(url);
         addHeaders(&request,data["headers"].toMap());
-        QFile *file = new QFile(path);
+        QSharedPointer<QFile> file(new QFile(path));
         QIODevice::OpenMode mode = QIODevice::WriteOnly|QIODevice::Truncate;
         if (!file->open(mode))
         {
             Q_EMIT error(-1,QString("Url: %1 %2 Non-Writable").arg(request.url().toString(),file->fileName()));
-            file->deleteLater();
-            file = nullptr;
             Q_EMIT finish();
             return;
         }
@@ -234,9 +232,7 @@ void FluHttp::download(QString path,QVariantMap params,QVariantMap headers){
         }
         _cache.removeOne(reply);
         file->close();
-        file->deleteLater();
         reply->deleteLater();
-        file = nullptr;
         reply = nullptr;
         Q_EMIT finish();
     });

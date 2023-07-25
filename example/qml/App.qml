@@ -19,6 +19,7 @@ Window {
             }
             request.headers["token"] ="yyds"
             request.headers["os"] ="pc"
+            console.debug(JSON.stringify(request))
             return request
         }
     }

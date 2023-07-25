@@ -6,11 +6,12 @@
 CircularReveal::CircularReveal(QQuickItem* parent) : QQuickPaintedItem(parent)
 {
     setVisible(false);
-    _anim = new QPropertyAnimation(this, "radius", this);
-    _anim->setDuration(333);
-    _anim->setEasingCurve(QEasingCurve::OutCubic);
-    connect(_anim, &QPropertyAnimation::finished,this,[=](){
+    _anim.setDuration(333);
+    _anim.setEasingCurve(QEasingCurve::OutCubic);
+    connect(&_anim, &QPropertyAnimation::finished,this,[=](){
+        update();
         setVisible(false);
+        Q_EMIT animationFinished();
     });
     connect(this,&CircularReveal::radiusChanged,this,[=](){
         update();
@@ -31,8 +32,8 @@ void CircularReveal::paint(QPainter* painter)
 }
 
 void CircularReveal::start(int w,int h,const QPoint& center,int radius){
-    _anim->setStartValue(0);
-    _anim->setEndValue(radius);
+    _anim.setStartValue(0);
+    _anim.setEndValue(radius);
     _center = center;
     _grabResult = _target->grabToImage(QSize(w,h));
     connect(_grabResult.data(), &QQuickItemGrabResult::ready, this, &CircularReveal::handleGrabResult);
@@ -43,5 +44,5 @@ void CircularReveal::handleGrabResult(){
     update();
     setVisible(true);
     Q_EMIT imageChanged();
-    _anim->start();
+    _anim.start();
 }
