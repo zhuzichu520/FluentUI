@@ -58,31 +58,25 @@ else()
     set(LIB_TYPE "SHARED")
 endif()
 qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
+
 if (FLUENTUI_BUILD_STATIC_LIB)
-    qt_add_qml_module(${PROJECT_NAME}
-        #在静态库编译中使用PLUGIN_TARGET会导致链接失败
-        OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
-        VERSION 1.0
-        URI "FluentUI"
-        TYPEINFO "plugins.qmltypes"
-        SOURCES ${sources_files} fluentui.rc
-        QML_FILES ${qml_files}
-        RESOURCES ${resource_files}
-    )
+    set(PLUGIN_TARGET_NAME "")
 else()
-    qt_add_qml_module(${PROJECT_NAME}
-        #没有下面这行代码就会生成fluentuiplugin.dll与fluentuipluginplugin.dll两个动态库
-        PLUGIN_TARGET fluentuiplugin
-        OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
-        VERSION 1.0
-        URI "FluentUI"
-        #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
-        TYPEINFO "plugins.qmltypes"
-        SOURCES ${sources_files} fluentui.rc
-        QML_FILES ${qml_files}
-        RESOURCES ${resource_files}
-    )
+    #如果是动态库，则使用插件目标作为其自己的支持目标来定义 QML 模块，在这种情况下，模块必须在运行时动态加载，并且不能由其他目标直接链接到
+    set(PLUGIN_TARGET_NAME ${PROJECT_NAME})
 endif()
+
+qt_add_qml_module(${PROJECT_NAME}
+    PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
+    OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
+    VERSION 1.0
+    URI "FluentUI"
+    #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
+    TYPEINFO "plugins.qmltypes"
+    SOURCES ${sources_files} fluentui.rc
+    QML_FILES ${qml_files}
+    RESOURCES ${resource_files}
+)
 
 #链接库
 target_link_libraries(${PROJECT_NAME} PUBLIC

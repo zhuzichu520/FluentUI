@@ -164,6 +164,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluSpinBox{
+
 }'
     }
 

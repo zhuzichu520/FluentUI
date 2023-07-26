@@ -12,7 +12,7 @@ Rectangle{
         if(inputItem.disabled){
             return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
         }
-        if(inputItem.focus){
+        if(inputItem.activeFocus){
             return FluTheme.dark ? Qt.rgba(36/255,36/255,36/255,1) : Qt.rgba(1,1,1,1)
         }
         if(inputItem.hovered){
@@ -36,14 +36,14 @@ Rectangle{
     }
     Rectangle{
         width: parent.width
-        height: inputItem.focus ? 3 : 1
+        height: inputItem.activeFocus ? 3 : 1
         anchors.bottom: parent.bottom
         visible: !inputItem.disabled
         color: {
             if(FluTheme.dark){
-                inputItem.focus ? FluTheme.primaryColor.lighter  : Qt.rgba(166/255,166/255,166/255,1)
+                inputItem.activeFocus ? FluTheme.primaryColor.lighter  : Qt.rgba(166/255,166/255,166/255,1)
             }else{
-                return inputItem.focus ? FluTheme.primaryColor.dark  : Qt.rgba(183/255,183/255,183/255,1)
+                return inputItem.activeFocus ? FluTheme.primaryColor.dark  : Qt.rgba(183/255,183/255,183/255,1)
             }
         }
         Behavior on height{
