@@ -5,7 +5,7 @@ import FluentUI
 
 Item{
     property var radius:[0,0,0,0]
-    property color color : "#FFFFFF"
+    property color color : FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
     property bool shadow: true
     default property alias contentItem: container.data
     id:control

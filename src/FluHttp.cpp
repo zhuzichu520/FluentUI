@@ -224,17 +224,14 @@ void FluHttp::download(QString url,QJSValue callable,QString filePath,QVariantMa
         connect(reply,&QNetworkReply::downloadProgress,this,[=](qint64 bytesReceived, qint64 bytesTotal){
             onDownloadProgress(callable,bytesReceived,bytesTotal);
         });
-        connect(reply,&QNetworkReply::readyRead,this,[=](){
-            file->write(reply->readAll());
-        });
         loop.exec();
         if (reply->error() == QNetworkReply::NoError) {
+            file->write(reply->readAll());
             onSuccess(callable,filePath);
         }else{
             onError(callable,reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString());
         }
         _cache.removeOne(reply);
-        file->close();
         reply->deleteLater();
         reply = nullptr;
         onFinish(callable);
