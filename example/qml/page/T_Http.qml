@@ -133,9 +133,6 @@ FluContentPage{
                 implicitWidth: parent.width
                 implicitHeight: 36
                 text: "下载文件"
-                onYChanged: {
-                    console.debug(y)
-                }
                 onClicked: {
                     file_dialog.open()
                 }

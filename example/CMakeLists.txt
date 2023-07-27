@@ -8,7 +8,7 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-#设置插件位置，不然import example有时候会爆红
+#导入exmaple的QML位置，不然import example有时候会爆红
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/example CACHE STRING "Qt Creator extra QML import paths" FORCE)
 
 #判断FluentUI库类型

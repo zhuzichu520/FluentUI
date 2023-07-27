@@ -16,17 +16,12 @@ FluPopup {
     signal negativeClicked
     signal positiveClicked
     property int buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
-    property var minWidth: {
-        if(Window.window==null)
-            return 400
-        return  Math.min(Window.window.width,400)
-    }
     focus: true
+    implicitWidth: 400
+    implicitHeight: text_title.height + text_message.height + layout_actions.height
     Rectangle {
         id:layout_content
         anchors.fill: parent
-        implicitWidth:minWidth
-        implicitHeight: text_title.height + text_message.height + layout_actions.height
         color: 'transparent'
         radius:5
         FluText{
@@ -62,7 +57,7 @@ FluPopup {
             id:layout_actions
             height: 68
             radius: 5
-            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255, blurBackground ? blurOpacity - 0.4 : 1) : Qt.rgba(243/255,243/255,243/255,blurBackground ? blurOpacity - 0.4 : 1)
+            color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             anchors{
                 top:text_message.bottom
                 left: parent.left

@@ -11,6 +11,7 @@ Button{
     height: 36
     implicitWidth: width
     implicitHeight: height
+    property alias colorValue: container.colorValue
     background:
         Rectangle{
         id:layout_color

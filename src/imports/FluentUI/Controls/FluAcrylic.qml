@@ -2,36 +2,44 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 import FluentUI
 
-Item {
+FluItem {
     id: control
-    property alias color: rect.color
-    property alias acrylicOpacity: rect.opacity
-    property alias radius:bg.radius
-    property alias blurRadius: blur.radius
-    property int rectX: control.x
-    property int rectY: control.y
-    property var sourceItem: control.parent
-    FluRectangle{
-        id:bg
+    property color tintColor: Qt.rgba(1,1,1,1)
+    property real tintOpacity: 0.65
+    property real luminosity: 0.01
+    property real noiseOpacity : 0.066
+    property alias target : effect_source.sourceItem
+    property int blurRadius: 32
+
+    ShaderEffectSource {
+        id: effect_source
         anchors.fill: parent
-        radius: [8,8,8,8]
-        ShaderEffectSource {
-            id: effect_source
-            anchors.fill: parent
-            sourceItem: control.sourceItem
-            sourceRect: Qt.rect(rectX, rectY, control.width, control.height)
-            Rectangle {
-                id: rect
-                anchors.fill: parent
-                color: "white"
-                opacity: 0.5
-            }
-        }
-        FastBlur {
-            id:blur
-            radius: 50
-            anchors.fill: effect_source
-            source: effect_source
-        }
+        visible: false
+        sourceRect: Qt.rect(control.x, control.y, control.width, control.height)
     }
+
+    FastBlur {
+        id:fast_blur
+        anchors.fill: parent
+        source: effect_source
+        radius: control.blurRadius
+    }
+
+    Rectangle{
+        anchors.fill: parent
+        color: Qt.rgba(255, 255, 255, luminosity)
+    }
+
+    Rectangle{
+        anchors.fill: parent
+        color: Qt.rgba(tintColor.r, tintColor.g, tintColor.b, tintOpacity)
+    }
+
+    Image{
+        anchors.fill: parent
+        source: "../Image/noise.png"
+        fillMode: Image.Tile
+        opacity: control.noiseOpacity
+    }
+
 }

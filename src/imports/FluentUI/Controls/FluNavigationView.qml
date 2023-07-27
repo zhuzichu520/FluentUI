@@ -697,7 +697,7 @@ Item {
         border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
         border.width:  d.isMinimal || d.isCompactAndPanel ? 1 : 0
         color: {
-            if(d.isMinimal){
+            if(d.isMinimal || d.enableNavigationPanel){
                 return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             }
             return "transparent"
@@ -721,20 +721,6 @@ Item {
             if(d.displayMode !== FluNavigationViewType.Minimal)
                 return true
             return d.isMinimalAndPanel  ? true : false
-        }
-        FluAcrylic {
-            sourceItem:loader_content
-            anchors.fill: layout_list
-            color: {
-                if(d.isMinimalAndPanel || d.isCompactAndPanel){
-                    return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-                }
-                return "transparent"
-            }
-            visible: d.isMinimalAndPanel || d.isCompactAndPanel
-            rectX: d.isCompactAndPanel ? (layout_list.x - 50) : layout_list.x
-            rectY: layout_list.y - 60
-            acrylicOpacity:0.9
         }
         Item{
             id:layout_header

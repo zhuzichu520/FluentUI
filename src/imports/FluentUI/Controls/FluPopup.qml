@@ -10,11 +10,6 @@ Popup {
     modal:true
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape
-    property alias blurSource: blur.sourceItem
-    property bool blurBackground: true
-    property alias blurOpacity: blur.acrylicOpacity
-    property alias blurRectX: blur.rectX
-    property alias blurRectY: blur.rectY
     enter: Transition {
         NumberAnimation {
             properties: "scale"
@@ -45,12 +40,8 @@ Popup {
             to:0
         }
     }
-
-    background: FluAcrylic{
-        id:blur
-        color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(249/255,249/255,249/255,1)
-        rectX: popup.x
-        rectY: popup.y
-        acrylicOpacity:blurBackground ? 0.8 : 1
+    background: FluRectangle{
+        radius: [5,5,5,5]
+        color: FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(1,1,1,1)
     }
 }
