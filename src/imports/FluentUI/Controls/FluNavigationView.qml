@@ -637,7 +637,7 @@ Item {
                 clip: true
                 visible: {
                     if( nav_stack.currentItem){
-                        return nav_stack.currentItem.launchMode === FluPage.SingleInstance
+                        return nav_stack.currentItem.launchMode === FluPageType.SingleInstance
                     }
                     return false
                 }
