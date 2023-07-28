@@ -181,6 +181,12 @@ FluObject{
                 navigationView.push("qrc:/example/qml/page/T_Expander.qml")
             }
         }
+        FluPaneItem{
+            title:"Watermark"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Watermark.qml")
+            }
+        }
     }
 
     FluPaneItemExpander{

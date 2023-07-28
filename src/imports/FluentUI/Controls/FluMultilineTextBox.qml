@@ -12,7 +12,6 @@ TextArea{
     property color placeholderFocusColor: FluTheme.dark ? Qt.rgba(152/255,152/255,152/255,1) : Qt.rgba(141/255,141/255,141/255,1)
     property color placeholderDisableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
     id:control
-    width: 300
     enabled: !disabled
     color: {
         if(!enabled){
@@ -37,7 +36,10 @@ TextArea{
         return placeholderNormalColor
     }
     selectByMouse: true
-    background: FluTextBoxBackground{ inputItem: control }
+    background: FluTextBoxBackground{
+        inputItem: control
+        implicitWidth: 240
+    }
     Keys.onEnterPressed: (event)=> d.handleCommit(event)
     Keys.onReturnPressed:(event)=> d.handleCommit(event)
     QtObject{

@@ -10,7 +10,6 @@ FluTextBox{
     signal itemClicked(var data)
     signal handleClicked
     id:control
-    width: 300
     Component.onCompleted: {
         loadData()
     }

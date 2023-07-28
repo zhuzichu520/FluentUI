@@ -15,7 +15,6 @@ TextField{
     property int iconRightMargin: icon_end.visible ? 25 : 5
     property bool cleanEnabled: true
     id:control
-    width: 300
     padding: 8
     leftPadding: padding+2
     enabled: !disabled
@@ -42,6 +41,7 @@ TextField{
     rightPadding: icon_end.visible ? 50 : 30
     background: FluTextBoxBackground{
         inputItem: control
+        implicitWidth: 240
         FluIcon{
             id:icon_end
             iconSource: control.iconSource

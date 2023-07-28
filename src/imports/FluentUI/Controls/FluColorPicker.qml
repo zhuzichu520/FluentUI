@@ -76,4 +76,7 @@ Button{
             popup.open()
         }
     }
+    function setColor(color){
+        container.setColor(color)
+    }
 }

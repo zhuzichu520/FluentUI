@@ -76,6 +76,8 @@ FluScrollablePage{
                     FluAcrylic{
                         anchors.fill: parent
                         tintColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                        target: bg
+                        targetRect: Qt.rect(list.x-list.contentX+10+(control.width)*index,list.y+10,width,height)
                     }
                     Rectangle{
                         anchors.fill: parent
