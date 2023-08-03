@@ -110,11 +110,12 @@ Item {
         id:com_panel_item_separatorr
         FluDivider{
             width: layout_list.width
-            height: {
+            spacing: model.spacing
+            separatorHeight: {
                 if(model.parent){
-                    return model.parent.isExpand ? 1 : 0
+                    return model.parent.isExpand ? model.size : 0
                 }
-                return 1
+                return model.size
             }
         }
     }
