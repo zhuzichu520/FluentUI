@@ -323,6 +323,11 @@ FluObject{
         }
     }
 
+    FluPaneItemSeparator{
+        spacing:20
+        size:1
+    }
+
     FluPaneItemExpander{
         title:lang.other
         icon:FluentIcons.Shop
