@@ -64,5 +64,17 @@ FluScrollablePage{
             }
         }
     }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -1
+        code:'FluTour{
+    id:tour
+    steps:[
+        {title:"Upload File",description: "Put your files here.",target:()=>btn_upload},
+        {title:"Save",description: "Save your changes.",target:()=>btn_save},
+        {title:"Other Actions",description: "Click to see other actions.",target:()=>btn_more}
+    ]
+}'
+    }
 
 }

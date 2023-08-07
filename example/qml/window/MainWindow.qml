@@ -261,6 +261,14 @@ CustomWindow {
         }
     }
 
+    Shortcut {
+        sequence: "F6"
+        context: Qt.WindowShortcut
+        onActivated: {
+            tour.open()
+        }
+    }
+
     FluTour{
         id:tour
         steps:[
