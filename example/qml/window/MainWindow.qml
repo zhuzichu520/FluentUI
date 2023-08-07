@@ -146,6 +146,7 @@ CustomWindow {
             visible: flipable.flipAngle !== 180
             anchors.fill: flipable
             FluAppBar {
+                id:app_bar_front
                 anchors {
                     top: parent.top
                     left: parent.left

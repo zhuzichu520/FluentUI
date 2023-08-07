@@ -18,7 +18,7 @@ Item {
     property int pageMode: FluNavigationViewType.Stack
     signal logoClicked
     id:control
-    QtObject{
+    Item{
         id:d
         property bool animDisabled:false
         property var stackItems: []
@@ -65,6 +65,11 @@ Item {
                 }
             }
             return data
+        }
+        function refreshWindow(){
+            console.debug(Window.window.width)
+            Window.window.width = Window.window.width-1
+            Window.window.width = Window.window.width+1
         }
     }
     Component.onCompleted: {
@@ -709,6 +714,11 @@ Item {
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
+                onRunningChanged: {
+                    if(!running){
+                        d.refreshWindow()
+                    }
+                }
             }
         }
         Behavior on x {
@@ -716,6 +726,11 @@ Item {
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
+                onRunningChanged: {
+                    if(!running){
+                        d.refreshWindow()
+                    }
+                }
             }
         }
         visible: {
