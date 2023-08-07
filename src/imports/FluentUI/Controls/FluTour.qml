@@ -1,85 +1,33 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Shapes
 import QtQuick.Window
 import FluentUI
 
 Popup{
-
     property var steps : []
+    property int targetMargins: 5
+    property Component nextButton: com_next_button
+    property Component prevButton: com_prev_button
+    property int index : 0
     id:control
     padding: 0
     anchors.centerIn: Overlay.overlay
     width: d.window?.width
     height: d.window?.height
-
     background: Item{}
-
     contentItem: Item{}
-
-
-    property int index: 0
-    property var step : steps[index]
-    property var target : step.target()
-
     onVisibleChanged: {
         if(visible){
-            index = 0
+            control.index = 0
         }
     }
-
-
-    Connections{
-        target: d.window
-        function onWidthChanged(){
-            canvas.requestPaint()
-        }
-        function onHeightChanged(){
-            canvas.requestPaint()
-        }
-    }
-
     onIndexChanged: {
         canvas.requestPaint()
     }
-
-    Item{
-        id:d
-        property var window: Window.window
-        property var pos:Qt.point(0,0)
-    }
-
-    Canvas{
-        id:canvas
-        anchors.fill: parent
-        onPaint: {
-            d.pos = target.mapToItem(control,0,0)
-            var ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
-            ctx.save()
-            ctx.fillStyle = "#66000000"
-            ctx.fillRect(0, 0, canvasSize.width, canvasSize.height)
-            ctx.globalCompositeOperation = 'destination-out'
-            ctx.fillStyle = 'black'
-            console.debug(d.pos.x)
-            ctx.fillRect(d.pos.x, d.pos.y, target.width, target.height)
-            ctx.restore()
-        }
-    }
-
-    FluRectangle{
-        radius: [5,5,5,5]
-        width: 500
-        height: 120
-        x: Math.min(Math.max(0,d.pos.x+target.width/2-width/2),d.window?.width-width)
-        y:d.pos.y+target.height+1
+    Component{
+        id:com_next_button
         FluFilledButton{
-            property bool isEnd: control.index === steps.length-1
-            anchors{
-                right: parent.right
-                bottom: parent.bottom
-                rightMargin: 10
-                bottomMargin: 10
-            }
             text: isEnd ? "结束导览" :"下一步"
             onClicked: {
                 if(isEnd){
@@ -90,12 +38,141 @@ Popup{
             }
         }
     }
-
-
-    function refresh(){
-        canvas.requestPaint()
+    Component{
+        id:com_prev_button
+        FluButton{
+            text: "上一步"
+            onClicked: {
+                control.index = control.index - 1
+            }
+        }
+    }
+    Item{
+        id:d
+        property var window: Window.window
+        property var pos:Qt.point(0,0)
+        property var step : steps[index]
+        property var target : step.target()
+    }
+    Connections{
+        target: d.window
+        function onWidthChanged(){
+            canvas.requestPaint()
+        }
+        function onHeightChanged(){
+            canvas.requestPaint()
+        }
+    }
+    Canvas{
+        id:canvas
+        anchors.fill: parent
+        onPaint: {
+            d.pos = d.target.mapToItem(control,0,0)
+            var ctx = canvas.getContext("2d")
+            ctx.clearRect(0, 0, canvasSize.width, canvasSize.height)
+            ctx.save()
+            ctx.fillStyle = "#88000000"
+            ctx.fillRect(0, 0, canvasSize.width, canvasSize.height)
+            ctx.globalCompositeOperation = 'destination-out'
+            ctx.fillStyle = 'black'
+            drawRoundedRect(Qt.rect(d.pos.x-control.targetMargins,d.pos.y-control.targetMargins, d.target.width+control.targetMargins*2, d.target.height+control.targetMargins*2),2,ctx)
+            ctx.restore()
+        }
+        function drawRoundedRect(rect, r, ctx) {
+            var ptA = Qt.point(rect.x + r, rect.y)
+            var ptB = Qt.point(rect.x + rect.width, rect.y)
+            var ptC = Qt.point(rect.x + rect.width, rect.y + rect.height)
+            var ptD = Qt.point(rect.x, rect.y + rect.height)
+            var ptE = Qt.point(rect.x, rect.y)
+            ctx.beginPath()
+            ctx.moveTo(ptA.x, ptA.y)
+            ctx.arcTo(ptB.x, ptB.y, ptC.x, ptC.y, r)
+            ctx.arcTo(ptC.x, ptC.y, ptD.x, ptD.y, r)
+            ctx.arcTo(ptD.x, ptD.y, ptE.x, ptE.y, r)
+            ctx.arcTo(ptE.x, ptE.y, ptA.x, ptA.y, r)
+            ctx.fill()
+            ctx.closePath()
+        }
     }
 
+    FluArea{
+        id:layout_panne
+        radius: 5
+        width: 500
+        height: 88 + text_desc.height
+        color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+        x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),d.window?.width-width)
+        y: d.pos.y+d.target.height+control.targetMargins + 15
+        border.width: 0
+        FluText{
+            text: d.step.title
+            font: FluTextStyle.BodyStrong
+            elide: Text.ElideRight
+            anchors{
+                top: parent.top
+                left: parent.left
+                topMargin: 15
+                leftMargin: 15
+                right: parent.right
+                rightMargin: 32
+            }
+        }
+        FluText{
+            id:text_desc
+            font: FluTextStyle.Body
+            wrapMode: Text.WrapAnywhere
+            maximumLineCount: 4
+            elide: Text.ElideRight
+            text: d.step.description
+            anchors{
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                rightMargin: 15
+                topMargin: 42
+                leftMargin: 15
+            }
+        }
+        Loader{
+            id:loader_next
+            property bool isEnd: control.index === steps.length-1
+            sourceComponent: com_next_button
+            anchors{
+                top:text_desc.bottom
+                topMargin: 10
+                right: parent.right
+                rightMargin: 15
+            }
+        }
+        Loader{
+            id:loader_prev
+            visible: control.index !== 0
+            sourceComponent: com_prev_button
+            anchors{
+                right:loader_next.left
+                top: loader_next.top
+                rightMargin: 14
+            }
+        }
+        FluIconButton{
+            anchors{
+                right: parent.right
+                top: parent.top
+                margins: 10
+            }
+            width: 20
+            height: 20
+            iconSize: 12
+            iconSource : FluentIcons.ChromeClose
+            onClicked: {
+                control.close()
+            }
+        }
+    }
+    FluIcon{
+        iconSource: FluentIcons.FlickDown
+        color: layout_panne.color
+        x: d.pos.x+d.target.width/2-10
+        y: d.pos.y+d.target.height
+    }
 }
-
-

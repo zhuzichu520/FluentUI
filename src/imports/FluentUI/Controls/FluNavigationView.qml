@@ -67,7 +67,6 @@ Item {
             return data
         }
         function refreshWindow(){
-            console.debug(Window.window.width)
             Window.window.width = Window.window.width-1
             Window.window.width = Window.window.width+1
         }
@@ -1124,5 +1123,8 @@ Item {
     }
     function navButton(){
         return btn_nav
+    }
+    function logoButton(){
+        return image_logo
     }
 }

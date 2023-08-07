@@ -16,7 +16,6 @@ FluScrollablePage{
             {title:"Save",description: "Save your changes.",target:()=>btn_save},
             {title:"Other Actions",description: "Click to see other actions.",target:()=>btn_more}
         ]
-
     }
 
     FluArea{
@@ -45,14 +44,23 @@ FluScrollablePage{
             FluButton{
                 id:btn_upload
                 text:"Upload"
+                onClicked: {
+                    showInfo("Upload")
+                }
             }
             FluFilledButton{
                 id:btn_save
                 text:"Save"
+                onClicked: {
+                    showInfo("Save")
+                }
             }
             FluIconButton{
                 id:btn_more
                 iconSource: FluentIcons.More
+                onClicked: {
+                    showInfo("More")
+                }
             }
         }
     }

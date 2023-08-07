@@ -27,6 +27,7 @@ CustomWindow {
 
     Component.onCompleted: {
         FluTools.setQuitOnLastWindowClosed(false)
+        tour.open()
     }
 
     SystemTrayIcon {
@@ -175,7 +176,8 @@ CustomWindow {
                 title:"FluentUI"
                 onLogoClicked:{
                     clickCount += 1
-                    if(clickCount === 1){
+                    showSuccess("点击%1次".arg(clickCount))
+                    if(clickCount === 5){
                         loader.reload()
                         flipable.flipped = true
                         clickCount = 0
@@ -257,6 +259,14 @@ CustomWindow {
                 loader.reload()
             }
         }
+    }
+
+    FluTour{
+        id:tour
+        steps:[
+            {title:"夜间模式",description: "这里可以切换夜间模式.",target:()=>app_bar_front.darkButton()},
+            {title:"隐藏彩蛋",description: "多点几下试试！！",target:()=>nav_view.logoButton()}
+        ]
     }
 
 }
