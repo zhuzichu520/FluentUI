@@ -32,8 +32,8 @@ void FluHttp::handleReply(QNetworkReply* reply){
     _cache.append(reply);
 }
 
-void FluHttp::post(QString url,QJSValue callable,QVariantMap params,QVariantMap headers){
-    QVariantMap data = invokeIntercept(params,headers,"post").toMap();
+void FluHttp::post(QString url,QJSValue callable,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
+    QMap<QString, QVariant> data = invokeIntercept(params,headers,"post").toMap();
     QThreadPool::globalInstance()->start([=](){
         onStart(callable);
         for (int i = 0; i < retry(); ++i) {
@@ -82,8 +82,8 @@ void FluHttp::post(QString url,QJSValue callable,QVariantMap params,QVariantMap 
     });
 }
 
-void FluHttp::postString(QString url,QJSValue callable,QString params,QVariantMap headers){
-    QVariantMap data = invokeIntercept(params,headers,"postString").toMap();
+void FluHttp::postString(QString url,QJSValue callable,QString params,QMap<QString, QVariant> headers){
+    QMap<QString, QVariant> data = invokeIntercept(params,headers,"postString").toMap();
     QThreadPool::globalInstance()->start([=](){
         onStart(callable);
         for (int i = 0; i < retry(); ++i) {
@@ -121,8 +121,8 @@ void FluHttp::postString(QString url,QJSValue callable,QString params,QVariantMa
     });
 }
 
-void FluHttp::postJson(QString url,QJSValue callable,QVariantMap params,QVariantMap headers){
-    QVariantMap data = invokeIntercept(params,headers,"postJson").toMap();
+void FluHttp::postJson(QString url,QJSValue callable,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
+    QMap<QString, QVariant> data = invokeIntercept(params,headers,"postJson").toMap();
     QThreadPool::globalInstance()->start([=](){
         onStart(callable);
         for (int i = 0; i < retry(); ++i) {
@@ -160,8 +160,8 @@ void FluHttp::postJson(QString url,QJSValue callable,QVariantMap params,QVariant
     });
 }
 
-void FluHttp::get(QString url,QJSValue callable,QVariantMap params,QVariantMap headers){
-    QVariantMap data = invokeIntercept(params,headers,"get").toMap();
+void FluHttp::get(QString url,QJSValue callable,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
+    QMap<QString, QVariant> data = invokeIntercept(params,headers,"get").toMap();
     QThreadPool::globalInstance()->start([=](){
         for (int i = 0; i < retry(); ++i) {
             onStart(callable);
@@ -198,8 +198,8 @@ void FluHttp::get(QString url,QJSValue callable,QVariantMap params,QVariantMap h
     });
 }
 
-void FluHttp::download(QString url,QJSValue callable,QString filePath,QVariantMap params,QVariantMap headers){
-    QVariantMap data = invokeIntercept(params,headers,"download").toMap();
+void FluHttp::download(QString url,QJSValue callable,QString filePath,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
+    QMap<QString, QVariant> data = invokeIntercept(params,headers,"download").toMap();
     QThreadPool::globalInstance()->start([=](){
         onStart(callable);
         QNetworkAccessManager manager;
@@ -239,7 +239,7 @@ void FluHttp::download(QString url,QJSValue callable,QString filePath,QVariantMa
 }
 
 QVariant FluHttp::invokeIntercept(const QVariant& params,const QVariant& headers,const QString& method){
-    QVariantMap requet = {
+    QMap<QString, QVariant> requet = {
         {"params",params},
         {"headers",headers},
         {"method",method}

@@ -26,11 +26,12 @@ private:
 public:
     explicit FluHttp(QObject *parent = nullptr);
     ~FluHttp();
-    Q_INVOKABLE void get(QString url,QJSValue callable,QVariantMap params = {},QVariantMap headers = {});
-    Q_INVOKABLE void post(QString url,QJSValue callable,QVariantMap params = {},QVariantMap headers = {});
-    Q_INVOKABLE void postString(QString url,QJSValue callable,QString params = "",QVariantMap headers = {});
-    Q_INVOKABLE void postJson(QString url,QJSValue callable,QVariantMap params = {},QVariantMap headers = {});
-    Q_INVOKABLE void download(QString url,QJSValue callable,QString filePath,QVariantMap params = {},QVariantMap headers = {});
+    //神坑！！！ 如果参数使用QVariantMap会有问题，在6.4.3版本中QML一调用就会编译失败。所有改用QMap<QString, QVariant>
+    Q_INVOKABLE void get(QString url,QJSValue callable,QMap<QString, QVariant> = {},QMap<QString, QVariant> headers = {});
+    Q_INVOKABLE void post(QString url,QJSValue callable,QMap<QString, QVariant> = {},QMap<QString, QVariant> headers = {});
+    Q_INVOKABLE void postString(QString url,QJSValue callable,QString params = "",QMap<QString, QVariant> headers = {});
+    Q_INVOKABLE void postJson(QString url,QJSValue callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
+    Q_INVOKABLE void download(QString url,QJSValue callable,QString filePath,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void cancel();
 private:
     QList<QPointer<QNetworkReply>> _cache;

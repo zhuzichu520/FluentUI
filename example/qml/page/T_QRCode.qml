@@ -57,7 +57,7 @@ FluScrollablePage{
         FluSlider{
             id:slider_size
             from:60
-            to:200
+            to:260
             value: 120
         }
     }
