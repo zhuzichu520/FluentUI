@@ -67,7 +67,8 @@ Popup{
         id:canvas
         anchors.fill: parent
         onPaint: {
-            d.pos = d.target.mapToItem(control,0,0)
+            d.pos = d.target.mapToGlobal(0,0)
+            d.pos = Qt.point(d.pos.x-d.window.x,d.pos.y-d.window.y)
             var ctx = canvas.getContext("2d")
             ctx.clearRect(0, 0, canvasSize.width, canvasSize.height)
             ctx.save()
@@ -159,8 +160,8 @@ Popup{
                 top: parent.top
                 margins: 10
             }
-            width: 20
-            height: 20
+            width: 26
+            height: 26
             iconSize: 12
             iconSource : FluentIcons.ChromeClose
             onClicked: {
