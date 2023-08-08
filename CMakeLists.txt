@@ -13,6 +13,7 @@ if(NOT FLUENTUI_QML_PLUGIN_DIRECTORY)
 endif()
 
 add_subdirectory(src)
+add_subdirectory(zxing-cpp)
 
 if (FLUENTUI_BUILD_EXAMPLES)
     add_subdirectory(example)
@@ -27,8 +28,6 @@ if (FLUENTUI_BUILD_FRAMELESSHEPLER)
     add_definitions(-DFRAMELESSHELPER_QUICK_NO_DEBUG_OUTPUT)
     add_subdirectory(framelesshelper)
 endif ()
-
-add_subdirectory(zxing-cpp)
 
 message("------------------------ FluentUI ------------------------")
 message("Build FluentUI demo applications.: ${FLUENTUI_BUILD_EXAMPLES}")

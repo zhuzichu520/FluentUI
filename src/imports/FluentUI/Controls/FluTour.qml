@@ -94,7 +94,6 @@ Popup{
             ctx.closePath()
         }
     }
-
     FluArea{
         id:layout_panne
         radius: 5
