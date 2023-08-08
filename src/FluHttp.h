@@ -26,7 +26,7 @@ private:
 public:
     explicit FluHttp(QObject *parent = nullptr);
     ~FluHttp();
-    //神坑！！！ 如果参数使用QVariantMap会有问题，在6.4.3版本中QML一调用就会编译失败。所有改用QMap<QString, QVariant>
+    //神坑！！！ 如果参数使用QVariantMap会有问题，在6.4.3版本中QML一调用就会编译失败。所以改用QMap<QString, QVariant>
     Q_INVOKABLE void get(QString url,QJSValue callable,QMap<QString, QVariant> = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void post(QString url,QJSValue callable,QMap<QString, QVariant> = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void postString(QString url,QJSValue callable,QString params = "",QMap<QString, QVariant> headers = {});

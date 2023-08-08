@@ -12,7 +12,7 @@ if(APPLE)
 endif()
 
 #设置版本号
-add_definitions(-DVERSION=1,4,0,0)
+add_definitions(-DVERSION=1,5,0,0)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 
