@@ -133,7 +133,8 @@ FluExpander{
                     "FluSpinBox",
                     "FluHttp",
                     "FluWatermark",
-                    "FluTour"
+                    "FluTour",
+                    "FluQRCode"
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");

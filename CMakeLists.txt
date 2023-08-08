@@ -28,6 +28,8 @@ if (FLUENTUI_BUILD_FRAMELESSHEPLER)
     add_subdirectory(framelesshelper)
 endif ()
 
+add_subdirectory(zxing-cpp)
+
 message("------------------------ FluentUI ------------------------")
 message("Build FluentUI demo applications.: ${FLUENTUI_BUILD_EXAMPLES}")
 message("Build FramelessHelper.: ${FLUENTUI_BUILD_FRAMELESSHEPLER}")

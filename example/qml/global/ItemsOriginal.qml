@@ -332,6 +332,12 @@ FluObject{
         title:lang.other
         icon:FluentIcons.Shop
         FluPaneItem{
+            title:"QRCode"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_QRCode.qml")
+            }
+        }
+        FluPaneItem{
             title:"Tour"
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_Tour.qml")

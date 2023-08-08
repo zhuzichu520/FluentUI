@@ -1,3 +1,6 @@
 [submodule "framelesshelper"]
 	path = framelesshelper
 	url = https://github.com/zhuzichu520/framelesshelper.git
+[submodule "zxing-cpp"]
+	path = zxing-cpp
+	url = https://github.com/zhuzichu520/zxing-cpp.git

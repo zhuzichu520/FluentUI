@@ -83,6 +83,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     Qt::CorePrivate
     Qt::QuickPrivate
     Qt::QmlPrivate
+    ZXing
 )
 
 #安装
