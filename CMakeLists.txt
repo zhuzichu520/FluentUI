@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.20)
 
 project(FluentUI VERSION 0.1 LANGUAGES CXX)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/.cmake/")
+
+include(GetGitRevisionDescription)
+
 option(FLUENTUI_BUILD_EXAMPLES "Build FluentUI demo applications." ON)
 option(FLUENTUI_BUILD_FRAMELESSHEPLER "Build FramelessHelper." ON)
 option(FLUENTUI_BUILD_STATIC_LIB "Build static library." OFF)

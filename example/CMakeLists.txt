@@ -26,9 +26,6 @@ endif()
 #获取文件路径分隔符（解决执行命令的时候有些平台会报错）
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
-#设置版本号
-add_definitions(-DVERSION=1,5,0,0)
-
 find_package(Qt6 REQUIRED COMPONENTS Quick Svg Network)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
@@ -38,6 +35,13 @@ else()
     set(CMAKE_AUTORCC ON)
     set(CMAKE_AUTOUIC ON)
 endif()
+
+##生成版本信息头文件
+set(HEADER_FILE_VERSION_PATH ${CMAKE_SOURCE_DIR}/example/Version.h)
+configure_file(
+    ${CMAKE_SOURCE_DIR}/.cmake/Version.h.in
+    ${HEADER_FILE_VERSION_PATH}
+)
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
@@ -60,11 +64,21 @@ foreach(filepath ${RES_PATHS})
     list(APPEND resource_files ${filename})
 endforeach(filepath)
 
+#如果是Windows平台，则生成rc文件
+set(EXAMPLE_VERSION_RC_PATH "")
+if(WIN32)
+    set(EXAMPLE_VERSION_RC_PATH ${CMAKE_BINARY_DIR}/version_${PROJECT_NAME}.rc)
+    configure_file(
+        ${CMAKE_SOURCE_DIR}/.cmake/version_exe.rc.in
+        ${EXAMPLE_VERSION_RC_PATH}
+    )
+endif()
+
 #添加可执行文件
-if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+if (WIN32)
     qt_add_executable(example
         ${sources_files}
-        example.rc
+        ${EXAMPLE_VERSION_RC_PATH}
     )
 else ()
     qt_add_executable(example

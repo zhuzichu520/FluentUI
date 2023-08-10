@@ -91,6 +91,12 @@ public:
     Q_INVOKABLE void restoreOverrideCursor();
 
     /**
+     * @brief html2PlantText 将html转换成纯文本
+     * @param html
+     */
+    Q_INVOKABLE QString html2PlantText(const QString& html);
+
+    /**
      * @brief toLocalPath 获取文件路径，可以去掉windows系统下的file:///，macos下的file://
      * @param url
      * @return 返回文件路径

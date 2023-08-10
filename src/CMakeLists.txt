@@ -11,9 +11,6 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-#设置版本号
-add_definitions(-DVERSION=1,5,0,0)
-
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
@@ -66,6 +63,16 @@ else()
     set(PLUGIN_TARGET_NAME ${PROJECT_NAME})
 endif()
 
+#如果是Windows平台，则生成rc文件
+set(FLUENTUI_VERSION_RC_PATH "")
+if(WIN32)
+    set(FLUENTUI_VERSION_RC_PATH ${CMAKE_BINARY_DIR}/version_${PROJECT_NAME}.rc)
+    configure_file(
+        ${CMAKE_SOURCE_DIR}/.cmake/version_dll.rc.in
+        ${FLUENTUI_VERSION_RC_PATH}
+    )
+endif()
+
 qt_add_qml_module(${PROJECT_NAME}
     PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
     OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
@@ -73,7 +80,7 @@ qt_add_qml_module(${PROJECT_NAME}
     URI "FluentUI"
     #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
     TYPEINFO "plugins.qmltypes"
-    SOURCES ${sources_files} fluentui.rc
+    SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH}
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
 )

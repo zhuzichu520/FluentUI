@@ -1,0 +1,34 @@
+1 VERSIONINFO
+ FILEVERSION ${GIT_TAG_WITH_COMMA},${GIT_COMMIT_COUNT}
+ PRODUCTVERSION ${GIT_TAG_WITH_COMMA},${GIT_COMMIT_COUNT}
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "CompanyName", "ZhuZiChu"
+            VALUE "FileDescription", "${PROJECT_DESCRIPTION}"
+            VALUE "FileVersion", "${GIT_SEMVER}.${GIT_COMMIT_COUNT}"
+            VALUE "InternalName", "${PROJECT_NAME}.exe"
+            VALUE "LegalCopyright", "Copyright (C) 2023 ZhuZiChu. All rights reserved."
+            VALUE "OriginalFilename", "${PROJECT_NAME}.exe"
+            VALUE "ProductName", "${PROJECT_NAME}"
+            VALUE "ProductVersion", "${GIT_SEMVER}.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+IDI_ICON1 ICON DISCARDABLE "${CMAKE_SOURCE_DIR}/example/favicon.ico"

@@ -1,0 +1,12 @@
+// 应用程序版本信息
+// 请勿修改此头文件，因为这个文件是自动生成的
+#ifndef VERSION_H
+#define VERSION_H
+
+#include <QtGlobal>
+
+#define APPLICATION_VERSION "${GIT_SEMVER}.${GIT_COMMIT_COUNT}"
+#define VERSION_COUNTER ${GIT_COMMIT_COUNT}
+#define COMMIT_HASH "${GIT_DESCRIBE}"
+
+#endif  // VERSION_H

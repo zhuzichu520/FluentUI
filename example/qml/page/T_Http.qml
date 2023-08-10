@@ -102,7 +102,7 @@ FluContentPage{
                     param.custname = "朱子楚"
                     param.custtel = "1234567890"
                     param.custemail = "zhuzichu520@gmail.com"
-//                    http.postJson("https://httpbingo.org/post",callable,param)
+                    http.postJson("https://httpbingo.org/post",callable,param)
                 }
             }
             FluButton{
@@ -125,7 +125,7 @@ FluContentPage{
                         console.debug(status+";"+errorString)
                     }
                     var param = "我命由我不由天"
-//                    http.postString("https://httpbingo.org/post",callable,param)
+                    http.postString("https://httpbingo.org/post",callable,param)
                 }
             }
             FluButton{
