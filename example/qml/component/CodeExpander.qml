@@ -134,7 +134,9 @@ FluExpander{
                     "FluHttp",
                     "FluWatermark",
                     "FluTour",
-                    "FluQRCode"
+                    "FluQRCode",
+                    "FluTimeline",
+                    "FluChart"
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");

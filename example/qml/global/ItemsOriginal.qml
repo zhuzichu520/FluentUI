@@ -344,6 +344,18 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"Timeline"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Timeline.qml")
+            }
+        }
+        FluPaneItem{
+            title:"Chart"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Chart.qml")
+            }
+        }
+        FluPaneItem{
             title:"Http"
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_Http.qml")
