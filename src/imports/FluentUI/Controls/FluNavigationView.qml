@@ -67,8 +67,8 @@ Item {
             return data
         }
         function refreshWindow(){
-            Window.window.width = Window.window.width-1
-            Window.window.width = Window.window.width+1
+            Window.window.height = Window.window.height-1
+            Window.window.height = Window.window.height+1
         }
     }
     Component.onCompleted: {

@@ -3,40 +3,61 @@ import QtQuick.Controls
 import FluentUI
 
 Item{
-    property var items: []
+    property alias model: repeater.model
     id:control
 
-    ListModel{
-        id:list_model
+    width: layout_column.width
+    height: layout_column.height
+
+    Rectangle{
+        color: Qt.rgba(240/255,240/255,240/255,1)
+        height: parent.height
+        width: 2
+        anchors{
+            left: parent.left
+            leftMargin: 7
+        }
     }
 
-    Component.onCompleted: {
-        items = [
-                    {
-                      text: 'Create a services site 2015-09-01',
-                    },
-                    {
-                      text: 'Solve initial network problems 2015-09-01',
-                    },
-                    {
-                      text: 'Technical testing 2015-09-01',
-                    },
-                    {
-                      text: 'Network problems being solved 2015-09-01',
-                    },
-                  ];
+    Component{
+        id:com_dot
+        Rectangle{
+            width: 16
+            height: 16
+            radius: 8
+            border.width: 4
+            border.color: FluTheme.primaryColor.dark
+        }
     }
 
     Column{
         id:layout_column
+        spacing: 30
         Repeater{
+            id:repeater
+            Item{
+                width: item_text.width
+                height: item_text.height
 
-            model:list_model
-            FluText{
-                text: model.text
+                Loader{
+                    sourceComponent: {
+                        if(model.dot)
+                            return model.dot()
+                        return com_dot
+                    }
+                }
+
+                FluText{
+                    id:item_text
+                    anchors{
+                        left: parent.left
+                        leftMargin: 30
+                    }
+                    text: model.text
+                }
             }
-        }
 
+        }
     }
 
 

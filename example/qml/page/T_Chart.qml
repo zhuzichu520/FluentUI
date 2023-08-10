@@ -7,15 +7,15 @@ import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title:"Timeline"
+    title:"Chart"
 
     function randomScalingFactor() {
         return Math.random().toFixed(1);
     }
 
     FluArea{
-        Layout.fillWidth: true
         height: 370
+        width: 500
         paddings: 10
         Layout.topMargin: 20
         FluChart{
@@ -121,7 +121,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        Layout.fillWidth: true
+        width: 500
         height: 370
         paddings: 10
         Layout.topMargin: 20
@@ -198,7 +198,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        Layout.fillWidth: true
+        width: 500
         height: 370
         paddings: 10
         Layout.topMargin: 20
@@ -236,7 +236,7 @@ FluScrollablePage{
     }
 
     FluArea{
-        Layout.fillWidth: true
+        width: 500
         height: 370
         paddings: 10
         Layout.topMargin: 20
@@ -327,6 +327,5 @@ FluScrollablePage{
             }
         }
     }
-
 
 }
