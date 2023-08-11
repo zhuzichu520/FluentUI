@@ -77,6 +77,7 @@ FluScrollablePage{
                         anchors.fill: parent
                         tintColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                         target: bg
+                        blurRadius : 40
                         targetRect: Qt.rect(list.x-list.contentX+10+(control.width)*index,list.y+10,width,height)
                     }
                     Rectangle{
@@ -85,14 +86,14 @@ FluScrollablePage{
                         color:{
                             if(FluTheme.dark){
                                 if(item_mouse.containsMouse){
-                                    return Qt.rgba(1,1,1,0.03)
+                                    return Qt.rgba(1,1,1,0.06)
                                 }
-                                return Qt.rgba(0,0,0,0)
+                                return Qt.rgba(0,0,0,0.03)
                             }else{
                                 if(item_mouse.containsMouse){
-                                    return Qt.rgba(0,0,0,0.03)
+                                    return Qt.rgba(0,0,0,0.09)
                                 }
-                                return Qt.rgba(0,0,0,0)
+                                return Qt.rgba(0,0,0,0.06)
                             }
                         }
                     }

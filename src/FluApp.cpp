@@ -49,14 +49,14 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         return;
     }
     QVariantMap properties;
-    properties.insert("route",route);
+    properties.insert("_route",route);
     if(fluRegister){
-        properties.insert("pageRegister",QVariant::fromValue(fluRegister));
+        properties.insert("_pageRegister",QVariant::fromValue(fluRegister));
     }
     properties.insert("argument",argument);
     QQuickWindow *view=nullptr;
     for (auto& pair : wnds) {
-        QString r =  pair->property("route").toString();
+        QString r =  pair->property("_route").toString();
         if(r == route){
             view = pair;
             break;

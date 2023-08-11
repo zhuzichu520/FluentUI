@@ -41,7 +41,7 @@ FluWindow {
             setWindowFixedSize(fixSize)
             title_bar.maximizeButton.visible = !fixSize
             if (blurBehindWindowEnabled)
-                window.backgroundVisible = false
+                window.background = undefined
             window.show()
         }
     }

@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
@@ -8,10 +7,11 @@ Window {
     default property alias content: container.data
     property bool closeDestory: true
     property int launchMode: FluWindowType.Standard
-    property string route
     property var argument:({})
-    property var pageRegister
+    property var background : com_background
     property Component loadingItem: com_loading
+    property var _pageRegister
+    property string _route
     property var closeFunc: function(event){
         if(closeDestory){
             deleteWindow()
@@ -20,26 +20,31 @@ Window {
             event.accepted = false
         }
     }
-    property color backgroundColor: {
-        if(active){
-            return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
-        }
-        return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
-    }
-    property alias backgroundOpacity: bg.opacity
-    property alias backgroundVisible: bg.visible
     signal initArgument(var argument)
     id:window
     color:"transparent"
-    onClosing:(event)=>closeFunc(event)
     Component.onCompleted: {
         helper.initWindow(window)
         initArgument(argument)
     }
-    Rectangle{
-        id: bg
+    Connections{
+        target: window
+        function onClosing(event){closeFunc(event)}
+    }
+    Component{
+        id:com_background
+        Rectangle{
+            color: {
+                if(active){
+                    return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(238/255,244/255,249/255,1)
+                }
+                return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+            }
+        }
+    }
+    Loader{
         anchors.fill: parent
-        color: backgroundColor
+        sourceComponent: background
     }
     Item{
         id:container
@@ -124,8 +129,8 @@ Window {
         FluApp.deleteWindow(window)
     }
     function onResult(data){
-        if(pageRegister){
-            pageRegister.onResult(data)
+        if(_pageRegister){
+            _pageRegister.onResult(data)
         }
     }
 }
