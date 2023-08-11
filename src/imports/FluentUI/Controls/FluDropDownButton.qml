@@ -70,7 +70,6 @@ Button {
     contentItem: FluText {
         id:title
         text: control.text
-        horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         color: control.textColor
     }

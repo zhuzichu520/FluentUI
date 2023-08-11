@@ -15,6 +15,17 @@ Q_ENUM_NS(DarkMode)
 QML_NAMED_ELEMENT(FluThemeType)
 }
 
+namespace FluTimelineType {
+Q_NAMESPACE
+enum Mode {
+    Left = 0x0000,
+    Right = 0x0001,
+    Alternate  = 0x0002,
+};
+Q_ENUM_NS(Mode)
+QML_NAMED_ELEMENT(FluTimelineType)
+}
+
 namespace FluPageType {
 Q_NAMESPACE
 enum LaunchMode {

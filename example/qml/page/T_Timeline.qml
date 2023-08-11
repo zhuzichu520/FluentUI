@@ -16,26 +16,80 @@ FluScrollablePage{
             height: 16
             radius: 8
             border.width: 4
-            border.color: FluColors.Green.dark
+            border.color: FluColors.Red.dark
         }
     }
 
+    Component{
+        id:com_lable
+        FluText{
+            wrapMode: Text.WrapAnywhere
+            horizontalAlignment: textAlignment
+            text: modelData.lable
+            color: FluTheme.primaryColor.dark
+            MouseArea{
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    showSuccess(modelData.lable)
+                }
+            }
+        }
+    }
+
+    Component{
+        id:com_text
+        FluText{
+            wrapMode: Text.WrapAnywhere
+            horizontalAlignment: textAlignment
+            text: modelData.text
+            font.bold: true
+            MouseArea{
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    showSuccess(modelData.text)
+                }
+            }
+        }
+    }
 
     ListModel{
         id:list_model
-
         ListElement{
-            text:"Create a services site 2015-09-01"
+            lable:"2013-09-01"
+            lableDelegate:()=>com_lable
+            textDelegate:()=>com_text
+            text:"考上家里蹲大学"
         }
         ListElement{
-            text:"Solve initial network problems 2015-09-01 \nSolve initial network problems 2015-09-01 \nSolve initial network problems 2015-09-01"
+            lable:"2017-07-01"
+            text:"大学毕业，在寝室打了4年LOL，没想到毕业还要找工作，瞬间蒙蔽~害"
+        }
+        ListElement{
+            lable:"2017-09-01"
+            text:"开始找工作，毕业即失业！回农村老家躺平，继承三亩良田！！"
             dot:()=>com_dot
         }
         ListElement{
-            text:"Technical testing 2015-09-01"
+            lable:"2018-02-01"
+            text:"玩了一年没钱，惨，出去找工作上班"
         }
         ListElement{
-            text:"Network problems being solved 2015-09-01"
+            lable:"2018-03-01"
+            text:"找到一份Android外包开发岗位，开发了一个Android应用，满满成就感！前端、服务端、Flutter也都懂一丢丢，什么都会什么都不精通，钱途无望"
+        }
+        ListElement{
+            lable:"2020-06-01"
+            text:"由于某个项目紧急，临时加入Qt项目组（就因为大学学了点C++），本来是想进去打个酱油，到后面竟然成开发主力，坑啊"
+        }
+        ListElement{
+            lable:"2022-08-01"
+            text:"额，被老板卖到甲方公司，走时老板还问我想不想去，我说：'哪里工资高就去哪里？'，老板：'无语'"
+        }
+        ListElement{
+            lable:"2023-02-28"
+            text:"开发FluentUI组件库"
         }
     }
 
@@ -60,18 +114,44 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
-        Layout.fillWidth: true
-        height: time_line.height + 20
-        paddings: 10
+    RowLayout{
         Layout.topMargin: 10
-
-        FluTimeline{
-            id:time_line
-            anchors.verticalCenter: parent.verticalCenter
-            model:list_model
+        FluText{
+            text:"mode:"
         }
+        FluDropDownButton{
+            id:btn_mode
+            Layout.preferredWidth: 100
+            text:"Alternate"
+            FluMenuItem{
+                text:"Left"
+                onClicked: {
+                    btn_mode.text = text
+                    time_line.mode = FluTimelineType.Left
+                }
+            }
+            FluMenuItem{
+                text:"Right"
+                onClicked: {
+                    btn_mode.text = text
+                    time_line.mode = FluTimelineType.Right
+                }
+            }
+            FluMenuItem{
+                text:"Alternate"
+                onClicked: {
+                    btn_mode.text = text
+                    time_line.mode = FluTimelineType.Alternate
+                }
+            }
+        }
+    }
 
+    FluTimeline{
+        id:time_line
+        Layout.fillWidth: true
+        mode: FluTimelineType.Alternate
+        model:list_model
     }
 
 }
