@@ -58,8 +58,17 @@ Popup{
         target: d.window
         function onWidthChanged(){
             canvas.requestPaint()
+            timer_delay.restart()
         }
         function onHeightChanged(){
+            canvas.requestPaint()
+            timer_delay.restart()
+        }
+    }
+    Timer{
+        id:timer_delay
+        interval: 200
+        onTriggered: {
             canvas.requestPaint()
         }
     }

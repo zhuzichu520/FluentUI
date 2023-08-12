@@ -25,7 +25,7 @@ FluItem {
     }
     Rectangle{
         anchors.fill: parent
-        color: Qt.rgba(255, 255, 255, luminosity)
+        color: Qt.rgba(1, 1, 1, luminosity)
     }
     Rectangle{
         anchors.fill: parent

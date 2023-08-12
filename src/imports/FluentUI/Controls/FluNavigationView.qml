@@ -66,10 +66,6 @@ Item {
             }
             return data
         }
-        function refreshWindow(){
-            Window.window.height = Window.window.height-1
-            Window.window.height = Window.window.height+1
-        }
     }
     Component.onCompleted: {
         d.displayMode = Qt.binding(function(){
@@ -713,11 +709,6 @@ Item {
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
-                onRunningChanged: {
-                    if(!running){
-                        d.refreshWindow()
-                    }
-                }
             }
         }
         Behavior on x {
@@ -725,11 +716,6 @@ Item {
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
-                onRunningChanged: {
-                    if(!running){
-                        d.refreshWindow()
-                    }
-                }
             }
         }
         visible: {

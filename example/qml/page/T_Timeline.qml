@@ -24,7 +24,7 @@ FluScrollablePage{
         id:com_lable
         FluText{
             wrapMode: Text.WrapAnywhere
-            horizontalAlignment: textAlignment
+            horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.lable
             color: FluTheme.primaryColor.dark
             MouseArea{
@@ -41,7 +41,7 @@ FluScrollablePage{
         id:com_text
         FluText{
             wrapMode: Text.WrapAnywhere
-            horizontalAlignment: textAlignment
+            horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
             font.bold: true
             MouseArea{

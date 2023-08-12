@@ -22,7 +22,7 @@ FluScrollablePage{
 
     Item{
         Layout.fillWidth: true
-        height: 320
+        Layout.preferredHeight: 320
         Image {
             id: bg
             fillMode:Image.PreserveAspectCrop
@@ -77,6 +77,7 @@ FluScrollablePage{
                         anchors.fill: parent
                         tintColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                         target: bg
+                        tintOpacity: FluTheme.dark ? 0.8 : 0.9
                         blurRadius : 40
                         targetRect: Qt.rect(list.x-list.contentX+10+(control.width)*index,list.y+10,width,height)
                     }
@@ -86,14 +87,14 @@ FluScrollablePage{
                         color:{
                             if(FluTheme.dark){
                                 if(item_mouse.containsMouse){
-                                    return Qt.rgba(1,1,1,0.06)
+                                    return Qt.rgba(1,1,1,0.03)
                                 }
-                                return Qt.rgba(0,0,0,0.03)
+                                return Qt.rgba(0,0,0,0.0)
                             }else{
                                 if(item_mouse.containsMouse){
-                                    return Qt.rgba(0,0,0,0.09)
+                                    return Qt.rgba(0,0,0,0.03)
                                 }
-                                return Qt.rgba(0,0,0,0.06)
+                                return Qt.rgba(0,0,0,0.0)
                             }
                         }
                     }
@@ -135,10 +136,11 @@ FluScrollablePage{
                         id:item_mouse
                         anchors.fill: parent
                         hoverEnabled: true
-                        onWheel: (wheel)=>{
-                            if (wheel.angleDelta.y > 0) scrollbar_header.decrease()
-                            else scrollbar_header.increase()
-                        }
+                        onWheel:
+                            (wheel)=>{
+                                if (wheel.angleDelta.y > 0) scrollbar_header.decrease()
+                                else scrollbar_header.increase()
+                            }
                         onClicked: {
                             Qt.openUrlExternally(model.url)
                         }
@@ -249,7 +251,7 @@ FluScrollablePage{
 
     GridView{
         Layout.fillWidth: true
-        implicitHeight: contentHeight
+        Layout.preferredHeight: contentHeight
         cellHeight: 120
         cellWidth: 320
         model:ItemsOriginal.getRecentlyAddedData()
@@ -266,7 +268,7 @@ FluScrollablePage{
 
     GridView{
         Layout.fillWidth: true
-        implicitHeight: contentHeight
+        Layout.preferredHeight: contentHeight
         cellHeight: 120
         cellWidth: 320
         interactive: false

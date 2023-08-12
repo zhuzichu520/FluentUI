@@ -90,7 +90,7 @@ Item{
         id:com_lable
         FluText{
             wrapMode: Text.WrapAnywhere
-            horizontalAlignment: textAlignment
+            horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.lable
             color: FluTheme.primaryColor.dark
         }
@@ -98,13 +98,11 @@ Item{
 
     Component{
         id:com_text
-
         FluText{
             wrapMode: Text.WrapAnywhere
-            horizontalAlignment: textAlignment
+            horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
         }
-
     }
 
     Column{
@@ -152,7 +150,7 @@ Item{
 
                 Loader{
                     property var modelData: control.model.get(index)
-                    property int textAlignment: state === "Right" ? Qt.AlignRight : Qt.AlignLeft
+                    property bool isRight: state === "Right"
                     id:loader_lable
                     sourceComponent: {
                         if(!modelData){
@@ -223,7 +221,7 @@ Item{
                 Loader{
                     id:loader_text
                     property var modelData: control.model.get(index)
-                    property int textAlignment: state === "Right" ? Qt.AlignRight : Qt.AlignLeft
+                    property bool isRight: state === "Right"
                     state: {
                         if(d.isRight){
                             return "Right"
