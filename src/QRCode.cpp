@@ -1,4 +1,4 @@
-#include "FluQRCode.h"
+#include "QRCode.h"
 
 #include "BarcodeFormat.h"
 #include "BitMatrix.h"
@@ -6,15 +6,17 @@
 
 using namespace ZXing;
 
-FluQRCode::FluQRCode(QQuickItem* parent) : QQuickPaintedItem(parent)
+QRCode::QRCode(QQuickItem* parent) : QQuickPaintedItem(parent)
 {
     color(QColor(0,0,0,255));
+    bgColor(QColor(255,255,255,255));
     size(100);
     setWidth(_size);
     setHeight(_size);
-    connect(this,&FluQRCode::textChanged,this,[=]{update();});
-    connect(this,&FluQRCode::colorChanged,this,[=]{update();});
-    connect(this,&FluQRCode::sizeChanged,this,[=]{
+    connect(this,&QRCode::textChanged,this,[=]{update();});
+    connect(this,&QRCode::colorChanged,this,[=]{update();});
+    connect(this,&QRCode::bgColorChanged,this,[=]{update();});
+    connect(this,&QRCode::sizeChanged,this,[=]{
         setWidth(_size);
         setHeight(_size);
         update();
@@ -22,7 +24,7 @@ FluQRCode::FluQRCode(QQuickItem* parent) : QQuickPaintedItem(parent)
 }
 
 
-void FluQRCode::paint(QPainter* painter)
+void QRCode::paint(QPainter* painter)
 {
     if(_text.isEmpty()){
         return;
@@ -31,7 +33,6 @@ void FluQRCode::paint(QPainter* painter)
         return;
     }
     painter->save();
-    painter->eraseRect(boundingRect());
     auto format = ZXing::BarcodeFormatFromString("QRCode");
     auto writer = MultiFormatWriter(format);
     writer.setMargin(0);
@@ -45,6 +46,9 @@ void FluQRCode::paint(QPainter* painter)
             QRgb pixel = rgbImage.pixel(x, y);
             if (qRed(pixel) == 0 && qGreen(pixel) == 0 && qBlue(pixel) == 0) {
                 rgbImage.setPixelColor(x, y, _color);
+            }
+            if (qRed(pixel) == 255 && qGreen(pixel) == 255 && qBlue(pixel) == 255) {
+                rgbImage.setPixelColor(x, y, _bgColor);
             }
         }
     }

@@ -92,7 +92,7 @@ Item{
             wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.lable
-            color: FluTheme.primaryColor.dark
+            color: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
         }
     }
 
@@ -286,10 +286,7 @@ Item{
                             }
                         }
                     ]
-
                 }
-
-
             }
         }
     }

@@ -16,6 +16,8 @@ FluScrollablePage{
         size:slider_size.value
         text:text_box.text
         color:color_picker.colorValue
+        bgColor: bgcolor_picker.colorValue
+        margins:slider_margins.value
         Layout.preferredWidth: size
         Layout.preferredHeight: size
     }
@@ -50,13 +52,42 @@ FluScrollablePage{
 
     RowLayout{
         spacing: 10
+        Layout.topMargin: 10
+        FluText{
+            text:"bgColor:"
+            Layout.alignment: Qt.AlignVCenter
+        }
+        FluColorPicker{
+            id:bgcolor_picker
+            Component.onCompleted: {
+                setColor(Qt.rgba(1,1,1,1))
+            }
+        }
+    }
+
+    RowLayout{
+        spacing: 10
+        FluText{
+            text:"margins:"
+            Layout.alignment: Qt.AlignVCenter
+        }
+        FluSlider{
+            id:slider_margins
+            from:0
+            to:80
+            value: 0
+        }
+    }
+
+    RowLayout{
+        spacing: 10
         FluText{
             text:"size:"
             Layout.alignment: Qt.AlignVCenter
         }
         FluSlider{
             id:slider_size
-            from:60
+            from:120
             to:260
             value: 120
         }

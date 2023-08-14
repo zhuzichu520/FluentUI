@@ -83,4 +83,5 @@ FluTreeView 1.0 Controls/FluTreeView.qml
 FluWindow 1.0 Controls/FluWindow.qml
 FluTimeline 1.0 Controls/FluTimeline.qml
 FluChart 1.0 Controls/FluChart.qml
+FluQRCode 1.0 Controls/FluQRCode.qml
 plugin fluentuiplugin

@@ -16,7 +16,7 @@ FluScrollablePage{
             height: 16
             radius: 8
             border.width: 4
-            border.color: FluColors.Red.dark
+            border.color: FluTheme.dark ? FluColors.Teal.lighter : FluColors.Teal.dark
         }
     }
 
@@ -24,9 +24,10 @@ FluScrollablePage{
         id:com_lable
         FluText{
             wrapMode: Text.WrapAnywhere
+            font.bold: true
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.lable
-            color: FluTheme.primaryColor.dark
+            color: FluTheme.dark ? FluColors.Teal.lighter : FluColors.Teal.dark
             MouseArea{
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
@@ -44,13 +45,19 @@ FluScrollablePage{
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
             font.bold: true
-            MouseArea{
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    showSuccess(modelData.text)
+            linkColor: FluTheme.dark ? FluColors.Teal.lighter : FluColors.Teal.dark
+            onLinkActivated:
+                (link)=> {
+                    Qt.openUrlExternally(link)
                 }
-            }
+            onLinkHovered:
+                (link)=> {
+                    if(link === ""){
+                        FluTools.restoreOverrideCursor()
+                    }else{
+                        FluTools.setOverrideCursor(Qt.PointingHandCursor)
+                    }
+                }
         }
     }
 
@@ -58,8 +65,6 @@ FluScrollablePage{
         id:list_model
         ListElement{
             lable:"2013-09-01"
-            lableDelegate:()=>com_lable
-            textDelegate:()=>com_text
             text:"考上家里蹲大学"
         }
         ListElement{
@@ -69,7 +74,6 @@ FluScrollablePage{
         ListElement{
             lable:"2017-09-01"
             text:"开始找工作，毕业即失业！回农村老家躺平，继承三亩良田！！"
-            dot:()=>com_dot
         }
         ListElement{
             lable:"2018-02-01"
@@ -90,6 +94,13 @@ FluScrollablePage{
         ListElement{
             lable:"2023-02-28"
             text:"开发FluentUI组件库"
+        }
+        ListElement{
+            lable:"2023-03-28"
+            text:'将FluentUI源码开源到<a href="https://github.com/zhuzichu520/FluentUI">github</a>，并发布视频到<a href="https://www.bilibili.com/video/BV1mg4y1M71w">B站</a>'
+            lableDelegate:()=>com_lable
+            textDelegate:()=>com_text
+            dot:()=>com_dot
         }
     }
 
@@ -150,6 +161,8 @@ FluScrollablePage{
     FluTimeline{
         id:time_line
         Layout.fillWidth: true
+        Layout.topMargin: 20
+        Layout.bottomMargin: 20
         mode: FluTimelineType.Alternate
         model:list_model
     }
