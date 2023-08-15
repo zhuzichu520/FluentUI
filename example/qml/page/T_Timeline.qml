@@ -69,11 +69,11 @@ FluScrollablePage{
         }
         ListElement{
             lable:"2017-07-01"
-            text:"大学毕业，在寝室打了4年LOL，没想到毕业还要找工作，瞬间蒙蔽~害"
+            text:"大学毕业，在寝室打了4年LOL，没想到毕业还要找工作，瞬间蒙蔽，害"
         }
         ListElement{
             lable:"2017-09-01"
-            text:"开始找工作，毕业即失业！回农村老家躺平，继承三亩良田！！"
+            text:"开始找工作，毕业即失业！回农村老家躺平，继承三亩良田"
         }
         ListElement{
             lable:"2018-02-01"
@@ -89,14 +89,14 @@ FluScrollablePage{
         }
         ListElement{
             lable:"2022-08-01"
-            text:"额，被老板卖到甲方公司，走时老板还问我想不想去，我说：'哪里工资高就去哪里？'，老板：'无语'"
+            text:"额，被老板卖到甲方公司，走时老板还问我想不想去，我说：'哪里工资高就去哪里'，老板：'无语'"
         }
         ListElement{
             lable:"2023-02-28"
             text:"开发FluentUI组件库"
         }
         ListElement{
-            lable:"2023-03-28"
+            lable:"2023-03-28（富文本展示）"
             text:'将FluentUI源码开源到<a href="https://github.com/zhuzichu520/FluentUI">github</a>，并发布视频到<a href="https://www.bilibili.com/video/BV1mg4y1M71w">B站</a>'
             lableDelegate:()=>com_lable
             textDelegate:()=>com_text

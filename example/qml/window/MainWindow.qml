@@ -170,7 +170,7 @@ CustomWindow {
                 //                pageMode: FluNavigationViewType.NoStack
                 items: ItemsOriginal
                 footerItems:ItemsFooter
-                topPadding:FluTools.isMacos() ? 20 : 5
+                topPadding:FluTools.isMacos() ? 20 : 0
                 displayMode:MainEvent.displayMode
                 logo: "qrc:/example/res/image/favicon.ico"
                 title:"FluentUI"

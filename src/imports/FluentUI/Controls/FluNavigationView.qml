@@ -95,9 +95,7 @@ Item {
             if(d.displayMode === FluNavigationViewType.Compact){
                 collapseAll()
             }
-            if(d.displayMode === FluNavigationViewType.Minimal){
-                d.enableNavigationPanel = false
-            }
+            d.enableNavigationPanel = false
         }
     }
     Component{
@@ -677,6 +675,7 @@ Item {
     MouseArea{
         anchors.fill: parent
         visible: d.isMinimalAndPanel||d.isCompactAndPanel
+        hoverEnabled: true
         onWheel: {
         }
         onClicked: {
