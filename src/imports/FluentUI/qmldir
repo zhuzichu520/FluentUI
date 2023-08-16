@@ -84,4 +84,6 @@ FluWindow 1.0 Controls/FluWindow.qml
 FluTimeline 1.0 Controls/FluTimeline.qml
 FluChart 1.0 Controls/FluChart.qml
 FluQRCode 1.0 Controls/FluQRCode.qml
+FluScreenshot 1.0 Controls/FluScreenshot.qml
+
 plugin fluentuiplugin

@@ -350,6 +350,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"Screenshot"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Screenshot.qml")
+            }
+        }
+        FluPaneItem{
             title:"Chart"
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_Chart.qml")
@@ -377,7 +383,7 @@ FluObject{
         FluPaneItem{
             title:"HotLoader"
             tapFunc:function(){
-                 FluApp.navigate("/hotload")
+                FluApp.navigate("/hotload")
             }
         }
     }
