@@ -36,6 +36,7 @@ TextArea{
         return placeholderNormalColor
     }
     selectByMouse: true
+    width: background.implicitWidth
     background: FluTextBoxBackground{
         inputItem: control
         implicitWidth: 240
