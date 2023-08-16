@@ -68,7 +68,12 @@ FluScrollablePage{
                 id: control
                 width: 220
                 height: 240
+                FluShadow{
+                    radius:8
+                    anchors.fill: item_content
+                }
                 FluItem{
+                    id:item_content
                     radius: [8,8,8,8]
                     width: 200
                     height: 220

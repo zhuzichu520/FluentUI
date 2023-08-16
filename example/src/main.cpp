@@ -27,6 +27,7 @@ FRAMELESSHELPER_USE_NAMESPACE
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
 #ifdef Q_OS_WIN // 此设置仅在Windows下生效
     FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
 #endif
 #ifdef Q_OS_MACOS
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
