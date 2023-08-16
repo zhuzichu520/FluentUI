@@ -65,7 +65,7 @@ FluScrollablePage{
         id:list_model
         ListElement{
             lable:"2013-09-01"
-            text:"考上家里蹲大学"
+            text:"考上中国皮城大学，杰斯武器工坊专业"
         }
         ListElement{
             lable:"2017-07-01"
