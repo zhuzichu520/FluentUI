@@ -35,6 +35,9 @@ Loader {
             Component.onCompleted: {
                 setGeometry(0,0,Screen.desktopAvailableWidth,Screen.height)
             }
+            ScreenshotBackground{
+                anchors.fill: parent
+            }
             Screenshot{
                 id:screenshot
                 anchors.fill: parent

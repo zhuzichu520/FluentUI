@@ -6,6 +6,20 @@
 #include <QPainter>
 #include "stdafx.h"
 
+class ScreenshotBackground : public QQuickPaintedItem
+{
+    Q_OBJECT;
+    QML_NAMED_ELEMENT(ScreenshotBackground)
+public:
+    ScreenshotBackground(QQuickItem* parent = nullptr);
+    void paint(QPainter* painter) override;
+
+private:
+    QRect _desktopGeometry;
+    QPixmap _desktopPixmap;
+};
+
+
 class Screenshot : public QQuickPaintedItem
 {
     Q_OBJECT
@@ -19,8 +33,6 @@ public:
 
 private:
     QRect _desktopGeometry;
-    QPixmap _desktopPixmap;
-    bool _isFirst = true;
 };
 
 #endif // SCREENSHOT_H

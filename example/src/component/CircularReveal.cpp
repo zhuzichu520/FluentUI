@@ -21,7 +21,6 @@ CircularReveal::CircularReveal(QQuickItem* parent) : QQuickPaintedItem(parent)
 void CircularReveal::paint(QPainter* painter)
 {
     painter->save();
-    painter->eraseRect(boundingRect());
     painter->drawImage(QRect(0, 0, static_cast<int>(width()), static_cast<int>(height())), _source);
     QPainterPath path;
     path.moveTo(_center.x(),_center.y());
