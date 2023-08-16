@@ -12,6 +12,7 @@ class Screenshot : public QQuickPaintedItem
     QML_NAMED_ELEMENT(Screenshot)
     Q_PROPERTY_AUTO(QPoint,start);
     Q_PROPERTY_AUTO(QPoint,end);
+    Q_PROPERTY_AUTO(QColor,maskColor);
 public:
     Screenshot(QQuickItem* parent = nullptr);
     void paint(QPainter* painter) override;

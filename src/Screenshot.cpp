@@ -5,6 +5,7 @@
 
 Screenshot::Screenshot(QQuickItem* parent) : QQuickPaintedItem(parent)
 {
+    maskColor(QColor(0,0,0,80));
     start(QPoint(0,0));
     end(QPoint(0,0));
     _desktopGeometry = qApp->primaryScreen()->virtualGeometry();
@@ -18,7 +19,7 @@ void Screenshot::paint(QPainter* painter)
     painter->save();
     painter->eraseRect(boundingRect());
     painter->drawPixmap(_desktopGeometry,_desktopPixmap);
-    painter->fillRect(_desktopGeometry,QColor(0,0,0,60));
+    painter->fillRect(_desktopGeometry,_maskColor);
     painter->setCompositionMode(QPainter::CompositionMode_Clear);
     painter->fillRect(QRect(_start.x(),_start.y(),_end.x()-_start.x(),_end.y()-_start.y()), Qt::black);
     painter->restore();

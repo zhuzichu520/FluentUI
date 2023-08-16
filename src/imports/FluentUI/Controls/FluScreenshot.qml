@@ -5,14 +5,26 @@ import QtQuick.Layouts
 import FluentUI
 
 Loader {
+    property int dotSize: 5
+    property int borderSize: 1
+    property color borderColor: FluTheme.primaryColor.dark
+    QtObject{
+        id:d
+        property int dotMouseSize: control.dotSize+10
+        property int dotMargins: -(control.dotSize-control.borderSize)/2
+        property bool enablePosition: false
+        property int menuMargins: 6
+    }
     id:control
     Component{
         id:com_screen
         Window{
             id:window_screen
             flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
-            width: Screen.desktopAvailableWidth
-            height: Screen.height
+            x:-1
+            y:-1
+            width: 1
+            height: 1
             visible: true
             color: "#00000000"
             onVisibleChanged: {
@@ -20,32 +32,41 @@ Loader {
                     control.sourceComponent = undefined
                 }
             }
+            Component.onCompleted: {
+                setGeometry(0,0,Screen.desktopAvailableWidth,Screen.height)
+            }
             Screenshot{
                 id:screenshot
                 anchors.fill: parent
             }
             MouseArea{
-                property bool enablePosition: false
                 anchors.fill: parent
                 acceptedButtons: Qt.RightButton |  Qt.LeftButton
                 onPressed:
                     (mouse)=>{
                         if(mouse.button === Qt.LeftButton){
-                            enablePosition = true
+                            d.enablePosition = true
                             screenshot.start = Qt.point(mouse.x,mouse.y)
                             screenshot.end = Qt.point(mouse.x,mouse.y)
                         }
                     }
                 onPositionChanged:
                     (mouse)=>{
-                        if(enablePosition){
+                        if(d.enablePosition){
                             screenshot.end = Qt.point(mouse.x,mouse.y)
                         }
                     }
                 onReleased:
                     (mouse)=>{
                         if(mouse.button === Qt.LeftButton){
-                            enablePosition = false
+                            d.enablePosition = false
+                            screenshot.end = Qt.point(mouse.x,mouse.y)
+                        }
+                    }
+                onCanceled:
+                    (mouse)=>{
+                        if(mouse.button === Qt.LeftButton){
+                            d.enablePosition = false
                             screenshot.end = Qt.point(mouse.x,mouse.y)
                         }
                     }
@@ -68,8 +89,8 @@ Loader {
                 width: Math.abs(screenshot.end.x - screenshot.start.x)
                 height: Math.abs(screenshot.end.y - screenshot.start.y)
                 color:"#00000000"
-                border.width: 1
-                border.color: FluTheme.primaryColor.dark
+                border.width: control.borderSize
+                border.color: control.borderColor
                 MouseArea{
                     property point clickPos: Qt.point(0,0)
                     anchors.fill: parent
@@ -88,6 +109,346 @@ Loader {
                             screenshot.start = Qt.point(x,y)
                             screenshot.end = Qt.point(x+w,y+h)
                         }
+                }
+            }
+            Rectangle{
+                id:rect_top_left
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    left: rect_capture.left
+                    leftMargin: d.dotMargins
+                    topMargin: d.dotMargins
+                    top: rect_capture.top
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeFDiagCursor
+                anchors.centerIn: rect_top_left
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        FluTools.setOverrideCursor(cursorShape)
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x+w,y+h)
+                        screenshot.end = Qt.point(x,y)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        screenshot.end = mapToItem(screenshot,Qt.point(mouse.x,mouse.y))
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                id:rect_top_center
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    horizontalCenter: rect_capture.horizontalCenter
+                    topMargin: d.dotMargins
+                    top: rect_capture.top
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeVerCursor
+                anchors.centerIn: rect_top_center
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        FluTools.setOverrideCursor(cursorShape)
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x+w,y+h)
+                        screenshot.end = Qt.point(x,y)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        screenshot.end = Qt.point(x,mapToItem(screenshot,Qt.point(mouse.x,mouse.y)).y)
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                id:rect_top_right
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    right: rect_capture.right
+                    rightMargin: d.dotMargins
+                    topMargin: d.dotMargins
+                    top: rect_capture.top
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeBDiagCursor
+                anchors.centerIn: rect_top_right
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x,y+h)
+                        screenshot.end = Qt.point(x+w,y)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        screenshot.end = mapToItem(screenshot,Qt.point(mouse.x,mouse.y))
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                id:rect_right_center
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    right: rect_capture.right
+                    rightMargin: d.dotMargins
+                    verticalCenter: rect_capture.verticalCenter
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeHorCursor
+                anchors.centerIn: rect_right_center
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x,y)
+                        screenshot.end = Qt.point(x+w,y+h)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        var y = rect_capture.y
+                        var h = rect_capture.height
+                        screenshot.end = Qt.point(mapToItem(screenshot,Qt.point(mouse.x,mouse.y)).x,y+h)
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                id:rect_right_bottom
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    right: rect_capture.right
+                    rightMargin: d.dotMargins
+                    bottom: rect_capture.bottom
+                    bottomMargin: d.dotMargins
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeFDiagCursor
+                anchors.centerIn: rect_right_bottom
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x,y)
+                        screenshot.end = Qt.point(x+w,y+h)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        screenshot.end = mapToItem(screenshot,Qt.point(mouse.x,mouse.y))
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                id:rect_bottom_center
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    horizontalCenter: rect_capture.horizontalCenter
+                    bottom: rect_capture.bottom
+                    bottomMargin: d.dotMargins
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeVerCursor
+                anchors.centerIn: rect_bottom_center
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x,y)
+                        screenshot.end = Qt.point(x+w,y+h)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        var w = rect_capture.width
+                        screenshot.end = Qt.point(x+w,mapToItem(screenshot,Qt.point(mouse.x,mouse.y)).y)
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                id:rect_bottom_left
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    left: rect_capture.left
+                    leftMargin: d.dotMargins
+                    bottom: rect_capture.bottom
+                    bottomMargin: d.dotMargins
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeBDiagCursor
+                anchors.centerIn: rect_bottom_left
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x+w,y)
+                        screenshot.end = Qt.point(x,y+h)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        screenshot.end = mapToItem(screenshot,Qt.point(mouse.x,mouse.y))
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                id:rect_left_center
+                width: control.dotSize
+                height: control.dotSize
+                color: control.borderColor
+                anchors{
+                    left: rect_capture.left
+                    leftMargin: d.dotMargins
+                    verticalCenter: rect_capture.verticalCenter
+                }
+            }
+            MouseArea{
+                cursorShape: Qt.SizeHorCursor
+                anchors.centerIn: rect_left_center
+                width: d.dotMouseSize
+                height: d.dotMouseSize
+                onPressed:
+                    (mouse)=> {
+                        var x = rect_capture.x
+                        var y = rect_capture.y
+                        var w = rect_capture.width
+                        var h = rect_capture.height
+                        screenshot.start = Qt.point(x+w,y)
+                        screenshot.end = Qt.point(x,y+h)
+                    }
+                onReleased:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+                onPositionChanged:
+                    (mouse)=> {
+                        var y = rect_capture.y
+                        var h = rect_capture.height
+                        screenshot.end = Qt.point(mapToItem(screenshot,Qt.point(mouse.x,mouse.y)).x,y+h)
+                    }
+                onCanceled:
+                    (mouse)=> {
+                        FluTools.restoreOverrideCursor()
+                    }
+            }
+            Rectangle{
+                width: 100
+                height: 40
+                visible: {
+                    if(screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)){
+                        return false
+                    }
+                    if(d.enablePosition){
+                        return false
+                    }
+                    return true
+                }
+                x:rect_capture.x + rect_capture.width - width
+                y:{
+                    if(rect_capture.y + rect_capture.height + d.menuMargins < screenshot.height-height){
+                        return rect_capture.y + rect_capture.height + d.menuMargins
+                    }else if(rect_capture.y - height - d.menuMargins > 0){
+                        return rect_capture.y - height - d.menuMargins
+                    }else{
+                        screenshot.height - height - d.menuMargins
+                    }
                 }
             }
         }
