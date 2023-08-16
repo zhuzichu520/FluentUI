@@ -43,8 +43,6 @@ void FluHttp::post(QString url,QJSValue callable,QMap<QString, QVariant> params,
             QNetworkRequest request(_url);
             addHeaders(&request,data["headers"].toMap());
             QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
-            QString contentType = QString("multipart/form-data;boundary=%1").arg(multiPart.boundary());
-            request.setHeader(QNetworkRequest::ContentTypeHeader, contentType);
             for (const auto& each : data["params"].toMap().toStdMap())
             {
                 const QString& key = each.first;
@@ -74,7 +72,7 @@ void FluHttp::post(QString url,QJSValue callable,QMap<QString, QVariant> params,
                 break;
             }else{
                 if(i == retry()-1){
-                    onError(callable,status,errorString);
+                    onError(callable,status,errorString,result);
                 }
             }
         }
@@ -113,7 +111,7 @@ void FluHttp::postString(QString url,QJSValue callable,QString params,QMap<QStri
                 break;
             }else{
                 if(i == retry()-1){
-                    onError(callable,status,errorString);
+                    onError(callable,status,errorString,result);
                 }
             }
         }
@@ -152,7 +150,7 @@ void FluHttp::postJson(QString url,QJSValue callable,QMap<QString, QVariant> par
                 break;
             }else{
                 if(i == retry()-1){
-                    onError(callable,status,errorString);
+                    onError(callable,status,errorString,result);
                 }
             }
         }
@@ -190,7 +188,7 @@ void FluHttp::get(QString url,QJSValue callable,QMap<QString, QVariant> params,Q
                 break;
             }else{
                 if(i == retry()-1){
-                    onError(callable,status,errorString);
+                    onError(callable,status,errorString,result);
                 }
             }
         }
@@ -211,7 +209,7 @@ void FluHttp::download(QString url,QJSValue callable,QString filePath,QMap<QStri
         QIODevice::OpenMode mode = QIODevice::WriteOnly|QIODevice::Truncate;
         if (!file->open(mode))
         {
-            onError(callable,-1,QString("Url: %1 %2 Non-Writable").arg(request.url().toString(),file->fileName()));
+            onError(callable,-1,QString("Url: %1 %2 Non-Writable").arg(request.url().toString(),file->fileName()),"");
             onFinish(callable);
             return;
         }
@@ -229,11 +227,61 @@ void FluHttp::download(QString url,QJSValue callable,QString filePath,QMap<QStri
             file->write(reply->readAll());
             onSuccess(callable,filePath);
         }else{
-            onError(callable,reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString());
+            onError(callable,reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString(),"");
         }
         _cache.removeOne(reply);
         reply->deleteLater();
         reply = nullptr;
+        onFinish(callable);
+    });
+}
+
+void FluHttp::upload(QString url,QJSValue callable,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
+    QMap<QString, QVariant> data = invokeIntercept(params,headers,"upload").toMap();
+    QThreadPool::globalInstance()->start([=](){
+        onStart(callable);
+        QNetworkAccessManager manager;
+        manager.setTransferTimeout(timeout());
+        QUrl _url(url);
+        QNetworkRequest request(_url);
+        addHeaders(&request,data["headers"].toMap());
+        QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
+        for (const auto& each : data["params"].toMap().toStdMap())
+        {
+            const QString& key = each.first;
+            const QString& filePath = each.second.toString();
+            QFile *file = new QFile(filePath);
+            file->open(QIODevice::ReadOnly);
+            file->setParent(&multiPart);
+            QString dispositionHeader = QString("form-data; name=\"%1\"; filename=\"%2\"").arg(key,filePath);
+            QHttpPart part;
+            part.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/octet-stream"));
+            part.setHeader(QNetworkRequest::ContentDispositionHeader, dispositionHeader);
+            part.setBodyDevice(file);
+            multiPart.append(part);
+        }
+        QEventLoop loop;
+        QNetworkReply* reply = manager.post(request,&multiPart);
+        _cache.append(reply);
+        connect(&manager,&QNetworkAccessManager::finished,this,[&loop](QNetworkReply *reply){
+            loop.quit();
+        });
+        connect(reply,&QNetworkReply::uploadProgress,this,[=](qint64 bytesSent, qint64 bytesTotal){
+            onUploadProgress(callable,bytesSent,bytesTotal);
+        });
+        loop.exec();
+        QString result = QString::fromUtf8(reply->readAll());
+        int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        QString errorString = reply->errorString();
+        bool isSuccess = reply->error() == QNetworkReply::NoError;
+        _cache.removeOne(reply);
+        reply->deleteLater();
+        reply = nullptr;
+        if (isSuccess) {
+            onSuccess(callable,result);
+        }else{
+            onError(callable,status,errorString,result);
+        }
         onFinish(callable);
     });
 }
@@ -282,10 +330,10 @@ void FluHttp::onFinish(const QJSValue& callable){
     MainThread::post([=](){onFinish.call();});
 }
 
-void FluHttp::onError(const QJSValue& callable,int status,QString errorString){
+void FluHttp::onError(const QJSValue& callable,int status,QString errorString,QString result){
     QJSValue onError = callable.property("onError");
     QJSValueList args;
-    args<<status<<errorString;
+    args<<status<<errorString<<result;
     MainThread::post([=](){onError.call(args);});
 }
 
@@ -302,4 +350,12 @@ void FluHttp::onDownloadProgress(const QJSValue& callable,qint64 recv, qint64 to
     args<<static_cast<double>(total);
     QJSValue onDownloadProgress = callable.property("onDownloadProgress");
     MainThread::post([=](){onDownloadProgress.call(args);});
+}
+
+void FluHttp::onUploadProgress(const QJSValue& callable,qint64 sent, qint64 total){
+    QJSValueList args;
+    args<<static_cast<double>(sent);
+    args<<static_cast<double>(total);
+    QJSValue onUploadProgress = callable.property("onUploadProgress");
+    MainThread::post([=](){onUploadProgress.call(args);});
 }

@@ -103,6 +103,8 @@ public:
      */
     Q_INVOKABLE QString toLocalPath(const QUrl& url);
 
+    Q_INVOKABLE QString getFileNameByUrl(const QUrl& url);
+
     /**
      * @brief deleteItem 销毁Item对象
      * @param p

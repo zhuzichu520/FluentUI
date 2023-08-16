@@ -134,14 +134,63 @@ FluContentPage{
                 implicitHeight: 36
                 text: "下载文件"
                 onClicked: {
+                    folder_dialog.open()
+                }
+            }
+            FluButton{
+                id:btn_upload
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "文件上传"
+                onClicked: {
                     file_dialog.open()
                 }
             }
         }
     }
 
-    FolderDialog {
+    FileDialog {
         id: file_dialog
+        onAccepted: {
+            var param = {}
+            for(var i=0;i<selectedFiles.length;i++){
+                var fileUrl = selectedFiles[i]
+                var fileName = FluTools.getFileNameByUrl(fileUrl)
+                var filePath = FluTools.toLocalPath(fileUrl)
+                param[fileName] = filePath
+            }
+            console.debug(JSON.stringify(param))
+            var callable = {}
+            callable.onStart = function(){
+                btn_upload.disabled = true
+            }
+            callable.onFinish = function(){
+                btn_upload.disabled = false
+                btn_upload.text = "上传文件"
+                layout_upload_file_size.visible = false
+                text_upload_file_size.text = ""
+            }
+            callable.onSuccess = function(result){
+                text_info.text = result
+                console.debug(result)
+            }
+            callable.onError = function(status,errorString,result){
+                text_info.text = result
+                console.debug(result)
+            }
+            callable.onUploadProgress = function(sent,total){
+                var locale = Qt.locale()
+                var precent = (sent/total * 100).toFixed(0) + "%"
+                btn_upload.text = "上传中..."+precent
+                text_upload_file_size.text =  "%1/%2".arg(locale.formattedDataSize(sent)).arg(locale.formattedDataSize(total))
+                layout_upload_file_size.visible = true
+            }
+            http.upload("https://httpbingo.org/post",callable,param)
+        }
+    }
+
+    FolderDialog {
+        id: folder_dialog
         currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
         onAccepted: {
             var callable = {}
@@ -151,8 +200,8 @@ FluContentPage{
             callable.onFinish = function(){
                 btn_download.disabled = false
                 btn_download.text = "下载文件"
-                layout_file_size.visible = false
-                text_file_size.text = ""
+                layout_download_file_size.visible = false
+                text_download_file_size.text = ""
             }
             callable.onSuccess = function(result){
                 showSuccess(result)
@@ -164,8 +213,8 @@ FluContentPage{
                 var locale = Qt.locale()
                 var precent = (recv/total * 100).toFixed(0) + "%"
                 btn_download.text = "下载中..."+precent
-                text_file_size.text =  "%1/%2".arg(locale.formattedDataSize(recv)).arg(locale.formattedDataSize(total))
-                layout_file_size.visible = true
+                text_download_file_size.text =  "%1/%2".arg(locale.formattedDataSize(recv)).arg(locale.formattedDataSize(total))
+                layout_download_file_size.visible = true
             }
             var path = FluTools.toLocalPath(currentFolder)+ "/big_buck_bunny.mp4"
             http.download("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",callable,path)
@@ -183,6 +232,7 @@ FluContentPage{
         Flickable{
             clip: true
             id:scrollview
+            boundsBehavior:Flickable.StopAtBounds
             width: parent.width
             height: parent.height
             contentWidth: width
@@ -198,7 +248,7 @@ FluContentPage{
     }
 
     FluRectangle{
-        id:layout_file_size
+        id:layout_download_file_size
         radius: [4,4,4,4]
         height: 36
         width: 160
@@ -206,7 +256,22 @@ FluContentPage{
         x:layout_flick.width
         y: 173 - layout_flick.contentY
         FluText{
-            id:text_file_size
+            id:text_download_file_size
+            anchors.centerIn: parent
+        }
+    }
+
+
+    FluRectangle{
+        id:layout_upload_file_size
+        radius: [4,4,4,4]
+        height: 36
+        width: 160
+        visible: false
+        x:layout_flick.width
+        y: 210 - layout_flick.contentY
+        FluText{
+            id:text_upload_file_size
             anchors.centerIn: parent
         }
     }

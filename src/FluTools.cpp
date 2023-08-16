@@ -3,6 +3,7 @@
 #include <QClipboard>
 #include <QUuid>
 #include <QCursor>
+#include <QFileInfo>
 #include <QTextDocument>
 
 FluTools* FluTools::m_instance = nullptr;
@@ -98,6 +99,10 @@ void FluTools::deleteItem(QObject *p){
 
 QString FluTools::toLocalPath(const QUrl& url){
     return url.toLocalFile();
+}
+
+QString FluTools::getFileNameByUrl(const QUrl& url){
+    return QFileInfo(url.toLocalFile()).fileName();
 }
 
 QString FluTools::html2PlantText(const QString& html){
