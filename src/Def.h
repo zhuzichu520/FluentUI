@@ -4,6 +4,18 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 
+
+namespace FluScreenshotType {
+Q_NAMESPACE
+enum CaptrueMode {
+    Pixmap = 0x0000,
+    File = 0x0001,
+};
+Q_ENUM_NS(CaptrueMode)
+QML_NAMED_ELEMENT(FluScreenshotType)
+}
+
+
 namespace FluThemeType {
 Q_NAMESPACE
 enum DarkMode {

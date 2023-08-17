@@ -27,7 +27,19 @@ FluScrollablePage{
         }
     }
 
+    Image{
+        id:image
+        Layout.preferredHeight: 400
+        Layout.preferredWidth: 400
+        fillMode: Image.PreserveAspectFit
+    }
+
     FluScreenshot{
         id:screenshot
+        captrueMode: FluScreenshotType.File
+        onCaptrueCompleted:
+            (captrue)=>{
+                image.source = captrue
+            }
     }
 }

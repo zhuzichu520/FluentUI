@@ -2,12 +2,18 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
+import Qt.labs.platform
 import FluentUI
 
-Loader {
+Item{
+    id:control
+    property int captrueMode: FluScreenshotType.Pixmap
     property int dotSize: 5
     property int borderSize: 1
+    property string saveFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
     property color borderColor: FluTheme.primaryColor.dark
+    signal captrueCompleted(var captrue)
+
     QtObject{
         id:d
         property int dotMouseSize: control.dotSize+10
@@ -15,7 +21,9 @@ Loader {
         property bool enablePosition: false
         property int menuMargins: 6
     }
-    id:control
+    Loader {
+        id:loader
+    }
     Component{
         id:com_screen
         Window{
@@ -29,16 +37,26 @@ Loader {
             color: "#00000000"
             onVisibleChanged: {
                 if(!window_screen.visible){
-                    control.sourceComponent = undefined
+                    loader.sourceComponent = undefined
                 }
             }
             Component.onCompleted: {
-//                setGeometry(0,0,FluTools.getVirtualGeometry().width/2,FluTools.getVirtualGeometry().height)
                 setGeometry(0,0,screenshot_background.width,screenshot_background.height)
-                console.debug(width+";"+height)
             }
             ScreenshotBackground{
                 id:screenshot_background
+                captureMode:control.captrueMode
+                saveFolder: control.saveFolder
+                onCaptrueToPixmapCompleted:
+                    (captrue)=>{
+                        control.captrueCompleted(captrue)
+                        loader.sourceComponent = undefined
+                    }
+                onCaptrueToFileCompleted:
+                    (captrue)=>{
+                        control.captrueCompleted(captrue)
+                        loader.sourceComponent = undefined
+                    }
             }
             Screenshot{
                 id:screenshot
@@ -79,7 +97,7 @@ Loader {
                     (mouse)=>{
                         if (mouse.button === Qt.RightButton){
                             if(screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)){
-                                control.sourceComponent = undefined
+                                loader.sourceComponent = undefined
                                 return
                             }
                             screenshot.start = Qt.point(0,0)
@@ -463,7 +481,7 @@ Loader {
                         iconSize: 18
                         iconColor: Qt.rgba(247/255,75/255,77/255,1)
                         onClicked: {
-                            control.sourceComponent = undefined
+                            loader.sourceComponent = undefined
                         }
                     }
                     FluIconButton{
@@ -478,7 +496,8 @@ Loader {
         }
     }
 
+
     function open(){
-        control.sourceComponent = com_screen
+        loader.sourceComponent = com_screen
     }
 }

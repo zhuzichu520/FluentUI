@@ -11,11 +11,15 @@ class ScreenshotBackground : public QQuickPaintedItem
 {
     Q_OBJECT;
     QML_NAMED_ELEMENT(ScreenshotBackground)
+    Q_PROPERTY_AUTO(QUrl,saveFolder);
+    Q_PROPERTY_AUTO(int,captureMode);
 public:
     ScreenshotBackground(QQuickItem* parent = nullptr);
     void paint(QPainter* painter) override;
     Q_SLOT void handleGrabResult();
     Q_INVOKABLE void capture(const QPoint& start,const QPoint& end);
+    Q_SIGNAL void captrueToPixmapCompleted(QPixmap captrue);
+    Q_SIGNAL void captrueToFileCompleted(QUrl captrue);
 private:
     QRect _desktopGeometry;
     QPixmap _desktopPixmap;

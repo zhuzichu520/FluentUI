@@ -269,18 +269,6 @@ CustomWindow {
         }
     }
 
-    Shortcut {
-        sequence: "F7"
-        context: Qt.WindowShortcut
-        onActivated: {
-            screenshot.open()
-        }
-    }
-
-    FluScreenshot{
-        id:screenshot
-    }
-
     FluTour{
         id:tour
         steps:[

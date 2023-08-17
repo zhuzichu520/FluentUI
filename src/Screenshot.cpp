@@ -2,6 +2,8 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <QQuickWindow>
+#include <QDir>
+#include <Def.h>
 #include <QtMath>
 
 Screenshot::Screenshot(QQuickItem* parent) : QQuickPaintedItem(parent)
@@ -60,6 +62,13 @@ void ScreenshotBackground::capture(const QPoint& start,const QPoint& end){
 }
 
 void ScreenshotBackground::handleGrabResult(){
-    _sourcePixmap.copy(_captureRect).save("aaa.png");
+    if(_captureMode == FluScreenshotType::CaptrueMode::Pixmap){
+        Q_EMIT captrueToPixmapCompleted(_sourcePixmap.copy(_captureRect));
+    }
+    if(_captureMode == FluScreenshotType::CaptrueMode::File){
+        auto filePath = _saveFolder.toLocalFile().append("/").append(QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch())).append(".png");
+        _sourcePixmap.copy(_captureRect).save(filePath);
+        Q_EMIT captrueToFileCompleted(QUrl::fromLocalFile(filePath));
+    }
 }
 
