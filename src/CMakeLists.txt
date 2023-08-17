@@ -11,8 +11,6 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
-
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
 else()
