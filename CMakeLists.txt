@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(FluentUI VERSION 0.1 LANGUAGES CXX)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/.cmake/")
+set(FLUENTUI_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+list(APPEND CMAKE_MODULE_PATH ${FLUENTUI_DIRECTORY}/.cmake/)
 
 include(GetGitRevisionDescription)
 

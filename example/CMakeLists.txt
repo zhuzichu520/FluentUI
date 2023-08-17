@@ -37,9 +37,9 @@ else()
 endif()
 
 ##生成版本信息头文件
-set(HEADER_FILE_VERSION_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../example/Version.h)
+set(HEADER_FILE_VERSION_PATH ${FLUENTUI_DIRECTORY}/example/Version.h)
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/Version.h.in
+    ${FLUENTUI_DIRECTORY}/.cmake/Version.h.in
     ${HEADER_FILE_VERSION_PATH}
 )
 
@@ -69,7 +69,7 @@ set(EXAMPLE_VERSION_RC_PATH "")
 if(WIN32)
     set(EXAMPLE_VERSION_RC_PATH ${CMAKE_BINARY_DIR}/version_${PROJECT_NAME}.rc)
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/version_exe.rc.in
+        ${FLUENTUI_DIRECTORY}/.cmake/version_exe.rc.in
         ${EXAMPLE_VERSION_RC_PATH}
     )
 endif()
