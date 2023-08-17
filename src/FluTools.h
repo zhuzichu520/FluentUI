@@ -103,13 +103,24 @@ public:
      */
     Q_INVOKABLE QString toLocalPath(const QUrl& url);
 
-    Q_INVOKABLE QString getFileNameByUrl(const QUrl& url);
-
     /**
      * @brief deleteItem 销毁Item对象
      * @param p
      */
     Q_INVOKABLE void deleteItem(QObject *p);
+
+    /**
+     * @brief getFileNameByUrl
+     * @param url
+     * @return
+     */
+    Q_INVOKABLE QString getFileNameByUrl(const QUrl& url);
+
+    /**
+     * @brief getVirtualGeometry
+     * @return
+     */
+    Q_INVOKABLE QRect getVirtualGeometry();
 
 
 };

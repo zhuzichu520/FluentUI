@@ -4,6 +4,7 @@
 #include <QQuickItem>
 #include <QQuickPaintedItem>
 #include <QPainter>
+#include <QQuickItemGrabResult>
 #include "stdafx.h"
 
 class ScreenshotBackground : public QQuickPaintedItem
@@ -13,10 +14,14 @@ class ScreenshotBackground : public QQuickPaintedItem
 public:
     ScreenshotBackground(QQuickItem* parent = nullptr);
     void paint(QPainter* painter) override;
-
+    Q_SLOT void handleGrabResult();
+    Q_INVOKABLE void capture(const QPoint& start,const QPoint& end);
 private:
     QRect _desktopGeometry;
     QPixmap _desktopPixmap;
+    qreal _devicePixelRatio;
+    QSharedPointer<QQuickItemGrabResult>  _grabResult;
+    QRect _captureRect;
 };
 
 

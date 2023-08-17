@@ -3,6 +3,7 @@
 #include <QClipboard>
 #include <QUuid>
 #include <QCursor>
+#include <QScreen>
 #include <QFileInfo>
 #include <QTextDocument>
 
@@ -109,4 +110,8 @@ QString FluTools::html2PlantText(const QString& html){
     QTextDocument textDocument;
     textDocument.setHtml(html);
     return textDocument.toPlainText();
+}
+
+QRect FluTools::getVirtualGeometry(){
+    return qApp->primaryScreen()->virtualGeometry();
 }

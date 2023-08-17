@@ -33,10 +33,12 @@ Loader {
                 }
             }
             Component.onCompleted: {
-                setGeometry(0,0,Screen.desktopAvailableWidth,Screen.height)
+//                setGeometry(0,0,FluTools.getVirtualGeometry().width/2,FluTools.getVirtualGeometry().height)
+                setGeometry(0,0,screenshot_background.width,screenshot_background.height)
+                console.debug(width+";"+height)
             }
             ScreenshotBackground{
-                anchors.fill: parent
+                id:screenshot_background
             }
             Screenshot{
                 id:screenshot
@@ -431,7 +433,7 @@ Loader {
                         FluTools.restoreOverrideCursor()
                     }
             }
-            Rectangle{
+            Pane{
                 width: 100
                 height: 40
                 visible: {
@@ -451,6 +453,25 @@ Loader {
                         return rect_capture.y - height - d.menuMargins
                     }else{
                         screenshot.height - height - d.menuMargins
+                    }
+                }
+                RowLayout{
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    FluIconButton{
+                        iconSource: FluentIcons.Cancel
+                        iconSize: 18
+                        iconColor: Qt.rgba(247/255,75/255,77/255,1)
+                        onClicked: {
+                            control.sourceComponent = undefined
+                        }
+                    }
+                    FluIconButton{
+                        iconSource: FluentIcons.AcceptMedium
+                        iconColor: FluTheme.primaryColor.dark
+                        onClicked: {
+                            screenshot_background.capture(screenshot.start,screenshot.end)
+                        }
                     }
                 }
             }
