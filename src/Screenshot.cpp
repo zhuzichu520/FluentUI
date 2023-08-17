@@ -66,7 +66,12 @@ void ScreenshotBackground::handleGrabResult(){
         Q_EMIT captrueToPixmapCompleted(_sourcePixmap.copy(_captureRect));
     }
     if(_captureMode == FluScreenshotType::CaptrueMode::File){
-        auto filePath = _saveFolder.toLocalFile().append("/").append(QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch())).append(".png");
+        QDir dir = _saveFolder;
+        if (!dir.exists(_saveFolder)){
+            dir.mkpath(_saveFolder);
+        }
+        auto filePath = _saveFolder.append("/").append(QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch())).append(".png");
+        qDebug()<<filePath;
         _sourcePixmap.copy(_captureRect).save(filePath);
         Q_EMIT captrueToFileCompleted(QUrl::fromLocalFile(filePath));
     }

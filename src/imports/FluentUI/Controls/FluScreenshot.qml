@@ -10,7 +10,7 @@ Item{
     property int captrueMode: FluScreenshotType.Pixmap
     property int dotSize: 5
     property int borderSize: 1
-    property string saveFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+    property var saveFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
     property color borderColor: FluTheme.primaryColor.dark
     signal captrueCompleted(var captrue)
 
@@ -27,6 +27,7 @@ Item{
     Component{
         id:com_screen
         Window{
+            property bool isZeroPos: screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)
             id:window_screen
             flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
             x:-1
@@ -46,7 +47,13 @@ Item{
             ScreenshotBackground{
                 id:screenshot_background
                 captureMode:control.captrueMode
-                saveFolder: control.saveFolder
+                saveFolder: {
+                    if(typeof control.saveFolder === 'string'){
+                        return control.saveFolder
+                    }else{
+                        return FluTools.toLocalPath(control.saveFolder)
+                    }
+                }
                 onCaptrueToPixmapCompleted:
                     (captrue)=>{
                         control.captrueCompleted(captrue)
@@ -96,7 +103,7 @@ Item{
                 onClicked:
                     (mouse)=>{
                         if (mouse.button === Qt.RightButton){
-                            if(screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)){
+                            if(isZeroPos){
                                 loader.sourceComponent = undefined
                                 return
                             }
@@ -139,6 +146,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     left: rect_capture.left
                     leftMargin: d.dotMargins
@@ -151,6 +159,7 @@ Item{
                 anchors.centerIn: rect_top_left
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         FluTools.setOverrideCursor(cursorShape)
@@ -179,6 +188,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     horizontalCenter: rect_capture.horizontalCenter
                     topMargin: d.dotMargins
@@ -190,6 +200,7 @@ Item{
                 anchors.centerIn: rect_top_center
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         FluTools.setOverrideCursor(cursorShape)
@@ -219,6 +230,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     right: rect_capture.right
                     rightMargin: d.dotMargins
@@ -231,6 +243,7 @@ Item{
                 anchors.centerIn: rect_top_right
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         var x = rect_capture.x
@@ -258,6 +271,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     right: rect_capture.right
                     rightMargin: d.dotMargins
@@ -269,6 +283,7 @@ Item{
                 anchors.centerIn: rect_right_center
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         var x = rect_capture.x
@@ -298,6 +313,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     right: rect_capture.right
                     rightMargin: d.dotMargins
@@ -310,6 +326,7 @@ Item{
                 anchors.centerIn: rect_right_bottom
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         var x = rect_capture.x
@@ -337,6 +354,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     horizontalCenter: rect_capture.horizontalCenter
                     bottom: rect_capture.bottom
@@ -348,6 +366,7 @@ Item{
                 anchors.centerIn: rect_bottom_center
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         var x = rect_capture.x
@@ -377,6 +396,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     left: rect_capture.left
                     leftMargin: d.dotMargins
@@ -389,6 +409,7 @@ Item{
                 anchors.centerIn: rect_bottom_left
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         var x = rect_capture.x
@@ -416,6 +437,7 @@ Item{
                 width: control.dotSize
                 height: control.dotSize
                 color: control.borderColor
+                visible: !isZeroPos
                 anchors{
                     left: rect_capture.left
                     leftMargin: d.dotMargins
@@ -427,6 +449,7 @@ Item{
                 anchors.centerIn: rect_left_center
                 width: d.dotMouseSize
                 height: d.dotMouseSize
+                visible: !isZeroPos
                 onPressed:
                     (mouse)=> {
                         var x = rect_capture.x

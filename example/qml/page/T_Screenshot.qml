@@ -37,8 +37,11 @@ FluScrollablePage{
     FluScreenshot{
         id:screenshot
         captrueMode: FluScreenshotType.File
+        saveFolder: FluTools.getApplicationDirPath()+"/screenshot"
         onCaptrueCompleted:
             (captrue)=>{
+
+                //C:/Users/zhuzi/Pictures/1692283885126.png
                 image.source = captrue
             }
     }

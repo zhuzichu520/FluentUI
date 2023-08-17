@@ -122,6 +122,8 @@ public:
      */
     Q_INVOKABLE QRect getVirtualGeometry();
 
+    Q_INVOKABLE QString getApplicationDirPath();
+
 
 };
 

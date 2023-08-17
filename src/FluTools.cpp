@@ -115,3 +115,7 @@ QString FluTools::html2PlantText(const QString& html){
 QRect FluTools::getVirtualGeometry(){
     return qApp->primaryScreen()->virtualGeometry();
 }
+
+QString FluTools::getApplicationDirPath(){
+    return qApp->applicationDirPath();
+}

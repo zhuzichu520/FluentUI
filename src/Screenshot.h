@@ -11,7 +11,7 @@ class ScreenshotBackground : public QQuickPaintedItem
 {
     Q_OBJECT;
     QML_NAMED_ELEMENT(ScreenshotBackground)
-    Q_PROPERTY_AUTO(QUrl,saveFolder);
+    Q_PROPERTY_AUTO(QString,saveFolder);
     Q_PROPERTY_AUTO(int,captureMode);
 public:
     ScreenshotBackground(QQuickItem* parent = nullptr);
