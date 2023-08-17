@@ -68,7 +68,7 @@ set(FLUENTUI_VERSION_RC_PATH "")
 if(WIN32)
     set(FLUENTUI_VERSION_RC_PATH ${CMAKE_BINARY_DIR}/version_${PROJECT_NAME}.rc)
     configure_file(
-        ${CMAKE_SOURCE_DIR}/.cmake/version_dll.rc.in
+        ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/version_dll.rc.in
         ${FLUENTUI_VERSION_RC_PATH}
     )
 endif()
