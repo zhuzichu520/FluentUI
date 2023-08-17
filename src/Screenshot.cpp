@@ -42,28 +42,24 @@ ScreenshotBackground::ScreenshotBackground(QQuickItem* parent) : QQuickPaintedIt
 void ScreenshotBackground::paint(QPainter* painter)
 {
     painter->save();
-    QPixmap sourcePixmap;
-    QPainter p(&sourcePixmap);
+    _sourcePixmap = QPixmap(QSize(_desktopGeometry.width(),_desktopGeometry.height()));
+    QPainter p(&_sourcePixmap);
     p.drawPixmap(_desktopGeometry,_desktopPixmap);
-    painter->drawPixmap(_desktopGeometry,sourcePixmap);
+    painter->drawPixmap(_desktopGeometry,_sourcePixmap);
     painter->restore();
 }
 
 void ScreenshotBackground::capture(const QPoint& start,const QPoint& end){
-    qDebug()<<start;
-    qDebug()<<end;
     _grabResult = grabToImage();
     auto x = qMin(start.x(),end.x());
     auto y = qMin(start.y(),end.y());
     auto w = qAbs(end.x()-start.x());
     auto h = qAbs(end.y()-start.y());
     _captureRect = QRect(x,y,w,h);
-    qDebug()<<_captureRect;
     connect(_grabResult.data(), &QQuickItemGrabResult::ready, this, &ScreenshotBackground::handleGrabResult);
 }
 
 void ScreenshotBackground::handleGrabResult(){
-    _grabResult.data()->image().copy(_captureRect).save("aaa.png");
-
+    _sourcePixmap.copy(_captureRect).save("aaa.png");
 }
 

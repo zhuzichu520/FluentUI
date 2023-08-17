@@ -19,6 +19,7 @@ public:
 private:
     QRect _desktopGeometry;
     QPixmap _desktopPixmap;
+    QPixmap _sourcePixmap;
     qreal _devicePixelRatio;
     QSharedPointer<QQuickItemGrabResult>  _grabResult;
     QRect _captureRect;
