@@ -32,6 +32,8 @@ Rectangle {
     }
     QtObject{
         id:d
+        property int defaultItemWidth: 100
+        property int defaultItemHeight: 42
         property var header_rows:[]
         property bool selectionFlag: true
         function obtEditDelegate(column,row){
@@ -182,6 +184,12 @@ Rectangle {
             }
             columnWidthProvider: function(column) {
                 var w = columnSource[column].width
+                if(!w){
+                    w = columnSource[column].minimumWidth
+                }
+                if(!w){
+                    w = d.defaultItemWidth
+                }
                 if(column === item_loader.column){
                     item_loader.width = w
                 }
@@ -199,6 +207,12 @@ Rectangle {
                     return 0
                 }
                 var h = table_model.getRow(row).height
+                if(!h){
+                    h = table_model.getRow(row).minimumHeight
+                }
+                if(!h){
+                    return d.defaultItemHeight
+                }
                 if(row === item_loader.row){
                     item_loader.height = h
                 }
@@ -219,7 +233,16 @@ Rectangle {
                 required property bool selected
                 color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
-                implicitWidth: columnSource[column].width
+                implicitWidth: {
+                    var w = columnSource[column].width
+                    if(!w){
+                        w = columnSource[column].minimumWidth
+                    }
+                    if(!w){
+                        w = d.defaultItemWidth
+                    }
+                    return w
+                }
                 Rectangle{
                     anchors.fill: parent
                     visible: !item_loader.sourceComponent
@@ -378,7 +401,7 @@ Rectangle {
                 anchors.right: parent.right
                 acceptedButtons: Qt.LeftButton
                 hoverEnabled: true
-                visible: !(obj.width === obj.minimumWidth && obj.width === obj.maximumWidth)
+                visible: !(obj.width === obj.minimumWidth && obj.width === obj.maximumWidth && obj.width)
                 cursorShape: Qt.SplitHCursor
                 onPressed :
                     (mouse)=>{
@@ -402,13 +425,17 @@ Rectangle {
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
                         var minimumWidth = obj.minimumWidth
                         var maximumWidth = obj.maximumWidth
+                        var w = obj.width
+                        if(!w){
+                            w = d.defaultItemWidth
+                        }
                         if(!minimumWidth){
-                            minimumWidth = 100
+                            minimumWidth = d.defaultItemWidth
                         }
                         if(!maximumWidth){
                             maximumWidth = 65535
                         }
-                        obj.width = Math.min(Math.max(minimumWidth, obj.width + delta.x),maximumWidth)
+                        obj.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
                         table_view.forceLayout()
                     }
             }
@@ -492,7 +519,7 @@ Rectangle {
                 cursorShape: Qt.SplitVCursor
                 visible: {
                     var obj = table_model.getRow(row)
-                    return !(obj.height === obj.minimumHeight && obj.width === obj.maximumHeight)
+                    return !(obj.height === obj.minimumHeight && obj.height === obj.maximumHeight && obj.height)
                 }
                 onPressed :
                     (mouse)=>{
@@ -517,13 +544,17 @@ Rectangle {
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
                         var minimumHeight = obj.minimumHeight
                         var maximumHeight = obj.maximumHeight
+                        var h = obj.height
+                        if(!h){
+                            h = d.defaultItemHeight
+                        }
                         if(!minimumHeight){
-                            minimumHeight = 42
+                            minimumHeight = d.defaultItemHeight
                         }
                         if(!maximumHeight){
                             maximumHeight = 65535
                         }
-                        obj.height = Math.min(Math.max(minimumHeight, obj.height + delta.y),maximumHeight)
+                        obj.height = Math.min(Math.max(minimumHeight, h + delta.y),maximumHeight)
                         table_model.setRow(row,obj)
                         table_view.forceLayout()
                     }

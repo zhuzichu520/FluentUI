@@ -64,9 +64,6 @@ FluContentPage{
                                 address: getRandomAddresses(),
                                 nickname: getRandomNickname(),
                                 longstring:"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
-                                height:42,
-                                minimumHeight:42,
-                                maximumHeight:300,
                                 action:com_action
                             })
         }
@@ -110,10 +107,7 @@ FluContentPage{
             {
                 title: '姓名',
                 dataIndex: 'name',
-                width:100,
-                minimumWidth:80,
-                maximumWidth:200,
-                readOnly:true
+                readOnly:true,
             },
             {
                 title: '年龄',
