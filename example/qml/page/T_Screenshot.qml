@@ -32,6 +32,7 @@ FluScrollablePage{
         Layout.preferredHeight: 400
         Layout.preferredWidth: 400
         fillMode: Image.PreserveAspectFit
+        asynchronous: true
     }
 
     FluScreenshot{

@@ -5,6 +5,7 @@
 #include <QDir>
 #include <Def.h>
 #include <QtMath>
+#include <QThreadPool>
 
 Screenshot::Screenshot(QQuickItem* parent) : QQuickPaintedItem(parent)
 {
@@ -44,24 +45,18 @@ ScreenshotBackground::ScreenshotBackground(QQuickItem* parent) : QQuickPaintedIt
 void ScreenshotBackground::paint(QPainter* painter)
 {
     painter->save();
-    _sourcePixmap = QPixmap(QSize(_desktopPixmap.width(),_desktopPixmap.height()));
-    QPainter p(&_sourcePixmap);
-    p.drawPixmap(_desktopGeometry,_desktopPixmap);
-    painter->drawPixmap(_desktopGeometry,_desktopPixmap);
+    _sourcePixmap = _desktopPixmap.copy();
+    painter->drawPixmap(_desktopGeometry,_sourcePixmap);
     painter->restore();
 }
 
 void ScreenshotBackground::capture(const QPoint& start,const QPoint& end){
-    _grabResult = grabToImage();
-    auto x = qMin(start.x(),end.x());
-    auto y = qMin(start.y(),end.y());
-    auto w = qAbs(end.x()-start.x());
-    auto h = qAbs(end.y()-start.y());
+    auto pixelRatio = qApp->primaryScreen()->devicePixelRatio();
+    auto x = qMin(start.x(),end.x()) * pixelRatio;
+    auto y = qMin(start.y(),end.y()) * pixelRatio;
+    auto w = qAbs(end.x()-start.x()) * pixelRatio;
+    auto h = qAbs(end.y()-start.y()) * pixelRatio;
     _captureRect = QRect(x,y,w,h);
-    connect(_grabResult.data(), &QQuickItemGrabResult::ready, this, &ScreenshotBackground::handleGrabResult);
-}
-
-void ScreenshotBackground::handleGrabResult(){
     if(_captureMode == FluScreenshotType::CaptrueMode::Pixmap){
         Q_EMIT captrueToPixmapCompleted(_sourcePixmap.copy(_captureRect));
     }
@@ -71,7 +66,6 @@ void ScreenshotBackground::handleGrabResult(){
             dir.mkpath(_saveFolder);
         }
         auto filePath = _saveFolder.append("/").append(QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch())).append(".png");
-        qDebug()<<filePath;
         _sourcePixmap.copy(_captureRect).save(filePath);
         Q_EMIT captrueToFileCompleted(QUrl::fromLocalFile(filePath));
     }

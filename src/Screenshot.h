@@ -16,7 +16,6 @@ class ScreenshotBackground : public QQuickPaintedItem
 public:
     ScreenshotBackground(QQuickItem* parent = nullptr);
     void paint(QPainter* painter) override;
-    Q_SLOT void handleGrabResult();
     Q_INVOKABLE void capture(const QPoint& start,const QPoint& end);
     Q_SIGNAL void captrueToPixmapCompleted(QPixmap captrue);
     Q_SIGNAL void captrueToFileCompleted(QUrl captrue);
