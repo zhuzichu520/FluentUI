@@ -7,6 +7,12 @@ FluObject{
 
     property var navigationView
 
+    function rename(item, newName){
+        if(newName && newName.trim().length>0){
+            item.title = newName;
+        }
+    }
+
     FluPaneItem{
         id:item_home
         count: 9
@@ -21,11 +27,48 @@ FluObject{
             }
             navigationView.push("qrc:/example/qml/page/T_Home.qml")
         }
+        rightMenu: FluMenu{
+            property string renameText : "重命名"
+            id:nav_item_right_menu
+            enableAnimation: false
+            width: 120
+
+            FluMenuItem{
+                text: nav_item_right_menu.renameText
+                visible: true
+                onClicked: {
+                    item_home.editable = true;
+
+                }
+            }
+        }
+        onTitleEdited:function(newText){
+            rename(item_home,newText)
+        }
     }
 
     FluPaneItemExpander{
+        id:item_expander_basic_input
         title:lang.basic_input
         icon:FluentIcons.CheckboxComposite
+
+        rightMenu: FluMenu{
+            property string renameText : "重命名"
+            id:nav_item_expander_right_menu
+            enableAnimation: false
+            width: 120
+
+            FluMenuItem{
+                text: nav_item_expander_right_menu.renameText
+                visible: true
+                onClicked: {
+                    item_expander_basic_input.editable = true;
+
+                }
+            }
+        }
+        onTitleEdited:function(newText){ rename(item_expander_basic_input,newText)}
+
         FluPaneItem{
             id:item_buttons
             count: 99

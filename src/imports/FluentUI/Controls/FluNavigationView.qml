@@ -16,6 +16,8 @@ Item {
     property int topPadding: 0
     property int navWidth: 300
     property int pageMode: FluNavigationViewType.Stack
+    property FluMenu navItemRightMenu
+    property FluMenu navItemExpanderRightMenu
     signal logoClicked
     id:control
     QtObject{
@@ -163,6 +165,29 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
+
+                Loader{
+                    id:navItemRightMenuLoader
+                    //anchors.centerIn: parent
+                    sourceComponent: model.rightMenu
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+                    acceptedButtons: Qt.RightButton
+                    onClicked: function(mouse){
+                        if (mouse.button === Qt.RightButton) {
+                            if(model.rightMenu){
+                                var rightMenuComponent = model.rightMenu.createObject(navItemRightMenuLoader); // navItemRightMenuLoader 是你要将菜单附加到的父级项
+                                if (rightMenuComponent !== null) {
+                                    rightMenuComponent.popup();
+                                }
+                            }
+                        }
+                    }
+                    z:-100
+                }
+
                 onClicked: {
                     if(d.isCompactAndNotPanel){
                         control_popup.showPopup(Qt.point(50,mapToItem(control,0,0).y),model.children)
@@ -291,9 +316,10 @@ Item {
                             }
                         }
                     }
-                    FluText{
+                    FluEditableText{
                         id:item_title
                         text:model.title
+                        editable: model.editable
                         visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
@@ -311,6 +337,17 @@ Item {
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
                             }
                             return FluTheme.dark ? FluColors.White : FluColors.Grey220
+                        }
+                        onFluTextEdited:function(newText) {
+                            if(model.onTitleEdited)
+                                model.onTitleEdited(newText)
+                        }
+                        onFluLostFocus:function(isActiveFocus){
+                            if(!isActiveFocus){
+                                model.editable = false
+                                if(model.onTitleEdited)
+                                    model.onTitleEdited(item_title.text)
+                            }
                         }
                     }
                 }
@@ -352,6 +389,28 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
+
+                Loader{
+                    id:loader_auto_suggest_boxsssssdd
+                    sourceComponent: model.rightMenu
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+                    acceptedButtons:  Qt.RightButton
+                    onClicked: function(mouse){
+                        if (mouse.button === Qt.RightButton) {
+                            if(model.rightMenu){
+                                var rightMenuComponent = model.rightMenu.createObject(loader_auto_suggest_boxsssssdd); // loader_auto_suggest_boxsssssdd 是你要将菜单附加到的父级项
+                                if (rightMenuComponent !== null) {
+                                    rightMenuComponent.popup();
+                                }
+                            }
+                        }
+                    }
+                    z:-100
+                }
+
                 onClicked: {
                     if(type === 0){
                         if(model.tapFunc){
@@ -442,9 +501,10 @@ Item {
                             }
                         }
                     }
-                    FluText{
+                    FluEditableText{
                         id:item_title
                         text:model.title
+                        editable: model.editable
                         visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
@@ -462,6 +522,18 @@ Item {
                             verticalCenter: parent.verticalCenter
                             left:item_icon.right
                             right: item_dot_loader.left
+                        }
+                        onFluTextEdited:function(newText) {
+                            if(model.onTitleEdited)
+                                model.onTitleEdited(newText)
+                        }
+                        onFluLostFocus:function(isActiveFocus){
+                            if(!isActiveFocus){
+                                model.editable = false
+                                if(model.onTitleEdited){
+                                    model.onTitleEdited(item_title.text)
+                                }
+                            }
                         }
                     }
                     Loader{
