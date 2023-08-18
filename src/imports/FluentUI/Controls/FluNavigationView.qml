@@ -313,6 +313,7 @@ Item {
                             }
                             return true
                         }
+                        elide: Text.ElideRight
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left:item_icon.right
@@ -506,6 +507,7 @@ Item {
                             }
                             return true
                         }
+                        elide: Text.ElideRight
                         color:{
                             if(item_control.pressed){
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
