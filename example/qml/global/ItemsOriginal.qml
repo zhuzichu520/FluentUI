@@ -356,6 +356,12 @@ FluObject{
             }
         }
         FluPaneItem{
+            title:"Captcha"
+            onTap:{
+                navigationView.push("qrc:/example/qml/page/T_Captcha.qml")
+            }
+        }
+        FluPaneItem{
             title:"Chart"
             onTap:{
                 navigationView.push("qrc:/example/qml/page/T_Chart.qml")
