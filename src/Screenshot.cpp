@@ -44,10 +44,10 @@ ScreenshotBackground::ScreenshotBackground(QQuickItem* parent) : QQuickPaintedIt
 void ScreenshotBackground::paint(QPainter* painter)
 {
     painter->save();
-    _sourcePixmap = QPixmap(QSize(_desktopGeometry.width(),_desktopGeometry.height()));
+    _sourcePixmap = QPixmap(QSize(_desktopPixmap.width(),_desktopPixmap.height()));
     QPainter p(&_sourcePixmap);
     p.drawPixmap(_desktopGeometry,_desktopPixmap);
-    painter->drawPixmap(_desktopGeometry,_sourcePixmap);
+    painter->drawPixmap(_desktopGeometry,_desktopPixmap);
     painter->restore();
 }
 
