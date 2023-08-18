@@ -167,16 +167,26 @@ FluScrollablePage{
         height: 68
         paddings: 10
         Layout.topMargin: 20
-        FluIconButton{
-            iconSource:FluentIcons.ChromeCloseContrast
-            disabled:icon_button_switch.checked
-            iconSize: 15
+        Row{
+            spacing: 20
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-            onClicked:{
-                showSuccess("点击IconButton")
+            FluIconButton{
+                iconSource:FluentIcons.ChromeCloseContrast
+                disabled:icon_button_switch.checked
+                iconSize: 15
+                onClicked:{
+                    showSuccess("点击IconButton")
+                }
+            }
+            FluIconButton{
+                disabled:icon_button_switch.checked
+                iconDelegate: Image{ width: 20; height: 20; source: "qrc:/example/res/image/ic_home_github.png" }
+                onClicked:{
+                    showSuccess("点击IconButton")
+                }
             }
         }
         FluToggleSwitch{

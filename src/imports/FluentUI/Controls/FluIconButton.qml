@@ -13,6 +13,7 @@ Button {
     property color pressedColor: FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
     property color normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
     property color disableColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
+    property Component iconDelegate: com_icon
     property color color: {
         if(!enabled){
             return disableColor
@@ -54,16 +55,22 @@ Button {
             visible: control.activeFocus
         }
     }
-    contentItem: Item{
+    Component{
+        id:com_icon
         FluIcon {
             id:text_icon
             font.pixelSize: iconSize
             iconSize: control.iconSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.centerIn: parent
             iconColor: control.iconColor
-            iconSource: control.iconSource;
+            iconSource: control.iconSource
+        }
+    }
+    contentItem: Item{
+        Loader{
+            anchors.centerIn: parent
+            sourceComponent: iconDelegate
         }
         FluTooltip{
             id:tool_tip
