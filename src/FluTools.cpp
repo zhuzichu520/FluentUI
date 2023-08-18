@@ -119,3 +119,7 @@ QRect FluTools::getVirtualGeometry(){
 QString FluTools::getApplicationDirPath(){
     return qApp->applicationDirPath();
 }
+
+QUrl FluTools::getUrlByFilePath(const QString& path){
+    return QUrl::fromLocalFile(path);
+}

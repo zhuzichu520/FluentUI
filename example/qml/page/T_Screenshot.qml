@@ -16,10 +16,7 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluFilledButton{
-            anchors{
-                top: parent.top
-                topMargin: 14
-            }
+            anchors.verticalCenter: parent.verticalCenter
             text:"Open Screenshot"
             onClicked: {
                 screenshot.open()
@@ -27,12 +24,22 @@ FluScrollablePage{
         }
     }
 
-    Image{
-        id:image
+    Rectangle{
         Layout.preferredHeight: 400
         Layout.preferredWidth: 400
-        fillMode: Image.PreserveAspectFit
-        asynchronous: true
+        Layout.topMargin: 10
+        Layout.leftMargin: 4
+        color: FluTheme.dark ? FluColors.Black : FluColors.White
+        FluShadow{
+            radius: 0
+            color: FluTheme.primaryColor.dark
+        }
+        Image{
+            id:image
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectFit
+            asynchronous: true
+        }
     }
 
     FluScreenshot{
@@ -41,8 +48,6 @@ FluScrollablePage{
         saveFolder: FluTools.getApplicationDirPath()+"/screenshot"
         onCaptrueCompleted:
             (captrue)=>{
-
-                //C:/Users/zhuzi/Pictures/1692283885126.png
                 image.source = captrue
             }
     }

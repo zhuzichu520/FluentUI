@@ -122,7 +122,18 @@ public:
      */
     Q_INVOKABLE QRect getVirtualGeometry();
 
+    /**
+     * @brief getApplicationDirPath
+     * @return
+     */
     Q_INVOKABLE QString getApplicationDirPath();
+
+    /**
+     * @brief getUrlByFilePath
+     * @param path
+     * @return
+     */
+    Q_INVOKABLE QUrl getUrlByFilePath(const QString& path);
 
 
 };

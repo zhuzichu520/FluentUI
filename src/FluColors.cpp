@@ -13,6 +13,7 @@ FluColors *FluColors::getInstance()
 FluColors::FluColors(QObject *parent)
     : QObject{parent}
 {
+    Transparent("#00000000");
     Black("#000000");
     White("#ffffff");
     Grey10("#faf9f8");

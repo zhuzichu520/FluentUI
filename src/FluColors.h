@@ -12,6 +12,7 @@
 class FluColors : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY_AUTO(QString,Transparent);
     Q_PROPERTY_AUTO(QString,Black);
     Q_PROPERTY_AUTO(QString,White);
     Q_PROPERTY_AUTO(QString,Grey10);
