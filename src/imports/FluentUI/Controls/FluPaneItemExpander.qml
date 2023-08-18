@@ -10,7 +10,7 @@ FluObject {
     property Component cusIcon
     property bool isExpand: false
     property var parent
-    property Component rightMenu
-    property bool editable
-    property var onTitleEdited:null
+    property Component menuDelegate
+    property Component editDelegate
+    property bool showEdit
 }

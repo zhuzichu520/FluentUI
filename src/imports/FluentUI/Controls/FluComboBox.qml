@@ -6,7 +6,7 @@ import QtQuick.Templates as T
 
 ComboBox {
     id: control
-    signal commit
+    signal commit(string text)
     property bool disabled: false
     property color normalColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
@@ -71,7 +71,7 @@ ComboBox {
         Keys.onEnterPressed: (event)=> handleCommit(event)
         Keys.onReturnPressed:(event)=> handleCommit(event)
         function handleCommit(event){
-            control.commit()
+            control.commit(control.editText)
         }
     }
 

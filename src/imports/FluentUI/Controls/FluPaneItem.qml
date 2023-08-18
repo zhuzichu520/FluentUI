@@ -19,7 +19,7 @@ QtObject {
     property int count: 0
     signal tap
     property var tapFunc
-    property Component rightMenu
-    property bool editable
-    property var onTitleEdited:null
+    property Component menuDelegate
+    property Component editDelegate
+    property bool showEdit
 }

@@ -163,23 +163,14 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
-
-                Loader{
-                    id:navItemRightMenuLoader
-                    //anchors.centerIn: parent
-                    sourceComponent: model.rightMenu
-                }
-
                 MouseArea{
                     anchors.fill: parent
                     acceptedButtons: Qt.RightButton
                     onClicked: function(mouse){
                         if (mouse.button === Qt.RightButton) {
-                            if(model.rightMenu){
-                                var rightMenuComponent = model.rightMenu.createObject(navItemRightMenuLoader); // navItemRightMenuLoader 是你要将菜单附加到的父级项
-                                if (rightMenuComponent !== null) {
-                                    rightMenuComponent.popup();
-                                }
+                            if(model.menuDelegate){
+                                loader_item_menu.sourceComponent = model.menuDelegate
+                                loader_item_menu.item.popup()
                             }
                         }
                     }
@@ -208,7 +199,6 @@ Item {
                     }
                     visible: {
                         if(!model.isExpand){
-
                             for(var i=0;i<model.children.length;i++){
                                 var item = model.children[i]
                                 if(item.infoBadge && item.count !==0){
@@ -314,17 +304,15 @@ Item {
                             }
                         }
                     }
-                    FluEditableText{
+                    FluText{
                         id:item_title
                         text:model.title
-                        editable: model.editable
                         visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
                             }
                             return true
                         }
-                        elide: Text.ElideRight
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left:item_icon.right
@@ -336,15 +324,34 @@ Item {
                             }
                             return FluTheme.dark ? FluColors.White : FluColors.Grey220
                         }
-                        onFluTextEdited:function(newText) {
-                            if(model.onTitleEdited)
-                                model.onTitleEdited(newText)
+                    }
+                    Loader{
+                        id:item_edit_loader
+                        anchors{
+                            top: parent.top
+                            bottom: parent.bottom
+                            left: item_title.left
+                            right: item_title.right
+                            rightMargin: 8
                         }
-                        onFluLostFocus:function(isActiveFocus){
-                            if(!isActiveFocus){
-                                model.editable = false
-                                if(model.onTitleEdited)
-                                    model.onTitleEdited(item_title.text)
+                        sourceComponent: model.showEdit ? model.editDelegate : undefined
+                        onStatusChanged: {
+                            if(status === Loader.Ready){
+                                item.forceActiveFocus()
+                                item_connection_edit_focus.target = item
+                            }
+                        }
+                        Connections{
+                            id:item_connection_edit_focus
+                            ignoreUnknownSignals:true
+                            function onActiveFocusChanged(focus){
+                                if(focus === false){
+                                   model.showEdit = false
+                                }
+                            }
+                            function onCommit(text){
+                                model.title = text
+                                model.showEdit = false
                             }
                         }
                     }
@@ -387,28 +394,19 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
-
-                Loader{
-                    id:loader_auto_suggest_boxsssssdd
-                    sourceComponent: model.rightMenu
-                }
-
                 MouseArea{
                     anchors.fill: parent
                     acceptedButtons:  Qt.RightButton
                     onClicked: function(mouse){
                         if (mouse.button === Qt.RightButton) {
-                            if(model.rightMenu){
-                                var rightMenuComponent = model.rightMenu.createObject(loader_auto_suggest_boxsssssdd); // loader_auto_suggest_boxsssssdd 是你要将菜单附加到的父级项
-                                if (rightMenuComponent !== null) {
-                                    rightMenuComponent.popup();
-                                }
+                            if(model.menuDelegate){
+                                loader_item_menu.sourceComponent = model.menuDelegate
+                                loader_item_menu.item.popup();
                             }
                         }
                     }
                     z:-100
                 }
-
                 onClicked: {
                     if(type === 0){
                         if(model.tapFunc){
@@ -499,17 +497,15 @@ Item {
                             }
                         }
                     }
-                    FluEditableText{
+                    FluText{
                         id:item_title
                         text:model.title
-                        editable: model.editable
                         visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
                             }
                             return true
                         }
-                        elide: Text.ElideRight
                         color:{
                             if(item_control.pressed){
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
@@ -521,16 +517,34 @@ Item {
                             left:item_icon.right
                             right: item_dot_loader.left
                         }
-                        onFluTextEdited:function(newText) {
-                            if(model.onTitleEdited)
-                                model.onTitleEdited(newText)
+                    }
+                    Loader{
+                        id:item_edit_loader
+                        anchors{
+                            top: parent.top
+                            bottom: parent.bottom
+                            left: item_title.left
+                            right: item_title.right
+                            rightMargin: 8
                         }
-                        onFluLostFocus:function(isActiveFocus){
-                            if(!isActiveFocus){
-                                model.editable = false
-                                if(model.onTitleEdited){
-                                    model.onTitleEdited(item_title.text)
+                        sourceComponent: model.showEdit ? model.editDelegate : undefined
+                        onStatusChanged: {
+                            if(status === Loader.Ready){
+                                item.forceActiveFocus()
+                                item_connection_edit_focus.target = item
+                            }
+                        }
+                        Connections{
+                            id:item_connection_edit_focus
+                            ignoreUnknownSignals:true
+                            function onActiveFocusChanged(focus){
+                                if(focus === false){
+                                   model.showEdit = false
                                 }
+                            }
+                            function onCommit(text){
+                                model.title = text
+                                model.showEdit = false
                             }
                         }
                     }
@@ -1049,6 +1063,9 @@ Item {
             control_popup.childModel = model
             control_popup.open()
         }
+    }
+    Loader{
+        id:loader_item_menu
     }
     Component{
         id:com_placeholder

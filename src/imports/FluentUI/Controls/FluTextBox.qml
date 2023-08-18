@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 TextField{
-    signal commit
+    signal commit(string text)
     property bool disabled: false
     property int iconSource: 0
     property color normalColor: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
@@ -60,7 +60,7 @@ TextField{
     QtObject{
         id:d
         function handleCommit(event){
-            control.commit()
+            control.commit(control.text)
         }
     }
     MouseArea{

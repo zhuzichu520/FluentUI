@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 TextArea{
-    signal commit
+    signal commit(string text)
     property bool disabled: false
     property color normalColor: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
     property color disableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
@@ -50,7 +50,7 @@ TextArea{
                 insert(control.cursorPosition, "\n")
                 return
             }
-            control.commit()
+            control.commit(control.text)
         }
     }
     MouseArea{
