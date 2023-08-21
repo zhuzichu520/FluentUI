@@ -29,6 +29,7 @@ FluScrollablePage{
         Layout.preferredWidth: 400
         Layout.topMargin: 10
         Layout.leftMargin: 4
+        Layout.bottomMargin: 4
         color: FluTheme.dark ? FluColors.Black : FluColors.White
         FluShadow{
             radius: 0

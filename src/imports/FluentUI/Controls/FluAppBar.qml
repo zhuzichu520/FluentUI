@@ -23,6 +23,8 @@ Rectangle{
     property bool showMinimize: true
     property bool showMaximize: true
     property bool titleVisible: true
+    property url icon
+    property int iconSize: 20
     property bool isMac: FluTools.isMacos()
     property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
     property var maxClickListener : function(){
@@ -44,7 +46,7 @@ Rectangle{
             FluTheme.darkMode = FluThemeType.Dark
         }
     }
-    id:root
+    id:control
     color: Qt.rgba(0,0,0,0)
     height: visible ? 30 : 0
     opacity: visible
@@ -64,20 +66,31 @@ Rectangle{
         grabPermissions: TapHandler.CanTakeOverFromAnything
         onActiveChanged: if (active) { d.win.startSystemMove(); }
     }
-    FluText {
-        text: title
+    Row{
         anchors{
             verticalCenter: parent.verticalCenter
             left: isMac ? undefined : parent.left
             leftMargin: isMac ? undefined : 10
             horizontalCenter: isMac ? parent.horizontalCenter : undefined
         }
-        visible: root.titleVisible
-        color:root.textColor
+        spacing: 10
+        Image{
+            width: control.iconSize
+            height: control.iconSize
+            visible: status === Image.Ready ? true : false
+            source: control.icon
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        FluText {
+            text: title
+            visible: control.titleVisible
+            color:control.textColor
+            anchors.verticalCenter: parent.verticalCenter
+        }
     }
     RowLayout{
         anchors.right: parent.right
-        height: root.height
+        height: control.height
         spacing: 0
         FluToggleSwitch{
             id:btn_dark
@@ -85,7 +98,7 @@ Rectangle{
             Layout.rightMargin: 5
             visible: showDark
             text:darkText
-            textColor:root.textColor
+            textColor:control.textColor
             checked: FluTheme.dark
             textRight: false
             clickListener:()=> darkClickListener(btn_dark)
@@ -100,7 +113,7 @@ Rectangle{
             text:minimizeText
             radius: 0
             visible: !isMac && showMinimize
-            iconColor: root.textColor
+            iconColor: control.textColor
             color: hovered ? minimizeHoverColor : minimizeNormalColor
             onClicked: minClickListener()
         }
@@ -113,7 +126,7 @@ Rectangle{
             Layout.alignment: Qt.AlignVCenter
             visible: d.resizable && !isMac && showMaximize
             radius: 0
-            iconColor: root.textColor
+            iconColor: control.textColor
             text:d.isRestore?restoreText:maximizeText
             iconSize: 11
             onClicked: maxClickListener()
@@ -128,7 +141,7 @@ Rectangle{
             visible: !isMac && showClose
             radius: 0
             iconSize: 10
-            iconColor: hovered ? Qt.rgba(1,1,1,1) : root.textColor
+            iconColor: hovered ? Qt.rgba(1,1,1,1) : control.textColor
             color:hovered ? closeHoverColor : closeNormalColor
             onClicked: closeClickListener()
         }

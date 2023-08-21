@@ -13,6 +13,7 @@ FluWindow {
         id: title_bar
         title: window.title
         visible: window.appBarVisible
+        icon:"qrc:/example/res/image/favicon.ico"
         anchors {
             top: parent.top
             left: parent.left
