@@ -102,6 +102,7 @@ Item{
             wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
+            textFormat: Text.RichText
         }
     }
 

@@ -65,7 +65,7 @@ FluScrollablePage{
         id:list_model
         ListElement{
             lable:"2013-09-01"
-            text:"考上中国皮城大学，杰斯武器工坊专业"
+            text:'&nbsp;<img src="qrc:/example/res/image/image_1.jpg" align="top" width="144" height="102.4">&nbsp;考上中国皮城大学，杰斯武器工坊专业'
         }
         ListElement{
             lable:"2017-07-01"
@@ -96,7 +96,7 @@ FluScrollablePage{
             text:"开发FluentUI组件库"
         }
         ListElement{
-            lable:"2023-03-28（富文本展示）"
+            lable:"2023-03-28"
             text:'将FluentUI源码开源到<a href="https://github.com/zhuzichu520/FluentUI">github</a>，并发布视频到<a href="https://www.bilibili.com/video/BV1mg4y1M71w">B站</a>'
             lableDelegate:()=>com_lable
             textDelegate:()=>com_text

@@ -17,13 +17,15 @@ FluTextBox{
         id:d
         property bool flagVisible: true
     }
+    onActiveFocusChanged: {
+        if(!activeFocus){
+            control_popup.visible = false
+        }
+    }
     Popup{
         id:control_popup
         y:control.height
         focus: false
-//        modal: true
-//        Overlay.modal: Item{}
-
         padding: 0
         enter: Transition {
             NumberAnimation {

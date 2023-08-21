@@ -98,6 +98,9 @@ Item {
                 collapseAll()
             }
             d.enableNavigationPanel = false
+            if(loader_auto_suggest_box.item){
+                loader_auto_suggest_box.item.focus = false
+            }
         }
     }
     Component{
@@ -122,6 +125,7 @@ Item {
     Component{
         id:com_panel_item_header
         Item{
+            clip: true
             height: {
                 if(model.parent){
                     return model.parent.isExpand ? 30 : 0
@@ -151,6 +155,7 @@ Item {
         Item{
             height: 38
             width: layout_list.width
+            clip: true
             FluControl{
                 id:item_control
                 anchors{
@@ -335,7 +340,12 @@ Item {
                             right: item_title.right
                             rightMargin: 8
                         }
-                        sourceComponent: model.showEdit ? model.editDelegate : undefined
+                        sourceComponent: {
+                            if(d.isCompact){
+                                return undefined
+                            }
+                            return model.showEdit ? model.editDelegate : undefined
+                        }
                         onStatusChanged: {
                             if(status === Loader.Ready){
                                 item.forceActiveFocus()
@@ -529,7 +539,12 @@ Item {
                             right: item_title.right
                             rightMargin: 8
                         }
-                        sourceComponent: model.showEdit ? model.editDelegate : undefined
+                        sourceComponent: {
+                            if(d.isCompact){
+                                return undefined
+                            }
+                            return model.showEdit ? model.editDelegate : undefined
+                        }
                         onStatusChanged: {
                             if(status === Loader.Ready){
                                 item.forceActiveFocus()
