@@ -74,6 +74,8 @@ TextField{
         iconSize: 10
         width: 20
         height: 20
+        verticalPadding: 0
+        horizontalPadding: 0
         visible: {
             if(control.cleanEnabled === false){
                 return false

@@ -105,8 +105,8 @@ Rectangle{
         }
         FluIconButton{
             id:btn_minimize
-            width: 40
-            height: 30
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
             iconSource : FluentIcons.ChromeMinimize
             Layout.alignment: Qt.AlignVCenter
             iconSize: 11
@@ -119,8 +119,8 @@ Rectangle{
         }
         FluIconButton{
             id:btn_maximize
-            width: 40
-            height: 30
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
             iconSource : d.isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
             color: hovered ? maximizeHoverColor : maximizeNormalColor
             Layout.alignment: Qt.AlignVCenter
@@ -136,8 +136,8 @@ Rectangle{
             iconSource : FluentIcons.ChromeClose
             Layout.alignment: Qt.AlignVCenter
             text:closeText
-            width: 40
-            height: 30
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
             visible: !isMac && showClose
             radius: 0
             iconSize: 10

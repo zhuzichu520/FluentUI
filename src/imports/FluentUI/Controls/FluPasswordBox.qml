@@ -68,6 +68,8 @@ TextField{
         iconSize: 10
         width: 20
         height: 20
+        verticalPadding: 0
+        horizontalPadding: 0
         opacity: 0.5
         visible: control.text !== ""
         anchors{

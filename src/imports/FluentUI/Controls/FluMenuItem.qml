@@ -1,10 +1,15 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
 import FluentUI
 
 T.MenuItem {
+    property Component iconDelegate : com_icon
+    property int iconSpacing: 5
+    property int iconSource
+    property int iconSize: 16
     property color textColor: {
         if(FluTheme.dark){
             if(!enabled){
@@ -36,15 +41,39 @@ T.MenuItem {
     icon.height: 24
     icon.color: control.palette.windowText
     height: visible ? implicitHeight : 0
-    contentItem: FluText {
-        readonly property real arrowPadding: control.subMenu && control.arrow ? control.arrow.width + control.spacing : 0
-        readonly property real indicatorPadding: control.checkable && control.indicator ? control.indicator.width + control.spacing : 0
-        leftPadding: (!control.mirrored ? indicatorPadding : arrowPadding)+5
-        rightPadding: (control.mirrored ? indicatorPadding : arrowPadding)+5
-        verticalAlignment: Text.AlignVCenter
-        text: control.text
-        color: control.textColor
-
+    Component{
+        id:com_icon
+        FluIcon{
+            id:content_icon
+            iconSize: control.iconSize
+            iconSource:control.iconSource
+        }
+    }
+    contentItem: Item{
+        Row{
+            spacing: control.iconSpacing
+            readonly property real arrowPadding: control.subMenu && control.arrow ? control.arrow.width + control.spacing : 0
+            readonly property real indicatorPadding: control.checkable && control.indicator ? control.indicator.width + control.spacing : 0
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+                leftMargin: (!control.mirrored ? indicatorPadding : arrowPadding)+5
+                right: parent.right
+                rightMargin: (control.mirrored ? indicatorPadding : arrowPadding)+5
+            }
+            Loader{
+                id:loader_icon
+                sourceComponent: iconDelegate
+                anchors.verticalCenter: parent.verticalCenter
+                visible: status === Loader.Ready
+            }
+            FluText {
+                id:content_text
+                text: control.text
+                color: control.textColor
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
     }
     indicator: FluIcon {
         x: control.mirrored ? control.width - width - control.rightPadding : control.leftPadding

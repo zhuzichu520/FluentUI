@@ -16,10 +16,18 @@ FluScrollablePage{
         Action { text: qsTr("Open...") }
         Action { text: qsTr("Save") }
         FluMenuSeparator { }
-        Action {
+        FluMenuItem{
             text: qsTr("Quit")
             onTriggered: {
                 showError("Quit")
+            }
+        }
+        FluMenuItem{
+            text: qsTr("Search")
+            iconSource: FluentIcons.Zoom
+            iconSpacing: 3
+            onTriggered: {
+                showError("Search")
             }
         }
         Action {

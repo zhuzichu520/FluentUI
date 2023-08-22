@@ -171,6 +171,8 @@ Popup{
             }
             width: 26
             height: 26
+            verticalPadding: 0
+            horizontalPadding: 0
             iconSize: 12
             iconSource : FluentIcons.ChromeClose
             onClicked: {
