@@ -12,6 +12,10 @@ option(FLUENTUI_BUILD_FRAMELESSHEPLER "Build FramelessHelper." ON)
 option(FLUENTUI_BUILD_STATIC_LIB "Build static library." OFF)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+#抑制 QTP0001 警告
+if(QT_KNOWN_POLICY_QTP0001)
+    qt_policy(SET QTP0001 NEW)
+endif()
 set(QT_SDK_DIR "${Qt6_DIR}")
 cmake_path(GET QT_SDK_DIR PARENT_PATH QT_SDK_DIR)
 cmake_path(GET QT_SDK_DIR PARENT_PATH QT_SDK_DIR)
