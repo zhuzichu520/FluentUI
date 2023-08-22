@@ -1,9 +1,11 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import FluentUI
 
 Button {
+    display: Button.IconOnly
     property int iconSize: 20
     property int iconSource
     property bool disabled: false
@@ -41,14 +43,14 @@ Button {
     Accessible.description: contentDescription
     Accessible.onPressAction: control.clicked()
     id:control
-    width: 30
     focusPolicy:Qt.TabFocus
-    height: 30
-    implicitWidth: width
-    implicitHeight: height
     padding: 0
+    verticalPadding: 8
+    horizontalPadding: 8
     enabled: !disabled
     background: Rectangle{
+        implicitWidth: 30
+        implicitHeight: 30
         radius: control.radius
         color:control.color
         FluFocusRectangle{
@@ -67,21 +69,73 @@ Button {
             iconSource: control.iconSource
         }
     }
-    contentItem: Item{
-        Loader{
-            anchors.centerIn: parent
-            sourceComponent: iconDelegate
-        }
-        FluTooltip{
-            id:tool_tip
-            visible: {
-                if(control.text === ""){
-                    return false
-                }
-                return hovered
+
+    Component{
+        id:com_row
+        RowLayout{
+            Loader{
+                sourceComponent: iconDelegate
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                visible: display !== Button.TextOnly
             }
-            text:control.text
-            delay: 1000
+            FluText{
+                text:control.text
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                visible: display !== Button.IconOnly
+            }
+            FluTooltip{
+                id:tool_tip
+                visible: {
+                    if(control.text === ""){
+                        return false
+                    }
+                    if(control.display !== Button.IconOnly){
+                        return false
+                    }
+                    return hovered
+                }
+                text:control.text
+                delay: 1000
+            }
+        }
+    }
+
+    Component{
+        id:com_column
+        ColumnLayout{
+            Loader{
+                sourceComponent: iconDelegate
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                visible: display !== Button.TextOnly
+            }
+            FluText{
+                text:control.text
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                visible: display !== Button.IconOnly
+            }
+            FluTooltip{
+                id:tool_tip
+                visible: {
+                    if(control.text === ""){
+                        return false
+                    }
+                    if(control.display !== Button.IconOnly){
+                        return false
+                    }
+                    return hovered
+                }
+                text:control.text
+                delay: 1000
+            }
+        }
+    }
+
+    contentItem:Loader{
+        sourceComponent: {
+            if(display === Button.TextUnderIcon){
+                return com_column
+            }
+            return com_row
         }
     }
 }

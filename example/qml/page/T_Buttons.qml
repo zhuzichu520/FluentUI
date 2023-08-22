@@ -164,28 +164,62 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
+        height: layout_icon_button.height + 30
         paddings: 10
         Layout.topMargin: 20
-        Row{
-            spacing: 20
+        Flow{
+            id:layout_icon_button
+            spacing: 10
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
+                right: icon_button_switch.left
             }
             FluIconButton{
-                iconSource:FluentIcons.ChromeCloseContrast
                 disabled:icon_button_switch.checked
-                iconSize: 15
+                iconDelegate: Image{ sourceSize: Qt.size(40,40) ; width: 20; height: 20; source: "qrc:/example/res/image/ic_home_github.png" }
                 onClicked:{
                     showSuccess("点击IconButton")
                 }
             }
             FluIconButton{
+                iconSource:FluentIcons.ChromeCloseContrast
                 disabled:icon_button_switch.checked
-                iconDelegate: Image{ width: 20; height: 20; source: "qrc:/example/res/image/ic_home_github.png" }
+                iconSize: 15
+                text:"IconOnly"
+                display: Button.IconOnly
                 onClicked:{
-                    showSuccess("点击IconButton")
+                    showSuccess("Button.IconOnly")
+                }
+            }
+            FluIconButton{
+                iconSource:FluentIcons.ChromeCloseContrast
+                disabled:icon_button_switch.checked
+                iconSize: 15
+                text:"TextOnly"
+                display: Button.TextOnly
+                onClicked:{
+                    showSuccess("Button.TextOnly")
+                }
+            }
+            FluIconButton{
+                iconSource:FluentIcons.ChromeCloseContrast
+                disabled:icon_button_switch.checked
+                iconSize: 15
+                text:"TextBesideIcon"
+                display: Button.TextBesideIcon
+                onClicked:{
+                    showSuccess("Button.TextBesideIcon")
+                }
+            }
+            FluIconButton{
+                iconSource:FluentIcons.ChromeCloseContrast
+                disabled:icon_button_switch.checked
+                iconSize: 15
+                text:"TextUnderIcon"
+                display: Button.TextUnderIcon
+                onClicked:{
+                    showSuccess("Button.TextUnderIcon")
                 }
             }
         }

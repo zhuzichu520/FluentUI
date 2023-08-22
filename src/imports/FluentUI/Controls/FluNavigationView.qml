@@ -609,8 +609,6 @@ Item {
                 id:btn_back
                 iconSource: FluentIcons.ChromeBack
                 Layout.leftMargin: 5
-                Layout.preferredWidth: 30
-                Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
                 disabled:  {
                     return d.stackItems.length <= 1

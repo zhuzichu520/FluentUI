@@ -321,41 +321,53 @@ void FluHttp::addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>&
 }
 
 void FluHttp::onStart(const QJSValue& callable){
-    QJSValue onStart = callable.property("onStart");
-    MainThread::post([=](){onStart.call();});
+    MainThread::post([=](){
+        QJSValue onStart = callable.property("onStart");
+        onStart.call();
+    });
 }
 
 void FluHttp::onFinish(const QJSValue& callable){
-    QJSValue onFinish = callable.property("onFinish");
-    MainThread::post([=](){onFinish.call();});
+    MainThread::post([=](){
+        QJSValue onFinish = callable.property("onFinish");
+        onFinish.call();
+    });
 }
 
 void FluHttp::onError(const QJSValue& callable,int status,QString errorString,QString result){
-    QJSValue onError = callable.property("onError");
-    QJSValueList args;
-    args<<status<<errorString<<result;
-    MainThread::post([=](){onError.call(args);});
+    MainThread::post([=](){
+        QJSValue onError = callable.property("onError");
+        QJSValueList args;
+        args<<status<<errorString<<result;
+        onError.call(args);
+    });
 }
 
 void FluHttp::onSuccess(const QJSValue& callable,QString result){
-    QJSValueList args;
-    args<<result;
-    QJSValue onSuccess = callable.property("onSuccess");
-    MainThread::post([=](){onSuccess.call(args);});
+    MainThread::post([=](){
+        QJSValueList args;
+        args<<result;
+        QJSValue onSuccess = callable.property("onSuccess");
+        onSuccess.call(args);
+    });
 }
 
 void FluHttp::onDownloadProgress(const QJSValue& callable,qint64 recv, qint64 total){
-    QJSValueList args;
-    args<<static_cast<double>(recv);
-    args<<static_cast<double>(total);
-    QJSValue onDownloadProgress = callable.property("onDownloadProgress");
-    MainThread::post([=](){onDownloadProgress.call(args);});
+    MainThread::post([=](){
+        QJSValueList args;
+        args<<static_cast<double>(recv);
+        args<<static_cast<double>(total);
+        QJSValue onDownloadProgress = callable.property("onDownloadProgress");
+        onDownloadProgress.call(args);
+    });
 }
 
 void FluHttp::onUploadProgress(const QJSValue& callable,qint64 sent, qint64 total){
-    QJSValueList args;
-    args<<static_cast<double>(sent);
-    args<<static_cast<double>(total);
-    QJSValue onUploadProgress = callable.property("onUploadProgress");
-    MainThread::post([=](){onUploadProgress.call(args);});
+    MainThread::post([=](){
+        QJSValueList args;
+        args<<static_cast<double>(sent);
+        args<<static_cast<double>(total);
+        QJSValue onUploadProgress = callable.property("onUploadProgress");
+        onUploadProgress.call(args);
+    });
 }

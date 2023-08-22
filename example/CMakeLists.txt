@@ -128,9 +128,9 @@ set_target_properties(example PROPERTIES
 #链接库
 if (FLUENTUI_BUILD_STATIC_LIB)
     target_link_libraries(example PRIVATE
-        Qt6::Quick
-        Qt6::Svg
-        Qt6::Network
+        Qt::Quick
+        Qt::Svg
+        Qt::Network
         fluentui
         fluentuiplugin
         FramelessHelper::Core
@@ -138,9 +138,9 @@ if (FLUENTUI_BUILD_STATIC_LIB)
     )
 else()
     target_link_libraries(example PRIVATE
-        Qt6::Quick
-        Qt6::Svg
-        Qt6::Network
+        Qt::Quick
+        Qt::Svg
+        Qt::Network
         fluentuiplugin
         FramelessHelper::Core
         FramelessHelper::Quick

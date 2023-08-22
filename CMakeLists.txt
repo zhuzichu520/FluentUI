@@ -11,7 +11,7 @@ option(FLUENTUI_BUILD_EXAMPLES "Build FluentUI demo applications." ON)
 option(FLUENTUI_BUILD_FRAMELESSHEPLER "Build FramelessHelper." ON)
 option(FLUENTUI_BUILD_STATIC_LIB "Build static library." OFF)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 set(QT_SDK_DIR "${Qt6_DIR}")
 cmake_path(GET QT_SDK_DIR PARENT_PATH QT_SDK_DIR)
