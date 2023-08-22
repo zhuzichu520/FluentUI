@@ -81,6 +81,7 @@ qt_add_qml_module(${PROJECT_NAME}
     SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH}
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
+    RESOURCE_PREFIX "/"
 )
 
 #链接库

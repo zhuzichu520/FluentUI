@@ -108,6 +108,7 @@ qt_add_qml_module(example
     VERSION 1.0
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
+    RESOURCE_PREFIX "/"
 )
 
 #导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
