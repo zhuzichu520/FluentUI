@@ -13,7 +13,6 @@ Item{
     property var saveFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
     property color borderColor: FluTheme.primaryColor.dark
     signal captrueCompleted(var captrue)
-
     QtObject{
         id:d
         property int dotMouseSize: control.dotSize+10
