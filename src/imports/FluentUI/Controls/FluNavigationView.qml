@@ -803,6 +803,10 @@ Item {
             }
             return "transparent"
         }
+        FluShadow{
+            visible: d.isMinimal || d.isCompactAndPanel
+            radius: 0
+        }
         x: visible ? 0 : -width
         Behavior on width {
             enabled: FluTheme.enableAnimation && d.animDisabled

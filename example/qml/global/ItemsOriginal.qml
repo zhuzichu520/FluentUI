@@ -357,7 +357,7 @@ FluObject{
     }
 
     FluPaneItemSeparator{
-        spacing:20
+        spacing:10
         size:1
     }
 
