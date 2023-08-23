@@ -517,8 +517,6 @@ Item{
             }
         }
     }
-
-
     function open(){
         loader.sourceComponent = com_screen
     }
