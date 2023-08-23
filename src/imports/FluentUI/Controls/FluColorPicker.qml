@@ -32,6 +32,10 @@ Button{
         }
 
     }
+    Item{
+        id: d
+        property var window : Window.window
+    }
     contentItem: Item{}
     onClicked: {
         popup.showPopup()
@@ -73,12 +77,12 @@ Button{
         }
         function showPopup() {
             var pos = control.mapToItem(null, 0, 0)
-            if(window.height>pos.y+control.height+container.height){
+            if(d.window.height>pos.y+control.height+container.height){
                 popup.y = control.height
             } else if(pos.y>container.height){
                 popup.y = -container.height
             } else {
-                popup.y = window.height-(pos.y+container.height)
+                popup.y = d.window.height-(pos.y+container.height)
             }
             popup.x = -(popup.width-control.width)/2
             popup.open()

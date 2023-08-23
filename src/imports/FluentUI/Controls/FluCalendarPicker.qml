@@ -9,7 +9,6 @@ Rectangle {
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property string text: "请选择日期"
-    property var window : Window.window
     id:control
     color: {
         if(mouse_area.containsMouse){
@@ -29,6 +28,10 @@ Rectangle {
         onClicked: {
             popup.showPopup()
         }
+    }
+    Item{
+        id:d
+        property var window : Window.window
     }
     FluText{
         id:text_date
@@ -97,12 +100,12 @@ Rectangle {
         }
         function showPopup() {
             var pos = control.mapToItem(null, 0, 0)
-            if(window.height>pos.y+control.height+container.height){
+            if(d.window.height>pos.y+control.height+container.height){
                 popup.y = control.height
             } else if(pos.y>container.height){
                 popup.y = -container.height
             } else {
-                popup.y = window.height-(pos.y+container.height)
+                popup.y = d.window.height-(pos.y+container.height)
             }
             popup.x = -(popup.width-control.width)/2
             popup.open()
