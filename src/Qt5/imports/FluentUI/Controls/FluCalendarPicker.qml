@@ -114,9 +114,11 @@ Rectangle {
             }
         }
         function showPopup() {
-            container.currentDate = current
-            container.date = current
-            container.updateMouth(current)
+            if(current){
+                container.currentDate = current
+                container.date = current
+                container.updateMouth(current)
+            }
             var pos = control.mapToItem(null, 0, 0)
             if(d.window.height>pos.y+control.height+container.height){
                 popup.y = control.height
