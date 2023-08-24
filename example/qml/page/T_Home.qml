@@ -27,6 +27,7 @@ FluScrollablePage{
             id: bg
             fillMode:Image.PreserveAspectCrop
             anchors.fill: parent
+            asynchronous: true
             verticalAlignment: Qt.AlignTop
             source: "qrc:/example/res/image/bg_home_header.png"
         }

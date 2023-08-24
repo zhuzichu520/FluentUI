@@ -26,7 +26,7 @@ Item{
     Component{
         id:com_screen
         Window{
-            property bool isZeroPos: screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)
+            property bool isZeroPos: screenshot.start == Qt.point(0,0) && screenshot.end == Qt.point(0,0)
             id:window_screen
             flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
             x:-1

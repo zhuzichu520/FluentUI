@@ -35,9 +35,8 @@ Rectangle {
         property int defaultItemHeight: 42
         property var header_rows:[]
         property bool selectionFlag: true
-        function obtEditDelegate(column,row){
+        function obtEditDelegate(column,row,cellItem){
             var display = table_model.data(table_model.index(row,column),"display")
-            var cellItem = table_view.itemAtCell(column, row)
             var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
             item_loader.column = column
             item_loader.row = row
@@ -223,7 +222,7 @@ Rectangle {
             clip: true
             delegate: Rectangle {
                 id:item_table
-                property var position: Qt.point(column,row)
+                property point position: Qt.point(column,row)
                 color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
                 implicitWidth: {
@@ -246,19 +245,16 @@ Rectangle {
                     acceptedButtons: Qt.LeftButton
                     onPressed:{
                         closeEditor()
-                        table_view.interactive = false
                     }
                     onCanceled: {
-                        table_view.interactive = true
                     }
                     onReleased: {
-                        table_view.interactive = true
                     }
                     onDoubleClicked:{
                         if(display instanceof Component){
                             return
                         }
-                        item_loader.sourceComponent = d.obtEditDelegate(column,row)
+                        item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)
                     }
                     onClicked:
                         (event)=>{

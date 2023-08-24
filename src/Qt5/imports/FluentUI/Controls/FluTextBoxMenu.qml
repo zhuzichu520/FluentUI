@@ -11,6 +11,7 @@ FluMenu{
     id:menu
     enableAnimation: false
     width: 120
+    focus: false
     onVisibleChanged: {
         inputItem.forceActiveFocus()
     }
@@ -19,33 +20,58 @@ FluMenu{
         function onTextChanged() {
             menu.close()
         }
+        function onActiveFocusChanged() {
+            if(!inputItem.activeFocus){
+                menu.close()
+            }
+        }
     }
-    FluMenuItem{
-        text: cutText
+    FluIconButton{
+        display: Button.TextOnly
+        text:cutText
+        focus: false
+        padding: 0
+        height: visible ? 34 : 0
         visible: inputItem.selectedText !== "" && !inputItem.readOnly
         onClicked: {
             inputItem.cut()
+            menu.close()
         }
     }
-    FluMenuItem{
-        text: copyText
+    FluIconButton{
+        display: Button.TextOnly
+        text:copyText
+        focus: false
+        padding: 0
+        height: visible ? 34 : 0
         visible: inputItem.selectedText !== ""
         onClicked: {
             inputItem.copy()
+            menu.close()
         }
     }
-    FluMenuItem{
-        text: pasteText
+    FluIconButton{
+        display: Button.TextOnly
+        text:pasteText
+        focus: false
+        padding: 0
+        height: visible ? 34 : 0
         visible: inputItem.canPaste
         onClicked: {
             inputItem.paste()
+            menu.close()
         }
     }
-    FluMenuItem{
-        text: selectAllText
+    FluIconButton{
+        display: Button.TextOnly
+        text:selectAllText
+        focus: false
+        padding: 0
+        height: visible ? 34 : 0
         visible: inputItem.text !== ""
         onClicked: {
             inputItem.selectAll()
+            menu.close()
         }
     }
 }

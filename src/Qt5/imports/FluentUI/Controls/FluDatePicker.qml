@@ -10,6 +10,7 @@ Rectangle {
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property bool showYear: true
     property var current
+    signal accepted()
     id:control
     color: {
         if(mouse_area.containsMouse){
@@ -22,6 +23,17 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
+    Component.onCompleted: {
+        if(current){
+            const now = current;
+            var year = text_year.text === "年"? now.getFullYear() : Number(text_year.text);
+            var month = text_month.text === "月"? now.getMonth() + 1 : Number(text_month.text);
+            var day =  text_day.text === "日" ? now.getDate() : Number(text_day.text);
+            text_year.text = year
+            text_month.text = month
+            text_day.text = day
+        }
+    }
     Item{
         id:d
         property var window: Window.window
@@ -335,6 +347,7 @@ Rectangle {
                             date.setMinutes(0);
                             date.setSeconds(0);
                             current = date
+                            control.accepted()
                         }
                     }
                 }

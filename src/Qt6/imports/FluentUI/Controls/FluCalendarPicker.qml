@@ -9,6 +9,8 @@ Rectangle {
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property string text: "请选择日期"
+    property var current
+    signal accepted()
     id:control
     color: {
         if(mouse_area.containsMouse){
@@ -21,6 +23,17 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
+
+    Component.onCompleted: {
+        if(current){
+            const date = current
+            var year = date.getFullYear()
+            var month = date.getMonth()
+            var day =  date.getDate()
+            text_date.text = year+"-"+(month+1)+"-"+day
+        }
+    }
+
     MouseArea{
         id:mouse_area
         hoverEnabled: true
@@ -90,6 +103,8 @@ Rectangle {
                         var month = date.getMonth()
                         var day =  date.getDate()
                         text_date.text = year+"-"+(month+1)+"-"+day
+                        current= date
+                        control.accepted()
                     }
             }
         }
@@ -99,6 +114,9 @@ Rectangle {
             }
         }
         function showPopup() {
+            container.currentDate = current
+            container.date = current
+            container.updateMouth(current)
             var pos = control.mapToItem(null, 0, 0)
             if(d.window.height>pos.y+control.height+container.height){
                 popup.y = control.height

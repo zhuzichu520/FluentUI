@@ -11,6 +11,7 @@ Rectangle {
     property int hourFormat: FluTimePickerType.H
     property int isH: hourFormat === FluTimePickerType.H
     property var current
+    signal accepted()
     id:control
     color: {
         if(mouse_area.containsMouse){
@@ -23,12 +24,40 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
+    Component.onCompleted: {
+        if(current){
+            var now = current;
+            var hour
+            var ampm;
+            if(isH){
+                hour  = now.getHours();
+                if(hour>12){
+                    ampm = "下午"
+                    hour = hour-12
+                }else{
+                    ampm = "上午"
+                }
+            }else{
+                hour = now.getHours();
+            }
+            hour = text_hour.text === "时"? hour.toString().padStart(2, '0') : text_hour.text
+            var minute = text_minute.text === "分"? now.getMinutes().toString().padStart(2, '0') : text_minute.text
+            ampm = text_ampm.text === "AM/PM"?ampm:text_ampm.text
+            text_hour.text = hour
+            text_minute.text = minute
+            if(isH){
+                text_ampm.text = ampm
+            }
+        }
+    }
     Item{
         id:d
         property var window: Window.window
         property bool changeFlag: true
         property var rowData: ["","",""]
         visible: false
+
+
     }
     MouseArea{
         id:mouse_area
@@ -333,6 +362,7 @@ Rectangle {
                             date.setMinutes(parseInt(minutes));
                             date.setSeconds(0);
                             current = date
+                            control.accepted()
                         }
                     }
                 }
@@ -344,9 +374,7 @@ Rectangle {
             d.rowData[0] = text_hour.text
             d.rowData[1] = text_minute.text
             d.rowData[2] = text_ampm.text
-
             var now = new Date();
-
             var hour
             var ampm;
             if(isH){
@@ -366,7 +394,6 @@ Rectangle {
             list_view_1.currentIndex = list_view_1.model.indexOf(hour);
             list_view_2.currentIndex = list_view_2.model.indexOf(minute);
             list_view_3.currentIndex = list_view_3.model.indexOf(ampm);
-
             text_hour.text = hour
             text_minute.text = minute
             if(isH){
@@ -398,3 +425,4 @@ Rectangle {
         return arr;
     }
 }
+

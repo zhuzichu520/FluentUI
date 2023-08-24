@@ -27,7 +27,8 @@ FluScrollablePage{
             }
 
             FluTimePicker{
-                onCurrentChanged: {
+                current: new Date()
+                onAccepted: {
                     showSuccess(current.toLocaleTimeString(Qt.locale("de_DE")))
                 }
             }
@@ -61,7 +62,7 @@ FluScrollablePage{
 
             FluTimePicker{
                 hourFormat:FluTimePickerType.HH
-                onCurrentChanged: {
+                onAccepted: {
                     showSuccess(current.toLocaleTimeString(Qt.locale("de_DE")))
                 }
             }
