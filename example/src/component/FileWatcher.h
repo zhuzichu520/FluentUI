@@ -10,7 +10,6 @@ class FileWatcher : public QObject
 {
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,path);
-    QML_NAMED_ELEMENT(FileWatcher)
 public:
     explicit FileWatcher(QObject *parent = nullptr);
     Q_SIGNAL void fileChanged();

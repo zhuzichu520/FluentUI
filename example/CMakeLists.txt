@@ -26,7 +26,8 @@ endif()
 #获取文件路径分隔符（解决执行命令的时候有些平台会报错）
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick Svg Network)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
@@ -50,19 +51,25 @@ foreach(filepath ${CPP_FILES})
     list(APPEND sources_files ${filename})
 endforeach(filepath)
 
-#遍历所有qml文件
-file(GLOB_RECURSE QML_PATHS *.qml)
-foreach(filepath ${QML_PATHS})
-    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND qml_files ${filename})
-endforeach(filepath)
+if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+    #遍历所有qml文件
+    file(GLOB_RECURSE QML_PATHS *.qml qmldir)
+    foreach(filepath ${QML_PATHS})
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+        if(${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
+            string(REPLACE "qml-Qt${QT_VERSION_MAJOR}" "qml" filealias ${filename})
+            set_source_files_properties(${filename} PROPERTIES QT_RESOURCE_ALIAS ${filealias})
+            list(APPEND qml_files ${filename})
+        endif()
+    endforeach(filepath)
 
-#遍历所有资源文件
-file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp qmldir)
-foreach(filepath ${RES_PATHS})
-    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND resource_files ${filename})
-endforeach(filepath)
+    #遍历所有资源文件
+    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp)
+    foreach(filepath ${RES_PATHS})
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+        list(APPEND resource_files ${filename})
+    endforeach(filepath)
+endif()
 
 #如果是Windows平台，则生成rc文件
 set(EXAMPLE_VERSION_RC_PATH "")
@@ -76,12 +83,12 @@ endif()
 
 #添加可执行文件
 if (WIN32)
-    qt_add_executable(example
+    add_executable(example
         ${sources_files}
         ${EXAMPLE_VERSION_RC_PATH}
     )
 else ()
-    qt_add_executable(example
+    add_executable(example
         ${sources_files}
     )
 endif ()
@@ -102,14 +109,21 @@ if(WIN32)
     )
 endif()
 
-#添加qml模块
-qt_add_qml_module(example
-    URI "example"
-    VERSION 1.0
-    QML_FILES ${qml_files}
-    RESOURCES ${resource_files}
-    RESOURCE_PREFIX "/"
-)
+if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+    #添加qml模块
+    qt_add_qml_module(example
+        URI "example"
+        VERSION 1.0
+        QML_FILES ${qml_files}
+        RESOURCES ${resource_files}
+        RESOURCE_PREFIX "/"
+    )
+else()
+    target_include_directories(example PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    target_sources(example PRIVATE resource.qrc)
+endif()
 
 #导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
 target_include_directories(example PRIVATE
@@ -128,9 +142,9 @@ set_target_properties(example PROPERTIES
 #链接库
 if (FLUENTUI_BUILD_STATIC_LIB)
     target_link_libraries(example PRIVATE
-        Qt::Quick
-        Qt::Svg
-        Qt::Network
+        Qt${QT_VERSION_MAJOR}::Quick
+        Qt${QT_VERSION_MAJOR}::Svg
+        Qt${QT_VERSION_MAJOR}::Network
         fluentui
         fluentuiplugin
         FramelessHelper::Core
@@ -138,9 +152,9 @@ if (FLUENTUI_BUILD_STATIC_LIB)
     )
 else()
     target_link_libraries(example PRIVATE
-        Qt::Quick
-        Qt::Svg
-        Qt::Network
+        Qt${QT_VERSION_MAJOR}::Quick
+        Qt${QT_VERSION_MAJOR}::Svg
+        Qt${QT_VERSION_MAJOR}::Network
         fluentuiplugin
         FramelessHelper::Core
         FramelessHelper::Quick

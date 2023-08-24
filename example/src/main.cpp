@@ -9,6 +9,8 @@
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
 #include "AppInfo.h"
+#include "src/component/CircularReveal.h"
+#include "src/component/FileWatcher.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
 
@@ -38,6 +40,8 @@ FRAMELESSHELPER_USE_NAMESPACE
 #ifdef FLUENTUI_BUILD_STATIC_LIB
     engine.addImportPath("qrc:/"); // 让静态资源可以被QML引擎搜索到
 #endif
+    qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
+    qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

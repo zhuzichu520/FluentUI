@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QFile>
+#include <QColor>
 #include <QtQml/qqml.h>
 
 /**
@@ -135,6 +136,13 @@ public:
      */
     Q_INVOKABLE QUrl getUrlByFilePath(const QString& path);
 
+    /**
+     * @brief colorAlpha
+     * @param color
+     * @param alpha
+     * @return
+     */
+    Q_INVOKABLE QColor colorAlpha(const QColor&,qreal alpha);
 
 };
 

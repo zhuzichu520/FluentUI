@@ -1,8 +1,8 @@
 pragma Singleton
 
-import QtQuick
-import QtQuick.Controls
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import FluentUI 1.0
 
 QtObject {
     property int displayMode : FluNavigationViewType.Auto

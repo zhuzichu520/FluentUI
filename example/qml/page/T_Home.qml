@@ -1,9 +1,9 @@
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Window
-import QtQuick.Controls
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
 import "qrc:///example/qml/global"
-import FluentUI
+import FluentUI 1.0
 
 FluScrollablePage{
 

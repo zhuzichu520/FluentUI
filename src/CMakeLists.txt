@@ -11,7 +11,8 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
@@ -28,25 +29,34 @@ foreach(filepath ${CPP_FILES})
     list(APPEND sources_files ${filename})
 endforeach(filepath)
 
-#遍历所有qml文件
-file(GLOB_RECURSE QML_PATHS *.qml)
-foreach(filepath ${QML_PATHS})
-    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND qml_files ${filename})
-endforeach(filepath)
+if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+    #删除fluentuiplugin.cpp与fluentuiplugin.h，这些只要Qt5使用，Qt6不需要
+    list(REMOVE_ITEM sources_files fluentuiplugin.h fluentuiplugin.cpp)
 
-#遍历所有资源文件
-file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.js)
-foreach(filepath ${RES_PATHS})
-    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND resource_files ${filename})
-endforeach(filepath)
+    #遍历所有qml文件
+    file(GLOB_RECURSE QML_PATHS *.qml)
+    foreach(filepath ${QML_PATHS})
+        if(${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
+            string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+            list(APPEND qml_files ${filename})
+        endif()
+    endforeach(filepath)
 
-#修改资源文件导出路径
-foreach(filepath IN LISTS qml_files resource_files)
-    string(REPLACE "imports/FluentUI/" "" filename ${filepath})
-    set_source_files_properties(${filepath} PROPERTIES QT_RESOURCE_ALIAS ${filename})
-endforeach()
+    #遍历所有资源文件
+    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.js)
+    foreach(filepath ${RES_PATHS})
+        if(${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
+            string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+            list(APPEND resource_files ${filename})
+        endif()
+    endforeach(filepath)
+
+    #修改资源文件导出路径
+    foreach(filepath IN LISTS qml_files resource_files)
+        string(REPLACE "Qt${QT_VERSION_MAJOR}/imports/FluentUI/" "" filename ${filepath})
+        set_source_files_properties(${filepath} PROPERTIES QT_RESOURCE_ALIAS ${filename})
+    endforeach()
+endif()
 
 #添加qml模块
 if (FLUENTUI_BUILD_STATIC_LIB)
@@ -54,7 +64,6 @@ if (FLUENTUI_BUILD_STATIC_LIB)
 else()
     set(LIB_TYPE "SHARED")
 endif()
-qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
 
 if (FLUENTUI_BUILD_STATIC_LIB)
     set(PLUGIN_TARGET_NAME "")
@@ -73,24 +82,38 @@ if(WIN32)
     )
 endif()
 
-qt_add_qml_module(${PROJECT_NAME}
-    PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
-    OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
-    VERSION 1.0
-    URI "FluentUI"
-    #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI会爆红，所以修改成plugins.qmltypes
-    TYPEINFO "plugins.qmltypes"
-    SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH}
-    QML_FILES ${qml_files}
-    RESOURCES ${resource_files}
-    RESOURCE_PREFIX "/"
-)
+if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+    qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
+    qt_add_qml_module(${PROJECT_NAME}
+        PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
+        OUTPUT_DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY}
+        VERSION 1.0
+        URI "FluentUI"
+        #修改qmltypes文件名称。默认fluentuiplugin.qmltypes，使用默认名称有时候import FluentUI 1.0会爆红，所以修改成plugins.qmltypes
+        TYPEINFO "plugins.qmltypes"
+        SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH}
+        QML_FILES ${qml_files}
+        RESOURCES ${resource_files}
+        RESOURCE_PREFIX "/"
+    )
+else()
+    include(QmlPlugin)
+    add_qmlplugin(${PROJECT_NAME}
+        URI "FluentUI"
+        VERSION 1.0
+        SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH} resource.qrc
+        QMLFILES ${qml_files}
+        QMLDIR imports/FluentUI
+        BINARY_DIR ${FLUENTUI_QML_PLUGIN_DIRECTORY}
+        LIBTYPE ${LIB_TYPE}
+    )
+endif()
 
 #链接库
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    Qt::CorePrivate
-    Qt::QuickPrivate
-    Qt::QmlPrivate
+    Qt${QT_VERSION_MAJOR}::CorePrivate
+    Qt${QT_VERSION_MAJOR}::QuickPrivate
+    Qt${QT_VERSION_MAJOR}::QmlPrivate
     ZXing
 )
 

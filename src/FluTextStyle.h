@@ -10,7 +10,6 @@ class FluTextStyle : public QObject
 {
     Q_OBJECT
 public:
-    explicit FluTextStyle(QObject *parent = nullptr);
     Q_PROPERTY_AUTO(QFont,Caption);
     Q_PROPERTY_AUTO(QFont,Body);
     Q_PROPERTY_AUTO(QFont,BodyStrong);
@@ -20,8 +19,15 @@ public:
     Q_PROPERTY_AUTO(QFont,Display);
     QML_NAMED_ELEMENT(FluTextStyle)
     QML_SINGLETON
-signals:
-
+private:
+    explicit FluTextStyle(QObject *parent = nullptr);
+    static FluTextStyle* m_instance;
+public:
+    static FluTextStyle *getInstance();
+    static FluTextStyle *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return getInstance();
+    }
 };
 
 #endif // FLUTEXTSTYLE_H

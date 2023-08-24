@@ -4,6 +4,7 @@
 #include <QUuid>
 #include <QCursor>
 #include <QScreen>
+#include <QColor>
 #include <QFileInfo>
 #include <QTextDocument>
 
@@ -122,4 +123,8 @@ QString FluTools::getApplicationDirPath(){
 
 QUrl FluTools::getUrlByFilePath(const QString& path){
     return QUrl::fromLocalFile(path);
+}
+
+QColor FluTools::colorAlpha(const QColor& color,qreal alpha){
+    return QColor(color.red(),color.green(),color.blue(),255*alpha);
 }
