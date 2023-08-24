@@ -14,8 +14,15 @@
 
 FRAMELESSHELPER_USE_NAMESPACE
 
-    int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
+#endif
     //将样式设置为Basic，不然会导致组件显示异常
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     FramelessHelper::Quick::initialize();
