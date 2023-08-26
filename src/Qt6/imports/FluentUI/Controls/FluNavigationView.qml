@@ -396,30 +396,20 @@ Item {
             FluControl{
                 property var modelData: model
                 id:item_control
-                width: layout_list.width - 12
-                height: 34
-                x:6
-                y:2
+                anchors{
+                    top: parent.top
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    topMargin: 2
+                    bottomMargin: 2
+                    leftMargin: 6
+                    rightMargin: 6
+                }
                 Drag.active: item_mouse.drag.active
                 Drag.hotSpot.x: item_control.width / 2
                 Drag.hotSpot.y: item_control.height / 2
                 Drag.dragType: Drag.Automatic
-                states: [
-                    State {
-                        when: item_mouse.drag.active
-                        ParentChange {
-                            target: item_control
-                            parent: control
-                        }
-                        AnchorChanges {
-                            target: item_control
-                            anchors {
-                                horizontalCenter: undefined
-                                verticalCenter: undefined
-                            }
-                        }
-                    }
-                ]
                 MouseArea{
                     id:item_mouse
                     anchors.fill: parent
