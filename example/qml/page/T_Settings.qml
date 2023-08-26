@@ -5,6 +5,7 @@ import QtQuick.Controls 2.15
 import FluentUI 1.0
 import "qrc:///example/qml/global"
 import "qrc:///example/qml/component"
+import "../component"
 
 FluScrollablePage{
 

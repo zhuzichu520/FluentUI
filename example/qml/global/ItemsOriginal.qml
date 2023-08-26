@@ -21,11 +21,13 @@ FluObject{
             count: item_home.count
         }
         icon:FluentIcons.Home
+        url:"qrc:/example/qml/page/T_Home.qml"
+        onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
         onTap:{
             if(navigationView.getCurrentUrl()){
                 item_home.count = 0
             }
-            navigationView.push("qrc:/example/qml/page/T_Home.qml")
+            navigationView.push(url)
         }
         editDelegate: FluTextBox{
             text:item_home.title
@@ -69,9 +71,11 @@ FluObject{
             image:"qrc:/example/res/image/control/Button.png"
             recentlyUpdated:true
             desc:"A control that responds to user input and raisesa Click event."
+            url:"qrc:/example/qml/page/T_Buttons.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{
                 item_buttons.count = 0
-                navigationView.push("qrc:/example/qml/page/T_Buttons.qml")
+                navigationView.push(url)
             }
         }
         FluPaneItem{
@@ -82,46 +86,45 @@ FluObject{
                 count: item_text.count
                 color: Qt.rgba(82/255,196/255,26/255,1)
             }
-            onTap:{
-                item_text.count = 0
-                navigationView.push("qrc:/example/qml/page/T_Text.qml")
-            }
+            url:"qrc:/example/qml/page/T_Text.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Image"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Image.qml")
-            }
+            url:"qrc:/example/qml/page/T_Image.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Slider"
             image:"qrc:/example/res/image/control/Slider.png"
             recentlyUpdated:true
             desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Slider.qml")
-            }
+            url:"qrc:/example/qml/page/T_Slider.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"CheckBox"
             image:"qrc:/example/res/image/control/Checkbox.png"
             recentlyUpdated:true
             desc:"A control that a user can select or clear."
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_CheckBox.qml")
-            }
+            url:"qrc:/example/qml/page/T_CheckBox.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"RadioButton"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_RadioButton.qml")
-            }
+            url:"qrc:/example/qml/page/T_RadioButton.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"ToggleSwitch"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_ToggleSwitch.qml")
-            }
+            url:"qrc:/example/qml/page/T_ToggleSwitch.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
     }
 
@@ -130,33 +133,33 @@ FluObject{
         icon:FluentIcons.GridView
         FluPaneItem{
             title:"TextBox"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_TextBox.qml")
-            }
+            url:"qrc:/example/qml/page/T_TextBox.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"TimePicker"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_TimePicker.qml")
-            }
+            url:"qrc:/example/qml/page/T_TimePicker.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"DatePicker"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_DatePicker.qml")
-            }
+            url:"qrc:/example/qml/page/T_DatePicker.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"CalendarPicker"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_CalendarPicker.qml")
-            }
+            url:"qrc:/example/qml/page/T_CalendarPicker.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"ColorPicker"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_ColorPicker.qml")
-            }
+            url:"qrc:/example/qml/page/T_ColorPicker.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
     }
 
@@ -168,57 +171,57 @@ FluObject{
             image:"qrc:/example/res/image/control/InfoBar.png"
             recentlyUpdated:true
             desc:"An inline message to display app-wide statuschange information."
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_InfoBar.qml")
-            }
+            url:"qrc:/example/qml/page/T_InfoBar.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Progress"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Progress.qml")
-            }
+            url:"qrc:/example/qml/page/T_Progress.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"RatingControl"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_RatingControl.qml")
-            }
+            url:"qrc:/example/qml/page/T_RatingControl.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Badge"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Badge.qml")
-            }
+            url:"qrc:/example/qml/page/T_Badge.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Rectangle"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Rectangle.qml")
-            }
+            url:"qrc:/example/qml/page/T_Rectangle.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"StatusView"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_StatusView.qml")
-            }
+            url:"qrc:/example/qml/page/T_StatusView.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Carousel"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Carousel.qml")
-            }
+            url:"qrc:/example/qml/page/T_Carousel.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Expander"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Expander.qml")
-            }
+            url:"qrc:/example/qml/page/T_Expander.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Watermark"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Watermark.qml")
-            }
+            url:"qrc:/example/qml/page/T_Watermark.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
     }
 
@@ -227,9 +230,9 @@ FluObject{
         icon:FluentIcons.ButtonMenu
         FluPaneItem{
             title:"Dialog"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Dialog.qml")
-            }
+            url:"qrc:/example/qml/page/T_Dialog.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             id:item_combobox
@@ -239,6 +242,8 @@ FluObject{
                 count: item_combobox.count
                 color: Qt.rgba(250/255,173/255,20/255,1)
             }
+            url:"qrc:/example/qml/page/T_ComboBox.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{
                 item_combobox.count = 0
                 navigationView.push("qrc:/example/qml/page/T_ComboBox.qml")
@@ -246,15 +251,15 @@ FluObject{
         }
         FluPaneItem{
             title:"Tooltip"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Tooltip.qml")
-            }
+            url:"qrc:/example/qml/page/T_Tooltip.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Menu"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Menu.qml")
-            }
+            url:"qrc:/example/qml/page/T_Menu.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
     }
 
@@ -267,15 +272,15 @@ FluObject{
             recentlyAdded:true
             order:3
             desc:"Presents information from different sources in atabbed view."
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Pivot.qml")
-            }
+            url:"qrc:/example/qml/page/T_Pivot.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"BreadcrumbBar"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_BreadcrumbBar.qml")
-            }
+            url:"qrc:/example/qml/page/T_BreadcrumbBar.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"TabView"
@@ -283,15 +288,15 @@ FluObject{
             recentlyAdded:true
             order:1
             desc:"A control that displays a collection of tabs thatcan be used to display several documents."
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_TabView.qml")
-            }
+            url:"qrc:/example/qml/page/T_TabView.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"TreeView"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_TreeView.qml")
-            }
+            url:"qrc:/example/qml/page/T_TreeView.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"TableView"
@@ -299,21 +304,21 @@ FluObject{
             recentlyAdded:true
             order:4
             desc:"The TableView control provides a flexible way to display a collection of data in rows and columns"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_TableView.qml")
-            }
+            url:"qrc:/example/qml/page/T_TableView.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Pagination"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Pagination.qml")
-            }
+            url:"qrc:/example/qml/page/T_Pagination.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"MultiWindow"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_MultiWindow.qml")
-            }
+            url:"qrc:/example/qml/page/T_MultiWindow.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"FlipView"
@@ -321,9 +326,9 @@ FluObject{
             recentlyAdded:true
             order:2
             desc:"Presents a collection of items that the user canflip through, one item at a time."
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_FlipView.qml")
-            }
+            url:"qrc:/example/qml/page/T_FlipView.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
     }
 
@@ -332,27 +337,27 @@ FluObject{
         icon:FluentIcons.Brightness
         FluPaneItem{
             title:"Acrylic"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Acrylic.qml")
-            }
+            url:"qrc:/example/qml/page/T_Acrylic.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Theme"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Theme.qml")
-            }
+            url:"qrc:/example/qml/page/T_Theme.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Typography"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Typography.qml")
-            }
+            url:"qrc:/example/qml/page/T_Typography.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Awesome"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Awesome.qml")
-            }
+            url:"qrc:/example/qml/page/T_Awesome.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
     }
 
@@ -366,45 +371,45 @@ FluObject{
         icon:FluentIcons.Shop
         FluPaneItem{
             title:"QRCode"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_QRCode.qml")
-            }
+            url:"qrc:/example/qml/page/T_QRCode.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Tour"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Tour.qml")
-            }
+            url:"qrc:/example/qml/page/T_Tour.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Timeline"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Timeline.qml")
-            }
+            url:"qrc:/example/qml/page/T_Timeline.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Screenshot"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Screenshot.qml")
-            }
+            url:"qrc:/example/qml/page/T_Screenshot.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Captcha"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Captcha.qml")
-            }
+            url:"qrc:/example/qml/page/T_Captcha.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Chart"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Chart.qml")
-            }
+            url:"qrc:/example/qml/page/T_Chart.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"Http"
-            onTap:{
-                navigationView.push("qrc:/example/qml/page/T_Http.qml")
-            }
+            url:"qrc:/example/qml/page/T_Http.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             id:item_other
@@ -414,6 +419,8 @@ FluObject{
                 count: item_other.count
                 color: Qt.rgba(82/255,196/255,26/255,1)
             }
+            url:"qrc:/example/qml/page/T_RemoteLoader.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{
                 item_other.count = 0
                 navigationView.push("qrc:/example/qml/page/T_RemoteLoader.qml")
@@ -421,9 +428,10 @@ FluObject{
         }
         FluPaneItem{
             title:"HotLoader"
-            tapFunc:function(){
+            onTapListener:function(){
                 FluApp.navigate("/hotload")
             }
+            onDropped:{ FluApp.navigate("/hotload") }
         }
     }
 

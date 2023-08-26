@@ -9,6 +9,7 @@ QtObject {
     property string title
     property int order : 0
     property int icon
+    property var url
     property Component cusIcon
     property Component infoBadge
     property bool recentlyAdded: false
@@ -18,8 +19,9 @@ QtObject {
     property var parent
     property int count: 0
     signal tap
-    property var tapFunc
+    property var onTapListener
     property Component menuDelegate
     property Component editDelegate
     property bool showEdit
+    signal dropped(var drag)
 }

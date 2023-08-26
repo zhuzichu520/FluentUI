@@ -184,5 +184,6 @@
         <file>qml/window/StandardWindow.qml</file>
         <file>res/image/bg_scenic.png</file>
         <file>res/image/image_1.jpg</file>
+        <file>qml/window/PageWindow.qml</file>
     </qresource>
 </RCC>

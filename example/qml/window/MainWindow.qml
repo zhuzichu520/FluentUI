@@ -6,6 +6,7 @@ import Qt.labs.platform 1.1
 import FluentUI 1.0
 import example 1.0
 import "qrc:///example/qml/component"
+import "../component"
 import "qrc:///example/qml/global"
 
 CustomWindow {

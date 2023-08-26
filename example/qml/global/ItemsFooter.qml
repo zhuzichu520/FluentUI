@@ -14,7 +14,8 @@ FluObject{
     FluPaneItem{
         title:lang.about
         icon:FluentIcons.Contact
-        tapFunc:function(){
+        onDropped: { FluApp.navigate("/about") }
+        onTapListener:function(){
             FluApp.navigate("/about")
         }
     }
@@ -22,8 +23,10 @@ FluObject{
     FluPaneItem{
         title:lang.settings
         icon:FluentIcons.Settings
+        url:"qrc:/example/qml/page/T_Settings.qml"
+        onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
         onTap:{
-            navigationView.push("qrc:/example/qml/page/T_Settings.qml")
+            navigationView.push(url)
         }
     }
 

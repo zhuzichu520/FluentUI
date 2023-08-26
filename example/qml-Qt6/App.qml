@@ -35,7 +35,8 @@ Window {
             "/hotload":"qrc:/example/qml/window/HotloadWindow.qml",
             "/singleTaskWindow":"qrc:/example/qml/window/SingleTaskWindow.qml",
             "/standardWindow":"qrc:/example/qml/window/StandardWindow.qml",
-            "/singleInstanceWindow":"qrc:/example/qml/window/SingleInstanceWindow.qml"
+            "/singleInstanceWindow":"qrc:/example/qml/window/SingleInstanceWindow.qml",
+            "/pageWindow":"qrc:/example/qml/window/PageWindow.qml"
         }
         FluApp.initialRoute = "/"
         FluApp.httpInterceptor = interceptor

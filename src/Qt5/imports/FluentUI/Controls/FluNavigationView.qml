@@ -170,17 +170,17 @@ Item {
                 MouseArea{
                     anchors.fill: parent
                     acceptedButtons: Qt.RightButton
-                    onClicked: function(mouse){
-                        if (mouse.button === Qt.RightButton) {
-                            if(model.menuDelegate){
-                                loader_item_menu.sourceComponent = model.menuDelegate
-                                loader_item_menu.item.popup()
+                    onClicked:
+                        (mouse) =>{
+                            if (mouse.button === Qt.RightButton) {
+                                if(model.menuDelegate){
+                                    loader_item_menu.sourceComponent = model.menuDelegate
+                                    loader_item_menu.item.popup()
+                                }
                             }
                         }
-                    }
                     z:-100
                 }
-
                 onClicked: {
                     if(d.isCompactAndNotPanel){
                         control_popup.showPopup(Qt.point(50,mapToItem(control,0,0).y),model.children)
@@ -356,7 +356,7 @@ Item {
                             ignoreUnknownSignals:true
                             function onActiveFocusChanged(focus){
                                 if(focus === false){
-                                   model.showEdit = false
+                                    model.showEdit = false
                                 }
                             }
                             function onCommit(text){
@@ -393,54 +393,81 @@ Item {
             }
             width: layout_list.width
             FluControl{
+                property var modelData: model
                 id:item_control
-                anchors{
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                    right: parent.right
-                    topMargin: 2
-                    bottomMargin: 2
-                    leftMargin: 6
-                    rightMargin: 6
-                }
+                width: layout_list.width - 12
+                height: 34
+                x:6
+                y:2
+                Drag.active: item_mouse.drag.active
+                Drag.hotSpot.x: item_control.width / 2
+                Drag.hotSpot.y: item_control.height / 2
+                Drag.dragType: Drag.Automatic
+                states: [
+                    State {
+                        when: item_mouse.drag.active
+                        ParentChange {
+                            target: item_control
+                            parent: control
+                        }
+                        AnchorChanges {
+                            target: item_control
+                            anchors {
+                                horizontalCenter: undefined
+                                verticalCenter: undefined
+                            }
+                        }
+                    }
+                ]
                 MouseArea{
+                    id:item_mouse
                     anchors.fill: parent
-                    acceptedButtons:  Qt.RightButton
-                    onClicked: function(mouse){
-                        if (mouse.button === Qt.RightButton) {
-                            if(model.menuDelegate){
-                                loader_item_menu.sourceComponent = model.menuDelegate
-                                loader_item_menu.item.popup();
-                            }
-                        }
+                    acceptedButtons: Qt.RightButton | Qt.LeftButton
+                    drag.target: item_control
+                    onPositionChanged: {
+                        parent.grabToImage(function(result) {
+                            parent.Drag.imageSource = result.url;
+                        })
                     }
-                    z:-100
-                }
-                onClicked: {
-                    if(type === 0){
-                        if(model.tapFunc){
-                            model.tapFunc()
-                        }else{
-                            nav_list.currentIndex = _idx
-                            layout_footer.currentIndex = -1
-                            model.tap()
-                            if(d.isMinimal || d.isCompact){
-                                d.enableNavigationPanel = false
+                    drag.onActiveChanged:
+                        if (active) {
+                            parent.grabToImage(function(result) {
+                                parent.Drag.imageSource = result.url;
+                            })
+                        }
+                    onClicked:
+                        (mouse)=>{
+                            if (mouse.button === Qt.RightButton) {
+                                if(model.menuDelegate){
+                                    loader_item_menu.sourceComponent = model.menuDelegate
+                                    loader_item_menu.item.popup();
+                                }
+                            }else{
+                                if(type === 0){
+                                    if(model.onTapListener){
+                                        model.onTapListener()
+                                    }else{
+                                        nav_list.currentIndex = _idx
+                                        layout_footer.currentIndex = -1
+                                        model.tap()
+                                        if(d.isMinimal || d.isCompact){
+                                            d.enableNavigationPanel = false
+                                        }
+                                    }
+                                }else{
+                                    if(model.onTapListener){
+                                        model.onTapListener()
+                                    }else{
+                                        nav_list.currentIndex = nav_list.count-layout_footer.count+_idx
+                                        layout_footer.currentIndex = _idx
+                                        model.tap()
+                                        if(d.isMinimal || d.isCompact){
+                                            d.enableNavigationPanel = false
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }else{
-                        if(model.tapFunc){
-                            model.tapFunc()
-                        }else{
-                            nav_list.currentIndex = nav_list.count-layout_footer.count+_idx
-                            layout_footer.currentIndex = _idx
-                            model.tap()
-                            if(d.isMinimal || d.isCompact){
-                                d.enableNavigationPanel = false
-                            }
-                        }
-                    }
                 }
                 Rectangle{
                     radius: 4
@@ -518,7 +545,7 @@ Item {
                         }
                         elide: Text.ElideRight
                         color:{
-                            if(item_control.pressed){
+                            if(item_mouse.pressed){
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
                             }
                             return FluTheme.dark ? FluColors.White : FluColors.Grey220
@@ -555,7 +582,7 @@ Item {
                             ignoreUnknownSignals:true
                             function onActiveFocusChanged(focus){
                                 if(focus === false){
-                                   model.showEdit = false
+                                    model.showEdit = false
                                 }
                             }
                             function onCommit(text){
@@ -745,7 +772,13 @@ Item {
             }
         }
     }
-
+    DropArea{
+        anchors.fill: loader_content
+        onDropped:
+            (drag)=>{
+                drag.source.modelData.dropped(drag)
+            }
+    }
     Loader{
         id:loader_content
         anchors{
@@ -880,6 +913,12 @@ Item {
             ListView{
                 id:nav_list
                 clip: true
+                displaced: Transition {
+                    NumberAnimation {
+                        properties: "x,y"
+                        easing.type: Easing.OutQuad
+                    }
+                }
                 anchors.fill: parent
                 model:d.handleItems()
                 boundsBehavior: ListView.StopAtBounds
@@ -899,7 +938,6 @@ Item {
                     }
                 }
                 currentIndex: -1
-
                 delegate: Loader{
                     property var model: modelData
                     property var _idx: index
@@ -1051,8 +1089,8 @@ Item {
                         }
                     }
                     onClicked: {
-                        if(modelData.tapFunc){
-                            modelData.tapFunc()
+                        if(modelData.onTapListener){
+                            modelData.onTapListener()
                         }else{
                             modelData.tap()
                             nav_list.currentIndex = _idx
