@@ -92,4 +92,5 @@ FluTooltip 1.0 Controls/FluTooltip.qml
 FluTour 1.0 Controls/FluTour.qml
 FluTreeView 1.0 Controls/FluTreeView.qml
 FluWindow 1.0 Controls/FluWindow.qml
+FluRangeSlider 1.0 Controls/FluRangeSlider.qml
 plugin fluentuiplugin

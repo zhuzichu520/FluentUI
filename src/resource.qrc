@@ -92,5 +92,6 @@
         <file>Qt5/imports/FluentUI/Controls/ColorPicker/Content/NumberBox.qml</file>
         <file>Qt5/imports/FluentUI/Controls/ColorPicker/Content/PanelBorder.qml</file>
         <file>Qt5/imports/FluentUI/Controls/ColorPicker/Content/SBPicker.qml</file>
+        <file>Qt5/imports/FluentUI/Controls/FluRangeSlider.qml</file>
     </qresource>
 </RCC>

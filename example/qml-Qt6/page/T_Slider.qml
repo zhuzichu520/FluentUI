@@ -11,11 +11,18 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 100
-        paddings: 10
+        Layout.preferredHeight: 200
         Layout.topMargin: 20
-        FluSlider{
-            anchors.verticalCenter: parent.verticalCenter
+        paddings: 10
+
+        Row{
+            spacing: 30
+            FluSlider{
+            }
+            FluSlider{
+                orientation: Qt.Vertical
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
     }
     CodeExpander{
@@ -25,26 +32,28 @@ FluScrollablePage{
     value:50
 }'
     }
+
 
     FluArea{
         Layout.fillWidth: true
-        height: 200
-        paddings: 10
+        Layout.preferredHeight: 200
         Layout.topMargin: 20
-        FluSlider{
-            orientation: Qt.Vertical
-            anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter
+        paddings: 10
+        Row{
+            spacing: 30
+            FluRangeSlider{
+            }
+            FluRangeSlider{
+                orientation: Qt.Vertical
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'FluSlider{
+        code:'FluRangeSlider{
     orientation: Qt.Vertical
-    value:50
 }'
     }
-
-
 }
