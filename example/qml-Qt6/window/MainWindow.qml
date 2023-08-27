@@ -28,6 +28,7 @@ CustomWindow {
     Component.onCompleted: {
         FluTools.setQuitOnLastWindowClosed(false)
         tour.open()
+        checkUpdate()
     }
 
     SystemTrayIcon {
@@ -275,6 +276,48 @@ CustomWindow {
             {title:"夜间模式",description: "这里可以切换夜间模式.",target:()=>app_bar_front.darkButton()},
             {title:"隐藏彩蛋",description: "多点几下试试！！",target:()=>nav_view.logoButton()}
         ]
+    }
+
+    FluHttp{
+        id:http
+    }
+
+    FluContentDialog{
+        property string newVerson
+        property string body
+        id:dialog_update
+        title:"升级提示"
+        message:"FluentUI目前最新版本 "+ newVerson +" -- 当前应用版本 "+appInfo.version+" \n现在是否去下载新版本？\n\n更新内容：\n"+body
+        buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
+        negativeText: "取消"
+        positiveText:"确定"
+        onPositiveClicked:{
+            Qt.openUrlExternally("https://github.com/zhuzichu520/FluentUI/releases/latest")
+        }
+    }
+
+    function checkUpdate(){
+        var callable = {}
+        callable.onStart = function(){
+            console.debug("satrt check update...")
+        }
+        callable.onFinish = function(){
+            console.debug("check update finish")
+        }
+        callable.onSuccess = function(result){
+            var data = JSON.parse(result)
+            console.debug("current version "+appInfo.version)
+            console.debug("new version "+data.tag_name)
+            if(data.tag_name !== appInfo.version){
+                dialog_update.newVerson =  data.tag_name
+                dialog_update.body = data.body
+                dialog_update.open()
+            }
+        }
+        callable.onError = function(status,errorString){
+            console.debug(status+";"+errorString)
+        }
+        http.get("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest",callable)
     }
 
 }

@@ -18,7 +18,7 @@ FluPopup {
     property int buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
     focus: true
     implicitWidth: 400
-    implicitHeight: text_title.height + text_message.height + layout_actions.height
+    implicitHeight: text_title.height + sroll_message.height + layout_actions.height
     Rectangle {
         id:layout_content
         anchors.fill: parent
@@ -38,28 +38,41 @@ FluPopup {
                 right: parent.right
             }
         }
-        FluText{
-            id:text_message
-            font: FluTextStyle.Body
-            wrapMode: Text.WrapAnywhere
-            text:message
-            topPadding: 14
-            leftPadding: 20
-            rightPadding: 20
-            bottomPadding: 14
+
+        Flickable{
+            id:sroll_message
+            contentWidth: width
             anchors{
                 top:text_title.bottom
                 left: parent.left
                 right: parent.right
             }
+            contentHeight: text_message.height
+            clip: true
+            height: Math.min(text_message.height,300)
+            ScrollBar.vertical: FluScrollBar {}
+
+            FluText{
+                id:text_message
+                font: FluTextStyle.Body
+                wrapMode: Text.WrapAnywhere
+                text:message
+                width: parent.width
+                topPadding: 14
+                leftPadding: 20
+                rightPadding: 20
+                bottomPadding: 14
+            }
+
         }
+
         Rectangle{
             id:layout_actions
             height: 68
             radius: 5
             color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             anchors{
-                top:text_message.bottom
+                top:sroll_message.bottom
                 left: parent.left
                 right: parent.right
             }
@@ -127,3 +140,4 @@ FluPopup {
         }
     }
 }
+
