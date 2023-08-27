@@ -68,7 +68,7 @@ T.Slider {
     }
     FluTooltip{
         parent: control.handle
-        visible: control.tooltipEnabled && control.pressed
+        visible: control.tooltipEnabled && (control.pressed || control.hovered)
         text:String(control.value)
     }
 }
