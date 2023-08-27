@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 FluItem {
+    property bool autoPlay: true
     property int loopTime: 2000
     property var model
     property Component delegate
@@ -24,6 +25,7 @@ FluItem {
     QtObject{
         id:d
         property bool flagXChanged: true
+        property bool isAnimEnable: control.autoPlay && list_view.count>3
         function setData(data){
             if(!data){
                 return
@@ -35,7 +37,9 @@ FluItem {
             list_view.highlightMoveDuration = 0
             list_view.currentIndex = 1
             list_view.highlightMoveDuration = 250
-            timer_run.restart()
+            if(d.isAnimEnable){
+                timer_run.restart()
+            }
         }
     }
     ListView{
@@ -52,6 +56,7 @@ FluItem {
         Component.onCompleted: {
             d.setData(control.model)
         }
+        interactive: list_view.count>3
         Connections{
             target: control
             function onModelChanged(){
@@ -182,20 +187,20 @@ FluItem {
     Timer{
         id:timer_run
         interval: control.loopTime
-        repeat: true
+        repeat: d.isAnimEnable
         onTriggered: {
             list_view.highlightMoveDuration = 250
             list_view.currentIndex = list_view.currentIndex+1
             timer_anim.start()
         }
     }
-
     function changedIndex(index){
         d.flagXChanged = true
         timer_run.stop()
-         list_view.currentIndex = index
+        list_view.currentIndex = index
         d.flagXChanged = false
-        timer_run.restart()
+        if(d.isAnimEnable){
+            timer_run.restart()
+        }
     }
-
 }
