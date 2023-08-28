@@ -282,6 +282,21 @@ CustomWindow {
         id:http
     }
 
+    FpsItem{
+        id:fps_item
+    }
+
+    FluText{
+        text:"fps %1".arg(fps_item.fps)
+        opacity: 0.3
+        anchors{
+            bottom: parent.bottom
+            right: parent.right
+            bottomMargin: 5
+            rightMargin: 5
+        }
+    }
+
     FluContentDialog{
         property string newVerson
         property string body

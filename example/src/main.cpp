@@ -11,6 +11,7 @@
 #include "AppInfo.h"
 #include "src/component/CircularReveal.h"
 #include "src/component/FileWatcher.h"
+#include "src/component/FpsItem.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
 
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
 #endif
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
     qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
+    qmlRegisterType<FpsItem>("example", 1, 0, "FpsItem");
     appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
