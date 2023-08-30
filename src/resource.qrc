@@ -93,5 +93,6 @@
         <file>Qt5/imports/FluentUI/Controls/ColorPicker/Content/PanelBorder.qml</file>
         <file>Qt5/imports/FluentUI/Controls/ColorPicker/Content/SBPicker.qml</file>
         <file>Qt5/imports/FluentUI/Controls/FluRangeSlider.qml</file>
+        <file>Qt5/imports/FluentUI/Controls/FluStaggeredView.qml</file>
     </qresource>
 </RCC>

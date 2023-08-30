@@ -134,13 +134,11 @@ CustomWindow {
                     }
                 }
             }
-
             FluRemoteLoader{
                 id:loader
                 lazy: true
                 anchors.fill: parent
-                //                source: "http://localhost:9000/RemoteComponent.qml"
-                source: "https://zhu-zichu.gitee.io/RemoteComponent.qml"
+                source: "https://zhu-zichu.gitee.io/Qt6_155_LieflatPage.qml"
             }
         }
         front: Item{
