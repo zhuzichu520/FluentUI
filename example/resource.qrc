@@ -185,5 +185,6 @@
         <file>res/image/bg_scenic.png</file>
         <file>res/image/image_1.jpg</file>
         <file>qml/window/PageWindow.qml</file>
+        <file>qml/page/T_StaggeredView.qml</file>
     </qresource>
 </RCC>

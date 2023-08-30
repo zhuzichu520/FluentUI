@@ -10,6 +10,6 @@ FluPage{
     launchMode: FluPageType.SingleTop
     FluRemoteLoader{
         anchors.fill: parent
-        source: "https://zhu-zichu.gitee.io/T_RemoteLoader.qml"
+        source: "https://zhu-zichu.gitee.io/Qt5_T_RemoteLoader.qml"
     }
 }

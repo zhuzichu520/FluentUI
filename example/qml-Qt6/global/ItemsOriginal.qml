@@ -218,6 +218,12 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
+            title:"StaggeredView"
+            url:"qrc:/example/qml/page/T_StaggeredView.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
             title:"Watermark"
             url:"qrc:/example/qml/page/T_Watermark.qml"
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
