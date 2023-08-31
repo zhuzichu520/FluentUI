@@ -31,7 +31,7 @@ FluTheme::FluTheme(QObject *parent)
     });
     primaryColor(FluColors::getInstance()->Blue());
     nativeText(false);
-    enableAnimation(false);
+    enableAnimation(true);
     darkMode(FluThemeType::DarkMode::Light);
     _systemDark = systemDark();
     qApp->installEventFilter(this);
