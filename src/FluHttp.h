@@ -12,9 +12,12 @@ class FluHttp : public QObject
     Q_OBJECT
     Q_PROPERTY_AUTO(int,retry);
     Q_PROPERTY_AUTO(int,timeout)
+    Q_PROPERTY_AUTO(int,cacheMode);
+    Q_PROPERTY_AUTO(QString,cacheDir);
     QML_NAMED_ELEMENT(FluHttp)
 private:
-    QVariant invokeIntercept(const QVariant& params,const QVariant& headers,const QString& method);
+    QVariant invokeIntercept(QMap<QString, QVariant> request);
+    QMap<QString, QVariant> toRequest(const QString& url,const QVariant& params,const QVariant& headers,const QString& method);
     void handleReply(QNetworkReply* reply);
     void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
     void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& params);
@@ -24,6 +27,7 @@ private:
     void onSuccess(const QJSValue& callable,QString result);
     void onDownloadProgress(const QJSValue& callable,qint64 recv, qint64 total);
     void onUploadProgress(const QJSValue& callable,qint64 recv, qint64 total);
+    void handleCache(QMap<QString, QVariant> request, const QString& result);
 public:
     explicit FluHttp(QObject *parent = nullptr);
     ~FluHttp();
@@ -36,7 +40,7 @@ public:
     Q_INVOKABLE void upload(QString url,QJSValue callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void cancel();
 private:
-    QList<QPointer<QNetworkReply>> _cache;
+    QList<QPointer<QNetworkReply>> _cacheReply;
 };
 
 #endif // FLUHTTP_H

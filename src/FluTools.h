@@ -144,6 +144,27 @@ public:
      */
     Q_INVOKABLE QColor colorAlpha(const QColor&,qreal alpha);
 
+    /**
+     * @brief md5
+     * @param text
+     * @return
+     */
+    QString md5(QString text);
+
+    /**
+     * @brief toBase64
+     * @param text
+     * @return
+     */
+    QString toBase64(QString text);
+
+    /**
+     * @brief fromBase64
+     * @param text
+     * @return
+     */
+    QString fromBase64(QString text);
+
 };
 
 #endif // FLUTOOLS_H
