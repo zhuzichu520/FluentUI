@@ -149,21 +149,29 @@ public:
      * @param text
      * @return
      */
-    QString md5(QString text);
+    Q_INVOKABLE QString md5(QString text);
 
     /**
      * @brief toBase64
      * @param text
      * @return
      */
-    QString toBase64(QString text);
+    Q_INVOKABLE QString toBase64(QString text);
 
     /**
      * @brief fromBase64
      * @param text
      * @return
      */
-    QString fromBase64(QString text);
+    Q_INVOKABLE QString fromBase64(QString text);
+
+
+    /**
+     * @brief removeDir
+     * @param dirPath
+     * @return
+     */
+    Q_INVOKABLE bool removeDir(QString dirPath);
 
 };
 

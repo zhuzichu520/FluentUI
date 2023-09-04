@@ -10,14 +10,57 @@ import "qrc:///example/qml/component"
 FluContentPage{
 
     title:"Http"
+    property string cacheDirPath: FluTools.getApplicationDirPath() + "/cache/http"
 
     FluHttp{
         id:http
     }
 
+    FluHttp{
+        id:http_cache_ifnonecacherequest
+        cacheMode:FluHttpType.IfNoneCacheRequest
+        cacheDir:cacheDirPath
+    }
+
+    FluHttp{
+        id:http_cache_requestfailedreadcache
+        cacheMode:FluHttpType.RequestFailedReadCache
+        cacheDir:cacheDirPath
+    }
+
+    FluHttp{
+        id:http_cache_firstcachethenrequest
+        cacheMode:FluHttpType.FirstCacheThenRequest
+        cacheDir:cacheDirPath
+    }
+
+    HttpCallable{
+        id:callable
+        onStart: {
+            showLoading()
+        }
+        onFinish: {
+            hideLoading()
+        }
+        onError:
+            (status,errorString,result)=>{
+                console.debug(status+";"+errorString+";"+result)
+            }
+        onSuccess:
+            (result)=>{
+                text_info.text = result
+                console.debug(result)
+            }
+        onCache:
+            (result)=>{
+                text_info.text = result
+                console.debug(result)
+            }
+    }
+
     Flickable{
         id:layout_flick
-        width: 160
+        width: 200
         clip: true
         anchors{
             top: parent.top
@@ -36,24 +79,6 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Get请求"
                 onClicked: {
-                    var callable = {}
-                    callable.onStart = function(){
-                        showLoading()
-                    }
-                    callable.onFinish = function(){
-                        hideLoading()
-                    }
-                    callable.onSuccess = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onCache = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onError = function(status,errorString){
-                        console.debug(status+";"+errorString)
-                    }
                     http.get("https://httpbingo.org/get",callable)
                 }
             }
@@ -62,24 +87,6 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post表单请求"
                 onClicked: {
-                    var callable = {}
-                    callable.onStart = function(){
-                        showLoading()
-                    }
-                    callable.onFinish = function(){
-                        hideLoading()
-                    }
-                    callable.onSuccess = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onCache = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onError = function(status,errorString){
-                        console.debug(status+";"+errorString)
-                    }
                     var param = {}
                     param.custname = "朱子楚"
                     param.custtel = "1234567890"
@@ -92,24 +99,6 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post Json请求"
                 onClicked: {
-                    var callable = {}
-                    callable.onStart = function(){
-                        showLoading()
-                    }
-                    callable.onFinish = function(){
-                        hideLoading()
-                    }
-                    callable.onSuccess = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onCache = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onError = function(status,errorString){
-                        console.debug(status+";"+errorString)
-                    }
                     var param = {}
                     param.custname = "朱子楚"
                     param.custtel = "1234567890"
@@ -122,24 +111,6 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post String请求"
                 onClicked: {
-                    var callable = {}
-                    callable.onStart = function(){
-                        showLoading()
-                    }
-                    callable.onFinish = function(){
-                        hideLoading()
-                    }
-                    callable.onSuccess = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onCache = function(result){
-                        text_info.text = result
-                        console.debug(result)
-                    }
-                    callable.onError = function(status,errorString){
-                        console.debug(status+";"+errorString)
-                    }
                     var param = "我命由我不由天"
                     http.postString("https://httpbingo.org/post",callable,param)
                 }
@@ -162,7 +133,84 @@ FluContentPage{
                     file_dialog.open()
                 }
             }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "FirstCacheThenRequest缓存"
+                onClicked: {
+                    var param = {}
+                    param.cacheMode = "FirstCacheThenRequest"
+                    http_cache_firstcachethenrequest.post("https://httpbingo.org/post",callable,param)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "RequestFailedReadCache缓存"
+                onClicked: {
+                    var param = {}
+                    param.cacheMode = "RequestFailedReadCache"
+                    http_cache_requestfailedreadcache.post("https://httpbingo.org/post",callable,param)
+                }
+            }
+
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "IfNoneCacheRequest缓存"
+                onClicked: {
+                    var param = {}
+                    param.cacheMode = "IfNoneCacheRequest"
+                    http_cache_ifnonecacherequest.post("https://httpbingo.org/post",callable,param)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "删除缓存"
+                onClicked: {
+                    console.debug(FluTools.removeDir(cacheDirPath))
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "清空右边数据"
+                onClicked: {
+                    text_info.text = ""
+                }
+            }
         }
+    }
+
+    HttpCallable{
+        id:callable_upload
+        onStart: {
+            btn_upload.disabled = true
+        }
+        onFinish: {
+            btn_upload.disabled = false
+            btn_upload.text = "上传文件"
+            layout_upload_file_size.visible = false
+            text_upload_file_size.text = ""
+        }
+        onError:
+            (status,errorString,result)=>{
+                text_info.text = result
+                console.debug(result)
+            }
+        onSuccess:
+            (result)=>{
+                text_info.text = result
+            }
+        onUploadProgress:
+            (sent,total)=>{
+                var locale = Qt.locale()
+                var precent = (sent/total * 100).toFixed(0) + "%"
+                btn_upload.text = "上传中..."+precent
+                text_upload_file_size.text =  "%1/%2".arg(locale.formattedDataSize(sent)).arg(locale.formattedDataSize(total))
+                layout_upload_file_size.visible = true
+            }
     }
 
     FileDialog {
@@ -175,65 +223,46 @@ FluContentPage{
                 var filePath = FluTools.toLocalPath(fileUrl)
                 param[fileName] = filePath
             }
-            console.debug(JSON.stringify(param))
-            var callable = {}
-            callable.onStart = function(){
-                btn_upload.disabled = true
-            }
-            callable.onFinish = function(){
-                btn_upload.disabled = false
-                btn_upload.text = "上传文件"
-                layout_upload_file_size.visible = false
-                text_upload_file_size.text = ""
-            }
-            callable.onSuccess = function(result){
-                text_info.text = result
-                console.debug(result)
-            }
-            callable.onError = function(status,errorString,result){
-                text_info.text = result
-                console.debug(result)
-            }
-            callable.onUploadProgress = function(sent,total){
-                var locale = Qt.locale()
-                var precent = (sent/total * 100).toFixed(0) + "%"
-                btn_upload.text = "上传中..."+precent
-                text_upload_file_size.text =  "%1/%2".arg(locale.formattedDataSize(sent)).arg(locale.formattedDataSize(total))
-                layout_upload_file_size.visible = true
-            }
-            http.upload("https://httpbingo.org/post",callable,param)
+            http.upload("https://httpbingo.org/post",callable_upload,param)
         }
     }
 
-    FolderDialog {
-        id: folder_dialog
-        currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
-        onAccepted: {
-            var callable = {}
-            callable.onStart = function(){
-                btn_download.disabled = true
+    HttpCallable{
+        id:callable_download
+        onStart: {
+            btn_download.disabled = true
+        }
+        onFinish: {
+            btn_download.disabled = false
+            btn_download.text = "下载文件"
+            layout_download_file_size.visible = false
+            text_download_file_size.text = ""
+        }
+        onError:
+            (status,errorString,result)=>{
+                showError(errorString)
+                console.debug(status+";"+errorString+";"+result)
             }
-            callable.onFinish = function(){
-                btn_download.disabled = false
-                btn_download.text = "下载文件"
-                layout_download_file_size.visible = false
-                text_download_file_size.text = ""
-            }
-            callable.onSuccess = function(result){
+        onSuccess:
+            (result)=>{
                 showSuccess(result)
             }
-            callable.onError = function(status,errorString){
-                showError(errorString)
-            }
-            callable.onDownloadProgress = function(recv,total){
+        onDownloadProgress:
+            (recv,total)=>{
                 var locale = Qt.locale()
                 var precent = (recv/total * 100).toFixed(0) + "%"
                 btn_download.text = "下载中..."+precent
                 text_download_file_size.text =  "%1/%2".arg(locale.formattedDataSize(recv)).arg(locale.formattedDataSize(total))
                 layout_download_file_size.visible = true
             }
+    }
+
+    FolderDialog {
+        id: folder_dialog
+        currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
+        onAccepted: {
             var path = FluTools.toLocalPath(currentFolder)+ "/big_buck_bunny.mp4"
-            http.download("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",callable,path)
+            http.download("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",callable_download,path)
         }
     }
 
@@ -276,7 +305,6 @@ FluContentPage{
             anchors.centerIn: parent
         }
     }
-
 
     FluRectangle{
         id:layout_upload_file_size

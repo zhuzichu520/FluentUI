@@ -310,27 +310,32 @@ CustomWindow {
         }
     }
 
-    function checkUpdate(){
-        var callable = {}
-        callable.onStart = function(){
+    HttpCallable{
+        id:callable
+        onStart: {
             console.debug("satrt check update...")
         }
-        callable.onFinish = function(){
+        onFinish: {
             console.debug("check update finish")
         }
-        callable.onSuccess = function(result){
-            var data = JSON.parse(result)
-            console.debug("current version "+appInfo.version)
-            console.debug("new version "+data.tag_name)
-            if(data.tag_name !== appInfo.version){
-                dialog_update.newVerson =  data.tag_name
-                dialog_update.body = data.body
-                dialog_update.open()
+        onSuccess:
+            (result)=>{
+                var data = JSON.parse(result)
+                console.debug("current version "+appInfo.version)
+                console.debug("new version "+data.tag_name)
+                if(data.tag_name !== appInfo.version){
+                    dialog_update.newVerson =  data.tag_name
+                    dialog_update.body = data.body
+                    dialog_update.open()
+                }
             }
-        }
-        callable.onError = function(status,errorString){
-            console.debug(status+";"+errorString)
-        }
+        onError:
+            (status,errorString)=>{
+                console.debug(status+";"+errorString)
+            }
+    }
+
+    function checkUpdate(){
         http.get("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest",callable)
     }
 

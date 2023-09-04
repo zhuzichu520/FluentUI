@@ -6,6 +6,7 @@
 #include <QScreen>
 #include <QColor>
 #include <QFileInfo>
+#include <QDir>
 #include <QCryptographicHash>
 #include <QTextDocument>
 
@@ -145,3 +146,7 @@ QString FluTools::fromBase64(QString text)
     return QByteArray::fromBase64(text.toUtf8());
 }
 
+bool FluTools::removeDir(QString dirPath){
+    QDir qDir(dirPath);
+    return qDir.removeRecursively();
+}
