@@ -89,19 +89,18 @@ Popup{
             ctx.restore()
         }
         function drawRoundedRect(rect, r, ctx) {
-            var ptA = Qt.point(rect.x + r, rect.y)
-            var ptB = Qt.point(rect.x + rect.width, rect.y)
-            var ptC = Qt.point(rect.x + rect.width, rect.y + rect.height)
-            var ptD = Qt.point(rect.x, rect.y + rect.height)
-            var ptE = Qt.point(rect.x, rect.y)
-            ctx.beginPath()
-            ctx.moveTo(ptA.x, ptA.y)
-            ctx.arcTo(ptB.x, ptB.y, ptC.x, ptC.y, r)
-            ctx.arcTo(ptC.x, ptC.y, ptD.x, ptD.y, r)
-            ctx.arcTo(ptD.x, ptD.y, ptE.x, ptE.y, r)
-            ctx.arcTo(ptE.x, ptE.y, ptA.x, ptA.y, r)
+            ctx.beginPath();
+            ctx.moveTo(rect.x + r, rect.y);
+            ctx.lineTo(rect.x + rect.width - r, rect.y);
+            ctx.arcTo(rect.x + rect.width, rect.y, rect.x + rect.width, rect.y + r, r);
+            ctx.lineTo(rect.x + rect.width, rect.y + rect.height - r);
+            ctx.arcTo(rect.x + rect.width, rect.y + rect.height, rect.x + rect.width - r, rect.y + rect.height, r);
+            ctx.lineTo(rect.x + r, rect.y + rect.height);
+            ctx.arcTo(rect.x, rect.y + rect.height, rect.x, rect.y + rect.height - r, r);
+            ctx.lineTo(rect.x, rect.y + r);
+            ctx.arcTo(rect.x, rect.y, rect.x + r, rect.y, r);
+            ctx.closePath();
             ctx.fill()
-            ctx.closePath()
         }
     }
     FluArea{

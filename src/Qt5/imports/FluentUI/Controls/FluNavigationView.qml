@@ -752,7 +752,12 @@ Item {
                 id:nav_stack2
                 anchors.fill: nav_stack
                 clip: true
-                visible: FluPageType.SingleInstance === nav_stack.currentItem.launchMode
+                visible: {
+                    if(!nav_stack.currentItem){
+                        return false
+                    }
+                    return FluPageType.SingleInstance === nav_stack.currentItem.launchMode
+                }
             }
             function navStack(){
                 return nav_stack

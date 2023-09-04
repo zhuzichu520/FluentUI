@@ -38,6 +38,7 @@ void FluentUIPlugin::registerTypes(const char *uri)
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
     qmlRegisterType<FluHttpInterceptor>(uri,major,minor,"FluHttpInterceptor");
     qmlRegisterType<FluHttp>(uri,major,minor,"FluHttp");
+    qmlRegisterType<HttpCallable>(uri,major,minor,"HttpCallable");
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluPageType::staticMetaObject,  uri,major,minor,"FluPageType", "Access to enums & flags only");

@@ -6,6 +6,8 @@
 #include <QScreen>
 #include <QColor>
 #include <QFileInfo>
+#include <QDir>
+#include <QCryptographicHash>
 #include <QTextDocument>
 
 FluTools* FluTools::m_instance = nullptr;
@@ -127,4 +129,24 @@ QUrl FluTools::getUrlByFilePath(const QString& path){
 
 QColor FluTools::colorAlpha(const QColor& color,qreal alpha){
     return QColor(color.red(),color.green(),color.blue(),255*alpha);
+}
+
+QString FluTools::md5(QString text)
+{
+    return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Md5).toHex();
+}
+
+QString FluTools::toBase64(QString text)
+{
+    return text.toUtf8().toBase64();
+}
+
+QString FluTools::fromBase64(QString text)
+{
+    return QByteArray::fromBase64(text.toUtf8());
+}
+
+bool FluTools::removeDir(QString dirPath){
+    QDir qDir(dirPath);
+    return qDir.removeRecursively();
 }
