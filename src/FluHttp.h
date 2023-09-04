@@ -25,9 +25,13 @@ private:
     void onFinish(const QJSValue& callable);
     void onError(const QJSValue& callable,int status,QString errorString,QString result);
     void onSuccess(const QJSValue& callable,QString result);
+    void onCache(const QJSValue& callable,QString result);
     void onDownloadProgress(const QJSValue& callable,qint64 recv, qint64 total);
     void onUploadProgress(const QJSValue& callable,qint64 recv, qint64 total);
     void handleCache(QMap<QString, QVariant> request, const QString& result);
+    QString readCache(const QMap<QString, QVariant>& request);
+    bool cacheExists(const QMap<QString, QVariant>& request);
+    QString getCacheFilePath(const QMap<QString, QVariant>& request);
 public:
     explicit FluHttp(QObject *parent = nullptr);
     ~FluHttp();

@@ -47,6 +47,10 @@ FluContentPage{
                         text_info.text = result
                         console.debug(result)
                     }
+                    callable.onCache = function(result){
+                        text_info.text = result
+                        console.debug(result)
+                    }
                     callable.onError = function(status,errorString){
                         console.debug(status+";"+errorString)
                     }
@@ -66,6 +70,10 @@ FluContentPage{
                         hideLoading()
                     }
                     callable.onSuccess = function(result){
+                        text_info.text = result
+                        console.debug(result)
+                    }
+                    callable.onCache = function(result){
                         text_info.text = result
                         console.debug(result)
                     }
@@ -95,6 +103,10 @@ FluContentPage{
                         text_info.text = result
                         console.debug(result)
                     }
+                    callable.onCache = function(result){
+                        text_info.text = result
+                        console.debug(result)
+                    }
                     callable.onError = function(status,errorString){
                         console.debug(status+";"+errorString)
                     }
@@ -118,6 +130,10 @@ FluContentPage{
                         hideLoading()
                     }
                     callable.onSuccess = function(result){
+                        text_info.text = result
+                        console.debug(result)
+                    }
+                    callable.onCache = function(result){
                         text_info.text = result
                         console.debug(result)
                     }
