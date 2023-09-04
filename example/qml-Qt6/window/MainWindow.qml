@@ -138,7 +138,7 @@ CustomWindow {
                 id:loader
                 lazy: true
                 anchors.fill: parent
-                source: "https://zhu-zichu.gitee.io/Qt6_155_LieflatPage.qml"
+                source: "https://zhu-zichu.gitee.io/Qt6_156_LieflatPage.qml"
             }
         }
         front: Item{

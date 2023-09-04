@@ -10,7 +10,6 @@
 #include <QTextStream>
 #include <QDir>
 #include "Def.h"
-#include "MainThread.h"
 #include "FluApp.h"
 #include "FluTools.h"
 
@@ -54,7 +53,7 @@ void FluHttp::post(QString url,HttpCallable* callable,QMap<QString, QVariant> pa
             Q_EMIT callable->finish();
             return;
         }
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest){
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
             Q_EMIT callable->cache(readCache(requestMap));
         }
         for (int i = 0; i < retry(); ++i) {
@@ -94,7 +93,7 @@ void FluHttp::post(QString url,HttpCallable* callable,QMap<QString, QVariant> pa
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache){
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
                         Q_EMIT callable->cache(readCache(requestMap));
                     }
                     Q_EMIT callable->error(status,errorString,result);
@@ -102,7 +101,6 @@ void FluHttp::post(QString url,HttpCallable* callable,QMap<QString, QVariant> pa
             }
         }
         Q_EMIT callable->finish();
-        //        Q_EMIT callable->finish();
     });
 }
 
@@ -116,7 +114,7 @@ void FluHttp::postString(QString url,HttpCallable* callable,QString params,QMap<
             Q_EMIT callable->finish();
             return;
         }
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest){
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
             Q_EMIT callable->cache(readCache(requestMap));
         }
         for (int i = 0; i < retry(); ++i) {
@@ -147,7 +145,7 @@ void FluHttp::postString(QString url,HttpCallable* callable,QString params,QMap<
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache){
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
                         Q_EMIT callable->cache(readCache(requestMap));
                     }
                     Q_EMIT callable->error(status,errorString,result);
@@ -168,7 +166,7 @@ void FluHttp::postJson(QString url,HttpCallable* callable,QMap<QString, QVariant
             Q_EMIT callable->finish();
             return;
         }
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest){
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
             Q_EMIT callable->cache(readCache(requestMap));
         }
         for (int i = 0; i < retry(); ++i) {
@@ -199,7 +197,7 @@ void FluHttp::postJson(QString url,HttpCallable* callable,QMap<QString, QVariant
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache){
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
                         Q_EMIT callable->cache(readCache(requestMap));
                     }
                     Q_EMIT callable->error(status,errorString,result);
@@ -215,7 +213,7 @@ void FluHttp::get(QString url,HttpCallable* callable,QMap<QString, QVariant> par
         auto requestMap = toRequest(url,params,headers,"get");
         QMap<QString, QVariant> data = invokeIntercept(requestMap).toMap();
         Q_EMIT callable->start();
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest){
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
             Q_EMIT callable->cache(readCache(requestMap));
         }
         if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(requestMap)){
@@ -250,7 +248,7 @@ void FluHttp::get(QString url,HttpCallable* callable,QMap<QString, QVariant> par
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache){
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
                         Q_EMIT callable->cache(readCache(requestMap));
                     }
                     Q_EMIT callable->error(status,errorString,result);

@@ -10,7 +10,7 @@ enum CacheMode {
     /** 不使用缓存 */
     NoCache = 0x0000,
 
-      /** 请求网络失败后，读取缓存 */
+    /** 请求网络失败后，读取缓存 */
     RequestFailedReadCache = 0x0001,
 
     /** 如果缓存不存在才请求网络，否则使用缓存 */

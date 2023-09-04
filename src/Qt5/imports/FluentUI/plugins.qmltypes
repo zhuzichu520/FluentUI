@@ -8,6 +8,21 @@ import QtQuick.tooling 1.2
 
 Module {
     dependencies: ["QtQuick 2.0"]
+	Component {
+        name: "FluHttpType"
+        exports: ["FluentUI/FluHttpType 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CacheMode"
+            values: {
+                "NoCache": 0,
+                "RequestFailedReadCache": 1,
+                "IfNoneCacheRequest": 2,
+				"FirstCacheThenRequest": 4
+            }
+        }
+    }
     Component {
         name: "FluCalendarViewType"
         exports: ["FluentUI/FluCalendarViewType 1.0"]

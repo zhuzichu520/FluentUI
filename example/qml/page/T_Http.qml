@@ -168,6 +168,14 @@ FluContentPage{
             FluButton{
                 implicitWidth: parent.width
                 implicitHeight: 36
+                text: "打开缓存路径"
+                onClicked: {
+                    Qt.openUrlExternally("file:///"+cacheDirPath)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
                 text: "删除缓存"
                 onClicked: {
                     console.debug(FluTools.removeDir(cacheDirPath))
