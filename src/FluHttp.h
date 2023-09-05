@@ -29,6 +29,7 @@ class FluHttp : public QObject
     Q_PROPERTY_AUTO(int,timeout)
     Q_PROPERTY_AUTO(int,cacheMode);
     Q_PROPERTY_AUTO(QString,cacheDir);
+    Q_PROPERTY_AUTO(bool,breakPointDownload);
     QML_NAMED_ELEMENT(FluHttp)
 private:
     QVariant invokeIntercept(QMap<QString, QVariant> request);

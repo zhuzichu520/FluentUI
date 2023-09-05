@@ -25,6 +25,7 @@ FluHttp::FluHttp(QObject *parent)
     timeout(15000);
     cacheMode(FluHttpType::CacheMode::NoCache);
     cacheDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation)+"/httpcache");
+    breakPointDownload(true);
 }
 
 FluHttp::~FluHttp(){
@@ -267,42 +268,56 @@ void FluHttp::download(QString url,HttpCallable* callable,QString savePath,QMap<
         QNetworkRequest request(_url);
         addHeaders(&request,data["headers"].toMap());
         QSharedPointer<QFile> file(new QFile(savePath));
-        QIODevice::OpenMode mode = QIODevice::WriteOnly|QIODevice::Truncate;
-        if (!file->open(mode))
-        {
-            Q_EMIT callable->error(-1,QString("Url: %1 %2 Non-Writable").arg(request.url().toString(),file->fileName()),"");
-            Q_EMIT callable->finish();
-            return;
-        }
         QEventLoop loop;
         connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){
             loop.quit();
         });
+        auto filePath = getCacheFilePath(data);
+        qint64 seek = 0;
+        QSharedPointer<QFile> fileCache(new QFile(filePath));
+        if(fileCache->exists() && file->exists() && _breakPointDownload){
+            QJsonObject cacheInfo = QJsonDocument::fromJson(readCache(data).toUtf8()).object();
+            auto fileSize = cacheInfo.value("fileSize").toInteger();
+            auto contentLength = cacheInfo.value("contentLength").toInteger();
+            if(fileSize == contentLength && file->size() == contentLength){
+                Q_EMIT callable->downloadProgress(fileSize,contentLength);
+                Q_EMIT callable->success(savePath);
+                Q_EMIT callable->finish();
+                return;
+            }
+            if(fileSize==file->size()){
+                request.setRawHeader("Range", QString("bytes=%1-").arg(fileSize).toUtf8());
+                seek = fileSize;
+                file->open(QIODevice::WriteOnly|QIODevice::Append);
+            }else{
+                file->open(QIODevice::WriteOnly|QIODevice::Truncate);
+            }
+        }else{
+            file->open(QIODevice::WriteOnly|QIODevice::Truncate);
+        }
         QNetworkReply* reply =  manager.get(request);
         _cacheReply.append(reply);
-        auto filePath = getCacheFilePath(data);
-        QSharedPointer<QFile> fileCache(new QFile(filePath));
-        if (!fileCache->open(mode))
+        if (!fileCache->open(QIODevice::WriteOnly|QIODevice::Truncate))
         {
             qDebug()<<"FileCache Error";
         }
-        connect(reply,&QNetworkReply::readyRead,reply,[reply,file,fileCache,data]{
+        connect(reply,&QNetworkReply::readyRead,reply,[reply,file,fileCache,data,callable,seek]{
             if (!reply || !file || reply->error() != QNetworkReply::NoError)
             {
                 return;
             }
-            file->write(reply->readAll());
-            fileCache->resize(0);
             QMap<QString, QVariant> downMap = data;
-            QVariant etagHeader = reply->header(QNetworkRequest::ETagHeader);
-            if (etagHeader.isValid()) {
-                downMap.insert("ETag",etagHeader.toString());
-            }
+            qint64 contentLength = reply->header(QNetworkRequest::ContentLengthHeader).toLongLong()+seek;
+            downMap.insert("contentLength",contentLength);
+            QString eTag = reply->header(QNetworkRequest::ETagHeader).toString();
+            downMap.insert("eTag",eTag);
+            file->write(reply->readAll());
+            file->flush();
             downMap.insert("fileSize",file->size());
+            fileCache->resize(0);
             fileCache->write(FluTools::getInstance()->toBase64(QJsonDocument::fromVariant(QVariant(downMap)).toJson()).toUtf8());
-        });
-        connect(reply,&QNetworkReply::downloadProgress,reply,[=](qint64 bytesReceived, qint64 bytesTotal){
-            Q_EMIT callable->downloadProgress(bytesReceived,bytesTotal);
+            fileCache->flush();
+            Q_EMIT callable->downloadProgress(file->size(),contentLength);
         });
         loop.exec();
         if (reply->error() == QNetworkReply::NoError) {

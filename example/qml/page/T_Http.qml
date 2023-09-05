@@ -235,6 +235,7 @@ FluContentPage{
     HttpCallable{
         id:callable_download
         onStart: {
+            btn_download.progress = 0
             btn_download.disabled = true
         }
         onFinish: {
