@@ -150,3 +150,7 @@ bool FluTools::removeDir(QString dirPath){
     QDir qDir(dirPath);
     return qDir.removeRecursively();
 }
+
+QString FluTools::sha256(QString text){
+    return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha256).toHex();
+}

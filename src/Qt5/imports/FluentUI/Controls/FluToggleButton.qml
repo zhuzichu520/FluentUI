@@ -52,7 +52,7 @@ Button {
         border.width: checked ? 0 : 1
         FluFocusRectangle{
             visible: control.activeFocus
-            radius:8
+            radius:4
         }
         color:{
             if(!enabled){

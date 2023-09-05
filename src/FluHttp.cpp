@@ -76,7 +76,7 @@ void FluHttp::post(QString url,HttpCallable* callable,QMap<QString, QVariant> pa
             QEventLoop loop;
             QNetworkReply* reply = manager.post(request,&multiPart);
             _cacheReply.append(reply);
-            connect(&manager,&QNetworkAccessManager::finished,this,[&loop](QNetworkReply *reply){
+            connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){
                 loop.quit();
             });
             loop.exec();
@@ -128,7 +128,7 @@ void FluHttp::postString(QString url,HttpCallable* callable,QString params,QMap<
             QEventLoop loop;
             QNetworkReply* reply = manager.post(request,params.toUtf8());
             _cacheReply.append(reply);
-            connect(&manager,&QNetworkAccessManager::finished,this,[&loop](QNetworkReply *reply){
+            connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){
                 loop.quit();
             });
             loop.exec();
@@ -180,7 +180,7 @@ void FluHttp::postJson(QString url,HttpCallable* callable,QMap<QString, QVariant
             QEventLoop loop;
             QNetworkReply* reply = manager.post(request,QJsonDocument::fromVariant(data["params"]).toJson());
             _cacheReply.append(reply);
-            connect(&manager,&QNetworkAccessManager::finished,this,[&loop](QNetworkReply *reply){
+            connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){
                 loop.quit();
             });
             loop.exec();
@@ -231,7 +231,7 @@ void FluHttp::get(QString url,HttpCallable* callable,QMap<QString, QVariant> par
             QEventLoop loop;
             QNetworkReply* reply = manager.get(request);
             _cacheReply.append(reply);
-            connect(&manager,&QNetworkAccessManager::finished,this,[&loop](QNetworkReply *reply){
+            connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){
                 loop.quit();
             });
             loop.exec();
@@ -278,17 +278,23 @@ void FluHttp::download(QString url,HttpCallable* callable,QString filePath,QMap<
             return;
         }
         QEventLoop loop;
-        connect(&manager,&QNetworkAccessManager::finished,this,[&loop](QNetworkReply *reply){
+        connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){
             loop.quit();
         });
-        QPointer<QNetworkReply> reply =  manager.get(request);
+        QNetworkReply* reply =  manager.get(request);
         _cacheReply.append(reply);
-        connect(reply,&QNetworkReply::downloadProgress,this,[=](qint64 bytesReceived, qint64 bytesTotal){
+        connect(reply,&QNetworkReply::readyRead,reply,[reply,file]{
+            if (!reply || !file || reply->error() != QNetworkReply::NoError)
+            {
+                return;
+            }
+            file->write(reply->readAll());
+        });
+        connect(reply,&QNetworkReply::downloadProgress,reply,[=](qint64 bytesReceived, qint64 bytesTotal){
             Q_EMIT callable->downloadProgress(bytesReceived,bytesTotal);
         });
         loop.exec();
         if (reply->error() == QNetworkReply::NoError) {
-            file->write(reply->readAll());
             Q_EMIT callable->success(filePath);
         }else{
             Q_EMIT callable->error(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString(),"");
@@ -328,10 +334,10 @@ void FluHttp::upload(QString url,HttpCallable* callable,QMap<QString, QVariant> 
         QEventLoop loop;
         QNetworkReply* reply = manager.post(request,&multiPart);
         _cacheReply.append(reply);
-        connect(&manager,&QNetworkAccessManager::finished,this,[&loop](QNetworkReply *reply){
+        connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){
             loop.quit();
         });
-        connect(reply,&QNetworkReply::uploadProgress,this,[=](qint64 bytesSent, qint64 bytesTotal){
+        connect(reply,&QNetworkReply::uploadProgress,reply,[=](qint64 bytesSent, qint64 bytesTotal){
             Q_EMIT callable->uploadProgress(bytesSent,bytesTotal);
         });
         loop.exec();
@@ -409,7 +415,7 @@ bool FluHttp::cacheExists(const QMap<QString, QVariant>& request){
 }
 
 QString FluHttp::getCacheFilePath(const QMap<QString, QVariant>& request){
-    auto fileName = FluTools::getInstance()->md5(QJsonDocument::fromVariant(QVariant(request)).toJson());
+    auto fileName = FluTools::getInstance()->sha256(QJsonDocument::fromVariant(QVariant(request)).toJson());
     QDir dir = _cacheDir;
     if (!dir.exists(_cacheDir)){
         dir.mkpath(_cacheDir);

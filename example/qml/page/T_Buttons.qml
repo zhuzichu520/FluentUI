@@ -161,6 +161,58 @@ FluScrollablePage{
 }'
     }
 
+    Timer{
+        id:timer_progress
+        interval: 200
+        onTriggered: {
+            btn_progress.progress = (btn_progress.progress + 0.1).toFixed(1)
+            if(btn_progress.progress==1){
+                timer_progress.stop()
+            }else{
+                timer_progress.start()
+            }
+        }
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        Layout.topMargin: 20
+        paddings: 10
+
+        FluProgressButton{
+            id:btn_progress
+            disabled:progress_button_switch.checked
+            text:"Progress Button"
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            onClicked: {
+                btn_progress.progress = 0
+                timer_progress.restart()
+            }
+        }
+        FluToggleSwitch{
+            id:progress_button_switch
+            anchors{
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+            text:"Disabled"
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -1
+        code:'FluProgressButton{
+    text:"Progress Button"
+    onClicked: {
+
+    }
+}'
+    }
+
 
     FluArea{
         Layout.fillWidth: true

@@ -152,6 +152,13 @@ public:
     Q_INVOKABLE QString md5(QString text);
 
     /**
+     * @brief sha256
+     * @param text
+     * @return
+     */
+    Q_INVOKABLE QString sha256(QString text);
+
+    /**
      * @brief toBase64
      * @param text
      * @return

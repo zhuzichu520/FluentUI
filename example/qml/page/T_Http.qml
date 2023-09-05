@@ -8,6 +8,7 @@ import FluentUI 1.0
 import "qrc:///example/qml/component"
 import "../component"
 
+
 FluContentPage{
 
     title:"Http"
@@ -116,7 +117,7 @@ FluContentPage{
                     http.postString("https://httpbingo.org/post",callable,param)
                 }
             }
-            FluButton{
+            FluProgressButton{
                 id:btn_download
                 implicitWidth: parent.width
                 implicitHeight: 36
@@ -125,7 +126,7 @@ FluContentPage{
                     folder_dialog.open()
                 }
             }
-            FluButton{
+            FluProgressButton{
                 id:btn_upload
                 implicitWidth: parent.width
                 implicitHeight: 36
@@ -199,12 +200,10 @@ FluContentPage{
         }
         onFinish: {
             btn_upload.disabled = false
-            btn_upload.text = "上传文件"
-            layout_upload_file_size.visible = false
-            text_upload_file_size.text = ""
         }
         onError:
             (status,errorString,result)=>{
+                btn_upload.progress = 0
                 text_info.text = result
                 console.debug(result)
             }
@@ -214,11 +213,7 @@ FluContentPage{
             }
         onUploadProgress:
             (sent,total)=>{
-                var locale = Qt.locale()
-                var precent = (sent/total * 100).toFixed(0) + "%"
-                btn_upload.text = "上传中..."+precent
-                text_upload_file_size.text =  "%1/%2".arg(locale.formattedDataSize(sent)).arg(locale.formattedDataSize(total))
-                layout_upload_file_size.visible = true
+                btn_upload.progress = sent/total
             }
     }
 
@@ -243,12 +238,10 @@ FluContentPage{
         }
         onFinish: {
             btn_download.disabled = false
-            btn_download.text = "下载文件"
-            layout_download_file_size.visible = false
-            text_download_file_size.text = ""
         }
         onError:
             (status,errorString,result)=>{
+                btn_download.progress = 0
                 showError(errorString)
                 console.debug(status+";"+errorString+";"+result)
             }
@@ -258,11 +251,7 @@ FluContentPage{
             }
         onDownloadProgress:
             (recv,total)=>{
-                var locale = Qt.locale()
-                var precent = (recv/total * 100).toFixed(0) + "%"
-                btn_download.text = "下载中..."+precent
-                text_download_file_size.text =  "%1/%2".arg(locale.formattedDataSize(recv)).arg(locale.formattedDataSize(total))
-                layout_download_file_size.visible = true
+                btn_download.progress = recv/total
             }
     }
 
@@ -298,34 +287,6 @@ FluContentPage{
                 wrapMode: Text.WrapAnywhere
                 padding: 14
             }
-        }
-    }
-
-    FluRectangle{
-        id:layout_download_file_size
-        radius: [4,4,4,4]
-        height: 36
-        width: 160
-        visible: false
-        x:layout_flick.width
-        y: 173 - layout_flick.contentY
-        FluText{
-            id:text_download_file_size
-            anchors.centerIn: parent
-        }
-    }
-
-    FluRectangle{
-        id:layout_upload_file_size
-        radius: [4,4,4,4]
-        height: 36
-        width: 160
-        visible: false
-        x:layout_flick.width
-        y: 210 - layout_flick.contentY
-        FluText{
-            id:text_upload_file_size
-            anchors.centerIn: parent
         }
     }
 

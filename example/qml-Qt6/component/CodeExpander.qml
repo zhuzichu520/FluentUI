@@ -138,7 +138,8 @@ FluExpander{
                     "FluTimeline",
                     "FluChart",
                     "FluRangeSlider",
-                    "FluStaggeredView"
+                    "FluStaggeredView",
+                    "FluProgressButton"
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");
