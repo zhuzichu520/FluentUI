@@ -48,7 +48,7 @@ public:
     Q_INVOKABLE void post(QString url,HttpCallable* callable,QMap<QString, QVariant> params= {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void postString(QString url,HttpCallable* callable,QString params = "",QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void postJson(QString url,HttpCallable* callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
-    Q_INVOKABLE void download(QString url,HttpCallable* callable,QString filePath,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
+    Q_INVOKABLE void download(QString url,HttpCallable* callable,QString savePath,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void upload(QString url,HttpCallable* callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void cancel();
 private:

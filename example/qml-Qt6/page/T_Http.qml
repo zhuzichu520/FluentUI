@@ -14,6 +14,7 @@ FluContentPage{
 
     FluHttp{
         id:http
+        cacheDir:cacheDirPath
     }
 
     FluHttp{

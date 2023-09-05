@@ -45,16 +45,15 @@ void FluHttp::handleReply(QNetworkReply* reply){
 
 void FluHttp::post(QString url,HttpCallable* callable,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
     QThreadPool::globalInstance()->start([=](){
-        auto requestMap = toRequest(url,params,headers,"post");
-        QMap<QString, QVariant> data = invokeIntercept(requestMap).toMap();
+        QMap<QString, QVariant> data = invokeIntercept(toRequest(url,params,headers,"post")).toMap();
         Q_EMIT callable->start();
-        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
             Q_EMIT callable->finish();
             return;
         }
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
         }
         for (int i = 0; i < retry(); ++i) {
             QNetworkAccessManager manager;
@@ -88,13 +87,13 @@ void FluHttp::post(QString url,HttpCallable* callable,QMap<QString, QVariant> pa
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
-                handleCache(requestMap,result);
+                handleCache(data,result);
                 Q_EMIT callable->success(result);
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
-                        Q_EMIT callable->cache(readCache(requestMap));
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(data)){
+                        Q_EMIT callable->cache(readCache(data));
                     }
                     Q_EMIT callable->error(status,errorString,result);
                 }
@@ -106,16 +105,15 @@ void FluHttp::post(QString url,HttpCallable* callable,QMap<QString, QVariant> pa
 
 void FluHttp::postString(QString url,HttpCallable* callable,QString params,QMap<QString, QVariant> headers){
     QThreadPool::globalInstance()->start([=](){
-        auto requestMap = toRequest(url,params,headers,"postString");
-        QMap<QString, QVariant> data = invokeIntercept(requestMap).toMap();
+        QMap<QString, QVariant> data = invokeIntercept(toRequest(url,params,headers,"postString")).toMap();
         Q_EMIT callable->start();
-        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
             Q_EMIT callable->finish();
             return;
         }
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
         }
         for (int i = 0; i < retry(); ++i) {
             QNetworkAccessManager manager;
@@ -140,13 +138,13 @@ void FluHttp::postString(QString url,HttpCallable* callable,QString params,QMap<
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
-                handleCache(requestMap,result);
+                handleCache(data,result);
                 Q_EMIT callable->success(result);
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
-                        Q_EMIT callable->cache(readCache(requestMap));
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(data)){
+                        Q_EMIT callable->cache(readCache(data));
                     }
                     Q_EMIT callable->error(status,errorString,result);
                 }
@@ -158,16 +156,15 @@ void FluHttp::postString(QString url,HttpCallable* callable,QString params,QMap<
 
 void FluHttp::postJson(QString url,HttpCallable* callable,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
     QThreadPool::globalInstance()->start([=](){
-        auto requestMap = toRequest(url,params,headers,"postJson");
-        QMap<QString, QVariant> data = invokeIntercept(requestMap).toMap();
+        QMap<QString, QVariant> data = invokeIntercept(toRequest(url,params,headers,"postJson")).toMap();
         Q_EMIT callable->start();
-        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
             Q_EMIT callable->finish();
             return;
         }
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
         }
         for (int i = 0; i < retry(); ++i) {
             QNetworkAccessManager manager;
@@ -192,13 +189,13 @@ void FluHttp::postJson(QString url,HttpCallable* callable,QMap<QString, QVariant
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
-                handleCache(requestMap,result);
+                handleCache(data,result);
                 Q_EMIT callable->success(result);
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
-                        Q_EMIT callable->cache(readCache(requestMap));
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(data)){
+                        Q_EMIT callable->cache(readCache(data));
                     }
                     Q_EMIT callable->error(status,errorString,result);
                 }
@@ -209,15 +206,14 @@ void FluHttp::postJson(QString url,HttpCallable* callable,QMap<QString, QVariant
 }
 
 void FluHttp::get(QString url,HttpCallable* callable,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
-    QThreadPool::globalInstance()->start([=](){ 
-        auto requestMap = toRequest(url,params,headers,"get");
-        QMap<QString, QVariant> data = invokeIntercept(requestMap).toMap();
+    QThreadPool::globalInstance()->start([=](){
+        QMap<QString, QVariant> data = invokeIntercept(toRequest(url,params,headers,"get")).toMap();
         Q_EMIT callable->start();
-        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
         }
-        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(requestMap)){
-            Q_EMIT callable->cache(readCache(requestMap));
+        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(data)){
+            Q_EMIT callable->cache(readCache(data));
             Q_EMIT callable->finish();
             return;
         }
@@ -243,13 +239,13 @@ void FluHttp::get(QString url,HttpCallable* callable,QMap<QString, QVariant> par
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
-                handleCache(requestMap,result);
+                handleCache(data,result);
                 Q_EMIT callable->success(result);
                 break;
             }else{
                 if(i == retry()-1){
-                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(requestMap)){
-                        Q_EMIT callable->cache(readCache(requestMap));
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(data)){
+                        Q_EMIT callable->cache(readCache(data));
                     }
                     Q_EMIT callable->error(status,errorString,result);
                 }
@@ -259,9 +255,10 @@ void FluHttp::get(QString url,HttpCallable* callable,QMap<QString, QVariant> par
     });
 }
 
-void FluHttp::download(QString url,HttpCallable* callable,QString filePath,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
+void FluHttp::download(QString url,HttpCallable* callable,QString savePath,QMap<QString, QVariant> params,QMap<QString, QVariant> headers){
     QThreadPool::globalInstance()->start([=](){
         auto requestMap = toRequest(url,params,headers,"download");
+        requestMap.insert("savePath",savePath);
         QMap<QString, QVariant> data = invokeIntercept(requestMap).toMap();
         Q_EMIT callable->start();
         QNetworkAccessManager manager;
@@ -269,7 +266,7 @@ void FluHttp::download(QString url,HttpCallable* callable,QString filePath,QMap<
         addQueryParam(&_url,data["params"].toMap());
         QNetworkRequest request(_url);
         addHeaders(&request,data["headers"].toMap());
-        QSharedPointer<QFile> file(new QFile(filePath));
+        QSharedPointer<QFile> file(new QFile(savePath));
         QIODevice::OpenMode mode = QIODevice::WriteOnly|QIODevice::Truncate;
         if (!file->open(mode))
         {
@@ -283,19 +280,33 @@ void FluHttp::download(QString url,HttpCallable* callable,QString filePath,QMap<
         });
         QNetworkReply* reply =  manager.get(request);
         _cacheReply.append(reply);
-        connect(reply,&QNetworkReply::readyRead,reply,[reply,file]{
+        auto filePath = getCacheFilePath(data);
+        QSharedPointer<QFile> fileCache(new QFile(filePath));
+        if (!fileCache->open(mode))
+        {
+            qDebug()<<"FileCache Error";
+        }
+        connect(reply,&QNetworkReply::readyRead,reply,[reply,file,fileCache,data]{
             if (!reply || !file || reply->error() != QNetworkReply::NoError)
             {
                 return;
             }
             file->write(reply->readAll());
+            fileCache->resize(0);
+            QMap<QString, QVariant> downMap = data;
+            QVariant etagHeader = reply->header(QNetworkRequest::ETagHeader);
+            if (etagHeader.isValid()) {
+                downMap.insert("ETag",etagHeader.toString());
+            }
+            downMap.insert("fileSize",file->size());
+            fileCache->write(FluTools::getInstance()->toBase64(QJsonDocument::fromVariant(QVariant(downMap)).toJson()).toUtf8());
         });
         connect(reply,&QNetworkReply::downloadProgress,reply,[=](qint64 bytesReceived, qint64 bytesTotal){
             Q_EMIT callable->downloadProgress(bytesReceived,bytesTotal);
         });
         loop.exec();
         if (reply->error() == QNetworkReply::NoError) {
-            Q_EMIT callable->success(filePath);
+            Q_EMIT callable->success(savePath);
         }else{
             Q_EMIT callable->error(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString(),"");
         }
