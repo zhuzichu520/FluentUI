@@ -68,6 +68,8 @@ Window {
             id:popup_loading
             modal:true
             focus: true
+            width: window.width
+            height: window.height
             anchors.centerIn: Overlay.overlay
             closePolicy: {
                 if(cancel){
@@ -75,17 +77,38 @@ Window {
                 }
                 return Popup.NoAutoClose
             }
-            Overlay.modal: Rectangle {
-                color: "#44000000"
-            }
+            Overlay.modal: Item {}
             onVisibleChanged: {
                 if(!visible){
                     loader_loading.sourceComponent = undefined
                 }
             }
-            visible: true
-            background: Item{}
+            padding: 0
+            opacity: 0
+            visible:true
+            Behavior on opacity {
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: 88
+                    }
+                    NumberAnimation{
+                        duration:  167
+                    }
+                }
+            }
+            Component.onCompleted: {
+                opacity = 1
+            }
+            background: Rectangle{
+                color:"#44000000"
+            }
             contentItem: Item{
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        popup_loading.visible = false
+                    }
+                }
                 ColumnLayout{
                     spacing: 8
                     anchors.centerIn: parent
