@@ -8,7 +8,6 @@ import FluentUI 1.0
 import "qrc:///example/qml/component"
 import "../component"
 
-
 FluContentPage{
 
     title:"Http"
@@ -17,6 +16,12 @@ FluContentPage{
     FluHttp{
         id:http
         cacheDir:cacheDirPath
+    }
+
+    FluHttp{
+        id:http_breakpoint_download
+        cacheDir:cacheDirPath
+        breakPointDownload: true
     }
 
     FluHttp{
@@ -128,6 +133,45 @@ FluContentPage{
                 }
             }
             FluProgressButton{
+                property string saveFilePath: FluTools.getApplicationDirPath()+ "/download/big_buck_bunny.mp4"
+                property string resourcePath: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+                id:btn_breakpoint_download
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: progress === 1 ? "打开文件" : "断点下载文件"
+                Component.onCompleted: {
+                    progress = http_breakpoint_download.breakPointDownloadProgress(resourcePath,saveFilePath)
+                }
+                onClicked: {
+                    if(progress === 1){
+                        FluTools.showFileInFolder(saveFilePath)
+                    }else{
+                        http_breakpoint_download.download(resourcePath,callable_breakpoint_download,saveFilePath)
+                    }
+                }
+                FluMenu{
+                    id:menu_breakpoint_download
+                    width: 120
+                    FluMenuItem{
+                        text: "删除文件"
+                        onClicked: {
+                            if(FluTools.removeFile(btn_breakpoint_download.saveFilePath)){
+                                btn_breakpoint_download.progress = 0
+                            }
+                        }
+                    }
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.RightButton
+                    onClicked: {
+                        if(btn_breakpoint_download.progress === 1){
+                            menu_breakpoint_download.popup()
+                        }
+                    }
+                }
+            }
+            FluProgressButton{
                 id:btn_upload
                 implicitWidth: parent.width
                 implicitHeight: 36
@@ -233,6 +277,30 @@ FluContentPage{
     }
 
     HttpCallable{
+        id:callable_breakpoint_download
+        onStart: {
+            btn_breakpoint_download.disabled = true
+        }
+        onFinish: {
+            btn_breakpoint_download.disabled = false
+        }
+        onError:
+            (status,errorString,result)=>{
+                btn_breakpoint_download.progress = 0
+                showError(errorString)
+                console.debug(status+";"+errorString+";"+result)
+            }
+        onSuccess:
+            (result)=>{
+                showSuccess(result)
+            }
+        onDownloadProgress:
+            (recv,total)=>{
+                btn_breakpoint_download.progress = recv/total
+            }
+    }
+
+    HttpCallable{
         id:callable_download
         onStart: {
             btn_download.progress = 0
@@ -291,5 +359,4 @@ FluContentPage{
             }
         }
     }
-
 }

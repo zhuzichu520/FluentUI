@@ -6,6 +6,7 @@
 #include <QScreen>
 #include <QColor>
 #include <QFileInfo>
+#include <QProcess>
 #include <QDir>
 #include <QCryptographicHash>
 #include <QTextDocument>
@@ -151,6 +152,27 @@ bool FluTools::removeDir(QString dirPath){
     return qDir.removeRecursively();
 }
 
+bool FluTools::removeFile(QString filePath){
+    QFile file(filePath);
+    return file.remove();
+}
+
 QString FluTools::sha256(QString text){
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha256).toHex();
+}
+
+void FluTools::showFileInFolder(QString path){
+#if defined(Q_OS_WIN)
+    QProcess::startDetached("explorer.exe", {"/select,", QDir::toNativeSeparators(path)});
+#endif
+#if defined(Q_OS_LINUX)
+    QFileInfo fileInfo(path);
+    auto process = "xdg-open";
+    auto arguments = { fileInfo.absoluteDir().absolutePath() };
+    QProcess::startDetached(process, arguments);
+#endif
+#if defined(Q_OS_MACOS)
+    QProcess::execute("/usr/bin/osascript", {"-e", "tell application \"Finder\" to reveal POSIX file \"" + path + "\""});
+    QProcess::execute("/usr/bin/osascript", {"-e", "tell application \"Finder\" to activate"});
+#endif
 }

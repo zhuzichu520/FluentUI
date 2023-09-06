@@ -8,21 +8,6 @@ import QtQuick.tooling 1.2
 
 Module {
     dependencies: ["QtQuick 2.0"]
-	Component {
-        name: "FluHttpType"
-        exports: ["FluentUI/FluHttpType 1.0"]
-        isCreatable: false
-        exportMetaObjectRevisions: [0]
-        Enum {
-            name: "CacheMode"
-            values: {
-                "NoCache": 0,
-                "RequestFailedReadCache": 1,
-                "IfNoneCacheRequest": 2,
-				"FirstCacheThenRequest": 4
-            }
-        }
-    }
     Component {
         name: "FluCalendarViewType"
         exports: ["FluentUI/FluCalendarViewType 1.0"]
@@ -85,116 +70,140 @@ Module {
         exportMetaObjectRevisions: [0]
         Property { name: "retry"; type: "int" }
         Property { name: "timeout"; type: "int" }
+        Property { name: "cacheMode"; type: "int" }
+        Property { name: "cacheDir"; type: "string" }
+        Property { name: "breakPointDownload"; type: "bool" }
         Method {
             name: "get"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
             Parameter { name: "headers"; type: "QVariantMap" }
         }
         Method {
             name: "get"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
         }
         Method {
             name: "get"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
         }
         Method {
             name: "post"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
             Parameter { name: "headers"; type: "QVariantMap" }
         }
         Method {
             name: "post"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
         }
         Method {
             name: "post"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
         }
         Method {
             name: "postString"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "string" }
             Parameter { name: "headers"; type: "QVariantMap" }
         }
         Method {
             name: "postString"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "string" }
         }
         Method {
             name: "postString"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
         }
         Method {
             name: "postJson"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
             Parameter { name: "headers"; type: "QVariantMap" }
         }
         Method {
             name: "postJson"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
         }
         Method {
             name: "postJson"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
         }
         Method {
             name: "download"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
-            Parameter { name: "filePath"; type: "string" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
+            Parameter { name: "savePath"; type: "string" }
             Parameter { name: "params"; type: "QVariantMap" }
             Parameter { name: "headers"; type: "QVariantMap" }
         }
         Method {
             name: "download"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
-            Parameter { name: "filePath"; type: "string" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
+            Parameter { name: "savePath"; type: "string" }
             Parameter { name: "params"; type: "QVariantMap" }
         }
         Method {
             name: "download"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
-            Parameter { name: "filePath"; type: "string" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
+            Parameter { name: "savePath"; type: "string" }
         }
         Method {
             name: "upload"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
             Parameter { name: "headers"; type: "QVariantMap" }
         }
         Method {
             name: "upload"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
             Parameter { name: "params"; type: "QVariantMap" }
         }
         Method {
             name: "upload"
             Parameter { name: "url"; type: "string" }
-            Parameter { name: "callable"; type: "QJSValue" }
+            Parameter { name: "callable"; type: "HttpCallable"; isPointer: true }
+        }
+        Method {
+            name: "breakPointDownloadProgress"
+            type: "double"
+            Parameter { name: "url"; type: "string" }
+            Parameter { name: "savePath"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+            Parameter { name: "headers"; type: "QVariantMap" }
+        }
+        Method {
+            name: "breakPointDownloadProgress"
+            type: "double"
+            Parameter { name: "url"; type: "string" }
+            Parameter { name: "savePath"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "breakPointDownloadProgress"
+            type: "double"
+            Parameter { name: "url"; type: "string" }
+            Parameter { name: "savePath"; type: "string" }
         }
         Method { name: "cancel" }
     }
@@ -203,6 +212,21 @@ Module {
         prototype: "QObject"
         exports: ["FluentUI/FluHttpInterceptor 1.0"]
         exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "FluHttpType"
+        exports: ["FluentUI/FluHttpType 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CacheMode"
+            values: {
+                "NoCache": 0,
+                "RequestFailedReadCache": 1,
+                "IfNoneCacheRequest": 2,
+                "FirstCacheThenRequest": 4
+            }
+        }
     }
     Component {
         name: "FluNavigationViewType"
@@ -241,7 +265,7 @@ Module {
             }
         }
     }
-	Component {
+    Component {
         name: "FluScreenshotType"
         exports: ["FluentUI/FluScreenshotType 1.0"]
         isCreatable: false
@@ -251,20 +275,6 @@ Module {
             values: {
                 "Pixmap": 0,
                 "File": 1
-            }
-        }
-    }
-	Component {
-        name: "FluTimelineType"
-        exports: ["FluentUI/FluTimelineType 1.0"]
-        isCreatable: false
-        exportMetaObjectRevisions: [0]
-        Enum {
-            name: "Mode"
-            values: {
-                "Left": 0,
-                "Right": 1,
-				"Alternate": 2
             }
         }
     }
@@ -329,6 +339,20 @@ Module {
             values: {
                 "H": 0,
                 "HH": 1
+            }
+        }
+    }
+    Component {
+        name: "FluTimelineType"
+        exports: ["FluentUI/FluTimelineType 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Mode"
+            values: {
+                "Left": 0,
+                "Right": 1,
+                "Alternate": 2
             }
         }
     }
@@ -1788,6 +1812,38 @@ Module {
         }
     }
     Component {
+        name: "HttpCallable"
+        prototype: "QObject"
+        exports: ["FluentUI/HttpCallable 1.0"]
+        exportMetaObjectRevisions: [0]
+        Signal { name: "start" }
+        Signal { name: "finish" }
+        Signal {
+            name: "error"
+            Parameter { name: "status"; type: "int" }
+            Parameter { name: "errorString"; type: "string" }
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "success"
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "cache"
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "downloadProgress"
+            Parameter { name: "recv"; type: "qlonglong" }
+            Parameter { name: "total"; type: "qlonglong" }
+        }
+        Signal {
+            name: "uploadProgress"
+            Parameter { name: "recv"; type: "qlonglong" }
+            Parameter { name: "total"; type: "qlonglong" }
+        }
+    }
+    Component {
         name: "QRCode"
         defaultProperty: "data"
         prototype: "QQuickPaintedItem"
@@ -1816,6 +1872,7 @@ Module {
         exportMetaObjectRevisions: [0]
         Property { name: "saveFolder"; type: "string" }
         Property { name: "captureMode"; type: "int" }
+        Property { name: "hitDrawData"; type: "DrawData"; isPointer: true }
         Signal {
             name: "captrueToPixmapCompleted"
             Parameter { name: "captrue"; type: "QPixmap" }
@@ -1828,6 +1885,25 @@ Module {
             name: "capture"
             Parameter { name: "start"; type: "QPoint" }
             Parameter { name: "end"; type: "QPoint" }
+        }
+        Method {
+            name: "appendDrawData"
+            type: "DrawData*"
+            Parameter { name: "drawType"; type: "int" }
+            Parameter { name: "start"; type: "QPoint" }
+            Parameter { name: "end"; type: "QPoint" }
+        }
+        Method {
+            name: "updateDrawData"
+            Parameter { name: "data"; type: "DrawData"; isPointer: true }
+            Parameter { name: "start"; type: "QPoint" }
+            Parameter { name: "end"; type: "QPoint" }
+        }
+        Method { name: "clear" }
+        Method {
+            name: "hit"
+            type: "DrawData*"
+            Parameter { name: "point"; type: "QPoint" }
         }
     }
     Component {

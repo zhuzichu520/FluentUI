@@ -180,6 +180,19 @@ public:
      */
     Q_INVOKABLE bool removeDir(QString dirPath);
 
+    /**
+     * @brief removeFile
+     * @param filePath
+     * @return
+     */
+    Q_INVOKABLE bool removeFile(QString filePath);
+
+    /**
+     * @brief showFileInFolder
+     * @param path
+     */
+    Q_INVOKABLE void showFileInFolder(QString path);
+
 };
 
 #endif // FLUTOOLS_H

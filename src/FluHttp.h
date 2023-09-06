@@ -32,9 +32,8 @@ class FluHttp : public QObject
     Q_PROPERTY_AUTO(bool,breakPointDownload);
     QML_NAMED_ELEMENT(FluHttp)
 private:
-    QVariant invokeIntercept(QMap<QString, QVariant> request);
+    QVariant invokeIntercept(QMap<QString, QVariant> request,Qt::ConnectionType type = Qt::BlockingQueuedConnection);
     QMap<QString, QVariant> toRequest(const QString& url,const QVariant& params,const QVariant& headers,const QString& method);
-    void handleReply(QNetworkReply* reply);
     void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
     void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& params);
     void handleCache(QMap<QString, QVariant> request, const QString& result);
@@ -51,6 +50,7 @@ public:
     Q_INVOKABLE void postJson(QString url,HttpCallable* callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void download(QString url,HttpCallable* callable,QString savePath,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void upload(QString url,HttpCallable* callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
+    Q_INVOKABLE qreal breakPointDownloadProgress(QString url,QString savePath,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
     Q_INVOKABLE void cancel();
 private:
     QList<QPointer<QNetworkReply>> _cacheReply;
