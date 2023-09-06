@@ -132,16 +132,53 @@ FluContentPage{
                 }
             }
             FluProgressButton{
+                property bool downloading: false
                 property string saveFilePath: FluTools.getApplicationDirPath()+ "/download/big_buck_bunny.mp4"
                 property string resourcePath: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
                 id:btn_breakpoint_download
                 implicitWidth: parent.width
                 implicitHeight: 36
-                text: progress === 1 ? "打开文件" : "断点下载文件"
+                text: {
+                    if(downloading){
+                        return "暂停下载"
+                    }
+                    if(progress === 0){
+                        return "断点下载文件"
+                    }else if(progress === 1){
+                        return "打开文件"
+                    }else{
+                        return "继续下载"
+                    }
+                }
+                HttpCallable{
+                    id:callable_breakpoint_download
+                    onStart: {
+                        btn_breakpoint_download.downloading = true
+                    }
+                    onFinish: {
+                        btn_breakpoint_download.downloading = false
+                    }
+                    onError:
+                        (status,errorString,result)=>{
+                            console.debug(status+";"+errorString+";"+result)
+                        }
+                    onSuccess:
+                        (result)=>{
+                            showSuccess(result)
+                        }
+                    onDownloadProgress:
+                        (recv,total)=>{
+                            btn_breakpoint_download.progress = recv/total
+                        }
+                }
                 Component.onCompleted: {
                     progress = http_breakpoint_download.breakPointDownloadProgress(resourcePath,saveFilePath)
                 }
                 onClicked: {
+                    if(downloading){
+                        http_breakpoint_download.cancel()
+                        return
+                    }
                     if(progress === 1){
                         FluTools.showFileInFolder(saveFilePath)
                     }else{
@@ -260,7 +297,6 @@ FluContentPage{
                 btn_upload.progress = sent/total
             }
     }
-
     FileDialog {
         id: file_dialog
         onAccepted: {
@@ -273,30 +309,6 @@ FluContentPage{
             }
             http.upload("https://httpbingo.org/post",callable_upload,param)
         }
-    }
-
-    HttpCallable{
-        id:callable_breakpoint_download
-        onStart: {
-            btn_breakpoint_download.disabled = true
-        }
-        onFinish: {
-            btn_breakpoint_download.disabled = false
-        }
-        onError:
-            (status,errorString,result)=>{
-                btn_breakpoint_download.progress = 0
-                showError(errorString)
-                console.debug(status+";"+errorString+";"+result)
-            }
-        onSuccess:
-            (result)=>{
-                showSuccess(result)
-            }
-        onDownloadProgress:
-            (recv,total)=>{
-                btn_breakpoint_download.progress = recv/total
-            }
     }
 
     HttpCallable{
@@ -323,7 +335,6 @@ FluContentPage{
                 btn_download.progress = recv/total
             }
     }
-
     FolderDialog {
         id: folder_dialog
         currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]

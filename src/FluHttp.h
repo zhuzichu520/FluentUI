@@ -34,12 +34,13 @@ class FluHttp : public QObject
 private:
     QVariant invokeIntercept(QMap<QString, QVariant> request,Qt::ConnectionType type = Qt::BlockingQueuedConnection);
     QMap<QString, QVariant> toRequest(const QString& url,const QVariant& params,const QVariant& headers,const QString& method);
+    QString toHttpId(const QMap<QString, QVariant>& map);
     void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
     void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& params);
-    void handleCache(QMap<QString, QVariant> request, const QString& result);
-    QString readCache(const QMap<QString, QVariant>& request);
-    bool cacheExists(const QMap<QString, QVariant>& request);
-    QString getCacheFilePath(const QMap<QString, QVariant>& request);
+    void handleCache(const QString& httpId, const QString& result);
+    QString readCache(const QString& httpId);
+    bool cacheExists(const QString& httpId);
+    QString getCacheFilePath(const QString& httpId);
 public:
     explicit FluHttp(QObject *parent = nullptr);
     ~FluHttp();
