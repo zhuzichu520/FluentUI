@@ -21,8 +21,9 @@ HttpRequest::HttpRequest(QObject *parent)
 
 QMap<QString, QVariant> HttpRequest::toMap(){
     QVariant _params;
+    bool isPostString = method() == "postString";
     if(params().isNull()){
-        if(method() == "postString"){
+        if(isPostString){
             _params = "";
         }else{
             _params = QMap<QString,QVariant>();
@@ -38,16 +39,20 @@ QMap<QString, QVariant> HttpRequest::toMap(){
     }
     QMap<QString, QVariant> request = {
         {"url",url()},
-        {"params",_params},
-        {"headers",_headers},
+        {"headers",_headers.toMap()},
         {"method",method()},
         {"downloadSavePath",downloadSavePath()}
     };
+    if(isPostString){
+        request.insert("params",_params.toString());
+    }else{
+        request.insert("params",_params.toMap());
+    }
     return request;
 }
 
 QString HttpRequest::httpId(){
-    return FluTools::getInstance()->sha256(QJsonDocument::fromVariant(QVariant(toMap())).toJson());
+    return FluTools::getInstance()->sha256(QJsonDocument::fromVariant(QVariant(toMap())).toJson(QJsonDocument::Compact));
 }
 
 HttpCallable::HttpCallable(QObject *parent)

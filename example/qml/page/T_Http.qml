@@ -61,7 +61,6 @@ FluContentPage{
         onCache:
             (result)=>{
                 text_info.text = result
-                console.debug(result)
             }
     }
 
