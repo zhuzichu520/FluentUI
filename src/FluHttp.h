@@ -13,12 +13,12 @@ class HttpRequest : public QObject{
     Q_PROPERTY_AUTO(QVariant,params);
     Q_PROPERTY_AUTO(QVariant,headers);
     Q_PROPERTY_AUTO(QString,method);
+    Q_PROPERTY_AUTO(QString,downloadSavePath);
     QML_NAMED_ELEMENT(HttpRequest)
 public:
     explicit HttpRequest(QObject *parent = nullptr);
-    ~HttpRequest(){
-        qDebug()<<"------------析构了"<<url();
-    }
+    QMap<QString, QVariant> toMap();
+    Q_INVOKABLE QString httpId();
 };
 
 class HttpCallable : public QObject{
@@ -46,8 +46,6 @@ class FluHttp : public QObject
     QML_NAMED_ELEMENT(FluHttp)
 private:
     QVariant invokeIntercept(QMap<QString, QVariant> request);
-    QMap<QString, QVariant> toRequest(const QString& url,const QVariant& params,const QVariant& headers,const QString& method);
-    QString toHttpId(const QMap<QString, QVariant>& map);
     void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
     void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& params);
     void handleCache(const QString& httpId, const QString& result);
@@ -55,7 +53,7 @@ private:
     bool cacheExists(const QString& httpId);
     QString getCacheFilePath(const QString& httpId);
     void onStart(QPointer<HttpCallable> callable);
-    void onFinish(QPointer<HttpCallable> callable);
+    void onFinish(QPointer<HttpCallable> callable,HttpRequest* request);
     void onError(QPointer<HttpCallable> callable,int status,QString errorString,QString result);
     void onSuccess(QPointer<HttpCallable> callable,QString result);
     void onCache(QPointer<HttpCallable> callable,QString result);
@@ -64,16 +62,14 @@ private:
 public:
     explicit FluHttp(QObject *parent = nullptr);
     ~FluHttp();
-    Q_INVOKABLE  HttpRequest* newRequest();
-    Q_INVOKABLE void get2(HttpRequest* request,HttpCallable* callable);
-    //神坑！！！ 如果参数使用QVariantMap会有问题，在6.4.3版本中QML一调用就会编译失败。所以改用QMap<QString, QVariant>
-    Q_INVOKABLE void get(QString url,HttpCallable* callable,QMap<QString, QVariant> params= {},QMap<QString, QVariant> headers = {});
-    Q_INVOKABLE void post(QString url,HttpCallable* callable,QMap<QString, QVariant> params= {},QMap<QString, QVariant> headers = {});
-    Q_INVOKABLE void postString(QString url,HttpCallable* callable,QString params = "",QMap<QString, QVariant> headers = {});
-    Q_INVOKABLE void postJson(QString url,HttpCallable* callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
-    Q_INVOKABLE void download(QString url,HttpCallable* callable,QString savePath,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
-    Q_INVOKABLE void upload(QString url,HttpCallable* callable,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
-    Q_INVOKABLE qreal breakPointDownloadProgress(QString url,QString savePath,QMap<QString, QVariant> params = {},QMap<QString, QVariant> headers = {});
+    Q_INVOKABLE  HttpRequest* newRequest(QString url = "");
+    Q_INVOKABLE void get(HttpRequest* request,HttpCallable* callable);
+    Q_INVOKABLE void post(HttpRequest* request,HttpCallable* callable);
+    Q_INVOKABLE void postString(HttpRequest* request,HttpCallable* callable);
+    Q_INVOKABLE void postJson(HttpRequest* request,HttpCallable* callable);
+    Q_INVOKABLE void download(HttpRequest* request,HttpCallable* callable);
+    Q_INVOKABLE void upload(HttpRequest* request,HttpCallable* callable);
+    Q_INVOKABLE qreal getBreakPointProgress(HttpRequest* request);
     Q_INVOKABLE void cancel();
 private:
     QList<QPointer<QNetworkReply>> _cacheReply;

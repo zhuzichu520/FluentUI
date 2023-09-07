@@ -57,7 +57,6 @@ FluContentPage{
         onSuccess:
             (result)=>{
                 text_info.text = result
-                console.debug(result)
             }
         onCache:
             (result)=>{
@@ -87,7 +86,8 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Get请求"
                 onClicked: {
-                    http.get("https://httpbingo.org/get",callable)
+                    var request = http.newRequest("https://httpbingo.org/get")
+                    http.get(request,callable)
                 }
             }
             FluButton{
@@ -95,11 +95,13 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post表单请求"
                 onClicked: {
-                    var param = {}
-                    param.custname = "朱子楚"
-                    param.custtel = "1234567890"
-                    param.custemail = "zhuzichu520@gmail.com"
-                    http.post("https://httpbingo.org/post",callable,param)
+                    var request = http.newRequest("https://httpbingo.org/post")
+                    var params = {}
+                    params.custname = "朱子楚"
+                    params.custtel = "1234567890"
+                    params.custemail = "zhuzichu520@gmail.com"
+                    request.params = params
+                    http.post(request,callable)
                 }
             }
             FluButton{
@@ -107,11 +109,13 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post Json请求"
                 onClicked: {
-                    var param = {}
-                    param.custname = "朱子楚"
-                    param.custtel = "1234567890"
-                    param.custemail = "zhuzichu520@gmail.com"
-                    http.postJson("https://httpbingo.org/post",callable,param)
+                    var request = http.newRequest("https://httpbingo.org/post")
+                    var params = {}
+                    params.custname = "朱子楚"
+                    params.custtel = "1234567890"
+                    params.custemail = "zhuzichu520@gmail.com"
+                    request.params = params
+                    http.postJson(request,callable)
                 }
             }
             FluButton{
@@ -119,8 +123,9 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post String请求"
                 onClicked: {
-                    var param = "我命由我不由天"
-                    http.postString("https://httpbingo.org/post",callable,param)
+                    var request = http.newRequest("https://httpbingo.org/post")
+                    request.params = "我命由我不由天"
+                    http.postString(request,callable)
                 }
             }
             FluProgressButton{
@@ -134,8 +139,6 @@ FluContentPage{
             }
             FluProgressButton{
                 property bool downloading: false
-                property string saveFilePath: FluTools.getApplicationDirPath()+ "/download/big_buck_bunny.mp4"
-                property string resourcePath: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
                 id:btn_breakpoint_download
                 implicitWidth: parent.width
                 implicitHeight: 36
@@ -150,6 +153,11 @@ FluContentPage{
                     }else{
                         return "继续下载"
                     }
+                }
+                HttpRequest{
+                    id:request_breakpoint_download
+                    url: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+                    downloadSavePath: FluTools.getApplicationDirPath()+ "/download/big_buck_bunny.mp4"
                 }
                 HttpCallable{
                     id:callable_breakpoint_download
@@ -173,7 +181,7 @@ FluContentPage{
                         }
                 }
                 Component.onCompleted: {
-                    progress = http_breakpoint_download.breakPointDownloadProgress(resourcePath,saveFilePath)
+                    progress = http_breakpoint_download.getBreakPointProgress(request_breakpoint_download)
                 }
                 onClicked: {
                     if(downloading){
@@ -181,9 +189,9 @@ FluContentPage{
                         return
                     }
                     if(progress === 1){
-                        FluTools.showFileInFolder(saveFilePath)
+                        FluTools.showFileInFolder(request_breakpoint_download.downloadSavePath)
                     }else{
-                        http_breakpoint_download.download(resourcePath,callable_breakpoint_download,saveFilePath)
+                        http_breakpoint_download.download(request_breakpoint_download,callable_breakpoint_download)
                     }
                 }
                 FluMenu{
@@ -192,7 +200,7 @@ FluContentPage{
                     FluMenuItem{
                         text: "删除文件"
                         onClicked: {
-                            if(FluTools.removeFile(btn_breakpoint_download.saveFilePath)){
+                            if(FluTools.removeFile(request_breakpoint_download.downloadSavePath)){
                                 btn_breakpoint_download.progress = 0
                             }
                         }
@@ -222,9 +230,9 @@ FluContentPage{
                 implicitHeight: 36
                 text: "FirstCacheThenRequest缓存"
                 onClicked: {
-                    var param = {}
-                    param.cacheMode = "FirstCacheThenRequest"
-                    http_cache_firstcachethenrequest.post("https://httpbingo.org/post",callable,param)
+                    var request = http.newRequest("https://httpbingo.org/post")
+                    request.params = {cacheMode:"FirstCacheThenRequest"}
+                    http_cache_firstcachethenrequest.post(request,callable)
                 }
             }
             FluButton{
@@ -232,9 +240,9 @@ FluContentPage{
                 implicitHeight: 36
                 text: "RequestFailedReadCache缓存"
                 onClicked: {
-                    var param = {}
-                    param.cacheMode = "RequestFailedReadCache"
-                    http_cache_requestfailedreadcache.post("https://httpbingo.org/post",callable,param)
+                    var request = http.newRequest("https://httpbingo.org/post")
+                    request.params = {cacheMode:"RequestFailedReadCache"}
+                    http_cache_requestfailedreadcache.post(request,callable)
                 }
             }
 
@@ -243,9 +251,9 @@ FluContentPage{
                 implicitHeight: 36
                 text: "IfNoneCacheRequest缓存"
                 onClicked: {
-                    var param = {}
-                    param.cacheMode = "IfNoneCacheRequest"
-                    http_cache_ifnonecacherequest.post("https://httpbingo.org/post",callable,param)
+                    var request = http.newRequest("https://httpbingo.org/post")
+                    request.params = {cacheMode:"IfNoneCacheRequest"}
+                    http_cache_ifnonecacherequest.post(request,callable)
                 }
             }
             FluButton{
@@ -301,14 +309,16 @@ FluContentPage{
     FileDialog {
         id: file_dialog
         onAccepted: {
-            var param = {}
+            var request = http.newRequest("https://httpbingo.org/post")
+            var params = {}
             for(var i=0;i<selectedFiles.length;i++){
                 var fileUrl = selectedFiles[i]
                 var fileName = FluTools.getFileNameByUrl(fileUrl)
                 var filePath = FluTools.toLocalPath(fileUrl)
-                param[fileName] = filePath
+                params[fileName] = filePath
             }
-            http.upload("https://httpbingo.org/post",callable_upload,param)
+            request.params = params
+            http.upload(request,callable_upload)
         }
     }
 
@@ -340,11 +350,11 @@ FluContentPage{
         id: folder_dialog
         currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
         onAccepted: {
-            var path = FluTools.toLocalPath(currentFolder)+ "/big_buck_bunny.mp4"
-            http.download("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",callable_download,path)
+            var request = http.newRequest("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
+            request.downloadSavePath = FluTools.toLocalPath(currentFolder)+ "/big_buck_bunny.mp4"
+            http.download(request,callable_download)
         }
     }
-
     FluArea{
         anchors{
             top: layout_flick.top

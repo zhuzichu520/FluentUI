@@ -397,7 +397,7 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
-            title:"Screenshot"
+            title:"Screenshot(Todo)"
             url:"qrc:/example/qml/page/T_Screenshot.qml"
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{ navigationView.push(url) }

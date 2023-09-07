@@ -334,21 +334,9 @@ CustomWindow {
             }
     }
 
-
-//    HttpRequest{
-//        id:reuqest
-//        url: "https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest"
-//    }
-
-
     function checkUpdate(){
-        var request = http.newRequest()
-            console.debug("-------------------->"+request)
-        request.url =  "https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest"
-
-        console.debug("-------------------->"+request.url)
-        http.get2(request,callable);
-//        http.get("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest",callable)
+        var request = http.newRequest("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest")
+        http.get(request,callable);
     }
 
 }

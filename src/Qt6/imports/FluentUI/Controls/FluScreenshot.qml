@@ -15,7 +15,6 @@ Item{
     signal captrueCompleted(var captrue)
     QtObject{
         id:d
-        property bool isEdit: false
         property int dotMouseSize: control.dotSize+10
         property int dotMargins: -(control.dotSize-control.borderSize)/2
         property bool enablePosition: false
@@ -27,7 +26,7 @@ Item{
     Component{
         id:com_screen
         Window{
-            property bool isZeroPos: screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)
+            property bool isZeroPos: screenshot.start.x === 0 && screenshot.start.y === 0 && screenshot.end.x === 0 && screenshot.end.y === 0
             id:window_screen
             flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
             x:-1
@@ -42,8 +41,7 @@ Item{
                 }
             }
             Component.onCompleted: {
-                d.isEdit = false
-                setGeometry(0,0,screenshot_background.width,screenshot_background.height)
+                setGeometry(0,0,screenshot_background.width,screenshot_background.height+1)
             }
             ScreenshotBackground{
                 id:screenshot_background
@@ -110,8 +108,6 @@ Item{
                             }
                             screenshot.start = Qt.point(0,0)
                             screenshot.end = Qt.point(0,0)
-                            d.isEdit = false
-                            screenshot_background.clear()
                         }
                     }
             }
@@ -126,63 +122,21 @@ Item{
                 border.color: control.borderColor
                 MouseArea{
                     property point clickPos: Qt.point(0,0)
-                    property var currentData
-                    property bool enablePositionChanged : false
-                    property var hitData
                     anchors.fill: parent
-                    hoverEnabled: true
                     cursorShape: d.isEdit ? Qt.ArrowCursor : Qt.SizeAllCursor
                     onPressed:
                         (mouse)=>{
-                            if(hitData){
-                                return
-                            }
-                            enablePositionChanged = true
-                            if(d.isEdit){
-                                clickPos = Qt.point(mouse.x, mouse.y)
-                                currentData = screenshot_background.appendDrawData(0,clickPos,clickPos)
-                            }else{
-                                clickPos = Qt.point(mouse.x, mouse.y)
-                            }
+                            clickPos = Qt.point(mouse.x, mouse.y)
                         }
-                    onReleased: {
-                        enablePositionChanged = false
-                    }
-                    onCanceled: {
-                        enablePositionChanged = false
-                    }
-                    onClicked: {
-                        if(hitData){
-                            screenshot_background.hitDrawData = hitData
-                        }
-                    }
                     onPositionChanged:
                         (mouse)=>{
-
-                            if(!enablePositionChanged){
-                                hitData = screenshot_background.hit(Qt.point(rect_capture.x + mouse.x,rect_capture.y + mouse.y))
-                                if(hitData){
-                                    FluTools.setOverrideCursor(Qt.SizeAllCursor)
-                                }else{
-                                    FluTools.restoreOverrideCursor()
-                                }
-                                return
-                            }
-                            if(d.isEdit){
-                                var start = Qt.point(rect_capture.x + clickPos.x,rect_capture.y + clickPos.y)
-                                var end = Qt.point(Math.min(Math.max(rect_capture.x + mouse.x,rect_capture.x+borderSize),rect_capture.x+rect_capture.width-currentData.getLineWidth()),Math.min(Math.max(rect_capture.y + mouse.y,rect_capture.y+currentData.getLineWidth()+borderSize),rect_capture.y+rect_capture.height)-currentData.getLineWidth())
-                                console.debug("start->"+start)
-                                console.debug("end->"+end)
-                                screenshot_background.updateDrawData(currentData,start,end)
-                            }else{
-                                var delta = Qt.point(mouse.x - clickPos.x,mouse.y - clickPos.y)
-                                var w = Math.abs(screenshot.end.x - screenshot.start.x)
-                                var h = Math.abs(screenshot.end.y - screenshot.start.y)
-                                var x = Math.min(Math.max(rect_capture.x + delta.x,0),window_screen.width-w)
-                                var y =Math.min(Math.max(rect_capture.y + delta.y,0),window_screen.height-h)
-                                screenshot.start = Qt.point(x,y)
-                                screenshot.end = Qt.point(x+w,y+h)
-                            }
+                            var delta = Qt.point(mouse.x - clickPos.x,mouse.y - clickPos.y)
+                            var w = Math.abs(screenshot.end.x - screenshot.start.x)
+                            var h = Math.abs(screenshot.end.y - screenshot.start.y)
+                            var x = Math.min(Math.max(rect_capture.x + delta.x,0),window_screen.width-w)
+                            var y = Math.min(Math.max(rect_capture.y + delta.y,0),window_screen.height-h)
+                            screenshot.start = Qt.point(x,y)
+                            screenshot.end = Qt.point(x+w,y+h)
                         }
                 }
             }
@@ -520,10 +474,10 @@ Item{
                     }
             }
             Pane{
-                width: 140
+                width: 100
                 height: 40
                 visible: {
-                    if(screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)){
+                    if(isZeroPos){
                         return false
                     }
                     if(d.enablePosition){
@@ -544,12 +498,6 @@ Item{
                 RowLayout{
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
-                    FluIconButton{
-                        iconSource: FluentIcons.Stop
-                        onClicked: {
-                            d.isEdit = true
-                        }
-                    }
                     FluIconButton{
                         iconSource: FluentIcons.Cancel
                         iconSize: 18

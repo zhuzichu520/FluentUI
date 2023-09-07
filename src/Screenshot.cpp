@@ -43,72 +43,17 @@ ScreenshotBackground::ScreenshotBackground(QQuickItem* parent) : QQuickPaintedIt
     }
     setWidth(w);
     setHeight(h);
-    connect(this,&ScreenshotBackground::hitDrawDataChanged,this,[=]{update();});
 }
 
 void ScreenshotBackground::paint(QPainter* painter)
 {
     painter->save();
     _sourcePixmap = _desktopPixmap.copy();
-    foreach (auto item, _drawList) {
-        if(item->drawType == 0){
-            QPainter p(&_sourcePixmap);
-            QPen pen;
-            pen.setWidth(item->lineWidth);
-            pen.setColor(QColor(255,0,0));
-            pen.setStyle(Qt::SolidLine);
-            p.setPen(pen);
-            QRect rect(item->start.x(), item->start.y(), item->end.x()-item->start.x(), item->end.y()-item->start.y());
-            p.drawRect(rect);
-        }
-    }
     painter->drawPixmap(_desktopGeometry,_sourcePixmap);
-    foreach (auto item, _drawList) {
-        if(item->drawType == 0){
-            if(item == _hitDrawData){
-                painter->setPen(QPen(QColor(255,0,0),3));
-                painter->setBrush(QColor(255,255,255));
-                painter->drawEllipse(QRect(item->start.x()-4,item->start.y()-4,8,8));
-                painter->drawEllipse(QRect(item->start.x()+item->getWidth()/2-4,item->start.y()-4,8,8));
-                painter->drawEllipse(QRect(item->start.x()+item->getWidth()-4,item->start.y()-4,8,8));
-                painter->drawEllipse(QRect(item->start.x()+item->getWidth()-4,item->start.y()+item->getHeight()/2-4,8,8));
-                painter->drawEllipse(QRect(item->start.x()+item->getWidth()-4,item->start.y()+item->getHeight()-4,8,8));
-                painter->drawEllipse(QRect(item->start.x()+item->getWidth()/2-4,item->start.y()+item->getHeight()-4,8,8));
-                painter->drawEllipse(QRect(item->start.x()-4,item->start.y()+item->getHeight()-4,8,8));
-                painter->drawEllipse(QRect(item->start.x()-4,item->start.y()+item->getHeight()/2-4,8,8));
-            }
-        }
-    }
     painter->restore();
 }
 
-void ScreenshotBackground::clear(){
-    _drawList.clear();
-    update();
-}
-
-DrawData* ScreenshotBackground::hit(const QPoint& point){
-    foreach (auto item, _drawList) {
-        if(item->drawType == 0){
-            if(point.x()>=item->start.x()-mouseSpacing && point.x()<=item->start.x()+item->lineWidth+mouseSpacing && point.y()>=item->start.y()-mouseSpacing && point.y()<=item->end.y()+mouseSpacing){
-                return item;
-            }
-            if(point.x()>=item->start.x()-mouseSpacing && point.x()<=item->end.x()+mouseSpacing && point.y()>=item->start.y()-mouseSpacing && point.y()<=item->start.y()+item->lineWidth+mouseSpacing){
-                return item;
-            }
-            if(point.x()>=item->end.x()-item->lineWidth-mouseSpacing && point.x()<=item->end.x()+mouseSpacing && point.y()>=item->start.y()-mouseSpacing && point.y()<=item->end.y()+mouseSpacing){
-                return item;
-            }
-            if(point.x()>=item->start.x()-mouseSpacing && point.x()<=item->end.x()+mouseSpacing && point.y()>=item->end.y()-item->lineWidth-mouseSpacing && point.y()<=item->end.y()+mouseSpacing){
-                return item;
-            }
-        }
-    }
-    return nullptr;
-}
-
 void ScreenshotBackground::capture(const QPoint& start,const QPoint& end){
-    hitDrawData(nullptr);
     update();
     auto pixelRatio = qApp->primaryScreen()->devicePixelRatio();
     auto x = qMin(start.x(),end.x()) * pixelRatio;
@@ -129,21 +74,3 @@ void ScreenshotBackground::capture(const QPoint& start,const QPoint& end){
         Q_EMIT captrueToFileCompleted(QUrl::fromLocalFile(filePath));
     }
 }
-
-DrawData* ScreenshotBackground::appendDrawData(int drawType,QPoint start,QPoint end){
-    DrawData *data = new DrawData(this);
-    data->drawType = drawType;
-    data->start = start;
-    data->end = end;
-    data->lineWidth = 3;
-    _drawList.append(data);
-    update();
-    return data;
-}
-
-void ScreenshotBackground::updateDrawData(DrawData* data,QPoint start,QPoint end){
-    data->start = start;
-    data->end = end;
-    update();
-}
-

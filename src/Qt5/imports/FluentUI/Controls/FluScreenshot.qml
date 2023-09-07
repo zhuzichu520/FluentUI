@@ -26,7 +26,7 @@ Item{
     Component{
         id:com_screen
         Window{
-            property bool isZeroPos: screenshot.start == Qt.point(0,0) && screenshot.end == Qt.point(0,0)
+            property bool isZeroPos: screenshot.start.x === 0 && screenshot.start.y === 0 && screenshot.end.x === 0 && screenshot.end.y === 0
             id:window_screen
             flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
             x:-1
@@ -123,7 +123,7 @@ Item{
                 MouseArea{
                     property point clickPos: Qt.point(0,0)
                     anchors.fill: parent
-                    cursorShape: Qt.SizeAllCursor
+                    cursorShape: d.isEdit ? Qt.ArrowCursor : Qt.SizeAllCursor
                     onPressed:
                         (mouse)=>{
                             clickPos = Qt.point(mouse.x, mouse.y)
@@ -134,7 +134,7 @@ Item{
                             var w = Math.abs(screenshot.end.x - screenshot.start.x)
                             var h = Math.abs(screenshot.end.y - screenshot.start.y)
                             var x = Math.min(Math.max(rect_capture.x + delta.x,0),window_screen.width-w)
-                            var y =Math.min(Math.max(rect_capture.y + delta.y,0),window_screen.height-h)
+                            var y = Math.min(Math.max(rect_capture.y + delta.y,0),window_screen.height-h)
                             screenshot.start = Qt.point(x,y)
                             screenshot.end = Qt.point(x+w,y+h)
                         }
@@ -477,7 +477,7 @@ Item{
                 width: 100
                 height: 40
                 visible: {
-                    if(screenshot.start === Qt.point(0,0) && screenshot.end === Qt.point(0,0)){
+                    if(isZeroPos){
                         return false
                     }
                     if(d.enablePosition){

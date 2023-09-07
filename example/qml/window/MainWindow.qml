@@ -139,7 +139,7 @@ CustomWindow {
                 id:loader
                 lazy: true
                 anchors.fill: parent
-                source: "https://zhu-zichu.gitee.io/Qt5_156_LieflatPage.qml"
+                source: "https://zhu-zichu.gitee.io/Qt6_156_LieflatPage.qml"
             }
         }
         front: Item{
@@ -336,7 +336,8 @@ CustomWindow {
     }
 
     function checkUpdate(){
-        http.get("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest",callable)
+        var request = http.newRequest("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest")
+        http.get(request,callable);
     }
 
 }
