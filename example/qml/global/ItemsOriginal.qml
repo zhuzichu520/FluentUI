@@ -88,7 +88,10 @@ FluObject{
             }
             url:"qrc:/example/qml/page/T_Text.qml"
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
-            onTap:{ navigationView.push(url) }
+            onTap:{
+                item_text.count = 0
+                navigationView.push(url)
+            }
         }
         FluPaneItem{
             title:"Image"

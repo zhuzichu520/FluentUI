@@ -41,7 +41,7 @@ Item{
                 }
             }
             Component.onCompleted: {
-                setGeometry(0,0,screenshot_background.width,screenshot_background.height)
+                setGeometry(0,0,screenshot_background.width,screenshot_background.height+1)
             }
             ScreenshotBackground{
                 id:screenshot_background
