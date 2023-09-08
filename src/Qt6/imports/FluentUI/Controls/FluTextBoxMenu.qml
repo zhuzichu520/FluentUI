@@ -55,6 +55,7 @@ FluMenu{
         text:pasteText
         focus: false
         padding: 0
+        visible: !inputItem.readOnly
         height: visible ? 36 : 0
         onClicked: {
             inputItem.paste()
