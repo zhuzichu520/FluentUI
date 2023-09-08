@@ -410,6 +410,31 @@ Item {
                 Drag.hotSpot.x: item_control.width / 2
                 Drag.hotSpot.y: item_control.height / 2
                 Drag.dragType: Drag.Automatic
+                onClicked:{
+                    if(type === 0){
+                        if(model.onTapListener){
+                            model.onTapListener()
+                        }else{
+                            nav_list.currentIndex = _idx
+                            layout_footer.currentIndex = -1
+                            model.tap()
+                            if(d.isMinimal || d.isCompact){
+                                d.enableNavigationPanel = false
+                            }
+                        }
+                    }else{
+                        if(model.onTapListener){
+                            model.onTapListener()
+                        }else{
+                            nav_list.currentIndex = nav_list.count-layout_footer.count+_idx
+                            layout_footer.currentIndex = _idx
+                            model.tap()
+                            if(d.isMinimal || d.isCompact){
+                                d.enableNavigationPanel = false
+                            }
+                        }
+                    }
+                }
                 MouseArea{
                     id:item_mouse
                     anchors.fill: parent
@@ -434,29 +459,7 @@ Item {
                                     loader_item_menu.item.popup();
                                 }
                             }else{
-                                if(type === 0){
-                                    if(model.onTapListener){
-                                        model.onTapListener()
-                                    }else{
-                                        nav_list.currentIndex = _idx
-                                        layout_footer.currentIndex = -1
-                                        model.tap()
-                                        if(d.isMinimal || d.isCompact){
-                                            d.enableNavigationPanel = false
-                                        }
-                                    }
-                                }else{
-                                    if(model.onTapListener){
-                                        model.onTapListener()
-                                    }else{
-                                        nav_list.currentIndex = nav_list.count-layout_footer.count+_idx
-                                        layout_footer.currentIndex = _idx
-                                        model.tap()
-                                        if(d.isMinimal || d.isCompact){
-                                            d.enableNavigationPanel = false
-                                        }
-                                    }
-                                }
+                                item_control.clicked()
                             }
                         }
                 }
