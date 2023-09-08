@@ -31,7 +31,7 @@ FluMenu{
         text:cutText
         focus: false
         padding: 0
-        height: visible ? 34 : 0
+        height: visible ? 36 : 0
         visible: inputItem.selectedText !== "" && !inputItem.readOnly
         onClicked: {
             inputItem.cut()
@@ -43,7 +43,7 @@ FluMenu{
         text:copyText
         focus: false
         padding: 0
-        height: visible ? 34 : 0
+        height: visible ? 36 : 0
         visible: inputItem.selectedText !== ""
         onClicked: {
             inputItem.copy()
@@ -55,8 +55,7 @@ FluMenu{
         text:pasteText
         focus: false
         padding: 0
-        height: visible ? 34 : 0
-        visible: inputItem.canPaste
+        height: visible ? 36 : 0
         onClicked: {
             inputItem.paste()
             menu.close()
@@ -67,7 +66,7 @@ FluMenu{
         text:selectAllText
         focus: false
         padding: 0
-        height: visible ? 34 : 0
+        height: visible ? 36 : 0
         visible: inputItem.text !== ""
         onClicked: {
             inputItem.selectAll()

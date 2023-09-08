@@ -8,7 +8,10 @@
 FluCaptcha::FluCaptcha(QQuickItem *parent)
     : QQuickPaintedItem(parent)
 {
-    font(QFont("楷体",25,QFont::Bold,true));
+    QFont fontStype;
+    fontStype.setPixelSize(28);
+    fontStype.setBold(true);
+    font(fontStype);
     setWidth(180);
     setHeight(80);
     refresh();

@@ -10,7 +10,7 @@ Canvas {
     property var chartOptions
     property double chartAnimationProgress: 0.1
     property int animationEasingType: Easing.InOutExpo
-    property double animationDuration: 500
+    property double animationDuration: 0
     property var memorizedContext
     property var memorizedData
     property var memorizedOptions
@@ -22,6 +22,7 @@ Canvas {
         jsChart.update();
         chartAnimator.restart();
     }
+    opacity:
     MouseArea {
         id: event
         anchors.fill: control

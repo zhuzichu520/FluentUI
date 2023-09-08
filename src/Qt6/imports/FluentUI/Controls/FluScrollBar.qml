@@ -14,18 +14,115 @@ T.ScrollBar {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    padding: 2
     visible: control.policy !== T.ScrollBar.AlwaysOff
     minimumSize: Math.max(orientation === Qt.Horizontal ? height / width : width / height,0.3)
+    QtObject{
+        id:d
+        property int  minLine : 2
+        property int  maxLine : 6
+    }
+    verticalPadding : vertical ? 15 : 2
+    horizontalPadding : horizontal ? 15 : 2
+    background: Rectangle{
+        id:back_rect
+        radius: 5
+        color:FluTheme.dark ?  Qt.rgba(44/255,44/255,44/255,1) :  Qt.rgba(255/255,255/255,255/255,1)
+        opacity:{
+            if(vertical){
+                return d.maxLine === Number(rect_bar.width)
+            }
+            return d.maxLine === Number(rect_bar.height)
+        }
+        Behavior on opacity {
+            NumberAnimation{
+                duration: 167
+            }
+        }
+    }
+    FluIconButton{
+        width: 10
+        height: 10
+        iconSize: 6
+        verticalPadding: 0
+        horizontalPadding: 0
+        visible: control.horizontal
+        opacity: back_rect.opacity
+        anchors{
+            left: parent.left
+            leftMargin: 4
+            verticalCenter: parent.verticalCenter
+        }
+        iconColor: control.color
+        iconSource: FluentIcons.CaretLeftSolid8
+        onClicked: {
+            control.decrease()
+        }
+    }
+    FluIconButton{
+        width: 10
+        height: 10
+        iconSize: 6
+        verticalPadding: 0
+        horizontalPadding: 0
+        iconColor: control.color
+        opacity: back_rect.opacity
+        anchors{
+            right: parent.right
+            rightMargin: 4
+            verticalCenter: parent.verticalCenter
+        }
+        visible: control.horizontal
+        iconSource: FluentIcons.CaretRightSolid8
+        onClicked: {
+            control.increase()
+        }
+    }
+    FluIconButton{
+        width: 10
+        height: 10
+        iconSize: 6
+        verticalPadding: 0
+        horizontalPadding: 0
+        iconColor: control.color
+        opacity: back_rect.opacity
+        anchors{
+            top: parent.top
+            topMargin: 4
+            horizontalCenter: parent.horizontalCenter
+        }
+        visible: control.vertical
+        iconSource: FluentIcons.CaretUpSolid8
+        onClicked: {
+            control.decrease()
+        }
+    }
+    FluIconButton{
+        width: 10
+        height: 10
+        iconSize: 6
+        verticalPadding: 0
+        horizontalPadding: 0
+        iconColor: control.color
+        opacity: back_rect.opacity
+        anchors{
+            bottom: parent.bottom
+            bottomMargin: 4
+            horizontalCenter: parent.horizontalCenter
+        }
+        visible: control.vertical
+        iconSource: FluentIcons.CaretDownSolid8
+        onClicked: {
+            control.increase()
+        }
+    }
     contentItem: Item {
         property bool collapsed: (control.policy === T.ScrollBar.AlwaysOn || (control.active && control.size < 1.0))
-        implicitWidth: control.interactive ? 6 : 2
-        implicitHeight: control.interactive ? 6 : 2
-
+        implicitWidth: control.interactive ? d.maxLine : d.minLine
+        implicitHeight: control.interactive ? d.maxLine : d.minLine
         Rectangle{
             id:rect_bar
-            width:  vertical ? 2 : parent.width
-            height: horizontal  ? 2 : parent.height
+            width:  vertical ? d.minLine : parent.width
+            height: horizontal  ? d.minLine : parent.height
             color:{
                 if(control.pressed){
                     return control.pressedColor
@@ -45,8 +142,8 @@ T.ScrollBar {
                 when: contentItem.collapsed
                 PropertyChanges {
                     target: rect_bar
-                    width:  vertical ? 6 : parent.width
-                    height: horizontal  ? 6 : parent.height
+                    width:  vertical ? d.maxLine : parent.width
+                    height: horizontal  ? d.maxLine : parent.height
                 }
             }
             ,State{
@@ -54,8 +151,8 @@ T.ScrollBar {
                 when: !contentItem.collapsed
                 PropertyChanges {
                     target: rect_bar
-                    width:  vertical ? 2 : parent.width
-                    height: horizontal  ? 2 : parent.height
+                    width:  vertical ? d.minLine : parent.width
+                    height: horizontal  ? d.minLine : parent.height
                 }
             }
         ]
@@ -74,11 +171,14 @@ T.ScrollBar {
             }
             ,Transition {
                 to: "show"
-                NumberAnimation {
-                    target: rect_bar
-                    properties: vertical ? "width"  : "height"
-                    duration: 167
-                    easing.type: Easing.OutCubic
+                SequentialAnimation {
+                    PauseAnimation { duration: 450 }
+                    NumberAnimation {
+                        target: rect_bar
+                        properties: vertical ? "width"  : "height"
+                        duration: 167
+                        easing.type: Easing.OutCubic
+                    }
                 }
             }
         ]

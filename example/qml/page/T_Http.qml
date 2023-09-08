@@ -12,6 +12,7 @@ FluContentPage{
 
     title:"Http"
     property string cacheDirPath: FluTools.getApplicationDirPath() + "/cache/http"
+    property bool isDownCompleted: false
 
     FluHttp{
         id:http
@@ -172,6 +173,10 @@ FluContentPage{
                         }
                     onSuccess:
                         (result)=>{
+                            if(!isDownCompleted){
+                                tour.open()
+                                isDownCompleted = true
+                            }
                             showSuccess(result)
                         }
                     onDownloadProgress:
@@ -280,6 +285,13 @@ FluContentPage{
                 }
             }
         }
+    }
+
+    FluTour{
+        id:tour
+        steps:[
+            {title:"友情提示",description: "下载已完成，左击这里可以打开文件所在路径，右击可以弹出菜单删除文件！",target:()=>btn_breakpoint_download}
+        ]
     }
 
     HttpCallable{
