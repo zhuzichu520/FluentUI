@@ -69,6 +69,7 @@ Rectangle {
     Component{
         id:com_edit
         FluTextBox{
+            id:text_box
             text: display
             readOnly: true === columnSource[column].readOnly
             Component.onCompleted: {
@@ -77,7 +78,7 @@ Rectangle {
             }
             onCommit: {
                 if(!readOnly){
-                    display = text
+                    display = text_box.text
                 }
                 tableView.closeEditor()
             }
