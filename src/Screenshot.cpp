@@ -13,7 +13,7 @@
 Screenshot::Screenshot(QQuickItem* parent) : QQuickPaintedItem(parent)
 {
     _desktopGeometry = qApp->primaryScreen()->virtualGeometry();
-    maskColor(QColor(0,0,0,80));
+    maskColor(QColor(0,0,0,150));
     start(QPoint(0,0));
     end(QPoint(0,0));
     connect(this,&Screenshot::startChanged,this,[=]{update();});

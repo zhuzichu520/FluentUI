@@ -248,7 +248,6 @@ void FluHttp::postJson(HttpRequest* request,HttpCallable* callable){
     });
 }
 
-
 void FluHttp::get(HttpRequest* request,HttpCallable* callable){
     request->method("get");
     auto requestMap = request->toMap();
@@ -525,7 +524,7 @@ qreal FluHttp::getBreakPointProgress(HttpRequest* request){
 }
 
 HttpRequest* FluHttp::newRequest(QString url){
-    HttpRequest* request = new HttpRequest();
+    HttpRequest* request = new HttpRequest(this);
     request->url(url);
     return request;
 }
@@ -540,8 +539,8 @@ void FluHttp::onFinish(QPointer<HttpCallable> callable,HttpRequest* request){
     if(callable){
         Q_EMIT callable->finish();
     }
-    if(!request->parent()){
-        delete request;
+    if(request->parent()->inherits("FluHttp")){
+        request->deleteLater();
     }
 }
 
