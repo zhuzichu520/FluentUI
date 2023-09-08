@@ -71,12 +71,12 @@ FluScrollablePage{
                 width: 220
                 height: 240
                 FluShadow{
-                    radius:8
+                    radius:5
                     anchors.fill: item_content
                 }
                 FluItem{
                     id:item_content
-                    radius: [8,8,8,8]
+                    radius: [5,5,5,5]
                     width: 200
                     height: 220
                     anchors.centerIn: parent
@@ -90,7 +90,7 @@ FluScrollablePage{
                     }
                     Rectangle{
                         anchors.fill: parent
-                        radius: 8
+                        radius: 5
                         color:{
                             if(FluTheme.dark){
                                 if(item_mouse.containsMouse){

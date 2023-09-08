@@ -117,7 +117,7 @@ FluScrollablePage{
             FluRectangle{
                 width: 1920/5
                 height: 1200/5
-                radius:[15,15,15,15]
+                radius:[8,8,8,8]
                 Image {
                     asynchronous: true
                     source: "qrc:/example/res/image/banner_1.jpg"

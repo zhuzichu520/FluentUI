@@ -31,9 +31,10 @@ FluScrollablePage{
         Layout.topMargin: 10
         Layout.leftMargin: 4
         Layout.bottomMargin: 4
+        radius: 4
         color: FluTheme.dark ? FluColors.Black : FluColors.White
         FluShadow{
-            radius: 0
+            radius: 4
             color: FluTheme.primaryColor.dark
         }
         Image{

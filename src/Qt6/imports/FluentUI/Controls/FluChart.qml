@@ -1,4 +1,4 @@
-import QtQuick 2.13
+import QtQuick
 import "./../JS/Chart.js" as Chart
 
 Canvas {

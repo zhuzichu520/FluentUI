@@ -23,7 +23,6 @@ Rectangle {
     radius: 4
     border.width: 1
     border.color: dividerColor
-
     Component.onCompleted: {
         if(current){
             const date = current
@@ -33,7 +32,6 @@ Rectangle {
             text_date.text = year+"-"+(month+1)+"-"+day
         }
     }
-
     MouseArea{
         id:mouse_area
         hoverEnabled: true

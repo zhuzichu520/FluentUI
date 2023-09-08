@@ -22,7 +22,6 @@ Canvas {
         jsChart.update();
         chartAnimator.restart();
     }
-    opacity:
     MouseArea {
         id: event
         anchors.fill: control
@@ -90,7 +89,7 @@ Canvas {
         control.requestPaint();
     }
     onPaint: {
-        if(control.getContext('2d') !== null && memorizedContext !== control.getContext('2d') || memorizedData !== control.chartData || memorizedOptions !== control.chartOptions) {
+        if(control.getContext('2d') !== null && memorizedContext !== control.getContext('2d') || memorizedData !== control.chartData || memorizedOptions !== control.chartOptions) {
             var ctx = control.getContext('2d');
 
             jsChart =  Chart.build(ctx, {

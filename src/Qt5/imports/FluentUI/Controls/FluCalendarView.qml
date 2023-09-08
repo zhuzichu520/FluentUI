@@ -7,6 +7,7 @@ Item {
     property var date: new Date()
     property var currentDate : new Date()
     property var toDay: new Date()
+    property int radius: 5
     signal dateClicked(var date)
     id:control
     width: 280
@@ -214,10 +215,7 @@ Item {
     }
     FluArea{
         anchors.fill: parent
-        radius: 5
-        FluShadow{
-            radius: 5
-        }
+        radius: control.radius
         Rectangle{
             id:layout_divider
             height: 1

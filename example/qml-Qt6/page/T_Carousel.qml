@@ -36,20 +36,28 @@ FluScrollablePage{
             FluText{
                 text:"轮播图，支持无限轮播，无限滑动，用ListView实现的组件"
             }
-            FluCarousel{
-                radius:[5,5,5,5]
-                delegate: Component{
-                    Image {
-                        anchors.fill: parent
-                        source: model.url
-                        asynchronous: true
-                        fillMode:Image.PreserveAspectCrop
-                    }
+            Item{
+                width: 400
+                height: 300
+                FluShadow{
+                    radius: 8
                 }
-                Layout.topMargin: 20
-                Layout.leftMargin: 5
-                Component.onCompleted: {
-                    model = [{url:"qrc:/example/res/image/banner_1.jpg"},{url:"qrc:/example/res/image/banner_2.jpg"},{url:"qrc:/example/res/image/banner_3.jpg"}]
+                FluCarousel{
+                    anchors.fill: parent
+                    radius:[8,8,8,8]
+                    delegate: Component{
+                        Image {
+                            anchors.fill: parent
+                            source: model.url
+                            asynchronous: true
+                            fillMode:Image.PreserveAspectCrop
+                        }
+                    }
+                    Layout.topMargin: 20
+                    Layout.leftMargin: 5
+                    Component.onCompleted: {
+                        model = [{url:"qrc:/example/res/image/banner_1.jpg"},{url:"qrc:/example/res/image/banner_2.jpg"},{url:"qrc:/example/res/image/banner_3.jpg"}]
+                    }
                 }
             }
         }
@@ -66,46 +74,55 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 left:parent.left
             }
-            FluCarousel{
-                radius:[15,15,15,15]
-                loopTime:1500
-                indicatorGravity: Qt.AlignHCenter | Qt.AlignTop
-                indicatorMarginTop:15
-                delegate: Component{
-                    Item{
-                        anchors.fill: parent
-                        Image {
+            Item{
+                width: 400
+                height: 300
+                FluShadow{
+                    radius: 8
+                }
+                FluCarousel{
+                    anchors.fill: parent
+                    radius:[8,8,8,8]
+                    loopTime:1500
+                    indicatorGravity: Qt.AlignHCenter | Qt.AlignTop
+                    indicatorMarginTop:15
+                    delegate: Component{
+                        Item{
                             anchors.fill: parent
-                            source: model.url
-                            asynchronous: true
-                            fillMode:Image.PreserveAspectCrop
-                        }
-                        Rectangle{
-                            height: 40
-                            width: parent.width
-                            anchors.bottom: parent.bottom
-                            color: "#33000000"
-                            FluText{
+                            Image {
                                 anchors.fill: parent
-                                verticalAlignment: Qt.AlignVCenter
-                                horizontalAlignment: Qt.AlignHCenter
-                                text:model.title
-                                color: FluColors.Grey10
-                                font.pixelSize: 15
+                                source: model.url
+                                asynchronous: true
+                                fillMode:Image.PreserveAspectCrop
+                            }
+                            Rectangle{
+                                height: 40
+                                width: parent.width
+                                anchors.bottom: parent.bottom
+                                color: "#33000000"
+                                FluText{
+                                    anchors.fill: parent
+                                    verticalAlignment: Qt.AlignVCenter
+                                    horizontalAlignment: Qt.AlignHCenter
+                                    text:model.title
+                                    color: FluColors.Grey10
+                                    font.pixelSize: 15
+                                }
                             }
                         }
                     }
-                }
-                Layout.topMargin: 20
-                Layout.leftMargin: 5
-                Component.onCompleted: {
-                    var arr = []
-                    arr.push({url:"qrc:/example/res/image/banner_1.jpg",title:"共同应对全球性问题"})
-                    arr.push({url:"qrc:/example/res/image/banner_2.jpg",title:"三小只全程没互动"})
-                    arr.push({url:"qrc:/example/res/image/banner_3.jpg",title:"有效投资扩大 激发增长动能"})
-                    model = arr
+                    Layout.topMargin: 20
+                    Layout.leftMargin: 5
+                    Component.onCompleted: {
+                        var arr = []
+                        arr.push({url:"qrc:/example/res/image/banner_1.jpg",title:"共同应对全球性问题"})
+                        arr.push({url:"qrc:/example/res/image/banner_2.jpg",title:"三小只全程没互动"})
+                        arr.push({url:"qrc:/example/res/image/banner_3.jpg",title:"有效投资扩大 激发增长动能"})
+                        model = arr
+                    }
                 }
             }
+
         }
     }
 

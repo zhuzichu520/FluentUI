@@ -4,15 +4,14 @@ import FluentUI
 import "ColorPicker"
 
 Item {
+    id:control
     property alias colorValue: color_picker.colorValue
+    property int radius: 5
     width: color_picker.width+10
     height: color_picker.height
     FluArea{
         anchors.fill: parent
-        radius: 5
-        FluShadow{
-            radius: 5
-        }
+        radius: control.radius
         ColorPicker{
             id:color_picker
         }

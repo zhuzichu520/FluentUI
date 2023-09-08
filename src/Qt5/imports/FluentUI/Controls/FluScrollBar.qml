@@ -20,12 +20,12 @@ T.ScrollBar {
         property int  minLine : 2
         property int  maxLine : 6
     }
-    verticalPadding : vertical ? 15 : 2
-    horizontalPadding : horizontal ? 15 : 2
+    verticalPadding : vertical ? 15 : 3
+    horizontalPadding : horizontal ? 15 : 3
     background: Rectangle{
         id:back_rect
         radius: 5
-        color:FluTheme.dark ?  Qt.rgba(44/255,44/255,44/255,1) :  Qt.rgba(255/255,255/255,255/255,1)
+        color:FluTheme.dark ? Qt.rgba(44/255,44/255,44/255,1) : Qt.rgba(255/255,255/255,255/255,1)
         opacity:{
             if(vertical){
                 return d.maxLine === Number(rect_bar.width)
@@ -34,21 +34,21 @@ T.ScrollBar {
         }
         Behavior on opacity {
             NumberAnimation{
-                duration: 167
+                duration: 50
             }
         }
     }
     FluIconButton{
-        width: 10
-        height: 10
-        iconSize: 6
+        width: 12
+        height: 12
+        iconSize: 8
         verticalPadding: 0
         horizontalPadding: 0
         visible: control.horizontal
         opacity: back_rect.opacity
         anchors{
             left: parent.left
-            leftMargin: 4
+            leftMargin: 2
             verticalCenter: parent.verticalCenter
         }
         iconColor: control.color
@@ -58,16 +58,16 @@ T.ScrollBar {
         }
     }
     FluIconButton{
-        width: 10
-        height: 10
-        iconSize: 6
+        width: 12
+        height: 12
+        iconSize: 8
         verticalPadding: 0
         horizontalPadding: 0
         iconColor: control.color
         opacity: back_rect.opacity
         anchors{
             right: parent.right
-            rightMargin: 4
+            rightMargin: 2
             verticalCenter: parent.verticalCenter
         }
         visible: control.horizontal
@@ -77,16 +77,16 @@ T.ScrollBar {
         }
     }
     FluIconButton{
-        width: 10
-        height: 10
-        iconSize: 6
+        width: 12
+        height: 12
+        iconSize: 8
         verticalPadding: 0
         horizontalPadding: 0
         iconColor: control.color
         opacity: back_rect.opacity
         anchors{
             top: parent.top
-            topMargin: 4
+            topMargin: 2
             horizontalCenter: parent.horizontalCenter
         }
         visible: control.vertical
@@ -96,16 +96,16 @@ T.ScrollBar {
         }
     }
     FluIconButton{
-        width: 10
-        height: 10
-        iconSize: 6
+        width: 12
+        height: 12
+        iconSize: 8
         verticalPadding: 0
         horizontalPadding: 0
         iconColor: control.color
         opacity: back_rect.opacity
         anchors{
             bottom: parent.bottom
-            bottomMargin: 4
+            bottomMargin: 2
             horizontalCenter: parent.horizontalCenter
         }
         visible: control.vertical
