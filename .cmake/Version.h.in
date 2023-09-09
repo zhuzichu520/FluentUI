@@ -1,5 +1,3 @@
-// 应用程序版本信息
-// 请勿修改此头文件，因为这个文件是自动生成的
 #ifndef VERSION_H
 #define VERSION_H
 

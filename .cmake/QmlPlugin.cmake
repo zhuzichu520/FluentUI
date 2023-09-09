@@ -1,5 +1,6 @@
 include(CMakeParseArguments)
-find_package(Qt5 REQUIRED COMPONENTS Core)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 function(FindQmlPluginDump)
     get_target_property (QT_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
@@ -35,7 +36,6 @@ function(add_qmlplugin TARGET)
         ${QMLPLUGIN_SOURCES}
     )
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/lib)
-add_custom_target("${TARGET}-qmlfiles" SOURCES ${QMLPLUGIN_QMLFILES})
 
 if(QMLPLUGIN_NO_AUTORCC)
     set_target_properties(${TARGET} PROPERTIES AUTOMOC OFF)

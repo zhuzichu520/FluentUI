@@ -1,14 +1,19 @@
 cmake_minimum_required(VERSION 3.20)
 
-if (FLUENTUI_BUILD_STATIC_LIB)
+if (FLUENTUI_BUILD_STATIC_LIB AND (QT_VERSION VERSION_GREATER_EQUAL "6.2"))
     project(fluentui LANGUAGES CXX)
 else()
     project(fluentuiplugin LANGUAGES CXX)
 endif()
+
 #配置通用编译
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+endif()
+
+if (FLUENTUI_BUILD_STATIC_LIB)
+    add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml)
@@ -63,6 +68,7 @@ if (FLUENTUI_BUILD_STATIC_LIB)
     set(LIB_TYPE "STATIC")
 else()
     set(LIB_TYPE "SHARED")
+    list(REMOVE_ITEM sources_files FluentUI.h FluentUI.cpp)
 endif()
 
 if (FLUENTUI_BUILD_STATIC_LIB)
@@ -83,6 +89,9 @@ if(WIN32)
 endif()
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+    if(FLUENTUI_BUILD_STATIC_LIB)
+        set(FLUENTUI_QML_PLUGIN_DIRECTORY ${CMAKE_BINARY_DIR}/FluentUI)
+    endif()
     qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
     qt_add_qml_module(${PROJECT_NAME}
         PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
@@ -94,14 +103,14 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
         SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH}
         QML_FILES ${qml_files}
         RESOURCES ${resource_files}
-        RESOURCE_PREFIX "/"
+        RESOURCE_PREFIX "/qt/qml"
     )
 else()
     include(QmlPlugin)
     add_qmlplugin(${PROJECT_NAME}
         URI "FluentUI"
         VERSION 1.0
-        SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH} resource.qrc
+        SOURCES ${sources_files} ${FLUENTUI_VERSION_RC_PATH} Qt5/imports/fluentui.qrc
         QMLFILES ${qml_files}
         QMLDIR imports/FluentUI
         BINARY_DIR ${FLUENTUI_QML_PLUGIN_DIRECTORY}

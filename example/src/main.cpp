@@ -8,14 +8,21 @@
 #include <QProcess>
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
+#include <QtQml/qqmlextensionplugin.h>
 #include "AppInfo.h"
 #include "src/component/CircularReveal.h"
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
+#ifdef FLUENTUI_BUILD_STATIC_LIB
+#if (QT_VERSION > QT_VERSION_CHECK(6, 2, 0))
+Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
+#endif
+#include <FluentUI.h>
+#endif
 
 FRAMELESSHELPER_USE_NAMESPACE
 
-int main(int argc, char *argv[])
+    int main(int argc, char *argv[])
 {
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -24,7 +31,6 @@ int main(int argc, char *argv[])
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
 #endif
-    //将样式设置为Basic，不然会导致组件显示异常
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     FramelessHelper::Quick::initialize();
     QGuiApplication::setOrganizationName("ZhuZiChu");
@@ -35,7 +41,7 @@ int main(int argc, char *argv[])
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-#ifdef Q_OS_WIN // 此设置仅在Windows下生效
+#ifdef Q_OS_WIN
     FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
 #endif
@@ -46,8 +52,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
 #ifdef FLUENTUI_BUILD_STATIC_LIB
-    engine.addImportPath("qrc:/"); // 让静态资源可以被QML引擎搜索到
+    FluentUI::getInstance()->registerTypes(&engine);
 #endif
+    qDebug()<<engine.importPathList();
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
     qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
     qmlRegisterType<FpsItem>("example", 1, 0, "FpsItem");

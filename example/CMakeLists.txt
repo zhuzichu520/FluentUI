@@ -122,13 +122,20 @@ else()
     target_include_directories(example PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
     )
-    target_sources(example PRIVATE resource.qrc)
+target_sources(example PRIVATE example.qrc)
 endif()
 
 #导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
 target_include_directories(example PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/component
 )
+
+#如何是静态库则需要手动注册插件，导入FluentUI.h头文件
+if(FLUENTUI_BUILD_STATIC_LIB)
+    target_include_directories(example PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+    )
+endif()
 
 #设置属性
 set_target_properties(example PROPERTIES
@@ -139,27 +146,14 @@ set_target_properties(example PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-#链接库
-if (FLUENTUI_BUILD_STATIC_LIB)
-    target_link_libraries(example PRIVATE
-        Qt${QT_VERSION_MAJOR}::Quick
-        Qt${QT_VERSION_MAJOR}::Svg
-        Qt${QT_VERSION_MAJOR}::Network
-        fluentui
-        fluentuiplugin
-        FramelessHelper::Core
-        FramelessHelper::Quick
-    )
-else()
-    target_link_libraries(example PRIVATE
-        Qt${QT_VERSION_MAJOR}::Quick
-        Qt${QT_VERSION_MAJOR}::Svg
-        Qt${QT_VERSION_MAJOR}::Network
-        fluentuiplugin
-        FramelessHelper::Core
-        FramelessHelper::Quick
-    )
-endif()
+target_link_libraries(example PRIVATE
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Svg
+    Qt${QT_VERSION_MAJOR}::Network
+    fluentuiplugin
+    FramelessHelper::Core
+    FramelessHelper::Quick
+)
 
 #安装
 install(TARGETS example
