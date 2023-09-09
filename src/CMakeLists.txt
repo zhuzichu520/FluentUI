@@ -109,6 +109,9 @@ else()
     )
 endif()
 
+#去掉mingw生成的动态库libxxx前缀lib，不去掉前缀会导致 module "FluentUI" plugin "fluentuiplugin" not found
+set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+
 #链接库
 target_link_libraries(${PROJECT_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::CorePrivate
