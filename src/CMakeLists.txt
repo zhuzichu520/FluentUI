@@ -37,6 +37,9 @@ endforeach(filepath)
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #删除fluentuiplugin.cpp与fluentuiplugin.h，这些只要Qt5使用，Qt6不需要
     list(REMOVE_ITEM sources_files fluentuiplugin.h fluentuiplugin.cpp)
+    if (NOT FLUENTUI_BUILD_STATIC_LIB)
+        list(REMOVE_ITEM sources_files FluentUI.h FluentUI.cpp)
+    endif()
 
     #遍历所有qml文件
     file(GLOB_RECURSE QML_PATHS *.qml)
