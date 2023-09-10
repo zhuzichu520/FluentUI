@@ -71,7 +71,6 @@ if (FLUENTUI_BUILD_STATIC_LIB)
     set(LIB_TYPE "STATIC")
 else()
     set(LIB_TYPE "SHARED")
-    list(REMOVE_ITEM sources_files FluentUI.h FluentUI.cpp)
 endif()
 
 if (FLUENTUI_BUILD_STATIC_LIB)
