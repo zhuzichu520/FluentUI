@@ -11,6 +11,49 @@ FluScrollablePage{
 
     title:"Settings"
 
+
+    FluEvent{
+        id:event_checkupdate_finish
+        name: "checkUpdateFinish"
+        onTriggered: {
+            btn_checkupdate.loading = false
+        }
+    }
+
+    Component.onCompleted: {
+        FluEventBus.registerEvent(event_checkupdate_finish)
+    }
+
+    Component.onDestruction: {
+        FluEventBus.unRegisterEvent(event_checkupdate_finish)
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height: 60
+        paddings: 10
+        Row{
+            spacing: 20
+            anchors.verticalCenter: parent.verticalCenter
+            FluText{
+                text:"当前版本 v%1".arg(appInfo.version)
+                font: FluTextStyle.Body
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            FluLoadingButton{
+                id:btn_checkupdate
+                text:"检查更新"
+                anchors.verticalCenter: parent.verticalCenter
+                onClicked: {
+                    loading = true
+                    FluEventBus.post("checkUpdate")
+                }
+            }
+        }
+    }
+
+
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
@@ -107,3 +150,4 @@ FluScrollablePage{
     }
 
 }
+

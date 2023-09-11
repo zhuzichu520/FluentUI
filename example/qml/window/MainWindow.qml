@@ -26,10 +26,23 @@ CustomWindow {
         event.accepted = false
     }
 
+    FluEvent{
+        id:event_checkupdate
+        name: "checkUpdate"
+        onTriggered: {
+            checkUpdate(false)
+        }
+    }
+
     Component.onCompleted: {
         FluTools.setQuitOnLastWindowClosed(false)
         tour.open()
-        checkUpdate()
+        checkUpdate(true)
+        FluEventBus.registerEvent(event_checkupdate)
+    }
+
+    Component.onDestruction: {
+        FluEventBus.unRegisterEvent(event_checkupdate)
     }
 
     SystemTrayIcon {
@@ -312,11 +325,13 @@ CustomWindow {
 
     HttpCallable{
         id:callable
+        property bool silent: true
         onStart: {
             console.debug("satrt check update...")
         }
         onFinish: {
             console.debug("check update finish")
+            FluEventBus.post("checkUpdateFinish");
         }
         onSuccess:
             (result)=>{
@@ -327,15 +342,23 @@ CustomWindow {
                     dialog_update.newVerson =  data.tag_name
                     dialog_update.body = data.body
                     dialog_update.open()
+                }else{
+                    if(!silent){
+                        showInfo("当前版本已经是最新版")
+                    }
                 }
             }
         onError:
             (status,errorString)=>{
+                if(!silent){
+                    showError("网络异常!")
+                }
                 console.debug(status+";"+errorString)
             }
     }
 
-    function checkUpdate(){
+    function checkUpdate(silent){
+        callable.silent = silent
         var request = http.newRequest("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest")
         http.get(request,callable);
     }

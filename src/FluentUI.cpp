@@ -12,6 +12,7 @@
 #include "FluHttpInterceptor.h"
 #include "FluWatermark.h"
 #include "FluCaptcha.h"
+#include "FluEventBus.h"
 #include "Screenshot.h"
 #include "QRCode.h"
 
@@ -49,6 +50,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluHttp>(uri,major,minor,"FluHttp");
     qmlRegisterType<HttpCallable>(uri,major,minor,"HttpCallable");
     qmlRegisterType<HttpRequest>(uri,major,minor,"HttpRequest");
+    qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/Checkerboard.qml"),uri,major,minor,"Checkerboard");
@@ -143,6 +145,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRangeSlider.qml"),uri,major,minor,"FluRangeSlider");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStaggeredView.qml"),uri,major,minor,"FluStaggeredView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluProgressButton.qml"),uri,major,minor,"FluProgressButton");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoadingButton.qml"),uri,major,minor,"FluLoadingButton");
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluHttpType::staticMetaObject,  uri,major,minor,"FluHttpType", "Access to enums & flags only");
@@ -178,5 +181,7 @@ void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
     engine->rootContext()->setContextProperty("FluTools",tools);
     FluTextStyle* textStyle = FluTextStyle::getInstance();
     engine->rootContext()->setContextProperty("FluTextStyle",textStyle);
+    FluEventBus* eventBus = FluEventBus::getInstance();
+    engine->rootContext()->setContextProperty("FluEventBus",eventBus);
     engine->addImportPath("qrc:/qt/qml");
 }

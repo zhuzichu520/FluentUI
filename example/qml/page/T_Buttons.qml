@@ -213,6 +213,45 @@ FluScrollablePage{
 }'
     }
 
+    FluArea{
+        Layout.fillWidth: true
+        height: 68
+        Layout.topMargin: 20
+        paddings: 10
+
+        FluLoadingButton{
+            id:btn_loading
+            loading:loading_button_switch.checked
+            text:"Loading Button"
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            onClicked: {
+
+            }
+        }
+        FluToggleSwitch{
+            id:loading_button_switch
+            checked: true
+            anchors{
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+            text:"Loading"
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -1
+        code:'FluLoadingButton{
+    text:"Loading Button"
+    onClicked: {
+
+    }
+}'
+    }
+
 
     FluArea{
         Layout.fillWidth: true

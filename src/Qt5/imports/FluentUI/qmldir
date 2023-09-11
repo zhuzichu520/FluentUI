@@ -95,4 +95,5 @@ FluWindow 1.0 Controls/FluWindow.qml
 FluRangeSlider 1.0 Controls/FluRangeSlider.qml
 FluStaggeredView 1.0 Controls/FluStaggeredView.qml
 FluProgressButton 1.0 Controls/FluProgressButton.qml
+FluLoadingButton 1.0 Controls/FluLoadingButton.qml
 plugin fluentuiplugin
