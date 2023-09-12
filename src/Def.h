@@ -17,16 +17,9 @@ QML_NAMED_ELEMENT(FluViewModelType)
 namespace FluHttpType {
 Q_NAMESPACE
 enum CacheMode {
-    /** 不使用缓存 */
     NoCache = 0x0000,
-
-    /** 请求网络失败后，读取缓存 */
     RequestFailedReadCache = 0x0001,
-
-    /** 如果缓存不存在才请求网络，否则使用缓存 */
     IfNoneCacheRequest = 0x0002,
-
-    /** 先使用缓存，不管是否存在，仍然请求网络 */
     FirstCacheThenRequest = 0x0004,
 };
 Q_ENUM_NS(CacheMode)

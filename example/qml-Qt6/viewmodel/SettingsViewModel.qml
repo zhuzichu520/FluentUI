@@ -1,6 +1,5 @@
 import QtQuick
 import FluentUI
-import "qrc:///example/qml/component"
 
 FluViewModel{
 

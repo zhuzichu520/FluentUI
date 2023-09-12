@@ -4,13 +4,21 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 import "qrc:///example/qml/component"
+import "qrc:///example/qml/viewmodel"
 import "../component"
+import "../viewmodel"
 
 FluScrollablePage{
-
-    launchMode: FluPageType.SingleInstance
-
     title:"TextBox"
+
+    TextBoxViewModel{
+        id:viewModel
+    }
+
+    Component.onDestruction: {
+        console.debug("T_TextBox页面销毁了")
+    }
+
     FluArea{
         Layout.fillWidth: true
         height: 68
@@ -21,6 +29,10 @@ FluScrollablePage{
             placeholderText: "单行输入框"
             disabled:text_box_switch.checked
             cleanEnabled: true
+            text:viewModel.text1
+            onTextChanged: {
+                viewModel.text1 = text
+            }
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -85,6 +97,10 @@ FluScrollablePage{
         FluMultilineTextBox{
             id:multiine_textbox
             placeholderText: "多行输入框"
+            text:viewModel.text2
+            onTextChanged: {
+                viewModel.text2 = text
+            }
             disabled:text_box_multi_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter

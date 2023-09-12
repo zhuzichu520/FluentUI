@@ -82,7 +82,9 @@ void FluHttp::cancel(){
     }
 }
 
-void FluHttp::post(HttpRequest* request,HttpCallable* callable){
+void FluHttp::post(HttpRequest* r,HttpCallable* c){
+    auto request = QPointer(r);
+    auto callable = QPointer(c);
     request->method("post");
     auto requestMap = request->toMap();
     auto httpId = request->httpId();
@@ -143,7 +145,9 @@ void FluHttp::post(HttpRequest* request,HttpCallable* callable){
     });
 }
 
-void FluHttp::postString(HttpRequest* request,HttpCallable* callable){
+void FluHttp::postString(HttpRequest* r,HttpCallable* c){
+    auto request = QPointer(r);
+    auto callable = QPointer(c);
     request->method("postString");
     auto requestMap = request->toMap();
     auto httpId = request->httpId();
@@ -196,7 +200,9 @@ void FluHttp::postString(HttpRequest* request,HttpCallable* callable){
     });
 }
 
-void FluHttp::postJson(HttpRequest* request,HttpCallable* callable){
+void FluHttp::postJson(HttpRequest* r,HttpCallable* c){
+    auto request = QPointer(r);
+    auto callable = QPointer(c);
     request->method("postJson");
     auto requestMap = request->toMap();
     auto httpId = request->httpId();
@@ -248,7 +254,9 @@ void FluHttp::postJson(HttpRequest* request,HttpCallable* callable){
     });
 }
 
-void FluHttp::get(HttpRequest* request,HttpCallable* callable){
+void FluHttp::get(HttpRequest* r,HttpCallable* c){
+    auto request = QPointer(r);
+    auto callable = QPointer(c);
     request->method("get");
     auto requestMap = request->toMap();
     auto httpId = request->httpId();
@@ -299,7 +307,9 @@ void FluHttp::get(HttpRequest* request,HttpCallable* callable){
     });
 }
 
-void FluHttp::download(HttpRequest* request,HttpCallable* callable){
+void FluHttp::download(HttpRequest* r,HttpCallable* c){
+    auto request = QPointer(r);
+    auto callable = QPointer(c);
     request->method("download");
     auto requestMap = request->toMap();
     auto httpId = request->httpId();
@@ -535,11 +545,11 @@ void FluHttp::onStart(QPointer<HttpCallable> callable){
     }
 }
 
-void FluHttp::onFinish(QPointer<HttpCallable> callable,HttpRequest* request){
+void FluHttp::onFinish(QPointer<HttpCallable> callable,QPointer<HttpRequest> request){
     if(callable){
         Q_EMIT callable->finish();
     }
-    if(request->parent()->inherits("FluHttp")){
+    if(request&&request->parent()->inherits("FluHttp")){
         request->deleteLater();
     }
 }

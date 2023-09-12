@@ -21,7 +21,6 @@ Model::Model(QObject *parent)
 
 Model::~Model()
 {
-    qDebug()<<"Model delete~";
 }
 
 ViewModelManager::ViewModelManager(QObject *parent)
@@ -68,7 +67,6 @@ PropertyObserver::PropertyObserver(QString name,QObject* model,QObject *parent)
 }
 
 PropertyObserver::~PropertyObserver(){
-    qDebug()<<"PropertyObserver delete~";
 }
 
 void PropertyObserver::_propertyChange(){

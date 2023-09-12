@@ -163,6 +163,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterUncreatableMetaObject(FluNavigationViewType::staticMetaObject,  uri,major,minor,"FluNavigationViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject,  uri,major,minor,"FluTimelineType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluScreenshotType::staticMetaObject,  uri,major,minor,"FluScreenshotType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluViewModelType::staticMetaObject,  uri,major,minor,"FluViewModelType", "Access to enums & flags only");
 
     qmlRegisterModule(uri,major,minor);
 }

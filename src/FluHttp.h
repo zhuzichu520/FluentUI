@@ -53,7 +53,7 @@ private:
     bool cacheExists(const QString& httpId);
     QString getCacheFilePath(const QString& httpId);
     void onStart(QPointer<HttpCallable> callable);
-    void onFinish(QPointer<HttpCallable> callable,HttpRequest* request);
+    void onFinish(QPointer<HttpCallable> callable,QPointer<HttpRequest> request);
     void onError(QPointer<HttpCallable> callable,int status,QString errorString,QString result);
     void onSuccess(QPointer<HttpCallable> callable,QString result);
     void onCache(QPointer<HttpCallable> callable,QString result);
