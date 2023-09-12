@@ -124,7 +124,6 @@ Item {
     Component{
         id:com_panel_item_header
         Item{
-            clip: true
             height: {
                 if(model.parent){
                     return model.parent.isExpand ? 30 : 0
@@ -154,7 +153,6 @@ Item {
         Item{
             height: 38
             width: layout_list.width
-            clip: true
             FluControl{
                 id:item_control
                 anchors{
@@ -378,7 +376,6 @@ Item {
                     duration: 83
                 }
             }
-            clip: true
             height: {
                 if(model.parent){
                     return model.parent.isExpand ? 38 : 0
@@ -409,7 +406,7 @@ Item {
                 Drag.hotSpot.x: item_control.width / 2
                 Drag.hotSpot.y: item_control.height / 2
                 Drag.dragType: Drag.Automatic
-                onClicked: {
+                onClicked:{
                     if(type === 0){
                         if(model.onTapListener){
                             model.onTapListener()

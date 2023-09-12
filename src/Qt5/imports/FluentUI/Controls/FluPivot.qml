@@ -2,30 +2,32 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Item {
+Page {
     default property alias content: d.children
     property alias currentIndex: nav_list.currentIndex
-    property color normalColor: FluTheme.dark ? FluColors.Grey120 : FluColors.Grey120
-    property color hoverColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
+    property color textNormalColor: FluTheme.dark ? FluColors.Grey120 : FluColors.Grey120
+    property color textHoverColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
+    property int textSize: 28
+    property bool textBold: true
+    property int textSpacing: 10
+    property int headerSpacing: 20
+    property int headerHeight: 40
     id:control
     width: 400
     height: 300
     implicitHeight: height
     implicitWidth: width
-    MouseArea{
-        anchors.fill: parent
-        preventStealing: true
-    }
     FluObject{
         id:d
+        property int tabY: control.headerHeight/2+control.textSize/2 + 3
     }
-    ListView{
+    background:Item{}
+    header:ListView{
         id:nav_list
-        height: 40
-        width: control.width
+        implicitHeight: control.headerHeight
+        implicitWidth: control.width
         model:d.children
-        clip: true
-        spacing: 20
+        spacing: control.headerSpacing
         interactive: false
         orientation: ListView.Horizontal
         highlightMoveDuration: FluTheme.enableAnimation ? 167 : 0
@@ -36,7 +38,7 @@ Item {
                 radius: 1.5
                 color: FluTheme.primaryColor.dark
                 width: nav_list.currentItem ? nav_list.currentItem.width : 0
-                y:37
+                y:d.tabY
                 Behavior on width {
                     enabled: FluTheme.enableAnimation
                     NumberAnimation{
@@ -50,18 +52,25 @@ Item {
             id:item_button
             width: item_title.width
             height: nav_list.height
+            focusPolicy:Qt.TabFocus
             background:Item{
+                FluFocusRectangle{
+                    anchors.margins: -4
+                    visible: item_button.activeFocus
+                    radius:4
+                }
             }
             contentItem: Item{
                 FluText {
                     id:item_title
-                    font: FluTextStyle.Title
                     text: modelData.title
                     anchors.centerIn: parent
+                    font.pixelSize: control.textSize
+                    font.bold: control.textBold
                     color: {
                         if(item_button.hovered)
-                            return hoverColor
-                        return normalColor
+                            return textHoverColor
+                        return textNormalColor
                     }
                 }
             }
@@ -72,13 +81,7 @@ Item {
     }
     Item{
         id:container
-        anchors{
-            top: nav_list.bottom
-            topMargin: 10
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
+        anchors.fill: parent
         Repeater{
             model:d.children
             Loader{

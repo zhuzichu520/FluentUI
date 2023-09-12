@@ -126,7 +126,6 @@
         <file>qml/component/CustomWindow.qml</file>
         <file>qml/global/ItemsFooter.qml</file>
         <file>qml/global/ItemsOriginal.qml</file>
-        <file>qml/global/MainEvent.qml</file>
         <file>qml/global/qmldir</file>
         <file>qml/page/T_Acrylic.qml</file>
         <file>qml/page/T_Awesome.qml</file>
@@ -186,5 +185,6 @@
         <file>res/image/image_1.jpg</file>
         <file>qml/window/PageWindow.qml</file>
         <file>qml/page/T_StaggeredView.qml</file>
+        <file>qml/viewmodel/SettingsViewModel.qml</file>
     </qresource>
 </RCC>

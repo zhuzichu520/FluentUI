@@ -125,7 +125,6 @@ Item {
     Component{
         id:com_panel_item_header
         Item{
-            clip: true
             height: {
                 if(model.parent){
                     return model.parent.isExpand ? 30 : 0
@@ -155,7 +154,6 @@ Item {
         Item{
             height: 38
             width: layout_list.width
-            clip: true
             FluControl{
                 id:item_control
                 anchors{
@@ -379,7 +377,6 @@ Item {
                     duration: 83
                 }
             }
-            clip: true
             height: {
                 if(model.parent){
                     return model.parent.isExpand ? 38 : 0

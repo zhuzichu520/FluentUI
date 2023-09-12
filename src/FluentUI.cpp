@@ -13,6 +13,7 @@
 #include "FluWatermark.h"
 #include "FluCaptcha.h"
 #include "FluEventBus.h"
+#include "FluViewModel.h"
 #include "Screenshot.h"
 #include "QRCode.h"
 
@@ -51,6 +52,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<HttpCallable>(uri,major,minor,"HttpCallable");
     qmlRegisterType<HttpRequest>(uri,major,minor,"HttpRequest");
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
+    qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/Checkerboard.qml"),uri,major,minor,"Checkerboard");

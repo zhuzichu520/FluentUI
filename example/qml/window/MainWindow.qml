@@ -6,8 +6,11 @@ import Qt.labs.platform 1.1
 import FluentUI 1.0
 import example 1.0
 import "qrc:///example/qml/component"
-import "../component"
 import "qrc:///example/qml/global"
+import "qrc:///example/qml/viewmodel"
+import "../component"
+import "../viewmodel"
+import "../global"
 
 CustomWindow {
 
@@ -20,6 +23,10 @@ CustomWindow {
     minimumHeight: 200
     appBarVisible: false
     launchMode: FluWindowType.SingleTask
+
+    SettingsViewModel{
+        id:viewmodel_settings
+    }
 
     closeFunc:function(event){
         dialog_close.open()
@@ -184,7 +191,7 @@ CustomWindow {
                 items: ItemsOriginal
                 footerItems:ItemsFooter
                 topPadding:FluTools.isMacos() ? 20 : 0
-                displayMode:MainEvent.displayMode
+                displayMode:viewmodel_settings.displayMode
                 logo: "qrc:/example/res/image/favicon.ico"
                 title:"FluentUI"
                 onLogoClicked:{

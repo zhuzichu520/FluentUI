@@ -16,9 +16,12 @@ FluScrollablePage{
         height: 400
         paddings: 10
 
+
+
         FluPivot{
             anchors.fill: parent
             currentIndex: 2
+
             FluPivotItem{
                 title:"All"
                 contentItem:FluText{
