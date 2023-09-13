@@ -38,7 +38,6 @@ FluPopup {
                 right: parent.right
             }
         }
-
         Flickable{
             id:sroll_message
             contentWidth: width
@@ -47,11 +46,10 @@ FluPopup {
                 left: parent.left
                 right: parent.right
             }
+            boundsBehavior:Flickable.StopAtBounds
             contentHeight: text_message.height
-            clip: true
             height: Math.min(text_message.height,300)
             ScrollBar.vertical: FluScrollBar {}
-
             FluText{
                 id:text_message
                 font: FluTextStyle.Body
@@ -63,9 +61,7 @@ FluPopup {
                 rightPadding: 20
                 bottomPadding: 14
             }
-
         }
-
         Rectangle{
             id:layout_actions
             height: 68
@@ -140,4 +136,3 @@ FluPopup {
         }
     }
 }
-

@@ -142,7 +142,10 @@ Rectangle {
             id:item_text
             text: itemData
             anchors.fill: parent
-            anchors.margins: 10
+            leftPadding: 11
+            rightPadding: 11
+            topPadding: 6
+            bottomPadding: 6
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
             verticalAlignment: Text.AlignVCenter

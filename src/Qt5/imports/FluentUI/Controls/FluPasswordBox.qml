@@ -20,8 +20,8 @@ TextField{
         return normalColor
     }
     font:FluTextStyle.Body
-    padding: 8
-    leftPadding: padding+2
+    padding: 7
+    leftPadding: padding+4
     echoMode:btn_reveal.pressed ? TextField.Normal : TextField.Password
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectionColor: FluTools.colorAlpha(FluTheme.primaryColor.lightest,0.6)
@@ -36,22 +36,9 @@ TextField{
         return placeholderNormalColor
     }
     selectByMouse: true
-    rightPadding: icon_end.visible ? 50 : 30
     background: FluTextBoxBackground{
         inputItem: control
         implicitWidth: 240
-        FluIcon{
-            id:icon_end
-            iconSource: control.iconSource
-            iconSize: 15
-            opacity: 0.5
-            visible: control.iconSource != 0
-            anchors{
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-                rightMargin: 5
-            }
-        }
     }
     Keys.onEnterPressed: (event)=> d.handleCommit(event)
     Keys.onReturnPressed:(event)=> d.handleCommit(event)
@@ -65,16 +52,16 @@ TextField{
         id:btn_reveal
         iconSource:FluentIcons.RevealPasswordMedium
         iconSize: 10
-        width: 20
+        width: 30
         height: 20
         verticalPadding: 0
         horizontalPadding: 0
-        opacity: 0.5
+        iconColor: FluTheme.dark ? Qt.rgba(222/255,222/255,222/255,1) : Qt.rgba(97/255,97/255,97/255,1)
         visible: control.text !== ""
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right
-            rightMargin: icon_end.visible ? 25 : 5
+            rightMargin: 5
         }
     }
     FluTextBoxMenu{

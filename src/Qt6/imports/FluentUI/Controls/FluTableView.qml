@@ -144,9 +144,12 @@ Rectangle {
             id:item_text
             text: itemData
             anchors.fill: parent
-            anchors.margins: 10
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
+            leftPadding: 11
+            rightPadding: 11
+            topPadding: 6
+            bottomPadding: 6
             verticalAlignment: Text.AlignVCenter
             HoverHandler{
                 id: hover_handler
@@ -230,7 +233,7 @@ Rectangle {
             clip: true
             delegate: Rectangle {
                 id:item_table
-                property var position: Qt.point(column,row)
+                property point position: Qt.point(column,row)
                 required property bool selected
                 color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
                 implicitHeight: 40
@@ -283,7 +286,7 @@ Rectangle {
                     property var itemData: display
                     property var tableView: table_view
                     property var tableModel: table_model
-                    property var position: item_table.position
+                    property point position: item_table.position
                     property int row: position.y
                     property int column: position.x
                     anchors.fill: parent

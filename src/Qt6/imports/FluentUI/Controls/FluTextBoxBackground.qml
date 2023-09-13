@@ -36,14 +36,14 @@ Rectangle{
     }
     Rectangle{
         width: parent.width
-        height: inputItem.activeFocus ? 3 : 1
+        height: inputItem.activeFocus ? 2 : 1
         anchors.bottom: parent.bottom
         visible: !inputItem.disabled
         color: {
             if(FluTheme.dark){
-                inputItem.activeFocus ? FluTheme.primaryColor.lighter  : Qt.rgba(166/255,166/255,166/255,1)
+                return inputItem.activeFocus ? FluTheme.primaryColor.lighter  : Qt.rgba(166/255,166/255,166/255,1)
             }else{
-                return inputItem.activeFocus ? FluTheme.primaryColor.dark  : Qt.rgba(183/255,183/255,183/255,1)
+                return inputItem.activeFocus ? FluTheme.primaryColor.dark  : Qt.rgba(134/255,134/255,134/255,1)
             }
         }
         Behavior on height{

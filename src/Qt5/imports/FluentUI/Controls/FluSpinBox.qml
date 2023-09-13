@@ -48,7 +48,7 @@ T.SpinBox {
         inputMethodHints: control.inputMethodHints
         Rectangle{
             width: parent.width
-            height: contentItem.activeFocus ? 3 : 1
+            height: contentItem.activeFocus ? 2 : 1
             anchors.bottom: parent.bottom
             visible: contentItem.enabled
             color: {
