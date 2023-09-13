@@ -11,6 +11,7 @@
 #include "FluRegister.h"
 #include "FluHttpInterceptor.h"
 #include "stdafx.h"
+#include "singleton.h"
 
 /**
  * @brief The FluApp class
@@ -25,13 +26,10 @@ class FluApp : public QObject
     QML_SINGLETON
 private:
     explicit FluApp(QObject *parent = nullptr);
-public:
     ~FluApp();
-    static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-    {
-        return getInstance();
-    }
-    static FluApp *getInstance();
+public:
+    SINGLETONG(FluApp)
+    static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE void run();
     Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluRegister* fluRegister = nullptr);
     Q_INVOKABLE void init(QQuickWindow *window);
@@ -41,7 +39,6 @@ public:
 public:
     QMap<quint64, QQuickWindow*> wnds;
 private:
-    static FluApp* m_instance;
     QWindow *appWindow;
 };
 

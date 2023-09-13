@@ -17,7 +17,6 @@ class QRCode : public QQuickPaintedItem
 public:
     explicit QRCode(QQuickItem *parent = nullptr);
     void paint(QPainter* painter) override;
-
 };
 
 #endif // QRCODE_H

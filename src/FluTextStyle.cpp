@@ -1,19 +1,6 @@
 #include "FluTextStyle.h"
 
-FluTextStyle* FluTextStyle::m_instance = nullptr;
-
-FluTextStyle *FluTextStyle::getInstance()
-{
-    if(FluTextStyle::m_instance == nullptr){
-        FluTextStyle::m_instance = new FluTextStyle;
-    }
-    return FluTextStyle::m_instance;
-}
-
-
-FluTextStyle::FluTextStyle(QObject *parent)
-    : QObject{parent}
-{
+FluTextStyle::FluTextStyle(QObject *parent):QObject{parent}{
     QFont caption;
     caption.setPixelSize(12);
     Caption(caption);

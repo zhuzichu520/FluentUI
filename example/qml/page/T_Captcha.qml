@@ -10,10 +10,10 @@ FluScrollablePage{
 
     title:"Captcha"
 
-
     FluCaptcha{
         id:captcha
         Layout.topMargin: 20
+        ignoreCase:switch_case.checked
         MouseArea{
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
@@ -29,6 +29,13 @@ FluScrollablePage{
         onClicked: {
             captcha.refresh()
         }
+    }
+
+    FluToggleSwitch{
+        id:switch_case
+        text:"Ignore Case"
+        checked: true
+        Layout.topMargin: 10
     }
 
     RowLayout{
@@ -50,6 +57,4 @@ FluScrollablePage{
             }
         }
     }
-
-
 }

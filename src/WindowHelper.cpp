@@ -2,10 +2,7 @@
 
 #include "FluRegister.h"
 
-WindowHelper::WindowHelper(QObject *parent)
-    : QObject{parent}
-{
-
+WindowHelper::WindowHelper(QObject *parent):QObject{parent}{
 }
 
 void WindowHelper::initWindow(QQuickWindow* window){

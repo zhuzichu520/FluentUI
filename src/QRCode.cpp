@@ -6,8 +6,7 @@
 
 using namespace ZXing;
 
-QRCode::QRCode(QQuickItem* parent) : QQuickPaintedItem(parent)
-{
+QRCode::QRCode(QQuickItem* parent):QQuickPaintedItem(parent){
     color(QColor(0,0,0,255));
     bgColor(QColor(255,255,255,255));
     size(100);
@@ -24,8 +23,7 @@ QRCode::QRCode(QQuickItem* parent) : QQuickPaintedItem(parent)
 }
 
 
-void QRCode::paint(QPainter* painter)
-{
+void QRCode::paint(QPainter* painter){
     if(_text.isEmpty()){
         return;
     }

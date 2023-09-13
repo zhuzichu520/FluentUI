@@ -29,7 +29,6 @@ private:
     QRect _captureRect;
 };
 
-
 class Screenshot : public QQuickPaintedItem
 {
     Q_OBJECT
@@ -40,7 +39,6 @@ class Screenshot : public QQuickPaintedItem
 public:
     Screenshot(QQuickItem* parent = nullptr);
     void paint(QPainter* painter) override;
-
 private:
     QRect _desktopGeometry;
 };

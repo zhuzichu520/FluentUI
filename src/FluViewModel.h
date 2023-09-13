@@ -6,6 +6,7 @@
 #include <QQuickWindow>
 #include <QQmlProperty>
 #include "stdafx.h"
+#include "singleton.h"
 
 class Model : public QObject{
     Q_OBJECT
@@ -52,7 +53,7 @@ class ViewModelManager:public QObject{
 private:
     explicit ViewModelManager(QObject *parent = nullptr);
 public:
-    static ViewModelManager *getInstance();
+    SINGLETONG(ViewModelManager)
     bool exist(const QString& key);
     void insert(const QString& key,QObject* value);
     QObject* getModel(const QString& key);
@@ -60,9 +61,8 @@ public:
     void deleteViewModel(FluViewModel* value);
     void refreshViewModel(FluViewModel* viewModel,QString key,QVariant value);
 private:
-    static ViewModelManager* m_instance;
-    QMap<QString,QObject*> m_data;
-    QList<FluViewModel*> m_viewmodel;
+    QMap<QString,QObject*> _data;
+    QList<FluViewModel*> _viewmodel;
 };
 
 #endif // FLUVIEWMODEL_H

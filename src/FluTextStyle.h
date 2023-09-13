@@ -5,6 +5,7 @@
 #include <QtQml/qqml.h>
 #include <QFont>
 #include "stdafx.h"
+#include "singleton.h"
 
 class FluTextStyle : public QObject
 {
@@ -21,13 +22,9 @@ public:
     QML_SINGLETON
 private:
     explicit FluTextStyle(QObject *parent = nullptr);
-    static FluTextStyle* m_instance;
 public:
-    static FluTextStyle *getInstance();
-    static FluTextStyle *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-    {
-        return getInstance();
-    }
+    SINGLETONG(FluTextStyle)
+    static FluTextStyle *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
 };
 
 #endif // FLUTEXTSTYLE_H

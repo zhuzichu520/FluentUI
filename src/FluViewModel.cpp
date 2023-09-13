@@ -3,63 +3,44 @@
 #include <QQuickItem>
 #include "Def.h"
 
-ViewModelManager* ViewModelManager::m_instance = nullptr;
-
-ViewModelManager *ViewModelManager::getInstance()
-{
-    if(ViewModelManager::m_instance == nullptr){
-        ViewModelManager::m_instance = new ViewModelManager;
-    }
-    return ViewModelManager::m_instance;
+Model::Model(QObject *parent):QObject{parent}{
 }
 
-Model::Model(QObject *parent)
-    : QObject{parent}
-{
-
+Model::~Model(){
 }
 
-Model::~Model()
-{
-}
-
-ViewModelManager::ViewModelManager(QObject *parent)
-    : QObject{parent}
-{
-
+ViewModelManager::ViewModelManager(QObject *parent): QObject{parent}{
 }
 
 void ViewModelManager::insertViewModel(FluViewModel* value){
-    m_viewmodel.append(value);
+    _viewmodel.append(value);
 }
 
 void ViewModelManager::deleteViewModel(FluViewModel* value){
-    m_viewmodel.removeOne(value);
+    _viewmodel.removeOne(value);
 }
 
 QObject* ViewModelManager::getModel(const QString& key){
-    return  m_data.value(key);
+    return  _data.value(key);
 }
 
 void ViewModelManager::insert(const QString& key,QObject* value){
-    m_data.insert(key,value);
+    _data.insert(key,value);
 }
 
 bool ViewModelManager::exist(const QString& key){
-    return m_data.contains(key);
+    return _data.contains(key);
 }
 
 void ViewModelManager::refreshViewModel(FluViewModel* viewModel,QString key,QVariant value){
-    foreach (auto item, m_viewmodel) {
+    foreach (auto item, _viewmodel) {
         if(item->getKey() == viewModel->getKey()){
             item->setProperty(key.toStdString().c_str(),value);
         }
     }
 }
 
-PropertyObserver::PropertyObserver(QString name,QObject* model,QObject *parent)
-    : QObject{parent}
-{
+PropertyObserver::PropertyObserver(QString name,QObject* model,QObject *parent):QObject{parent}{
     _name = name;
     _model = model;
     _property = QQmlProperty(parent,_name);
@@ -75,9 +56,7 @@ void PropertyObserver::_propertyChange(){
     ViewModelManager::getInstance()->refreshViewModel((FluViewModel*)parent(),_name,value);
 }
 
-FluViewModel::FluViewModel(QObject *parent)
-    : QObject{parent}
-{
+FluViewModel::FluViewModel(QObject *parent):QObject{parent}{
     ViewModelManager::getInstance()->insertViewModel(this);
     scope(FluViewModelType::Scope::Window);
 }
@@ -86,12 +65,10 @@ FluViewModel::~FluViewModel(){
     ViewModelManager::getInstance()->deleteViewModel(this);
 }
 
-void FluViewModel::classBegin()
-{
+void FluViewModel::classBegin(){
 }
 
-void FluViewModel::componentComplete()
-{
+void FluViewModel::componentComplete(){
     auto o = parent();
     while (nullptr != o) {
         _window = o;

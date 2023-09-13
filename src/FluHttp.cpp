@@ -14,9 +14,7 @@
 #include "FluApp.h"
 #include "FluTools.h"
 
-HttpRequest::HttpRequest(QObject *parent)
-    : QObject{parent}
-{
+HttpRequest::HttpRequest(QObject *parent):QObject{parent}{
 }
 
 QMap<QString, QVariant> HttpRequest::toMap(){
@@ -55,14 +53,10 @@ QString HttpRequest::httpId(){
     return FluTools::getInstance()->sha256(QJsonDocument::fromVariant(QVariant(toMap())).toJson(QJsonDocument::Compact));
 }
 
-HttpCallable::HttpCallable(QObject *parent)
-    : QObject{parent}
-{
+HttpCallable::HttpCallable(QObject *parent):QObject{parent}{
 }
 
-FluHttp::FluHttp(QObject *parent)
-    : QObject{parent}
-{
+FluHttp::FluHttp(QObject *parent):QObject{parent}{
     retry(3);
     timeout(15000);
     cacheMode(FluHttpType::CacheMode::NoCache);

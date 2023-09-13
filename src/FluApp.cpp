@@ -10,19 +10,7 @@
 #include <QClipboard>
 #include "Def.h"
 
-FluApp* FluApp::m_instance = nullptr;
-
-FluApp *FluApp::getInstance()
-{
-    if(FluApp::m_instance == nullptr){
-        FluApp::m_instance = new FluApp;
-    }
-    return FluApp::m_instance;
-}
-
-FluApp::FluApp(QObject *parent)
-    : QObject{parent}
-{
+FluApp::FluApp(QObject *parent):QObject{parent}{
     httpInterceptor(nullptr);
 }
 
@@ -83,8 +71,7 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
     view->setColor(QColor(Qt::transparent));
 }
 
-QJsonArray FluApp::awesomelist(const QString& keyword)
-{
+QJsonArray FluApp::awesomelist(const QString& keyword){
     QJsonArray arr;
     QMetaEnum enumType = Fluent_Awesome::staticMetaObject.enumerator(Fluent_Awesome::staticMetaObject.indexOfEnumerator("Fluent_AwesomeType"));
     for(int i=0; i < enumType.keyCount(); ++i){

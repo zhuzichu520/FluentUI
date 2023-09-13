@@ -1,7 +1,6 @@
 #include "FluTheme.h"
 
-#include "Def.h"
-#include "FluColors.h"
+#include <QGuiApplication>
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
 #include <QStyleHints>
 #elif ((QT_VERSION >= QT_VERSION_CHECK(6, 2, 1)))
@@ -10,22 +9,10 @@
 #else
 #include <QPalette>
 #endif
+#include "Def.h"
+#include "FluColors.h"
 
-#include <QGuiApplication>
-
-FluTheme* FluTheme::m_instance = nullptr;
-
-FluTheme *FluTheme::getInstance()
-{
-    if(FluTheme::m_instance == nullptr){
-        FluTheme::m_instance = new FluTheme;
-    }
-    return FluTheme::m_instance;
-}
-
-FluTheme::FluTheme(QObject *parent)
-    : QObject{parent}
-{
+FluTheme::FluTheme(QObject *parent):QObject{parent}{
     connect(this,&FluTheme::darkModeChanged,this,[=]{
         Q_EMIT darkChanged();
     });
@@ -37,8 +24,7 @@ FluTheme::FluTheme(QObject *parent)
     qApp->installEventFilter(this);
 }
 
-bool FluTheme::eventFilter(QObject *obj, QEvent *event)
-{
+bool FluTheme::eventFilter(QObject *obj, QEvent *event){
     Q_UNUSED(obj);
     if (event->type() == QEvent::ApplicationPaletteChange || event->type() == QEvent::ThemeChange)
     {
@@ -50,8 +36,7 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event)
     return false;
 }
 
-bool FluTheme::systemDark()
-{
+bool FluTheme::systemDark(){
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
     return (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 #elif ((QT_VERSION >= QT_VERSION_CHECK(6, 2, 1)))

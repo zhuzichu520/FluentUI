@@ -6,12 +6,9 @@
 #include <QtMath>
 #include <QDateTime>
 #include <QThreadPool>
-
 #include "Def.h"
 
-
-Screenshot::Screenshot(QQuickItem* parent) : QQuickPaintedItem(parent)
-{
+Screenshot::Screenshot(QQuickItem* parent):QQuickPaintedItem(parent){
     _desktopGeometry = qApp->primaryScreen()->virtualGeometry();
     maskColor(QColor(0,0,0,150));
     start(QPoint(0,0));
@@ -20,8 +17,7 @@ Screenshot::Screenshot(QQuickItem* parent) : QQuickPaintedItem(parent)
     connect(this,&Screenshot::endChanged,this,[=]{update();});
 }
 
-void Screenshot::paint(QPainter* painter)
-{
+void Screenshot::paint(QPainter* painter){
     painter->save();
     painter->fillRect(_desktopGeometry,_maskColor);
     painter->setCompositionMode(QPainter::CompositionMode_Clear);
@@ -29,8 +25,7 @@ void Screenshot::paint(QPainter* painter)
     painter->restore();
 }
 
-ScreenshotBackground::ScreenshotBackground(QQuickItem* parent) : QQuickPaintedItem(parent)
-{
+ScreenshotBackground::ScreenshotBackground(QQuickItem* parent) : QQuickPaintedItem(parent){
     _devicePixelRatio = qApp->primaryScreen()->devicePixelRatio();
     _desktopGeometry = qApp->primaryScreen()->virtualGeometry();
     _desktopPixmap = qApp->primaryScreen()->grabWindow(0, _desktopGeometry.x(), _desktopGeometry.y(), _desktopGeometry.width(), _desktopGeometry.height());
@@ -45,8 +40,7 @@ ScreenshotBackground::ScreenshotBackground(QQuickItem* parent) : QQuickPaintedIt
     setHeight(h);
 }
 
-void ScreenshotBackground::paint(QPainter* painter)
-{
+void ScreenshotBackground::paint(QPainter* painter){
     painter->save();
     _sourcePixmap = _desktopPixmap.copy();
     painter->drawPixmap(_desktopGeometry,_sourcePixmap);

@@ -1,4 +1,5 @@
 #include "FluTools.h"
+
 #include <QGuiApplication>
 #include <QClipboard>
 #include <QUuid>
@@ -11,21 +12,7 @@
 #include <QCryptographicHash>
 #include <QTextDocument>
 
-FluTools* FluTools::m_instance = nullptr;
-
-FluTools *FluTools::getInstance()
-{
-    if(FluTools::m_instance == nullptr){
-        FluTools::m_instance = new FluTools;
-    }
-    return FluTools::m_instance;
-}
-
-
-FluTools::FluTools(QObject *parent)
-    : QObject{parent}
-{
-
+FluTools::FluTools(QObject *parent):QObject{parent}{
 }
 
 void FluTools::clipText(const QString& text){
@@ -36,8 +23,7 @@ QString FluTools::uuid(){
     return QUuid::createUuid().toString();
 }
 
-QString FluTools::readFile(const QString &fileName)
-{
+QString FluTools::readFile(const QString &fileName){
     QString content;
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly)) {
@@ -132,18 +118,15 @@ QColor FluTools::colorAlpha(const QColor& color,qreal alpha){
     return QColor(color.red(),color.green(),color.blue(),255*alpha);
 }
 
-QString FluTools::md5(QString text)
-{
+QString FluTools::md5(QString text){
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Md5).toHex();
 }
 
-QString FluTools::toBase64(QString text)
-{
+QString FluTools::toBase64(QString text){
     return text.toUtf8().toBase64();
 }
 
-QString FluTools::fromBase64(QString text)
-{
+QString FluTools::fromBase64(QString text){
     return QByteArray::fromBase64(text.toUtf8());
 }
 

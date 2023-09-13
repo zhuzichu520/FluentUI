@@ -5,6 +5,7 @@
 #include <QtQml/qqml.h>
 #include "FluColorSet.h"
 #include "stdafx.h"
+#include "singleton.h"
 
 /**
  * @brief The FluTheme class
@@ -20,21 +21,17 @@ class FluTheme : public QObject
     QML_NAMED_ELEMENT(FluTheme)
     QML_SINGLETON
 private:
-    static FluTheme* m_instance;
     explicit FluTheme(QObject *parent = nullptr);
+    bool eventFilter(QObject *obj, QEvent *event);
+    bool systemDark();
 public:
-    static FluTheme *getInstance();
-    static FluTheme *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-    {
-        return getInstance();
-    }
+    SINGLETONG(FluTheme)
+    static FluTheme *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     bool dark();
     Q_SIGNAL void darkChanged();
 private:
     bool _dark;
     bool _systemDark;
-    bool eventFilter(QObject *obj, QEvent *event);
-    bool systemDark();
 };
 
 #endif // FLUTHEME_H

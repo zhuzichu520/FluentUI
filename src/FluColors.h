@@ -5,6 +5,7 @@
 #include <QtQml/qqml.h>
 #include "FluColorSet.h"
 #include "stdafx.h"
+#include "singleton.h"
 
 /**
  * @brief The FluColors class
@@ -49,13 +50,9 @@ class FluColors : public QObject
     QML_SINGLETON
 private:
     explicit FluColors(QObject *parent = nullptr);
-    static FluColors* m_instance;
 public:
-    static FluColors *getInstance();
-    static FluColors *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-    {
-        return getInstance();
-    }
+    SINGLETONG(FluColors)
+    static FluColors *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
 };
 
 #endif // FLUCOLORS_H

@@ -1,7 +1,6 @@
 #include "FluWatermark.h"
 
-FluWatermark::FluWatermark(QQuickItem* parent) : QQuickPaintedItem(parent)
-{
+FluWatermark::FluWatermark(QQuickItem* parent) : QQuickPaintedItem(parent){
     gap(QPoint(100,100));
     offset(QPoint(_gap.x()/2,_gap.y()/2));
     rotate(22);
@@ -16,8 +15,7 @@ FluWatermark::FluWatermark(QQuickItem* parent) : QQuickPaintedItem(parent)
     connect(this,&FluWatermark::textSizeChanged,this,[=]{update();});
 }
 
-void FluWatermark::paint(QPainter* painter)
-{
+void FluWatermark::paint(QPainter* painter){
     QFont font;
     font.setPixelSize(_textSize);
     painter->setFont(font);

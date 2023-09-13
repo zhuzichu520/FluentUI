@@ -5,9 +5,8 @@
 #include <QRandomGenerator>
 #include <qmath.h>
 
-FluCaptcha::FluCaptcha(QQuickItem *parent)
-    : QQuickPaintedItem(parent)
-{
+FluCaptcha::FluCaptcha(QQuickItem *parent):QQuickPaintedItem(parent){
+    ignoreCase(true);
     QFont fontStype;
     fontStype.setPixelSize(28);
     fontStype.setBold(true);
@@ -17,8 +16,7 @@ FluCaptcha::FluCaptcha(QQuickItem *parent)
     refresh();
 }
 
-void FluCaptcha::paint(QPainter* painter)
-{
+void FluCaptcha::paint(QPainter* painter){
     painter->save();
     painter->fillRect(boundingRect().toRect(),QColor(255,255,255,255));
     QPen pen;
@@ -72,5 +70,8 @@ void FluCaptcha::refresh(){
 }
 
 bool FluCaptcha::verify(const QString& code){
+    if(_ignoreCase){
+        return this->_code.toUpper() == code.toUpper();
+    }
     return this->_code == code;
 }

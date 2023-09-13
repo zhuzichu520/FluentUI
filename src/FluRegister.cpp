@@ -3,9 +3,7 @@
 #include "FluApp.h"
 #include <QCoreApplication>
 
-FluRegister::FluRegister(QObject *parent)
-    : QObject{parent}
-{
+FluRegister::FluRegister(QObject *parent):QObject{parent}{
     from(nullptr);
     to(nullptr);
     path("");

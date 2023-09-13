@@ -10,9 +10,6 @@ class FluHttpInterceptor : public QObject
     QML_NAMED_ELEMENT(FluHttpInterceptor)
 public:
     explicit FluHttpInterceptor(QObject *parent = nullptr);
-
-signals:
-
 };
 
 #endif // FLUHTTPINTERCEPTOR_H

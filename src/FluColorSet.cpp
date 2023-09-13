@@ -1,7 +1,4 @@
 #include "FluColorSet.h"
 
-FluColorSet::FluColorSet(QObject *parent)
-    : QObject{parent}
-{
-
+FluColorSet::FluColorSet(QObject *parent):QObject{parent}{
 }
