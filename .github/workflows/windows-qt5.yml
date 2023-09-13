@@ -1,4 +1,4 @@
-name: Windows-Qt5
+name: Windows Qt5.15.2
 on: 
   push:
     paths:
