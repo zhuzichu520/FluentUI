@@ -53,7 +53,7 @@ endforeach(filepath)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #遍历所有qml文件
-    file(GLOB_RECURSE QML_PATHS *.qml qmldir)
+    file(GLOB_RECURSE QML_PATHS *.qml)
     foreach(filepath ${QML_PATHS})
         string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
         if(${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
@@ -64,7 +64,7 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     endforeach(filepath)
 
     #遍历所有资源文件
-    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp)
+    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp qmldir)
     foreach(filepath ${RES_PATHS})
         string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
         list(APPEND resource_files ${filename})
@@ -93,12 +93,17 @@ else ()
     )
 endif ()
 
-#复制动态库到可执行文件同级目录下
 if(WIN32)
+    #复制动态库到可执行文件同级目录下
+    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        set(3RDPARTY_ARCH_DIR ${CMAKE_SOURCE_DIR}/3rdparty/Win_x86)
+    elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(3RDPARTY_ARCH_DIR ${CMAKE_SOURCE_DIR}/3rdparty/Win_x64)
+    endif()
     if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/msvc/*.dll)
+        set(DLLPATH ${3RDPARTY_ARCH_DIR}/msvc/*.dll)
     else()
-        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
+        set(DLLPATH ${3RDPARTY_ARCH_DIR}/mingw/*.dll)
     endif()
     string(REPLACE "/" ${PATH_SEPARATOR} DLLPATH "${DLLPATH}")
     file(GLOB DLL_FILES ${DLLPATH})
