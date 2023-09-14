@@ -10,105 +10,36 @@ FluScrollablePage {
 
     title:"TreeView"
 
-    function randomName() {
-        var names = ["张三", "李四", "王五", "赵六", "钱七", "孙八", "周九", "吴十"]
-        return names[Math.floor(Math.random() * names.length)]
-    }
-
-    function randomCompany() {
-        var companies = ["阿里巴巴", "腾讯", "百度", "京东", "华为", "小米", "字节跳动", "美团", "滴滴"]
-        return companies[Math.floor(Math.random() * companies.length)]
-    }
-
-    function randomDepartment() {
-        var departments = ["技术部", "销售部", "市场部", "人事部", "财务部", "客服部", "产品部", "设计部", "运营部"]
-        return departments[Math.floor(Math.random() * departments.length)]
-    }
-
-    function createEmployee() {
-        var name = randomName()
-        return tree_view.createItem(name, false)
-    }
-
-    function createSubtree(numEmployees) {
-        var employees = []
-        for (var i = 0; i < numEmployees; i++) {
-            employees.push(createEmployee())
-        }
-        return tree_view.createItem(randomDepartment(), true, employees)
-    }
-
-    function createOrg(numLevels, numSubtrees, numEmployees) {
-        if (numLevels === 0) {
-            return []
-        }
-        var subtrees = []
-        for (var i = 0; i < numSubtrees; i++) {
-            subtrees.push(createSubtree(numEmployees))
-        }
-        return [tree_view.createItem(randomCompany(), true, subtrees)].concat(createOrg(numLevels - 1, numSubtrees, numEmployees))
+    function treeData(){
+        const dig = (path = '0', level = 4) => {
+            const list = [];
+            for (let i = 0; i < 6; i += 1) {
+                const key = `${path}-${i}`;
+                const treeNode = {
+                    title: key,
+                    key,
+                };
+                if (level > 0) {
+                    treeNode.children = dig(key, level - 1);
+                }
+                list.push(treeNode);
+            }
+            return list;
+        };
+        return dig();
     }
 
     FluArea{
-        id:layout_actions
         Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 50
+        Layout.topMargin: 10
         paddings: 10
-        RowLayout{
-            spacing: 14
-            FluDropDownButton{
-                id:btn_selection_model
-                Layout.preferredWidth: 140
-                text:"None"
-                FluMenuItem{
-                    text:"None"
-                    onClicked: {
-                        btn_selection_model.text = text
-                        tree_view.selectionMode = FluTabViewType.Equal
-                    }
-                }
-                FluMenuItem{
-                    text:"Single"
-                    onClicked: {
-                        btn_selection_model.text = text
-                        tree_view.selectionMode = FluTabViewType.SizeToContent
-                    }
-                }
-                FluMenuItem{
-                    text:"Muiltple"
-                    onClicked: {
-                        btn_selection_model.text = text
-                        tree_view.selectionMode = FluTabViewType.Compact
-                    }
-                }
-            }
-            FluFilledButton{
-                text:"获取选中的数据"
-                onClicked: {
-                    if(tree_view.selectionMode === FluTreeViewType.None){
-                        showError("当前非选择模式,没有选中的数据")
-                    }
-                    if(tree_view.selectionMode === FluTreeViewType.Single){
-                        if(!tree_view.signleData()){
-                            showError("没有选中数据")
-                            return
-                        }
-                        showSuccess(tree_view.signleData().text)
-                    }
-                    if(tree_view.selectionMode === FluTreeViewType.Multiple){
-                        if(tree_view.multipData().length===0){
-                            showError("没有选中数据")
-                            return
-                        }
-                        var info = []
-                        tree_view.multipData().map((value)=>info.push(value.text))
-                        showSuccess(info.join(","))
-                    }
-                }
-            }
+        height: 60
+        FluText{
+            text:"共计：%1条数据".arg(tree_view.count())
+            anchors.verticalCenter: parent.verticalCenter
         }
     }
+
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 10
@@ -122,15 +53,9 @@ FluScrollablePage {
                 left:parent.left
                 bottom:parent.bottom
             }
-            onItemClicked:
-                (model)=>{
-                    showSuccess(model.text)
-                }
-
             Component.onCompleted: {
-                var org = createOrg(3, 3, 3)
-                createItem()
-                updateData(org)
+                var data = treeData()
+                dataSource = data
             }
         }
     }
@@ -143,15 +68,10 @@ FluScrollablePage {
     width:240
     height:600
     Component.onCompleted: {
-        var datas = []
-        datas.push(createItem("Node1",false))
-        datas.push(createItem("Node2",false))
-        datas.push(createItem("Node2",true,[createItem("Node2-1",false),createItem("Node2-2",false)]))
-        updateData(datas)
+        var data = treeData()
+        dataSource = data
     }
 }
 '
     }
-
-
 }

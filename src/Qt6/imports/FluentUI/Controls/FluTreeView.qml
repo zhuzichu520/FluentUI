@@ -2,291 +2,146 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
+import Qt.labs.qmlmodels
 import FluentUI
 
 Item {
-    property int selectionMode: FluTreeViewType.None
-    property var currentElement
-    property var currentParentElement
-    property var rootModel: tree_model.get(0).items
-    signal itemClicked(var item)
-    id:root
-    ListModel{
-        id:tree_model
-        ListElement{
-            text: "根节点"
-            expanded:true
-            items:[]
-            key:"123456"
-            multipSelected:false
-            multipIndex:0
-            multipParentKey:""
+    property var dataSource
+    id:control
+    QtObject {
+        id:d
+        signal refreshLayout()
+        onRefreshLayout: {
+            table_view.forceLayout()
         }
-    }
-    Component{
-        id: delegate_root
-        Column{
-            width: calculateWidth()
-            property var itemModel: model
-            Repeater{
-                id: repeater_first_level
-                model: items
-                delegate: delegate_items
+        function handleTree(treeData) {
+            var comItem = Qt.createComponent("FluTreeItem.qml");
+            if (comItem.status !== Component.Ready) {
+                return
             }
-            function calculateWidth(){
-                var w = 0;
-                for(var i = 0; i < repeater_first_level.count; i++) {
-                    var child = repeater_first_level.itemAt(i)
-                    if(w < child.width_hint){
-                        w = child.width_hint;
+            var stack = []
+            var rawData = []
+            for (var item of treeData) {
+                stack.push({node:item,depth:0,isExpanded:true,__parent:undefined})
+            }
+            stack = stack.reverse()
+            var index =0
+            while (stack.length > 0) {
+                const { node, depth,isExpanded,__parent} = stack.pop();
+                node.depth = depth;
+                node.isExpanded = isExpanded;
+                node.__parent = __parent;
+                var objItem = comItem.createObject(table_view);
+                objItem.title = node.title
+                objItem.key = node.key
+                objItem.depth = node.depth
+                objItem.isExpanded = node.isExpanded
+                objItem.__parent = node.__parent
+                objItem.children = node.children
+                objItem.index = index
+                index = index + 1;
+                rawData.push({display:objItem})
+                if (node.children && node.children.length > 0) {
+                    const children = node.children.reverse();
+                    for (const child of children) {
+                        stack.push({ node: child, depth: depth + 1,isExpanded:true,__parent:objItem});
                     }
                 }
-                return w;
             }
+            return rawData
         }
     }
-    Component{
-        id:delegate_items
-        Column{
-            id:item_layout
-            property real level: (mapToItem(list_root,0,0).x+list_root.contentX)/0.001
-            property var text: model.text??"Item"
-            property bool hasChild : (model.items !== undefined) && (model.items.count !== 0)
-            property var items: model.items??[]
-            property var expanded: model.expanded??true
-            property int width_hint: calculateWidth()
-            property bool singleSelected: currentElement === model
-            property var itemModel: model
-            function calculateWidth(){
-                var w = Math.max(list_root.width, item_layout_row.implicitWidth + 10);
-                if(expanded){
-                    for(var i = 0; i < repeater_items.count; i++) {
-                        var child = repeater_items.itemAt(i)
-                        if(w < child.width_hint){
-                            w = child.width_hint;
+    onDataSourceChanged: {
+        table_model.clear()
+        var data = d.handleTree(dataSource)
+        table_model.rows = data
+        table_view.forceLayout()
+        console.debug("共计：%1条数据".arg(table_model.rowCount))
+    }
+    TableModel {
+        id:table_model
+        TableModelColumn { display: "display" }
+    }
+    ListView{
+        anchors.fill: parent
+        TableView{
+            id:table_view
+            ScrollBar.horizontal: FluScrollBar{}
+            ScrollBar.vertical: FluScrollBar{}
+            boundsBehavior: Flickable.StopAtBounds
+            model: table_model
+            clip: true
+            anchors.fill: parent
+            rowHeightProvider: function(row) {
+                if(table_model.getRow(row).display.__expanded){
+                    return 38
+                }
+                return 0
+            }
+            delegate: Item {
+                implicitWidth:  46 + item_layout_text.width + 30*display.depth
+                RowLayout{
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 14 + 30*display.depth
+                    FluIcon{
+                        rotation: display.isExpanded?0:-90
+                        iconSource:FluentIcons.ChevronDown
+                        iconSize: 15
+                        Layout.alignment: Qt.AlignVCenter
+                        opacity: {
+                            if(display.children){
+                                return true
+                            }
+                            return false
                         }
-                    }
-                }
-                return w;
-            }
-            Item{
-                id:item_layout_rect
-                width: list_root.contentWidth
-                height: item_layout_row.implicitHeight
-                Rectangle{
-                    anchors.fill: parent
-                    anchors.margins: 2
-                    color:{
-                        if(FluTheme.dark){
-                            if(item_layout.singleSelected && selectionMode === FluTreeViewType.Single){
-                                return Qt.rgba(62/255,62/255,62/255,1)
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                display.isExpanded = !display.isExpanded
+                                d.refreshLayout()
                             }
-                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(62/255,62/255,62/255,1):Qt.rgba(0,0,0,0)
-                        }else{
-                            if(item_layout.singleSelected && selectionMode === FluTreeViewType.Single){
-                                return Qt.rgba(0,0,0,0.06)
-                            }
-                            return (item_layout_mouse.containsMouse || item_layout_expanded.hovered || item_layout_checkbox.hovered)?Qt.rgba(0,0,0,0.03):Qt.rgba(0,0,0,0)
                         }
                     }
                     Rectangle{
-                        width: 3
-                        color:FluTheme.primaryColor.dark
-                        visible: item_layout.singleSelected && (selectionMode === FluTreeViewType.Single)
-                        radius: 3
-                        height: 20
-                        anchors{
-                            left: parent.left
-                            verticalCenter: parent.verticalCenter
-                        }
-                    }
-                    MouseArea{
-                        id:item_layout_mouse
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onClicked: {
-                            item_layout_rect.onClickItem()
-                        }
-                    }
-                }
-                function onClickItem(){
-                    if(selectionMode === FluTreeViewType.None){
-                        itemClicked(model)
-                    }
-                    if(selectionMode === FluTreeViewType.Single){
-                        currentElement = model
-                        if(item_layout.parent.parent.parent.itemModel){
-                            currentParentElement = item_layout.parent.parent.parent.itemModel
-                        }else{
-                            if(item_layout.parent.itemModel){
-                                currentParentElement = item_layout.parent.itemModel
-                            }
-                        }
-                        itemClicked(model)
-                    }
-                    if(selectionMode === FluTreeViewType.Multiple){
-
-                    }
-                }
-                RowLayout{
-                    id:item_layout_row
-                    anchors.verticalCenter: item_layout_rect.verticalCenter
-                    Item{
-                        width: 15*level
+                        id:item_layout_text
+                        radius: 4
+                        Layout.preferredWidth: item_text.implicitWidth+14
+                        Layout.preferredHeight:item_text.implicitHeight+14
                         Layout.alignment: Qt.AlignVCenter
-                    }
-                    FluCheckBox{
-                        id:item_layout_checkbox
-                        text:""
-                        checked: itemModel.multipSelected
-                        visible: selectionMode === FluTreeViewType.Multiple
-                        Layout.leftMargin: 5
-                        function refreshCheckBox(){
-                            const stack = [tree_model.get(0)];
-                            const result = [];
-                            while (stack.length > 0) {
-                                const curr = stack.pop();
-                                result.unshift(curr);
-                                if (curr.items) {
-                                    for(var i=0 ; i<curr.items.count ; i++){
-                                        curr.items.setProperty(i,"multipIndex",i)
-                                        curr.items.setProperty(i,"multipParentKey",curr.key)
-                                        stack.push(curr.items.get(i));
-                                    }
-                                }
-                            }
-                            for(var j=0 ; j<result.length-1 ; j++){
-                                var item = result[j]
-                                let obj = result.find(function(o) {
-                                    return o.key === item.multipParentKey;
-                                });
-                                if((item.items !== undefined) && (item.items.count !== 0)){
-                                    var items = item.items
-                                    for(var k=0 ; k<items.count ; k++){
-                                        if(items.get(k).multipSelected === false){
-                                            obj.items.setProperty(item.multipIndex,"multipSelected",false)
-                                            break
-                                        }
-                                        obj.items.setProperty(item.multipIndex,"multipSelected",true)
-                                    }
-                                }
-                            }
+                        HoverHandler{
+                            id:item_hover_text
                         }
-                        clickListener:function(){
-                            if(hasChild){
-                                const stack = [itemModel];
-                                while (stack.length > 0) {
-                                    const curr = stack.pop();
-                                    if (curr.items) {
-                                        for(var i=0 ; i<curr.items.count ; i++){
-                                            curr.items.setProperty(i,"multipSelected",!itemModel.multipSelected)
-                                            stack.push(curr.items.get(i));
-                                        }
-                                    }
+                        color: {
+                            if(FluTheme.dark){
+                                if(item_hover_text.hovered){
+                                    return Qt.rgba(1,1,1,0.03)
                                 }
-                                refreshCheckBox()
+                                return Qt.rgba(0,0,0,0)
                             }else{
-                                itemModel.multipSelected = !itemModel.multipSelected
-                                refreshCheckBox()
-                            }
-                        }
-                    }
-                    FluIconButton{
-                        id:item_layout_expanded
-                        color:"#00000000"
-                        opacity: item_layout.hasChild
-                        onClicked: {
-                            if(!item_layout.hasChild){
-                                item_layout_rect.onClickItem()
-                                return
-                            }
-                            model.expanded = !model.expanded
-                        }
-                        contentItem: FluIcon{
-                            rotation: item_layout.expanded?0:-90
-                            iconSource:FluentIcons.ChevronDown
-                            iconSize: 15
-                            Behavior on rotation {
-                                enabled: FluTheme.enableAnimation
-                                NumberAnimation{
-                                    duration: 167
-                                    easing.type: Easing.OutCubic
+                                if(item_hover_text.hovered){
+                                    return Qt.rgba(0,0,0,0.03)
                                 }
+                                return Qt.rgba(0,0,0,0)
+                            }
+                        }
+                        FluText {
+                            id:item_text
+                            text: display.title
+                            anchors.centerIn: parent
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                d.refreshLayout()
                             }
                         }
                     }
-                    FluText {
-                        text:  item_layout.text
-                        Layout.alignment: Qt.AlignVCenter
-                        topPadding: 7
-                        bottomPadding: 7
-                    }
-                }
-            }
-            Item{
-                id:item_sub
-                visible: {
-                    if(!hasChild){
-                        return false
-                    }
-                    return item_layout.expanded??false
-                }
-
-                width: item_sub_layout.implicitWidth
-                height: item_sub_layout.implicitHeight
-                x:0.001
-                Column{
-                    id: item_sub_layout
-                    Repeater{
-                        id:repeater_items
-                        model: item_layout.items
-                        delegate: delegate_items
-                    }
                 }
             }
         }
     }
-    ListView {
-        id: list_root
-        anchors.fill: parent
-        delegate: delegate_root
-        contentWidth: contentItem.childrenRect.width
-        model: tree_model
-        flickableDirection: Flickable.HorizontalAndVerticalFlick
-        clip: true
-        boundsBehavior: ListView.StopAtBounds
-        ScrollBar.vertical: FluScrollBar {}
-        ScrollBar.horizontal: FluScrollBar { }
+    function count(){
+        return table_model.rowCount
     }
-    function updateData(items){
-        rootModel.clear()
-        rootModel.append(items)
-    }
-    function signleData(){
-        return currentElement
-    }
-    function multipData(){
-        const stack = [tree_model.get(0)];
-        const result = [];
-        while (stack.length > 0) {
-            const curr = stack.pop();
-            if(curr.multipSelected){
-                result.push(curr)
-            }
-
-            for(var i=0 ; i<curr.items.count ; i++){
-                stack.push(curr.items.get(i));
-            }
-        }
-        return result
-    }
-    function createItem(text="",expanded=true,items=[],data={}){
-        return {text:text,expanded:expanded,items:items,key:uniqueRandom(),multipSelected:false,multipIndex:0,multipParentKey:"",data:data};
-    }
-    function uniqueRandom() {
-        var timestamp = Date.now();
-        var random = Math.floor(Math.random() * 1000000);
-        return timestamp.toString() + random.toString();
-    }
-
 }

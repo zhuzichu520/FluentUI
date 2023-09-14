@@ -21,6 +21,7 @@ T.ScrollBar {
         property int  minLine : 2
         property int  maxLine : 6
     }
+    z: horizontal? 10 : 20
     verticalPadding : vertical ? 15 : 3
     horizontalPadding : horizontal ? 15 : 3
     background: Rectangle{
