@@ -48,6 +48,25 @@ FluScrollablePage {
         return [tree_view.createItem(randomCompany(), true, subtrees)].concat(createOrg(numLevels - 1, numSubtrees, numEmployees))
     }
 
+    function treeData(){
+        const dig = (path = '0', level = 4) => {
+            const list = [];
+            for (let i = 0; i < 10; i += 1) {
+                const key = `${path}-${i}`;
+                const treeNode = {
+                    title: key,
+                    key,
+                };
+                if (level > 0) {
+                    treeNode.children = dig(key, level - 1);
+                }
+                list.push(treeNode);
+            }
+            return list;
+        };
+        return dig();
+    }
+
     FluArea{
         id:layout_actions
         Layout.fillWidth: true
@@ -130,6 +149,19 @@ FluScrollablePage {
                 var org = createOrg(3, 3, 3)
                 createItem()
                 updateData(org)
+            }
+        }
+        FluTreeView2{
+            id:tree_view_2
+            width:240
+            anchors{
+                top:parent.top
+                bottom:parent.bottom
+            }
+            x:260
+            Component.onCompleted: {
+                var data = treeData()
+                dataSource = data
             }
         }
     }
