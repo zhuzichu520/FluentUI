@@ -12,7 +12,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 240
+        height: 270
         paddings: 10
         ColumnLayout{
             spacing: 14
@@ -23,7 +23,7 @@ FluScrollablePage{
             FluButton{
                 text:"Info"
                 onClicked: {
-                    showInfo("这是一个Info样式的InfoBar")
+                    showInfo("这是一个Info样式的InfoBar",0,"123")
                 }
             }
             FluButton{
@@ -42,6 +42,12 @@ FluScrollablePage{
                 text:"Success"
                 onClicked: {
                     showSuccess("这是一个Success样式的InfoBar这是一个Success样式的InfoBar")
+                }
+            }
+            FluButton{
+                text:"手动关闭的InfoBar"
+                onClicked: {
+                    showInfo("这是一个Info样式的InfoBar",0,"支持手动关闭")
                 }
             }
             FluButton{

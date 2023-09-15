@@ -106,7 +106,9 @@ Window {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        popup_loading.visible = false
+                        if (cancel){
+                            popup_loading.visible = false
+                        }
                     }
                 }
                 ColumnLayout{

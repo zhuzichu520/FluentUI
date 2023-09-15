@@ -83,7 +83,7 @@ FluObject {
                 }
                 Timer {
                     id:delayTimer
-                    interval: duration; running: true; repeat: true
+                    interval: duration; running: duration > 0; repeat: duration > 0
                     onTriggered: content.close();
                 }
                 Loader{
@@ -184,10 +184,47 @@ FluObject {
                     }
                 }
 
-                FluText{
-                    text:_super.text
-                    wrapMode: Text.WrapAnywhere
-                    width: Math.min(implicitWidth,mcontrol.maxWidth)
+                Column{
+                    spacing: 5
+                    FluText{
+                        text:_super.text
+                        wrapMode: Text.WrapAnywhere
+                        width: Math.min(implicitWidth,mcontrol.maxWidth)
+                    }
+                    FluText{
+                        text: _super.moremsg
+                        visible: _super.moremsg
+                        wrapMode : Text.WordWrap
+                        textColor: FluColors.Grey120
+                    }
+                }
+
+                FluIconButton{
+                    iconSource: FluentIcons.ChromeClose
+                    iconSize: 10
+                    y:5
+                    x:parent.width-35
+                    visible: _super.duration<=0
+                    iconColor: {
+                        if(FluTheme.dark){
+                            switch(_super.type){
+                            case mcontrol.const_success: return Qt.rgba(108/255,203/255,95/255,1);
+                            case mcontrol.const_warning: return Qt.rgba(252/255,225/255,0/255,1);
+                            case mcontrol.const_info:    return FluTheme.primaryColor.lighter;
+                            case mcontrol.const_error:   return Qt.rgba(255/255,153/255,164/255,1);
+                            }
+                            return "#FFFFFF"
+                        }else{
+                            switch(_super.type){
+                            case mcontrol.const_success: return "#0f7b0f";
+                            case mcontrol.const_warning: return "#9d5d00";
+                            case mcontrol.const_info:    return "#0066b4";
+                            case mcontrol.const_error:   return "#c42b1c";
+                            }
+                            return "#FFFFFF"
+                        }
+                    }
+                    onClicked: _super.close()
                 }
             }
         }

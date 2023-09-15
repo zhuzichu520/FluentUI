@@ -8,6 +8,7 @@ Item {
     property int launchMode: FluPageType.SingleTop
     property bool animDisabled: false
     property string url : ""
+    signal animationEnd()
     id: control
     opacity: visible
     visible: false
@@ -30,5 +31,13 @@ Item {
     }
     Component.onCompleted: {
         visible = true
+        timer.restart()
+    }
+    Timer{
+        id:timer
+        interval: !animDisabled && FluTheme.enableAnimation ?  200 : 0
+        onTriggered: {
+            control.animationEnd()
+        }
     }
 }

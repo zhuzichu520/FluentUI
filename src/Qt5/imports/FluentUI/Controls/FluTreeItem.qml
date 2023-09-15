@@ -7,6 +7,7 @@ QtObject {
     property int depth: 0
     property bool isExpanded: true
     property var __parent
+    property int __childIndex: 0
     property bool __expanded:{
         var p = __parent;
         while (p) {
