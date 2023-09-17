@@ -45,21 +45,21 @@ void FluTreeModel::setData(QList<Node*> data){
 void FluTreeModel::removeRows(int row,int count){
     if (row < 0 || row + count > _rows.size() || count==0)
         return;
-//    beginRemoveRows(QModelIndex(),row, row + count - 1);
+    beginRemoveRows(QModelIndex(),row, row + count - 1);
     for (int i = 0; i < count; ++i) {
         _rows.removeAt(row);
     }
-//    endRemoveRows();
+    endRemoveRows();
 }
 
 void FluTreeModel::insertRows(int row,QList<Node*> data){
     if (row < 0 || row > _rows.size() || data.size() == 0)
         return;;
-//    beginInsertRows(QModelIndex(), row, row + data.size() - 1);
+    beginInsertRows(QModelIndex(), row, row + data.size() - 1);
     for (const auto& item : data) {
         _rows.insert(row++, item);
     }
-//    endInsertRows();
+    endInsertRows();
 }
 
 QObject* FluTreeModel::getRow(int row){
@@ -125,7 +125,6 @@ void FluTreeModel::collapse(int row){
         removeCount = removeCount + 1;
     }
     removeRows(row+1,removeCount);
-   Q_EMIT dataChanged(index(row+1,0),index(row+1+removeCount,0));
 }
 
 void FluTreeModel::expand(int row){
@@ -153,7 +152,6 @@ void FluTreeModel::expand(int row){
         }
     }
     insertRows(row+1,insertData);
-    Q_EMIT dataChanged(index(row+1,0),index(row+1+insertData.count(),0));
 }
 
 void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex){

@@ -89,7 +89,7 @@ FluScrollablePage {
                     id:slider_width
                     value: 200
                     from: 160
-                    to:460
+                    to:400
                 }
             }
 
@@ -121,3 +121,4 @@ FluScrollablePage {
 '
     }
 }
+

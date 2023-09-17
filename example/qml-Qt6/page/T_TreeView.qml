@@ -48,7 +48,7 @@ FluScrollablePage {
         Layout.fillWidth: true
         Layout.topMargin: 10
         paddings: 10
-        height: 640
+        height: 420
         Item{
             anchors.fill: tree_view
             FluShadow{}
@@ -88,7 +88,7 @@ FluScrollablePage {
                     id:slider_width
                     value: 200
                     from: 160
-                    to:460
+                    to:400
                 }
             }
 

@@ -124,7 +124,6 @@ Item {
                     loader_container.height = item_container.height
                     loader_container.x = table_view.contentX + cellPosition.x
                     loader_container.y = table_view.contentY + cellPosition.y
-
                 }
                 onClicked: {
                     d.current = itemModel

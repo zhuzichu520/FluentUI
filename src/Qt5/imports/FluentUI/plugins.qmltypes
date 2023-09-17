@@ -29,6 +29,7 @@ Module {
         exports: ["FluentUI/FluCaptcha 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "font"; type: "QFont" }
+        Property { name: "ignoreCase"; type: "bool" }
         Method { name: "refresh" }
         Method {
             name: "verify"
@@ -186,6 +187,15 @@ Module {
         }
     }
     Component {
+        name: "FluRectangle"
+        defaultProperty: "data"
+        prototype: "QQuickPaintedItem"
+        exports: ["FluentUI/FluRectangle 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "color"; type: "QColor" }
+        Property { name: "radius"; type: "QList<int>" }
+    }
+    Component {
         name: "FluScreenshotType"
         exports: ["FluentUI/FluScreenshotType 1.0"]
         isCreatable: false
@@ -274,6 +284,49 @@ Module {
                 "Right": 1,
                 "Alternate": 2
             }
+        }
+    }
+    Component {
+        name: "FluTreeModel"
+        prototype: "QAbstractTableModel"
+        exports: ["FluentUI/FluTreeModel 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "dataSourceSize"; type: "int" }
+        Method {
+            name: "removeRows"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "count"; type: "int" }
+        }
+        Method {
+            name: "insertRows"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "data"; type: "QList<Node*>" }
+        }
+        Method {
+            name: "getRow"
+            type: "QObject*"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "setData"
+            Parameter { name: "data"; type: "QList<Node*>" }
+        }
+        Method {
+            name: "setDataSource"
+            Parameter { name: "data"; type: "QList<QMap<QString,QVariant> >" }
+        }
+        Method {
+            name: "collapse"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "expand"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "dragAnddrop"
+            Parameter { name: "dragIndex"; type: "int" }
+            Parameter { name: "dropIndex"; type: "int" }
         }
     }
     Component {
@@ -1798,6 +1851,280 @@ Module {
         Method { name: "httpId"; type: "string" }
     }
     Component {
+        name: "QAbstractItemModel"
+        prototype: "QObject"
+        Enum {
+            name: "LayoutChangeHint"
+            values: {
+                "NoLayoutChangeHint": 0,
+                "VerticalSortHint": 1,
+                "HorizontalSortHint": 2
+            }
+        }
+        Enum {
+            name: "CheckIndexOption"
+            values: {
+                "NoOption": 0,
+                "IndexIsValid": 1,
+                "DoNotUseParent": 2,
+                "ParentIsInvalid": 4
+            }
+        }
+        Signal {
+            name: "dataChanged"
+            Parameter { name: "topLeft"; type: "QModelIndex" }
+            Parameter { name: "bottomRight"; type: "QModelIndex" }
+            Parameter { name: "roles"; type: "QVector<int>" }
+        }
+        Signal {
+            name: "dataChanged"
+            Parameter { name: "topLeft"; type: "QModelIndex" }
+            Parameter { name: "bottomRight"; type: "QModelIndex" }
+        }
+        Signal {
+            name: "headerDataChanged"
+            Parameter { name: "orientation"; type: "Qt::Orientation" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "layoutChanged"
+            Parameter { name: "parents"; type: "QList<QPersistentModelIndex>" }
+            Parameter { name: "hint"; type: "QAbstractItemModel::LayoutChangeHint" }
+        }
+        Signal {
+            name: "layoutChanged"
+            Parameter { name: "parents"; type: "QList<QPersistentModelIndex>" }
+        }
+        Signal { name: "layoutChanged" }
+        Signal {
+            name: "layoutAboutToBeChanged"
+            Parameter { name: "parents"; type: "QList<QPersistentModelIndex>" }
+            Parameter { name: "hint"; type: "QAbstractItemModel::LayoutChangeHint" }
+        }
+        Signal {
+            name: "layoutAboutToBeChanged"
+            Parameter { name: "parents"; type: "QList<QPersistentModelIndex>" }
+        }
+        Signal { name: "layoutAboutToBeChanged" }
+        Signal {
+            name: "rowsAboutToBeInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "rowsInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "rowsAboutToBeRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "rowsRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsAboutToBeInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsAboutToBeRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal { name: "modelAboutToBeReset" }
+        Signal { name: "modelReset" }
+        Signal {
+            name: "rowsAboutToBeMoved"
+            Parameter { name: "sourceParent"; type: "QModelIndex" }
+            Parameter { name: "sourceStart"; type: "int" }
+            Parameter { name: "sourceEnd"; type: "int" }
+            Parameter { name: "destinationParent"; type: "QModelIndex" }
+            Parameter { name: "destinationRow"; type: "int" }
+        }
+        Signal {
+            name: "rowsMoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "start"; type: "int" }
+            Parameter { name: "end"; type: "int" }
+            Parameter { name: "destination"; type: "QModelIndex" }
+            Parameter { name: "row"; type: "int" }
+        }
+        Signal {
+            name: "columnsAboutToBeMoved"
+            Parameter { name: "sourceParent"; type: "QModelIndex" }
+            Parameter { name: "sourceStart"; type: "int" }
+            Parameter { name: "sourceEnd"; type: "int" }
+            Parameter { name: "destinationParent"; type: "QModelIndex" }
+            Parameter { name: "destinationColumn"; type: "int" }
+        }
+        Signal {
+            name: "columnsMoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "start"; type: "int" }
+            Parameter { name: "end"; type: "int" }
+            Parameter { name: "destination"; type: "QModelIndex" }
+            Parameter { name: "column"; type: "int" }
+        }
+        Method { name: "submit"; type: "bool" }
+        Method { name: "revert" }
+        Method {
+            name: "hasIndex"
+            type: "bool"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "column"; type: "int" }
+            Parameter { name: "parent"; type: "QModelIndex" }
+        }
+        Method {
+            name: "hasIndex"
+            type: "bool"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "index"
+            type: "QModelIndex"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "column"; type: "int" }
+            Parameter { name: "parent"; type: "QModelIndex" }
+        }
+        Method {
+            name: "index"
+            type: "QModelIndex"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "parent"
+            type: "QModelIndex"
+            Parameter { name: "child"; type: "QModelIndex" }
+        }
+        Method {
+            name: "sibling"
+            type: "QModelIndex"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "column"; type: "int" }
+            Parameter { name: "idx"; type: "QModelIndex" }
+        }
+        Method {
+            name: "rowCount"
+            type: "int"
+            Parameter { name: "parent"; type: "QModelIndex" }
+        }
+        Method { name: "rowCount"; type: "int" }
+        Method {
+            name: "columnCount"
+            type: "int"
+            Parameter { name: "parent"; type: "QModelIndex" }
+        }
+        Method { name: "columnCount"; type: "int" }
+        Method {
+            name: "hasChildren"
+            type: "bool"
+            Parameter { name: "parent"; type: "QModelIndex" }
+        }
+        Method { name: "hasChildren"; type: "bool" }
+        Method {
+            name: "data"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QModelIndex" }
+            Parameter { name: "role"; type: "int" }
+        }
+        Method {
+            name: "data"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method {
+            name: "setData"
+            type: "bool"
+            Parameter { name: "index"; type: "QModelIndex" }
+            Parameter { name: "value"; type: "QVariant" }
+            Parameter { name: "role"; type: "int" }
+        }
+        Method {
+            name: "setData"
+            type: "bool"
+            Parameter { name: "index"; type: "QModelIndex" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "headerData"
+            type: "QVariant"
+            Parameter { name: "section"; type: "int" }
+            Parameter { name: "orientation"; type: "Qt::Orientation" }
+            Parameter { name: "role"; type: "int" }
+        }
+        Method {
+            name: "headerData"
+            type: "QVariant"
+            Parameter { name: "section"; type: "int" }
+            Parameter { name: "orientation"; type: "Qt::Orientation" }
+        }
+        Method {
+            name: "fetchMore"
+            Parameter { name: "parent"; type: "QModelIndex" }
+        }
+        Method {
+            name: "canFetchMore"
+            type: "bool"
+            Parameter { name: "parent"; type: "QModelIndex" }
+        }
+        Method {
+            name: "flags"
+            type: "Qt::ItemFlags"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method {
+            name: "match"
+            type: "QModelIndexList"
+            Parameter { name: "start"; type: "QModelIndex" }
+            Parameter { name: "role"; type: "int" }
+            Parameter { name: "value"; type: "QVariant" }
+            Parameter { name: "hits"; type: "int" }
+            Parameter { name: "flags"; type: "Qt::MatchFlags" }
+        }
+        Method {
+            name: "match"
+            type: "QModelIndexList"
+            Parameter { name: "start"; type: "QModelIndex" }
+            Parameter { name: "role"; type: "int" }
+            Parameter { name: "value"; type: "QVariant" }
+            Parameter { name: "hits"; type: "int" }
+        }
+        Method {
+            name: "match"
+            type: "QModelIndexList"
+            Parameter { name: "start"; type: "QModelIndex" }
+            Parameter { name: "role"; type: "int" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+    }
+    Component { name: "QAbstractTableModel"; prototype: "QAbstractItemModel" }
+    Component {
         name: "QRCode"
         defaultProperty: "data"
         prototype: "QQuickPaintedItem"
@@ -1934,7 +2261,7 @@ Module {
         exports: ["FluentUI/FluAcrylic 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "contentItem"
+        defaultProperty: "data"
         Property { name: "tintColor"; type: "QColor" }
         Property { name: "tintOpacity"; type: "double" }
         Property { name: "luminosity"; type: "double" }
@@ -1942,8 +2269,6 @@ Module {
         Property { name: "blurRadius"; type: "int" }
         Property { name: "targetRect"; type: "QRectF" }
         Property { name: "target"; type: "QQuickItem"; isPointer: true }
-        Property { name: "radius"; type: "QVariant" }
-        Property { name: "contentItem"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -2159,7 +2484,7 @@ Module {
         exports: ["FluentUI/FluCarousel 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "contentItem"
+        defaultProperty: "data"
         Property { name: "autoPlay"; type: "bool" }
         Property { name: "loopTime"; type: "int" }
         Property { name: "model"; type: "QVariant" }
@@ -2178,8 +2503,6 @@ Module {
             type: "QVariant"
             Parameter { name: "index"; type: "QVariant" }
         }
-        Property { name: "radius"; type: "QVariant" }
-        Property { name: "contentItem"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
         prototype: "QQuickCanvasItem"
@@ -2228,6 +2551,14 @@ Module {
         Property { name: "textSpacing"; type: "double" }
         Property { name: "clickListener"; type: "QVariant" }
         Property { name: "textColor"; type: "QColor" }
+    }
+    Component {
+        prototype: "FluRectangle"
+        name: "FluentUI/FluClip 1.0"
+        exports: ["FluentUI/FluClip 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
     }
     Component {
         prototype: "QQuickButton"
@@ -2531,16 +2862,6 @@ Module {
         Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
-        prototype: "QQuickItem"
-        name: "FluentUI/FluItem 1.0"
-        exports: ["FluentUI/FluItem 1.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "contentItem"
-        Property { name: "radius"; type: "QVariant" }
-        Property { name: "contentItem"; type: "QObject"; isList: true; isReadonly: true }
-    }
-    Component {
         prototype: "QQuickItemDelegate"
         name: "FluentUI/FluItemDelegate 1.0"
         exports: ["FluentUI/FluItemDelegate 1.0"]
@@ -2638,16 +2959,16 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_156"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_156"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_148"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_148"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "navWidth"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_48"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_48"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_52"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_52"; isPointer: true }
         Signal { name: "logoClicked" }
         Method { name: "collapseAll"; type: "QVariant" }
         Method {
@@ -2963,18 +3284,6 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
-        name: "FluentUI/FluRectangle 1.0"
-        exports: ["FluentUI/FluRectangle 1.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "contentItem"
-        Property { name: "radius"; type: "QVariant" }
-        Property { name: "color"; type: "QColor" }
-        Property { name: "shadow"; type: "bool" }
-        Property { name: "contentItem"; type: "QObject"; isList: true; isReadonly: true }
-    }
-    Component {
-        prototype: "QQuickItem"
         name: "FluentUI/FluRemoteLoader 1.0"
         exports: ["FluentUI/FluRemoteLoader 1.0"]
         exportMetaObjectRevisions: [0]
@@ -3221,13 +3530,14 @@ Module {
         }
     }
     Component {
-        prototype: "QQuickRectangle"
+        prototype: "FluRectangle"
         name: "FluentUI/FluTextBoxBackground 1.0"
         exports: ["FluentUI/FluTextBoxBackground 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
         Property { name: "inputItem"; type: "QQuickItem"; isPointer: true }
+        Property { name: "borderWidth"; type: "int" }
     }
     Component {
         prototype: "QQuickMenu"
@@ -3362,30 +3672,13 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
-        Property { name: "selectionMode"; type: "int" }
-        Property { name: "currentElement"; type: "QVariant" }
-        Property { name: "currentParentElement"; type: "QVariant" }
-        Property { name: "rootModel"; type: "QVariant" }
-        Signal {
-            name: "itemClicked"
-            Parameter { name: "item"; type: "QVariant" }
-        }
-        Method {
-            name: "updateData"
-            type: "QVariant"
-            Parameter { name: "items"; type: "QVariant" }
-        }
-        Method { name: "signleData"; type: "QVariant" }
-        Method { name: "multipData"; type: "QVariant" }
-        Method {
-            name: "createItem"
-            type: "QVariant"
-            Parameter { name: "text"; type: "QVariant" }
-            Parameter { name: "expanded"; type: "QVariant" }
-            Parameter { name: "items"; type: "QVariant" }
-            Parameter { name: "data"; type: "QVariant" }
-        }
-        Method { name: "uniqueRandom"; type: "QVariant" }
+        Property { name: "currentIndex"; type: "int" }
+        Property { name: "dataSource"; type: "QVariant" }
+        Property { name: "showLine"; type: "bool" }
+        Property { name: "draggable"; type: "bool" }
+        Property { name: "lineColor"; type: "QColor" }
+        Method { name: "count"; type: "QVariant" }
+        Method { name: "visibleCount"; type: "QVariant" }
     }
     Component {
         prototype: "QQuickWindowQmlImpl"

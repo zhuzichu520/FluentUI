@@ -32,27 +32,18 @@ T.RangeSlider {
             radius: 12
         }
         Rectangle{
-            width: 24
-            height: 24
-            radius: 12
+            width: radius*2
+            height: radius*2
+            radius:{
+                if(control.first.pressed){
+                    return 5
+                }
+                return control.first.hovered ? 7 : 6
+            }
             color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
-            scale: {
-                if(control.first.pressed){
-                    return 4/10
-                }
-                return control.first.hovered ? 6/10 : 5/10
-            }
-            Behavior on scale {
-                enabled: FluTheme.enableAnimation
-                NumberAnimation{
-                    duration: 167
-                    easing.type: Easing.OutCubic
-                }
-            }
         }
     }
-
     second.handle: Rectangle {
         x: control.leftPadding + (control.horizontal ? control.second.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.second.visualPosition * (control.availableHeight - height))
@@ -64,27 +55,18 @@ T.RangeSlider {
             radius: 12
         }
         Rectangle{
-            width: 24
-            height: 24
-            radius: 12
+            width: radius*2
+            height: radius*2
+            radius:{
+                if(control.second.pressed){
+                    return 5
+                }
+                return control.second.hovered ? 7 : 6
+            }
             color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
-            scale: {
-                if(control.second.pressed){
-                    return 4/10
-                }
-                return control.second.hovered ? 6/10 : 5/10
-            }
-            Behavior on scale {
-                enabled: FluTheme.enableAnimation
-                NumberAnimation{
-                    duration: 167
-                    easing.type: Easing.OutCubic
-                }
-            }
         }
     }
-
     background: Item {
         x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : 0)
