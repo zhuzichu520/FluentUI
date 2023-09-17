@@ -12,9 +12,7 @@
 #include <QOpenGLContext>
 #include <QCryptographicHash>
 #include <QTextDocument>
-#include <qDebug>
 #include <QQuickWindow>
-
 
 FluTools::FluTools(QObject *parent):QObject{parent}{
 
