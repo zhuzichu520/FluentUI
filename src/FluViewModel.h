@@ -31,7 +31,7 @@ public:
     QString getKey();
 private:
     QObject* _window = nullptr;
-    QString _key;
+    QString _key = "";
 };
 
 class PropertyObserver: public QObject{
@@ -42,9 +42,9 @@ public:
 private:
     Q_SLOT void _propertyChange();
 private:
-    QString _name;
+    QString _name = "";
     QQmlProperty _property;
-    QObject* _model;
+    QObject* _model = nullptr;
 };
 
 

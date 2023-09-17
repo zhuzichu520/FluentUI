@@ -10,9 +10,9 @@ FluScrollablePage {
     title:"TreeView"
 
     function treeData(){
-        const dig = (path = '0', level = 4) => {
+        const dig = (path = '0', level = 3) => {
             const list = [];
-            for (let i = 0; i < 10; i += 1) {
+            for (let i = 0; i < 8; i += 1) {
                 const key = `${path}-${i}`;
                 const treeNode = {
                     title: key,
@@ -48,7 +48,7 @@ FluScrollablePage {
         Layout.fillWidth: true
         Layout.topMargin: 10
         paddings: 10
-        height: 400
+        height: 640
         Item{
             anchors.fill: tree_view
             FluShadow{}
@@ -61,6 +61,7 @@ FluScrollablePage {
                 left:parent.left
                 bottom:parent.bottom
             }
+            draggable:switch_draggable.checked
             showLine: switch_showline.checked
             Component.onCompleted: {
                 var data = treeData()
@@ -68,6 +69,7 @@ FluScrollablePage {
             }
         }
         Column{
+            spacing: 15
             anchors{
                 top:parent.top
                 topMargin: 10
@@ -86,7 +88,7 @@ FluScrollablePage {
                     id:slider_width
                     value: 200
                     from: 160
-                    to:320
+                    to:460
                 }
             }
 
@@ -94,6 +96,12 @@ FluScrollablePage {
                 id:switch_showline
                 text:"showLine"
                 checked: true
+            }
+
+            FluToggleSwitch{
+                id:switch_draggable
+                text:"draggable"
+                checked: false
             }
         }
     }

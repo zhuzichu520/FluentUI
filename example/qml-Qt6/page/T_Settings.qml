@@ -40,7 +40,7 @@ FluScrollablePage{
             spacing: 20
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text:"当前版本 v%1".arg(appInfo.version)
+                text:"当前版本 v%1".arg(AppInfo.version)
                 font: FluTextStyle.Body
                 anchors.verticalCenter: parent.verticalCenter
             }
@@ -56,6 +56,38 @@ FluScrollablePage{
         }
     }
 
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height: 50
+        paddings: 10
+        FluCheckBox{
+            text:"Software Render"
+            checked: SettingsHelper.getReander() === "software"
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                if(SettingsHelper.getReander() === "software"){
+                    SettingsHelper.saveRender("")
+                }else{
+                    SettingsHelper.saveRender("software")
+                }
+                dialog_render.open()
+            }
+        }
+    }
+
+    FluContentDialog{
+        id:dialog_render
+        title:"友情提示"
+        message:"此操作需要重启才能生效，是否重新启动？"
+        buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
+        negativeText: "取消"
+        positiveText:"确定"
+        onPositiveClicked:{
+            window.deleteWindow()
+            AppInfo.restart()
+        }
+    }
 
     FluArea{
         Layout.fillWidth: true
@@ -141,10 +173,10 @@ FluScrollablePage{
                 Repeater{
                     model: ["Zh","En"]
                     delegate: FluRadioButton{
-                        checked: appInfo.lang.objectName === modelData
+                        checked: AppInfo.lang.objectName === modelData
                         text:modelData
                         clickListener:function(){
-                            appInfo.changeLang(modelData)
+                            AppInfo.changeLang(modelData)
                         }
                     }
                 }

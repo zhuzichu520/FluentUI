@@ -3,7 +3,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
-import Qt5Compat.GraphicalEffects
 import "qrc:///example/qml/component"
 
 FluScrollablePage{

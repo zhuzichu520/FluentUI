@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import FluentUI
 
-FluItem {
+Item {
     property bool autoPlay: true
     property int loopTime: 2000
     property var model

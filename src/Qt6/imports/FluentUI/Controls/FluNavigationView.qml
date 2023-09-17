@@ -113,8 +113,16 @@ Item {
         id:com_panel_item_separatorr
         FluDivider{
             width: layout_list.width
-            spacing: model.spacing
+            spacing: {
+                if(model){
+                    return model.spacing
+                }
+                return 1
+            }
             separatorHeight: {
+                if(!model){
+                    return 1
+                }
                 if(model.parent){
                     return model.parent.isExpand ? model.size : 0
                 }
@@ -201,6 +209,9 @@ Item {
                         verticalCenterOffset: -8
                     }
                     visible: {
+                        if(!model){
+                            return false
+                        }
                         if(!model.isExpand){
                             for(var i=0;i<model.children.length;i++){
                                 var item = model.children[i]
@@ -221,6 +232,12 @@ Item {
                         radius: 1.5
                         color: FluTheme.primaryColor.dark
                         visible: {
+                            if(!model){
+                                return false
+                            }
+                            if(!model.children){
+                                return false
+                            }
                             for(var i=0;i<model.children.length;i++){
                                 var item = model.children[i]
                                 if(item._idx === nav_list.currentIndex && !model.isExpand){
@@ -235,7 +252,7 @@ Item {
                     }
                     FluIcon{
                         id:item_icon_expand
-                        rotation: model.isExpand?0:180
+                        rotation: model&&model.isExpand?0:180
                         iconSource:FluentIcons.ChevronUp
                         iconSize: 15
                         anchors{
@@ -280,7 +297,7 @@ Item {
                         id:com_icon
                         FluIcon{
                             iconSource: {
-                                if(model.icon){
+                                if(model&&model.icon){
                                     return model.icon
                                 }
                                 return 0
@@ -300,7 +317,7 @@ Item {
                         Loader{
                             anchors.centerIn: parent
                             sourceComponent: {
-                                if(model.cusIcon){
+                                if(model&&model.cusIcon){
                                     return model.cusIcon
                                 }
                                 return com_icon
@@ -309,7 +326,12 @@ Item {
                     }
                     FluText{
                         id:item_title
-                        text:model.title
+                        text:{
+                            if(model){
+                                return model.title
+                            }
+                            return ""
+                        }
                         visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
@@ -342,7 +364,7 @@ Item {
                             if(d.isCompact){
                                 return undefined
                             }
-                            return model.showEdit ? model.editDelegate : undefined
+                            return model&&model.showEdit ? model.editDelegate : undefined
                         }
                         onStatusChanged: {
                             if(status === Loader.Ready){
@@ -378,13 +400,13 @@ Item {
                 }
             }
             height: {
-                if(model.parent){
+                if(model&&model.parent){
                     return model.parent.isExpand ? 38 : 0
                 }
                 return 38
             }
             visible: {
-                if(model.parent){
+                if(model&&model.parent){
                     return model.parent.isExpand ? true : false
                 }
                 return true
@@ -498,7 +520,7 @@ Item {
                         id:com_icon
                         FluIcon{
                             iconSource: {
-                                if(model.icon){
+                                if(model&&model.icon){
                                     return model.icon
                                 }
                                 return 0
@@ -518,7 +540,7 @@ Item {
                         Loader{
                             anchors.centerIn: parent
                             sourceComponent: {
-                                if(model.cusIcon){
+                                if(model&&model.cusIcon){
                                     return model.cusIcon
                                 }
                                 return com_icon
@@ -527,7 +549,12 @@ Item {
                     }
                     FluText{
                         id:item_title
-                        text:model.title
+                        text:{
+                            if(model){
+                                return model.title
+                            }
+                            return ""
+                        }
                         visible: {
                             if(d.isCompactAndNotPanel){
                                 return false
@@ -558,6 +585,9 @@ Item {
                         }
                         sourceComponent: {
                             if(d.isCompact){
+                                return undefined
+                            }
+                            if(!model){
                                 return undefined
                             }
                             return model.showEdit ? model.editDelegate : undefined
@@ -592,7 +622,7 @@ Item {
                             verticalCenterOffset: isDot ? -8 : 0
                         }
                         sourceComponent: {
-                            if(model.infoBadge){
+                            if(model&&model.infoBadge){
                                 return model.infoBadge
                             }
                             return undefined
@@ -772,7 +802,9 @@ Item {
         anchors.fill: loader_content
         onDropped:
             (drag)=>{
-                drag.source.modelData.dropped(drag)
+                if(drag.source.modelData){
+                    drag.source.modelData.dropped(drag)
+                }
             }
     }
     Loader{
@@ -939,6 +971,8 @@ Item {
                     property var _idx: index
                     property int type: 0
                     sourceComponent: {
+                        if(model === null || !model)
+                            return undefined
                         if(modelData instanceof FluPaneItem){
                             return com_panel_item
                         }
@@ -954,6 +988,7 @@ Item {
                         if(modelData instanceof FluPaneItemEmpty){
                             return com_panel_item_empty
                         }
+                        return undefined
                     }
                 }
             }

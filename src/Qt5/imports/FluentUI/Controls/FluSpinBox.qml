@@ -68,7 +68,7 @@ T.SpinBox {
         }
     }
 
-    up.indicator: FluItem {
+    up.indicator: FluRectangle {
         x: control.mirrored ? 0 : control.width - width
         height: control.height
         implicitWidth: 32
@@ -103,7 +103,7 @@ T.SpinBox {
     }
 
 
-    down.indicator: FluItem {
+    down.indicator: FluRectangle {
         x: control.mirrored ? parent.width - width : 0
         height: control.height
         implicitWidth: 32

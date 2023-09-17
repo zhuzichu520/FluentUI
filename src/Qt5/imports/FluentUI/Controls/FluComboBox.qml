@@ -62,7 +62,7 @@ ComboBox {
         bottomInset:1
         rightInset:1
         background: FluTextBoxBackground{
-            border.width: 0
+            borderWidth: 0
             inputItem: contentItem
         }
         Component.onCompleted: {

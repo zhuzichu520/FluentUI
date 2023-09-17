@@ -24,24 +24,16 @@ T.Slider {
             radius: 12
         }
         Rectangle{
-            width: 24
-            height: 24
-            radius: 12
+            width: radius*2
+            height: radius*2
+            radius:{
+                if(control.pressed){
+                    return 5
+                }
+                return control.hovered ? 7 : 6
+            }
             color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
-            scale: {
-                if(control.pressed){
-                    return 4/10
-                }
-                return control.hovered ? 6/10 : 5/10
-            }
-            Behavior on scale {
-                enabled: FluTheme.enableAnimation
-                NumberAnimation{
-                    duration: 167
-                    easing.type: Easing.OutCubic
-                }
-            }
         }
     }
     background: Item {

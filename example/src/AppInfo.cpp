@@ -2,6 +2,7 @@
 
 #include <QQmlContext>
 #include <QDebug>
+#include <QGuiApplication>
 #include "lang/En.h"
 #include "lang/Zh.h"
 #include "Version.h"
@@ -20,7 +21,6 @@ void AppInfo::init(QQmlApplicationEngine *engine){
     QObject::connect(this,&AppInfo::langChanged,this,[=]{
         context->setContextProperty("lang",this->lang());
     });
-    context->setContextProperty("appInfo",this);
 }
 
 void AppInfo::changeLang(const QString& locale){
@@ -34,4 +34,8 @@ void AppInfo::changeLang(const QString& locale){
     }else {
         lang(new En());
     }
+}
+
+void AppInfo::restart(){
+    qApp->exit(931);
 }

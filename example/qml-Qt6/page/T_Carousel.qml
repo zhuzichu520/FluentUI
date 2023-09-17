@@ -44,7 +44,6 @@ FluScrollablePage{
                 }
                 FluCarousel{
                     anchors.fill: parent
-                    radius:[8,8,8,8]
                     delegate: Component{
                         Image {
                             anchors.fill: parent
@@ -82,7 +81,6 @@ FluScrollablePage{
                 }
                 FluCarousel{
                     anchors.fill: parent
-                    radius:[8,8,8,8]
                     loopTime:1500
                     indicatorGravity: Qt.AlignHCenter | Qt.AlignTop
                     indicatorMarginTop:15

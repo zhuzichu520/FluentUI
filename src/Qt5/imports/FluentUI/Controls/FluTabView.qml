@@ -76,7 +76,7 @@ Item {
                 id:item_layout
                 width: item_container.width
                 height: item_container.height
-                FluItem{
+                Item{
                     id:item_container
                     property real timestamp: new Date().getTime()
                     height: tab_nav.height
@@ -92,7 +92,6 @@ Item {
                         }
                         return Math.max(Math.min(d.maxEqualWidth,tab_nav.width/tab_nav.count),41 + item_btn_close.width)
                     }
-                    radius: [6,6,0,0]
                     Behavior on x { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
                     Behavior on y { enabled: d.dragBehavior; NumberAnimation { duration: 200 } }
                     MouseArea{
@@ -186,8 +185,9 @@ Item {
                             }
                         }
                     }
-                    Rectangle{
+                    FluRectangle{
                         anchors.fill: parent
+                        radius: [6,6,0,0]
                         color: {
                             if(FluTheme.dark){
                                 if(item_mouse_hove.containsMouse || item_btn_close.hovered){

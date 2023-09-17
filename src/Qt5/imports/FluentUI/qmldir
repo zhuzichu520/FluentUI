@@ -39,7 +39,6 @@ FluIcon 1.0 Controls/FluIcon.qml
 FluIconButton 1.0 Controls/FluIconButton.qml
 FluImage 1.0 Controls/FluImage.qml
 FluInfoBar 1.0 Controls/FluInfoBar.qml
-FluItem 1.0 Controls/FluItem.qml
 FluItemDelegate 1.0 Controls/FluItemDelegate.qml
 FluMenu 1.0 Controls/FluMenu.qml
 FluMenuBar 1.0 Controls/FluMenuBar.qml
@@ -66,7 +65,6 @@ FluQRCode 1.0 Controls/FluQRCode.qml
 FluRadioButton 1.0 Controls/FluRadioButton.qml
 FluRadioButtons 1.0 Controls/FluRadioButtons.qml
 FluRatingControl 1.0 Controls/FluRatingControl.qml
-FluRectangle 1.0 Controls/FluRectangle.qml
 FluRemoteLoader 1.0 Controls/FluRemoteLoader.qml
 FluScreenshot 1.0 Controls/FluScreenshot.qml
 FluScrollBar 1.0 Controls/FluScrollBar.qml
@@ -96,5 +94,5 @@ FluRangeSlider 1.0 Controls/FluRangeSlider.qml
 FluStaggeredView 1.0 Controls/FluStaggeredView.qml
 FluProgressButton 1.0 Controls/FluProgressButton.qml
 FluLoadingButton 1.0 Controls/FluLoadingButton.qml
-FluTreeItem 1.0 Controls/FluTreeItem.qml
+FluClip 1.0 Controls/FluClip.qml
 plugin fluentuiplugin

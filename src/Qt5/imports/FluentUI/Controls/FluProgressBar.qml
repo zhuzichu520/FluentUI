@@ -19,7 +19,7 @@ ProgressBar{
         color: control.backgroundColor
         radius: d._radius
     }
-    contentItem: FluItem {
+    contentItem: FluClip {
         clip: true
         radius: [d._radius,d._radius,d._radius,d._radius]
         Rectangle {

@@ -75,12 +75,12 @@ Button {
                 }
                 return borderNormalColor
             }
-            Rectangle {
+            FluIcon {
                 width:  parent.height
                 x:checked ? control_backgound.width-width : 0
-                height: width
-                radius: width/2
                 scale: hovered&enabled ? 7/10 : 6/10
+                iconSource: FluentIcons.FullCircleMask
+                iconSize: 20
                 color: {
                     if(!enabled){
                         return dotDisableColor
@@ -91,14 +91,9 @@ Button {
                     return dotNormalColor
                 }
                 Behavior on x  {
-                    enabled:  FluTheme.enableAnimation
-                    NumberAnimation {
-                        easing.type: Easing.OutCubic
-                    }
-                }
-                Behavior on scale {
                     enabled: FluTheme.enableAnimation
                     NumberAnimation {
+                        duration: 167
                         easing.type: Easing.OutCubic
                     }
                 }

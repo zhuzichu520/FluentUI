@@ -80,7 +80,6 @@ FluExpander{
                     "FluIcon",
                     "FluIconButton",
                     "FluInfoBar",
-                    "FluItem",
                     "FluMediaPlayer",
                     "FluMenu",
                     "FluMenuItem",

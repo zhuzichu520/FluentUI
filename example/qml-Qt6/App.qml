@@ -8,6 +8,13 @@ Window {
     id: app
     flags: Qt.SplashScreen
 
+    Connections{
+        target: FluTheme
+        function onDarkModeChanged(){
+            SettingsHelper.saveDarkMode(FluTheme.darkMode)
+        }
+    }
+
     FluHttpInterceptor{
         id:interceptor
         function onIntercept(request){
@@ -26,7 +33,7 @@ Window {
 
     Component.onCompleted: {
         FluApp.init(app)
-        FluTheme.darkMode = FluThemeType.System
+        FluTheme.darkMode = SettingsHelper.getDarkMode()
         FluTheme.enableAnimation = true
         FluApp.routes = {
             "/":"qrc:/example/qml/window/MainWindow.qml",

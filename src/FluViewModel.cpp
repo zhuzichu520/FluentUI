@@ -57,8 +57,9 @@ void PropertyObserver::_propertyChange(){
 }
 
 FluViewModel::FluViewModel(QObject *parent):QObject{parent}{
-    ViewModelManager::getInstance()->insertViewModel(this);
     scope(FluViewModelType::Scope::Window);
+    target(nullptr);
+    ViewModelManager::getInstance()->insertViewModel(this);
 }
 
 FluViewModel::~FluViewModel(){

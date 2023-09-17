@@ -318,7 +318,7 @@ CustomWindow {
         property string body
         id:dialog_update
         title:"升级提示"
-        message:"FluentUI目前最新版本 "+ newVerson +" -- 当前应用版本 "+appInfo.version+" \n现在是否去下载新版本？\n\n更新内容：\n"+body
+        message:"FluentUI目前最新版本 "+ newVerson +" -- 当前应用版本 "+AppInfo.version+" \n现在是否去下载新版本？\n\n更新内容：\n"+body
         buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
         negativeText: "取消"
         positiveText:"确定"
@@ -340,9 +340,9 @@ CustomWindow {
         onSuccess:
             (result)=>{
                 var data = JSON.parse(result)
-                console.debug("current version "+appInfo.version)
+                console.debug("current version "+AppInfo.version)
                 console.debug("new version "+data.tag_name)
-                if(data.tag_name !== appInfo.version){
+                if(data.tag_name !== AppInfo.version){
                     dialog_update.newVerson =  data.tag_name
                     dialog_update.body = data.body
                     dialog_update.open()

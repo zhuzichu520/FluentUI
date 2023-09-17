@@ -24,7 +24,7 @@ FluScrollablePage{
             FluButton{
                 text:"Info"
                 onClicked: {
-                    showInfo("这是一个Info样式的InfoBar",0,"123")
+                    showInfo("这是一个Info样式的InfoBar")
                 }
             }
             FluButton{

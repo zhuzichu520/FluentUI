@@ -70,14 +70,15 @@ Item {
             left: layout_header.left
         }
         width: parent.width
-        clip: true
         visible: contentHeight+container.y !== 0
         height: contentHeight+container.y
+        clip: true
         Rectangle{
             id:container
             width: parent.width
             height: parent.height
             radius: 4
+            clip: true
             color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
             border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
             y: -contentHeight

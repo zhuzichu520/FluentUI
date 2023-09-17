@@ -477,6 +477,9 @@ FluObject{
     }
 
     function getSearchData(){
+        if(!navigationView){
+            return
+        }
         var arr = []
         var items = navigationView.getItems();
         for(var i=0;i<items.length;i++){

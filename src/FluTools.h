@@ -46,6 +46,7 @@ public:
     Q_INVOKABLE bool removeDir(QString dirPath);
     Q_INVOKABLE bool removeFile(QString filePath);
     Q_INVOKABLE void showFileInFolder(QString path);
+    Q_INVOKABLE bool isSoftware();
 };
 
 #endif // FLUTOOLS_H

@@ -33,7 +33,6 @@
         <file>FluentUI/Controls/FluIconButton.qml</file>
         <file>FluentUI/Controls/FluImage.qml</file>
         <file>FluentUI/Controls/FluInfoBar.qml</file>
-        <file>FluentUI/Controls/FluItem.qml</file>
         <file>FluentUI/Controls/FluItemDelegate.qml</file>
         <file>FluentUI/Controls/FluMenu.qml</file>
         <file>FluentUI/Controls/FluMenuBar.qml</file>
@@ -62,7 +61,6 @@
         <file>FluentUI/Controls/FluRadioButtons.qml</file>
         <file>FluentUI/Controls/FluRangeSlider.qml</file>
         <file>FluentUI/Controls/FluRatingControl.qml</file>
-        <file>FluentUI/Controls/FluRectangle.qml</file>
         <file>FluentUI/Controls/FluRemoteLoader.qml</file>
         <file>FluentUI/Controls/FluScreenshot.qml</file>
         <file>FluentUI/Controls/FluScrollablePage.qml</file>
@@ -96,6 +94,6 @@
         <file>FluentUI/Controls/ColorPicker/Content/PanelBorder.qml</file>
         <file>FluentUI/Controls/ColorPicker/Content/SBPicker.qml</file>
         <file>FluentUI/Controls/FluLoadingButton.qml</file>
-        <file>FluentUI/Controls/FluTreeItem.qml</file>
+        <file>FluentUI/Controls/FluClip.qml</file>
     </qresource>
 </RCC>

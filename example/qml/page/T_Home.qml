@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.0
 import "qrc:///example/qml/global"
 import FluentUI 1.0
 
@@ -50,23 +51,9 @@ FluScrollablePage{
             }
         }
 
-        ListView{
-            id: list
-            anchors{
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-            orientation: ListView.Horizontal
-            height: 240
-            model: model_header
-            header: Item{height: 10;width: 10}
-            footer: Item{height: 10;width: 10}
-            ScrollBar.horizontal: FluScrollBar{
-                id: scrollbar_header
-            }
-            clip: false
-            delegate:Item{
+        Component{
+            id:com_grallery
+            Item{
                 id: control
                 width: 220
                 height: 240
@@ -74,7 +61,7 @@ FluScrollablePage{
                     radius:5
                     anchors.fill: item_content
                 }
-                FluItem{
+                FluClip{
                     id:item_content
                     radius: [5,5,5,5]
                     width: 200
@@ -91,19 +78,14 @@ FluScrollablePage{
                     Rectangle{
                         anchors.fill: parent
                         radius: 5
-                        color:{
-                            if(FluTheme.dark){
-                                if(item_mouse.containsMouse){
-                                    return Qt.rgba(1,1,1,0.03)
-                                }
-                                return Qt.rgba(0,0,0,0.0)
-                            }else{
-                                if(item_mouse.containsMouse){
-                                    return Qt.rgba(0,0,0,0.03)
-                                }
-                                return Qt.rgba(0,0,0,0.0)
-                            }
-                        }
+                        color:FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
+                        visible: item_mouse.containsMouse
+                    }
+                    Rectangle{
+                        anchors.fill: parent
+                        radius: 5
+                        color:Qt.rgba(0,0,0,0.0)
+                        visible: !item_mouse.containsMouse
                     }
                     ColumnLayout{
                         Image {
@@ -155,11 +137,31 @@ FluScrollablePage{
                 }
             }
         }
+
+        ListView{
+            id: list
+            anchors{
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            orientation: ListView.Horizontal
+            height: 240
+            model: model_header
+            header: Item{height: 10;width: 10}
+            footer: Item{height: 10;width: 10}
+            ScrollBar.horizontal: FluScrollBar{
+                id: scrollbar_header
+            }
+            clip: false
+            delegate: com_grallery
+        }
     }
 
     Component{
         id:com_item
         Item{
+            property string desc: modelData.desc
             width: 320
             height: 120
             FluArea{
@@ -195,7 +197,6 @@ FluScrollablePage{
                         verticalCenter: parent.verticalCenter
                     }
                 }
-
                 FluText{
                     id:item_title
                     text:modelData.title
@@ -206,10 +207,9 @@ FluScrollablePage{
                         top: item_icon.top
                     }
                 }
-
                 FluText{
                     id:item_desc
-                    text:modelData.desc
+                    text:desc
                     color:FluColors.Grey120
                     wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight

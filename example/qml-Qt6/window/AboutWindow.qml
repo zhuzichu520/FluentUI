@@ -35,7 +35,7 @@ CustomWindow {
                 }
             }
             FluText{
-                text:"v%1".arg(appInfo.version)
+                text:"v%1".arg(AppInfo.version)
                 font: FluTextStyle.Body
                 Layout.alignment: Qt.AlignBottom
             }

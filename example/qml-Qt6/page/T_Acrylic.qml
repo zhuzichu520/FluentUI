@@ -47,7 +47,7 @@ FluScrollablePage{
         height: 1200/4+20
         paddings: 10
         Layout.topMargin: 10
-        FluRectangle{
+        FluClip{
             width: 1920/4
             height: 1200/4
             radius:[8,8,8,8]

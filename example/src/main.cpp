@@ -13,6 +13,8 @@
 #include "src/component/CircularReveal.h"
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
+#include "src/helper/SettingsHelper.h"
+
 #ifdef FLUENTUI_BUILD_STATIC_LIB
 #if (QT_VERSION > QT_VERSION_CHECK(6, 2, 0))
 Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
@@ -22,8 +24,9 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 
 FRAMELESSHELPER_USE_NAMESPACE
 
-    int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
+    SettingsHelper::getInstance()->init(argv);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -36,6 +39,13 @@ FRAMELESSHELPER_USE_NAMESPACE
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
+    if(SettingsHelper::getInstance()->getReander()=="software"){
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+        QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
+#elif (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+        QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+#endif
+    }
     QGuiApplication app(argc, argv);
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
@@ -48,8 +58,10 @@ FRAMELESSHELPER_USE_NAMESPACE
 #ifdef Q_OS_MACOS
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
 #endif
-    AppInfo* appInfo = new AppInfo();
     QQmlApplicationEngine engine;
+    AppInfo::getInstance()->init(&engine);
+    engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
+    engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
     FramelessHelper::Quick::registerTypes(&engine);
 #ifdef FLUENTUI_BUILD_STATIC_LIB
     FluentUI::getInstance()->registerTypes(&engine);
@@ -58,7 +70,6 @@ FRAMELESSHELPER_USE_NAMESPACE
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
     qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
     qmlRegisterType<FpsItem>("example", 1, 0, "FpsItem");
-    appInfo->init(&engine);
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -66,5 +77,9 @@ FRAMELESSHELPER_USE_NAMESPACE
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
     engine.load(url);
-    return app.exec();
+    const int exec = QGuiApplication::exec();
+    if (exec == 931) {
+        QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+    }
+    return exec;
 }

@@ -9,55 +9,19 @@ Item {
     property int currentIndex : -1
     property var dataSource
     property bool showLine: true
+    property bool draggable: false
     property color lineColor: FluTheme.dark ? Qt.rgba(111/255,111/255,111/255,1) : Qt.rgba(217/255,217/255,217/255,1)
     id:control
     QtObject {
         id:d
-        property var rowData: []
-        function handleTree(treeData) {
-            var comItem = Qt.createComponent("FluTreeItem.qml");
-            if (comItem.status !== Component.Ready) {
-                return
-            }
-            var stack = []
-            var rawData = []
-            for (var item of treeData) {
-                stack.push({node:item,depth:0,isExpanded:true,__parent:undefined,__childIndex:0})
-            }
-            stack = stack.reverse()
-            var index =0
-            while (stack.length > 0) {
-                const { node, depth,isExpanded,__parent,__childIndex} = stack.pop();
-                node.depth = depth;
-                node.isExpanded = isExpanded;
-                node.__parent = __parent;
-                node.__childIndex = __childIndex;
-                var objItem = comItem.createObject(table_view);
-                objItem.title = node.title
-                objItem.key = node.key
-                objItem.depth = node.depth
-                objItem.isExpanded = node.isExpanded
-                objItem.__parent = node.__parent
-                objItem.children = node.children
-                objItem.__childIndex = node.__childIndex
-                objItem.index = index
-                index = index + 1;
-                rawData.push(objItem)
-                if (node.children && node.children.length > 0) {
-                    const children = node.children.reverse();
-                    var childIndex = children.length-1
-                    for (const child of children) {
-                        stack.push({ node: child, depth: depth + 1,isExpanded:true,__parent:objItem,__childIndex:childIndex});
-                        childIndex=childIndex-1;
-                    }
-                }
-            }
-            return rawData
-        }
+        property var current
+        property int dropIndex: -1
+        property int dragIndex: -1
+        property color hitColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+
     }
     onDataSourceChanged: {
-        d.rowData = d.handleTree(dataSource)
-        tree_model.setData(d.rowData)
+        tree_model.setDataSource(dataSource)
     }
     FluTreeModel{
         id:tree_model
@@ -69,65 +33,205 @@ Item {
             table_view.forceLayout()
         }
     }
-    TableView{
-        id:table_view
-        ScrollBar.horizontal: FluScrollBar{}
-        ScrollBar.vertical: FluScrollBar{}
-        boundsBehavior: Flickable.StopAtBounds
-        model: tree_model
-        clip: true
-        anchors.fill: parent
-        onContentYChanged:{
-            timer_refresh.restart()
-        }
-        reuseItems: false
-        delegate: Item {
-            property bool hasChildren: {
-                if(display.children){
-                    return true
-                }
-                return false
+    Component{
+        id:com_item_container
+        Item{
+            signal reused
+            signal pooled
+
+            onReused: {
+                console.debug("----->onReused")
             }
-            property var itemData: display
-            property bool vlineVisible: display.depth !== 0 && control.showLine
-            property bool hlineVisible: display.depth !== 0 && control.showLine && !hasChildren
-            property bool isLastIndex : {
-                if(display.__parent && display.__parent.children){
-                    return display.__childIndex === display.__parent.children.length-1
-                }
-                return false
+            onPooled: {
+                console.debug("----->onPooled")
             }
-            property bool isCurrent: control.currentIndex === row
-            implicitWidth:  46 + item_layout_text.width + 30*display.depth
-            implicitHeight: 30
+
+            property bool isCurrent: d.current === itemModel
+            id:item_container
+            width: {
+                var w = 46 + item_layout_text.width + 30*itemModel.depth
+                if(control.width>w){
+                    return control.width
+                }
+                return w
+            }
+            height: 30
+            function toggle(){
+                if(itemModel.isExpanded){
+                    tree_model.collapse(rowIndex)
+                }else{
+                    tree_model.expand(rowIndex)
+                }
+            }
+            Rectangle{
+                anchors.fill: parent
+                radius: 4
+                anchors.leftMargin: 6
+                anchors.rightMargin: 6
+                border.color: d.hitColor
+                border.width: d.dragIndex === rowIndex ? 1 : 0
+                color: {
+                    if(FluTheme.dark){
+                        if(isCurrent){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
+                        return Qt.rgba(0,0,0,0)
+                    }else{
+                        if(isCurrent){
+                            return Qt.rgba(0,0,0,0.06)
+                        }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(0,0,0,0.03)
+                        }
+                        return Qt.rgba(0,0,0,0)
+                    }
+                }
+            }
+            Rectangle{
+                width: 3
+                height: 18
+                radius: 1.5
+                color: FluTheme.primaryColor.dark
+                visible: isCurrent
+                anchors{
+                    left: parent.left
+                    leftMargin: 6
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+            MouseArea{
+                id:item_mouse
+                anchors.fill: parent
+                drag.target:control.draggable ? loader_container : undefined
+                hoverEnabled: true
+                drag.onActiveChanged: {
+                    if(drag.active){
+                        if(itemModel.isExpanded && itemModel.hasChildren()){
+                            tree_model.collapse(rowIndex)
+                        }
+                        d.dragIndex = rowIndex
+                        loader_container.sourceComponent = com_item_container
+                    }
+                }
+                onPressed: {
+                    loader_container.itemControl = itemControl
+                    loader_container.itemModel = itemModel
+                    var cellPosition = item_container.mapToItem(table_view, 0, 0)
+                    loader_container.width = item_container.width
+                    loader_container.height = item_container.height
+                    loader_container.x = table_view.contentX + cellPosition.x
+                    loader_container.y = table_view.contentY + cellPosition.y
+
+                }
+                onClicked: {
+                    d.current = itemModel
+                }
+                onDoubleClicked: {
+                    if(itemModel.hasChildren()){
+                        item_container.toggle()
+                    }
+                }
+                onPositionChanged:
+                    (mouse)=> {
+                        if(!drag.active){
+                            return
+                        }
+                        var cellPosition = item_container.mapToItem(table_view, 0, 0)
+                        if(mouse.y+cellPosition.y<0 || mouse.y+cellPosition.y>table_view.height){
+                            d.dropIndex = -1
+                            return
+                        }
+                        if((mouse.x-table_view.contentX)>table_view.width || (mouse.x-table_view.contentX)<0){
+                            d.dropIndex = -1
+                            return
+                        }
+                        var y = loader_container.y
+                        var index = Math.round(y/30)
+                        if(index !== d.dragIndex){
+                            d.dropIndex = index
+                        }else{
+                            d.dropIndex = -1
+                        }
+                    }
+                onCanceled: {
+                    loader_container.sourceComponent = undefined
+                    d.dropIndex = -1
+                    d.dragIndex = -1
+                }
+                onReleased: {
+                    loader_container.sourceComponent = undefined
+                    if(d.dropIndex !== -1){
+                        tree_model.dragAnddrop(d.dragIndex,d.dropIndex)
+                    }
+                    d.dropIndex = -1
+                    d.dragIndex = -1
+                }
+            }
+            Drag.active: item_mouse.drag.active
+            Rectangle{
+                anchors{
+                    left: parent.left
+                    leftMargin: {
+                        if(itemModel.hasChildren()){
+                            return 30*(itemModel.depth+1) - 8
+                        }
+                        return 30*(itemModel.depth+1) + 18
+                    }
+                    right: parent.right
+                    rightMargin: 10
+                    bottom: parent.bottom
+                }
+                height: 3
+                radius: 1.5
+                color: d.hitColor
+                visible: d.dropIndex === rowIndex
+                Rectangle{
+                    width: 10
+                    height: 10
+                    radius: 5
+                    border.width: 3
+                    border.color: d.hitColor
+                    color: FluTheme.dark ? FluColors.Black : FluColors.White
+                    anchors{
+                        top: parent.top
+                        left: parent.left
+                        topMargin: -3
+                        leftMargin: -5
+                    }
+                }
+            }
             Rectangle{
                 width: 1
                 color: control.lineColor
-                visible: hlineVisible
-                height: isLastIndex ? parent.height/2 : parent.height
+                visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
+                height: itemModel.hideLineFooter() ? parent.height/2 : parent.height
                 anchors{
                     top: parent.top
                     right: layout_row.left
+                    rightMargin: -9
                 }
             }
             Rectangle{
                 height: 1
                 color: control.lineColor
-                visible: hlineVisible
+                visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
                 width: 18
                 anchors{
                     right: layout_row.left
-                    rightMargin: -18
+                    rightMargin: -27
                     verticalCenter: parent.verticalCenter
                 }
             }
             Repeater{
-                model: Math.max(display.depth-1,0)
+                model: Math.max(itemModel.depth-1,0)
                 delegate: Rectangle{
                     required property int index
                     width: 1
                     color: control.lineColor
-                    visible: vlineVisible
+                    visible: itemModel.depth !== 0 && control.showLine
                     anchors{
                         top:parent.top
                         bottom: parent.bottom
@@ -140,101 +244,32 @@ Item {
                 id:layout_row
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 14 + 30*display.depth
+                anchors.leftMargin: 14 + 30*itemModel.depth
                 FluIconButton{
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 20
                     enabled: opacity
-                    opacity: hasChildren
+                    opacity: itemModel.hasChildren()
                     contentItem: FluIcon{
-                        rotation: itemData.isExpanded?0:-90
+                        rotation: itemModel.isExpanded?0:-90
                         iconSource:FluentIcons.ChevronDown
                         iconSize: 16
-                        Behavior on rotation{
-                            NumberAnimation{
-                                duration: FluTheme.enableAnimation ? 167 : 0
-                                easing.type: Easing.OutCubic
-                            }
-                        }
                     }
                     onClicked: {
-                        var isExpanded = !itemData.isExpanded
-                        itemData.isExpanded = isExpanded
-                        var i,obj
-                        if(isExpanded){
-                            for( i=0;i<d.rowData.length;i++){
-                                obj = d.rowData[i]
-                                if(obj === itemData){
-                                    var data = []
-                                    for(var j=i+1;j<d.rowData.length;j++){
-                                        obj = d.rowData[j]
-                                        if(obj.depth === itemData.depth){
-                                            break
-                                        }
-                                        if(obj.__expanded){
-                                            data.push(obj)
-                                        }
-                                    }
-                                    tree_model.insertRows(row+1,data)
-                                    break
-                                }
-                            }
-                        }else{
-                            var removeCount = 0
-                            for( i=row+1;i<tree_model.rowCount();i++){
-                                obj = tree_model.getRow(i)
-                                if(obj.depth === itemData.depth){
-                                    break
-                                }
-                                removeCount = removeCount + 1;
-                            }
-                            tree_model.removeRows(row+1,removeCount)
-                        }
+                        item_container.toggle()
                     }
                 }
-                Rectangle{
+                Item{
                     id:item_layout_text
-                    radius: 4
                     Layout.preferredWidth: item_text.implicitWidth+14
                     Layout.preferredHeight:item_text.implicitHeight+14
                     Layout.alignment: Qt.AlignVCenter
-                    Rectangle{
-                        width: 3
-                        height: 18
-                        radius: 1.5
-                        color: FluTheme.primaryColor.dark
-                        visible: isCurrent
-                        anchors{
-                            verticalCenter: parent.verticalCenter
-                        }
-                    }
-                    MouseArea{
-                        id:item_text_mousearea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onClicked: {
-                            control.currentIndex = row
-                        }
-                    }
-                    color: {
-                        if(FluTheme.dark){
-                            if(item_text_mousearea.containsMouse || isCurrent){
-                                return Qt.rgba(1,1,1,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
-                        }else{
-                            if(item_text_mousearea.containsMouse || isCurrent){
-                                return Qt.rgba(0,0,0,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
-                        }
-                    }
                     FluText {
                         id:item_text
-                        text: display.title
+                        text: itemModel.title
                         anchors.centerIn: parent
                         color:{
-                            if(item_text_mousearea.pressed){
+                            if(item_mouse.pressed){
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
                             }
                             return FluTheme.dark ? FluColors.White : FluColors.Grey220
@@ -244,8 +279,58 @@ Item {
             }
         }
     }
+    ScrollView{
+        anchors.fill: parent
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+        TableView{
+            id:table_view
+            ScrollBar.horizontal: FluScrollBar{}
+            ScrollBar.vertical: FluScrollBar{}
+            boundsBehavior: Flickable.StopAtBounds
+            model: tree_model
+            clip: true
+            anchors.fill: parent
+            onContentYChanged:{
+                timer_refresh.restart()
+            }
+            onWidthChanged: {
+                timer_refresh.restart()
+            }
+            delegate: Item {
+                id:item_control
+                implicitWidth: item_loader_container.width
+                implicitHeight: item_loader_container.height
+                TableView.onReused: {
+                    item_loader_container.item.reused()
+                }
+                TableView.onPooled: {
+                    item_loader_container.item.pooled()
+                }
+                Loader{
+                    property var itemControl: item_control
+                    property var itemModel: modelData
+                    property int rowIndex: row
+                    id:item_loader_container
+                    width: item.width
+                    height: item.height
+                    sourceComponent: {
+                        if(modelData)
+                            return com_item_container
+                        return undefined
+                    }
+                }
+            }
+        }
+
+        Loader{
+            id:loader_container
+            property var itemControl
+            property var itemModel
+        }
+    }
     function count(){
-        return d.rowData.length
+        return tree_model.dataSourceSize
     }
     function visibleCount(){
         return table_view.rows

@@ -41,7 +41,7 @@ Button {
     id: control
     enabled: !disabled
     horizontalPadding:12
-    background: FluItem{
+    background: FluClip{
         implicitWidth: 28
         implicitHeight: 28
         radius: [4,4,4,4]

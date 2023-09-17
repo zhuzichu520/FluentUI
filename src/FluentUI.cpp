@@ -16,6 +16,7 @@
 #include "FluTreeModel.h"
 #include "FluViewModel.h"
 #include "Screenshot.h"
+#include "FluRectangle.h"
 #include "QRCode.h"
 
 int major = 1;
@@ -55,6 +56,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
     qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
+    qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/Checkerboard.qml"),uri,major,minor,"Checkerboard");
@@ -93,7 +95,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluIconButton.qml"),uri,major,minor,"FluIconButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluImage.qml"),uri,major,minor,"FluImage");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluInfoBar.qml"),uri,major,minor,"FluInfoBar");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluItem.qml"),uri,major,minor,"FluItem");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluItemDelegate.qml"),uri,major,minor,"FluItemDelegate");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluMenu.qml"),uri,major,minor,"FluMenu");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluMenuBar.qml"),uri,major,minor,"FluMenuBar");
@@ -120,7 +121,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRadioButton.qml"),uri,major,minor,"FluRadioButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRadioButtons.qml"),uri,major,minor,"FluRadioButtons");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRatingControl.qml"),uri,major,minor,"FluRatingControl");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRectangle.qml"),uri,major,minor,"FluRectangle");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRemoteLoader.qml"),uri,major,minor,"FluRemoteLoader");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScreenshot.qml"),uri,major,minor,"FluScreenshot");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScrollBar.qml"),uri,major,minor,"FluScrollBar");
@@ -150,7 +150,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStaggeredView.qml"),uri,major,minor,"FluStaggeredView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluProgressButton.qml"),uri,major,minor,"FluProgressButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoadingButton.qml"),uri,major,minor,"FluLoadingButton");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTreeItem.qml"),uri,major,minor,"FluTreeItem");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluClip.qml"),uri,major,minor,"FluClip");
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluHttpType::staticMetaObject,  uri,major,minor,"FluHttpType", "Access to enums & flags only");

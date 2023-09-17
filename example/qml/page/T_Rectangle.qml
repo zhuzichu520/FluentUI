@@ -69,7 +69,7 @@ FluScrollablePage{
             }
             RowLayout{
                 spacing: 14
-                FluRectangle{
+                FluClip{
                     width: 50
                     height: 50
                     radius:[25,0,25,25]
@@ -80,7 +80,7 @@ FluScrollablePage{
                         sourceSize: Qt.size(width,height)
                     }
                 }
-                FluRectangle{
+                FluClip{
                     width: 50
                     height: 50
                     radius:[10,10,10,10]
@@ -91,7 +91,7 @@ FluScrollablePage{
                         source: "qrc:/example/res/svg/avatar_2.svg"
                     }
                 }
-                FluRectangle{
+                FluClip{
                     width: 50
                     height: 50
                     radius:[25,25,25,25]
@@ -102,7 +102,7 @@ FluScrollablePage{
                         source: "qrc:/example/res/svg/avatar_3.svg"
                     }
                 }
-                FluRectangle{
+                FluClip{
                     width: 50
                     height: 50
                     radius:[0,25,25,25]
@@ -114,7 +114,7 @@ FluScrollablePage{
                     }
                 }
             }
-            FluRectangle{
+            FluClip{
                 width: 1920/5
                 height: 1200/5
                 radius:[8,8,8,8]

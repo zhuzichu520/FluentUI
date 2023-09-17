@@ -143,13 +143,15 @@ Rectangle {
         FluText {
             id:item_text
             text: itemData
-            anchors.fill: parent
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
-            leftPadding: 11
-            rightPadding: 11
-            topPadding: 6
-            bottomPadding: 6
+            anchors{
+                fill: parent
+                leftMargin: 11
+                rightMargin: 11
+                topMargin: 6
+                bottomMargin: 6
+            }
             verticalAlignment: Text.AlignVCenter
             HoverHandler{
                 id: hover_handler

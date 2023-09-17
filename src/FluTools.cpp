@@ -9,10 +9,15 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QDir>
+#include <QOpenGLContext>
 #include <QCryptographicHash>
 #include <QTextDocument>
+#include <qDebug>
+#include <QQuickWindow>
+
 
 FluTools::FluTools(QObject *parent):QObject{parent}{
+
 }
 
 void FluTools::clipText(const QString& text){
@@ -158,4 +163,8 @@ void FluTools::showFileInFolder(QString path){
     QProcess::execute("/usr/bin/osascript", {"-e", "tell application \"Finder\" to reveal POSIX file \"" + path + "\""});
     QProcess::execute("/usr/bin/osascript", {"-e", "tell application \"Finder\" to activate"});
 #endif
+}
+
+bool FluTools::isSoftware(){
+    return QQuickWindow::sceneGraphBackend() == "software";
 }

@@ -2,7 +2,7 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 import FluentUI
 
-FluItem {
+Item {
     id: control
     property color tintColor: Qt.rgba(1,1,1,1)
     property real tintOpacity: 0.65
