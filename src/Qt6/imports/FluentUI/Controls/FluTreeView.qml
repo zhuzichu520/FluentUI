@@ -16,6 +16,7 @@ Item {
         id:d
         property var current
         property int dropIndex: -1
+        property bool isDropTopArea: false
         property int dragIndex: -1
         property color hitColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
 
@@ -40,10 +41,8 @@ Item {
             signal pooled
 
             onReused: {
-                console.debug("----->onReused")
             }
             onPooled: {
-                console.debug("----->onPooled")
             }
 
             property bool isCurrent: d.current === itemModel
@@ -63,6 +62,185 @@ Item {
                     tree_model.collapse(rowIndex)
                 }else{
                     tree_model.expand(rowIndex)
+                }
+            }
+            Rectangle{
+                width: 3
+                height: 18
+                radius: 1.5
+                color: FluTheme.primaryColor.dark
+                visible: isCurrent
+                anchors{
+                    left: parent.left
+                    leftMargin: 6
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+            MouseArea{
+                id:item_mouse
+                property point clickPos: Qt.point(0,0)
+                anchors.fill: parent
+                drag.target:control.draggable ? loader_container : undefined
+                hoverEnabled: true
+                drag.onActiveChanged: {
+                    if(drag.active){
+                        if(itemModel.isExpanded && itemModel.hasChildren()){
+                            tree_model.collapse(rowIndex)
+                        }
+                        d.dragIndex = rowIndex
+                        loader_container.sourceComponent = com_item_container
+                    }
+                }
+                onPressed:
+                    (mouse)=>{
+                        clickPos = Qt.point(mouse.x,mouse.y)
+                        console.debug(clickPos)
+                        loader_container.itemControl = itemControl
+                        loader_container.itemModel = itemModel
+                        var cellPosition = item_container.mapToItem(table_view, 0, 0)
+                        loader_container.width = item_container.width
+                        loader_container.height = item_container.height
+                        loader_container.x = table_view.contentX + cellPosition.x
+                        loader_container.y = table_view.contentY + cellPosition.y
+                    }
+                onClicked: {
+                    d.current = itemModel
+                }
+                onDoubleClicked: {
+                    if(itemModel.hasChildren()){
+                        item_container.toggle()
+                    }
+                }
+                onPositionChanged:
+                    (mouse)=> {
+                        if(!drag.active){
+                            return
+                        }
+                        var cellPosition = item_container.mapToItem(table_view, 0, 0)
+                        if(mouse.y+cellPosition.y<0 || mouse.y+cellPosition.y>table_view.height){
+                            d.dropIndex = -1
+                            return
+                        }
+                        if((mouse.x-table_view.contentX)>table_view.width || (mouse.x-table_view.contentX)<0){
+                            d.dropIndex = -1
+                            return
+                        }
+                        var pos = FluTools.cursorPos()
+                        var viewPos = table_view.mapToGlobal(0,0)
+                        var y = table_view.contentY + pos.y-viewPos.y
+                        var index = Math.floor(y/30)
+                        if(tree_model.hitHasChildrenExpanded(index) && y>index*30+15){
+                            d.dropIndex = index + 1
+                            d.isDropTopArea = true
+                        }else{
+                            d.dropIndex = index
+                            if(y>index*30+15){
+                                d.isDropTopArea = false
+                            }else{
+                                d.isDropTopArea = true
+                            }
+                        }
+                    }
+                onCanceled: {
+                    loader_container.sourceComponent = undefined
+                    d.dropIndex = -1
+                    d.dragIndex = -1
+                }
+                onReleased: {
+                    loader_container.sourceComponent = undefined
+                    if(d.dropIndex !== -1){
+                        tree_model.dragAnddrop(d.dragIndex,d.dropIndex,d.isDropTopArea)
+                    }
+                    d.dropIndex = -1
+                    d.dragIndex = -1
+                }
+            }
+            Drag.active: item_mouse.drag.active
+            Rectangle{
+                id:item_line_drop_tip
+                anchors{
+                    left: parent.left
+                    leftMargin: {
+                        var count = itemModel.depth+1
+                        if(itemModel.hasChildren()){
+                            return 30*count - 8
+                        }
+                        return 30*count + 18
+                    }
+                    right: parent.right
+                    rightMargin: 10
+                    bottom: parent.bottom
+                    bottomMargin: -1.5
+                    top: undefined
+                }
+                states: [
+                    State {
+                        when:d.isDropTopArea
+                        AnchorChanges {
+                            target: item_line_drop_tip
+                            anchors.top: item_container.top
+                            anchors.bottom: undefined
+                        }
+                        PropertyChanges {
+                            target: item_line_drop_tip
+                            anchors.topMargin: -1.5
+                        }
+                    }
+                ]
+                height: 3
+                radius: 1.5
+                color: d.hitColor
+                visible: d.dropIndex === rowIndex
+                Rectangle{
+                    width: 10
+                    height: 10
+                    radius: 5
+                    border.width: 3
+                    border.color: d.hitColor
+                    color: FluTheme.dark ? FluColors.Black : FluColors.White
+                    anchors{
+                        top: parent.top
+                        left: parent.left
+                        topMargin: -3
+                        leftMargin: -5
+                    }
+                }
+            }
+            FluRectangle{
+                width: 1
+                color: control.lineColor
+                visible: control.showLine  && isItemLoader && itemModel.depth !== 0 && !itemModel.hasChildren()
+                height: itemModel.hideLineFooter() ? parent.height/2 : parent.height
+                anchors{
+                    top: parent.top
+                    right: layout_row.left
+                    rightMargin: -9
+                }
+            }
+            FluRectangle{
+                height: 1
+                color: control.lineColor
+                visible: control.showLine && isItemLoader  && itemModel.depth !== 0 && !itemModel.hasChildren()
+                width: 18
+                anchors{
+                    right: layout_row.left
+                    rightMargin: -27
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+            Repeater{
+                model: Math.max(itemModel.depth-1,0)
+                delegate: FluRectangle{
+                    required property int index
+                    width: 1
+                    color: control.lineColor
+                    visible: control.showLine && isItemLoader && itemModel.depth !== 0 && itemModel.hasNextNodeByIndex(index)
+                    anchors{
+                        top:parent.top
+                        bottom: parent.bottom
+                        left: parent.left
+                        leftMargin: 30*(index+2) - 8
+                    }
                 }
             }
             Rectangle{
@@ -89,156 +267,6 @@ Item {
                             return Qt.rgba(0,0,0,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
-                    }
-                }
-            }
-            Rectangle{
-                width: 3
-                height: 18
-                radius: 1.5
-                color: FluTheme.primaryColor.dark
-                visible: isCurrent
-                anchors{
-                    left: parent.left
-                    leftMargin: 6
-                    verticalCenter: parent.verticalCenter
-                }
-            }
-            MouseArea{
-                id:item_mouse
-                anchors.fill: parent
-                drag.target:control.draggable ? loader_container : undefined
-                hoverEnabled: true
-                drag.onActiveChanged: {
-                    if(drag.active){
-                        if(itemModel.isExpanded && itemModel.hasChildren()){
-                            tree_model.collapse(rowIndex)
-                        }
-                        d.dragIndex = rowIndex
-                        loader_container.sourceComponent = com_item_container
-                    }
-                }
-                onPressed: {
-                    loader_container.itemControl = itemControl
-                    loader_container.itemModel = itemModel
-                    var cellPosition = item_container.mapToItem(table_view, 0, 0)
-                    loader_container.width = item_container.width
-                    loader_container.height = item_container.height
-                    loader_container.x = table_view.contentX + cellPosition.x
-                    loader_container.y = table_view.contentY + cellPosition.y
-
-                }
-                onClicked: {
-                    d.current = itemModel
-                }
-                onDoubleClicked: {
-                    if(itemModel.hasChildren()){
-                        item_container.toggle()
-                    }
-                }
-                onPositionChanged:
-                    (mouse)=> {
-                        if(!drag.active){
-                            return
-                        }
-                        var cellPosition = item_container.mapToItem(table_view, 0, 0)
-                        if(mouse.y+cellPosition.y<0 || mouse.y+cellPosition.y>table_view.height){
-                            d.dropIndex = -1
-                            return
-                        }
-                        if((mouse.x-table_view.contentX)>table_view.width || (mouse.x-table_view.contentX)<0){
-                            d.dropIndex = -1
-                            return
-                        }
-                        var y = loader_container.y
-                        var index = Math.round(y/30)
-                        if(index !== d.dragIndex){
-                            d.dropIndex = index
-                        }else{
-                            d.dropIndex = -1
-                        }
-                    }
-                onCanceled: {
-                    loader_container.sourceComponent = undefined
-                    d.dropIndex = -1
-                    d.dragIndex = -1
-                }
-                onReleased: {
-                    loader_container.sourceComponent = undefined
-                    if(d.dropIndex !== -1){
-                        tree_model.dragAnddrop(d.dragIndex,d.dropIndex)
-                    }
-                    d.dropIndex = -1
-                    d.dragIndex = -1
-                }
-            }
-            Drag.active: item_mouse.drag.active
-            Rectangle{
-                anchors{
-                    left: parent.left
-                    leftMargin: {
-                        if(itemModel.hasChildren()){
-                            return 30*(itemModel.depth+1) - 8
-                        }
-                        return 30*(itemModel.depth+1) + 18
-                    }
-                    right: parent.right
-                    rightMargin: 10
-                    bottom: parent.bottom
-                }
-                height: 3
-                radius: 1.5
-                color: d.hitColor
-                visible: d.dropIndex === rowIndex
-                Rectangle{
-                    width: 10
-                    height: 10
-                    radius: 5
-                    border.width: 3
-                    border.color: d.hitColor
-                    color: FluTheme.dark ? FluColors.Black : FluColors.White
-                    anchors{
-                        top: parent.top
-                        left: parent.left
-                        topMargin: -3
-                        leftMargin: -5
-                    }
-                }
-            }
-            FluRectangle{
-                width: 1
-                color: control.lineColor
-                visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
-                height: itemModel.hideLineFooter() ? parent.height/2 : parent.height
-                anchors{
-                    top: parent.top
-                    right: layout_row.left
-                    rightMargin: -9
-                }
-            }
-            FluRectangle{
-                height: 1
-                color: control.lineColor
-                visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
-                width: 18
-                anchors{
-                    right: layout_row.left
-                    rightMargin: -27
-                    verticalCenter: parent.verticalCenter
-                }
-            }
-            Repeater{
-                model: Math.max(itemModel.depth-1,0)
-                delegate: FluRectangle{
-                    required property int index
-                    width: 1
-                    color: control.lineColor
-                    visible: itemModel.depth !== 0 && control.showLine
-                    anchors{
-                        top:parent.top
-                        bottom: parent.bottom
-                        left: parent.left
-                        leftMargin: 30*(index+2) - 8
                     }
                 }
             }
@@ -313,16 +341,17 @@ Item {
                     property var itemControl: item_control
                     property var itemModel: modelData
                     property int rowIndex: row
+                    property bool isItemLoader: true
                     id:item_loader_container
                     sourceComponent: com_item_container
                 }
             }
         }
-
         Loader{
             id:loader_container
             property var itemControl
             property var itemModel
+            property bool isItemLoader: false
         }
     }
     function count(){
@@ -331,4 +360,17 @@ Item {
     function visibleCount(){
         return table_view.rows
     }
+    function collapse(rowIndex){
+        tree_model.collapse(rowIndex)
+    }
+    function expand(rowIndex){
+        tree_model.expand(rowIndex)
+    }
+    function allExpand(){
+        tree_model.allExpand()
+    }
+    function allCollapse(){
+        tree_model.allCollapse()
+    }
+
 }

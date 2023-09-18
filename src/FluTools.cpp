@@ -166,3 +166,7 @@ void FluTools::showFileInFolder(QString path){
 bool FluTools::isSoftware(){
     return QQuickWindow::sceneGraphBackend() == "software";
 }
+
+QPoint FluTools::cursorPos(){
+    return QCursor::pos();
+}

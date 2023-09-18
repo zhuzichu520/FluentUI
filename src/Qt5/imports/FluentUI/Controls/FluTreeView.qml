@@ -16,6 +16,7 @@ Item {
         id:d
         property var current
         property int dropIndex: -1
+        property bool isDropTopArea: false
         property int dragIndex: -1
         property color hitColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
 
@@ -40,10 +41,8 @@ Item {
             signal pooled
 
             onReused: {
-                console.debug("----->onReused")
             }
             onPooled: {
-                console.debug("----->onPooled")
             }
 
             property bool isCurrent: d.current === itemModel
@@ -92,18 +91,18 @@ Item {
                         loader_container.sourceComponent = com_item_container
                     }
                 }
-                onPressed: (mouse)=>{
-                               clickPos = Qt.point(mouse.x,mouse.y)
-                               console.debug(clickPos)
-                               loader_container.itemControl = itemControl
-                               loader_container.itemModel = itemModel
-                               var cellPosition = item_container.mapToItem(table_view, 0, 0)
-                               loader_container.width = item_container.width
-                               loader_container.height = item_container.height
-                               loader_container.x = table_view.contentX + cellPosition.x
-                               loader_container.y = table_view.contentY + cellPosition.y
-
-                           }
+                onPressed:
+                    (mouse)=>{
+                        clickPos = Qt.point(mouse.x,mouse.y)
+                        console.debug(clickPos)
+                        loader_container.itemControl = itemControl
+                        loader_container.itemModel = itemModel
+                        var cellPosition = item_container.mapToItem(table_view, 0, 0)
+                        loader_container.width = item_container.width
+                        loader_container.height = item_container.height
+                        loader_container.x = table_view.contentX + cellPosition.x
+                        loader_container.y = table_view.contentY + cellPosition.y
+                    }
                 onClicked: {
                     d.current = itemModel
                 }
@@ -126,13 +125,20 @@ Item {
                             d.dropIndex = -1
                             return
                         }
-                        var y = loader_container.y
-                        var index = Math.round(y/30)
-                        if(index !== d.dragIndex){
-                            d.dropIndex = index
-                            tree_model.refreshNode(rowIndex)
+                        var pos = FluTools.cursorPos()
+                        var viewPos = table_view.mapToGlobal(0,0)
+                        var y = table_view.contentY + pos.y-viewPos.y
+                        var index = Math.floor(y/30)
+                        if(tree_model.hitHasChildrenExpanded(index) && y>index*30+15){
+                            d.dropIndex = index + 1
+                            d.isDropTopArea = true
                         }else{
-                            d.dropIndex = -1
+                            d.dropIndex = index
+                            if(y>index*30+15){
+                                d.isDropTopArea = false
+                            }else{
+                                d.isDropTopArea = true
+                            }
                         }
                     }
                 onCanceled: {
@@ -143,7 +149,7 @@ Item {
                 onReleased: {
                     loader_container.sourceComponent = undefined
                     if(d.dropIndex !== -1){
-                        tree_model.dragAnddrop(d.dragIndex,d.dropIndex)
+                        tree_model.dragAnddrop(d.dragIndex,d.dropIndex,d.isDropTopArea)
                     }
                     d.dropIndex = -1
                     d.dragIndex = -1
@@ -151,6 +157,7 @@ Item {
             }
             Drag.active: item_mouse.drag.active
             Rectangle{
+                id:item_line_drop_tip
                 anchors{
                     left: parent.left
                     leftMargin: {
@@ -163,7 +170,23 @@ Item {
                     right: parent.right
                     rightMargin: 10
                     bottom: parent.bottom
+                    bottomMargin: -1.5
+                    top: undefined
                 }
+                states: [
+                    State {
+                        when:d.isDropTopArea
+                        AnchorChanges {
+                            target: item_line_drop_tip
+                            anchors.top: item_container.top
+                            anchors.bottom: undefined
+                        }
+                        PropertyChanges {
+                            target: item_line_drop_tip
+                            anchors.topMargin: -1.5
+                        }
+                    }
+                ]
                 height: 3
                 radius: 1.5
                 color: d.hitColor
@@ -324,7 +347,6 @@ Item {
                 }
             }
         }
-
         Loader{
             id:loader_container
             property var itemControl

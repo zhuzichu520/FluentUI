@@ -154,8 +154,8 @@ void FluTreeModel::expand(int row){
     insertRows(row+1,insertData);
 }
 
-void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex){
-    if(dragIndex == dropIndex+1 || dropIndex>_rows.count() || dropIndex<0){
+void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
+    if(dropIndex>_rows.count() || dropIndex<0){
         return;
     }
     auto dragItem = _rows[dragIndex];
@@ -167,8 +167,12 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex){
         QList<Node*>* children = &(dragItem->_parent->_children);
         int srcIndex = children->indexOf(dragItem);
         int destIndex = children->indexOf(dropItem);
-        children->move(srcIndex,destIndex>srcIndex? destIndex : destIndex +1);
-        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex : dropIndex+1);
+        int offset = 1;
+        if(isDropTopArea){
+            offset = offset - 1;
+        }
+        children->move(srcIndex,destIndex>srcIndex? destIndex-1 + offset : destIndex + offset);
+        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex-1 + offset : dropIndex + offset);
     }else{
         QList<Node*>* srcChildren = &(dragItem->_parent->_children);
         QList<Node*>* destChildren = &(dropItem->_parent->_children);
@@ -197,9 +201,21 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex){
         }
         srcChildren->removeAt(srcIndex);
         destChildren->insert(destIndex+1,dragItem);
-        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex : dropIndex+1);
+        int offset = 1;
+        if(isDropTopArea){
+            offset = offset - 1;
+        }
+        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex-1+offset : dropIndex+offset);
     }
     endMoveRows();
+}
+
+bool FluTreeModel::hitHasChildrenExpanded(int row){
+    auto itemData = _rows.at(row);
+    if(itemData->hasChildren() && itemData->_isExpanded){
+        return true;
+    }
+    return false;
 }
 
 void FluTreeModel::refreshNode(int row){
@@ -208,4 +224,49 @@ void FluTreeModel::refreshNode(int row){
 
 Node* FluTreeModel::getNode(int row){
     return _rows.at(row);
+}
+
+void FluTreeModel::allExpand(){
+    beginResetModel();
+    QList<Node*> data;
+    QList<Node*> stack = _root->_children;
+    std::reverse(stack.begin(), stack.end());
+    while (stack.count() > 0) {
+        auto item = stack.at(stack.count()-1);
+        stack.pop_back();
+        if(item->hasChildren()){
+            item->_isExpanded = true;
+        }
+        data.append(item);
+        QList<Node*> children = item->_children;
+        if(!children.isEmpty()){
+            std::reverse(children.begin(), children.end());
+            foreach (auto c, children) {
+                stack.append(c);
+            }
+        }
+    }
+    _rows = data;
+    endResetModel();
+}
+void FluTreeModel::allCollapse(){
+    beginResetModel();
+    QList<Node*> stack = _root->_children;
+    std::reverse(stack.begin(), stack.end());
+    while (stack.count() > 0) {
+        auto item = stack.at(stack.count()-1);
+        stack.pop_back();
+        if(item->hasChildren()){
+            item->_isExpanded = false;
+        }
+        QList<Node*> children = item->_children;
+        if(!children.isEmpty()){
+            std::reverse(children.begin(), children.end());
+            foreach (auto c, children) {
+                stack.append(c);
+            }
+        }
+    }
+    _rows = _root->_children;
+    endResetModel();
 }

@@ -20,16 +20,6 @@ public:
     Q_INVOKABLE int depth(){return _depth;};
     Q_INVOKABLE bool isExpanded(){return _isExpanded;};
     Q_INVOKABLE bool hasChildren(){ return !_children.isEmpty();};
-    Q_INVOKABLE bool isHeaderNode(){
-        if(hasChildren() && _isExpanded){
-            return true;
-        }
-        return  false;
-    }
-    Q_INVOKABLE bool isFooterNode(){
-        return  this->_parent->_children.indexOf(this) == this->_parent->_children.count()-1;
-    }
-
     Q_INVOKABLE bool hasNextNodeByIndex(int index){
         Node* p = this;
         for(int i=0;i<(_depth - index -1);i++){
@@ -91,9 +81,12 @@ public:
     Q_INVOKABLE void setDataSource(QList<QMap<QString,QVariant>> data);
     Q_INVOKABLE void collapse(int row);
     Q_INVOKABLE void expand(int row);
-    Q_INVOKABLE void dragAnddrop(int dragIndex,int dropIndex);
+    Q_INVOKABLE void dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea);
     Q_INVOKABLE Node* getNode(int row);
     Q_INVOKABLE void refreshNode(int row);
+    Q_INVOKABLE bool hitHasChildrenExpanded(int row);
+    Q_INVOKABLE void allExpand();
+    Q_INVOKABLE void allCollapse();
 private:
     QList<Node*> _rows;
     QList<Node*> _dataSource;
