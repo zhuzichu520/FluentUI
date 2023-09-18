@@ -56,6 +56,8 @@ Item {
                 return w
             }
             height: 30
+            implicitWidth: width
+            implicitHeight: height
             function toggle(){
                 if(itemModel.isExpanded){
                     tree_model.collapse(rowIndex)
@@ -203,7 +205,7 @@ Item {
                     }
                 }
             }
-            Rectangle{
+            FluRectangle{
                 width: 1
                 color: control.lineColor
                 visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
@@ -214,7 +216,7 @@ Item {
                     rightMargin: -9
                 }
             }
-            Rectangle{
+            FluRectangle{
                 height: 1
                 color: control.lineColor
                 visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
@@ -227,7 +229,7 @@ Item {
             }
             Repeater{
                 model: Math.max(itemModel.depth-1,0)
-                delegate: Rectangle{
+                delegate: FluRectangle{
                     required property int index
                     width: 1
                     color: control.lineColor
@@ -312,23 +314,7 @@ Item {
                     property var itemModel: modelData
                     property int rowIndex: row
                     id:item_loader_container
-                    width:{
-                        if(item){
-                            return item.width
-                        }
-                        return 1
-                    }
-                    height: {
-                        if(item){
-                            return item.height
-                        }
-                        return 1
-                    }
-                    sourceComponent: {
-                        if(modelData)
-                            return com_item_container
-                        return undefined
-                    }
+                    sourceComponent: com_item_container
                 }
             }
         }

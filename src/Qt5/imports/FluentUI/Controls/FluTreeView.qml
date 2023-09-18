@@ -56,38 +56,13 @@ Item {
                 return w
             }
             height: 30
+            implicitWidth: width
+            implicitHeight: height
             function toggle(){
                 if(itemModel.isExpanded){
                     tree_model.collapse(rowIndex)
                 }else{
                     tree_model.expand(rowIndex)
-                }
-            }
-            Rectangle{
-                anchors.fill: parent
-                radius: 4
-                anchors.leftMargin: 6
-                anchors.rightMargin: 6
-                border.color: d.hitColor
-                border.width: d.dragIndex === rowIndex ? 1 : 0
-                color: {
-                    if(FluTheme.dark){
-                        if(isCurrent){
-                            return Qt.rgba(1,1,1,0.03)
-                        }
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(1,1,1,0.03)
-                        }
-                        return Qt.rgba(0,0,0,0)
-                    }else{
-                        if(isCurrent){
-                            return Qt.rgba(0,0,0,0.06)
-                        }
-                        if(item_mouse.containsMouse){
-                            return Qt.rgba(0,0,0,0.03)
-                        }
-                        return Qt.rgba(0,0,0,0)
-                    }
                 }
             }
             Rectangle{
@@ -104,6 +79,7 @@ Item {
             }
             MouseArea{
                 id:item_mouse
+                property point clickPos: Qt.point(0,0)
                 anchors.fill: parent
                 drag.target:control.draggable ? loader_container : undefined
                 hoverEnabled: true
@@ -116,15 +92,18 @@ Item {
                         loader_container.sourceComponent = com_item_container
                     }
                 }
-                onPressed: {
-                    loader_container.itemControl = itemControl
-                    loader_container.itemModel = itemModel
-                    var cellPosition = item_container.mapToItem(table_view, 0, 0)
-                    loader_container.width = item_container.width
-                    loader_container.height = item_container.height
-                    loader_container.x = table_view.contentX + cellPosition.x
-                    loader_container.y = table_view.contentY + cellPosition.y
-                }
+                onPressed: (mouse)=>{
+                               clickPos = Qt.point(mouse.x,mouse.y)
+                               console.debug(clickPos)
+                               loader_container.itemControl = itemControl
+                               loader_container.itemModel = itemModel
+                               var cellPosition = item_container.mapToItem(table_view, 0, 0)
+                               loader_container.width = item_container.width
+                               loader_container.height = item_container.height
+                               loader_container.x = table_view.contentX + cellPosition.x
+                               loader_container.y = table_view.contentY + cellPosition.y
+
+                           }
                 onClicked: {
                     d.current = itemModel
                 }
@@ -151,6 +130,7 @@ Item {
                         var index = Math.round(y/30)
                         if(index !== d.dragIndex){
                             d.dropIndex = index
+                            tree_model.refreshNode(rowIndex)
                         }else{
                             d.dropIndex = -1
                         }
@@ -174,10 +154,11 @@ Item {
                 anchors{
                     left: parent.left
                     leftMargin: {
+                        var count = itemModel.depth+1
                         if(itemModel.hasChildren()){
-                            return 30*(itemModel.depth+1) - 8
+                            return 30*count - 8
                         }
-                        return 30*(itemModel.depth+1) + 18
+                        return 30*count + 18
                     }
                     right: parent.right
                     rightMargin: 10
@@ -202,10 +183,10 @@ Item {
                     }
                 }
             }
-            Rectangle{
+            FluRectangle{
                 width: 1
                 color: control.lineColor
-                visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
+                visible: control.showLine  && isItemLoader && itemModel.depth !== 0 && !itemModel.hasChildren()
                 height: itemModel.hideLineFooter() ? parent.height/2 : parent.height
                 anchors{
                     top: parent.top
@@ -213,10 +194,10 @@ Item {
                     rightMargin: -9
                 }
             }
-            Rectangle{
+            FluRectangle{
                 height: 1
                 color: control.lineColor
-                visible: itemModel.depth !== 0 && control.showLine && !itemModel.hasChildren()
+                visible: control.showLine && isItemLoader  && itemModel.depth !== 0 && !itemModel.hasChildren()
                 width: 18
                 anchors{
                     right: layout_row.left
@@ -226,16 +207,43 @@ Item {
             }
             Repeater{
                 model: Math.max(itemModel.depth-1,0)
-                delegate: Rectangle{
+                delegate: FluRectangle{
                     required property int index
                     width: 1
                     color: control.lineColor
-                    visible: itemModel.depth !== 0 && control.showLine
+                    visible: control.showLine && isItemLoader && itemModel.depth !== 0 && itemModel.hasNextNodeByIndex(index)
                     anchors{
                         top:parent.top
                         bottom: parent.bottom
                         left: parent.left
                         leftMargin: 30*(index+2) - 8
+                    }
+                }
+            }
+            Rectangle{
+                anchors.fill: parent
+                radius: 4
+                anchors.leftMargin: 6
+                anchors.rightMargin: 6
+                border.color: d.hitColor
+                border.width: d.dragIndex === rowIndex ? 1 : 0
+                color: {
+                    if(FluTheme.dark){
+                        if(isCurrent){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
+                        return Qt.rgba(0,0,0,0)
+                    }else{
+                        if(isCurrent){
+                            return Qt.rgba(0,0,0,0.06)
+                        }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(0,0,0,0.03)
+                        }
+                        return Qt.rgba(0,0,0,0)
                     }
                 }
             }
@@ -310,14 +318,9 @@ Item {
                     property var itemControl: item_control
                     property var itemModel: modelData
                     property int rowIndex: row
+                    property bool isItemLoader: true
                     id:item_loader_container
-                    width: item.width
-                    height: item.height
-                    sourceComponent: {
-                        if(modelData)
-                            return com_item_container
-                        return undefined
-                    }
+                    sourceComponent: com_item_container
                 }
             }
         }
@@ -326,6 +329,7 @@ Item {
             id:loader_container
             property var itemControl
             property var itemModel
+            property bool isItemLoader: false
         }
     }
     function count(){

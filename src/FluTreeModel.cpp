@@ -155,7 +155,7 @@ void FluTreeModel::expand(int row){
 }
 
 void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex){
-    if(dragIndex == dropIndex+1){
+    if(dragIndex == dropIndex+1 || dropIndex>_rows.count() || dropIndex<0){
         return;
     }
     auto dragItem = _rows[dragIndex];
@@ -164,29 +164,48 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex){
         return;
     }
     if(dragItem->_parent == dropItem->_parent){
-        if(dragItem->hasChildren()){
-
-        }else{
-            QList<Node*>* children = &(dragItem->_parent->_children);
-            int srcIndex = children->indexOf(dragItem);
-            int destIndex = children->indexOf(dropItem);
-            children->move(srcIndex,destIndex>srcIndex? destIndex : destIndex +1);
-            _rows.move(dragIndex,dropIndex>dragIndex? dropIndex : dropIndex+1);
-        }
+        QList<Node*>* children = &(dragItem->_parent->_children);
+        int srcIndex = children->indexOf(dragItem);
+        int destIndex = children->indexOf(dropItem);
+        children->move(srcIndex,destIndex>srcIndex? destIndex : destIndex +1);
+        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex : dropIndex+1);
     }else{
+        QList<Node*>* srcChildren = &(dragItem->_parent->_children);
+        QList<Node*>* destChildren = &(dropItem->_parent->_children);
+        int srcIndex = srcChildren->indexOf(dragItem);
+        int destIndex = destChildren->indexOf(dropItem);
+        dragItem->_depth = dropItem->_depth;
+        dragItem->_parent = dropItem->_parent;
         if(dragItem->hasChildren()){
-
-        }else{
-            QList<Node*>* srcChildren = &(dragItem->_parent->_children);
-            QList<Node*>* destChildren = &(dropItem->_parent->_children);
-            int srcIndex = srcChildren->indexOf(dragItem);
-            int destIndex = destChildren->indexOf(dropItem);
-            dragItem->_depth = dropItem->_depth;
-            dragItem->_parent = dropItem->_parent;
-            srcChildren->removeAt(srcIndex);
-            destChildren->insert(destIndex+1,dragItem);
-            _rows.move(dragIndex,dropIndex>dragIndex? dropIndex : dropIndex+1);
+            QList<Node*> stack = dragItem->_children;
+            foreach (auto node, stack) {
+                node->_depth = dragItem->_depth+1;
+            }
+            std::reverse(stack.begin(), stack.end());
+            while (stack.count() > 0) {
+                auto item = stack.at(stack.count()-1);
+                stack.pop_back();
+                QList<Node*> children = item->_children;
+                if(!children.isEmpty()){
+                    std::reverse(children.begin(), children.end());
+                    foreach (auto c, children) {
+                        c->_depth = item->_depth+1;
+                        stack.append(c);
+                    }
+                }
+            }
         }
+        srcChildren->removeAt(srcIndex);
+        destChildren->insert(destIndex+1,dragItem);
+        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex : dropIndex+1);
     }
     endMoveRows();
+}
+
+void FluTreeModel::refreshNode(int row){
+    Q_EMIT dataChanged(index(row,0),index(row,0));
+};
+
+Node* FluTreeModel::getNode(int row){
+    return _rows.at(row);
 }

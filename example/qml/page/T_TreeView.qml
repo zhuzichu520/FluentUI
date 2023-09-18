@@ -87,22 +87,20 @@ FluScrollablePage {
                 }
                 FluSlider{
                     id:slider_width
-                    value: 200
+                    value: 280
                     from: 160
                     to:400
                 }
             }
-
             FluToggleSwitch{
                 id:switch_showline
                 text:"showLine"
                 checked: true
             }
-
             FluToggleSwitch{
                 id:switch_draggable
                 text:"draggable"
-                checked: false
+                checked: true
             }
         }
     }
