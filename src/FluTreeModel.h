@@ -62,7 +62,7 @@ public:
     Node* _parent = nullptr;
 };
 
-class FluTreeModel : public QAbstractTableModel
+class FluTreeModel : public QAbstractItemModel
 {
     Q_OBJECT
     Q_PROPERTY_AUTO(int,dataSourceSize)
@@ -74,6 +74,9 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
+    QModelIndex parent(const QModelIndex &child) const override;
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const override;
+
     Q_INVOKABLE void removeRows(int row,int count);
     Q_INVOKABLE void insertRows(int row,QList<Node*> data);
     Q_INVOKABLE QObject* getRow(int row);

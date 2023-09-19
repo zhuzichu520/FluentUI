@@ -9,9 +9,19 @@ Node::Node(QObject *parent)
 }
 
 FluTreeModel::FluTreeModel(QObject *parent)
-    : QAbstractTableModel{parent}
+    : QAbstractItemModel{parent}
 {
     dataSourceSize(0);
+}
+
+QModelIndex FluTreeModel::parent(const QModelIndex &child) const{
+    return QModelIndex();
+}
+
+QModelIndex FluTreeModel::index(int row, int column,const QModelIndex &parent) const{
+    if (!hasIndex(row, column, parent) || parent.isValid())
+        return QModelIndex();
+    return createIndex(row, column, _rows.at(row));
 }
 
 int FluTreeModel::rowCount(const QModelIndex &parent) const {

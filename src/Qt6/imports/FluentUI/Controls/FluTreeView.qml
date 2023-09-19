@@ -14,12 +14,9 @@ Item {
     id:control
     QtObject {
         id:d
+        property int dy
         property var current
         property int dropIndex: -1
-        property var hoverItem
-        property int hoverIndex: -1
-        property bool itemPress: false
-        property bool itemDragActive: false
         property bool isDropTopArea: false
         property int dragIndex: -1
         property color hitColor: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
@@ -42,13 +39,11 @@ Item {
         Item{
             signal reused
             signal pooled
-
             onReused: {
-                console.debug(itemModel.title)
+
             }
             onPooled: {
             }
-
             property bool isCurrent: d.current === itemModel
             id:item_container
             width: {
@@ -62,6 +57,9 @@ Item {
             implicitWidth: width
             implicitHeight: height
             function toggle(){
+                var pos = FluTools.cursorPos()
+                var viewPos = table_view.mapToGlobal(0,0)
+                d.dy = table_view.contentY + pos.y-viewPos.y
                 if(itemModel.isExpanded){
                     tree_model.collapse(rowIndex)
                 }else{
@@ -87,7 +85,6 @@ Item {
                 drag.target:control.draggable ? loader_container : undefined
                 hoverEnabled: true
                 drag.onActiveChanged: {
-                    d.itemDragActive = drag.active
                     if(drag.active){
                         if(itemModel.isExpanded && itemModel.hasChildren()){
                             tree_model.collapse(rowIndex)
@@ -98,16 +95,14 @@ Item {
                 }
                 onPressed:
                     (mouse)=>{
-                        d.itemPress = true
                         clickPos = Qt.point(mouse.x,mouse.y)
-                        console.debug(clickPos)
                         loader_container.itemControl = itemControl
                         loader_container.itemModel = itemModel
                         var cellPosition = item_container.mapToItem(table_view, 0, 0)
                         loader_container.width = item_container.width
                         loader_container.height = item_container.height
-                        loader_container.x = cellPosition.x
-                        loader_container.y = cellPosition.y
+                        loader_container.x = 0
+                        loader_container.y = cellPosition.y + table_view.contentY
                     }
                 onClicked: {
                     d.current = itemModel
@@ -117,21 +112,17 @@ Item {
                         item_container.toggle()
                     }
                 }
-                onExited: {
-                    d.hoverIndex = -1
-                }
                 onPositionChanged:
                     (mouse)=> {
+                        if(!drag.active){
+                            return
+                        }
                         var cellPosition = item_container.mapToItem(table_view, 0, 0)
                         if(mouse.y+cellPosition.y<0 || mouse.y+cellPosition.y>table_view.height){
-                            d.hoverItem = undefined
-                            d.hoverIndex = -1
                             d.dropIndex = -1
                             return
                         }
                         if((mouse.x-table_view.contentX)>table_view.width || (mouse.x-table_view.contentX)<0){
-                            d.hoverItem = undefined
-                            d.hoverIndex = -1
                             d.dropIndex = -1
                             return
                         }
@@ -139,16 +130,6 @@ Item {
                         var viewPos = table_view.mapToGlobal(0,0)
                         var y = table_view.contentY + pos.y-viewPos.y
                         var index = Math.floor(y/30)
-                        if(item_mouse.pressed){
-                            d.hoverItem = undefined
-                            d.hoverIndex = -1
-                        }else{
-                            d.hoverItem = item_container
-                            d.hoverIndex = index
-                        }
-                        if(!drag.active){
-                            return
-                        }
                         if(tree_model.hitHasChildrenExpanded(index) && y>index*30+15){
                             d.dropIndex = index + 1
                             d.isDropTopArea = true
@@ -163,21 +144,22 @@ Item {
                     }
                 onCanceled: {
                     loader_container.sourceComponent = undefined
-                    d.itemPress = false
+                    loader_container.x = 0
+                    loader_container.y = 0
                     d.dropIndex = -1
                     d.dragIndex = -1
                 }
                 onReleased: {
-                    d.itemPress = false
                     loader_container.sourceComponent = undefined
                     if(d.dropIndex !== -1){
                         tree_model.dragAnddrop(d.dragIndex,d.dropIndex,d.isDropTopArea)
                     }
                     d.dropIndex = -1
                     d.dragIndex = -1
+                    loader_container.x = 0
+                    loader_container.y = 0
                 }
             }
-            Drag.dragType: Drag.None
             Drag.active: item_mouse.drag.active
             Rectangle{
                 id:item_line_drop_tip
@@ -276,12 +258,18 @@ Item {
                 color: {
                     if(FluTheme.dark){
                         if(isCurrent){
+                            return Qt.rgba(1,1,1,0.06)
+                        }
+                        if(item_mouse.containsMouse){
                             return Qt.rgba(1,1,1,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
                     }else{
                         if(isCurrent){
                             return Qt.rgba(0,0,0,0.06)
+                        }
+                        if(item_mouse.containsMouse){
+                            return Qt.rgba(0,0,0,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
                     }
@@ -292,27 +280,25 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 14 + 30*itemModel.depth
-                Item{
-                    opacity: itemModel.hasChildren()
-                    Layout.preferredWidth: 20
-                    Layout.preferredHeight: 20
-                    TapHandler{
-                        enabled: parent.opacity
-                        onSingleTapped: {
+                Component{
+                    id:com_icon_btn
+                    FluIconButton{
+                        opacity: itemModel.hasChildren()
+                        onClicked: {
                             item_container.toggle()
                         }
+                        contentItem:FluIcon{
+                            rotation: itemModel.isExpanded?0:-90
+                            iconSource:FluentIcons.ChevronDown
+                            iconSize: 16
+                            anchors.centerIn: parent
+                        }
                     }
-                    MouseArea{
-                        cursorShape: Qt.PointingHandCursor
-                        acceptedButtons: Qt.NoButton
-                        anchors.fill: parent
-                    }
-                    FluIcon{
-                        rotation: itemModel.isExpanded?0:-90
-                        iconSource:FluentIcons.ChevronDown
-                        iconSize: 16
-                        anchors.centerIn: parent
-                    }
+                }
+                Loader{
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 20
+                    sourceComponent: itemModel.hasChildren() ? com_icon_btn : undefined
                 }
                 Item{
                     id:item_layout_text
@@ -324,34 +310,11 @@ Item {
                         text: itemModel.title
                         anchors.centerIn: parent
                         color:{
+                            if(item_mouse.pressed){
+                                return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                            }
                             return FluTheme.dark ? FluColors.White : FluColors.Grey220
                         }
-                    }
-                }
-            }
-        }
-    }
-    Component{
-        id:com_background
-        Item{
-            Rectangle{
-                radius: 4
-                anchors{
-                    fill: parent
-                    leftMargin: 6
-                    rightMargin: 6
-                }
-                color:{
-                    if(FluTheme.dark){
-                        if(d.itemPress){
-                            return Qt.rgba(1,1,1,0.06)
-                        }
-                        return Qt.rgba(1,1,1,0.03)
-                    }else{
-                        if(d.itemPress){
-                            return Qt.rgba(0,0,0,0.06)
-                        }
-                        return Qt.rgba(0,0,0,0.03)
                     }
                 }
             }
@@ -362,35 +325,8 @@ Item {
         anchors.fill: parent
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-        Loader{
-            id:loader_background
-            y:{
-                if(d.hoverItem){
-                    var cellPosition = d.hoverItem.mapToItem(table_view, 0, 0)
-                    return  cellPosition.y
-                }
-                return 0
-            }
-            width: {
-                if(d.hoverItem){
-                    return d.hoverItem.width
-                }
-                return 0
-            }
-            height: {
-                if(d.hoverItem){
-                    return d.hoverItem.height
-                }
-                return 0
-            }
-            sourceComponent: {
-                if(d.hoverIndex === -1 || d.itemDragActive){
-                    return undefined
-                }
-                return com_background
-            }
-        }
-        TableView{
+            clip: true
+        ListView{
             id:table_view
             ScrollBar.horizontal: FluScrollBar{}
             ScrollBar.vertical: FluScrollBar{}
@@ -398,26 +334,54 @@ Item {
             model: tree_model
             clip: true
             anchors.fill: parent
-            onContentYChanged:{
-                timer_refresh.restart()
+            contentWidth: contentItem.childrenRect.width
+            reuseItems: true
+            removeDisplaced : Transition{
+                ParallelAnimation{
+                    NumberAnimation {
+                        properties: "y"
+                        duration: 167
+                        from: d.dy + table_view.height
+                        easing.type: Easing.OutCubic
+                    }
+                    NumberAnimation {
+                        properties: "opacity"
+                        duration: 300
+                        from: 0
+                        to: 1
+                    }
+                }
             }
-            onWidthChanged: {
-                timer_refresh.restart()
+            add: Transition{
+                ParallelAnimation{
+                    NumberAnimation {
+                        properties: "y"
+                        duration: 167
+                        from: d.dy
+                        easing.type: Easing.OutCubic
+                    }
+                    NumberAnimation {
+                        properties: "opacity"
+                        duration: 300
+                        from: 0
+                        to: 1
+                    }
+                }
             }
             delegate: Item {
                 id:item_control
                 implicitWidth: item_loader_container.width
                 implicitHeight: item_loader_container.height
-                TableView.onReused: {
+                ListView.onReused: {
                     item_loader_container.item.reused()
                 }
-                TableView.onPooled: {
+                ListView.onPooled: {
                     item_loader_container.item.pooled()
                 }
                 Loader{
                     property var itemControl: item_control
                     property var itemModel: modelData
-                    property int rowIndex: row
+                    property int rowIndex: index
                     property bool isItemLoader: true
                     id:item_loader_container
                     sourceComponent: com_item_container
@@ -435,7 +399,7 @@ Item {
         return tree_model.dataSourceSize
     }
     function visibleCount(){
-        return table_view.rows
+        return table_view.count
     }
     function collapse(rowIndex){
         tree_model.collapse(rowIndex)
