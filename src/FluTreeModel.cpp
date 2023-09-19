@@ -200,8 +200,12 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
             }
         }
         srcChildren->removeAt(srcIndex);
-        destChildren->insert(destIndex+1,dragItem);
-        int offset = 1;
+        int offset = 0;
+        if(!isDropTopArea){
+            offset =  offset + 1;
+        }
+        destChildren->insert(destIndex+offset,dragItem);
+        offset = 1;
         if(isDropTopArea){
             offset = offset - 1;
         }
@@ -211,10 +215,10 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
 }
 
 bool FluTreeModel::hitHasChildrenExpanded(int row){
-    auto itemData = _rows.at(row);
-    if(itemData->hasChildren() && itemData->_isExpanded){
-        return true;
-    }
+//    auto itemData = _rows.at(row);
+//    if(itemData->hasChildren() && itemData->_isExpanded){
+//        return true;
+//    }
     return false;
 }
 

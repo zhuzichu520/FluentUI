@@ -102,6 +102,18 @@ FluScrollablePage {
                 text:"draggable"
                 checked: true
             }
+            FluButton{
+                text:"all expand"
+                onClicked: {
+                    tree_view.allExpand()
+                }
+            }
+            FluButton{
+                text:"all collapse"
+                onClicked: {
+                    tree_view.allCollapse()
+                }
+            }
         }
     }
     CodeExpander{
@@ -119,4 +131,3 @@ FluScrollablePage {
 '
     }
 }
-
