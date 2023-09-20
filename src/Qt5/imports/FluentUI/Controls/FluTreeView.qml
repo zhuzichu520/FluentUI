@@ -27,11 +27,73 @@ Item {
     FluTreeModel{
         id:tree_model
     }
-    Timer{
-        id:timer_refresh
-        interval: 10
-        onTriggered: {
-            table_view.forceLayout()
+    ListView{
+        id:table_view
+        ScrollBar.horizontal: FluScrollBar{}
+        ScrollBar.vertical: FluScrollBar{}
+        boundsBehavior: Flickable.StopAtBounds
+        model: tree_model
+        anchors.fill: parent
+        clip: true
+        flickableDirection: Flickable.HorizontalAndVerticalFlick
+        contentWidth: contentItem.childrenRect.width
+        reuseItems: true
+        removeDisplaced : Transition{
+            ParallelAnimation{
+                NumberAnimation {
+                    properties: "y"
+                    duration: 167
+                    from: d.dy + table_view.height
+                    easing.type: Easing.OutCubic
+                }
+                NumberAnimation {
+                    properties: "opacity"
+                    duration: 300
+                    from: 0
+                    to: 1
+                }
+            }
+        }
+        add: Transition{
+            ParallelAnimation{
+                NumberAnimation {
+                    properties: "y"
+                    duration: 167
+                    from: d.dy
+                    easing.type: Easing.OutCubic
+                }
+                NumberAnimation {
+                    properties: "opacity"
+                    duration: 300
+                    from: 0
+                    to: 1
+                }
+            }
+        }
+        delegate: Item {
+            id:item_control
+            implicitWidth: item_loader_container.width
+            implicitHeight: item_loader_container.height
+            ListView.onReused: {
+                item_loader_container.item.reused()
+            }
+            ListView.onPooled: {
+                item_loader_container.item.pooled()
+            }
+            Loader{
+                property var itemControl: item_control
+                property var itemModel: modelData
+                property int rowIndex: index
+                property bool isItemLoader: true
+                id:item_loader_container
+                sourceComponent: com_item_container
+            }
+        }
+        Loader{
+            id:loader_container
+            property var itemControl
+            property var itemModel
+            property bool isItemLoader: false
         }
     }
     Component{
@@ -318,81 +380,6 @@ Item {
                     }
                 }
             }
-        }
-    }
-    ScrollView{
-        id:scroll_view
-        anchors.fill: parent
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-            clip: true
-        ListView{
-            id:table_view
-            ScrollBar.horizontal: FluScrollBar{}
-            ScrollBar.vertical: FluScrollBar{}
-            boundsBehavior: Flickable.StopAtBounds
-            model: tree_model
-            clip: true
-            anchors.fill: parent
-            contentWidth: contentItem.childrenRect.width
-            reuseItems: true
-            removeDisplaced : Transition{
-                ParallelAnimation{
-                    NumberAnimation {
-                        properties: "y"
-                        duration: 167
-                        from: d.dy + table_view.height
-                        easing.type: Easing.OutCubic
-                    }
-                    NumberAnimation {
-                        properties: "opacity"
-                        duration: 300
-                        from: 0
-                        to: 1
-                    }
-                }
-            }
-            add: Transition{
-                ParallelAnimation{
-                    NumberAnimation {
-                        properties: "y"
-                        duration: 167
-                        from: d.dy
-                        easing.type: Easing.OutCubic
-                    }
-                    NumberAnimation {
-                        properties: "opacity"
-                        duration: 300
-                        from: 0
-                        to: 1
-                    }
-                }
-            }
-            delegate: Item {
-                id:item_control
-                implicitWidth: item_loader_container.width
-                implicitHeight: item_loader_container.height
-                ListView.onReused: {
-                    item_loader_container.item.reused()
-                }
-                ListView.onPooled: {
-                    item_loader_container.item.pooled()
-                }
-                Loader{
-                    property var itemControl: item_control
-                    property var itemModel: modelData
-                    property int rowIndex: index
-                    property bool isItemLoader: true
-                    id:item_loader_container
-                    sourceComponent: com_item_container
-                }
-            }
-        }
-        Loader{
-            id:loader_container
-            property var itemControl
-            property var itemModel
-            property bool isItemLoader: false
         }
     }
     function count(){
