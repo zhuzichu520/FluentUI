@@ -2,15 +2,10 @@
 
 #include <QMetaEnum>
 
-Node::Node(QObject *parent)
-    : QObject{parent}
-{
-
+Node::Node(QObject *parent): QObject{parent}{
 }
 
-FluTreeModel::FluTreeModel(QObject *parent)
-    : QAbstractItemModel{parent}
-{
+FluTreeModel::FluTreeModel(QObject *parent): QAbstractItemModel{parent}{
     dataSourceSize(0);
 }
 
@@ -209,7 +204,6 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
     }
     _rows.move(dragIndex,targetIndex);
     endMoveRows();
-
     Q_EMIT layoutAboutToBeChanged();
     if(dragItem->_parent == dropItem->_parent){
         QList<Node*>* children = &(dragItem->_parent->_children);
@@ -256,7 +250,6 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
             }
         }
         srcChildren->removeAt(srcIndex);
-
         if(dropIndex > dragIndex){
             if(isDropTopArea){
                 targetIndex = destIndex;
@@ -270,26 +263,18 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
                 targetIndex = destIndex + 1;
             }
         }
-
         destChildren->insert(targetIndex,dragItem);
-
-        foreach (auto item,*destChildren) {
-            qDebug()<<item->title();
-        }
-
     }
-
     changePersistentIndex(index(qMin(dragIndex,dropIndex),0),index(qMax(dragIndex,dropIndex),0));
-
     Q_EMIT layoutChanged(QList<QPersistentModelIndex>(),QAbstractItemModel::VerticalSortHint);
 
 }
 
 bool FluTreeModel::hitHasChildrenExpanded(int row){
-    //    auto itemData = _rows.at(row);
-    //    if(itemData->hasChildren() && itemData->_isExpanded){
-    //        return true;
-    //    }
+    auto itemData = _rows.at(row);
+    if(itemData->hasChildren() && itemData->_isExpanded){
+        return true;
+    }
     return false;
 }
 

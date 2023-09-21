@@ -10,6 +10,8 @@ Item {
     property var dataSource
     property bool showLine: true
     property bool draggable: false
+    property int cellHeight: 30
+    property int depthPadding: 30
     property color lineColor: FluTheme.dark ? Qt.rgba(111/255,111/255,111/255,1) : Qt.rgba(217/255,217/255,217/255,1)
     id:control
     QtObject {
@@ -112,13 +114,13 @@ Item {
             property bool isCurrent: d.current === itemModel
             id:item_container
             width: {
-                var w = 46 + item_layout_text.width + 30*itemModel.depth
+                var w = 46 + item_loader_cell.width + control.depthPadding*itemModel.depth
                 if(control.width>w){
                     return control.width
                 }
                 return w
             }
-            height: 30
+            height: control.cellHeight
             implicitWidth: width
             implicitHeight: height
             function toggle(){
@@ -194,13 +196,13 @@ Item {
                         var pos = FluTools.cursorPos()
                         var viewPos = table_view.mapToGlobal(0,0)
                         var y = table_view.contentY + pos.y-viewPos.y
-                        var index = Math.floor(y/30)
-                        if(tree_model.hitHasChildrenExpanded(index) && y>index*30+15){
+                        var index = Math.floor(y/control.cellHeight)
+                        if(tree_model.hitHasChildrenExpanded(index) && y>index*control.cellHeight+control.cellHeight/2){
                             d.dropIndex = index + 1
                             d.isDropTopArea = true
                         }else{
                             d.dropIndex = index
-                            if(y>index*30+15){
+                            if(y>index*control.cellHeight+control.cellHeight/2){
                                 d.isDropTopArea = false
                             }else{
                                 d.isDropTopArea = true
@@ -229,14 +231,8 @@ Item {
             Rectangle{
                 id:item_line_drop_tip
                 anchors{
-                    left: parent.left
-                    leftMargin: {
-                        var count = itemModel.depth+1
-                        if(itemModel.hasChildren()){
-                            return 30*count - 8
-                        }
-                        return 30*count + 18
-                    }
+                    left: layout_row.left
+                    leftMargin: 26
                     right: parent.right
                     rightMargin: 10
                     bottom: parent.bottom
@@ -283,18 +279,18 @@ Item {
                 height: itemModel.hideLineFooter() ? parent.height/2 : parent.height
                 anchors{
                     top: parent.top
-                    right: layout_row.left
-                    rightMargin: -9
+                    left: item_line_h.left
                 }
             }
             FluRectangle{
+                id:item_line_h
                 height: 1
                 color: control.lineColor
                 visible: control.showLine && isItemLoader  && itemModel.depth !== 0 && !itemModel.hasChildren()
-                width: 18
+                width: depthPadding - 10
                 anchors{
                     right: layout_row.left
-                    rightMargin: -27
+                    rightMargin: -24
                     verticalCenter: parent.verticalCenter
                 }
             }
@@ -309,7 +305,7 @@ Item {
                         top:parent.top
                         bottom: parent.bottom
                         left: parent.left
-                        leftMargin: 30*(index+2) - 8
+                        leftMargin: control.depthPadding*(index+1) + 24
                     }
                 }
             }
@@ -342,9 +338,10 @@ Item {
             }
             RowLayout{
                 id:layout_row
+                height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 14 + 30*itemModel.depth
+                anchors.leftMargin: 14 + control.depthPadding*itemModel.depth
                 Component{
                     id:com_icon_btn
                     FluIconButton{
@@ -364,23 +361,38 @@ Item {
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 20
                     sourceComponent: itemModel.hasChildren() ? com_icon_btn : undefined
-                }
-                Item{
-                    id:item_layout_text
-                    Layout.preferredWidth: item_text.implicitWidth+14
-                    Layout.preferredHeight:item_text.implicitHeight+14
                     Layout.alignment: Qt.AlignVCenter
-                    FluText {
-                        id:item_text
-                        text: itemModel.title
-                        anchors.centerIn: parent
-                        color:{
-                            if(item_mouse.pressed){
-                                return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
-                            }
-                            return FluTheme.dark ? FluColors.White : FluColors.Grey220
+                }
+                Loader{
+                    property var modelData: itemModel
+                    property var itemMouse: item_mouse
+                    id:item_loader_cell
+                    Layout.preferredWidth: {
+                        if(item){
+                            return item.width
                         }
+                        return 0
                     }
+                    Layout.fillHeight: true
+                    sourceComponent:com_item_text
+                }
+            }
+        }
+    }
+    Component{
+        id:com_item_text
+        Item{
+            width: item_text.width
+            FluText {
+                id:item_text
+                text: modelData.title
+                rightPadding: 14
+                anchors.centerIn: parent
+                color:{
+                    if(itemMouse.pressed){
+                        return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+                    }
+                    return FluTheme.dark ? FluColors.White : FluColors.Grey220
                 }
             }
         }
@@ -403,5 +415,4 @@ Item {
     function allCollapse(){
         tree_model.allCollapse()
     }
-
 }

@@ -6,7 +6,7 @@ import FluentUI 1.0
 import "qrc:///example/qml/component"
 import "../component"
 
-FluScrollablePage {
+FluContentPage {
 
     title:"TreeView"
 
@@ -29,105 +29,94 @@ FluScrollablePage {
         return dig();
     }
 
-    FluArea{
-        Layout.fillWidth: true
-        Layout.topMargin: 10
-        paddings: 10
-        height: 80
-        Column{
-            anchors.verticalCenter: parent.verticalCenter
+    Column{
+        id:layout_column
+        spacing: 12
+        width: 300
+        anchors{
+            topMargin: 20
+            top:parent.top
+            left: parent.left
+            leftMargin: 10
+            bottom:parent.bottom
+            bottomMargin: 20
+        }
+
+        FluText{
+            text:"共计%1条数据，当前显示的%2条数据".arg(tree_view.count()).arg(tree_view.visibleCount())
+        }
+
+        RowLayout{
             spacing: 10
             FluText{
-                text:"高性能树控件，新的TreeView用TableView实现！！"
+                text:"cellHeight:"
+                Layout.alignment: Qt.AlignVCenter
             }
+            FluSlider{
+                id:slider_cell_height
+                value: 30
+                from: 30
+                to:100
+            }
+        }
+        RowLayout{
+            spacing: 10
             FluText{
-                text:"共计：%1条数据，当前显示的%2条数据".arg(tree_view.count()).arg(tree_view.visibleCount())
+                text:"depthPadding:"
+                Layout.alignment: Qt.AlignVCenter
+            }
+            FluSlider{
+                id:slider_depth_padding
+                value: 30
+                from: 30
+                to:100
+            }
+        }
+        FluToggleSwitch{
+            id:switch_showline
+            text:"showLine"
+            checked: true
+        }
+        FluToggleSwitch{
+            id:switch_draggable
+            text:"draggable"
+            checked: true
+        }
+        FluButton{
+            text:"all expand"
+            onClicked: {
+                tree_view.allExpand()
+            }
+        }
+        FluButton{
+            text:"all collapse"
+            onClicked: {
+                tree_view.allCollapse()
             }
         }
     }
     FluArea{
-        Layout.fillWidth: true
-        Layout.topMargin: 10
-        paddings: 10
-        height: 420
-        Item{
-            anchors.fill: tree_view
-            FluShadow{}
+        anchors{
+            left: layout_column.right
+            top: parent.top
+            bottom: parent.bottom
+            right: parent.right
+            rightMargin: 5
+            topMargin: 5
+            bottomMargin: 5
         }
+        FluShadow{}
         FluTreeView{
             id:tree_view
-            width:slider_width.value
-            anchors{
-                top:parent.top
-                left:parent.left
-                bottom:parent.bottom
-            }
+            anchors.fill: parent
+            cellHeight: slider_cell_height.value
             draggable:switch_draggable.checked
             showLine: switch_showline.checked
+            depthPadding: slider_depth_padding.value
             Component.onCompleted: {
                 var data = treeData()
                 dataSource = data
             }
         }
-        Column{
-            spacing: 15
-            anchors{
-                top:parent.top
-                topMargin: 10
-                bottomMargin: 10
-                rightMargin: 10
-                bottom:parent.bottom
-                right: parent.right
-            }
-            RowLayout{
-                spacing: 10
-                FluText{
-                    text:"width:"
-                    Layout.alignment: Qt.AlignVCenter
-                }
-                FluSlider{
-                    id:slider_width
-                    value: 280
-                    from: 160
-                    to:400
-                }
-            }
-            FluToggleSwitch{
-                id:switch_showline
-                text:"showLine"
-                checked: true
-            }
-            FluToggleSwitch{
-                id:switch_draggable
-                text:"draggable"
-                checked: true
-            }
-            FluButton{
-                text:"all expand"
-                onClicked: {
-                    tree_view.allExpand()
-                }
-            }
-            FluButton{
-                text:"all collapse"
-                onClicked: {
-                    tree_view.allCollapse()
-                }
-            }
-        }
-    }
-    CodeExpander{
-        Layout.fillWidth: true
-        Layout.topMargin: -1
-        code:'FluTreeView{
-    id:tree_view
-    width:240
-    height:600
-    Component.onCompleted: {
-        var data = treeData()
-        dataSource = data
-    }
-}
-'
     }
 }

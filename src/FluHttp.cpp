@@ -119,7 +119,8 @@ void FluHttp::post(HttpRequest* r,HttpCallable* c){
             QString result = QString::fromUtf8(reply->readAll());
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
-            bool isSuccess = reply->error() == QNetworkReply::NoError;
+            QNetworkReply::NetworkError error = reply->error();
+            bool isSuccess = error == QNetworkReply::NoError;
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
@@ -133,6 +134,9 @@ void FluHttp::post(HttpRequest* r,HttpCallable* c){
                     }
                     onError(callable,status,errorString,result);
                 }
+            }
+            if(error == QNetworkReply::OperationCanceledError){
+                break;
             }
         }
         onFinish(callable,request);
@@ -174,7 +178,8 @@ void FluHttp::postString(HttpRequest* r,HttpCallable* c){
             QString result = QString::fromUtf8(reply->readAll());
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
-            bool isSuccess = reply->error() == QNetworkReply::NoError;
+            QNetworkReply::NetworkError error = reply->error();
+            bool isSuccess = error == QNetworkReply::NoError;
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
@@ -188,6 +193,9 @@ void FluHttp::postString(HttpRequest* r,HttpCallable* c){
                     }
                     onError(callable,status,errorString,result);
                 }
+            }
+            if(error == QNetworkReply::OperationCanceledError){
+                break;
             }
         }
         onFinish(callable,request);
@@ -228,7 +236,8 @@ void FluHttp::postJson(HttpRequest* r,HttpCallable* c){
             QString result = QString::fromUtf8(reply->readAll());
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
-            bool isSuccess = reply->error() == QNetworkReply::NoError;
+            QNetworkReply::NetworkError error = reply->error();
+            bool isSuccess = error == QNetworkReply::NoError;
             reply->deleteLater();
             reply = nullptr;
             if (isSuccess) {
@@ -242,6 +251,9 @@ void FluHttp::postJson(HttpRequest* r,HttpCallable* c){
                     }
                     onError(callable,status,errorString,result);
                 }
+            }
+            if(error == QNetworkReply::OperationCanceledError){
+                break;
             }
         }
         onFinish(callable,request);
@@ -273,14 +285,15 @@ void FluHttp::get(HttpRequest* r,HttpCallable* c){
             QNetworkRequest req(url);
             addHeaders(&req,data["headers"].toMap());
             QEventLoop loop;
-            QNetworkReply* reply = manager.get(req);
+            auto reply = QPointer(manager.get(req));
             _cacheReply.append(reply);
             connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
             connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
             loop.exec();
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
-            bool isSuccess = reply->error() == QNetworkReply::NoError;
+            QNetworkReply::NetworkError error = reply->error();
+            bool isSuccess = error == QNetworkReply::NoError;
             QString result = QString::fromUtf8(reply->readAll());
             if (isSuccess) {
                 handleCache(httpId,result);
@@ -296,6 +309,9 @@ void FluHttp::get(HttpRequest* r,HttpCallable* c){
             }
             reply->deleteLater();
             reply = nullptr;
+            if(error == QNetworkReply::OperationCanceledError){
+                break;
+            }
         }
         onFinish(callable,request);
     });
