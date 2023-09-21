@@ -47,6 +47,7 @@ public:
     Q_INVOKABLE bool removeFile(QString filePath);
     Q_INVOKABLE void showFileInFolder(QString path);
     Q_INVOKABLE bool isSoftware();
+    Q_INVOKABLE qint64 currentTimestamp();
     Q_INVOKABLE QPoint cursorPos();
 };
 

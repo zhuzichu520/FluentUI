@@ -56,9 +56,11 @@ void FluTreeModel::removeRows(int row,int count){
     if (row < 0 || row + count > _rows.size() || count==0)
         return;
     beginRemoveRows(QModelIndex(),row, row + count - 1);
-    for (int i = 0; i < count; ++i) {
-        _rows.removeAt(row);
-    }
+    QList<Node*> firstPart = _rows.mid(0,row);
+    QList<Node*> secondPart = _rows.mid(row + count);
+    _rows.clear();
+    _rows.append(firstPart);
+    _rows.append(secondPart);
     endRemoveRows();
 }
 
@@ -66,9 +68,12 @@ void FluTreeModel::insertRows(int row,QList<Node*> data){
     if (row < 0 || row > _rows.size() || data.size() == 0)
         return;;
     beginInsertRows(QModelIndex(), row, row + data.size() - 1);
-    for (const auto& item : data) {
-        _rows.insert(row++, item);
-    }
+    QList<Node*> firstPart = _rows.mid(0, row);
+    QList<Node*> secondPart = _rows.mid(row);
+    _rows.clear();
+    _rows.append(firstPart);
+    _rows.append(data);
+    _rows.append(secondPart);
     endInsertRows();
 }
 
@@ -84,6 +89,7 @@ void FluTreeModel::setDataSource(QList<QMap<QString,QVariant>> data){
     }
     _root = new Node(this);
     std::reverse(data.begin(), data.end());
+    auto startTime = QDateTime::currentMSecsSinceEpoch();
     while (data.count() > 0) {
         auto item = data.at(data.count()-1);
         data.pop_back();
@@ -104,8 +110,8 @@ void FluTreeModel::setDataSource(QList<QMap<QString,QVariant>> data){
             QList<QVariant> children = item.value("children").toList();
             if(!children.isEmpty()){
                 std::reverse(children.begin(), children.end());
-                foreach (auto c, children) {
-                    auto child = c.toMap();
+                for (int i = 0; i < children.count(); ++i) {
+                    auto child = children.at(i).toMap();
                     child.insert("__depth",item.value("__depth").toInt(0)+1);
                     child.insert("__parent",QVariant::fromValue(node));
                     data.append(child);
@@ -113,6 +119,7 @@ void FluTreeModel::setDataSource(QList<QMap<QString,QVariant>> data){
             }
         }
     }
+    auto endTime = QDateTime::currentMSecsSinceEpoch();
     beginResetModel();
     _rows = _dataSource;
     endResetModel();
@@ -170,19 +177,58 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
     }
     auto dragItem = _rows[dragIndex];
     auto dropItem = _rows[dropIndex];
-    if (!beginMoveRows(QModelIndex(), dragIndex, dragIndex, QModelIndex(), dropIndex > dragIndex ? dropIndex+1 : dropIndex)) {
+    int targetIndex;
+    if(dropIndex > dragIndex){
+        if(isDropTopArea){
+            targetIndex = dropIndex;
+        }else{
+            targetIndex = dropIndex+1;
+        }
+    }else{
+        if(isDropTopArea){
+            targetIndex = dropIndex;
+        }else{
+            targetIndex = dropIndex+1;
+        }
+    }
+    if (!beginMoveRows(QModelIndex(), dragIndex, dragIndex, QModelIndex(), targetIndex)) {
         return;
     }
+    if(dropIndex > dragIndex){
+        if(isDropTopArea){
+            targetIndex = dropIndex-1;
+        }else{
+            targetIndex = dropIndex;
+        }
+    }else{
+        if(isDropTopArea){
+            targetIndex = dropIndex;
+        }else{
+            targetIndex = dropIndex+1;
+        }
+    }
+    _rows.move(dragIndex,targetIndex);
+    endMoveRows();
+
+    Q_EMIT layoutAboutToBeChanged();
     if(dragItem->_parent == dropItem->_parent){
         QList<Node*>* children = &(dragItem->_parent->_children);
         int srcIndex = children->indexOf(dragItem);
         int destIndex = children->indexOf(dropItem);
-        int offset = 1;
-        if(isDropTopArea){
-            offset = offset - 1;
+        if(dropIndex > dragIndex){
+            if(isDropTopArea){
+                targetIndex = destIndex-1;
+            }else{
+                targetIndex = destIndex;
+            }
+        }else{
+            if(isDropTopArea){
+                targetIndex = destIndex;
+            }else{
+                targetIndex = destIndex+1;
+            }
         }
-        children->move(srcIndex,destIndex>srcIndex? destIndex-1 + offset : destIndex + offset);
-        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex-1 + offset : dropIndex + offset);
+        children->move(srcIndex,targetIndex);
     }else{
         QList<Node*>* srcChildren = &(dragItem->_parent->_children);
         QList<Node*>* destChildren = &(dropItem->_parent->_children);
@@ -210,25 +256,40 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
             }
         }
         srcChildren->removeAt(srcIndex);
-        int offset = 0;
-        if(!isDropTopArea){
-            offset =  offset + 1;
+
+        if(dropIndex > dragIndex){
+            if(isDropTopArea){
+                targetIndex = destIndex;
+            }else{
+                targetIndex = destIndex + 1;
+            }
+        }else{
+            if(isDropTopArea){
+                targetIndex = destIndex;
+            }else{
+                targetIndex = destIndex + 1;
+            }
         }
-        destChildren->insert(destIndex+offset,dragItem);
-        offset = 1;
-        if(isDropTopArea){
-            offset = offset - 1;
+
+        destChildren->insert(targetIndex,dragItem);
+
+        foreach (auto item,*destChildren) {
+            qDebug()<<item->title();
         }
-        _rows.move(dragIndex,dropIndex>dragIndex? dropIndex-1+offset : dropIndex+offset);
+
     }
-    endMoveRows();
+
+    changePersistentIndex(index(qMin(dragIndex,dropIndex),0),index(qMax(dragIndex,dropIndex),0));
+
+    Q_EMIT layoutChanged(QList<QPersistentModelIndex>(),QAbstractItemModel::VerticalSortHint);
+
 }
 
 bool FluTreeModel::hitHasChildrenExpanded(int row){
-//    auto itemData = _rows.at(row);
-//    if(itemData->hasChildren() && itemData->_isExpanded){
-//        return true;
-//    }
+    //    auto itemData = _rows.at(row);
+    //    if(itemData->hasChildren() && itemData->_isExpanded){
+    //        return true;
+    //    }
     return false;
 }
 

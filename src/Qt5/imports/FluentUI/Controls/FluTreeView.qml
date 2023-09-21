@@ -54,6 +54,9 @@ Item {
                 }
             }
         }
+        move: Transition {
+            NumberAnimation { property: "y"; duration: 200 }
+        }
         add: Transition{
             ParallelAnimation{
                 NumberAnimation {
@@ -164,7 +167,7 @@ Item {
                         loader_container.width = item_container.width
                         loader_container.height = item_container.height
                         loader_container.x = 0
-                        loader_container.y = cellPosition.y + table_view.contentY
+                        loader_container.y = cellPosition.y
                     }
                 onClicked: {
                     d.current = itemModel

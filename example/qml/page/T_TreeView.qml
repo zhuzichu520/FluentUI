@@ -11,9 +11,9 @@ FluScrollablePage {
     title:"TreeView"
 
     function treeData(){
-        const dig = (path = '0', level = 3) => {
+        const dig = (path = '0', level = 4) => {
             const list = [];
-            for (let i = 0; i < 8; i += 1) {
+            for (let i = 0; i < 9; i += 1) {
                 const key = `${path}-${i}`;
                 const treeNode = {
                     title: key,

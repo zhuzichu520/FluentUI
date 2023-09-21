@@ -13,6 +13,7 @@
 #include <QCryptographicHash>
 #include <QTextDocument>
 #include <QQuickWindow>
+#include <QDateTime>
 
 FluTools::FluTools(QObject *parent):QObject{parent}{
 
@@ -169,4 +170,8 @@ bool FluTools::isSoftware(){
 
 QPoint FluTools::cursorPos(){
     return QCursor::pos();
+}
+
+qint64 FluTools::currentTimestamp(){
+    return QDateTime::currentMSecsSinceEpoch();
 }
