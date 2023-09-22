@@ -22,6 +22,7 @@ Button {
     property alias textColor: btn_text.textColor
     property bool textRight: true
     property real textSpacing: 6
+    property bool enableAnimation: FluTheme.enableAnimation
     property var clickListener : function(){
         checked = !checked
     }
@@ -39,8 +40,9 @@ Button {
             visible: control.activeFocus
         }
     }
-    horizontalPadding:2
-    verticalPadding: 2
+    horizontalPadding:0
+    verticalPadding: 0
+    padding: 0
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: contentDescription
@@ -91,7 +93,7 @@ Button {
                 return normalColor
             }
             Behavior on color {
-                enabled: FluTheme.enableAnimation
+                enabled: control.enableAnimation
                 ColorAnimation{
                     duration: 83
                 }
@@ -103,7 +105,7 @@ Button {
                 visible: checked
                 iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                 Behavior on visible {
-                    enabled: FluTheme.enableAnimation
+                    enabled: control.enableAnimation
                     NumberAnimation{
                         duration: 83
                     }

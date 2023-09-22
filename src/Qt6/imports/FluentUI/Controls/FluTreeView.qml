@@ -12,6 +12,7 @@ Item {
     property bool draggable: false
     property int cellHeight: 30
     property int depthPadding: 30
+    property bool checkable: false
     property color lineColor: FluTheme.dark ? Qt.rgba(111/255,111/255,111/255,1) : Qt.rgba(217/255,217/255,217/255,1)
     id:control
     QtObject {
@@ -50,7 +51,7 @@ Item {
                 }
                 NumberAnimation {
                     properties: "opacity"
-                    duration: 300
+                    duration: 88
                     from: 0
                     to: 1
                 }
@@ -69,7 +70,7 @@ Item {
                 }
                 NumberAnimation {
                     properties: "opacity"
-                    duration: 300
+                    duration: 88
                     from: 0
                     to: 1
                 }
@@ -197,6 +198,11 @@ Item {
                         var viewPos = table_view.mapToGlobal(0,0)
                         var y = table_view.contentY + pos.y-viewPos.y
                         var index = Math.floor(y/control.cellHeight)
+                        if(index<0 || index>table_view.count-1){
+                            d.dropIndex = -1
+                            return
+                        }
+                        console.debug(index)
                         if(tree_model.hitHasChildrenExpanded(index) && y>index*control.cellHeight+control.cellHeight/2){
                             d.dropIndex = index + 1
                             d.isDropTopArea = true
@@ -321,7 +327,10 @@ Item {
                         if(isCurrent){
                             return Qt.rgba(1,1,1,0.06)
                         }
-                        if(item_mouse.containsMouse){
+                        if(item_mouse.containsMouse || item_check_box.hovered){
+                            return Qt.rgba(1,1,1,0.03)
+                        }
+                        if(item_loader_expand.item && item_loader_expand.item.hovered){
                             return Qt.rgba(1,1,1,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
@@ -329,7 +338,10 @@ Item {
                         if(isCurrent){
                             return Qt.rgba(0,0,0,0.06)
                         }
-                        if(item_mouse.containsMouse){
+                        if(item_mouse.containsMouse || item_check_box.hovered){
+                            return Qt.rgba(0,0,0,0.03)
+                        }
+                        if(item_loader_expand.item && item_loader_expand.item.hovered){
                             return Qt.rgba(0,0,0,0.03)
                         }
                         return Qt.rgba(0,0,0,0)
@@ -341,6 +353,7 @@ Item {
                 height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
+                spacing: 0
                 anchors.leftMargin: 14 + control.depthPadding*itemModel.depth
                 Component{
                     id:com_icon_btn
@@ -357,16 +370,36 @@ Item {
                         }
                     }
                 }
+
                 Loader{
+                    id:item_loader_expand
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 20
                     sourceComponent: itemModel.hasChildren() ? com_icon_btn : undefined
+                    Layout.alignment: Qt.AlignVCenter
+                }
+
+                FluCheckBox{
+                    id:item_check_box
+                    Layout.preferredWidth: 18
+                    Layout.preferredHeight: 18
+                    Layout.leftMargin: 5
+                    horizontalPadding:0
+                    verticalPadding: 0
+                    checked: itemModel.checked
+                    enableAnimation:false
+                    visible: control.checkable
+                    padding: 0
+                    clickListener: function(){
+                        tree_model.checkRow(rowIndex,!itemModel.checked)
+                    }
                     Layout.alignment: Qt.AlignVCenter
                 }
                 Loader{
                     property var modelData: itemModel
                     property var itemMouse: item_mouse
                     id:item_loader_cell
+                    Layout.leftMargin: 10
                     Layout.preferredWidth: {
                         if(item){
                             return item.width
@@ -396,6 +429,9 @@ Item {
                 }
             }
         }
+    }
+    function selectionModel(){
+        return tree_model.selectionModel
     }
     function count(){
         return tree_model.dataSourceSize

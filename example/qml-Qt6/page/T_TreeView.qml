@@ -12,7 +12,7 @@ FluContentPage {
     function treeData(){
         const dig = (path = '0', level = 4) => {
             const list = [];
-            for (let i = 0; i < 9; i += 1) {
+            for (let i = 0; i < 6; i += 1) {
                 const key = `${path}-${i}`;
                 const treeNode = {
                     title: key,
@@ -45,6 +45,10 @@ FluContentPage {
             text:"共计%1条数据，当前显示的%2条数据".arg(tree_view.count()).arg(tree_view.visibleCount())
         }
 
+        FluText{
+            text:"共计选中%1条数据".arg(tree_view.selectionModel().length)
+        }
+
         RowLayout{
             spacing: 10
             FluText{
@@ -74,12 +78,17 @@ FluContentPage {
         FluToggleSwitch{
             id:switch_showline
             text:"showLine"
-            checked: true
+            checked: false
         }
         FluToggleSwitch{
             id:switch_draggable
             text:"draggable"
-            checked: true
+            checked: false
+        }
+        FluToggleSwitch{
+            id:switch_checkable
+            text:"checkable"
+            checked: false
         }
         FluButton{
             text:"all expand"
@@ -111,6 +120,7 @@ FluContentPage {
             cellHeight: slider_cell_height.value
             draggable:switch_draggable.checked
             showLine: switch_showline.checked
+            checkable:switch_checkable.checked
             depthPadding: slider_depth_padding.value
             Component.onCompleted: {
                 var data = treeData()

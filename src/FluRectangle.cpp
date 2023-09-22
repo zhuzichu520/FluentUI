@@ -1,8 +1,5 @@
 #include "FluRectangle.h"
-
 #include <QPainterPath>
-#include <QSGClipNode>
-#include <QQuickWindow>
 
 FluRectangle::FluRectangle(QQuickItem* parent) : QQuickPaintedItem(parent){
     setFlag(ItemHasContents, true);
@@ -24,7 +21,7 @@ void FluRectangle::paint(QPainter* painter){
     path.arcTo(QRectF(QPointF(rect.topLeft()), QSize(_radius[0] * 2, _radius[0] * 2)), 90, 90);
     path.lineTo(rect.bottomLeft() - QPointF(0, _radius[3]));
     path.arcTo(QRectF(QPointF(rect.bottomLeft() - QPointF(0, _radius[3] * 2)), QSize(_radius[3] * 2, _radius[3] * 2)), 180, 90);
-    path.lineTo(rect.bottomLeft() + QPointF(_radius[2], 0));
+    path.lineTo(rect.bottomRight() - QPointF(_radius[2], 0));
     path.arcTo(QRectF(QPointF(rect.bottomRight() - QPointF(_radius[2] * 2, _radius[2] * 2)), QSize(_radius[2] * 2, _radius[2] * 2)), 270, 90);
     painter->fillPath(path,_color);
     painter->restore();

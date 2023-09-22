@@ -13,6 +13,7 @@ class Node : public QObject{
     Q_PROPERTY(QString title READ title CONSTANT)
     Q_PROPERTY(int depth READ depth CONSTANT)
     Q_PROPERTY(bool isExpanded READ isExpanded CONSTANT)
+    Q_PROPERTY(bool checked READ checked CONSTANT)
 public:
     explicit Node(QObject *parent = nullptr);
     Q_INVOKABLE QString key(){return _key;};
@@ -30,6 +31,18 @@ public:
         }
         return true;
     }
+    Q_INVOKABLE bool checked(){
+        if(!hasChildren()){
+            return _checked;
+        }
+        foreach (auto item, _children) {
+            if(!item->checked()){
+
+                return false;
+            }
+        }
+        return true;
+    };
     Q_INVOKABLE bool hideLineFooter(){
         if(_parent){
             auto childIndex =  _parent->_children.indexOf(this);
@@ -57,6 +70,7 @@ public:
     QString _key="";
     QString _title="";
     int _depth=0;
+    bool _checked = false;
     bool _isExpanded=true;
     QList<Node*> _children;
     Node* _parent = nullptr;
@@ -66,6 +80,7 @@ class FluTreeModel : public QAbstractItemModel
 {
     Q_OBJECT
     Q_PROPERTY_AUTO(int,dataSourceSize)
+    Q_PROPERTY_AUTO(QList<Node*>,selectionModel)
     QML_NAMED_ELEMENT(FluTreeModel)
     QML_ADDED_IN_MINOR_VERSION(1)
 public:
@@ -87,6 +102,7 @@ public:
     Q_INVOKABLE void dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea);
     Q_INVOKABLE Node* getNode(int row);
     Q_INVOKABLE void refreshNode(int row);
+    Q_INVOKABLE void checkRow(int row,bool chekced);
     Q_INVOKABLE bool hitHasChildrenExpanded(int row);
     Q_INVOKABLE void allExpand();
     Q_INVOKABLE void allCollapse();

@@ -302,7 +302,7 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
-            title:"TreeView(Todo)"
+            title:"TreeView"
             url:"qrc:/example/qml/page/T_TreeView.qml"
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{ navigationView.push(url) }

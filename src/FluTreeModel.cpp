@@ -76,6 +76,43 @@ QObject* FluTreeModel::getRow(int row){
     return _rows.at(row);
 }
 
+void FluTreeModel::checkRow(int row,bool chekced){
+    auto itemData = _rows.at(row);
+    if(itemData->hasChildren()){
+        QList<Node*> stack = itemData->_children;
+        std::reverse(stack.begin(), stack.end());
+        while (stack.count() > 0) {
+            auto item = stack.at(stack.count()-1);
+            stack.pop_back();
+            if(!item->hasChildren()){
+                item->_checked = chekced;
+            }
+            QList<Node*> children = item->_children;
+            if(!children.isEmpty()){
+                std::reverse(children.begin(), children.end());
+                foreach (auto c, children) {
+                    stack.append(c);
+                }
+            }
+        }
+    }else{
+        if(itemData->_checked == chekced){
+            return;
+        }
+        itemData->_checked = chekced;
+    }
+    Q_EMIT layoutChanged(QList<QPersistentModelIndex>(),QAbstractItemModel::VerticalSortHint);
+    QList<Node*> data;
+    foreach (auto item, _dataSource) {
+        if(!item->hasChildren()){
+            if(item->_checked){
+                data.append(item);
+            }
+        }
+    }
+    selectionModel(data);
+}
+
 void FluTreeModel::setDataSource(QList<QMap<QString,QVariant>> data){
     _dataSource.clear();
     if(_root){
@@ -84,7 +121,6 @@ void FluTreeModel::setDataSource(QList<QMap<QString,QVariant>> data){
     }
     _root = new Node(this);
     std::reverse(data.begin(), data.end());
-    auto startTime = QDateTime::currentMSecsSinceEpoch();
     while (data.count() > 0) {
         auto item = data.at(data.count()-1);
         data.pop_back();
@@ -114,7 +150,6 @@ void FluTreeModel::setDataSource(QList<QMap<QString,QVariant>> data){
             }
         }
     }
-    auto endTime = QDateTime::currentMSecsSinceEpoch();
     beginResetModel();
     _rows = _dataSource;
     endResetModel();
@@ -204,6 +239,7 @@ void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
     }
     _rows.move(dragIndex,targetIndex);
     endMoveRows();
+
     Q_EMIT layoutAboutToBeChanged();
     if(dragItem->_parent == dropItem->_parent){
         QList<Node*>* children = &(dragItem->_parent->_children);
