@@ -46,7 +46,6 @@ FluScrollablePage{
             }
             FluComboBox {
                 editable: true
-                font:FluTextStyle.BodyStrong
                 model: ListModel {
                     id: model_2
                     ListElement { text: "Banana" }

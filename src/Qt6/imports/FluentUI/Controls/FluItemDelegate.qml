@@ -5,28 +5,28 @@ import FluentUI
 
 T.ItemDelegate {
     id: control
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
-
-    padding: 12
-    spacing: 8
-
-    icon.width: 24
-    icon.height: 24
+    padding: 0
+    verticalPadding: 8
+    horizontalPadding: 10
     icon.color: control.palette.text
-
-    contentItem: FluText {
+    contentItem:FluText {
         text: control.text
         font: control.font
+        color:{
+            if(control.down){
+                return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
+            }
+            return FluTheme.dark ? FluColors.White : FluColors.Grey220
+        }
     }
-
     background: Rectangle {
         implicitWidth: 100
-        implicitHeight: 40
+        implicitHeight: 30
         color:{
             if(FluTheme.dark){
                 return Qt.rgba(1,1,1,0.05)

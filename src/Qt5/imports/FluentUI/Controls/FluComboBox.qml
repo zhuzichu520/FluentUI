@@ -4,7 +4,7 @@ import QtQuick.Window 2.15
 import FluentUI 1.0
 import QtQuick.Templates 2.15 as T
 
-ComboBox {
+T.ComboBox {
     id: control
     signal commit(string text)
     property bool disabled: false
@@ -72,6 +72,7 @@ ComboBox {
         Keys.onReturnPressed:(event)=> handleCommit(event)
         function handleCommit(event){
             control.commit(control.editText)
+            accepted()
         }
     }
 
