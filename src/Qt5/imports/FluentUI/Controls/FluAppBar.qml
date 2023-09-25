@@ -164,21 +164,16 @@ Rectangle{
             onClicked: closeClickListener()
         }
     }
-
     function minimizeButton(){
         return btn_minimize
     }
-
     function maximizeButton(){
         return btn_maximize
     }
-
     function closeButton(){
         return btn_close
     }
-
     function darkButton(){
         return btn_dark
     }
-
 }

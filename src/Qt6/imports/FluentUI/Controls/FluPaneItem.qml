@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import FluentUI
 
+
 QtObject {
     readonly property string key : FluTools.uuid()
     property int _idx
@@ -10,6 +11,7 @@ QtObject {
     property int order : 0
     property int icon
     property var url
+    property bool disabled: false
     property Component cusIcon
     property Component infoBadge
     property bool recentlyAdded: false

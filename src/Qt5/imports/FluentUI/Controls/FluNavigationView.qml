@@ -30,6 +30,7 @@ Item {
         property bool isCompactAndPanel: d.displayMode === FluNavigationViewType.Compact && d.enableNavigationPanel
         property bool isCompactAndNotPanel:d.displayMode === FluNavigationViewType.Compact && !d.enableNavigationPanel
         property bool isMinimalAndPanel: d.displayMode === FluNavigationViewType.Minimal && d.enableNavigationPanel
+        property color itemDisableColor: FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
         onIsCompactAndNotPanelChanged: {
             collapseAll()
         }
@@ -163,6 +164,7 @@ Item {
             width: layout_list.width
             FluControl{
                 id:item_control
+                enabled: !model.disabled
                 anchors{
                     top: parent.top
                     bottom: parent.bottom
@@ -272,8 +274,17 @@ Item {
                                 easing.type: Easing.OutCubic
                             }
                         }
+                        color: {
+                            if(!item_control.enabled){
+                                return d.itemDisableColor
+                            }
+                            return FluTheme.dark ? "#FFFFFF" : "#000000"
+                        }
                     }
                     color: {
+                        if(!item_control.enabled){
+                            return Qt.rgba(0,0,0,0)
+                        }
                         if(FluTheme.dark){
                             if((nav_list.currentIndex === _idx)&&type===0){
                                 return Qt.rgba(1,1,1,0.06)
@@ -302,6 +313,12 @@ Item {
                                 return 0
                             }
                             iconSize: 15
+                            color: {
+                                if(!item_control.enabled){
+                                    return d.itemDisableColor
+                                }
+                                return FluTheme.dark ? "#FFFFFF" : "#000000"
+                            }
                         }
                     }
                     Item{
@@ -344,6 +361,9 @@ Item {
                             right: item_icon_expand.left
                         }
                         color:{
+                            if(!item_control.enabled){
+                                return d.itemDisableColor
+                            }
                             if(item_control.pressed){
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
                             }
@@ -414,6 +434,7 @@ Item {
             FluControl{
                 property var modelData: model
                 id:item_control
+                enabled: !model.disabled
                 anchors{
                     top: parent.top
                     bottom: parent.bottom
@@ -485,6 +506,9 @@ Item {
                     radius: 4
                     anchors.fill: parent
                     color: {
+                        if(!item_control.enabled){
+                            return Qt.rgba(0,0,0,0)
+                        }
                         if(FluTheme.dark){
                             if(type===0){
                                 if(nav_list.currentIndex === _idx){
@@ -524,6 +548,12 @@ Item {
                                 }
                                 return 0
                             }
+                            color: {
+                                if(!item_control.enabled){
+                                    return d.itemDisableColor
+                                }
+                                return FluTheme.dark ? "#FFFFFF" : "#000000"
+                            }
                             iconSize: 15
                         }
                     }
@@ -562,6 +592,9 @@ Item {
                         }
                         elide: Text.ElideRight
                         color:{
+                            if(!item_control.enabled){
+                                return d.itemDisableColor
+                            }
                             if(item_mouse.pressed){
                                 return FluTheme.dark ? FluColors.Grey80 : FluColors.Grey120
                             }

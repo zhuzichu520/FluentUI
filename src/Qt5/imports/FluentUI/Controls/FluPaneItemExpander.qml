@@ -7,6 +7,7 @@ FluObject {
     property int _idx
     property string title
     property var icon
+    property bool disabled: false
     property Component cusIcon
     property bool isExpand: false
     property var parent

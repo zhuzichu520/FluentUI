@@ -10,6 +10,7 @@ QtObject {
     property int order : 0
     property int icon
     property var url
+    property bool disabled: false
     property Component cusIcon
     property Component infoBadge
     property bool recentlyAdded: false

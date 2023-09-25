@@ -129,6 +129,11 @@ FluObject{
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{ navigationView.push(url) }
         }
+        FluPaneItem{
+            title:"PaneItem Disabled"
+            disabled: true
+            icon: FluentIcons.Error
+        }
     }
 
     FluPaneItemExpander{
@@ -368,6 +373,12 @@ FluObject{
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{ navigationView.push(url) }
         }
+    }
+
+    FluPaneItemExpander{
+        title:"PaneItemExpander Disabled"
+        icon: FluentIcons.Send
+        disabled: true
     }
 
     FluPaneItemSeparator{

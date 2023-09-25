@@ -36,7 +36,7 @@ FluScrollablePage{
                 left: parent.left
             }
             FluCalendarPicker{
-                current:Date.fromLocaleString("2013年7月11日 21:17:42")
+                current:new Date()
                 onAccepted:{
                     showSuccess(current.toLocaleString())
                 }

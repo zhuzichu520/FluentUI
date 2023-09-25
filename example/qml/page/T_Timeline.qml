@@ -85,7 +85,7 @@ FluScrollablePage{
             text:"找到一份Android外包开发岗位，开发了一个Android应用，满满成就感！前端、服务端、Flutter也都懂一丢丢，什么都会什么都不精通，钱途无望"
         }
         ListElement{
-            lable:"2020-06-01"
+            lable:"2021-06-01"
             text:"由于某个项目紧急，临时加入Qt项目组（就因为大学学了点C++），本来是想进去打个酱油，到后面竟然成开发主力，坑啊"
         }
         ListElement{
