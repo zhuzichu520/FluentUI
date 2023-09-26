@@ -13,6 +13,13 @@ ProgressBar{
         id:d
         property real _radius: strokeWidth/2
     }
+    onIndeterminateChanged:{
+        if(!indeterminate){
+            animator_x.duration = 0
+            rect_progress.x = 0
+            animator_x.duration = 888
+        }
+    }
     background: Rectangle {
         implicitWidth: 150
         implicitHeight: control.strokeWidth
@@ -34,6 +41,7 @@ ProgressBar{
             radius: d._radius
             color: control.color
             PropertyAnimation on x {
+                id:animator_x
                 running: control.indeterminate && control.visible
                 from: -rect_progress.width
                 to:control.width+rect_progress.width
@@ -57,4 +65,3 @@ ProgressBar{
         }
     }
 }
-
