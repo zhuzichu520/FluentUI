@@ -2,7 +2,6 @@
 #include <QPainterPath>
 
 FluRectangle::FluRectangle(QQuickItem* parent) : QQuickPaintedItem(parent){
-    setFlag(ItemHasContents, true);
     color(QColor(255,255,255,255));
     radius({0,0,0,0});
     connect(this,&FluRectangle::colorChanged,this,[=]{update();});

@@ -204,8 +204,6 @@ CustomWindow {
                     }
                 }
                 autoSuggestBox:FluAutoSuggestBox{
-                    width: 280
-                    anchors.centerIn: parent
                     iconSource: FluentIcons.Search
                     items: ItemsOriginal.getSearchData()
                     placeholderText: lang.search

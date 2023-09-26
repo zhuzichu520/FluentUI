@@ -13,10 +13,11 @@ Item {
     property Component autoSuggestBox
     property Component actionItem
     property int topPadding: 0
-    property int navWidth: 300
     property int pageMode: FluNavigationViewType.Stack
     property FluMenu navItemRightMenu
     property FluMenu navItemExpanderRightMenu
+    property int cellHeight: 38
+    property int cellWidth: 300
     signal logoClicked
     id:control
     Item{
@@ -135,9 +136,9 @@ Item {
         Item{
             height: {
                 if(model.parent){
-                    return model.parent.isExpand ? 30 : 0
+                    return model.parent.isExpand ? control.cellHeight : 0
                 }
-                return 30
+                return  control.cellHeight
             }
             Behavior on height {
                 enabled: FluTheme.enableAnimation && d.animDisabled
@@ -160,7 +161,7 @@ Item {
     Component{
         id:com_panel_item_expander
         Item{
-            height: 38
+            height: control.cellHeight
             width: layout_list.width
             FluControl{
                 id:item_control
@@ -415,20 +416,20 @@ Item {
             Behavior on height {
                 enabled: FluTheme.enableAnimation && d.animDisabled
                 NumberAnimation{
-                    duration: 83
+                    duration: 167
+                    easing.type: Easing.OutCubic
                 }
             }
             height: {
                 if(model&&model.parent){
-                    return model.parent.isExpand ? 38 : 0
+                    return model.parent.isExpand ? control.cellHeight : 0
                 }
-                return 38
+                return control.cellHeight
             }
-            visible: {
-                if(model&&model.parent){
-                    return model.parent.isExpand ? true : false
-                }
-                return true
+            visible: control.cellHeight === Number(height)
+            opacity: visible
+            Behavior on opacity {
+                NumberAnimation { duration: 83 }
             }
             width: layout_list.width
             FluControl{
@@ -853,7 +854,7 @@ Item {
                 if(d.isCompact){
                     return 50
                 }
-                return control.navWidth
+                return control.cellWidth
             }
         }
         Behavior on anchors.leftMargin {
@@ -881,7 +882,7 @@ Item {
             if(d.isCompactAndNotPanel){
                 return 50
             }
-            return control.navWidth
+            return control.cellWidth
         }
         anchors{
             top: parent.top
@@ -927,8 +928,14 @@ Item {
             height: autoSuggestBox ? 38 : 0
             Loader{
                 id:loader_auto_suggest_box
-                anchors.centerIn: parent
                 sourceComponent: autoSuggestBox
+                anchors{
+                    left: parent.left
+                    right: parent.right
+                    leftMargin: 6
+                    rightMargin: 6
+                    verticalCenter: parent.verticalCenter
+                }
                 visible: {
                     if(d.isCompactAndNotPanel){
                         return false

@@ -79,7 +79,12 @@ Button {
             FluIcon {
                 width:  parent.height
                 x:checked ? control_backgound.width-width : 0
-                scale: hovered&enabled ? 7/10 : 6/10
+                scale: {
+                    if(pressed){
+                        return 5/10
+                    }
+                    return hovered&enabled ? 7/10 : 6/10
+                }
                 iconSource: FluentIcons.FullCircleMask
                 iconSize: 20
                 color: {
@@ -91,9 +96,15 @@ Button {
                     }
                     return dotNormalColor
                 }
+                Behavior on scale{
+                    ScaleAnimator{
+                        duration: 167
+                        easing.type: Easing.OutCubic
+                    }
+                }
                 Behavior on x  {
                     enabled: FluTheme.enableAnimation
-                    NumberAnimation {
+                    XAnimator {
                         duration: 167
                         easing.type: Easing.OutCubic
                     }
