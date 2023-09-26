@@ -19,6 +19,13 @@ ProgressBar{
         border.color: control.backgroundColor
         border.width: control.strokeWidth
     }
+    onIndeterminateChanged:{
+        if(!indeterminate){
+            animator_r.duration = 0
+            layout_item.rotation = 0
+            animator_r.duration = 888
+        }
+    }
     QtObject{
         id:d
         property real _radius: control.width/2-control.strokeWidth/2
@@ -34,7 +41,9 @@ ProgressBar{
         }
     }
     contentItem: Item {
+        id:layout_item
         RotationAnimation on rotation {
+            id:animator_r
             running: control.indeterminate && control.visible
             from: 0
             to:360
