@@ -125,6 +125,9 @@ FluObject {
                     return "#FFFFFF"
                 }
             }
+            FluShadow{
+                radius: 4
+            }
             radius: 4
             border.width: 1
             border.color: {

@@ -112,6 +112,9 @@ Popup{
         x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),d.window?.width-width)
         y: d.pos.y+d.target.height+control.targetMargins + 15
         border.width: 0
+        FluShadow{
+            radius: 5
+        }
         FluText{
             text: d.step.title
             font: FluTextStyle.BodyStrong

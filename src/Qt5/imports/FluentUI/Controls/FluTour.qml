@@ -60,7 +60,7 @@ Popup{
                 return d.window.height
             return 0
         }
-        property var pos: Qt.point(0,0)
+        property point pos: Qt.point(0,0)
         property var step : steps[index]
         property var target : step.target()
     }
@@ -123,6 +123,9 @@ Popup{
         x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),d.windowWidth-width)
         y: d.pos.y+d.target.height+control.targetMargins + 15
         border.width: 0
+        FluShadow{
+            radius: 5
+        }
         FluText{
             text: d.step.title
             font: FluTextStyle.BodyStrong
