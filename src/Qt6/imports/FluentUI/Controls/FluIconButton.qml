@@ -69,7 +69,6 @@ Button {
             iconSource: control.iconSource
         }
     }
-
     Component{
         id:com_row
         RowLayout{
@@ -83,23 +82,8 @@ Button {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
             }
-            FluTooltip{
-                id:tool_tip
-                visible: {
-                    if(control.text === ""){
-                        return false
-                    }
-                    if(control.display !== Button.IconOnly){
-                        return false
-                    }
-                    return hovered
-                }
-                text:control.text
-                delay: 1000
-            }
         }
     }
-
     Component{
         id:com_column
         ColumnLayout{
@@ -113,23 +97,8 @@ Button {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
             }
-            FluTooltip{
-                id:tool_tip
-                visible: {
-                    if(control.text === ""){
-                        return false
-                    }
-                    if(control.display !== Button.IconOnly){
-                        return false
-                    }
-                    return hovered
-                }
-                text:control.text
-                delay: 1000
-            }
         }
     }
-
     contentItem:Loader{
         sourceComponent: {
             if(display === Button.TextUnderIcon){
@@ -137,5 +106,19 @@ Button {
             }
             return com_row
         }
+    }
+    FluTooltip{
+        id:tool_tip
+        visible: {
+            if(control.text === ""){
+                return false
+            }
+            if(control.display !== Button.IconOnly){
+                return false
+            }
+            return hovered
+        }
+        text:control.text
+        delay: 1000
     }
 }

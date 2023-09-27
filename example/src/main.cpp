@@ -9,6 +9,7 @@
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
 #include <QtQml/qqmlextensionplugin.h>
+#include <QLoggingCategory>
 #include "AppInfo.h"
 #include "src/component/CircularReveal.h"
 #include "src/component/FileWatcher.h"
@@ -47,6 +48,8 @@ int main(int argc, char *argv[])
 #endif
     }
     QGuiApplication app(argc, argv);
+//    QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
+//    qSetMessagePattern("%{category}: %{message}");
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
