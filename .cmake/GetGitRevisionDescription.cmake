@@ -34,7 +34,7 @@ function(get_git_head_revision _refspecvar _hashvar)
     endif()
     if(NOT "${GIT_DIR}" STREQUAL "")
         file(RELATIVE_PATH _relative_to_source_dir "${CMAKE_SOURCE_DIR}"
-             "${GIT_DIR}")
+            "${GIT_DIR}")
         if("${_relative_to_source_dir}" MATCHES "[.][.]" AND NOT ALLOW_LOOKING_ABOVE_CMAKE_SOURCE_DIR)
             set(GIT_DIR "")
         endif()
@@ -52,23 +52,23 @@ function(get_git_head_revision _refspecvar _hashvar)
     if(NOT IS_DIRECTORY ${GIT_DIR})
         execute_process(
             COMMAND "${GIT_EXECUTABLE}" rev-parse
-                    --show-superproject-working-tree
+            --show-superproject-working-tree
             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
             OUTPUT_VARIABLE out
             ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
         if(NOT "${out}" STREQUAL "")
             file(READ ${GIT_DIR} submodule)
             string(REGEX REPLACE "gitdir: (.*)$" "\\1" GIT_DIR_RELATIVE
-                                 ${submodule})
+                ${submodule})
             string(STRIP ${GIT_DIR_RELATIVE} GIT_DIR_RELATIVE)
             get_filename_component(SUBMODULE_DIR ${GIT_DIR} PATH)
             get_filename_component(GIT_DIR ${SUBMODULE_DIR}/${GIT_DIR_RELATIVE}
-                                   ABSOLUTE)
+                ABSOLUTE)
             set(HEAD_SOURCE_FILE "${GIT_DIR}/HEAD")
         else()
             file(READ ${GIT_DIR} worktree_ref)
             string(REGEX REPLACE "gitdir: (.*)$" "\\1" git_worktree_dir
-                                 ${worktree_ref})
+                ${worktree_ref})
             string(STRIP ${git_worktree_dir} git_worktree_dir)
             _git_find_closest_git_dir("${git_worktree_dir}" GIT_DIR)
             set(HEAD_SOURCE_FILE "${git_worktree_dir}/HEAD")
@@ -88,7 +88,7 @@ function(get_git_head_revision _refspecvar _hashvar)
     configure_file("${HEAD_SOURCE_FILE}" "${HEAD_FILE}" COPYONLY)
 
     configure_file("${_gitdescmoddir}/GetGitRevisionDescription.cmake.in"
-                   "${GIT_DATA}/grabRef.cmake" @ONLY)
+        "${GIT_DATA}/grabRef.cmake" @ONLY)
     include("${GIT_DATA}/grabRef.cmake")
 
     set(${_refspecvar}
@@ -299,12 +299,12 @@ git_describe(GIT_DESCRIBE)
 git_commit_counts(GIT_COMMIT_COUNT)
 _git_find_closest_git_dir("${CMAKE_CURRENT_SOURCE_DIR}" GIT_DIR)
 if(NOT IS_DIRECTORY ${GIT_DIR})
-  message(STATUS "Current .git not exist")
-  set(GIT_COMMIT_COUNT "1")
-  set(GIT_DESCRIBE "1.0.0")
-  set(GIT_TAG "1.0.0")
+    message(STATUS "Current .git not exist")
+    set(GIT_COMMIT_COUNT "1")
+    set(GIT_DESCRIBE "1.0.0")
+    set(GIT_TAG "1.0.0")
 else()
-  message(STATUS "Current .git exist")
+    message(STATUS "Current .git exist")
 endif()
 string(REPLACE "." "," GIT_TAG_WITH_COMMA ${GIT_TAG})
 string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+" GIT_SEMVER "${GIT_TAG}")
