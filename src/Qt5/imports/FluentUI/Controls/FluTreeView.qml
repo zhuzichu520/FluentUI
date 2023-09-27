@@ -202,7 +202,6 @@ Item {
                             d.dropIndex = -1
                             return
                         }
-                        console.debug(index)
                         if(tree_model.hitHasChildrenExpanded(index) && y>index*control.cellHeight+control.cellHeight/2){
                             d.dropIndex = index + 1
                             d.isDropTopArea = true

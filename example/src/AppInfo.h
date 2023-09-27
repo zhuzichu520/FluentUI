@@ -18,7 +18,6 @@ public:
     SINGLETONG(AppInfo)
     void init(QQmlApplicationEngine *engine);
     Q_INVOKABLE void changeLang(const QString& locale);
-    Q_INVOKABLE void restart();
 };
 
 #endif // APPINFO_H

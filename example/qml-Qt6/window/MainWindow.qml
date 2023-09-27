@@ -25,7 +25,7 @@ CustomWindow {
         id:viewmodel_settings
     }
 
-    closeFunc:function(event){
+    closeListener:function(event){
         dialog_close.open()
         event.accepted = false
     }
@@ -58,8 +58,7 @@ CustomWindow {
             MenuItem {
                 text: "退出"
                 onTriggered: {
-                    window.deleteWindow()
-                    FluApp.closeApp()
+                    FluApp.exit()
                 }
             }
         }
@@ -86,8 +85,7 @@ CustomWindow {
         positiveText:"退出"
         neutralText:"取消"
         onPositiveClicked:{
-            window.deleteWindow()
-            FluApp.closeApp()
+            FluApp.exit()
         }
     }
 

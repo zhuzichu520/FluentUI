@@ -12,16 +12,15 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 460
+        height: 80
         paddings: 10
 
         Column{
             spacing: 15
             anchors{
-                verticalCenter: parent.verticalCenter
                 left: parent.left
+                verticalCenter: parent.verticalCenter
             }
-
             RowLayout{
                 Layout.topMargin: 20
                 FluRectangle{
@@ -61,70 +60,6 @@ FluScrollablePage{
                     radius:[0,0,0,15]
                 }
             }
-            FluText{
-                text:"配合图片使用"
-                font: FluTextStyle.Subtitle
-                Layout.topMargin: 20
-            }
-            RowLayout{
-                spacing: 14
-                FluClip{
-                    width: 50
-                    height: 50
-                    radius:[25,0,25,25]
-                    Image {
-                        asynchronous: true
-                        anchors.fill: parent
-                        source: "qrc:/example/res/svg/avatar_1.svg"
-                        sourceSize: Qt.size(width,height)
-                    }
-                }
-                FluClip{
-                    width: 50
-                    height: 50
-                    radius:[10,10,10,10]
-                    Image {
-                        asynchronous: true
-                        anchors.fill: parent
-                        sourceSize: Qt.size(width,height)
-                        source: "qrc:/example/res/svg/avatar_2.svg"
-                    }
-                }
-                FluClip{
-                    width: 50
-                    height: 50
-                    radius:[25,25,25,25]
-                    Image {
-                        asynchronous: true
-                        anchors.fill: parent
-                        sourceSize: Qt.size(width,height)
-                        source: "qrc:/example/res/svg/avatar_3.svg"
-                    }
-                }
-                FluClip{
-                    width: 50
-                    height: 50
-                    radius:[0,25,25,25]
-                    Image {
-                        asynchronous: true
-                        anchors.fill: parent
-                        sourceSize: Qt.size(width,height)
-                        source: "qrc:/example/res/svg/avatar_4.svg"
-                    }
-                }
-            }
-            FluClip{
-                width: 1920/5
-                height: 1200/5
-                radius:[8,8,8,8]
-                Image {
-                    asynchronous: true
-                    source: "qrc:/example/res/image/banner_1.jpg"
-                    anchors.fill: parent
-                    sourceSize: Qt.size(2*width,2*height)
-                }
-                Layout.topMargin: 20
-            }
         }
     }
     CodeExpander{
@@ -134,14 +69,6 @@ FluScrollablePage{
     radius: [25,25,25,25]
     width: 50
     height: 50
-    Image{
-        asynchronous: true
-        anchors.fill: parent
-        source: "qrc:/example/res/svg/avatar_4.svg"
-        sourceSize: Qt.size(width,height)
-    }
 }'
     }
-
-
 }

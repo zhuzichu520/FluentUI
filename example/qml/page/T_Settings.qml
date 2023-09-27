@@ -87,8 +87,7 @@ FluScrollablePage{
         negativeText: "取消"
         positiveText:"确定"
         onPositiveClicked:{
-            window.deleteWindow()
-            AppInfo.restart()
+            FluApp.exit(931)
         }
     }
 

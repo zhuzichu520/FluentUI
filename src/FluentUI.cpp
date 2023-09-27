@@ -1,7 +1,7 @@
 #include "FluentUI.h"
 
 #include <QGuiApplication>
-#include "WindowHelper.h"
+#include "WindowLifecycle.h"
 #include "Def.h"
 #include "FluApp.h"
 #include "FluColors.h"
@@ -42,7 +42,7 @@ void FluentUI::registerTypes(const char *uri){
 #if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
     Q_INIT_RESOURCE(fluentui);
 #endif
-    qmlRegisterType<WindowHelper>(uri,major,minor,"WindowHelper");
+    qmlRegisterType<WindowLifecycle>(uri,major,minor,"WindowLifecycle");
     qmlRegisterType<QRCode>(uri,major,minor,"QRCode");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
     qmlRegisterType<FluWatermark>(uri,major,minor,"FluWatermark");

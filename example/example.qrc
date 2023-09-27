@@ -187,5 +187,6 @@
         <file>qml/page/T_StaggeredView.qml</file>
         <file>qml/viewmodel/SettingsViewModel.qml</file>
         <file>qml/viewmodel/TextBoxViewModel.qml</file>
+        <file>qml/page/T_Clip.qml</file>
     </qresource>
 </RCC>

@@ -33,13 +33,12 @@ public:
     Q_INVOKABLE void run();
     Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluRegister* fluRegister = nullptr);
     Q_INVOKABLE void init(QQuickWindow *window);
-    Q_INVOKABLE QJsonArray awesomelist(const QString& keyword = "");
-    Q_INVOKABLE void closeApp();
-    Q_INVOKABLE void deleteWindow(QQuickWindow* window);
-public:
-    QMap<quint64, QQuickWindow*> wnds;
+    Q_INVOKABLE void exit(int retCode = 0);
+    void addWindow(QQuickWindow* window);
+    void removeWindow(QQuickWindow* window);
 private:
-    QWindow *appWindow;
+    QMap<quint64, QQuickWindow*> _windows;
+    QWindow* _application;
 };
 
 #endif // FLUAPP_H

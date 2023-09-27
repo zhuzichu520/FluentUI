@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QtQml/qqml.h>
+#include <QJsonArray>
+#include <QJsonObject>
 #include "FluColorSet.h"
 #include "stdafx.h"
 #include "singleton.h"
@@ -26,9 +28,10 @@ private:
     bool systemDark();
 public:
     SINGLETONG(FluTheme)
+    Q_INVOKABLE QJsonArray awesomeList(const QString& keyword = "");
+    Q_SIGNAL void darkChanged();
     static FluTheme *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     bool dark();
-    Q_SIGNAL void darkChanged();
 private:
     bool _dark;
     bool _systemDark;

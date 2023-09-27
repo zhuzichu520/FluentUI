@@ -208,6 +208,12 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
+            title:"Clip"
+            url:"qrc:/example/qml/page/T_Clip.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
             title:"StatusView"
             url:"qrc:/example/qml/page/T_StatusView.qml"
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }

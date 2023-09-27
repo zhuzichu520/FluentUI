@@ -25,7 +25,7 @@ FluContentPage {
             leftMargin: 14
         }
         onClicked: {
-            grid_view.model = FluApp.awesomelist(text_box.text)
+            grid_view.model = FluTheme.awesomeList(text_box.text)
         }
     }
     GridView{
@@ -34,7 +34,7 @@ FluContentPage {
         cellHeight: 80
         clip: true
         boundsBehavior: GridView.StopAtBounds
-        model:FluApp.awesomelist()
+        model:FluTheme.awesomeList()
         ScrollBar.vertical: FluScrollBar {}
         anchors{
             topMargin: 10

@@ -110,11 +110,16 @@ void FluHttp::post(HttpRequest* r,HttpCallable* c){
                 part.setBody(value.toUtf8());
                 multiPart.append(part);
             }
-            QEventLoop loop;
             QNetworkReply* reply = manager.post(req,&multiPart);
+            if(!QPointer(qApp)){
+                reply->deleteLater();
+                reply = nullptr;
+                return;
+            }
             _cacheReply.append(reply);
+            QEventLoop loop;
             connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
-            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
+            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
             loop.exec();
             QString result = QString::fromUtf8(reply->readAll());
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
@@ -169,11 +174,16 @@ void FluHttp::postString(HttpRequest* r,HttpCallable* c){
             addHeaders(&req,data["headers"].toMap());
             QString contentType = QString("text/plain;charset=utf-8");
             req.setHeader(QNetworkRequest::ContentTypeHeader, contentType);
-            QEventLoop loop;
             QNetworkReply* reply = manager.post(req,params.toUtf8());
+            if(!QPointer(qApp)){
+                reply->deleteLater();
+                reply = nullptr;
+                return;
+            }
             _cacheReply.append(reply);
+            QEventLoop loop;
             connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
-            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
+            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
             loop.exec();
             QString result = QString::fromUtf8(reply->readAll());
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
@@ -227,11 +237,16 @@ void FluHttp::postJson(HttpRequest* r,HttpCallable* c){
             addHeaders(&req,data["headers"].toMap());
             QString contentType = QString("application/json;charset=utf-8");
             req.setHeader(QNetworkRequest::ContentTypeHeader, contentType);
-            QEventLoop loop;
             QNetworkReply* reply = manager.post(req,QJsonDocument::fromVariant(data["params"]).toJson());
+            if(!QPointer(qApp)){
+                reply->deleteLater();
+                reply = nullptr;
+                return;
+            }
             _cacheReply.append(reply);
+            QEventLoop loop;
             connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
-            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
+            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
             loop.exec();
             QString result = QString::fromUtf8(reply->readAll());
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
@@ -284,11 +299,16 @@ void FluHttp::get(HttpRequest* r,HttpCallable* c){
             addQueryParam(&url,data["params"].toMap());
             QNetworkRequest req(url);
             addHeaders(&req,data["headers"].toMap());
-            QEventLoop loop;
-            auto reply = QPointer(manager.get(req));
+            QNetworkReply* reply  = manager.get(req);
+            if(!QPointer(qApp)){
+                reply->deleteLater();
+                reply = nullptr;
+                return;
+            }
             _cacheReply.append(reply);
+            QEventLoop loop;
             connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
-            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
+            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
             loop.exec();
             int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QString errorString = reply->errorString();
@@ -337,9 +357,6 @@ void FluHttp::download(HttpRequest* r,HttpCallable* c){
         if (!dir.exists(dir.path())){
             dir.mkpath(dir.path());
         }
-        QEventLoop loop;
-        connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
-        connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
         qint64 seek = 0;
         auto filePath = getCacheFilePath(httpId);
         QSharedPointer<QFile> fileCache(new QFile(filePath));
@@ -364,7 +381,15 @@ void FluHttp::download(HttpRequest* r,HttpCallable* c){
             file->open(QIODevice::WriteOnly|QIODevice::Truncate);
         }
         QNetworkReply* reply =  manager.get(req);
+        if(!QPointer(qApp)){
+            reply->deleteLater();
+            reply = nullptr;
+            return;
+        }
         _cacheReply.append(reply);
+        QEventLoop loop;
+        connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
+        connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
         if (!fileCache->open(QIODevice::WriteOnly|QIODevice::Truncate))
         {
             qDebug()<<"FileCache Error";
@@ -411,7 +436,6 @@ void FluHttp::upload(HttpRequest* request,HttpCallable* callable){
         QNetworkRequest req(url);
         addHeaders(&req,data["headers"].toMap());
         QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
-        qDebug()<<data["params"].toMap();
         for (const auto& each : data["params"].toMap().toStdMap())
         {
             const QString& key = each.first;
@@ -426,11 +450,16 @@ void FluHttp::upload(HttpRequest* request,HttpCallable* callable){
             part.setBodyDevice(file);
             multiPart.append(part);
         }
-        QEventLoop loop;
         QNetworkReply* reply = manager.post(req,&multiPart);
+        if(!QPointer(qApp)){
+            reply->deleteLater();
+            reply = nullptr;
+            return;
+        }
         _cacheReply.append(reply);
+        QEventLoop loop;
         connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
-        connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
+        connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
         connect(reply,&QNetworkReply::uploadProgress,reply,[=](qint64 bytesSent, qint64 bytesTotal){
             onUploadProgress(callable,bytesSent,bytesTotal);
         });

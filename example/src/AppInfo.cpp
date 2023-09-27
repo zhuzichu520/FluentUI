@@ -35,7 +35,3 @@ void AppInfo::changeLang(const QString& locale){
         lang(new En());
     }
 }
-
-void AppInfo::restart(){
-    qApp->exit(931);
-}

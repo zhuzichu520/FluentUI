@@ -8,7 +8,6 @@
 #include <QUuid>
 #include <QFontDatabase>
 #include <QClipboard>
-#include "Def.h"
 
 FluApp::FluApp(QObject *parent):QObject{parent}{
     httpInterceptor(nullptr);
@@ -18,7 +17,7 @@ FluApp::~FluApp(){
 }
 
 void FluApp::init(QQuickWindow *window){
-    this->appWindow = window;
+    this->_application = window;
 }
 
 void FluApp::run(){
@@ -30,7 +29,7 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         qCritical()<<"No route found "<<route;
         return;
     }
-    QQmlEngine *engine = qmlEngine(appWindow);
+    QQmlEngine *engine = qmlEngine(_application);
     QQmlComponent component(engine, routes().value(route).toString());
     if (component.isError()) {
         qCritical() << component.errors();
@@ -42,65 +41,47 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         properties.insert("_pageRegister",QVariant::fromValue(fluRegister));
     }
     properties.insert("argument",argument);
-    QQuickWindow *view=nullptr;
-    for (auto& pair : wnds) {
-        QString r =  pair->property("_route").toString();
+    QQuickWindow *win=nullptr;
+    for (const auto& pair : _windows.toStdMap()) {
+        QString r =  pair.second->property("_route").toString();
         if(r == route){
-            view = pair;
+            win = pair.second;
             break;
         }
     }
-    if(view){
-        //如果窗口存在，则判断启动模式
-        int launchMode = view->property("launchMode").toInt();
+    if(win){
+        int launchMode = win->property("launchMode").toInt();
         if(launchMode == 1){
-            view->setProperty("argument",argument);
-            view->show();
-            view->raise();
-            view->requestActivate();
+            win->setProperty("argument",argument);
+            win->show();
+            win->raise();
+            win->requestActivate();
             return;
         }else if(launchMode == 2){
-            view->close();
+            win->close();
         }
     }
-    view = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
-    wnds.insert(view->winId(),view);
+    win = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
     if(fluRegister){
-        fluRegister->to(view);
+        fluRegister->to(win);
     }
-    view->setColor(QColor(Qt::transparent));
+    win->setColor(QColor(Qt::transparent));
 }
 
-QJsonArray FluApp::awesomelist(const QString& keyword){
-    QJsonArray arr;
-    QMetaEnum enumType = Fluent_Awesome::staticMetaObject.enumerator(Fluent_Awesome::staticMetaObject.indexOfEnumerator("Fluent_AwesomeType"));
-    for(int i=0; i < enumType.keyCount(); ++i){
-        QString name = enumType.key(i);
-        int icon = enumType.value(i);
-        if(keyword.isEmpty()){
-            QJsonObject obj;
-            obj.insert("name",name);
-            obj.insert("icon",icon);
-            arr.append(obj);
-        }else{
-            if(name.contains(keyword)){
-                QJsonObject obj;
-                obj.insert("name",name);
-                obj.insert("icon",icon);
-                arr.append(obj);
-            }
-        }
+void FluApp::exit(int retCode){
+    for (const auto& pair : _windows.toStdMap()) {
+        removeWindow(pair.second);
     }
-    return arr;
+    qApp->exit(retCode);
 }
 
-void FluApp::closeApp(){
-    qApp->exit(0);
+void FluApp::addWindow(QQuickWindow* window){
+    _windows.insert(window->winId(),window);
 }
 
-void FluApp::deleteWindow(QQuickWindow* window){
+void FluApp::removeWindow(QQuickWindow* window){
     if(window){
-        wnds.remove(window->winId());
+        _windows.remove(window->winId());
         window->deleteLater();
         window = nullptr;
     }

@@ -19,9 +19,9 @@ Window {
     }
     property var _pageRegister
     property string _route
-    property var closeFunc: function(event){
+    property var closeListener: function(event){
         if(closeDestory){
-            deleteWindow()
+            destoryOnClose()
         }else{
             visible = false
             event.accepted = false
@@ -31,12 +31,18 @@ Window {
     id:window
     color:"transparent"
     Component.onCompleted: {
-        helper.initWindow(window)
+        lifecycle.onCompleted(window)
         initArgument(argument)
+    }
+    Component.onDestruction: {
+        lifecycle.onDestruction()
+    }
+    onVisibleChanged: {
+        lifecycle.onVisible(visible)
     }
     Connections{
         target: window
-        function onClosing(event){closeFunc(event)}
+        function onClosing(event){closeListener(event)}
     }
     Component{
         id:com_background
@@ -126,8 +132,11 @@ Window {
             }
         }
     }
-    WindowHelper{
-        id:helper
+    WindowLifecycle{
+        id:lifecycle
+    }
+    function destoryOnClose(){
+        lifecycle.onDestoryOnClose()
     }
     function showLoading(text = "加载中...",cancel = true){
         loader_loading.loadingText = text
@@ -150,10 +159,7 @@ Window {
         infoBar.showError(text,duration,moremsg)
     }
     function registerForWindowResult(path){
-        return helper.createRegister(window,path)
-    }
-    function deleteWindow(){
-        FluApp.deleteWindow(window)
+        return lifecycle.createRegister(window,path)
     }
     function onResult(data){
         if(_pageRegister){

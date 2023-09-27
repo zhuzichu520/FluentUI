@@ -36,6 +36,22 @@ bool FluTheme::eventFilter(QObject *obj, QEvent *event){
     return false;
 }
 
+QJsonArray FluTheme::awesomeList(const QString& keyword){
+    QJsonArray arr;
+    QMetaEnum enumType = Fluent_Awesome::staticMetaObject.enumerator(Fluent_Awesome::staticMetaObject.indexOfEnumerator("Fluent_AwesomeType"));
+    for(int i=0; i < enumType.keyCount(); ++i){
+        QString name = enumType.key(i);
+        int icon = enumType.value(i);
+        if(keyword.isEmpty() || name.contains(keyword)){
+            QJsonObject obj;
+            obj.insert("name",name);
+            obj.insert("icon",icon);
+            arr.append(obj);
+        }
+    }
+    return arr;
+}
+
 bool FluTheme::systemDark(){
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
     return (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
