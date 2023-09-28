@@ -338,6 +338,22 @@ Rectangle {
             }
         }
     }
+
+    Component{
+        id:com_column_text
+        FluText {
+            id: column_text
+            text: modelData
+            anchors.fill: parent
+            font.bold:{
+                d.selectionFlag
+                return selection_model.columnIntersectsSelection(column)
+            }
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
     TableView {
         id: header_horizontal
         model: TableModel{
@@ -356,9 +372,10 @@ Rectangle {
             id:column_item_control
             readonly property real cellPadding: 8
             property bool canceled: false
+            property int columnIndex: column
             readonly property var obj : columnSource[column]
-            implicitWidth: column_text.implicitWidth + (cellPadding * 2)
-            implicitHeight: Math.max(36, column_text.implicitHeight + (cellPadding * 2))
+            implicitWidth: item_column_loader.item.implicitWidth + (cellPadding * 2)
+            implicitHeight: Math.max(36, item_column_loader.item.implicitHeight + (cellPadding * 2))
             color:{
                 d.selectionFlag
                 if(column_item_control_mouse.pressed){
@@ -370,18 +387,6 @@ Rectangle {
                 return column_item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             }
             border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
-            FluText {
-                id: column_text
-                text: model.display
-                width: parent.width
-                height: parent.height
-                font.bold:{
-                    d.selectionFlag
-                    return selection_model.columnIntersectsSelection(column)
-                }
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
             MouseArea{
                 id:column_item_control_mouse
                 anchors.fill: parent
@@ -406,6 +411,28 @@ Rectangle {
                         }
                         d.selectionFlag = !d.selectionFlag
                     }
+            }
+            Loader{
+                id:item_column_loader
+                property var itemModel: model
+                property var modelData: model.display
+                property var tableView: table_view
+                property var tableModel: table_model
+                property var options:{
+                    if(typeof(modelData) == "object"){
+                        return modelData.options
+                    }
+                    return {}
+                }
+                property int column: column_item_control.columnIndex
+                width: parent.width
+                height: parent.height
+                sourceComponent: {
+                    if(typeof(modelData) == "object"){
+                        return modelData.comId
+                    }
+                    return com_column_text
+                }
             }
             MouseArea{
                 property point clickPos: "0,0"
