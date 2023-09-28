@@ -257,7 +257,7 @@ Rectangle {
                     onReleased: {
                     }
                     onDoubleClicked:{
-                        if(display instanceof Component){
+                        if(typeof(display) == "object"){
                             return
                         }
                         item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)

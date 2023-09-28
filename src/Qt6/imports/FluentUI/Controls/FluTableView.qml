@@ -268,7 +268,7 @@ Rectangle {
                         table_view.interactive = true
                     }
                     onDoubleClicked:{
-                        if(display instanceof Component){
+                        if(typeof(display) == "object"){
                             return
                         }
                         item_loader.sourceComponent = d.obtEditDelegate(column,row)
