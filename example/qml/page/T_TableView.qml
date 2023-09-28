@@ -15,6 +15,23 @@ FluContentPage{
     }
 
     Component{
+        id:com_checbox
+
+        Item{
+            FluCheckBox{
+                anchors.centerIn: parent
+                checked: true === options.checked
+                enableAnimation: false
+                clickListener: function(){
+                    modelData.checkbox = table_view.customItem(com_checbox,{checked:!options.checked})
+                    tableModel.setRow(row,modelData)
+                }
+            }
+        }
+
+    }
+
+    Component{
         id:com_action
         Item{
             RowLayout{
@@ -29,6 +46,9 @@ FluContentPage{
                 FluFilledButton{
                     text:"编辑"
                     onClicked: {
+                        var obj = tableModel.getRow(row)
+                        obj.name = "12345"
+                        tableModel.setRow(row,obj)
                         showSuccess(JSON.stringify(tableModel.getRow(row)))
                     }
                 }
@@ -60,12 +80,14 @@ FluContentPage{
         const dataSource = []
         for(var i=0;i<count;i++){
             dataSource.push({
+                                checkbox: table_view.customItem(com_checbox,{checked:true}),
+                                checked:true,
                                 name: getRandomName(),
                                 age:getRandomAge(),
                                 address: getRandomAddresses(),
                                 nickname: getRandomNickname(),
                                 longstring:"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
-                                action:com_action
+                                action: table_view.customItem(com_action)
                             })
         }
         table_view.dataSource = dataSource
@@ -105,6 +127,13 @@ FluContentPage{
         }
         anchors.topMargin: 20
         columnSource:[
+            {
+                title: '选取',
+                dataIndex: 'checkbox',
+                width:80,
+                minimumWidth:80,
+                maximumWidth:80
+            },
             {
                 title: '姓名',
                 dataIndex: 'name',
@@ -166,7 +195,4 @@ FluContentPage{
                 table_view.resetPosition()
             }
     }
-
-
-
 }

@@ -275,11 +275,18 @@ Rectangle {
                     property var tableModel: table_model
                     property var position: item_table.position
                     property int row: position.y
+                    property var modelData: table_model.getRow(row)
                     property int column: position.x
+                    property var options: {
+                        if(typeof(itemData) == "object"){
+                            return itemData.options
+                        }
+                        return {}
+                    }
                     anchors.fill: parent
                     sourceComponent: {
-                        if(itemData instanceof Component){
-                            return itemData
+                        if(typeof(itemData) == "object"){
+                            return itemData.comId
                         }
                         return com_text
                     }
@@ -529,5 +536,14 @@ Rectangle {
     function resetPosition(){
         scroll_bar_h.position = 0
         scroll_bar_v.position = 0
+    }
+    function customItem(comId,options={}){
+        var o = {}
+        o.comId = comId
+        o.options = options
+        return o
+    }
+    function updateRow(row,obj){
+        table_model.setRow(row,obj)
     }
 }

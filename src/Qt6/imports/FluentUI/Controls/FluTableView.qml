@@ -290,11 +290,18 @@ Rectangle {
                     property var tableModel: table_model
                     property point position: item_table.position
                     property int row: position.y
+                    property var modelData: table_model.getRow(row)
                     property int column: position.x
+                    property var options: {
+                        if(typeof(itemData) == "object"){
+                            return itemData.options
+                        }
+                        return {}
+                    }
                     anchors.fill: parent
                     sourceComponent: {
-                        if(itemData instanceof Component){
-                            return itemData
+                        if(typeof(itemData) == "object"){
+                            return itemData.comId
                         }
                         return com_text
                     }
@@ -572,5 +579,14 @@ Rectangle {
     }
     function resetPosition(){
         table_view.positionViewAtCell(Qt.point(0, 0),Qt.AlignTop|Qt.AlignLeft)
+    }
+    function customItem(comId,options={}){
+        var o = {}
+        o.comId = comId
+        o.options = options
+        return o
+    }
+    function updateRow(row,obj){
+        table_model.setRow(row,obj)
     }
 }
