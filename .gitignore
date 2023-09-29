@@ -38,3 +38,5 @@ cmake-build-*
 .idea
 
 example/Version.h
+
+action-cli

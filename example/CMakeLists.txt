@@ -71,13 +71,17 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     endforeach(filepath)
 endif()
 
-#如果是Windows平台，则生成rc文件
+#如果是Windows平台，则生成rc文件，还有inno setup脚本文件
 set(EXAMPLE_VERSION_RC_PATH "")
 if(WIN32)
     set(EXAMPLE_VERSION_RC_PATH ${CMAKE_BINARY_DIR}/version_${PROJECT_NAME}.rc)
     configure_file(
         ${FLUENTUI_DIRECTORY}/.cmake/version_exe.rc.in
         ${EXAMPLE_VERSION_RC_PATH}
+    )
+    configure_file(
+        ${FLUENTUI_DIRECTORY}/.cmake/InstallerScript.iss.in
+        ${CMAKE_SOURCE_DIR}/action-cli/InstallerScript.iss
     )
 endif()
 
