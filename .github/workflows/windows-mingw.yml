@@ -87,12 +87,18 @@ jobs:
           name: ${{ steps.package.outputs.packageName }}
           path: dist
       
+      - name: inno setup install
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: zhuzichu520/inno-setup-action@v1.0.0
+        with:
+          filepath: ./action-cli/InstallerScript.iss
+          
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ steps.package.outputs.packageName }}.zip
-          asset_name: ${{ env.fileName }}_${{  github.ref_name }}_${{  matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
+          file: ./action-cli/installer.exe
+          asset_name: ${{ env.fileName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.exe
           tag: ${{ github.ref }}
-          overwrite: true 
+          overwrite: true
