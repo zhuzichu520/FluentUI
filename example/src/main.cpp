@@ -27,7 +27,6 @@ FRAMELESSHELPER_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-    SettingsHelper::getInstance()->init(argv);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -40,6 +39,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
+    SettingsHelper::getInstance()->init(argv);
     if(SettingsHelper::getInstance()->getReander()=="software"){
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
         QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);

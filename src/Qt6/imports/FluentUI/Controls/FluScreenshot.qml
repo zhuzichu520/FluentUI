@@ -48,7 +48,7 @@ Item{
                 captureMode:control.captrueMode
                 saveFolder: {
                     if(typeof control.saveFolder === 'string'){
-                        return control.saveFolder
+                        return FluTools.toLocalPath(Qt.resolvedUrl(control.saveFolder))
                     }else{
                         return FluTools.toLocalPath(control.saveFolder)
                     }

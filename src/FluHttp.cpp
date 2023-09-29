@@ -527,11 +527,12 @@ bool FluHttp::cacheExists(const QString& httpId){
 }
 
 QString FluHttp::getCacheFilePath(const QString& httpId){
-    QDir dir = _cacheDir;
-    if (!dir.exists(_cacheDir)){
-        dir.mkpath(_cacheDir);
+    QString path = FluTools::getInstance()->toLocalPath(QUrl(_cacheDir));
+    QDir dir = path;
+    if (!dir.exists(path)){
+        dir.mkpath(path);
     }
-    auto filePath = _cacheDir+"/"+httpId;
+    auto filePath = path+"/"+httpId;
     return filePath;
 }
 

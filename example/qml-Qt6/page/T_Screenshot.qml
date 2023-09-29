@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
+import Qt.labs.platform
 import "qrc:///example/qml/component"
 
 FluScrollablePage{
@@ -47,7 +48,7 @@ FluScrollablePage{
     FluScreenshot{
         id:screenshot
         captrueMode: FluScreenshotType.File
-        saveFolder: FluTools.getApplicationDirPath()+"/screenshot"
+        saveFolder: StandardPaths.writableLocation(StandardPaths.AppLocalDataLocation)+"/screenshot"
         onCaptrueCompleted:
             (captrue)=>{
                 image.source = captrue

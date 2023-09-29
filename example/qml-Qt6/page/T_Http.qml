@@ -10,7 +10,7 @@ import "qrc:///example/qml/component"
 FluContentPage{
 
     title:"Http"
-    property string cacheDirPath: FluTools.getApplicationDirPath() + "/cache/http"
+    property string cacheDirPath: StandardPaths.writableLocation(StandardPaths.AppLocalDataLocation) + "/cache/http"
     property bool isDownCompleted: false
 
     FluHttp{
