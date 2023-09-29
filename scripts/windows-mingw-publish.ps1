@@ -22,7 +22,7 @@ function Main() {
     windeployqt --qmldir . --plugindir dist\plugins --no-translations --compiler-runtime dist\$targetName
     # 删除不必要的文件
     $excludeList = @("*.qmlc", "*.ilk", "*.exp", "*.lib", "*.pdb")
-    Remove-Item -Path $archiveName -Include $excludeList -Recurse -Force
+    Remove-Item -Path dist -Include $excludeList -Recurse -Force
     # 打包zip
     Compress-Archive -Path dist $archiveName'.zip'
 }
