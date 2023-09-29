@@ -11,6 +11,7 @@ FluPopup {
     property string neutralText: "Neutral"
     property string negativeText: "Negative"
     property string positiveText: "Positive"
+    property alias messageTextFormart: text_message.textFormat
     property int delayTime: 100
     signal neutralClicked
     signal negativeClicked
@@ -44,6 +45,7 @@ FluPopup {
         Flickable{
             id:sroll_message
             contentWidth: width
+            clip: true
             anchors{
                 top:text_title.bottom
                 left: parent.left
