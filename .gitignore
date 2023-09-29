@@ -40,3 +40,4 @@ cmake-build-*
 example/Version.h
 
 action-cli
+dist

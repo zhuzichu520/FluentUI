@@ -25,8 +25,8 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 OutputDir=.\
 OutputBaseFilename=installer
-Compression=zip
-SolidCompression=no
+Compression=lzma
+SolidCompression=yes
 WizardStyle=modern
 
 [Languages]
