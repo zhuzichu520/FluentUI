@@ -6,7 +6,7 @@
 #define MyAppPublisher "ZhuZiChu"
 #define MyAppURL "https://zhuzichu520.github.io/"
 #define MyAppExeName "example.exe"
-#define MyAppFileDir "example-win64_msvc2019_64-6.5.0"
+#define MyAppFileDir "dist"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.

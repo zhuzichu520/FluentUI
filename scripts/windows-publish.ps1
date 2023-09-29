@@ -25,22 +25,22 @@ Write-Host "scriptDir" $scriptDir
 
 function Main() {
 
-    New-Item -ItemType Directory $archiveName
+    New-Item -ItemType Directory dist
     # 拷贝exe
-    Copy-Item bin\release\* $archiveName\ -Force -Recurse | Out-Null
+    Copy-Item bin\release\* dist -Force -Recurse | Out-Null
     # 拷贝依赖
-    windeployqt --qmldir . --plugindir $archiveName\plugins --no-translations --compiler-runtime $archiveName\$targetName
+    windeployqt --qmldir . --plugindir dist\plugins --no-translations --compiler-runtime dist\$targetName
     # 删除不必要的文件
     $excludeList = @("*.qmlc", "*.ilk", "*.exp", "*.lib", "*.pdb")
-    Remove-Item -Path $archiveName -Include $excludeList -Recurse -Force
+    Remove-Item -Path dist -Include $excludeList -Recurse -Force
     # 拷贝vcRedist dll
     $redistDll="{0}{1}\*.CRT\*.dll" -f $env:vcToolsRedistDir.Trim(),$env:msvcArch
-    Copy-Item $redistDll $archiveName\
+    Copy-Item $redistDll dist\
     # 拷贝WinSDK dll
     $sdkDll="{0}Redist\{1}ucrt\DLLs\{2}\*.dll" -f $env:winSdkDir.Trim(),$env:winSdkVer.Trim(),$env:msvcArch
-    Copy-Item $sdkDll $archiveName\
+    Copy-Item $sdkDll dist\
     # 打包zip
-    Compress-Archive -Path $archiveName $archiveName'.zip'
+    Compress-Archive -Path dist $archiveName'.zip'
 }
 
 if ($null -eq $archiveName || $null -eq $targetName) {
