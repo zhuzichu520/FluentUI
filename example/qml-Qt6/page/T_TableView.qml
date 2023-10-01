@@ -37,8 +37,9 @@ FluContentPage{
                 checked: true === options.checked
                 enableAnimation: false
                 clickListener: function(){
-                    modelData.checkbox = table_view.customItem(com_checbox,{checked:!options.checked})
-                    tableModel.setRow(row,modelData)
+                    var obj = tableModel.getRow(row)
+                    obj.checkbox = table_view.customItem(com_checbox,{checked:!options.checked})
+                    tableModel.setRow(row,obj)
                     checkBoxChanged()
                 }
             }

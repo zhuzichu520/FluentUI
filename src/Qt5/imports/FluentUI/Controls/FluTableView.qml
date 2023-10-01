@@ -142,7 +142,7 @@ Rectangle {
         id:com_text
         FluText {
             id:item_text
-            text: itemData
+            text: modelData
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
             anchors{
@@ -272,23 +272,23 @@ Rectangle {
                         }
                 }
                 Loader{
-                    property var itemData: display
+                    property var itemModel: model
+                    property var modelData: display
                     property var tableView: table_view
                     property var tableModel: table_model
                     property var position: item_table.position
                     property int row: position.y
-                    property var modelData: table_model.getRow(row)
                     property int column: position.x
                     property var options: {
-                        if(typeof(itemData) == "object"){
-                            return itemData.options
+                        if(typeof(modelData) == "object"){
+                            return modelData.options
                         }
                         return {}
                     }
                     anchors.fill: parent
                     sourceComponent: {
-                        if(typeof(itemData) == "object"){
-                            return itemData.comId
+                        if(typeof(modelData) == "object"){
+                            return modelData.comId
                         }
                         return com_text
                     }
