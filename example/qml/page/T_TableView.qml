@@ -12,8 +12,22 @@ FluContentPage{
     title:"TableView"
     signal checkBoxChanged
 
+    property var dataSource : []
+    property int sortType: 0
+
     Component.onCompleted: {
         loadData(1,1000)
+    }
+
+    onSortTypeChanged: {
+        table_view.closeEditor()
+        if(sortType === 0){
+            table_view.sort()
+        }else if(sortType === 1){
+            table_view.sort((a, b) => a.age - b.age);
+        }else if(sortType === 2){
+            table_view.sort((a, b) => b.age - a.age);
+        }
     }
 
     Component{
@@ -121,6 +135,88 @@ FluContentPage{
         }
     }
 
+    Component{
+        id:com_avatar
+        Item{
+            FluClip{
+                anchors.centerIn: parent
+                width: 40
+                height: 40
+                radius: [20,20,20,20]
+                Image{
+                    anchors.fill: parent
+                    source: {
+                        if(options && options.avatar){
+                            return options.avatar
+                        }
+                        return ""
+                    }
+                    sourceSize: Qt.size(80,80)
+                }
+            }
+        }
+    }
+
+    Component{
+        id:com_column_sort_age
+        Item{
+            FluText{
+                text:"年龄"
+                anchors.centerIn: parent
+            }
+            ColumnLayout{
+                spacing: 0
+                anchors{
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                    rightMargin: 4
+                }
+                FluIconButton{
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 15
+                    iconSize: 12
+                    verticalPadding:0
+                    horizontalPadding:0
+                    iconSource: FluentIcons.ChevronUp
+                    iconColor: {
+                        if(1 === root.sortType){
+                            return FluTheme.primaryColor.dark
+                        }
+                        return FluTheme.dark ?  Qt.rgba(1,1,1,1) : Qt.rgba(0,0,0,1)
+                    }
+                    onClicked: {
+                        if(root.sortType === 1){
+                            root.sortType = 0
+                            return
+                        }
+                        root.sortType = 1
+                    }
+                }
+                FluIconButton{
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 15
+                    iconSize: 12
+                    verticalPadding:0
+                    horizontalPadding:0
+                    iconSource: FluentIcons.ChevronDown
+                    iconColor: {
+                        if(2 === root.sortType){
+                            return FluTheme.primaryColor.dark
+                        }
+                        return FluTheme.dark ?  Qt.rgba(1,1,1,1) : Qt.rgba(0,0,0,1)
+                    }
+                    onClicked: {
+                        if(root.sortType === 2){
+                            root.sortType = 0
+                            return
+                        }
+                        root.sortType = 2
+                    }
+                }
+            }
+        }
+    }
+
     FluTableView{
         id:table_view
         anchors{
@@ -139,12 +235,19 @@ FluContentPage{
                 maximumWidth:80,
             },
             {
+                title: '头像',
+                dataIndex: 'avatar',
+                width:100,
+                minimumWidth:100,
+                maximumWidth:100
+            },
+            {
                 title: '姓名',
                 dataIndex: 'name',
                 readOnly:true,
             },
             {
-                title: '年龄',
+                title: table_view.customItem(com_column_sort_age,{sort:0}),
                 dataIndex: 'age',
                 editDelegate:com_combobox,
                 width:100,
@@ -221,19 +324,29 @@ FluContentPage{
             var randomIndex = Math.floor(Math.random() * addresses.length);
             return addresses[randomIndex];
         }
+
+        var avatars = ["qrc:/example/res/svg/avatar_1.svg", "qrc:/example/res/svg/avatar_2.svg", "qrc:/example/res/svg/avatar_3.svg", "qrc:/example/res/svg/avatar_4.svg","qrc:/example/res/svg/avatar_5.svg","qrc:/example/res/svg/avatar_6.svg","qrc:/example/res/svg/avatar_7.svg","qrc:/example/res/svg/avatar_8.svg","qrc:/example/res/svg/avatar_9.svg","qrc:/example/res/svg/avatar_10.svg","qrc:/example/res/svg/avatar_11.svg","qrc:/example/res/svg/avatar_12.svg"];
+        function getAvatar(){
+            var randomIndex = Math.floor(Math.random() * avatars.length);
+            return avatars[randomIndex];
+        }
+
         const dataSource = []
         for(var i=0;i<count;i++){
             dataSource.push({
                                 checkbox: table_view.customItem(com_checbox,{checked:true}),
+                                avatar:table_view.customItem(com_avatar,{avatar:getAvatar()}),
                                 name: getRandomName(),
                                 age:getRandomAge(),
                                 address: getRandomAddresses(),
                                 nickname: getRandomNickname(),
                                 longstring:"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
-                                action: table_view.customItem(com_action)
+                                action: table_view.customItem(com_action),
+                                minimumHeight:50
                             })
         }
-        table_view.dataSource = dataSource
+        root.dataSource = dataSource
+        table_view.dataSource = root.dataSource
     }
 
 }

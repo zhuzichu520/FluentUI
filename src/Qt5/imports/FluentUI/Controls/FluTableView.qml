@@ -57,9 +57,11 @@ Rectangle {
     }
     onDataSourceChanged: {
         table_model.clear()
-        dataSource.forEach(function(item){
-            table_model.appendRow(item)
-        })
+        for(var i =0;i<dataSource.length;i++){
+            var row = dataSource[i]
+            row.__index= i
+            table_model.appendRow(row)
+        }
     }
     TableModel {
         id:table_model
@@ -569,5 +571,19 @@ Rectangle {
     }
     function updateRow(row,obj){
         table_model.setRow(row,obj)
+    }
+    function sort(order){
+        let sortedArray = []
+        for(var i =0;i<table_model.rowCount;i++){
+            let row = table_model.getRow(i)
+            sortedArray.push(row)
+        }
+        if(order === undefined){
+            sortedArray.sort((a, b) => a.__index -  b.__index)
+        }else{
+            sortedArray.sort(order)
+        }
+        table_model.clear()
+        table_model.rows = sortedArray
     }
 }

@@ -104,7 +104,7 @@ FluObject {
             }
         }
         property Component fluent_sytle:  Rectangle{
-            width:  rowlayout.width  + (_super.moremsg ? 25 : 80);
+            width:  rowlayout.width  + (btn_close.visible ? 30 : 48);
             height: rowlayout.height + 20;
             color: {
                 if(FluTheme.dark){
@@ -154,7 +154,6 @@ FluObject {
                 x:20;
                 y:(parent.height - height) / 2;
                 spacing: 10
-
                 FluIcon{
                     iconSource:{
                         switch(_super.type){
@@ -199,14 +198,15 @@ FluObject {
                         visible: _super.moremsg
                         wrapMode : Text.WordWrap
                         textColor: FluColors.Grey120
+                        width: Math.min(implicitWidth,mcontrol.maxWidth)
                     }
                 }
 
                 FluIconButton{
+                    id:btn_close
                     iconSource: FluentIcons.ChromeClose
                     iconSize: 10
                     y:5
-                    x:parent.width-35
                     visible: _super.duration<=0
                     iconColor: {
                         if(FluTheme.dark){
