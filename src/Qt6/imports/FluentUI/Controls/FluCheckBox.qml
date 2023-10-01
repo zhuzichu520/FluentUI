@@ -19,7 +19,7 @@ Button {
     property color checkedPreesedColor: FluTheme.dark ? Qt.darker(checkedColor,1.3) : Qt.lighter(checkedColor,1.3)
     property color checkedDisableColor: FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
     property color disableColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(253/255,253/255,253/255,1)
-    property real size: 17
+    property real size: 18
     property alias textColor: btn_text.textColor
     property bool textRight: true
     property real textSpacing: 6
@@ -27,6 +27,7 @@ Button {
     property var clickListener : function(){
         checked = !checked
     }
+    property bool indeterminate : false
     id:control
     enabled: !disabled
     onClicked: clickListener()
@@ -94,11 +95,26 @@ Button {
                     duration: 83
                 }
             }
+
+            FluIcon {
+                anchors.centerIn: parent
+                iconSource: FluentIcons.CheckboxIndeterminate
+                iconSize: 14
+                visible: indeterminate
+                iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+                Behavior on visible {
+                    enabled: control.enableAnimation
+                    NumberAnimation{
+                        duration: 83
+                    }
+                }
+            }
+
             FluIcon {
                 anchors.centerIn: parent
                 iconSource: FluentIcons.AcceptMedium
                 iconSize: 14
-                visible: checked
+                visible: checked && !indeterminate
                 iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                 Behavior on visible {
                     enabled: control.enableAnimation
