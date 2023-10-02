@@ -124,7 +124,7 @@ Rectangle {
         width: container.width
         height: container.height
         modal: true
-        dim:false
+        Overlay.modal: Item {}
         enter: Transition {
             reversible: true
             NumberAnimation {

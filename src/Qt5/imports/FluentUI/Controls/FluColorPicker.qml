@@ -42,7 +42,7 @@ Button{
     Menu{
         id:popup
         modal: true
-        dim:false
+        Overlay.modal: Item {}
         height: container.height
         width: container.width
         contentItem: Item{
