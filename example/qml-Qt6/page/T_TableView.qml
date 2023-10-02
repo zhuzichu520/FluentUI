@@ -56,6 +56,7 @@ FluContentPage{
                     onClicked: {
                         table_view.closeEditor()
                         tableModel.removeRow(row)
+                        checkBoxChanged()
                     }
                 }
                 FluFilledButton{

@@ -11,6 +11,7 @@ Rectangle {
     property color selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
     property color hoverButtonColor: Qt.alpha(selectionColor,0.2)
     property color pressedButtonColor: Qt.alpha(selectionColor,0.4)
+    property alias tableModel: table_model
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
