@@ -28,6 +28,8 @@ OutputBaseFilename=installer
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+UninstallDisplayIcon=.\..\favicon.ico
+SetupIconFile=.\..\favicon.ico
 
 [Languages]
 Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"

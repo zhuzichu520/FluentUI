@@ -89,7 +89,7 @@ jobs:
       
       - name: inno setup install
         if: startsWith(github.event.ref, 'refs/tags/')
-        uses: zhuzichu520/inno-setup-action@v1.0.0
+        uses: zhuzichu520/inno-setup-action@v1.0.1
         with:
           filepath: ./action-cli/InstallerScript.iss
           
