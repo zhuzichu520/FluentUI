@@ -28,7 +28,7 @@ OutputBaseFilename=installer
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-UninstallDisplayIcon=.\..\favicon.ico
+UninstallDisplayIcon={app}\{#MyAppExeName}
 SetupIconFile=.\..\favicon.ico
 
 [Languages]
