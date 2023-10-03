@@ -21,6 +21,7 @@ TextField{
     }
     font:FluTextStyle.Body
     padding: 7
+    rightPadding: 40
     leftPadding: padding+4
     echoMode:btn_reveal.pressed ? TextField.Normal : TextField.Password
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
