@@ -459,6 +459,12 @@ FluObject{
             }
             onDropped:{ FluApp.navigate("/hotload") }
         }
+        FluPaneItem{
+            title:"3D"
+            url:"qrc:/example/qml/page/T_3D.qml"
+            onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
+            onTap:{ navigationView.push(url) }
+        }
     }
 
     function getRecentlyAddedData(){

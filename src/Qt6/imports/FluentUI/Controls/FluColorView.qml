@@ -6,6 +6,7 @@ import "ColorPicker"
 Item {
     id:control
     property alias colorValue: color_picker.colorValue
+    property alias enableAlphaChannel: color_picker.enableAlphaChannel
     property int radius: 5
     width: color_picker.width+10
     height: color_picker.height

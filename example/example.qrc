@@ -188,5 +188,7 @@
         <file>qml/viewmodel/SettingsViewModel.qml</file>
         <file>qml/viewmodel/TextBoxViewModel.qml</file>
         <file>qml/page/T_Clip.qml</file>
+        <file>qml/page/T_3D.qml</file>
+        <file>res/obj/test.obj</file>
     </qresource>
 </RCC>

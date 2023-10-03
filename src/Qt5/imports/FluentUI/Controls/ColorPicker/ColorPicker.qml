@@ -197,23 +197,14 @@ Rectangle {
     }
 
     function _hsla(h, s, b, a) {
+        if(!enableAlphaChannel){
+            a = 1
+        }
         var lightness = (2 - s)*b
         var satHSL = s*b/((lightness <= 1) ? lightness : 2 - lightness)
         lightness /= 2
-
         var c = Qt.hsla(h, satHSL, lightness, a)
-
         colorChanged(c)
-
-        return c
-    }
-
-    function _rgb(rgb, a) {
-
-        var c = Qt.rgba(rgb.r, rgb.g, rgb.b, a)
-
-        colorChanged(c)
-
         return c
     }
 

@@ -12,6 +12,7 @@ Button{
     implicitWidth: width
     implicitHeight: height
     property alias colorValue: container.colorValue
+    property alias enableAlphaChannel: container.enableAlphaChannel
     background:
         Rectangle{
         id:layout_color
@@ -28,9 +29,8 @@ Button{
             anchors.fill: parent
             anchors.margins: 4
             radius: 5
-            color: container.colorValue
+            color: control.colorValue
         }
-
     }
     Item{
         id: d

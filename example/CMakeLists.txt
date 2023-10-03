@@ -64,7 +64,7 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     endforeach(filepath)
 
     #遍历所有资源文件
-    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp qmldir)
+    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.obj qmldir)
     foreach(filepath ${RES_PATHS})
         string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
         list(APPEND resource_files ${filename})
