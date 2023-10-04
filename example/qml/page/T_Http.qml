@@ -265,7 +265,7 @@ FluContentPage{
                 implicitHeight: 36
                 text: "打开缓存路径"
                 onClicked: {
-                    Qt.openUrlExternally("file:///"+cacheDirPath)
+                    Qt.openUrlExternally(cacheDirPath)
                 }
             }
             FluButton{
