@@ -27,6 +27,7 @@ FRAMELESSHELPER_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+    QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -48,8 +49,8 @@ int main(int argc, char *argv[])
 #endif
     }
     QGuiApplication app(argc, argv);
-//    QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
-//    qSetMessagePattern("%{category}: %{message}");
+    //    QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
+    //    qSetMessagePattern("%{category}: %{message}");
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
