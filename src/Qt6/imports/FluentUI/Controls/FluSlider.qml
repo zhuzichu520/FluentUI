@@ -27,7 +27,7 @@ T.Slider {
             width: 10
             height: 10
             Behavior on scale{
-                ScaleAnimator{
+                NumberAnimation{
                     duration: 167
                     easing.type: Easing.OutCubic
                 }

@@ -45,7 +45,7 @@ T.RangeSlider {
             iconColor:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
             Behavior on scale{
-                ScaleAnimator{
+                NumberAnimation{
                     duration: 167
                     easing.type: Easing.OutCubic
                 }
@@ -76,7 +76,7 @@ T.RangeSlider {
             iconColor:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
             anchors.centerIn: parent
             Behavior on scale{
-                ScaleAnimator{
+                NumberAnimation{
                     duration: 167
                     easing.type: Easing.OutCubic
                 }

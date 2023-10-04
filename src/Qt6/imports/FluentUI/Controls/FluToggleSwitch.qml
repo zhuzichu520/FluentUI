@@ -97,14 +97,14 @@ Button {
                     return dotNormalColor
                 }
                 Behavior on scale{
-                    ScaleAnimator{
+                    NumberAnimation{
                         duration: 167
                         easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on x  {
                     enabled: FluTheme.enableAnimation
-                    XAnimator {
+                    NumberAnimation {
                         duration: 167
                         easing.type: Easing.OutCubic
                     }
