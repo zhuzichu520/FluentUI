@@ -127,6 +127,15 @@ FluContentPage{
                     http.postString(request,callable)
                 }
             }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Delete请求"
+                onClicked: {
+                    var request = http.newRequest("https://httpbingo.org/delete")
+                    http.deleteResource(request,callable)
+                }
+            }
             FluProgressButton{
                 id:btn_download
                 implicitWidth: parent.width
