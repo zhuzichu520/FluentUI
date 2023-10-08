@@ -5,7 +5,7 @@ import FluentUI
 import example
 import "qrc:///example/qml/component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     width: 800

@@ -4,7 +4,7 @@ import QtQuick.Controls
 import FluentUI
 import "qrc:///example/qml/component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title:"登录"

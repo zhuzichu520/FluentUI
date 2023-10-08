@@ -160,8 +160,6 @@ target_link_libraries(example PRIVATE
     Qt${QT_VERSION_MAJOR}::Svg
     Qt${QT_VERSION_MAJOR}::Network
     fluentuiplugin
-    FramelessHelper::Core
-    FramelessHelper::Quick
 )
 
 #安装

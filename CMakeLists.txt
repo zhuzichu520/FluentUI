@@ -35,6 +35,7 @@ endif ()
 if (FLUENTUI_BUILD_FRAMELESSHEPLER)
     set(FRAMELESSHELPER_BUILD_STATIC ON)
     set(FRAMELESSHELPER_NO_DEBUG_OUTPUT ON)
+    set(FRAMELESSHELPER_BUILD_WIDGETS OFF)
     add_subdirectory(framelesshelper)
 endif ()
 

@@ -6,8 +6,6 @@
 #include <QNetworkProxy>
 #include <QSslConfiguration>
 #include <QProcess>
-#include <FramelessHelper/Quick/framelessquickmodule.h>
-#include <FramelessHelper/Core/private/framelessconfig_p.h>
 #include <QtQml/qqmlextensionplugin.h>
 #include <QLoggingCategory>
 #include "AppInfo.h"
@@ -23,8 +21,6 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 #include <FluentUI.h>
 #endif
 
-FRAMELESSHELPER_USE_NAMESPACE
-
 int main(int argc, char *argv[])
 {
     QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
@@ -36,7 +32,6 @@ int main(int argc, char *argv[])
 #endif
 #endif
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
-    FramelessHelper::Quick::initialize();
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
@@ -51,22 +46,10 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     //    QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
     //    qSetMessagePattern("%{category}: %{message}");
-    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
-    FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
-    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-#ifdef Q_OS_WIN
-    FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
-#endif
-#ifdef Q_OS_MACOS
-    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
-#endif
     QQmlApplicationEngine engine;
     AppInfo::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
     engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
-    FramelessHelper::Quick::registerTypes(&engine);
 #ifdef FLUENTUI_BUILD_STATIC_LIB
     FluentUI::getInstance()->registerTypes(&engine);
 #endif

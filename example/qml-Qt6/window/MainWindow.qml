@@ -9,7 +9,7 @@ import "qrc:///example/qml/component"
 import "qrc:///example/qml/global"
 import "qrc:///example/qml/viewmodel"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title: "FluentUI"
@@ -18,8 +18,9 @@ CustomWindow {
     closeDestory:false
     minimumWidth: 520
     minimumHeight: 200
-    appBarVisible: false
     launchMode: FluWindowType.SingleTask
+
+    appBar: undefined
 
     SettingsViewModel{
         id:viewmodel_settings

@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import FluentUI
 import "qrc:///example/qml/component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title:"Standard"

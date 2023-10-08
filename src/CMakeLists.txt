@@ -129,6 +129,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::QuickPrivate
     Qt${QT_VERSION_MAJOR}::QmlPrivate
     ZXing
+    FramelessHelper::Core
+    FramelessHelper::Quick
 )
 
 #安装

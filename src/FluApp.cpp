@@ -8,6 +8,10 @@
 #include <QUuid>
 #include <QFontDatabase>
 #include <QClipboard>
+#include <FramelessHelper/Quick/framelessquickmodule.h>
+#include <FramelessHelper/Core/private/framelessconfig_p.h>
+
+FRAMELESSHELPER_USE_NAMESPACE
 
 FluApp::FluApp(QObject *parent):QObject{parent}{
     httpInterceptor(nullptr);
@@ -18,6 +22,21 @@ FluApp::~FluApp(){
 
 void FluApp::init(QQuickWindow *window){
     this->_application = window;
+    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
+    FramelessHelper::Quick::initialize();
+    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
+    FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
+    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+#ifdef Q_OS_WIN
+    FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
+#endif
+#ifdef Q_OS_MACOS
+    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
+#endif
+    QQmlEngine *engine = qmlEngine(_application);
+    FramelessHelper::Quick::registerTypes(engine);
 }
 
 void FluApp::run(){
