@@ -31,7 +31,6 @@ Window {
         }
     }
     signal initArgument(var argument)
-    property bool showSystemAppBar: true
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -168,7 +167,7 @@ Window {
     FramelessHelper{
         id:framless_helper
         onReady: {
-            if(appBar && !showSystemAppBar){
+            if(appBar){
                 var title_bar = loader_title_bar.item
                 setTitleBarItem(title_bar)
                 moveWindowToDesktopCenter()
