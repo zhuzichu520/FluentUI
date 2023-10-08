@@ -69,6 +69,7 @@ public:
     Q_INVOKABLE void postJson(HttpRequest* request,HttpCallable* callable);
     Q_INVOKABLE void download(HttpRequest* request,HttpCallable* callable);
     Q_INVOKABLE void upload(HttpRequest* request,HttpCallable* callable);
+    Q_INVOKABLE void deleteResource(HttpRequest* request,HttpCallable* callable);
     Q_INVOKABLE qreal getBreakPointProgress(HttpRequest* request);
     Q_INVOKABLE void cancel();
 private:

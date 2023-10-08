@@ -479,6 +479,62 @@ void FluHttp::upload(HttpRequest* request,HttpCallable* callable){
     });
 }
 
+void FluHttp::deleteResource(HttpRequest* request,HttpCallable* callable)
+{
+    request->method("deleteResource");
+    auto requestMap = request->toMap();
+    auto httpId = request->httpId();
+    QMap<QString, QVariant> data = invokeIntercept(requestMap).toMap();
+    QThreadPool::globalInstance()->start([=](){
+        onStart(callable);
+        if(_cacheMode == FluHttpType::CacheMode::FirstCacheThenRequest && cacheExists(httpId)){
+            onCache(callable,readCache(httpId));
+        }
+        if(_cacheMode == FluHttpType::CacheMode::IfNoneCacheRequest && cacheExists(httpId)){
+            onCache(callable,readCache(httpId));
+            onFinish(callable,request);
+            return;
+        }
+        QNetworkAccessManager manager;
+        manager.setTransferTimeout(timeout());
+        for (int i = 0; i < retry(); ++i) {
+            QUrl url(request->url());
+            addQueryParam(&url,data["params"].toMap());
+            QNetworkRequest req(url);
+            addHeaders(&req,data["headers"].toMap());
+            QEventLoop loop;
+            QNetworkReply* reply = manager.deleteResource(req);
+            _cacheReply.append(reply);
+            connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
+            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop](){loop.quit();});
+            loop.exec();
+            int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            QString errorString = reply->errorString();
+            bool isSuccess = reply->error() == QNetworkReply::NoError;
+            QString result = QString::fromUtf8(reply->readAll());
+            if (isSuccess) {
+                handleCache(httpId,result);
+                onSuccess(callable,result);
+                break;
+            }else{
+                if(i == retry()-1){
+                    if(_cacheMode == FluHttpType::CacheMode::RequestFailedReadCache && cacheExists(httpId)){
+                        onCache(callable,readCache(httpId));
+                    }
+                    onError(callable,status,errorString,result);
+                }
+            }
+            QNetworkReply::NetworkError error = reply->error();
+            if(error == QNetworkReply::OperationCanceledError){
+                break;
+            }
+            reply->deleteLater();
+            reply = nullptr;
+        }
+        onFinish(callable,request);
+    });
+}
+
 QVariant FluHttp::invokeIntercept(QMap<QString, QVariant> request){
     if(!FluApp::getInstance()->httpInterceptor()){
         return request;
