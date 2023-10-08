@@ -6,7 +6,7 @@ import example 1.0
 import "qrc:///example/qml/component"
 import "../component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     width: 800

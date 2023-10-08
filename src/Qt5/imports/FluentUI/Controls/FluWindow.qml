@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
+import org.wangwenx190.FramelessHelper 1.0
 
 Window {
     default property alias content: container.data
@@ -10,7 +11,9 @@ Window {
     property int launchMode: FluWindowType.Standard
     property var argument:({})
     property var background : com_background
+    property bool fixSize: false
     property Component loadingItem: com_loading
+    property var appBar: com_app_bar
     property color backgroundColor: {
         if(active){
             return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(243/255,243/255,243/255,1)
@@ -28,6 +31,7 @@ Window {
         }
     }
     signal initArgument(var argument)
+    property bool showSystemAppBar: true
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -50,13 +54,33 @@ Window {
             color: window.backgroundColor
         }
     }
+    Component{
+        id:com_app_bar
+        FluAppBar {
+            title: window.title
+        }
+    }
     Loader{
         anchors.fill: parent
         sourceComponent: background
     }
+    Loader{
+        id: loader_title_bar
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        sourceComponent: window.appBar
+    }
     Item{
         id:container
-        anchors.fill: parent
+        anchors{
+            top: loader_title_bar.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         clip: true
     }
     Loader{
@@ -64,10 +88,6 @@ Window {
         property bool cancel: false
         id:loader_loading
         anchors.fill: container
-    }
-    FluInfoBar{
-        id:infoBar
-        root: window
     }
     Component{
         id:com_loading
@@ -130,6 +150,37 @@ Window {
                     }
                 }
             }
+        }
+    }
+    FluInfoBar{
+        id:infoBar
+        root: window
+    }
+    Connections{
+        target: FluTheme
+        function onDarkChanged(){
+            if (FluTheme.dark)
+                FramelessUtils.systemTheme = FramelessHelperConstants.Dark
+            else
+                FramelessUtils.systemTheme = FramelessHelperConstants.Light
+        }
+    }
+    FramelessHelper{
+        id:framless_helper
+        onReady: {
+            if(appBar && !showSystemAppBar){
+                var title_bar = loader_title_bar.item
+                setTitleBarItem(title_bar)
+                moveWindowToDesktopCenter()
+                setHitTestVisible(title_bar.minimizeButton())
+                setHitTestVisible(title_bar.maximizeButton())
+                setHitTestVisible(title_bar.closeButton())
+                setWindowFixedSize(fixSize)
+                title_bar.maximizeButton.visible = !fixSize
+                if (blurBehindWindowEnabled)
+                    window.background = undefined
+            }
+            window.show()
         }
     }
     WindowLifecycle{

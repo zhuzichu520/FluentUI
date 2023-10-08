@@ -5,7 +5,7 @@ import FluentUI 1.0
 import "qrc:///example/qml/component"
 import "../component"
 
-CustomWindow {
+FluWindow {
 
     id:window
     title:"Standard"
