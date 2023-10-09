@@ -29,7 +29,6 @@ void FluApp::init(QQuickWindow *window){
     FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
 #ifdef Q_OS_WIN
-    FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
 #endif
 #ifdef Q_OS_MACOS
