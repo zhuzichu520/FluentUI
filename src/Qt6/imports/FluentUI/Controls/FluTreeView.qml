@@ -65,7 +65,7 @@ Item {
                 NumberAnimation {
                     properties: "y"
                     duration: 167
-                    from: d.dy
+                    from: d.dy - control.cellHeight
                     easing.type: Easing.OutCubic
                 }
                 NumberAnimation {
