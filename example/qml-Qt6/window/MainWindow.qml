@@ -38,8 +38,8 @@ FluWindow {
             checkUpdate(false)
         }
     }
-
     Component.onCompleted: {
+        console.debug(Lang.about)
         FluTools.setQuitOnLastWindowClosed(false)
         tour.open()
         checkUpdate(true)
@@ -119,7 +119,7 @@ FluWindow {
                     left: parent.left
                     right: parent.right
                 }
-                darkText: lang.dark_mode
+                darkText: Lang.dark_mode
                 showDark: true
                 z:7
                 darkClickListener:(button)=>handleDarkChanged(button)
@@ -169,7 +169,7 @@ FluWindow {
                     left: parent.left
                     right: parent.right
                 }
-                darkText: lang.dark_mode
+                darkText: Lang.dark_mode
                 showDark: true
                 darkClickListener:(button)=>handleDarkChanged(button)
                 z:7
@@ -202,7 +202,7 @@ FluWindow {
                 autoSuggestBox:FluAutoSuggestBox{
                     iconSource: FluentIcons.Search
                     items: ItemsOriginal.getSearchData()
-                    placeholderText: lang.search
+                    placeholderText: Lang.search
                     onItemClicked:
                         (data)=>{
                             ItemsOriginal.startPageByItem(data)

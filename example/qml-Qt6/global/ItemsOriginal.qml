@@ -2,6 +2,7 @@ pragma Singleton
 
 import QtQuick
 import FluentUI
+import "qrc:///example/qml/global"
 
 FluObject{
 
@@ -16,7 +17,7 @@ FluObject{
     FluPaneItem{
         id:item_home
         count: 9
-        title:lang.home
+        title:Lang.home
         infoBadge:FluBadge{
             count: item_home.count
         }
@@ -47,7 +48,7 @@ FluObject{
 
     FluPaneItemExpander{
         id:item_expander_basic_input
-        title:lang.basic_input
+        title:Lang.basic_input
         icon:FluentIcons.CheckboxComposite
         editDelegate: FluTextBox{
             text:item_expander_basic_input.title
@@ -137,7 +138,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:lang.form
+        title:Lang.form
         icon:FluentIcons.GridView
         FluPaneItem{
             title:"TextBox"
@@ -172,7 +173,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:lang.surface
+        title:Lang.surface
         icon:FluentIcons.SurfaceHub
         FluPaneItem{
             title:"InfoBar"
@@ -246,7 +247,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:lang.popus
+        title:Lang.popus
         icon:FluentIcons.ButtonMenu
         FluPaneItem{
             title:"Dialog"
@@ -284,7 +285,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:lang.navigation
+        title:Lang.navigation
         icon:FluentIcons.AllApps
         FluPaneItem{
             title:"Pivot"
@@ -353,7 +354,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:lang.theming
+        title:Lang.theming
         icon:FluentIcons.Brightness
         FluPaneItem{
             title:"Acrylic"
@@ -393,7 +394,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-        title:lang.other
+        title:Lang.other
         icon:FluentIcons.Shop
         FluPaneItem{
             title:"QRCode"

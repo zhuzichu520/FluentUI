@@ -2,6 +2,7 @@ pragma Singleton
 
 import QtQuick 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/global"
 
 FluObject{
 
@@ -12,7 +13,7 @@ FluObject{
     FluPaneItemSeparator{}
 
     FluPaneItem{
-        title:lang.about
+        title:Lang.about
         icon:FluentIcons.Contact
         onDropped: { FluApp.navigate("/about") }
         onTapListener:function(){
@@ -21,7 +22,7 @@ FluObject{
     }
 
     FluPaneItem{
-        title:lang.settings
+        title:Lang.settings
         icon:FluentIcons.Settings
         url:"qrc:/example/qml/page/T_Settings.qml"
         onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }

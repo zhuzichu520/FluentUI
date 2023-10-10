@@ -104,7 +104,7 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:lang.dark_mode
+                text:Lang.dark_mode
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
@@ -134,7 +134,7 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:lang.navigation_view_display_mode
+                text:Lang.navigation_view_display_mode
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
@@ -165,7 +165,7 @@ FluScrollablePage{
             }
 
             FluText{
-                text:lang.locale
+                text:Lang.locale
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
@@ -173,12 +173,12 @@ FluScrollablePage{
             Flow{
                 spacing: 5
                 Repeater{
-                    model: ["Zh","En"]
+                    model: Lang.__localeList
                     delegate: FluRadioButton{
-                        checked: AppInfo.lang.objectName === modelData
+                        checked: Lang.__locale === modelData
                         text:modelData
                         clickListener:function(){
-                            AppInfo.changeLang(modelData)
+                            Lang.__locale = modelData
                         }
                     }
                 }
