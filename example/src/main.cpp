@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
     SettingsHelper::getInstance()->init(argv);
-    if(SettingsHelper::getInstance()->getReander()=="software"){
+    if(SettingsHelper::getInstance()->getRender()=="software"){
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
         QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
 #elif (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
