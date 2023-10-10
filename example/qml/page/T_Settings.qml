@@ -66,10 +66,10 @@ FluScrollablePage{
         paddings: 10
         FluCheckBox{
             text:"Software Render"
-            checked: SettingsHelper.getReander() === "software"
+            checked: SettingsHelper.getRender() === "software"
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
-                if(SettingsHelper.getReander() === "software"){
+                if(SettingsHelper.getRender() === "software"){
                     SettingsHelper.saveRender("")
                 }else{
                     SettingsHelper.saveRender("software")

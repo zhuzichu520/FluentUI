@@ -20,7 +20,7 @@ public:
     ~SettingsHelper() override;
     void init(char *argv[]);
     Q_INVOKABLE void saveRender(const QString& render){save("render",render);}
-    Q_INVOKABLE QString getReander(){return get("render").toString();}
+    Q_INVOKABLE QString getRender(){return get("render").toString();}
     Q_INVOKABLE void saveDarkMode(int darkModel){save("darkMode",darkModel);}
     Q_INVOKABLE int getDarkMode(){return get("darkMode").toInt(0);}
 private:
