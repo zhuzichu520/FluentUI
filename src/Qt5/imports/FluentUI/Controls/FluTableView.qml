@@ -322,7 +322,6 @@ Rectangle {
             id: column_text
             text: modelData
             anchors.fill: parent
-            font.bold: true
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
@@ -464,6 +463,9 @@ Rectangle {
                 return []
             }
         }
+        onContentYChanged: {
+            forceLayout()
+        }
         delegate: Rectangle{
             id:item_control
             readonly property real cellPadding: 8
@@ -482,10 +484,6 @@ Rectangle {
                 id:row_text
                 anchors.centerIn: parent
                 text: row + 1
-                font.bold:{
-                    d.selectionFlag
-                    return true
-                }
             }
             MouseArea{
                 id:item_control_mouse

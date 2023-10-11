@@ -22,7 +22,6 @@ FluApp::~FluApp(){
 
 void FluApp::init(QQuickWindow *window){
     this->_application = window;
-    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     FramelessHelper::Quick::initialize();
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
