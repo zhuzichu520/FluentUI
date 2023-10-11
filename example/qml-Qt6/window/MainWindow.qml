@@ -39,7 +39,6 @@ FluWindow {
         }
     }
     Component.onCompleted: {
-        console.debug(Lang.about)
         FluTools.setQuitOnLastWindowClosed(false)
         tour.open()
         checkUpdate(true)

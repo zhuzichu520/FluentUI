@@ -8,10 +8,10 @@ FluObject {
     property string title
     property var icon
     property bool disabled: false
-    property Component cusIcon
+    property bool iconVisible: true
     property bool isExpand: false
-    property var parent
+    property bool showEdit
+    property Component iconDelegate
     property Component menuDelegate
     property Component editDelegate
-    property bool showEdit
 }

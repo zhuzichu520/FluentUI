@@ -47,7 +47,7 @@ Item {
                     if(item instanceof FluPaneItemExpander){
                         for(var j=0;j<item.children.length;j++){
                             var itemChild = item.children[j]
-                            itemChild.parent = item
+                            itemChild._parent = item
                             itemChild._idx = _idx
                             data.push(itemChild)
                             _idx++
@@ -124,8 +124,8 @@ Item {
                 if(!model){
                     return 1
                 }
-                if(model.parent){
-                    return model.parent.isExpand ? model.size : 0
+                if(model._parent){
+                    return model._parent.isExpand ? model.size : 0
                 }
                 return model.size
             }
@@ -135,8 +135,8 @@ Item {
         id:com_panel_item_header
         Item{
             height: {
-                if(model.parent){
-                    return model.parent.isExpand ? control.cellHeight : 0
+                if(model._parent){
+                    return model._parent.isExpand ? control.cellHeight : 0
                 }
                 return  control.cellHeight
             }
@@ -191,8 +191,13 @@ Item {
                     z:-100
                 }
                 onClicked: {
-                    if(d.isCompactAndNotPanel){
-                        control_popup.showPopup(Qt.point(50,mapToItem(control,0,0).y),model.children)
+                    if(d.isCompactAndNotPanel && model.children.length > 0){
+                        let h = 38*Math.min(Math.max(model.children.length,1),8)
+                        let y = mapToItem(control,0,0).y
+                        if(h+y>control.height){
+                            y = control.height - h
+                        }
+                        control_popup.showPopup(Qt.point(50,y),h,model.children)
                         return
                     }
                     model.isExpand = !model.isExpand
@@ -260,7 +265,7 @@ Item {
                         anchors{
                             verticalCenter: parent.verticalCenter
                             right: parent.right
-                            rightMargin: 12
+                            rightMargin: visible ? 12 : 0
                         }
                         visible: {
                             if(d.isCompactAndNotPanel){
@@ -324,8 +329,14 @@ Item {
                     }
                     Item{
                         id:item_icon
-                        width: 30
+                        width: visible ? 30 : 8
                         height: 30
+                        visible: {
+                            if(model){
+                                return model.iconVisible
+                            }
+                            return true
+                        }
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left:parent.left
@@ -334,8 +345,8 @@ Item {
                         Loader{
                             anchors.centerIn: parent
                             sourceComponent: {
-                                if(model&&model.cusIcon){
-                                    return model.cusIcon
+                                if(model&&model.iconDelegate){
+                                    return model.iconDelegate
                                 }
                                 return com_icon
                             }
@@ -345,13 +356,19 @@ Item {
                         id:item_title
                         text:{
                             if(model){
+                                if(!item_icon.visible && d.isCompactAndNotPanel){
+                                    return model.title[0]
+                                }
                                 return model.title
                             }
                             return ""
                         }
                         visible: {
                             if(d.isCompactAndNotPanel){
-                                return false
+                                if(item_icon.visible){
+                                    return false
+                                }
+                                return true
                             }
                             return true
                         }
@@ -421,8 +438,8 @@ Item {
                 }
             }
             height: {
-                if(model&&model.parent){
-                    return model.parent.isExpand ? control.cellHeight : 0
+                if(model&&model._parent){
+                    return model._parent.isExpand ? control.cellHeight : 0
                 }
                 return control.cellHeight
             }
@@ -560,8 +577,14 @@ Item {
                     }
                     Item{
                         id:item_icon
-                        width: 30
                         height: 30
+                        width: visible ? 30 : 8
+                        visible: {
+                            if(model){
+                                return model.iconVisible
+                            }
+                            return true
+                        }
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left:parent.left
@@ -570,8 +593,8 @@ Item {
                         Loader{
                             anchors.centerIn: parent
                             sourceComponent: {
-                                if(model&&model.cusIcon){
-                                    return model.cusIcon
+                                if(model&&model.iconDelegate){
+                                    return model.iconDelegate
                                 }
                                 return com_icon
                             }
@@ -581,13 +604,19 @@ Item {
                         id:item_title
                         text:{
                             if(model){
+                                if(!item_icon.visible && d.isCompactAndNotPanel){
+                                    return model.title[0]
+                                }
                                 return model.title
                             }
                             return ""
                         }
                         visible: {
                             if(d.isCompactAndNotPanel){
-                                return false
+                                if(item_icon.visible){
+                                    return false
+                                }
+                                return true
                             }
                             return true
                         }
@@ -1176,14 +1205,14 @@ Item {
         }
         background: FluRectangle{
             implicitWidth: 180
-            implicitHeight: 38*Math.min(Math.max(list_view.count,1),8)
             radius: [4,4,4,4]
             FluShadow{
                 radius: 4
             }
             color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
         }
-        function showPopup(pos,model){
+        function showPopup(pos,height,model){
+            background.implicitHeight = height
             control_popup.x = pos.x
             control_popup.y = pos.y
             control_popup.childModel = model
@@ -1311,8 +1340,8 @@ Item {
                     return
                 }
                 setCurrentIndex(i)
-                if(item.parent && !d.isCompactAndNotPanel){
-                    item.parent.isExpand = true
+                if(item._parent && !d.isCompactAndNotPanel){
+                    item._parent.isExpand = true
                 }
                 return
             }

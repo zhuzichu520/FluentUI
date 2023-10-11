@@ -46,6 +46,12 @@ FluObject{
     }
 
     FluPaneItemExpander{
+        title:"PaneItemExpander Disabled"
+        iconVisible: false
+        disabled: true
+    }
+
+    FluPaneItemExpander{
         id:item_expander_basic_input
         title:Lang.basic_input
         icon:FluentIcons.CheckboxComposite
@@ -379,12 +385,6 @@ FluObject{
             onDropped:{ FluApp.navigate("/pageWindow",{title:title,url:url}) }
             onTap:{ navigationView.push(url) }
         }
-    }
-
-    FluPaneItemExpander{
-        title:"PaneItemExpander Disabled"
-        icon: FluentIcons.Send
-        disabled: true
     }
 
     FluPaneItemSeparator{

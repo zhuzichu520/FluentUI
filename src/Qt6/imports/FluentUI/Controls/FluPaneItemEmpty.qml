@@ -6,5 +6,5 @@ QtObject {
     readonly property string key : FluTools.uuid()
     property int _idx
     property var _ext
-    property var parent
+    property var _parent
 }
