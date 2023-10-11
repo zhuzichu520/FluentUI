@@ -120,8 +120,17 @@ else()
     )
 endif()
 
+
 #去掉mingw生成的动态库libxxx前缀lib，不去掉前缀会导致 module "FluentUI" plugin "fluentuiplugin" not found
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+if(MINGW)
+    set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+    set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ".debug")
+endif()
+
+#MSVC Debug 添加后缀d，与Qt插件风格保持一致
+if(MSVC)
+    set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
+endif()
 
 #链接库
 target_link_libraries(${PROJECT_NAME} PUBLIC
