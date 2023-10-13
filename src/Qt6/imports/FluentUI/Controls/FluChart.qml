@@ -3,7 +3,7 @@ import "./../JS/Chart.js" as Chart
 
 Canvas {
     id: control
-
+    property var window: Window.window
     property var jsChart: undefined
     property string chartType
     property var chartData
