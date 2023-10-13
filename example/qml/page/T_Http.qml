@@ -101,6 +101,9 @@ FluContentPage{
                     params.custtel = "1234567890"
                     params.custemail = "zhuzichu520@gmail.com"
                     request.params = params
+                    var headers = {}
+                    headers.test = "123456789456465321354"
+                    request.headers = headers
                     http.post(request,callable)
                 }
             }
@@ -126,6 +129,15 @@ FluContentPage{
                     var request = http.newRequest("https://httpbingo.org/post")
                     request.params = "我命由我不由天"
                     http.postString(request,callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Delete请求"
+                onClicked: {
+                    var request = http.newRequest("https://httpbingo.org/delete")
+                    http.deleteResource(request,callable)
                 }
             }
             FluProgressButton{

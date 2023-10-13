@@ -100,6 +100,9 @@ FluContentPage{
                     params.custtel = "1234567890"
                     params.custemail = "zhuzichu520@gmail.com"
                     request.params = params
+                    var headers = {}
+                    headers.test = "123456789456465321354"
+                    request.headers = headers
                     http.post(request,callable)
                 }
             }
