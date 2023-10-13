@@ -33,7 +33,7 @@ QMap<QString, QVariant> HttpRequest::toMap(){
     if(headers().isNull()){
         _headers = QMap<QString,QVariant>();
     }else{
-        _params = params();
+        _headers = headers();
     }
     QMap<QString, QVariant> request = {
         {"url",url()},
