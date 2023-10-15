@@ -52,7 +52,7 @@ FluContentPage{
             ]
             Mesh {
                 id: mesh
-                source: "qrc:/example/res/obj/test.obj"
+                source: "https://zhu-zichu.gitee.io/test.obj"
             }
             PhongMaterial {
                 id: material
