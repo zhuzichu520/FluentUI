@@ -38,7 +38,7 @@ QVariant FluTreeModel::data(const QModelIndex &index, int role) const {
 };
 
 QHash<int, QByteArray> FluTreeModel::roleNames() const {
-    return { {Qt::DisplayRole, "modelData"} };
+    return { {Qt::DisplayRole, "dataModel"} };
 };
 
 void FluTreeModel::setData(QList<Node*> data){

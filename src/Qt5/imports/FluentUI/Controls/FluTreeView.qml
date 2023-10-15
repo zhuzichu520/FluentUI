@@ -88,7 +88,7 @@ Item {
             }
             Loader{
                 property var itemControl: item_control
-                property var itemModel: modelData
+                property var itemModel: dataModel
                 property int rowIndex: index
                 property bool isItemLoader: true
                 id:item_loader_container
@@ -395,7 +395,7 @@ Item {
                     Layout.alignment: Qt.AlignVCenter
                 }
                 Loader{
-                    property var modelData: itemModel
+                    property var dataModel: itemModel
                     property var itemMouse: item_mouse
                     id:item_loader_cell
                     Layout.leftMargin: 10
@@ -417,7 +417,7 @@ Item {
             width: item_text.width
             FluText {
                 id:item_text
-                text: modelData.title
+                text: dataModel.title
                 rightPadding: 14
                 anchors.centerIn: parent
                 color:{

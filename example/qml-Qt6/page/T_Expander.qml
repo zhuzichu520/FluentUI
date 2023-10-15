@@ -58,6 +58,7 @@ FluScrollablePage{
                         width: parent.width
                         height: parent.height
                         contentWidth: width
+                        boundsBehavior: Flickable.StopAtBounds
                         contentHeight: text_info.height
                         ScrollBar.vertical: FluScrollBar {}
                         FluText{

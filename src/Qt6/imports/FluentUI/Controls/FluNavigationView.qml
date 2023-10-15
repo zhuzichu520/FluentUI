@@ -1017,6 +1017,7 @@ Item {
                     }
                 }
                 anchors.fill: parent
+                interactive: false
                 model:d.handleItems()
                 boundsBehavior: ListView.StopAtBounds
                 highlightMoveDuration: FluTheme.enableAnimation && d.animDisabled ? 167 : 0
