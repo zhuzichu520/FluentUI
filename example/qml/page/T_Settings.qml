@@ -65,6 +65,23 @@ FluScrollablePage{
         height: 50
         paddings: 10
         FluCheckBox{
+            text:"V-Sync"
+            checked: FluApp.vsync
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                FluApp.vsync = !FluApp.vsync
+                dialog_restart.open()
+            }
+        }
+    }
+
+
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height: 50
+        paddings: 10
+        FluCheckBox{
             text:"Software Render"
             checked: SettingsHelper.getRender() === "software"
             anchors.verticalCenter: parent.verticalCenter
@@ -74,13 +91,13 @@ FluScrollablePage{
                 }else{
                     SettingsHelper.saveRender("software")
                 }
-                dialog_render.open()
+                dialog_restart.open()
             }
         }
     }
 
     FluContentDialog{
-        id:dialog_render
+        id:dialog_restart
         title:"友情提示"
         message:"此操作需要重启才能生效，是否重新启动？"
         buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton

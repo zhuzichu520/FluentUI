@@ -14,6 +14,7 @@
 FRAMELESSHELPER_USE_NAMESPACE
 
 FluApp::FluApp(QObject *parent):QObject{parent}{
+    vsync(false);
     httpInterceptor(nullptr);
 }
 

@@ -22,6 +22,7 @@ public:
     Q_INVOKABLE void onVisible(bool visible);
     Q_INVOKABLE void onDestoryOnClose();
     Q_INVOKABLE QVariant createRegister(QQuickWindow* window,const QString& path);
+    void vsyncEnable(bool enable);
 private:
     QQuickWindow* _window;
 };

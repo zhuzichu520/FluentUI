@@ -15,6 +15,13 @@ Window {
         }
     }
 
+    Connections{
+        target: FluApp
+        function onVsyncChanged(){
+            SettingsHelper.saveVsync(FluApp.vsync)
+        }
+    }
+
     FluHttpInterceptor{
         id:interceptor
         function onIntercept(request){
@@ -33,6 +40,7 @@ Window {
 
     Component.onCompleted: {
         FluApp.init(app)
+        FluApp.vsync = SettingsHelper.getVsync()
         FluTheme.darkMode = SettingsHelper.getDarkMode()
         FluTheme.enableAnimation = true
         FluApp.routes = {

@@ -19,6 +19,7 @@
 class FluApp : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY_AUTO(bool,vsync)
     Q_PROPERTY_AUTO(QString,initialRoute);
     Q_PROPERTY_AUTO(QJsonObject,routes);
     Q_PROPERTY_AUTO(FluHttpInterceptor*,httpInterceptor);

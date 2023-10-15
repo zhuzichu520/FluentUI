@@ -23,6 +23,8 @@ public:
     Q_INVOKABLE QString getRender(){return get("render").toString();}
     Q_INVOKABLE void saveDarkMode(int darkModel){save("darkMode",darkModel);}
     Q_INVOKABLE int getDarkMode(){return get("darkMode").toInt(0);}
+    Q_INVOKABLE void saveVsync(bool vsync){save("vsync",vsync);}
+    Q_INVOKABLE bool getVsync(){return get("vsync").toBool();}
 private:
     void save(const QString& key,QVariant val);
     QVariant get(const QString& key);
