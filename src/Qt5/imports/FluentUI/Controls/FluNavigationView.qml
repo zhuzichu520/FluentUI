@@ -1138,6 +1138,7 @@ Item {
                 clip: true
                 currentIndex: -1
                 model: control_popup.childModel
+                boundsBehavior: ListView.StopAtBounds
                 ScrollBar.vertical: FluScrollBar {}
                 delegate:Button{
                     id:item_button

@@ -1138,6 +1138,7 @@ Item {
                 anchors.fill: parent
                 clip: true
                 currentIndex: -1
+                boundsBehavior: ListView.StopAtBounds
                 model: control_popup.childModel
                 ScrollBar.vertical: FluScrollBar {}
                 delegate:Button{
