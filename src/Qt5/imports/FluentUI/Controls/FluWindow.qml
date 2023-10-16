@@ -185,6 +185,9 @@ Window {
     WindowLifecycle{
         id:lifecycle
     }
+    WindowBorder{
+        z:999
+    }
     function destoryOnClose(){
         lifecycle.onDestoryOnClose()
     }
