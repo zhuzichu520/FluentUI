@@ -636,13 +636,13 @@ HttpRequest* FluHttp::newRequest(QString url){
 }
 
 void FluHttp::onStart(QPointer<HttpCallable> callable){
-    if(callable){
+    if (!callable.isNull()) {
         Q_EMIT callable->start();
     }
 }
 
 void FluHttp::onFinish(QPointer<HttpCallable> callable,QPointer<HttpRequest> request){
-    if(callable){
+    if (!callable.isNull()) {
         Q_EMIT callable->finish();
     }
     if(request&&request->parent()->inherits("FluHttp")){
@@ -651,31 +651,31 @@ void FluHttp::onFinish(QPointer<HttpCallable> callable,QPointer<HttpRequest> req
 }
 
 void FluHttp::onError(QPointer<HttpCallable> callable,int status,QString errorString,QString result){
-    if(callable){
+    if (!callable.isNull()) {
         Q_EMIT callable->error(status,errorString,result);
     }
 }
 
 void FluHttp::onSuccess(QPointer<HttpCallable> callable,QString result){
-    if(callable){
+    if (!callable.isNull()) {
         Q_EMIT callable->success(result);
     }
 }
 
 void FluHttp::onCache(QPointer<HttpCallable> callable,QString result){
-    if(callable){
+    if (!callable.isNull()) {
         Q_EMIT callable->cache(result);
     }
 }
 
 void FluHttp::onDownloadProgress(QPointer<HttpCallable> callable,qint64 recv,qint64 total){
-    if(callable){
+    if (!callable.isNull()) {
         Q_EMIT callable->downloadProgress(recv,total);
     }
 }
 
 void FluHttp::onUploadProgress(QPointer<HttpCallable> callable,qint64 sent,qint64 total){
-    if(callable){
+    if (!callable.isNull()) {
         Q_EMIT callable->uploadProgress(sent,total);
     }
 }
