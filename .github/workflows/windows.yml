@@ -23,7 +23,7 @@ jobs:
       matrix:
         os: [windows-2019]
         include:
-          - qt_ver: 6.6.0        
+          - qt_ver: 6.5.0        
             qt_arch: win64_msvc2019_64
             msvc_arch: x64
             qt_arch_install: msvc2019_64  
@@ -52,7 +52,7 @@ jobs:
           ninja --version
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\FluentUI\Qt\6.6.0\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\FluentUI\Qt\6.5.0\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
           cmake --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%

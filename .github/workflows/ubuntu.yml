@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        qt_ver: [6.6.0]
+        qt_ver: [6.5.0]
         qt_arch: [gcc_64]
     env:
       targetName: example
@@ -55,7 +55,7 @@ jobs:
           cmake --version
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/FluentUI/Qt/6.6.0/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/FluentUI/Qt/6.5.0/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
           cmake --build . --target all --config Release --parallel
           
       - name: install QT linux deploy
