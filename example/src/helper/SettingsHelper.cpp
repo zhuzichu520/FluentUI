@@ -19,10 +19,10 @@ void SettingsHelper::save(const QString& key,QVariant val)
     m_settings->setValue(key, data);
 }
 
-QVariant SettingsHelper::get(const QString& key){
+QVariant SettingsHelper::get(const QString& key,QVariant def){
     const QByteArray data = m_settings->value(key).toByteArray();
     if (data.isEmpty()) {
-        return {};
+        return def;
     }
     QDataStream stream(data);
     stream.setVersion(QDataStream::Qt_5_6);

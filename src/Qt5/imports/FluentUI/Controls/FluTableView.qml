@@ -154,13 +154,16 @@ Rectangle {
                 bottomMargin: 6
             }
             verticalAlignment: Text.AlignVCenter
-            HoverHandler{
+            MouseArea{
+                acceptedButtons: Qt.NoButton
                 id: hover_handler
+                hoverEnabled: true
+                anchors.fill: parent
             }
             FluTooltip{
                 text: item_text.text
                 delay: 500
-                visible: item_text.contentWidth < item_text.implicitWidth && item_text.contentHeight < item_text.implicitHeight &&  hover_handler.hovered
+                visible: item_text.contentWidth < item_text.implicitWidth && item_text.contentHeight < item_text.implicitHeight &&  hover_handler.containsMouse
             }
         }
     }
@@ -193,6 +196,9 @@ Rectangle {
                 }
                 ScrollBar.vertical: FluScrollBar{
                     id:scroll_bar_v
+                    onVisualPositionChanged: {
+                        table_view.forceLayout()
+                    }
                 }
                 columnWidthProvider: function(column) {
                     var w = columnSource[column].width
@@ -322,8 +328,6 @@ Rectangle {
                         }
                     }
                 }
-
-
             }
             MouseArea{
                 property var cellItem
@@ -529,15 +533,14 @@ Rectangle {
                 return []
             }
         }
-        onContentYChanged: {
-            forceLayout()
-        }
         delegate: Rectangle{
             id:item_control
             readonly property real cellPadding: 8
             property bool canceled: false
             implicitWidth: Math.max(30, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
+            width: implicitWidth
+            height: implicitHeight
             color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             Rectangle{
                 border.color: control.borderColor
