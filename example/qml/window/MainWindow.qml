@@ -18,7 +18,6 @@ FluWindow {
     title: "FluentUI"
     width: 1000
     height: 640
-    closeDestory:false
     minimumWidth: 520
     minimumHeight: 200
     launchMode: FluWindowType.SingleTask
@@ -26,11 +25,6 @@ FluWindow {
 
     SettingsViewModel{
         id:viewmodel_settings
-    }
-
-    closeListener:function(event){
-        dialog_close.open()
-        event.accepted = false
     }
 
     FluEvent{
@@ -42,7 +36,6 @@ FluWindow {
     }
 
     Component.onCompleted: {
-        FluTools.setQuitOnLastWindowClosed(false)
         tour.open()
         checkUpdate(true)
         FluEventBus.registerEvent(event_checkupdate)
@@ -125,6 +118,7 @@ FluWindow {
                 showDark: true
                 z:7
                 darkClickListener:(button)=>handleDarkChanged(button)
+                closeClickListener: ()=>{dialog_close.open()}
             }
             Row{
                 z:8
@@ -174,6 +168,7 @@ FluWindow {
                 darkText: Lang.dark_mode
                 showDark: true
                 darkClickListener:(button)=>handleDarkChanged(button)
+                closeClickListener: ()=>{dialog_close.open()}
                 z:7
             }
             FluNavigationView{
