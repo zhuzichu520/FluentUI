@@ -24,7 +24,7 @@ jobs:
         os: [windows-2022]
         include:
           - qt_arch: win64_mingw
-            qt_ver: 6.5.0
+            qt_ver: 6.6.0
             qt_tools: "tools_mingw,9.0.0-1-202203221220,qt.tools.win64_mingw900"
             qt_tools_mingw_install: mingw900_64
     env:
