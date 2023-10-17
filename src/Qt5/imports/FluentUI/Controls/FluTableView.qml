@@ -43,6 +43,7 @@ Rectangle {
             var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
             item_loader.column = column
             item_loader.row = row
+            item_loader_layout.cellItem = cellItem
             item_loader_layout.x = table_view.contentX + cellPosition.x
             item_loader_layout.y = table_view.contentY + cellPosition.y
             item_loader_layout.width = table_view.columnWidthProvider(column)
@@ -204,14 +205,13 @@ Rectangle {
                     if(!w){
                         w = d.defaultItemWidth
                     }
-                    if(column === item_loader.column){
-                        item_loader.width = w
-                    }
-                    if(column === item_loader.column-1){
-                        let cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
-                        if(cellItem){
-                            let cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
-                            item_loader.x = table_view.contentX + cellPosition.x
+                    if(item_loader_layout.cellItem){
+                        if(column === item_loader.column){
+                            item_loader_layout.width = w
+                        }
+                        if(column === item_loader.column-1){
+                            let cellPosition = item_loader_layout.cellItem.mapToItem(scroll_table, 0, 0)
+                            item_loader_layout.x = table_view.contentX + cellPosition.x
                         }
                     }
                     return w
@@ -225,16 +225,15 @@ Rectangle {
                         h = table_model.getRow(row).minimumHeight
                     }
                     if(!h){
-                        return d.defaultItemHeight
+                        h = d.defaultItemHeight
                     }
-                    if(row === item_loader.row){
-                        item_loader.height = h
-                    }
-                    if(row === item_loader.row-1){
-                        let cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
-                        if(cellItem){
-                            let cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
-                            item_loader.y = table_view.contentY + cellPosition.y
+                    if(item_loader_layout.cellItem){
+                        if(row === item_loader.row){
+                            item_loader_layout.height = h
+                        }
+                        if(row === item_loader.row-1){
+                            let cellPosition = item_loader_layout.cellItem.mapToItem(scroll_table, 0, 0)
+                            item_loader_layout.y = table_view.contentY + cellPosition.y
                         }
                     }
                     return h
@@ -330,9 +329,15 @@ Rectangle {
 
             }
             MouseArea{
+                property var cellItem
                 id:item_loader_layout
                 acceptedButtons: Qt.NoButton
                 visible: item_loader.sourceComponent
+                onVisibleChanged: {
+                    if(!visible){
+                        item_loader_layout.cellItem = undefined
+                    }
+                }
                 hoverEnabled: true
                 z:2
                 onEntered: {
