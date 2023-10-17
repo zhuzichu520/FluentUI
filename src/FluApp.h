@@ -33,13 +33,13 @@ public:
     static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE void run();
     Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluRegister* fluRegister = nullptr);
-    Q_INVOKABLE void init(QQuickWindow *window);
+    Q_INVOKABLE void init(QObject *window);
     Q_INVOKABLE void exit(int retCode = 0);
     void addWindow(QQuickWindow* window);
     void removeWindow(QQuickWindow* window);
 private:
     QMap<quint64, QQuickWindow*> _windows;
-    QWindow* _application;
+    QObject* _application;
 };
 
 #endif // FLUAPP_H

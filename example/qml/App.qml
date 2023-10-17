@@ -4,9 +4,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
-Window {
+Item {
     id: app
-    flags: Qt.SplashScreen
 
     Connections{
         target: FluTheme

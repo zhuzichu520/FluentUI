@@ -11,6 +11,7 @@ Rectangle {
     property color selectionColor: FluTools.colorAlpha(FluTheme.primaryColor.lightest,0.6)
     property color hoverButtonColor: FluTools.colorAlpha(selectionColor,0.2)
     property color pressedButtonColor: FluTools.colorAlpha(selectionColor,0.4)
+    property color borderColor: FluTheme.dark ? "#252525" : "#e4e4e4"
     property alias tableModel: table_model
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
@@ -241,15 +242,8 @@ Rectangle {
                 }
                 model: table_model
                 clip: true
-                delegate: Rectangle {
-                    id:item_table
-                    property point position: Qt.point(column,row)
-                    color:{
-                        if(d.rowHoverIndex === row || d.currentRow === table_model.getRow(row).__index){
-                            return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
-                        }
-                        return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
-                    }
+                delegate: MouseArea{
+                    hoverEnabled: true
                     implicitHeight: 40
                     implicitWidth: {
                         var w = columnSource[column].width
@@ -261,76 +255,80 @@ Rectangle {
                         }
                         return w
                     }
+                    onEntered: {
+                        d.rowHoverIndex = row
+                    }
                     Rectangle{
-                        height: 18
-                        radius: 1.5
-                        color: FluTheme.primaryColor.dark
-                        width: 3
-                        visible: d.currentRow === table_model.getRow(row).__index && column === 0
-                        anchors{
-                            verticalCenter: parent.verticalCenter
-                            left: parent.left
-                            leftMargin: 3
-                        }
-                    }
-                    MouseArea{
+                        id:item_table
                         anchors.fill: parent
-                        acceptedButtons: Qt.LeftButton
-                        onPressed:{
-                            closeEditor()
-                        }
-                        onCanceled: {
-                        }
-                        onReleased: {
-                        }
-                        onDoubleClicked:{
-                            if(typeof(display) == "object"){
-                                return
+                        property point position: Qt.point(column,row)
+                        color:{
+                            if(d.rowHoverIndex === row || d.currentRow === table_model.getRow(row).__index){
+                                return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
                             }
-                            item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)
+                            return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
                         }
-                        onClicked:
-                            (event)=>{
-                                d.currentRow = table_model.getRow(row).__index
-                                item_loader.sourceComponent = undefined
-                                event.accepted = true
+                        Rectangle{
+                            height: 18
+                            radius: 1.5
+                            color: FluTheme.primaryColor.dark
+                            width: 3
+                            visible: d.currentRow === table_model.getRow(row).__index && column === 0
+                            anchors{
+                                verticalCenter: parent.verticalCenter
+                                left: parent.left
+                                leftMargin: 3
                             }
-                    }
-                    Loader{
-                        property var itemModel: model
-                        property var modelData: display
-                        property var tableView: table_view
-                        property var tableModel: table_model
-                        property var position: item_table.position
-                        property int row: position.y
-                        property int column: position.x
-                        property var options: {
-                            if(typeof(modelData) == "object"){
-                                return modelData.options
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                            acceptedButtons: Qt.LeftButton
+                            onPressed:{
+                                closeEditor()
                             }
-                            return {}
-                        }
-                        anchors.fill: parent
-                        sourceComponent: {
-                            if(typeof(modelData) == "object"){
-                                return modelData.comId
+                            onCanceled: {
                             }
-                            return com_text
+                            onReleased: {
+                            }
+                            onDoubleClicked:{
+                                if(typeof(display) == "object"){
+                                    return
+                                }
+                                item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)
+                            }
+                            onClicked:
+                                (event)=>{
+                                    d.currentRow = table_model.getRow(row).__index
+                                    item_loader.sourceComponent = undefined
+                                    event.accepted = true
+                                }
                         }
-                    }
-                    MouseArea{
-                        acceptedButtons: Qt.NoButton
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        z:99
-                        onPositionChanged: {
-                            d.rowHoverIndex = row
-                        }
-                        onEntered: {
-                            d.rowHoverIndex = row
+                        Loader{
+                            property var itemModel: model
+                            property var modelData: display
+                            property var tableView: table_view
+                            property var tableModel: table_model
+                            property var position: item_table.position
+                            property int row: position.y
+                            property int column: position.x
+                            property var options: {
+                                if(typeof(modelData) == "object"){
+                                    return modelData.options
+                                }
+                                return {}
+                            }
+                            anchors.fill: parent
+                            sourceComponent: {
+                                if(typeof(modelData) == "object"){
+                                    return modelData.comId
+                                }
+                                return com_text
+                            }
                         }
                     }
                 }
+
+
             }
             MouseArea{
                 id:item_loader_layout
@@ -401,7 +399,35 @@ Rectangle {
                 }
                 return column_item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             }
-            border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+            Rectangle{
+                border.color: control.borderColor
+                width: parent.width
+                height: 1
+                anchors.top: parent.top
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: parent.width
+                height: 1
+                anchors.bottom: parent.bottom
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: 1
+                height: parent.height
+                anchors.left: parent.left
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: 1
+                height: parent.height
+                anchors.right: parent.right
+                color:"#00000000"
+                visible: column === tableModel.columnCount - 1
+            }
             MouseArea{
                 id:column_item_control_mouse
                 anchors.fill: parent
@@ -522,7 +548,35 @@ Rectangle {
                 }
                 return item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             }
-            border.color: FluTheme.dark ? "#252525" : "#e4e4e4"
+            Rectangle{
+                border.color: control.borderColor
+                width: parent.width
+                height: 1
+                anchors.top: parent.top
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: parent.width
+                height: 1
+                anchors.bottom: parent.bottom
+                visible: row === tableModel.rowCount - 1
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: 1
+                height: parent.height
+                anchors.left: parent.left
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: 1
+                height: parent.height
+                anchors.right: parent.right
+                color:"#00000000"
+            }
             FluText{
                 id:row_text
                 anchors.centerIn: parent

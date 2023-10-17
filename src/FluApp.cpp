@@ -21,8 +21,8 @@ FluApp::FluApp(QObject *parent):QObject{parent}{
 FluApp::~FluApp(){
 }
 
-void FluApp::init(QQuickWindow *window){
-    this->_application = window;
+void FluApp::init(QObject *application){
+    this->_application = application;
     FramelessHelper::Quick::initialize();
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
