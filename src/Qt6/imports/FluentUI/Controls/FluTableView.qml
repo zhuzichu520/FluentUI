@@ -8,9 +8,6 @@ import FluentUI
 Rectangle {
     property var columnSource
     property var dataSource
-    property color selectionColor: FluTools.colorAlpha(FluTheme.primaryColor.lightest,0.6)
-    property color hoverButtonColor: FluTools.colorAlpha(selectionColor,0.2)
-    property color pressedButtonColor: FluTools.colorAlpha(selectionColor,0.4)
     property color borderColor: FluTheme.dark ? "#252525" : "#e4e4e4"
     property alias tableModel: table_model
     id:control
@@ -398,12 +395,7 @@ Rectangle {
             readonly property var obj : columnSource[column]
             implicitWidth: item_column_loader.item.implicitWidth + (cellPadding * 2)
             implicitHeight: Math.max(36, item_column_loader.item.implicitHeight + (cellPadding * 2))
-            color:{
-                if(column_item_control_mouse.pressed){
-                    return control.pressedButtonColor
-                }
-                return column_item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-            }
+            color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             Rectangle{
                 border.color: control.borderColor
                 width: parent.width
@@ -547,12 +539,7 @@ Rectangle {
             property bool canceled: false
             implicitWidth: Math.max(30, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
-            color: {
-                if(item_control_mouse.pressed){
-                    return control.pressedButtonColor
-                }
-                return item_control_mouse.containsMouse&&!canceled ? control.hoverButtonColor :  FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-            }
+            color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             Rectangle{
                 border.color: control.borderColor
                 width: parent.width
