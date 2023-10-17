@@ -32,10 +32,11 @@ Rectangle {
     }
     QtObject{
         id:d
+        property var currentRow
+        property int rowHoverIndex: -1
         property int defaultItemWidth: 100
         property int defaultItemHeight: 42
         property var header_rows:[]
-        property bool selectionFlag: true
         function obtEditDelegate(column,row,cellItem){
             var display = table_model.data(table_model.index(row,column),"display")
             var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
@@ -232,7 +233,12 @@ Rectangle {
             delegate: Rectangle {
                 id:item_table
                 property point position: Qt.point(column,row)
-                color: (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06))
+                color:{
+                    if(d.rowHoverIndex === row || d.currentRow === table_model.getRow(row).__index){
+                        return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
+                    }
+                    return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
+                }
                 implicitHeight: 40
                 implicitWidth: {
                     var w = columnSource[column].width
@@ -248,6 +254,18 @@ Rectangle {
                     anchors.fill: parent
                     visible: !item_loader.sourceComponent
                     color: "#00000000"
+                }
+                Rectangle{
+                    height: 18
+                    radius: 1.5
+                    color: FluTheme.primaryColor.dark
+                    width: 3
+                    visible: d.currentRow === table_model.getRow(row).__index && column === 0
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left: parent.left
+                        leftMargin: 3
+                    }
                 }
                 MouseArea{
                     anchors.fill: parent
@@ -267,8 +285,8 @@ Rectangle {
                     }
                     onClicked:
                         (event)=>{
+                            d.currentRow = table_model.getRow(row).__index
                             item_loader.sourceComponent = undefined
-                            d.selectionFlag = !d.selectionFlag
                             event.accepted = true
                         }
                 }
@@ -294,6 +312,19 @@ Rectangle {
                         return com_text
                     }
                 }
+                MouseArea{
+                    acceptedButtons: Qt.NoButton
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    z:99
+                    onContainsMouseChanged: {
+                        if(containsMouse){
+                            d.rowHoverIndex = row
+                        }else{
+                            d.rowHoverIndex = -1
+                        }
+                    }
+                }
             }
         }
         Loader{
@@ -308,6 +339,20 @@ Rectangle {
                 var obj = table_model.getRow(row)
                 obj[columnSource[column].dataIndex] = display
                 table_model.setRow(row,obj)
+            }
+        }
+        MouseArea{
+            acceptedButtons: Qt.NoButton
+            anchors.fill: item_loader
+            enabled: item_loader.sourceComponent
+            hoverEnabled: true
+            z:10
+            onContainsMouseChanged: {
+                if(containsMouse){
+                    d.rowHoverIndex = item_loader.row
+                }else{
+                    d.rowHoverIndex = -1
+                }
             }
         }
     }
@@ -350,7 +395,6 @@ Rectangle {
             implicitWidth: item_column_loader.item.implicitWidth + (cellPadding * 2)
             implicitHeight: Math.max(36, item_column_loader.item.implicitHeight + (cellPadding * 2))
             color:{
-                d.selectionFlag
                 if(column_item_control_mouse.pressed){
                     return control.pressedButtonColor
                 }
@@ -373,7 +417,6 @@ Rectangle {
                 onClicked:
                     (event)=>{
                         closeEditor()
-                        d.selectionFlag = !d.selectionFlag
                     }
             }
             Loader{
@@ -473,7 +516,6 @@ Rectangle {
             implicitWidth: Math.max(30, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
             color: {
-                d.selectionFlag
                 if(item_control_mouse.pressed){
                     return control.pressedButtonColor
                 }
@@ -501,7 +543,6 @@ Rectangle {
                 onClicked:
                     (event)=>{
                         closeEditor()
-                        d.selectionFlag = !d.selectionFlag
                     }
             }
             MouseArea{
