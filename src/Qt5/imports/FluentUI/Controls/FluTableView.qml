@@ -196,9 +196,6 @@ Rectangle {
                 }
                 ScrollBar.vertical: FluScrollBar{
                     id:scroll_bar_v
-                    onVisualPositionChanged: {
-                        table_view.forceLayout()
-                    }
                 }
                 columnWidthProvider: function(column) {
                     var w = columnSource[column].width
@@ -531,6 +528,16 @@ Rectangle {
                 if(dataSource)
                     return dataSource
                 return []
+            }
+        }
+        onContentYChanged:{
+            timer_force_layout.restart()
+        }
+        Timer{
+            interval: 50
+            id:timer_force_layout
+            onTriggered: {
+                header_vertical.forceLayout()
             }
         }
         delegate: Rectangle{
