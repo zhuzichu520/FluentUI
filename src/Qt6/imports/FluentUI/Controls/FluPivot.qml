@@ -68,7 +68,7 @@ Page {
                     font.pixelSize: control.textSize
                     font.bold: control.textBold
                     color: {
-                        if(item_button.hovered)
+                        if(item_button.hovered || nav_list.currentIndex === index)
                             return textHoverColor
                         return textNormalColor
                     }
