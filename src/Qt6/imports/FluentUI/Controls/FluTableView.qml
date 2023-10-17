@@ -43,10 +43,10 @@ Rectangle {
             var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
             item_loader.column = column
             item_loader.row = row
-            item_loader.x = table_view.contentX + cellPosition.x
-            item_loader.y = table_view.contentY + cellPosition.y
-            item_loader.width = table_view.columnWidthProvider(column)
-            item_loader.height = table_view.rowHeightProvider(row)
+            item_loader_layout.x = table_view.contentX + cellPosition.x
+            item_loader_layout.y = table_view.contentY + cellPosition.y
+            item_loader_layout.width = table_view.columnWidthProvider(column)
+            item_loader_layout.height = table_view.rowHeightProvider(row)
             item_loader.display = display
             var obj =columnSource[column].editDelegate
             if(obj){
@@ -166,82 +166,37 @@ Rectangle {
             }
         }
     }
-    ScrollView{
+
+    MouseArea{
         id:scroll_table
+        hoverEnabled: true
         anchors.left: header_vertical.right
         anchors.top: header_horizontal.bottom
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-        TableView {
-            id:table_view
-            ListModel{
-                id:model_columns
-            }
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.horizontal: FluScrollBar{
-                id:scroll_bar_h
-            }
-            ScrollBar.vertical: FluScrollBar{
-                id:scroll_bar_v
-            }
-            columnWidthProvider: function(column) {
-                var w = columnSource[column].width
-                if(!w){
-                    w = columnSource[column].minimumWidth
+        onExited: {
+            d.rowHoverIndex = -1
+        }
+        onCanceled: {
+            d.rowHoverIndex = -1
+        }
+        ScrollView{
+            anchors.fill: parent
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+            TableView {
+                id:table_view
+                ListModel{
+                    id:model_columns
                 }
-                if(!w){
-                    w = d.defaultItemWidth
+                boundsBehavior: Flickable.StopAtBounds
+                ScrollBar.horizontal: FluScrollBar{
+                    id:scroll_bar_h
                 }
-                if(column === item_loader.column){
-                    item_loader.width = w
+                ScrollBar.vertical: FluScrollBar{
+                    id:scroll_bar_v
                 }
-                if(column === item_loader.column-1){
-                    let cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
-                    if(cellItem){
-                        let cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
-                        item_loader.x = table_view.contentX + cellPosition.x
-                    }
-                }
-                return w
-            }
-            rowHeightProvider: function(row) {
-                if(row>=table_model.rowCount){
-                    return 0
-                }
-                var h = table_model.getRow(row).height
-                if(!h){
-                    h = table_model.getRow(row).minimumHeight
-                }
-                if(!h){
-                    return d.defaultItemHeight
-                }
-                if(row === item_loader.row){
-                    item_loader.height = h
-                }
-                if(row === item_loader.row-1){
-                    let cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
-                    if(cellItem){
-                        let cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
-                        item_loader.y = table_view.contentY + cellPosition.y
-                    }
-                }
-                return h
-            }
-            model: table_model
-            clip: true
-            delegate: Rectangle {
-                id:item_table
-                property point position: Qt.point(column,row)
-                color:{
-                    if(d.rowHoverIndex === row || d.currentRow === table_model.getRow(row).__index){
-                        return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
-                    }
-                    return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
-                }
-                implicitHeight: 40
-                implicitWidth: {
+                columnWidthProvider: function(column) {
                     var w = columnSource[column].width
                     if(!w){
                         w = columnSource[column].minimumWidth
@@ -249,110 +204,156 @@ Rectangle {
                     if(!w){
                         w = d.defaultItemWidth
                     }
+                    if(column === item_loader.column){
+                        item_loader.width = w
+                    }
+                    if(column === item_loader.column-1){
+                        let cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
+                        if(cellItem){
+                            let cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
+                            item_loader.x = table_view.contentX + cellPosition.x
+                        }
+                    }
                     return w
                 }
-                Rectangle{
-                    anchors.fill: parent
-                    visible: !item_loader.sourceComponent
-                    color: "#00000000"
-                }
-                Rectangle{
-                    height: 18
-                    radius: 1.5
-                    color: FluTheme.primaryColor.dark
-                    width: 3
-                    visible: d.currentRow === table_model.getRow(row).__index && column === 0
-                    anchors{
-                        verticalCenter: parent.verticalCenter
-                        left: parent.left
-                        leftMargin: 3
+                rowHeightProvider: function(row) {
+                    if(row>=table_model.rowCount){
+                        return 0
                     }
-                }
-                MouseArea{
-                    anchors.fill: parent
-                    acceptedButtons: Qt.LeftButton
-                    onPressed:{
-                        closeEditor()
+                    var h = table_model.getRow(row).height
+                    if(!h){
+                        h = table_model.getRow(row).minimumHeight
                     }
-                    onCanceled: {
+                    if(!h){
+                        return d.defaultItemHeight
                     }
-                    onReleased: {
+                    if(row === item_loader.row){
+                        item_loader.height = h
                     }
-                    onDoubleClicked:{
-                        if(typeof(display) == "object"){
-                            return
+                    if(row === item_loader.row-1){
+                        let cellItem = table_view.itemAtCell(item_loader.column, item_loader.row)
+                        if(cellItem){
+                            let cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
+                            item_loader.y = table_view.contentY + cellPosition.y
                         }
-                        item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)
                     }
-                    onClicked:
-                        (event)=>{
-                            d.currentRow = table_model.getRow(row).__index
-                            item_loader.sourceComponent = undefined
-                            event.accepted = true
+                    return h
+                }
+                model: table_model
+                clip: true
+                delegate: Rectangle {
+                    id:item_table
+                    property point position: Qt.point(column,row)
+                    color:{
+                        if(d.rowHoverIndex === row || d.currentRow === table_model.getRow(row).__index){
+                            return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
                         }
+                        return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
+                    }
+                    implicitHeight: 40
+                    implicitWidth: {
+                        var w = columnSource[column].width
+                        if(!w){
+                            w = columnSource[column].minimumWidth
+                        }
+                        if(!w){
+                            w = d.defaultItemWidth
+                        }
+                        return w
+                    }
+                    Rectangle{
+                        height: 18
+                        radius: 1.5
+                        color: FluTheme.primaryColor.dark
+                        width: 3
+                        visible: d.currentRow === table_model.getRow(row).__index && column === 0
+                        anchors{
+                            verticalCenter: parent.verticalCenter
+                            left: parent.left
+                            leftMargin: 3
+                        }
+                    }
+                    MouseArea{
+                        anchors.fill: parent
+                        acceptedButtons: Qt.LeftButton
+                        onPressed:{
+                            closeEditor()
+                        }
+                        onCanceled: {
+                        }
+                        onReleased: {
+                        }
+                        onDoubleClicked:{
+                            if(typeof(display) == "object"){
+                                return
+                            }
+                            item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)
+                        }
+                        onClicked:
+                            (event)=>{
+                                d.currentRow = table_model.getRow(row).__index
+                                item_loader.sourceComponent = undefined
+                                event.accepted = true
+                            }
+                    }
+                    Loader{
+                        property var itemModel: model
+                        property var modelData: display
+                        property var tableView: table_view
+                        property var tableModel: table_model
+                        property var position: item_table.position
+                        property int row: position.y
+                        property int column: position.x
+                        property var options: {
+                            if(typeof(modelData) == "object"){
+                                return modelData.options
+                            }
+                            return {}
+                        }
+                        anchors.fill: parent
+                        sourceComponent: {
+                            if(typeof(modelData) == "object"){
+                                return modelData.comId
+                            }
+                            return com_text
+                        }
+                    }
+                    MouseArea{
+                        acceptedButtons: Qt.NoButton
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        z:99
+                        onPositionChanged: {
+                            d.rowHoverIndex = row
+                        }
+                        onEntered: {
+                            d.rowHoverIndex = row
+                        }
+                    }
+                }
+            }
+            MouseArea{
+                id:item_loader_layout
+                acceptedButtons: Qt.NoButton
+                visible: item_loader.sourceComponent
+                hoverEnabled: true
+                z:2
+                onEntered: {
+                    d.rowHoverIndex = -1
                 }
                 Loader{
-                    property var itemModel: model
-                    property var modelData: display
-                    property var tableView: table_view
-                    property var tableModel: table_model
-                    property var position: item_table.position
-                    property int row: position.y
-                    property int column: position.x
-                    property var options: {
-                        if(typeof(modelData) == "object"){
-                            return modelData.options
-                        }
-                        return {}
-                    }
+                    id:item_loader
+                    property var display
+                    property int column
+                    property int row
+                    property var tableView: control
+                    sourceComponent: undefined
                     anchors.fill: parent
-                    sourceComponent: {
-                        if(typeof(modelData) == "object"){
-                            return modelData.comId
-                        }
-                        return com_text
+                    onDisplayChanged: {
+                        var obj = table_model.getRow(row)
+                        obj[columnSource[column].dataIndex] = display
+                        table_model.setRow(row,obj)
                     }
-                }
-                MouseArea{
-                    acceptedButtons: Qt.NoButton
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    z:99
-                    onContainsMouseChanged: {
-                        if(containsMouse){
-                            d.rowHoverIndex = row
-                        }else{
-                            d.rowHoverIndex = -1
-                        }
-                    }
-                }
-            }
-        }
-        Loader{
-            id:item_loader
-            z:2
-            property var display
-            property int column
-            property int row
-            property var tableView: control
-            sourceComponent: undefined
-            onDisplayChanged: {
-                var obj = table_model.getRow(row)
-                obj[columnSource[column].dataIndex] = display
-                table_model.setRow(row,obj)
-            }
-        }
-        MouseArea{
-            acceptedButtons: Qt.NoButton
-            anchors.fill: item_loader
-            enabled: item_loader.sourceComponent
-            hoverEnabled: true
-            z:10
-            onContainsMouseChanged: {
-                if(containsMouse){
-                    d.rowHoverIndex = item_loader.row
-                }else{
-                    d.rowHoverIndex = -1
                 }
             }
         }
@@ -361,7 +362,6 @@ Rectangle {
         id:com_handle
         Item {}
     }
-
     Component{
         id:com_column_text
         FluText {

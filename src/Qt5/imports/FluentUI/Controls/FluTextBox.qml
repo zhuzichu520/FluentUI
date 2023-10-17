@@ -37,7 +37,15 @@ TextField{
         return placeholderNormalColor
     }
     selectByMouse: true
-    rightPadding: icon_end.visible ? 66 : 40
+    rightPadding: {
+        var w = 30
+        if(control.cleanEnabled === false){
+            w = 0
+        }
+        if(control.readOnly)
+            w = 0
+        return icon_end.visible ? w+36 : w+10
+    }
     background: FluTextBoxBackground{
         inputItem: control
         implicitWidth: 240
