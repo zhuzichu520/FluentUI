@@ -51,7 +51,7 @@ FluWindow {
             MenuItem {
                 text: "退出"
                 onTriggered: {
-                    FluApp.exit()
+                    window.close()
                 }
             }
         }

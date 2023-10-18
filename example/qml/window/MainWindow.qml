@@ -81,7 +81,7 @@ FluWindow {
         positiveText:"退出"
         neutralText:"取消"
         onPositiveClicked:{
-            FluApp.exit()
+            window.close()
         }
     }
 
