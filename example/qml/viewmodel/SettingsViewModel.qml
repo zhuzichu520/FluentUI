@@ -4,6 +4,7 @@ import FluentUI 1.0
 FluViewModel{
 
     objectName: "SettingsViewModel"
+    scope: FluViewModelType.Application
     property int displayMode
 
     onInitData: {
