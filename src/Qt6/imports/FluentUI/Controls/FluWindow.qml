@@ -91,7 +91,6 @@ Window {
         id:com_loading
         Popup{
             id:popup_loading
-            modal:true
             focus: true
             width: window.width
             height: window.height
