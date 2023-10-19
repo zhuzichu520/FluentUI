@@ -25,5 +25,4 @@ QtObject {
     property Component editDelegate
     property bool showEdit
     signal tap
-    signal dropped(var drag)
 }

@@ -463,10 +463,6 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
-                Drag.active: item_mouse.drag.active
-                Drag.hotSpot.x: item_control.width / 2
-                Drag.hotSpot.y: item_control.height / 2
-                Drag.dragType: Drag.Automatic
                 onClicked:{
                     if(type === 0){
                         if(model.onTapListener){
@@ -496,18 +492,6 @@ Item {
                     id:item_mouse
                     anchors.fill: parent
                     acceptedButtons: Qt.RightButton | Qt.LeftButton
-                    drag.target: item_control
-                    onPositionChanged: {
-                        parent.grabToImage(function(result) {
-                            parent.Drag.imageSource = result.url;
-                        })
-                    }
-                    drag.onActiveChanged:
-                        if (active) {
-                            parent.grabToImage(function(result) {
-                                parent.Drag.imageSource = result.url;
-                            })
-                        }
                     onClicked:
                         (mouse)=>{
                             if (mouse.button === Qt.RightButton) {
@@ -859,15 +843,6 @@ Item {
                 return nav_stack2
             }
         }
-    }
-    DropArea{
-        anchors.fill: loader_content
-        onDropped:
-            (drag)=>{
-                if(drag.source.modelData){
-                    drag.source.modelData.dropped(drag)
-                }
-            }
     }
     Loader{
         id:loader_content
