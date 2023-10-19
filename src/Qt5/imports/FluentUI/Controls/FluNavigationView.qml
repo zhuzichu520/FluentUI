@@ -184,7 +184,9 @@ Item {
                             if (mouse.button === Qt.RightButton) {
                                 if(model.menuDelegate){
                                     loader_item_menu.sourceComponent = model.menuDelegate
-                                    loader_item_menu.item.popup()
+                                    connection_item_menu.target = loader_item_menu.item
+                                    loader_item_menu.modelData = model
+                                    loader_item_menu.item.popup();
                                 }
                             }
                         }
@@ -497,6 +499,8 @@ Item {
                             if (mouse.button === Qt.RightButton) {
                                 if(model.menuDelegate){
                                     loader_item_menu.sourceComponent = model.menuDelegate
+                                    connection_item_menu.target = loader_item_menu.item
+                                    loader_item_menu.modelData = model
                                     loader_item_menu.item.popup();
                                 }
                             }else{
@@ -1197,7 +1201,16 @@ Item {
         }
     }
     Loader{
+        property var modelData
         id:loader_item_menu
+    }
+    Connections{
+        id:connection_item_menu
+        function onVisibleChanged(visible){
+            if(target.visible === false){
+                loader_item_menu.sourceComponent = undefined
+            }
+        }
     }
     Component{
         id:com_placeholder

@@ -81,7 +81,22 @@ FluWindow {
         positiveText:"退出"
         neutralText:"取消"
         onPositiveClicked:{
-            window.close()
+            FluApp.exit(0)
+        }
+    }
+
+    Component{
+        id:nav_item_right_menu
+        FluMenu{
+            id:menu
+            width: 130
+            FluMenuItem{
+                text: "在独立窗口打开"
+                visible: true
+                onClicked: {
+                    FluApp.navigate("/pageWindow",{title:modelData.title,url:modelData.url})
+                }
+            }
         }
     }
 
@@ -207,7 +222,9 @@ FluWindow {
                 }
                 Component.onCompleted: {
                     ItemsOriginal.navigationView = nav_view
+                    ItemsOriginal.paneItemMenu = nav_item_right_menu
                     ItemsFooter.navigationView = nav_view
+                    ItemsFooter.paneItemMenu = nav_item_right_menu
                     setCurrentIndex(0)
                 }
             }

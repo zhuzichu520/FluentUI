@@ -18,7 +18,6 @@ FluWindow {
     minimumWidth: 520
     minimumHeight: 200
     launchMode: FluWindowType.SingleTask
-
     appBar: undefined
 
     SettingsViewModel{
@@ -32,6 +31,7 @@ FluWindow {
             checkUpdate(false)
         }
     }
+
     Component.onCompleted: {
         tour.open()
         checkUpdate(true)
@@ -51,7 +51,7 @@ FluWindow {
             MenuItem {
                 text: "退出"
                 onTriggered: {
-                    window.close()
+                    FluApp.exit()
                 }
             }
         }
@@ -78,7 +78,22 @@ FluWindow {
         positiveText:"退出"
         neutralText:"取消"
         onPositiveClicked:{
-            FluApp.exit()
+            FluApp.exit(0)
+        }
+    }
+
+    Component{
+        id:nav_item_right_menu
+        FluMenu{
+            id:menu
+            width: 130
+            FluMenuItem{
+                text: "在独立窗口打开"
+                visible: true
+                onClicked: {
+                    FluApp.navigate("/pageWindow",{title:modelData.title,url:modelData.url})
+                }
+            }
         }
     }
 
@@ -148,7 +163,7 @@ FluWindow {
                 id:loader
                 lazy: true
                 anchors.fill: parent
-                source: "https://zhu-zichu.gitee.io/Qt6_156_LieflatPage.qml"
+                source: "https://zhu-zichu.gitee.io/Qt5_156_LieflatPage.qml"
             }
         }
         front: Item{
@@ -164,8 +179,8 @@ FluWindow {
                 }
                 darkText: Lang.dark_mode
                 showDark: true
-                closeClickListener: ()=>{dialog_close.open()}
                 darkClickListener:(button)=>handleDarkChanged(button)
+                closeClickListener: ()=>{dialog_close.open()}
                 z:7
             }
             FluNavigationView{
@@ -204,7 +219,9 @@ FluWindow {
                 }
                 Component.onCompleted: {
                     ItemsOriginal.navigationView = nav_view
+                    ItemsOriginal.paneItemMenu = nav_item_right_menu
                     ItemsFooter.navigationView = nav_view
+                    ItemsFooter.paneItemMenu = nav_item_right_menu
                     setCurrentIndex(0)
                 }
             }

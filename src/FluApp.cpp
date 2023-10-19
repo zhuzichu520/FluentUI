@@ -88,6 +88,7 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
 
 void FluApp::exit(int retCode){
     for (const auto& pair : _windows.toStdMap()) {
+        pair.second->close();
         removeWindow(pair.second);
     }
     qApp->exit(retCode);
