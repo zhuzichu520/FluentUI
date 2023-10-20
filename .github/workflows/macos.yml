@@ -43,7 +43,7 @@ jobs:
       - name: Set up Ninja
         uses: seanmiddleditch/gha-setup-ninja@v3
         with:
-          version: 1.10.2
+          version: 1.11.1
           
       - name: build macos
         run: |
