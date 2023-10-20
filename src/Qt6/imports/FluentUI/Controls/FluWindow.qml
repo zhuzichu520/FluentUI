@@ -19,6 +19,7 @@ Window {
         }
         return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(237/255,237/255,237/255,1)
     }
+    property bool stayTop: false
     property var _pageRegister
     property string _route
     property var closeListener: function(event){
@@ -32,15 +33,29 @@ Window {
     signal initArgument(var argument)
     id:window
     color:"transparent"
+    onStayTopChanged: {
+        d.changedStayTop()
+    }
     Component.onCompleted: {
         lifecycle.onCompleted(window)
         initArgument(argument)
+        d.changedStayTop()
     }
     Component.onDestruction: {
         lifecycle.onDestruction()
     }
     onVisibleChanged: {
         lifecycle.onVisible(visible)
+    }
+    QtObject{
+        id:d
+        function changedStayTop(){
+            if(window.stayTop){
+                window.flags = window.flags | Qt.WindowStaysOnTopHint
+            }else{
+                window.flags = window.flags &~ Qt.WindowStaysOnTopHint
+            }
+        }
     }
     Connections{
         target: window
@@ -172,6 +187,7 @@ Window {
                 setHitTestVisible(title_bar.minimizeButton())
                 setHitTestVisible(title_bar.maximizeButton())
                 setHitTestVisible(title_bar.closeButton())
+                setHitTestVisible(title_bar.stayTopButton())
                 setWindowFixedSize(fixSize)
                 title_bar.maximizeButton.visible = !fixSize
                 if (blurBehindWindowEnabled)

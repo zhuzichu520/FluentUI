@@ -11,6 +11,8 @@ Rectangle{
     property string restoreText : "向下还原"
     property string maximizeText : "最大化"
     property string closeText : "关闭"
+    property string stayTopText : "置顶"
+    property string stayTopCancelText : "取消置顶"
     property color textColor: FluTheme.dark ? "#FFFFFF" : "#000000"
     property color minimizeNormalColor: Qt.rgba(0,0,0,0)
     property color minimizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
@@ -25,6 +27,7 @@ Rectangle{
     property bool showClose: true
     property bool showMinimize: true
     property bool showMaximize: true
+    property bool showStayTop: true
     property bool titleVisible: true
     property url icon
     property int iconSize: 20
@@ -42,6 +45,11 @@ Rectangle{
     property var closeClickListener : function(){
         d.win.close()
     }
+    property var stayTopClickListener: function(){
+        if(d.win instanceof FluWindow){
+            d.win.stayTop = !d.win.stayTop
+        }
+    }
     property var darkClickListener: function(){
         if(FluTheme.dark){
             FluTheme.darkMode = FluThemeType.Light
@@ -57,6 +65,12 @@ Rectangle{
     Item{
         id:d
         property var win: Window.window
+        property bool stayTop: {
+            if(d.win instanceof FluWindow){
+                return d.win.stayTop
+            }
+            return false
+        }
         property bool isRestore: win && Window.Maximized === win.visibility
         property bool resizable: win && !(win.minimumHeight === win.maximumHeight && win.maximumWidth === win.minimumWidth)
     }
@@ -105,6 +119,24 @@ Rectangle{
             checked: FluTheme.dark
             textRight: false
             clickListener:()=> darkClickListener(btn_dark)
+        }
+        FluIconButton{
+            id:btn_stay_top
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            iconSource : FluentIcons.Pinned
+            Layout.alignment: Qt.AlignVCenter
+            iconSize: 13
+            visible: {
+                if(!(d.win instanceof FluWindow)){
+                    return false
+                }
+                return showStayTop
+            }
+            text:d.stayTop ? control.stayTopCancelText : control.stayTopText
+            radius: 0
+            iconColor: d.stayTop ? (FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark) : control.textColor
+            onClicked: stayTopClickListener()
         }
         FluIconButton{
             id:btn_minimize
@@ -163,6 +195,9 @@ Rectangle{
             }
             onClicked: closeClickListener()
         }
+    }
+    function stayTopButton(){
+        return btn_stay_top
     }
     function minimizeButton(){
         return btn_minimize
