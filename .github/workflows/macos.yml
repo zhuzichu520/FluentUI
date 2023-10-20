@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-13]
         qt_ver: [6.6.0]
         qt_arch: [clang_64]
     env:
@@ -43,7 +43,7 @@ jobs:
       - name: Set up Ninja
         uses: seanmiddleditch/gha-setup-ninja@v3
         with:
-          version: 1.11.1
+          version: 1.10.2
           
       - name: build macos
         run: |
