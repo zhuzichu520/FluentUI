@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-14]
+        os: [macos-13]
         qt_ver: [6.6.0]
         qt_arch: [clang_64]
     env:
@@ -56,7 +56,7 @@ jobs:
       - name: package
         run: |
           # 拷贝依赖
-          macdeployqt bin/release/${targetName}.app -qmldir=. -verbose=1 -dmg     
+          macdeployqt bin/release/${targetName}.app -qmldir=. -dmg     
           
       - uses: actions/upload-artifact@v2
         with:
