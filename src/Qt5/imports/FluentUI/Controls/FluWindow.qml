@@ -14,6 +14,7 @@ Window {
     property bool fixSize: false
     property Component loadingItem: com_loading
     property var appBar: com_app_bar
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
     property color backgroundColor: {
         if(active){
             return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(243/255,243/255,243/255,1)
@@ -48,14 +49,19 @@ Window {
     onVisibleChanged: {
         lifecycle.onVisible(visible)
     }
+    onVisibilityChanged: {
+        console.debug(visibility)
+    }
     QtObject{
         id:d
         function changedStayTop(){
+            var visibility = window.visibility
             if(window.stayTop){
                 window.flags = window.flags | Qt.WindowStaysOnTopHint
             }else{
                 window.flags = window.flags &~ Qt.WindowStaysOnTopHint
             }
+            window.visibility = visibility
         }
     }
     Connections{

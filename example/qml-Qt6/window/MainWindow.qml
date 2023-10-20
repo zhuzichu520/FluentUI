@@ -254,7 +254,7 @@ FluWindow {
     }
 
     function handleDarkChanged(button){
-        if(FluTools.isMacos() || !FluTheme.enableAnimation){
+        if(!FluTheme.enableAnimation){
             changeDark()
         }else{
             loader_reveal.sourceComponent = com_reveal
