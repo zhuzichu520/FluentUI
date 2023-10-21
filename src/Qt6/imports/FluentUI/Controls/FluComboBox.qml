@@ -108,6 +108,7 @@ T.ComboBox {
             model: control.delegateModel
             currentIndex: control.highlightedIndex
             highlightMoveDuration: 0
+            boundsMovement: Flickable.StopAtBounds
             T.ScrollIndicator.vertical: ScrollIndicator { }
         }
         enter: Transition {
