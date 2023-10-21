@@ -60,7 +60,7 @@ jobs:
           
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}.zip
+          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}
           path: bin/release/${{ env.targetName }}.app
           
       - name: uploadRelease
