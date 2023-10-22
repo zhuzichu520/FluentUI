@@ -60,11 +60,11 @@ FluWindow {
                         event.accepted = false
                         return
                     }
-                    if (event.urls.length !== 1) {
+                    var url = getUrlByEvent(event)
+                    if(url === ""){
                         event.accepted = false
                         return
                     }
-                    var url = event.urls[0].toString()
                     var fileExtension = url.substring(url.lastIndexOf(".") + 1)
                     if (fileExtension !== "qml") {
                         event.accepted = false
@@ -74,12 +74,24 @@ FluWindow {
                 }
             onDropped:
                 (event)=>{
-                    var path = event.urls[0].toString()
-                    loader.source = path
-                    watcher.path = path
-                    loader.reload()
+                    var url = getUrlByEvent(event)
+                    if(url !== ""){
+                        loader.source = url
+                        watcher.path = url
+                        loader.reload()
+                    }
                 }
         }
+    }
+
+    function getUrlByEvent(event){
+        var url = ""
+        if (event.urls.length === 0) {
+            url = "file:///"+event.getDataAsString("text/plain")
+        }else{
+            url = event.urls[0].toString()
+        }
+        return url
     }
 
 }
