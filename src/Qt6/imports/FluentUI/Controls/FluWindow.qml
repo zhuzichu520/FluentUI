@@ -22,6 +22,11 @@ Window {
     property bool stayTop: false
     property var _pageRegister
     property string _route
+    property bool showDark: false
+    property bool showClose: true
+    property bool showMinimize: true
+    property bool showMaximize: true
+    property bool showStayTop: true
     property var closeListener: function(event){
         if(closeDestory){
             destoryOnClose()
@@ -81,6 +86,11 @@ Window {
         id:com_app_bar
         FluAppBar {
             title: window.title
+            showDark: window.showDark
+            showClose: window.showClose
+            showMinimize: window.showMinimize
+            showMaximize: window.showMaximize
+            showStayTop: window.showStayTop
         }
     }
     Loader{
