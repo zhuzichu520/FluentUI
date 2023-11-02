@@ -139,7 +139,7 @@ target_include_directories(example PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/component
 )
 
-#如何是静态库则需要手动注册插件，导入FluentUI.h头文件
+#如果是静态库则需要手动注册插件，导入FluentUI.h头文件
 if(FLUENTUI_BUILD_STATIC_LIB)
     target_include_directories(example PRIVATE
         ${CMAKE_SOURCE_DIR}/src

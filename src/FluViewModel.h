@@ -20,7 +20,6 @@ class FluViewModel : public QObject, public QQmlParserStatus
     Q_OBJECT
     Q_INTERFACES(QQmlParserStatus)
     Q_PROPERTY_AUTO(int,scope);
-    Q_PROPERTY_AUTO(QObject*,target);
     QML_NAMED_ELEMENT(FluViewModel)
 public:
     explicit FluViewModel(QObject *parent = nullptr);
@@ -29,6 +28,7 @@ public:
     void componentComplete() override;
     Q_SIGNAL void initData();
     QString getKey();
+    bool enablePropertyChange = true;
 private:
     QObject* _window = nullptr;
     QString _key = "";

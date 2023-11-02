@@ -35,7 +35,9 @@ bool ViewModelManager::exist(const QString& key){
 void ViewModelManager::refreshViewModel(FluViewModel* viewModel,QString key,QVariant value){
     foreach (auto item, _viewmodel) {
         if(item->getKey() == viewModel->getKey()){
+            item->enablePropertyChange = false;
             item->setProperty(key.toStdString().c_str(),value);
+            item->enablePropertyChange  = true;
         }
     }
 }
@@ -51,14 +53,16 @@ PropertyObserver::~PropertyObserver(){
 }
 
 void PropertyObserver::_propertyChange(){
-    auto value = _property.read();
-    _model->setProperty(_name.toStdString().c_str(),value);
-    ViewModelManager::getInstance()->refreshViewModel((FluViewModel*)parent(),_name,value);
+    auto viewModel = (FluViewModel*)parent();
+    if(viewModel->enablePropertyChange){
+        auto value = _property.read();
+        _model->setProperty(_name.toStdString().c_str(),value);
+        ViewModelManager::getInstance()->refreshViewModel(viewModel,_name,value);
+    }
 }
 
 FluViewModel::FluViewModel(QObject *parent):QObject{parent}{
     scope(FluViewModelType::Scope::Window);
-    target(nullptr);
     ViewModelManager::getInstance()->insertViewModel(this);
 }
 
@@ -77,7 +81,7 @@ void FluViewModel::componentComplete(){
     }
     const QMetaObject* obj = metaObject();
     if(_scope == FluViewModelType::Scope::Window){
-        _key = property("objectName_").toString()+QString::number(reinterpret_cast<qulonglong>(_window), 16);
+        _key = property("objectName").toString()+"-"+QString::number(reinterpret_cast<qulonglong>(_window), 16);
     }else{
         _key = property("objectName").toString();
     }
