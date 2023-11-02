@@ -342,6 +342,7 @@ Item {
                                 }
                                 return com_icon
                             }
+                            Component.onDestruction: sourceComponent = undefined
                         }
                     }
                     FluText{
@@ -389,6 +390,7 @@ Item {
                             right: item_title.right
                             rightMargin: 8
                         }
+                        Component.onDestruction: sourceComponent = undefined
                         sourceComponent: {
                             if(d.isCompact){
                                 return undefined
@@ -554,6 +556,7 @@ Item {
                         }
                         Loader{
                             anchors.centerIn: parent
+                            Component.onDestruction: sourceComponent = undefined
                             sourceComponent: {
                                 if(model&&model.iconDelegate){
                                     return model.iconDelegate
@@ -616,6 +619,7 @@ Item {
                             }
                             return model.showEdit ? model.editDelegate : undefined
                         }
+                        Component.onDestruction: sourceComponent = undefined
                         onStatusChanged: {
                             if(status === Loader.Ready){
                                 item.forceActiveFocus()
@@ -651,6 +655,7 @@ Item {
                             }
                             return undefined
                         }
+                        Component.onDestruction: sourceComponent = undefined
                         Connections{
                             target: d
                             function onIsCompactAndNotPanelChanged(){
@@ -784,6 +789,7 @@ Item {
                 id:loader_action
                 anchors.centerIn: parent
                 sourceComponent: actionItem
+                Component.onDestruction: sourceComponent = undefined
             }
         }
     }
@@ -839,6 +845,7 @@ Item {
                 return control.cellWidth
             }
         }
+        Component.onDestruction: sourceComponent = undefined
         Behavior on anchors.leftMargin {
             enabled: FluTheme.enableAnimation && d.animDisabled
             NumberAnimation{
@@ -918,6 +925,7 @@ Item {
                     rightMargin: 6
                     verticalCenter: parent.verticalCenter
                 }
+                Component.onDestruction: sourceComponent = undefined
                 visible: {
                     if(d.isCompactAndNotPanel){
                         return false
@@ -989,6 +997,7 @@ Item {
                     property var model: modelData
                     property var _idx: index
                     property int type: 0
+                    Component.onDestruction: sourceComponent = undefined
                     sourceComponent: {
                         if(model === null || !model)
                             return undefined
@@ -1046,6 +1055,7 @@ Item {
                 property var model: modelData
                 property var _idx: index
                 property int type: 1
+                Component.onDestruction: sourceComponent = undefined
                 sourceComponent: {
                     if(modelData instanceof FluPaneItem){
                         return com_panel_item
@@ -1114,6 +1124,7 @@ Item {
                                 verticalCenter: parent.verticalCenter
                                 rightMargin: 10
                             }
+                            Component.onDestruction: sourceComponent = undefined
                             sourceComponent: {
                                 if(model.infoBadge){
                                     return model.infoBadge
@@ -1166,6 +1177,7 @@ Item {
     }
     Loader{
         property var modelData
+        Component.onDestruction: sourceComponent = undefined
         id:loader_item_menu
     }
     Connections{
