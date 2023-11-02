@@ -270,7 +270,7 @@ Rectangle {
                         Rectangle{
                             height: 18
                             radius: 1.5
-                            color: FluTheme.primaryColor.dark
+                            color: FluTheme.primaryColor
                             width: 3
                             visible: d.currentRow === table_model.getRow(row).__index && column === 0
                             anchors{

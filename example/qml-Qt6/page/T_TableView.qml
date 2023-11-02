@@ -181,7 +181,7 @@ FluContentPage{
                     iconSource: FluentIcons.ChevronUp
                     iconColor: {
                         if(1 === root.sortType){
-                            return FluTheme.primaryColor.dark
+                            return FluTheme.primaryColor
                         }
                         return FluTheme.dark ?  Qt.rgba(1,1,1,1) : Qt.rgba(0,0,0,1)
                     }
@@ -202,7 +202,7 @@ FluContentPage{
                     iconSource: FluentIcons.ChevronDown
                     iconColor: {
                         if(2 === root.sortType){
-                            return FluTheme.primaryColor.dark
+                            return FluTheme.primaryColor
                         }
                         return FluTheme.dark ?  Qt.rgba(1,1,1,1) : Qt.rgba(0,0,0,1)
                     }

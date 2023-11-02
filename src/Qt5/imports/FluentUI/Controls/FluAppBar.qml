@@ -14,12 +14,12 @@ Rectangle{
     property string stayTopText : "置顶"
     property string stayTopCancelText : "取消置顶"
     property color textColor: FluTheme.dark ? "#FFFFFF" : "#000000"
-    property color minimizeNormalColor: Qt.rgba(0,0,0,0)
-    property color minimizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
-    property color minimizePressColor: FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
-    property color maximizeNormalColor: Qt.rgba(0,0,0,0)
-    property color maximizeHoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
-    property color maximizePressColor: FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
+    property color minimizeNormalColor: FluTheme.itemNormalColor
+    property color minimizeHoverColor: FluTheme.itemHoverColor
+    property color minimizePressColor: FluTheme.itemPressColor
+    property color maximizeNormalColor: FluTheme.itemNormalColor
+    property color maximizeHoverColor: FluTheme.itemHoverColor
+    property color maximizePressColor: FluTheme.itemPressColor
     property color closeNormalColor: Qt.rgba(0,0,0,0)
     property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
     property color closePressColor: Qt.rgba(251/255,115/255,115/255,0.8)
@@ -32,7 +32,7 @@ Rectangle{
     property url icon
     property int iconSize: 20
     property bool isMac: FluTools.isMacos()
-    property color borerlessColor : FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color borerlessColor : FluTheme.primaryColor
     property var maxClickListener : function(){
         if (d.win.visibility === Window.Maximized)
             d.win.visibility = Window.Windowed
@@ -135,7 +135,7 @@ Rectangle{
             }
             text:d.stayTop ? control.stayTopCancelText : control.stayTopText
             radius: 0
-            iconColor: d.stayTop ? (FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark) : control.textColor
+            iconColor: d.stayTop ? FluTheme.primaryColor : control.textColor
             onClicked: stayTopClickListener()
         }
         FluIconButton{

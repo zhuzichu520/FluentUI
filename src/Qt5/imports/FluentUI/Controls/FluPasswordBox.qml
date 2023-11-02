@@ -25,7 +25,7 @@ TextField{
     leftPadding: padding+4
     echoMode:btn_reveal.pressed ? TextField.Normal : TextField.Password
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor.lightest,0.6)
+    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.25)
     selectedTextColor: color
     placeholderTextColor: {
         if(!enabled){

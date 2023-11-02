@@ -47,23 +47,13 @@ T.MenuBarItem {
         implicitHeight: 30
         radius: 3
         color: {
-            if(FluTheme.dark){
-                if(control.highlighted){
-                    return Qt.rgba(1,1,1,0.06)
-                }
-                if(control.hovered){
-                    return Qt.rgba(1,1,1,0.03)
-                }
-                return Qt.rgba(0,0,0,0)
-            }else{
-                if(control.highlighted){
-                    return Qt.rgba(0,0,0,0.06)
-                }
-                if(control.hovered){
-                    return Qt.rgba(0,0,0,0.03)
-                }
-                return Qt.rgba(0,0,0,0)
+            if(control.highlighted){
+                return FluTheme.itemCheckColor
             }
+            if(control.hovered){
+                return FluTheme.itemHoverColor
+            }
+            return FluTheme.itemNormalColor
         }
     }
 }

@@ -42,7 +42,7 @@ T.RangeSlider {
                 }
                 return control.first.hovered ? 1.2 : 1
             }
-            iconColor:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+            iconColor: FluTheme.primaryColor
             anchors.centerIn: parent
             Behavior on scale{
                 NumberAnimation{
@@ -73,7 +73,7 @@ T.RangeSlider {
                 }
                 return control.second.hovered ? 1.2 : 1
             }
-            iconColor:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+            iconColor: FluTheme.primaryColor
             anchors.centerIn: parent
             Behavior on scale{
                 NumberAnimation{
@@ -102,7 +102,7 @@ T.RangeSlider {
             y: control.horizontal ? 0 : control.second.visualPosition * parent.height + 3
             width: control.horizontal ? control.second.position * parent.width - control.first.position * parent.width - 6 : 6
             height: control.horizontal ? 6 : control.second.position * parent.height - control.first.position * parent.height - 6
-            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+            color: FluTheme.primaryColor
         }
     }
     FluTooltip{

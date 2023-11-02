@@ -189,23 +189,13 @@ Item {
                         anchors.fill: parent
                         radius: [6,6,0,0]
                         color: {
-                            if(FluTheme.dark){
-                                if(item_mouse_hove.containsMouse || item_btn_close.hovered){
-                                    return Qt.rgba(1,1,1,0.03)
-                                }
-                                if(tab_nav.currentIndex === index){
-                                    return Qt.rgba(1,1,1,0.06)
-                                }
-                                return Qt.rgba(0,0,0,0)
-                            }else{
-                                if(item_mouse_hove.containsMouse || item_btn_close.hovered){
-                                    return Qt.rgba(0,0,0,0.03)
-                                }
-                                if(tab_nav.currentIndex === index){
-                                    return Qt.rgba(0,0,0,0.06)
-                                }
-                                return Qt.rgba(0,0,0,0)
+                            if(item_mouse_hove.containsMouse || item_btn_close.hovered){
+                                return FluTheme.itemHoverColor
                             }
+                            if(tab_nav.currentIndex === index){
+                                return FluTheme.itemCheckColor
+                            }
+                            return FluTheme.itemNormalColor
                         }
                     }
                     RowLayout{

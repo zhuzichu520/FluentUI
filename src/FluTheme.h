@@ -5,6 +5,7 @@
 #include <QtQml/qqml.h>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QColor>
 #include "FluColorSet.h"
 #include "stdafx.h"
 #include "singleton.h"
@@ -16,7 +17,18 @@ class FluTheme : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool dark READ dark NOTIFY darkChanged)
-    Q_PROPERTY_AUTO(FluColorSet*,primaryColor)
+    Q_PROPERTY_AUTO(FluColorSet*,themeColor);
+    Q_PROPERTY_AUTO(QColor,primaryColor);
+    Q_PROPERTY_AUTO(QColor,backgroundColor);
+    Q_PROPERTY_AUTO(QColor,windowBackgroundColor);
+    Q_PROPERTY_AUTO(QColor,windowActiveBackgroundColor);
+    Q_PROPERTY_AUTO(QColor,fontPrimaryColor);
+    Q_PROPERTY_AUTO(QColor,fontSecondary);
+    Q_PROPERTY_AUTO(QColor,fontTertiary);
+    Q_PROPERTY_AUTO(QColor,itemNormalColor);
+    Q_PROPERTY_AUTO(QColor,itemHoverColor);
+    Q_PROPERTY_AUTO(QColor,itemPressColor);
+    Q_PROPERTY_AUTO(QColor,itemCheckColor);
     Q_PROPERTY_AUTO(int,darkMode);
     Q_PROPERTY_AUTO(bool,nativeText);
     Q_PROPERTY_AUTO(bool,enableAnimation);
@@ -26,6 +38,7 @@ private:
     explicit FluTheme(QObject *parent = nullptr);
     bool eventFilter(QObject *obj, QEvent *event);
     bool systemDark();
+    void refreshColors();
 public:
     SINGLETONG(FluTheme)
     Q_INVOKABLE QJsonArray awesomeList(const QString& keyword = "");
@@ -33,7 +46,6 @@ public:
     static FluTheme *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     bool dark();
 private:
-    bool _dark;
     bool _systemDark;
 };
 

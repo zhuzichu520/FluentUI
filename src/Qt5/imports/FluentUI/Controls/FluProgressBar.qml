@@ -5,7 +5,7 @@ import FluentUI 1.0
 ProgressBar{
     property real strokeWidth: 6
     property bool progressVisible: false
-    property color color: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+    property color color: FluTheme.primaryColor
     property color backgroundColor : FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
     id:control
     indeterminate : true

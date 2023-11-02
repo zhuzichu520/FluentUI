@@ -239,7 +239,7 @@ Item {
                         width: 3
                         height: 18
                         radius: 1.5
-                        color: FluTheme.primaryColor.dark
+                        color: FluTheme.primaryColor
                         visible: {
                             if(!model){
                                 return false
@@ -291,25 +291,15 @@ Item {
                     }
                     color: {
                         if(!item_control.enabled){
-                            return Qt.rgba(0,0,0,0)
+                            return FluTheme.itemNormalColor
                         }
-                        if(FluTheme.dark){
-                            if((nav_list.currentIndex === _idx)&&type===0){
-                                return Qt.rgba(1,1,1,0.06)
-                            }
-                            if(item_control.hovered){
-                                return Qt.rgba(1,1,1,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
-                        }else{
-                            if(nav_list.currentIndex === _idx&&type===0){
-                                return Qt.rgba(0,0,0,0.06)
-                            }
-                            if(item_control.hovered){
-                                return Qt.rgba(0,0,0,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
+                        if(nav_list.currentIndex === _idx&&type===0){
+                            return FluTheme.itemCheckColor
                         }
+                        if(item_control.hovered){
+                            return FluTheme.itemHoverColor
+                        }
+                        return FluTheme.itemNormalColor
                     }
                     Component{
                         id:com_icon
@@ -513,37 +503,21 @@ Item {
                     anchors.fill: parent
                     color: {
                         if(!item_control.enabled){
-                            return Qt.rgba(0,0,0,0)
+                            return FluTheme.itemNormalColor
                         }
-                        if(FluTheme.dark){
-                            if(type===0){
-                                if(nav_list.currentIndex === _idx){
-                                    return Qt.rgba(1,1,1,0.06)
-                                }
-                            }else{
-                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+_idx)){
-                                    return Qt.rgba(1,1,1,0.06)
-                                }
+                        if(type===0){
+                            if(nav_list.currentIndex === _idx){
+                                return FluTheme.itemCheckColor
                             }
-                            if(item_control.hovered){
-                                return Qt.rgba(1,1,1,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
                         }else{
-                            if(type===0){
-                                if(nav_list.currentIndex === _idx){
-                                    return Qt.rgba(0,0,0,0.06)
-                                }
-                            }else{
-                                if(nav_list.currentIndex === (nav_list.count-layout_footer.count+_idx)){
-                                    return Qt.rgba(0,0,0,0.06)
-                                }
+                            if(nav_list.currentIndex === (nav_list.count-layout_footer.count+_idx)){
+                                return FluTheme.itemCheckColor
                             }
-                            if(item_control.hovered){
-                                return Qt.rgba(0,0,0,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
                         }
+                        if(item_control.hovered){
+                            return FluTheme.itemHoverColor
+                        }
+                        return FluTheme.itemNormalColor
                     }
                     Component{
                         id:com_icon
@@ -953,9 +927,6 @@ Item {
             }
             FluIconButton{
                 visible:d.isCompactAndNotPanel
-                hoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
-                pressedColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
-                normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
                 width:38
                 height:34
                 x:6
@@ -1004,7 +975,7 @@ Item {
                     Rectangle{
                         height: 18
                         radius: 1.5
-                        color: FluTheme.primaryColor.dark
+                        color: FluTheme.primaryColor
                         width: 3
                         anchors{
                             verticalCenter: parent.verticalCenter
@@ -1062,7 +1033,7 @@ Item {
                 Rectangle{
                     height: 18
                     radius: 1.5
-                    color: FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor
                     width: 3
                     anchors{
                         verticalCenter: parent.verticalCenter
@@ -1126,17 +1097,10 @@ Item {
                     focusPolicy:Qt.TabFocus
                     background: Rectangle{
                         color:  {
-                            if(FluTheme.dark){
-                                if(item_button.hovered){
-                                    return Qt.rgba(1,1,1,0.06)
-                                }
-                                return Qt.rgba(0,0,0,0)
-                            }else{
-                                if(item_button.hovered){
-                                    return Qt.rgba(0,0,0,0.03)
-                                }
-                                return Qt.rgba(0,0,0,0)
+                            if(item_button.hovered){
+                                return FluTheme.itemHoverColor
                             }
+                            return FluTheme.itemNormalColor
                         }
                         FluFocusRectangle{
                             visible: item_button.activeFocus

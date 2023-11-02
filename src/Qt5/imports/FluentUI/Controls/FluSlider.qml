@@ -39,7 +39,7 @@ T.Slider {
                 }
                 return control.hovered ? 1.2 : 1
             }
-            iconColor:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+            iconColor: FluTheme.primaryColor
             anchors.centerIn: parent
         }
     }
@@ -62,7 +62,7 @@ T.Slider {
             width: control.horizontal ? control.position * parent.width : 6
             height: control.horizontal ? 6 : control.position * parent.height
             radius: 3
-            color:FluTheme.dark ? FluTheme.primaryColor.lighter :FluTheme.primaryColor.dark
+            color: FluTheme.primaryColor
         }
     }
     FluTooltip{

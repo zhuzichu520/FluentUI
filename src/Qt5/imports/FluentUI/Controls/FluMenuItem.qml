@@ -98,17 +98,10 @@ T.MenuItem {
             anchors.margins: 3
             radius: 4
             color:{
-                if(FluTheme.dark){
-                    if(control.highlighted){
-                        return Qt.rgba(1,1,1,0.06)
-                    }
-                    return Qt.rgba(0,0,0,0)
-                }else{
-                    if(control.highlighted){
-                        return Qt.rgba(0,0,0,0.06)
-                    }
-                    return Qt.rgba(0,0,0,0)
+                if(control.highlighted){
+                    return FluTheme.itemCheckColor
                 }
+                return FluTheme.itemNormalColor
             }
         }
     }

@@ -124,9 +124,9 @@ Item {
                 radius: 4
             }
             scale: checked ? 1.2 : 1
-            color: checked ?  FluTheme.primaryColor.dark : Qt.rgba(1,1,1,0.7)
+            color: checked ?  FluTheme.primaryColor : Qt.rgba(1,1,1,0.7)
             border.width: mouse_item.containsMouse ? 1 : 0
-            border.color: FluTheme.primaryColor.dark
+            border.color: FluTheme.primaryColor
             MouseArea{
                 id:mouse_item
                 hoverEnabled: true

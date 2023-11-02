@@ -36,7 +36,7 @@ Page {
             Rectangle{
                 height: 3
                 radius: 1.5
-                color: FluTheme.primaryColor.dark
+                color: FluTheme.primaryColor
                 width: nav_list.currentItem ? nav_list.currentItem.width : 0
                 y:d.tabY
                 Behavior on width {

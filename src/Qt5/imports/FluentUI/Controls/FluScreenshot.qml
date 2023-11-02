@@ -11,7 +11,7 @@ Item{
     property int dotSize: 5
     property int borderSize: 1
     property var saveFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-    property color borderColor: FluTheme.primaryColor.dark
+    property color borderColor: FluTheme.primaryColor
     signal captrueCompleted(var captrue)
     QtObject{
         id:d
@@ -508,7 +508,7 @@ Item{
                     }
                     FluIconButton{
                         iconSource: FluentIcons.AcceptMedium
-                        iconColor: FluTheme.primaryColor.dark
+                        iconColor: FluTheme.primaryColor
                         onClicked: {
                             screenshot_background.capture(screenshot.start,screenshot.end)
                         }

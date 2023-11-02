@@ -82,7 +82,7 @@ Item{
             radius: 8
             border.width: 4
             color:FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
-            border.color: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+            border.color: FluTheme.primaryColor
         }
     }
 
@@ -92,7 +92,7 @@ Item{
             wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.lable
-            color: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+            color: FluTheme.primaryColor
         }
     }
 

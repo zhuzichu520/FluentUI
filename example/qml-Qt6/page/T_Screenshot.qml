@@ -35,7 +35,7 @@ FluScrollablePage{
         color: FluTheme.dark ? FluColors.Black : FluColors.White
         FluShadow{
             radius: 4
-            color: FluTheme.primaryColor.dark
+            color: FluTheme.primaryColor
         }
         Image{
             id:image

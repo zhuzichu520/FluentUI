@@ -66,7 +66,7 @@ FluScrollablePage{
             }
             Rectangle {
                 anchors.fill: parent
-                color:FluTheme.primaryColor.dark
+                color:FluTheme.primaryColor
             }
         }
     }
@@ -78,7 +78,7 @@ FluScrollablePage{
     statusMode: FluStatusViewType.Loading
     Rectangle{
         anchors.fill: parent
-        color:FluTheme.primaryColor.dark
+        color:FluTheme.primaryColor
     }
 }'
     }

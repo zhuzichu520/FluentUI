@@ -11,10 +11,10 @@ Button {
     property bool disabled: false
     property int radius:4
     property string contentDescription: ""
-    property color hoverColor: FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
-    property color pressedColor: FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
-    property color normalColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
-    property color disableColor: FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
+    property color hoverColor: FluTheme.itemHoverColor
+    property color pressedColor: FluTheme.itemPressColor
+    property color normalColor: FluTheme.itemNormalColor
+    property color disableColor: FluTheme.itemNormalColor
     property Component iconDelegate: com_icon
     property color color: {
         if(!enabled){

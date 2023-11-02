@@ -77,7 +77,7 @@ FluScrollablePage{
                     Rectangle{
                         anchors.fill: parent
                         radius: 5
-                        color:FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03)
+                        color:FluTheme.itemHoverColor
                         visible: item_mouse.containsMouse
                     }
                     Rectangle{
@@ -172,17 +172,10 @@ FluScrollablePage{
                     anchors.fill: parent
                     radius: 8
                     color:{
-                        if(FluTheme.dark){
-                            if(item_mouse.containsMouse){
-                                return Qt.rgba(1,1,1,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
-                        }else{
-                            if(item_mouse.containsMouse){
-                                return Qt.rgba(0,0,0,0.03)
-                            }
-                            return Qt.rgba(0,0,0,0)
+                        if(item_mouse.containsMouse){
+                            return FluTheme.itemHoverColor
                         }
+                        return FluTheme.itemNormalColor
                     }
                 }
                 Image{
@@ -227,7 +220,7 @@ FluScrollablePage{
                     height: 12
                     width: 12
                     radius:  6
-                    color: FluTheme.primaryColor.dark
+                    color: FluTheme.primaryColor
                     anchors{
                         right: parent.right
                         top: parent.top

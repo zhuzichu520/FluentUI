@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
@@ -20,7 +19,7 @@ Button{
         color:"#00000000"
         border.color: {
             if(hovered)
-                return FluTheme.primaryColor.light
+                return FluTheme.primaryColor
             return FluTheme.dark ? Qt.rgba(100/255,100/255,100/255,1) : Qt.rgba(200/255,200/255,200/255,1)
         }
         border.width: 1
@@ -31,6 +30,7 @@ Button{
             radius: 5
             color: control.colorValue
         }
+
     }
     Item{
         id: d

@@ -13,7 +13,7 @@ Button {
     }
     property color normalColor: {
         if(d.checked){
-            return FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+            return FluTheme.primaryColor
         }else{
             return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
         }
@@ -67,7 +67,7 @@ Button {
             width: parent.width  * control.progress
             height: control.progress === 1 ? background.height : 3
             visible: !d.checked
-            color: FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+            color: FluTheme.primaryColor
             anchors.bottom: parent.bottom
             Behavior on height{
                 enabled: control.progress === 1

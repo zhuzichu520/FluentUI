@@ -7,7 +7,7 @@ Button {
     property string contentDescription: ""
     property color normalColor: {
         if(checked){
-           return FluTheme.dark ? FluTheme.primaryColor.lighter : FluTheme.primaryColor.dark
+           return FluTheme.primaryColor
         }else{
            return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
         }

@@ -184,11 +184,7 @@ Rectangle {
                                 anchors.rightMargin: 5
                                 color:  {
                                     if(getListView().currentIndex === position){
-                                        if(FluTheme.dark){
-                                            return  item_mouse.containsMouse ? Qt.darker(FluTheme.primaryColor.lighter,1.1) : FluTheme.primaryColor.lighter
-                                        }else{
-                                            return  item_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor.dark,1.1): FluTheme.primaryColor.dark
-                                        }
+                                        return  item_mouse.containsMouse ? Qt.darker(FluTheme.primaryColor,1.1) : FluTheme.primaryColor
                                     }
                                     if(item_mouse.containsMouse){
                                         return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)

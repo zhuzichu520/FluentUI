@@ -40,7 +40,7 @@ T.SpinBox {
             }
             return normalColor
         }
-        selectionColor: Qt.alpha(FluTheme.primaryColor.lightest,0.6)
+        selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.25)
         selectedTextColor: color
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
@@ -53,10 +53,13 @@ T.SpinBox {
             anchors.bottom: parent.bottom
             visible: contentItem.enabled
             color: {
+                if(contentItem.activeFocus){
+                    return FluTheme.primaryColor
+                }
                 if(FluTheme.dark){
-                    contentItem.activeFocus ? FluTheme.primaryColor.lighter  : Qt.rgba(166/255,166/255,166/255,1)
+                    return Qt.rgba(166/255,166/255,166/255,1)
                 }else{
-                    return contentItem.activeFocus ? FluTheme.primaryColor.dark  : Qt.rgba(183/255,183/255,183/255,1)
+                    return Qt.rgba(183/255,183/255,183/255,1)
                 }
             }
             Behavior on height{

@@ -32,7 +32,7 @@ FluScrollablePage{
                             anchors.centerIn: parent
                             iconSource: FluentIcons.AcceptMedium
                             iconSize: 15
-                            visible: modelData === FluTheme.primaryColor
+                            visible: modelData === FluTheme.themeColor
                             color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                         }
                         MouseArea{
@@ -40,7 +40,7 @@ FluScrollablePage{
                             anchors.fill: parent
                             hoverEnabled: true
                             onClicked: {
-                                FluTheme.primaryColor = modelData
+                                FluTheme.themeColor = modelData
                             }
                         }
                     }
@@ -88,7 +88,7 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'FluTheme.primaryColor = FluColors.Orange
+        code:'FluTheme.themeColor = FluColors.Orange
 
 FluTheme.dark = true
 

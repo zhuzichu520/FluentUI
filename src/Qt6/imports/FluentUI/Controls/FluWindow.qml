@@ -15,9 +15,9 @@ Window {
     property var appBar: com_app_bar
     property color backgroundColor: {
         if(active){
-            return FluTheme.dark ? Qt.rgba(26/255,34/255,40/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+            return FluTheme.windowActiveBackgroundColor
         }
-        return FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(237/255,237/255,237/255,1)
+        return FluTheme.windowBackgroundColor
     }
     property bool stayTop: false
     property var _pageRegister
