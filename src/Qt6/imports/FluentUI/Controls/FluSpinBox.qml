@@ -40,7 +40,7 @@ T.SpinBox {
             }
             return normalColor
         }
-        selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.25)
+        selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.5)
         selectedTextColor: color
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter

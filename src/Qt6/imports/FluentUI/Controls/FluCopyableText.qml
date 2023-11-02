@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import FluentUI
 
-TextEdit {
+TextInput {
     property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
     id:control
     color: textColor
@@ -17,7 +17,7 @@ TextEdit {
     selectByMouse: true
     selectedTextColor: color
     bottomPadding: 0
-    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.25)
+    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.5)
     font:FluTextStyle.Body
     onSelectedTextChanged: {
         control.forceActiveFocus()

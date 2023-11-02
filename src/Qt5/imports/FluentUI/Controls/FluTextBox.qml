@@ -25,7 +25,7 @@ TextField{
     }
     font:FluTextStyle.Body
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.25)
+    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.5)
     selectedTextColor: color
     placeholderTextColor: {
         if(!enabled){
