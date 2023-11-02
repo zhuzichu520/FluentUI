@@ -23,8 +23,8 @@ class FluTheme : public QObject
     Q_PROPERTY_AUTO(QColor,windowBackgroundColor);
     Q_PROPERTY_AUTO(QColor,windowActiveBackgroundColor);
     Q_PROPERTY_AUTO(QColor,fontPrimaryColor);
-    Q_PROPERTY_AUTO(QColor,fontSecondary);
-    Q_PROPERTY_AUTO(QColor,fontTertiary);
+    Q_PROPERTY_AUTO(QColor,fontSecondaryColor);
+    Q_PROPERTY_AUTO(QColor,fontTertiaryColor);
     Q_PROPERTY_AUTO(QColor,itemNormalColor);
     Q_PROPERTY_AUTO(QColor,itemHoverColor);
     Q_PROPERTY_AUTO(QColor,itemPressColor);
