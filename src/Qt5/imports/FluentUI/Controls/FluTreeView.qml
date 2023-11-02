@@ -86,7 +86,7 @@ Item {
             ListView.onPooled: {
                 item_loader_container.item.pooled()
             }
-            Loader{
+            FluLoader{
                 property var itemControl: item_control
                 property var itemModel: dataModel
                 property int rowIndex: index
@@ -95,7 +95,7 @@ Item {
                 sourceComponent: com_item_container
             }
         }
-        Loader{
+        FluLoader{
             id:loader_container
             property var itemControl
             property var itemModel
@@ -357,7 +357,7 @@ Item {
                     }
                 }
 
-                Loader{
+                FluLoader{
                     id:item_loader_expand
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 20
@@ -381,7 +381,7 @@ Item {
                     }
                     Layout.alignment: Qt.AlignVCenter
                 }
-                Loader{
+                FluLoader{
                     property var dataModel: itemModel
                     property var itemMouse: item_mouse
                     id:item_loader_cell

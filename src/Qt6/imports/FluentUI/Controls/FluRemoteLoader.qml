@@ -15,7 +15,7 @@ FluStatusView {
             loader.source = control.source
         }
     }
-    Loader{
+    FluLoader{
         id:loader
         anchors.fill: parent
         asynchronous: true

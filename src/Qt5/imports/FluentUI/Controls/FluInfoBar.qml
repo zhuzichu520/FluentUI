@@ -86,7 +86,7 @@ FluObject {
                     interval: duration; running: duration > 0; repeat: duration > 0
                     onTriggered: content.close();
                 }
-                Loader{
+                FluLoader{
                     id:loader;
                     x:(parent.width - width) / 2;
                     property var _super: content;

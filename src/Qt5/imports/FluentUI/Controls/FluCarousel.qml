@@ -75,7 +75,7 @@ Item {
                     return 0
                 return index-1
             }
-            Loader{
+            FluLoader{
                 property int displayIndex : item_control.displayIndex
                 property var model: list_view.model.get(index)
                 anchors.fill: parent
@@ -156,7 +156,7 @@ Item {
         Repeater{
             id:repeater_indicator
             model: list_view.count
-            Loader{
+            FluLoader{
                 property int displayIndex: {
                     if(index === 0)
                         return list_view.count-3

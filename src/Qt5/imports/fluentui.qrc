@@ -95,5 +95,6 @@
         <file>FluentUI/Controls/ColorPicker/Content/SBPicker.qml</file>
         <file>FluentUI/Controls/FluLoadingButton.qml</file>
         <file>FluentUI/Controls/FluClip.qml</file>
+        <file>FluentUI/Controls/FluLoader.qml</file>
     </qresource>
 </RCC>

@@ -232,7 +232,7 @@ Rectangle {
                         preferredHighlightEnd: 0
                         highlightMoveDuration: 0
                         visible: showYear
-                        delegate: Loader{
+                        delegate: FluLoader{
                             property var model: modelData
                             property int type:0
                             property int position:index
@@ -254,7 +254,7 @@ Rectangle {
                         preferredHighlightEnd: 0
                         highlightMoveDuration: 0
                         boundsBehavior:Flickable.StopAtBounds
-                        delegate: Loader{
+                        delegate: FluLoader{
                             property var model: modelData
                             property int type:1
                             property int position:index
@@ -277,7 +277,7 @@ Rectangle {
                         ScrollBar.vertical: FluScrollBar {}
                         Layout.alignment: Qt.AlignVCenter
                         boundsBehavior:Flickable.StopAtBounds
-                        delegate: Loader{
+                        delegate: FluLoader{
                             property var model: modelData
                             property int type:2
                             property int position:index

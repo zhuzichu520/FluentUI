@@ -334,7 +334,7 @@ Item {
                             left:parent.left
                             leftMargin: 3
                         }
-                        Loader{
+                        FluLoader{
                             anchors.centerIn: parent
                             sourceComponent: {
                                 if(model&&model.iconDelegate){
@@ -342,7 +342,6 @@ Item {
                                 }
                                 return com_icon
                             }
-                            Component.onDestruction: sourceComponent = undefined
                         }
                     }
                     FluText{
@@ -381,7 +380,7 @@ Item {
                             return FluTheme.dark ? FluColors.White : FluColors.Grey220
                         }
                     }
-                    Loader{
+                    FluLoader{
                         id:item_edit_loader
                         anchors{
                             top: parent.top
@@ -390,7 +389,6 @@ Item {
                             right: item_title.right
                             rightMargin: 8
                         }
-                        Component.onDestruction: sourceComponent = undefined
                         sourceComponent: {
                             if(d.isCompact){
                                 return undefined
@@ -398,7 +396,7 @@ Item {
                             return model&&model.showEdit ? model.editDelegate : undefined
                         }
                         onStatusChanged: {
-                            if(status === Loader.Ready){
+                            if(status === FluLoader.Ready){
                                 item.forceActiveFocus()
                                 item_connection_edit_focus.target = item
                             }
@@ -554,9 +552,8 @@ Item {
                             left:parent.left
                             leftMargin: 3
                         }
-                        Loader{
+                        FluLoader{
                             anchors.centerIn: parent
-                            Component.onDestruction: sourceComponent = undefined
                             sourceComponent: {
                                 if(model&&model.iconDelegate){
                                     return model.iconDelegate
@@ -601,7 +598,7 @@ Item {
                             right: item_dot_loader.left
                         }
                     }
-                    Loader{
+                    FluLoader{
                         id:item_edit_loader
                         anchors{
                             top: parent.top
@@ -619,9 +616,8 @@ Item {
                             }
                             return model.showEdit ? model.editDelegate : undefined
                         }
-                        Component.onDestruction: sourceComponent = undefined
                         onStatusChanged: {
-                            if(status === Loader.Ready){
+                            if(status === FluLoader.Ready){
                                 item.forceActiveFocus()
                                 item_connection_edit_focus.target = item
                             }
@@ -640,7 +636,7 @@ Item {
                             }
                         }
                     }
-                    Loader{
+                    FluLoader{
                         id:item_dot_loader
                         property bool isDot: (item_dot_loader.item&&item_dot_loader.item.isDot)
                         anchors{
@@ -655,7 +651,6 @@ Item {
                             }
                             return undefined
                         }
-                        Component.onDestruction: sourceComponent = undefined
                         Connections{
                             target: d
                             function onIsCompactAndNotPanelChanged(){
@@ -785,11 +780,10 @@ Item {
                 }
                 return 0
             }
-            Loader{
+            FluLoader{
                 id:loader_action
                 anchors.centerIn: parent
                 sourceComponent: actionItem
-                Component.onDestruction: sourceComponent = undefined
             }
         }
     }
@@ -828,7 +822,7 @@ Item {
             }
         }
     }
-    Loader{
+    FluLoader{
         id:loader_content
         anchors{
             left: parent.left
@@ -845,7 +839,6 @@ Item {
                 return control.cellWidth
             }
         }
-        Component.onDestruction: sourceComponent = undefined
         Behavior on anchors.leftMargin {
             enabled: FluTheme.enableAnimation && d.animDisabled
             NumberAnimation{
@@ -915,7 +908,7 @@ Item {
             clip: true
             y:nav_app_bar.height+control.topPadding
             height: autoSuggestBox ? 38 : 0
-            Loader{
+            FluLoader{
                 id:loader_auto_suggest_box
                 sourceComponent: autoSuggestBox
                 anchors{
@@ -925,7 +918,6 @@ Item {
                     rightMargin: 6
                     verticalCenter: parent.verticalCenter
                 }
-                Component.onDestruction: sourceComponent = undefined
                 visible: {
                     if(d.isCompactAndNotPanel){
                         return false
@@ -993,11 +985,10 @@ Item {
                     }
                 }
                 currentIndex: -1
-                delegate: Loader{
+                delegate: FluLoader{
                     property var model: modelData
                     property var _idx: index
                     property int type: 0
-                    Component.onDestruction: sourceComponent = undefined
                     sourceComponent: {
                         if(model === null || !model)
                             return undefined
@@ -1051,11 +1042,10 @@ Item {
                     }
                 }
             }
-            delegate: Loader{
+            delegate: FluLoader{
                 property var model: modelData
                 property var _idx: index
                 property int type: 1
-                Component.onDestruction: sourceComponent = undefined
                 sourceComponent: {
                     if(modelData instanceof FluPaneItem){
                         return com_panel_item
@@ -1117,14 +1107,13 @@ Item {
                             radius:4
                         }
 
-                        Loader{
+                        FluLoader{
                             id:item_dot_loader
                             anchors{
                                 right: parent.right
                                 verticalCenter: parent.verticalCenter
                                 rightMargin: 10
                             }
-                            Component.onDestruction: sourceComponent = undefined
                             sourceComponent: {
                                 if(model.infoBadge){
                                     return model.infoBadge
@@ -1175,9 +1164,8 @@ Item {
             control_popup.open()
         }
     }
-    Loader{
+    FluLoader{
         property var modelData
-        Component.onDestruction: sourceComponent = undefined
         id:loader_item_menu
     }
     Connections{

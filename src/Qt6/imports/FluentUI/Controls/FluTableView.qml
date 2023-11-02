@@ -302,7 +302,7 @@ Rectangle {
                                     event.accepted = true
                                 }
                         }
-                        Loader{
+                        FluLoader{
                             property var itemModel: model
                             property var modelData: display
                             property var tableView: table_view
@@ -342,7 +342,7 @@ Rectangle {
                 onEntered: {
                     d.rowHoverIndex = -1
                 }
-                Loader{
+                FluLoader{
                     id:item_loader
                     property var display
                     property int column
@@ -394,8 +394,10 @@ Rectangle {
             property bool canceled: false
             property int columnIndex: column
             readonly property var obj : columnSource[column]
-            implicitWidth: item_column_loader.item.implicitWidth + (cellPadding * 2)
-            implicitHeight: Math.max(36, item_column_loader.item.implicitHeight + (cellPadding * 2))
+            implicitWidth: {
+                return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
+            }
+            implicitHeight: Math.max(36, (item_column_loader.item&&item_column_loader.item.implicitHeight) + (cellPadding * 2))
             color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             Rectangle{
                 border.color: control.borderColor
@@ -444,7 +446,7 @@ Rectangle {
                         closeEditor()
                     }
             }
-            Loader{
+            FluLoader{
                 id:item_column_loader
                 property var itemModel: model
                 property var modelData: model.display

@@ -11,7 +11,7 @@ Image {
     property Component errorItem : com_error
     property Component loadingItem: com_loading
     id: control
-    Loader{
+    FluLoader{
         anchors.fill: parent
         sourceComponent: {
             if(control.status === Image.Loading){

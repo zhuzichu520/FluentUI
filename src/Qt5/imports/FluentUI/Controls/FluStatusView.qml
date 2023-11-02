@@ -23,7 +23,7 @@ Item{
         anchors.fill: parent
         visible: statusMode===FluStatusViewType.Success
     }
-    Loader{
+    FluLoader{
         id:loader
         anchors.fill: parent
         visible: statusMode!==FluStatusViewType.Success

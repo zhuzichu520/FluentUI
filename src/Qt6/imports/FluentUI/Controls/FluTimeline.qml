@@ -116,7 +116,7 @@ Item{
                 id:item_layout
                 width: layout_column.width
                 height: loader_text.height
-                Loader{
+                FluLoader{
                     id:item_loader
                     state: d.stateName
                     states: [
@@ -149,7 +149,7 @@ Item{
                     }
                 }
 
-                Loader{
+                FluLoader{
                     property var modelData: control.model.get(index)
                     property bool isRight: state === "Right"
                     id:loader_lable
@@ -219,7 +219,7 @@ Item{
                     ]
                 }
 
-                Loader{
+                FluLoader{
                     id:loader_text
                     property var modelData: control.model.get(index)
                     property bool isRight: state === "Right"

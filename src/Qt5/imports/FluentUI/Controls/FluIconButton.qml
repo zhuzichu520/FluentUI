@@ -71,7 +71,7 @@ Button {
     Component{
         id:com_row
         RowLayout{
-            Loader{
+            FluLoader{
                 sourceComponent: iconDelegate
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.TextOnly
@@ -86,7 +86,7 @@ Button {
     Component{
         id:com_column
         ColumnLayout{
-            Loader{
+            FluLoader{
                 sourceComponent: iconDelegate
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.TextOnly

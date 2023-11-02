@@ -273,7 +273,7 @@ Item {
         }
         Repeater{
             model:tab_model
-            Loader{
+            FluLoader{
                 property var argument: model.argument
                 anchors.fill: parent
                 sourceComponent: model.page

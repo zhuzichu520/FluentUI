@@ -84,7 +84,7 @@ Page {
         anchors.fill: parent
         Repeater{
             model:d.children
-            Loader{
+            FluLoader{
                 property var argument: modelData.argument
                 anchors.fill: parent
                 sourceComponent: modelData.contentItem

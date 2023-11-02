@@ -19,7 +19,7 @@ FluWindow {
             window.title = arg.title
             loader.setSource( arg.url,{animDisabled:true})
         }
-    Loader{
+    FluLoader{
         id: loader
         anchors.fill: parent
     }

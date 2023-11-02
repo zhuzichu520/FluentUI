@@ -60,7 +60,7 @@ T.MenuItem {
                 right: parent.right
                 rightMargin: (control.mirrored ? indicatorPadding : arrowPadding)+5
             }
-            Loader{
+            FluLoader{
                 id:loader_icon
                 sourceComponent: iconDelegate
                 anchors.verticalCenter: parent.verticalCenter

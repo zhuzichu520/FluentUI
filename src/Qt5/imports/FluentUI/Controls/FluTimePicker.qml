@@ -238,7 +238,7 @@ Rectangle {
                         highlightMoveDuration: 0
                         model: isH ? generateArray(1,12) : generateArray(0,23)
                         clip: true
-                        delegate: Loader{
+                        delegate: FluLoader{
                             property var model: modelData
                             property int type:0
                             property int position:index
@@ -261,7 +261,7 @@ Rectangle {
                         highlightMoveDuration: 0
                         ScrollBar.vertical: FluScrollBar {}
                         boundsBehavior:Flickable.StopAtBounds
-                        delegate: Loader{
+                        delegate: FluLoader{
                             property var model: modelData
                             property int type:1
                             property int position:index
@@ -287,7 +287,7 @@ Rectangle {
                         ScrollBar.vertical: FluScrollBar {}
                         Layout.alignment: Qt.AlignVCenter
                         boundsBehavior:Flickable.StopAtBounds
-                        delegate: Loader{
+                        delegate: FluLoader{
                             property var model: modelData
                             property int type:2
                             property int position:index

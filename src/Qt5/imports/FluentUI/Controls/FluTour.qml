@@ -155,7 +155,7 @@ Popup{
                 leftMargin: 15
             }
         }
-        Loader{
+        FluLoader{
             id:loader_next
             property bool isEnd: control.index === steps.length-1
             sourceComponent: com_next_button
@@ -166,7 +166,7 @@ Popup{
                 rightMargin: 15
             }
         }
-        Loader{
+        FluLoader{
             id:loader_prev
             visible: control.index !== 0
             sourceComponent: com_prev_button

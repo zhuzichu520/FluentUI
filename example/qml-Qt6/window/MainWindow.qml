@@ -244,7 +244,7 @@ FluWindow {
         }
     }
 
-    Loader{
+    FluLoader{
         id:loader_reveal
         anchors.fill: parent
     }

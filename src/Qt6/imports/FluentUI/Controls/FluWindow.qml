@@ -93,11 +93,11 @@ Window {
             showStayTop: window.showStayTop
         }
     }
-    Loader{
+    FluLoader{
         anchors.fill: parent
         sourceComponent: background
     }
-    Loader{
+    FluLoader{
         id: loader_title_bar
         anchors {
             top: parent.top
@@ -116,7 +116,7 @@ Window {
         }
         clip: true
     }
-    Loader{
+    FluLoader{
         property string loadingText: "加载中..."
         property bool cancel: false
         id:loader_loading
