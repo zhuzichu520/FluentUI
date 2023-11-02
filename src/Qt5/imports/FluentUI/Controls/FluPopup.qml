@@ -12,13 +12,6 @@ Popup {
     closePolicy: Popup.CloseOnEscape
     enter: Transition {
         NumberAnimation {
-            properties: "scale"
-            from:1.2
-            to:1
-            duration: FluTheme.enableAnimation ? 83 : 0
-            easing.type: Easing.OutCubic
-        }
-        NumberAnimation {
             property: "opacity"
             duration: FluTheme.enableAnimation ? 83 : 0
             from:0
@@ -26,13 +19,6 @@ Popup {
         }
     }
     exit:Transition {
-        NumberAnimation {
-            properties: "scale"
-            from:1
-            to:1.2
-            duration: FluTheme.enableAnimation ? 83 : 0
-            easing.type: Easing.OutCubic
-        }
         NumberAnimation {
             property: "opacity"
             duration: FluTheme.enableAnimation ? 83 : 0
