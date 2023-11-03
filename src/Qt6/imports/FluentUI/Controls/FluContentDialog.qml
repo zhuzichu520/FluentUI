@@ -25,9 +25,6 @@ FluPopup {
         anchors.fill: parent
         color: 'transparent'
         radius:5
-        FluShadow{
-            radius: 5
-        }
         FluText{
             id:text_title
             font: FluTextStyle.TitleLarge
