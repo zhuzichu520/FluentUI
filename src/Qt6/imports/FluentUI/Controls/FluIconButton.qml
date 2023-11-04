@@ -38,6 +38,7 @@ Button {
             return Qt.rgba(0,0,0,1)
         }
     }
+    property color textColor: FluTheme.fontPrimaryColor
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: contentDescription
@@ -81,6 +82,7 @@ Button {
                 text:control.text
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
+                color: control.textColor
             }
         }
     }
@@ -96,6 +98,7 @@ Button {
                 text:control.text
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
+                color: control.textColor
             }
         }
     }
