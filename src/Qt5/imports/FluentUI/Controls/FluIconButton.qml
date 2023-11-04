@@ -6,6 +6,7 @@ import FluentUI 1.0
 Button {
     display: Button.IconOnly
     property int iconSize: 20
+    property int textSize: 12
     property int iconSource
     property bool disabled: false
     property int radius:4
@@ -82,6 +83,7 @@ Button {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
                 color: control.textColor
+                font.pixelSize: control.textSize
             }
         }
     }
@@ -98,6 +100,7 @@ Button {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
                 color: control.textColor
+                font.pixelSize: control.textSize
             }
         }
     }
