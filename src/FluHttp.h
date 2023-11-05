@@ -4,14 +4,20 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 #include <QFile>
+#include <QJsonValue>
 #include <QNetworkAccessManager>
 #include "stdafx.h"
 
 class HttpRequest : public QObject{
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,url);
+#  if (QT_VERSION == QT_VERSION_CHECK(6, 4, 3))
+    Q_PROPERTY_AUTO(QJsonValue,params);
+    Q_PROPERTY_AUTO(QJsonValue,headers);
+#  else
     Q_PROPERTY_AUTO(QVariant,params);
     Q_PROPERTY_AUTO(QVariant,headers);
+#  endif
     Q_PROPERTY_AUTO(QString,method);
     Q_PROPERTY_AUTO(QString,downloadSavePath);
     QML_NAMED_ELEMENT(HttpRequest)

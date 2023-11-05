@@ -26,14 +26,6 @@ void FluApp::init(QObject *application){
     FramelessHelper::Quick::initialize();
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
-    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-#ifdef Q_OS_WIN
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow,false);
-#endif
-#ifdef Q_OS_MACOS
-    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
-#endif
     QQmlEngine *engine = qmlEngine(_application);
     FramelessHelper::Quick::registerTypes(engine);
 }

@@ -38,7 +38,6 @@ Window {
     }
     signal initArgument(var argument)
     id:window
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
     color:"transparent"
     onStayTopChanged: {
         d.changedStayTop()
@@ -201,6 +200,7 @@ Window {
     FramelessHelper{
         id:framless_helper
         onReady: {
+            flags = flags | Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
             if(appBar){
                 var title_bar = loader_title_bar.item
                 setTitleBarItem(title_bar)
@@ -222,6 +222,19 @@ Window {
     }
     WindowBorder{
         z:999
+        visible: !FluTools.isLinux()
+    }
+    Rectangle{
+        anchors.fill: parent
+        color: "#00000000"
+        border.width: 1
+        visible: FluTools.isLinux()
+        border.color: {
+            if(window.active){
+                return "#333333"
+            }
+            return "#999999"
+        }
     }
     function destoryOnClose(){
         lifecycle.onDestoryOnClose()

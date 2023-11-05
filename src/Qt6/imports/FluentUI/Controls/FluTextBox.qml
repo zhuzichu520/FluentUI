@@ -47,9 +47,9 @@ TextField{
             w = 0
         return icon_end.visible ? w+36 : w+10
     }
+    width: 240
     background: FluTextBoxBackground{
         inputItem: control
-        implicitWidth: 240
     }
     Keys.onEnterPressed: (event)=> d.handleCommit(event)
     Keys.onReturnPressed:(event)=> d.handleCommit(event)

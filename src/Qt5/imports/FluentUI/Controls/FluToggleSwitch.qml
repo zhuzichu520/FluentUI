@@ -46,8 +46,8 @@ Button {
         layoutDirection:control.textRight ? Qt.LeftToRight : Qt.RightToLeft
         Rectangle {
             id:control_backgound
-            width: background.width
-            height: background.height
+            implicitWidth: background.implicitWidth
+            implicitHeight: background.implicitHeight
             radius: height / 2
             FluFocusRectangle{
                 visible: control.activeFocus

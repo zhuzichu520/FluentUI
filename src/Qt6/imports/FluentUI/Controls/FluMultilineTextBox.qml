@@ -36,10 +36,9 @@ TextArea{
         return placeholderNormalColor
     }
     selectByMouse: true
-    width: background.implicitWidth
+    width: 240
     background: FluTextBoxBackground{
         inputItem: control
-        implicitWidth: 240
     }
     Keys.onEnterPressed: (event)=> d.handleCommit(event)
     Keys.onReturnPressed:(event)=> d.handleCommit(event)
