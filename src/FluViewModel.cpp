@@ -36,7 +36,7 @@ void ViewModelManager::refreshViewModel(FluViewModel* viewModel,QString key,QVar
     foreach (auto item, _viewmodel) {
         if(item->getKey() == viewModel->getKey()){
             item->enablePropertyChange = false;
-            item->setProperty(key.toStdString().c_str(),value);
+            item->setProperty(key.toLatin1().constData(),value);
             item->enablePropertyChange  = true;
         }
     }
@@ -56,7 +56,7 @@ void PropertyObserver::_propertyChange(){
     auto viewModel = (FluViewModel*)parent();
     if(viewModel->enablePropertyChange){
         auto value = _property.read();
-        _model->setProperty(_name.toStdString().c_str(),value);
+        _model->setProperty(_name.toLatin1().constData(),value);
         ViewModelManager::getInstance()->refreshViewModel(viewModel,_name,value);
     }
 }
@@ -97,7 +97,7 @@ void FluViewModel::componentComplete(){
             const QMetaProperty property = obj->property(i);
             QString propertyName = property.name();
             auto value = property.read(this);
-            model->setProperty(propertyName.toStdString().c_str(),value);
+            model->setProperty(propertyName.toLatin1().constData(),value);
             new PropertyObserver(propertyName,model,this);
         }
         ViewModelManager::getInstance()->insert(_key,model);
