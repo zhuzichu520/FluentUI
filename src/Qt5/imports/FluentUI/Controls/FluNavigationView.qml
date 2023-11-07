@@ -176,6 +176,11 @@ Item {
                     leftMargin: 6
                     rightMargin: 6
                 }
+                FluTooltip {
+                    text: model.title
+                    visible: item_control.hovered && model.title && d.isCompact
+                    delay: 400
+                }
                 MouseArea{
                     anchors.fill: parent
                     acceptedButtons: Qt.RightButton
@@ -454,6 +459,11 @@ Item {
                     bottomMargin: 2
                     leftMargin: 6
                     rightMargin: 6
+                }
+                FluTooltip {
+                    text: model.title
+                    visible: item_control.hovered && model.title && d.isCompact
+                    delay: 400
                 }
                 onClicked:{
                     if(type === 0){
