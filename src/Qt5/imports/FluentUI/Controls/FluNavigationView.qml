@@ -16,8 +16,11 @@ Item {
     property int pageMode: FluNavigationViewType.Stack
     property FluMenu navItemRightMenu
     property FluMenu navItemExpanderRightMenu
+    property int navCompactWidth: 50
+    property int navTopMargin: 0
     property int cellHeight: 38
     property int cellWidth: 300
+    property bool hideNavAppBar: false
     signal logoClicked
     id:control
     Item{
@@ -120,7 +123,7 @@ Item {
                 }
                 return 1
             }
-            separatorHeight: {
+            size: {
                 if(!model){
                     return 1
                 }
@@ -179,7 +182,7 @@ Item {
                 FluTooltip {
                     text: model.title
                     visible: item_control.hovered && model.title && d.isCompact
-                    delay: 400
+                    delay: 800
                 }
                 MouseArea{
                     anchors.fill: parent
@@ -204,7 +207,7 @@ Item {
                         if(h+y>control.height){
                             y = control.height - h
                         }
-                        control_popup.showPopup(Qt.point(50,y),h,model.children)
+                        control_popup.showPopup(Qt.point(control.navCompactWidth,y),h,model.children)
                         return
                     }
                     model.isExpand = !model.isExpand
@@ -335,9 +338,9 @@ Item {
                             return true
                         }
                         anchors{
-                            verticalCenter: parent.verticalCenter
                             left:parent.left
-                            leftMargin: 3
+                            verticalCenter: parent.verticalCenter
+                            leftMargin: d.isCompactAndNotPanel ? (parent.width - 30)/2 : 3
                         }
                         FluLoader{
                             anchors.centerIn: parent
@@ -463,7 +466,7 @@ Item {
                 FluTooltip {
                     text: model.title
                     visible: item_control.hovered && model.title && d.isCompact
-                    delay: 400
+                    delay: 800
                 }
                 onClicked:{
                     if(type === 0){
@@ -558,9 +561,9 @@ Item {
                             return true
                         }
                         anchors{
-                            verticalCenter: parent.verticalCenter
                             left:parent.left
-                            leftMargin: 3
+                            verticalCenter: parent.verticalCenter
+                            leftMargin: d.isCompactAndNotPanel ? (parent.width - 30)/2 : 3
                         }
                         FluLoader{
                             anchors.centerIn: parent
@@ -677,11 +680,12 @@ Item {
     Item {
         id:nav_app_bar
         width: parent.width
-        height: 40
+        height: visible ? 40 : 0
         anchors{
             top: parent.top
             topMargin: control.topPadding
         }
+        visible: !control.hideNavAppBar
         z:999
         RowLayout{
             height:parent.height
@@ -844,7 +848,7 @@ Item {
                     return 0
                 }
                 if(d.isCompact){
-                    return 50
+                    return control.navCompactWidth
                 }
                 return control.cellWidth
             }
@@ -872,12 +876,13 @@ Item {
         id:layout_list
         width: {
             if(d.isCompactAndNotPanel){
-                return 50
+                return control.navCompactWidth
             }
             return control.cellWidth
         }
         anchors{
             top: parent.top
+            topMargin: control.navTopMargin
             bottom: parent.bottom
         }
         border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
@@ -937,10 +942,13 @@ Item {
             }
             FluIconButton{
                 visible:d.isCompactAndNotPanel
-                width:38
-                height:34
-                x:6
-                y:2
+                anchors{
+                    fill: parent
+                    leftMargin: 6
+                    rightMargin: 6
+                    topMargin: 2
+                    bottomMargin: 2
+                }
                 iconSize: 15
                 iconSource: {
                     if(loader_auto_suggest_box.item){

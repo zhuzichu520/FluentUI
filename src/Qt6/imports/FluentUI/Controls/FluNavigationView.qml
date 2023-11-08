@@ -17,8 +17,11 @@ Item {
     property int pageMode: FluNavigationViewType.Stack
     property FluMenu navItemRightMenu
     property FluMenu navItemExpanderRightMenu
+    property int navCompactWidth: 50
+    property int navTopMargin: 0
     property int cellHeight: 38
     property int cellWidth: 300
+    property bool hideNavAppBar: false
     signal logoClicked
     id:control
     Item{
@@ -121,7 +124,7 @@ Item {
                 }
                 return 1
             }
-            separatorHeight: {
+            size: {
                 if(!model){
                     return 1
                 }
@@ -180,7 +183,7 @@ Item {
                 FluTooltip {
                     text: model.title
                     visible: item_control.hovered && model.title && d.isCompact
-                    delay: 400
+                    delay: 800
                 }
                 MouseArea{
                     anchors.fill: parent
@@ -205,7 +208,7 @@ Item {
                         if(h+y>control.height){
                             y = control.height - h
                         }
-                        control_popup.showPopup(Qt.point(50,y),h,model.children)
+                        control_popup.showPopup(Qt.point(control.navCompactWidth,y),h,model.children)
                         return
                     }
                     model.isExpand = !model.isExpand
@@ -336,9 +339,9 @@ Item {
                             return true
                         }
                         anchors{
-                            verticalCenter: parent.verticalCenter
                             left:parent.left
-                            leftMargin: 3
+                            verticalCenter: parent.verticalCenter
+                            leftMargin: d.isCompactAndNotPanel ? (parent.width - 30)/2 : 3
                         }
                         FluLoader{
                             anchors.centerIn: parent
@@ -348,7 +351,6 @@ Item {
                                 }
                                 return com_icon
                             }
-                            Component.onDestruction: sourceComponent = undefined
                         }
                     }
                     FluText{
@@ -396,7 +398,6 @@ Item {
                             right: item_title.right
                             rightMargin: 8
                         }
-                        Component.onDestruction: sourceComponent = undefined
                         sourceComponent: {
                             if(d.isCompact){
                                 return undefined
@@ -466,7 +467,7 @@ Item {
                 FluTooltip {
                     text: model.title
                     visible: item_control.hovered && model.title && d.isCompact
-                    delay: 400
+                    delay: 800
                 }
                 onClicked:{
                     if(type === 0){
@@ -561,13 +562,12 @@ Item {
                             return true
                         }
                         anchors{
-                            verticalCenter: parent.verticalCenter
                             left:parent.left
-                            leftMargin: 3
+                            verticalCenter: parent.verticalCenter
+                            leftMargin: d.isCompactAndNotPanel ? (parent.width - 30)/2 : 3
                         }
                         FluLoader{
                             anchors.centerIn: parent
-                            Component.onDestruction: sourceComponent = undefined
                             sourceComponent: {
                                 if(model&&model.iconDelegate){
                                     return model.iconDelegate
@@ -630,7 +630,6 @@ Item {
                             }
                             return model.showEdit ? model.editDelegate : undefined
                         }
-                        Component.onDestruction: sourceComponent = undefined
                         onStatusChanged: {
                             if(status === FluLoader.Ready){
                                 item.forceActiveFocus()
@@ -666,7 +665,6 @@ Item {
                             }
                             return undefined
                         }
-                        Component.onDestruction: sourceComponent = undefined
                         Connections{
                             target: d
                             function onIsCompactAndNotPanelChanged(){
@@ -683,11 +681,12 @@ Item {
     Item {
         id:nav_app_bar
         width: parent.width
-        height: 40
+        height: visible ? 40 : 0
         anchors{
             top: parent.top
             topMargin: control.topPadding
         }
+        visible: !control.hideNavAppBar
         z:999
         RowLayout{
             height:parent.height
@@ -800,7 +799,6 @@ Item {
                 id:loader_action
                 anchors.centerIn: parent
                 sourceComponent: actionItem
-                Component.onDestruction: sourceComponent = undefined
             }
         }
     }
@@ -851,12 +849,11 @@ Item {
                     return 0
                 }
                 if(d.isCompact){
-                    return 50
+                    return control.navCompactWidth
                 }
                 return control.cellWidth
             }
         }
-        Component.onDestruction: sourceComponent = undefined
         Behavior on anchors.leftMargin {
             enabled: FluTheme.enableAnimation && d.animDisabled
             NumberAnimation{
@@ -880,12 +877,13 @@ Item {
         id:layout_list
         width: {
             if(d.isCompactAndNotPanel){
-                return 50
+                return control.navCompactWidth
             }
             return control.cellWidth
         }
         anchors{
             top: parent.top
+            topMargin: control.navTopMargin
             bottom: parent.bottom
         }
         border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,230/255,234/255,1)
@@ -936,7 +934,6 @@ Item {
                     rightMargin: 6
                     verticalCenter: parent.verticalCenter
                 }
-                Component.onDestruction: sourceComponent = undefined
                 visible: {
                     if(d.isCompactAndNotPanel){
                         return false
@@ -946,10 +943,13 @@ Item {
             }
             FluIconButton{
                 visible:d.isCompactAndNotPanel
-                width:38
-                height:34
-                x:6
-                y:2
+                anchors{
+                    fill: parent
+                    leftMargin: 6
+                    rightMargin: 6
+                    topMargin: 2
+                    bottomMargin: 2
+                }
                 iconSize: 15
                 iconSource: {
                     if(loader_auto_suggest_box.item){
@@ -1008,7 +1008,6 @@ Item {
                     property var model: modelData
                     property var _idx: index
                     property int type: 0
-                    Component.onDestruction: sourceComponent = undefined
                     sourceComponent: {
                         if(model === null || !model)
                             return undefined
@@ -1066,7 +1065,6 @@ Item {
                 property var model: modelData
                 property var _idx: index
                 property int type: 1
-                Component.onDestruction: sourceComponent = undefined
                 sourceComponent: {
                     if(modelData instanceof FluPaneItem){
                         return com_panel_item
@@ -1135,7 +1133,6 @@ Item {
                                 verticalCenter: parent.verticalCenter
                                 rightMargin: 10
                             }
-                            Component.onDestruction: sourceComponent = undefined
                             sourceComponent: {
                                 if(model.infoBadge){
                                     return model.infoBadge
@@ -1188,7 +1185,6 @@ Item {
     }
     FluLoader{
         property var modelData
-        Component.onDestruction: sourceComponent = undefined
         id:loader_item_menu
     }
     Connections{
