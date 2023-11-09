@@ -120,8 +120,18 @@ Popup{
         width: 500
         height: 88 + text_desc.height
         color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+        property int dir : {
+            if(y<d.pos.y)
+                return 1
+            return 0
+        }
         x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),d.windowWidth-width)
-        y: d.pos.y+d.target.height+control.targetMargins + 15
+        y:{
+            var ty=d.pos.y+d.target.height+control.targetMargins + 15
+            if((ty+height)>d.windowHeight)
+                return d.pos.y-height-control.targetMargins - 15
+            return ty
+        }
         border.width: 0
         FluShadow{
             radius: 5
@@ -194,9 +204,9 @@ Popup{
         }
     }
     FluIcon{
-        iconSource: FluentIcons.FlickDown
+        iconSource: layout_panne.dir?FluentIcons.FlickUp:FluentIcons.FlickDown
         color: layout_panne.color
         x: d.pos.x+d.target.width/2-10
-        y: d.pos.y+d.target.height
+        y: d.pos.y+(layout_panne.dir?-height:d.target.height)
     }
 }
