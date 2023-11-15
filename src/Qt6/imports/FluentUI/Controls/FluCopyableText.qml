@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import FluentUI
 
-TextInput {
+TextEdit {
     property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
     id:control
     color: textColor
