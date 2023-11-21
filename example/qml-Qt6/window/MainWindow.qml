@@ -18,7 +18,16 @@ FluWindow {
     minimumWidth: 520
     minimumHeight: 200
     launchMode: FluWindowType.SingleTask
-    appBar: undefined
+    fitsAppBarWindows: true
+    appBar: FluAppBar {
+        width: window.width
+        height: 30
+        darkText: Lang.dark_mode
+        showDark: true
+        darkClickListener:(button)=>handleDarkChanged(button)
+        closeClickListener: ()=>{dialog_close.open()}
+        z:7
+    }
 
     SettingsViewModel{
         id:viewmodel_settings
@@ -36,6 +45,7 @@ FluWindow {
         tour.open()
         checkUpdate(true)
         FluEventBus.registerEvent(event_checkupdate)
+        setHitTestVisible(layout_back_buttons)
     }
 
     Component.onDestruction: {
@@ -120,19 +130,8 @@ FluWindow {
         back: Item{
             anchors.fill: flipable
             visible: flipable.flipAngle !== 0
-            FluAppBar {
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                }
-                darkText: Lang.dark_mode
-                showDark: true
-                z:7
-                darkClickListener:(button)=>handleDarkChanged(button)
-                closeClickListener: ()=>{dialog_close.open()}
-            }
             Row{
+                id:layout_back_buttons
                 z:8
                 anchors{
                     top: parent.top
@@ -163,26 +162,13 @@ FluWindow {
                 id:loader
                 lazy: true
                 anchors.fill: parent
-                source: "https://zhu-zichu.gitee.io/Qt5_156_LieflatPage.qml"
+                source: "https://zhu-zichu.gitee.io/Qt6_156_LieflatPage.qml"
             }
         }
         front: Item{
             id:page_front
             visible: flipable.flipAngle !== 180
             anchors.fill: flipable
-            FluAppBar {
-                id:app_bar_front
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                }
-                darkText: Lang.dark_mode
-                showDark: true
-                darkClickListener:(button)=>handleDarkChanged(button)
-                closeClickListener: ()=>{dialog_close.open()}
-                z:7
-            }
             FluNavigationView{
                 property int clickCount: 0
                 id:nav_view
@@ -296,10 +282,14 @@ FluWindow {
 
     FluTour{
         id:tour
-        steps:[
-            {title:"夜间模式",description: "这里可以切换夜间模式.",target:()=>app_bar_front.darkButton()},
-            {title:"隐藏彩蛋",description: "多点几下试试！！",target:()=>nav_view.logoButton()}
-        ]
+        steps:{
+            var data = []
+            if(!window.useSystemAppBar){
+                data.push({title:"夜间模式",description: "这里可以切换夜间模式.",target:()=>appBar.darkButton()})
+            }
+            data.push({title:"隐藏彩蛋",description: "多点几下试试！！",target:()=>nav_view.logoButton()})
+            return data
+        }
     }
 
     FluHttp{

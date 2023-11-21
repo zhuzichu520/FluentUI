@@ -13,7 +13,17 @@ Window {
     property var background : com_background
     property bool fixSize: false
     property Component loadingItem: com_loading
-    property var appBar: com_app_bar
+    property bool fitsAppBarWindows: false
+    property Item appBar: FluAppBar {
+        title: window.title
+        width: window.width
+        height: 30
+        showDark: window.showDark
+        showClose: window.showClose
+        showMinimize: window.showMinimize
+        showMaximize: window.showMaximize
+        showStayTop: window.showStayTop
+    }
     property color backgroundColor: {
         if(active){
             return FluTheme.windowActiveBackgroundColor
@@ -28,6 +38,7 @@ Window {
     property bool showMinimize: true
     property bool showMaximize: true
     property bool showStayTop: true
+    readonly property bool useSystemAppBar: false
     property var closeListener: function(event){
         if(closeDestory){
             destoryOnClose()
@@ -46,6 +57,10 @@ Window {
         lifecycle.onCompleted(window)
         initArgument(argument)
         d.changedStayTop()
+        if(useSystemAppBar){
+            window.moveWindowToDesktopCenter()
+            window.visible = true
+        }
     }
     Component.onDestruction: {
         lifecycle.onDestruction()
@@ -82,34 +97,30 @@ Window {
             color: window.backgroundColor
         }
     }
-    Component{
-        id:com_app_bar
-        FluAppBar {
-            title: window.title
-            showDark: window.showDark
-            showClose: window.showClose
-            showMinimize: window.showMinimize
-            showMaximize: window.showMaximize
-            showStayTop: window.showStayTop
-        }
-    }
     FluLoader{
         anchors.fill: parent
         sourceComponent: background
     }
     FluLoader{
-        id: loader_title_bar
+        id:loader_app_bar
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
         }
-        sourceComponent: window.appBar
+        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
+    }
+    Component{
+        id:com_app_bar
+        Item{
+            data: window.appBar
+            height: window.fitsAppBarWindows ? 0 : childrenRect.height
+        }
     }
     Item{
         id:container
         anchors{
-            top: loader_title_bar.bottom
+            top: loader_app_bar.bottom
             left: parent.left
             right: parent.right
             bottom: parent.bottom
@@ -202,15 +213,16 @@ Window {
         onReady: {
             flags = flags | Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
             if(appBar){
-                var title_bar = loader_title_bar.item
-                setTitleBarItem(title_bar)
-                moveWindowToDesktopCenter()
-                setHitTestVisible(title_bar.minimizeButton())
-                setHitTestVisible(title_bar.maximizeButton())
-                setHitTestVisible(title_bar.closeButton())
-                setHitTestVisible(title_bar.stayTopButton())
+                var appbar = window.appBar
+                setTitleBarItem(appbar)
+                window.moveWindowToDesktopCenter()
+                setHitTestVisible(appbar.minimizeButton())
+                setHitTestVisible(appbar.maximizeButton())
+                setHitTestVisible(appbar.closeButton())
+                setHitTestVisible(appbar.stayTopButton())
+                setHitTestVisible(appbar.darkButton())
                 setWindowFixedSize(fixSize)
-                title_bar.maximizeButton.visible = !fixSize
+                appbar.maximizeButton.visible = !fixSize
                 if (blurBehindWindowEnabled)
                     window.background = undefined
             }
@@ -220,21 +232,35 @@ Window {
     WindowLifecycle{
         id:lifecycle
     }
-    WindowBorder{
-        z:999
-        visible: !FluTools.isLinux()
-    }
-    Rectangle{
+    FluLoader{
+        id:loader_window_border
         anchors.fill: parent
-        color: "#00000000"
-        border.width: 1
-        visible: FluTools.isLinux()
-        border.color: {
-            if(window.active){
-                return "#333333"
+        z:999
+        sourceComponent: window.useSystemAppBar ? undefined : com_window_border
+    }
+    Component{
+        id:com_window_border
+        Item{
+            WindowBorder{
+                anchors.fill: parent
+                visible: !FluTools.isLinux()
             }
-            return "#999999"
+            Rectangle{
+                anchors.fill: parent
+                color: Qt.rgba(0,0,0,0)
+                border.width: 1
+                visible: FluTools.isLinux()
+                border.color: {
+                    if(window.active){
+                        return Qt.rgba(51/255,51/255,51/255,1)
+                    }
+                    return Qt.rgba(153/255,153/255,153/255,1)
+                }
+            }
         }
+    }
+    function setHitTestVisible(item){
+        framless_helper.setHitTestVisible(item)
     }
     function destoryOnClose(){
         lifecycle.onDestoryOnClose()
@@ -261,6 +287,10 @@ Window {
     }
     function registerForWindowResult(path){
         return lifecycle.createRegister(window,path)
+    }
+    function moveWindowToDesktopCenter(){
+        window.x = (Screen.desktopAvailableWidth - window.width)/2
+        window.y = (Screen.desktopAvailableHeight - window.height)/2
     }
     function onResult(data){
         if(_pageRegister){
