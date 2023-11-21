@@ -45,7 +45,6 @@ FluWindow {
         tour.open()
         checkUpdate(true)
         FluEventBus.registerEvent(event_checkupdate)
-        setHitTestVisible(layout_back_buttons)
     }
 
     Component.onDestruction: {

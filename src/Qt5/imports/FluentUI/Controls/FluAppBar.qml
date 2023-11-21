@@ -72,10 +72,10 @@ Rectangle{
             return false
         }
         property bool isRestore: win && Window.Maximized === win.visibility
-        property bool resizable: win && !(win.minimumHeight === win.maximumHeight && win.maximumWidth === win.minimumWidth)
+        property bool resizable: win && !(win.height === win.maximumHeight && win.height === win.minimumHeight && win.width === win.maximumWidth && win.width === win.minimumWidth)
     }
     TapHandler {
-        onTapped: if (tapCount === 2) btn_maximize.clicked()
+        onTapped: if (tapCount === 2 && d.resizable) btn_maximize.clicked()
         gesturePolicy: TapHandler.DragThreshold
     }
     DragHandler {

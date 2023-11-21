@@ -87,11 +87,6 @@ Item {
                 return FluNavigationViewType.Open
             }
         })
-        if(Window.window instanceof FluWindow){
-            Window.window.setHitTestVisible(backButton())
-            Window.window.setHitTestVisible(navButton())
-            Window.window.setHitTestVisible(logoButton())
-        }
         timer_anim_delay.restart()
     }
     Timer{

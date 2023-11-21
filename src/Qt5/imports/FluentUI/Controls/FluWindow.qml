@@ -38,7 +38,7 @@ Window {
     property bool showMinimize: true
     property bool showMaximize: true
     property bool showStayTop: true
-    readonly property bool useSystemAppBar: false
+    property bool useSystemAppBar: false
     property var closeListener: function(event){
         if(closeDestory){
             destoryOnClose()
@@ -49,6 +49,10 @@ Window {
     }
     signal initArgument(var argument)
     id:window
+    maximumWidth: useSystemAppBar&&fixSize ? width : 16777215
+    maximumHeight: useSystemAppBar&&fixSize ? height : 16777215
+    minimumWidth: useSystemAppBar&&fixSize ? width : 0
+    minimumHeight: useSystemAppBar&&fixSize ? height : 0
     color:"transparent"
     onStayTopChanged: {
         d.changedStayTop()
@@ -214,15 +218,8 @@ Window {
             flags = flags | Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
             if(appBar){
                 var appbar = window.appBar
-                setTitleBarItem(appbar)
                 window.moveWindowToDesktopCenter()
-                setHitTestVisible(appbar.minimizeButton())
-                setHitTestVisible(appbar.maximizeButton())
-                setHitTestVisible(appbar.closeButton())
-                setHitTestVisible(appbar.stayTopButton())
-                setHitTestVisible(appbar.darkButton())
                 setWindowFixedSize(fixSize)
-                appbar.maximizeButton.visible = !fixSize
                 if (blurBehindWindowEnabled)
                     window.background = undefined
             }
@@ -258,9 +255,6 @@ Window {
                 }
             }
         }
-    }
-    function setHitTestVisible(item){
-        framless_helper.setHitTestVisible(item)
     }
     function destoryOnClose(){
         lifecycle.onDestoryOnClose()
