@@ -25,6 +25,8 @@ public:
     Q_INVOKABLE QVariant getDarkMode(){return get("darkMode",QVariant(0));}
     Q_INVOKABLE void saveVsync(bool vsync){save("vsync",vsync);}
     Q_INVOKABLE QVariant getVsync(){return get("vsync",QVariant(true));}
+    Q_INVOKABLE void saveUseSystemAppBar(bool useSystemAppBar){save("useSystemAppBar",useSystemAppBar);}
+    Q_INVOKABLE QVariant getUseSystemAppBar(){return get("useSystemAppBar",QVariant(false));}
 private:
     void save(const QString& key,QVariant val);
     QVariant get(const QString& key,QVariant def={});

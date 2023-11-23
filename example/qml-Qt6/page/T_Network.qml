@@ -39,6 +39,7 @@ FluContentPage{
             bottom: parent.bottom
             left: parent.left
         }
+        boundsBehavior: Flickable.StopAtBounds
         ScrollBar.vertical: FluScrollBar {}
         contentHeight:layout_column.height
         Column{

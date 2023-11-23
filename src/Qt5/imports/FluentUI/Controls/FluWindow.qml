@@ -38,7 +38,7 @@ Window {
     property bool showMinimize: true
     property bool showMaximize: true
     property bool showStayTop: true
-    property bool useSystemAppBar: false
+    property bool useSystemAppBar
     property var closeListener: function(event){
         if(closeDestory){
             destoryOnClose()
@@ -58,6 +58,7 @@ Window {
         d.changedStayTop()
     }
     Component.onCompleted: {
+        useSystemAppBar = FluApp.useSystemAppBar
         lifecycle.onCompleted(window)
         initArgument(argument)
         d.changedStayTop()

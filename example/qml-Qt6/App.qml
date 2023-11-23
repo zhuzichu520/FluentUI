@@ -19,6 +19,9 @@ Item {
         function onVsyncChanged(){
             SettingsHelper.saveVsync(FluApp.vsync)
         }
+        function onUseSystemAppBarChanged(){
+            SettingsHelper.saveUseSystemAppBar(FluApp.useSystemAppBar)
+        }
     }
 
     FluHttpInterceptor{
@@ -39,6 +42,7 @@ Item {
 
     Component.onCompleted: {
         FluApp.init(app)
+        FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
         FluApp.vsync = SettingsHelper.getVsync()
         FluTheme.darkMode = SettingsHelper.getDarkMode()
         FluTheme.enableAnimation = true
