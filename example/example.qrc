@@ -189,5 +189,6 @@
         <file>qml/page/T_Clip.qml</file>
         <file>qml/page/T_3D.qml</file>
         <file>qml/global/Lang.qml</file>
+        <file>qml/page/T_Network.qml</file>
     </qresource>
 </RCC>

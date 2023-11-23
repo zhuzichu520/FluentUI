@@ -17,6 +17,7 @@
 #include "FluViewModel.h"
 #include "Screenshot.h"
 #include "FluRectangle.h"
+#include "FluNetwork.h"
 #include "QRCode.h"
 
 int major = 1;
@@ -57,6 +58,8 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
     qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
+    qmlRegisterType<NetworkCallable>(uri,major,minor,"FluNetworkCallable");
+    qmlRegisterType<NetworkParams>(uri,major,minor,"FluNetworkParams");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/Checkerboard.qml"),uri,major,minor,"Checkerboard");
@@ -191,5 +194,7 @@ void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
     engine->rootContext()->setContextProperty("FluTextStyle",textStyle);
     FluEventBus* eventBus = FluEventBus::getInstance();
     engine->rootContext()->setContextProperty("FluEventBus",eventBus);
+    FluNetwork* network = FluNetwork::getInstance();
+    engine->rootContext()->setContextProperty("FluNetwork",network);
     engine->addImportPath("qrc:/qt/qml");
 }
