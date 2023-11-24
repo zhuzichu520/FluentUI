@@ -977,7 +977,6 @@ Item {
             ScrollBar.vertical: FluScrollBar {}
             ListView{
                 id:nav_list
-                clip: true
                 displaced: Transition {
                     NumberAnimation {
                         properties: "x,y"
