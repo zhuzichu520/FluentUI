@@ -3,17 +3,20 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include "singleton.h"
 
 class FluentUI : public QObject
 {
     Q_OBJECT
 public:
-    static FluentUI *getInstance();
+    SINGLETONG(FluentUI)
     Q_DECL_EXPORT void registerTypes(QQmlEngine *engine);
     void registerTypes(const char *uri);
     void initializeEngine(QQmlEngine *engine, const char *uri);
 private:
-    static FluentUI* m_instance;
+    const int major = 1;
+    const int minor = 0;
+    const char *uri = "FluentUI";
 };
 
 #endif // FLUENTUI_H

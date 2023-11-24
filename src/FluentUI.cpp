@@ -20,20 +20,6 @@
 #include "FluNetwork.h"
 #include "QRCode.h"
 
-int major = 1;
-int minor = 0;
-auto uri = "FluentUI";
-
-FluentUI* FluentUI::m_instance = nullptr;
-
-FluentUI *FluentUI::getInstance()
-{
-    if(FluentUI::m_instance == nullptr){
-        FluentUI::m_instance = new FluentUI;
-    }
-    return FluentUI::m_instance;
-}
-
 void FluentUI::registerTypes(QQmlEngine *engine){
     initializeEngine(engine,uri);
     registerTypes(uri);
