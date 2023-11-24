@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QJsonValue>
 #include <QNetworkAccessManager>
+#include "Def.h"
 #include "stdafx.h"
 #include "singleton.h"
 
@@ -19,6 +20,7 @@ public:
     Q_SIGNAL void finish();
     Q_SIGNAL void error(int status,QString errorString,QString result);
     Q_SIGNAL void success(QString result);
+    Q_SIGNAL void cache(QString result);
 };
 
 class NetworkParams : public QObject
@@ -46,10 +48,13 @@ public:
     Q_INVOKABLE NetworkParams* addQuery(QString key,QVariant val);
     Q_INVOKABLE NetworkParams* addHeader(QString key,QVariant val);
     Q_INVOKABLE NetworkParams* add(QString key,QVariant val);
+    Q_INVOKABLE NetworkParams* addFile(QString key,QVariant val);
     Q_INVOKABLE NetworkParams* setBody(QString val);
-    Q_INVOKABLE NetworkParams* setTimeOut(int val);
+    Q_INVOKABLE NetworkParams* setTimeout(int val);
     Q_INVOKABLE NetworkParams* setRetry(int val);
+    Q_INVOKABLE NetworkParams* setCacheMode(int val);
     Q_INVOKABLE void go(NetworkCallable* result);
+    QString buildCacheKey();
     QString method2String();
     int getTimeout();
     int getRetry();
@@ -61,8 +66,10 @@ public:
     QMap<QString, QVariant> _queryMap;
     QMap<QString, QVariant> _headerMap;
     QMap<QString, QVariant> _paramMap;
+    QMap<QString, QVariant> _fileMap;
     int _timeout = -1;
     int _retry = -1;
+    int _cacheMode = FluNetworkType::CacheMode::NoCache;
 };
 
 class FluNetwork : public QObject
@@ -70,6 +77,7 @@ class FluNetwork : public QObject
     Q_OBJECT
     Q_PROPERTY_AUTO(int,timeout)
     Q_PROPERTY_AUTO(int,retry)
+    Q_PROPERTY_AUTO(QString,cacheDir)
     QML_NAMED_ELEMENT(FluNetwork)
     QML_SINGLETON
 private:
@@ -100,6 +108,10 @@ private:
     void sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply);
     void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
     void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& headers);
+    void saveResponse(QString key,QString response);
+    QString readCache(const QString& key);
+    bool cacheExists(const QString& key);
+    QString getCacheFilePath(const QString& key);
 };
 
 #endif // FLUNETWORK_H

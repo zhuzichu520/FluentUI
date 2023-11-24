@@ -22,6 +22,10 @@ FluContentPage{
             (status,errorString,result)=>{
                 console.debug(status+";"+errorString+";"+result)
             }
+        onCache:
+            (result)=>{
+                text_info.text = result
+            }
         onSuccess:
             (result)=>{
                 text_info.text = result
@@ -38,6 +42,7 @@ FluContentPage{
             bottom: parent.bottom
             left: parent.left
         }
+        boundsBehavior: Flickable.StopAtBounds
         ScrollBar.vertical: FluScrollBar {}
         contentHeight:layout_column.height
         Column{
@@ -49,21 +54,8 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Get"
                 onClicked: {
+                    text_info.text = ""
                     FluNetwork.get("https://httpbingo.org/get")
-                    .setTimeOut(10000)//默认15000毫秒
-                    .setRetry(2)//默认3次
-                    .addQuery("name","孙悟空")
-                    .addQuery("age",500)
-                    .addQuery("address","花果山水帘洞")
-                    .go(callable)
-                }
-            }
-            FluButton{
-                implicitWidth: parent.width
-                implicitHeight: 36
-                text: "Head"
-                onClicked: {
-                    FluNetwork.head("https://httpbingo.org/head")
                     .addQuery("name","孙悟空")
                     .addQuery("age",500)
                     .addQuery("address","花果山水帘洞")
@@ -75,6 +67,7 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post Body"
                 onClicked: {
+                    text_info.text = ""
                     FluNetwork.postBody("https://httpbingo.org/post")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
                     .go(callable)
@@ -83,8 +76,22 @@ FluContentPage{
             FluButton{
                 implicitWidth: parent.width
                 implicitHeight: 36
+                text: "Post Form"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.postForm("https://httpbingo.org/post")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
                 text: "Post JSON"
                 onClicked: {
+                    text_info.text = ""
                     FluNetwork.postJson("https://httpbingo.org/post")
                     .add("name","孙悟空")
                     .add("age",500)
@@ -97,6 +104,7 @@ FluContentPage{
                 implicitHeight: 36
                 text: "Post JSON Array"
                 onClicked: {
+                    text_info.text = ""
                     FluNetwork.postJsonArray("https://httpbingo.org/post")
                     .add("name","孙悟空")
                     .add("age",500)
@@ -107,16 +115,230 @@ FluContentPage{
             FluButton{
                 implicitWidth: parent.width
                 implicitHeight: 36
-                text: "Post Form"
+                text: "Put Body"
                 onClicked: {
-                    FluNetwork.postForm("https://httpbingo.org/post")
+                    text_info.text = ""
+                    FluNetwork.putBody("https://httpbingo.org/put")
+                    .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Put Form"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.putForm("https://httpbingo.org/put")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
                     .go(callable)
                 }
             }
-
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Put JSON"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.putJson("https://httpbingo.org/put")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Put JSON Array"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.putJsonArray("https://httpbingo.org/put")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Patch Body"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.patchBody("https://httpbingo.org/patch")
+                    .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Patch Form"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.patchForm("https://httpbingo.org/patch")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Patch JSON"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.patchJson("https://httpbingo.org/patch")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Patch JSON Array"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.patchJsonArray("https://httpbingo.org/patch")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Delete Body"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.deleteBody("https://httpbingo.org/delete")
+                    .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Delete Form"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.deleteForm("https://httpbingo.org/delete")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Delete JSON"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.deleteJson("https://httpbingo.org/delete")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Delete JSON Array"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.deleteJsonArray("https://httpbingo.org/delete")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Custom Header"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.postJson("https://httpbingo.org/post")
+                    .addHeader("os","PC")
+                    .addHeader("version","1.0.0")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "RequestFailedReadCache"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.postJson("https://httpbingo.org/post")
+                    .setCacheMode(FluNetworkType.RequestFailedReadCache)
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .add("cacheMode","RequestFailedReadCache")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "IfNoneCacheRequest"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.postJson("https://httpbingo.org/post")
+                    .setCacheMode(FluNetworkType.IfNoneCacheRequest)
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .add("cacheMode","IfNoneCacheRequest")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "FirstCacheThenRequest"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.postJson("https://httpbingo.org/post")
+                    .setCacheMode(FluNetworkType.FirstCacheThenRequest)
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .add("cacheMode","FirstCacheThenRequest")
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Timeout And Retry"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.postJson("https://httpbingo.org/post")
+                    .setTimeout(5000)
+                    .setRetry(3)
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .add("timeout","5000")
+                    .add("retry","3")
+                    .go(callable)
+                }
+            }
         }
     }
 

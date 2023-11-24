@@ -26,6 +26,18 @@ Q_ENUM_NS(CacheMode)
 QML_NAMED_ELEMENT(FluHttpType)
 }
 
+namespace FluNetworkType {
+Q_NAMESPACE
+enum CacheMode {
+    NoCache = 0x0000,
+    RequestFailedReadCache = 0x0001,
+    IfNoneCacheRequest = 0x0002,
+    FirstCacheThenRequest = 0x0004,
+};
+Q_ENUM_NS(CacheMode)
+QML_NAMED_ELEMENT(FluNetworkType)
+}
+
 namespace FluScreenshotType {
 Q_NAMESPACE
 enum CaptrueMode {

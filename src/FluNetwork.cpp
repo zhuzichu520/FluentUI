@@ -6,7 +6,10 @@
 #include <QJsonDocument>
 #include <QNetworkReply>
 #include <QJsonObject>
+#include <QNetworkDiskCache>
 #include <QJsonArray>
+#include <QStandardPaths>
+#include <QDir>
 
 NetworkCallable::NetworkCallable(QObject *parent):QObject{parent}{
 
@@ -64,6 +67,11 @@ NetworkParams* NetworkParams::add(QString key,QVariant val){
     return this;
 }
 
+NetworkParams* NetworkParams::addFile(QString key,QVariant val){
+    _fileMap.insert(key,val);
+    return this;
+}
+
 NetworkParams* NetworkParams::addHeader(QString key,QVariant val){
     _headerMap.insert(key,val);
     return this;
@@ -79,7 +87,7 @@ NetworkParams* NetworkParams::setBody(QString val){
     return this;
 }
 
-NetworkParams* NetworkParams::setTimeOut(int val){
+NetworkParams* NetworkParams::setTimeout(int val){
     _timeout = val;
     return this;
 }
@@ -89,16 +97,47 @@ NetworkParams* NetworkParams::setRetry(int val){
     return this;
 }
 
+NetworkParams* NetworkParams::setCacheMode(int val){
+    _cacheMode = val;
+    return this;
+}
+
+QString NetworkParams::buildCacheKey(){
+    QJsonObject obj;
+    obj.insert("url",_url);
+    obj.insert("method",method2String());
+    obj.insert("body",_body);
+    obj.insert("query",QString(QJsonDocument::fromVariant(_queryMap).toJson(QJsonDocument::Compact)));
+    obj.insert("param",QString(QJsonDocument::fromVariant(_paramMap).toJson(QJsonDocument::Compact)));
+    obj.insert("header",QString(QJsonDocument::fromVariant(_headerMap).toJson(QJsonDocument::Compact)));
+    QByteArray data = QJsonDocument(obj).toJson(QJsonDocument::Compact);
+    return QCryptographicHash::hash(data, QCryptographicHash::Sha256).toHex();
+}
+
 void NetworkParams::go(NetworkCallable* callable){
     FluNetwork::getInstance()->handle(this,callable);
 }
 
 void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
-    std::shared_ptr<int> times = std::make_shared<int>(0);
+    QString cacheKey = params->buildCacheKey();
     QPointer<NetworkCallable> callable(c);
     if(!callable.isNull()){
         callable->start();
     }
+    if(params->_cacheMode == FluNetworkType::CacheMode::FirstCacheThenRequest && cacheExists(cacheKey)){
+        if(!callable.isNull()){
+            callable->cache(readCache(cacheKey));
+        }
+    }
+    if(params->_cacheMode == FluNetworkType::CacheMode::IfNoneCacheRequest && cacheExists(cacheKey)){
+        if(!callable.isNull()){
+            callable->cache(readCache(cacheKey));
+            callable->finish();
+            params->deleteLater();
+        }
+        return;
+    }
+    std::shared_ptr<int> times = std::make_shared<int>(0);
     QUrl url(params->_url);
     QNetworkAccessManager* manager = new QNetworkAccessManager();
     QNetworkReply *reply = nullptr;
@@ -106,7 +145,7 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
     addQueryParam(&url,params->_queryMap);
     QNetworkRequest request(url);
     addHeaders(&request,params->_headerMap);
-    connect(manager,&QNetworkAccessManager::finished,this,[this,params,request,callable,manager,times](QNetworkReply *reply){
+    connect(manager,&QNetworkAccessManager::finished,this,[this,params,request,callable,manager,times,cacheKey](QNetworkReply *reply){
         if(reply->error() != QNetworkReply::NoError && *times < params->getRetry()) {
             (*times)++;
             sendRequest(manager,request,params,reply);
@@ -115,14 +154,23 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
             QNetworkReply::NetworkError error = reply->error();
             if(error == QNetworkReply::NoError){
                 if(!callable.isNull()){
+                    if(params->_cacheMode != FluNetworkType::CacheMode::NoCache){
+                        saveResponse(cacheKey,response);
+                    }
                     callable->success(response);
                 }
             }else{
                 if(!callable.isNull()){
                     int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+                    if(params->_cacheMode == FluNetworkType::CacheMode::RequestFailedReadCache && cacheExists(cacheKey)){
+                        if(!callable.isNull()){
+                            callable->cache(readCache(cacheKey));
+                        }
+                    }
                     callable->error(httpStatus,reply->errorString(),response);
                 }
             }
+            params->deleteLater();
             reply->deleteLater();
             manager->deleteLater();
             if(!callable.isNull()){
@@ -131,6 +179,32 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
         }
     });
     sendRequest(manager,request,params,reply);
+}
+
+QString FluNetwork::readCache(const QString& key){
+    auto filePath = getCacheFilePath(key);
+    QString result;
+    QFile file(filePath);
+    if(!file.exists()){
+        return result;
+    }
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream stream(&file);
+        result = QString(QByteArray::fromBase64(stream.readAll().toUtf8()));
+    }
+    return result;
+}
+
+bool FluNetwork::cacheExists(const QString& key){
+    return QFile(getCacheFilePath(key)).exists();
+}
+
+QString FluNetwork::getCacheFilePath(const QString& key){
+    QDir cacheDir(_cacheDir);
+    if(!cacheDir.exists()){
+        cacheDir.mkpath(_cacheDir);
+    }
+    return cacheDir.absoluteFilePath(key);
 }
 
 void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply){
@@ -189,6 +263,16 @@ void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest requ
     }
 }
 
+void FluNetwork::saveResponse(QString key,QString response){
+    QSharedPointer<QFile> file(new QFile(getCacheFilePath(key)));
+    QIODevice::OpenMode mode = QIODevice::WriteOnly|QIODevice::Truncate;
+    if (!file->open(mode))
+    {
+        return;
+    }
+    file->write(response.toUtf8().toBase64());
+}
+
 void FluNetwork::addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& headers){
     QMapIterator<QString, QVariant> iter(headers);
     while (iter.hasNext())
@@ -213,6 +297,7 @@ FluNetwork::FluNetwork(QObject *parent): QObject{parent}
 {
     timeout(15000);
     retry(3);
+    cacheDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation).append(QDir::separator()).append("network"));
 }
 
 NetworkParams* FluNetwork::get(const QString& url){
