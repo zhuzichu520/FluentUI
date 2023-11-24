@@ -10,7 +10,6 @@
 #include "stdafx.h"
 #include "singleton.h"
 
-
 class NetworkCallable : public QObject{
     Q_OBJECT
     QML_NAMED_ELEMENT(FluNetworkCallable)
@@ -21,6 +20,18 @@ public:
     Q_SIGNAL void error(int status,QString errorString,QString result);
     Q_SIGNAL void success(QString result);
     Q_SIGNAL void cache(QString result);
+    Q_SIGNAL void uploadProgress(qint64 sent, qint64 total);
+    Q_SIGNAL void downloadProgress(qint64 recv, qint64 total);
+};
+
+class DownloadParam : public QObject{
+    Q_OBJECT
+public:
+    explicit DownloadParam(QObject *parent = nullptr);
+    DownloadParam(QString destPath,bool append,QObject *parent = nullptr);
+public:
+    QString _destPath;
+    bool _append;
 };
 
 class NetworkParams : public QObject
@@ -53,12 +64,14 @@ public:
     Q_INVOKABLE NetworkParams* setTimeout(int val);
     Q_INVOKABLE NetworkParams* setRetry(int val);
     Q_INVOKABLE NetworkParams* setCacheMode(int val);
+    Q_INVOKABLE NetworkParams* toDownload(QString destPath,bool append);
     Q_INVOKABLE void go(NetworkCallable* result);
     QString buildCacheKey();
     QString method2String();
     int getTimeout();
     int getRetry();
 public:
+    DownloadParam* _downloadParam = nullptr;
     Method _method;
     Type _type;
     QString _url;
@@ -104,8 +117,9 @@ public:
     Q_INVOKABLE NetworkParams* patchJsonArray(const QString& url);
     Q_INVOKABLE NetworkParams* deleteJsonArray(const QString& url);
     void handle(NetworkParams* params,NetworkCallable* result);
+    void handleDownload(NetworkParams* params,NetworkCallable* result);
 private:
-    void sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply);
+    void sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,QPointer<NetworkCallable> callable);
     void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
     void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& headers);
     void saveResponse(QString key,QString response);

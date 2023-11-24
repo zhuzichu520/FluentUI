@@ -15,7 +15,6 @@ NetworkCallable::NetworkCallable(QObject *parent):QObject{parent}{
 
 }
 
-
 QString NetworkParams::method2String(){
     switch (_method) {
     case METHOD_GET:
@@ -47,6 +46,18 @@ int NetworkParams::getRetry(){
         return _retry;
     }
     return FluNetwork::getInstance()->retry();
+}
+
+DownloadParam::DownloadParam(QObject *parent)
+    : QObject{parent}
+{
+}
+
+DownloadParam::DownloadParam(QString destPath,bool append,QObject *parent)
+    : QObject{parent}
+{
+    this->_destPath = destPath;
+    this->_append = append;
 }
 
 NetworkParams::NetworkParams(QObject *parent)
@@ -102,6 +113,11 @@ NetworkParams* NetworkParams::setCacheMode(int val){
     return this;
 }
 
+NetworkParams* NetworkParams::toDownload(QString destPath,bool append){
+    _downloadParam = new DownloadParam(destPath,append,this);
+    return this;
+}
+
 QString NetworkParams::buildCacheKey(){
     QJsonObject obj;
     obj.insert("url",_url);
@@ -110,12 +126,17 @@ QString NetworkParams::buildCacheKey(){
     obj.insert("query",QString(QJsonDocument::fromVariant(_queryMap).toJson(QJsonDocument::Compact)));
     obj.insert("param",QString(QJsonDocument::fromVariant(_paramMap).toJson(QJsonDocument::Compact)));
     obj.insert("header",QString(QJsonDocument::fromVariant(_headerMap).toJson(QJsonDocument::Compact)));
+    obj.insert("file",QString(QJsonDocument::fromVariant(_fileMap).toJson(QJsonDocument::Compact)));
     QByteArray data = QJsonDocument(obj).toJson(QJsonDocument::Compact);
     return QCryptographicHash::hash(data, QCryptographicHash::Sha256).toHex();
 }
 
 void NetworkParams::go(NetworkCallable* callable){
-    FluNetwork::getInstance()->handle(this,callable);
+    if(_downloadParam){
+        FluNetwork::getInstance()->handleDownload(this,callable);
+    }else{
+        FluNetwork::getInstance()->handle(this,callable);
+    }
 }
 
 void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
@@ -148,7 +169,7 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
     connect(manager,&QNetworkAccessManager::finished,this,[this,params,request,callable,manager,times,cacheKey](QNetworkReply *reply){
         if(reply->error() != QNetworkReply::NoError && *times < params->getRetry()) {
             (*times)++;
-            sendRequest(manager,request,params,reply);
+            sendRequest(manager,request,params,reply,callable);
         } else {
             QString response = QString::fromUtf8(reply->readAll());
             QNetworkReply::NetworkError error = reply->error();
@@ -178,7 +199,11 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
             }
         }
     });
-    sendRequest(manager,request,params,reply);
+    sendRequest(manager,request,params,reply,callable);
+}
+
+void FluNetwork::handleDownload(NetworkParams* params,NetworkCallable* result){
+
 }
 
 QString FluNetwork::readCache(const QString& key){
@@ -207,7 +232,7 @@ QString FluNetwork::getCacheFilePath(const QString& key){
     return cacheDir.absoluteFilePath(key);
 }
 
-void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply){
+void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,QPointer<NetworkCallable> callable){
     if(reply){
         reply->deleteLater();
     }
@@ -223,8 +248,28 @@ void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest requ
             part.setBody(each.second.toByteArray());
             multiPart->append(part);
         }
+        for (const auto& each : params->_fileMap.toStdMap())
+        {
+            QString filePath = each.second.toString();
+            QString name = each.first;
+            QFile *file = new QFile(filePath);
+            QString fileName = QFileInfo(filePath).fileName();
+            file->open(QIODevice::ReadOnly);
+            file->setParent(multiPart);
+            QHttpPart part;
+            part.setHeader(QNetworkRequest::ContentDispositionHeader, QString("form-data; name=\"%1\"; filename=\"%2\"").arg(name,fileName));
+            part.setBodyDevice(file);
+            multiPart->append(part);
+        }
         reply = manager->sendCustomRequest(request,verb,multiPart);
         multiPart->setParent(reply);
+        if(!params->_fileMap.isEmpty()){
+            connect(reply,&QNetworkReply::uploadProgress,reply,[callable](qint64 bytesSent, qint64 bytesTotal){
+                if(!callable.isNull() && bytesSent!=0 && bytesTotal!=0){
+                    callable->uploadProgress(bytesSent,bytesTotal);
+                }
+            });
+        }
         break;
     }
     case NetworkParams::TYPE_JSON:{

@@ -1,5 +1,4 @@
 import QtQuick
-import Qt.labs.platform
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
@@ -340,6 +339,50 @@ FluContentPage{
                     .go(callable)
                 }
             }
+            FluProgressButton{
+                id:btn_upload
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Upload File"
+                onClicked: {
+                    file_dialog.open()
+                }
+            }
+        }
+    }
+
+    FluNetworkCallable{
+        id:callable_upload_file
+        onStart: {
+            btn_upload.disabled = true
+        }
+        onFinish: {
+            btn_upload.disabled = false
+        }
+        onError:
+            (status,errorString,result)=>{
+                btn_upload.progress = 0
+                text_info.text = result
+                console.debug(result)
+            }
+        onSuccess:
+            (result)=>{
+                text_info.text = result
+            }
+        onUploadProgress:
+            (sent,total)=>{
+                btn_upload.progress = sent/total
+            }
+    }
+
+    FileDialog {
+        id: file_dialog
+        onAccepted: {
+            FluNetwork.postForm("https://httpbingo.org/post")
+            .setRetry(0)//请求失败后不重复请求
+            .add("accessToken","12345678")
+            .addFile("file",FluTools.toLocalPath(file_dialog.selectedFile))
+            .go(callable_upload_file)
         }
     }
 
