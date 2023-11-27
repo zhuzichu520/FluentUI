@@ -48,6 +48,7 @@ Window {
         }
     }
     signal initArgument(var argument)
+    signal firstVisible()
     id:window
     maximumWidth: useSystemAppBar&&fixSize ? width : 16777215
     maximumHeight: useSystemAppBar&&fixSize ? height : 16777215
@@ -75,10 +76,15 @@ Window {
         lifecycle.onDestruction()
     }
     onVisibleChanged: {
+        if(visible && d.isFirstVisible){
+            window.firstVisible()
+            d.isFirstVisible = false
+        }
         lifecycle.onVisible(visible)
     }
     QtObject{
         id:d
+        property bool isFirstVisible: true
         function changedStayTop(){
             function toggleStayTop(){
                 if(window.stayTop){
@@ -117,13 +123,18 @@ Window {
             left: parent.left
             right: parent.right
         }
-        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
+        sourceComponent: FluApp.useSystemAppBar ? undefined : com_app_bar
     }
     Component{
         id:com_app_bar
         Item{
             data: window.appBar
-            height: window.fitsAppBarWindows ? 0 : childrenRect.height
+            height: {
+                if(FluApp.useSystemAppBar){
+                    return 0
+                }
+                return window.fitsAppBarWindows ? 0 : childrenRect.height
+            }
         }
     }
     Item{
@@ -242,7 +253,7 @@ Window {
         id:loader_window_border
         anchors.fill: parent
         z:999
-        sourceComponent: window.useSystemAppBar ? undefined : com_window_border
+        sourceComponent: FluApp.useSystemAppBar ? undefined : com_window_border
     }
     Component{
         id:com_window_border
@@ -299,5 +310,8 @@ Window {
         if(_pageRegister){
             _pageRegister.onResult(data)
         }
+    }
+    function containerItem(){
+        return container
     }
 }

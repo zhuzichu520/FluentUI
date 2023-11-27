@@ -44,8 +44,11 @@ FluWindow {
         }
     }
 
-    Component.onCompleted: {
+    onFirstVisible: {
         tour.open()
+    }
+
+    Component.onCompleted: {
         checkUpdate(true)
         FluEventBus.registerEvent(event_checkupdate)
     }
@@ -242,7 +245,7 @@ FluWindow {
     }
 
     function handleDarkChanged(button){
-        if(!FluTheme.enableAnimation){
+        if(!FluTheme.enableAnimation || window.fitsAppBarWindows === false){
             changeDark()
         }else{
             loader_reveal.sourceComponent = com_reveal
