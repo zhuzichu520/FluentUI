@@ -32,6 +32,7 @@ FluScrollablePage{
         FluTextBox{
             id:text_box
             text:"会磨刀的小猪"
+            Layout.preferredWidth: 240
         }
     }
 

@@ -44,6 +44,7 @@ FluScrollablePage{
         FluTextBox{
             id:text_box
             placeholderText: "请输入验证码"
+            Layout.preferredWidth: 240
         }
         FluButton{
             text:"verify"

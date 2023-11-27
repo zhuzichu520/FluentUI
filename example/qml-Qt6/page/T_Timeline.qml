@@ -110,6 +110,7 @@ FluScrollablePage{
         FluTextBox{
             id:text_box
             text:"Technical testing 2015-09-01"
+            Layout.preferredWidth: 240
         }
         FluFilledButton{
             text:"Append"
