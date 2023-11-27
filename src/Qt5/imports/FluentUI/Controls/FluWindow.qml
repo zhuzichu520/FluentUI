@@ -39,6 +39,7 @@ Window {
     property bool showMaximize: true
     property bool showStayTop: true
     property bool useSystemAppBar
+    property bool autoMaximize: false
     property var closeListener: function(event){
         if(closeDestory){
             destoryOnClose()
@@ -64,7 +65,11 @@ Window {
         d.changedStayTop()
         if(useSystemAppBar){
             window.moveWindowToDesktopCenter()
-            window.visible = true
+            if(window.autoMaximize){
+                window.showMaximized()
+            }else{
+                window.show()
+            }
         }
     }
     Component.onDestruction: {
@@ -224,7 +229,11 @@ Window {
                 if (blurBehindWindowEnabled)
                     window.background = undefined
             }
-            window.show()
+            if(window.autoMaximize){
+                window.showMaximized()
+            }else{
+                window.show()
+            }
         }
     }
     WindowLifecycle{
