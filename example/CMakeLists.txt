@@ -18,9 +18,9 @@ endif()
 
 #设置可执行文件输出目录
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${FLUENTUI_DIRECTORY}/bin/debug)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${FLUENTUI_DIRECTORY}/bin/debug>)
 else()
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${FLUENTUI_DIRECTORY}/bin/release)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${FLUENTUI_DIRECTORY}/bin/release>)
 endif()
 
 #获取文件路径分隔符（解决执行命令的时候有些平台会报错）
