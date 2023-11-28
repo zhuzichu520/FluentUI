@@ -123,14 +123,14 @@ Window {
             left: parent.left
             right: parent.right
         }
-        sourceComponent: FluApp.useSystemAppBar ? undefined : com_app_bar
+        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
     }
     Component{
         id:com_app_bar
         Item{
             data: window.appBar
             height: {
-                if(FluApp.useSystemAppBar){
+                if(window.useSystemAppBar){
                     return 0
                 }
                 return window.fitsAppBarWindows ? 0 : childrenRect.height
@@ -253,7 +253,7 @@ Window {
         id:loader_window_border
         anchors.fill: parent
         z:999
-        sourceComponent: FluApp.useSystemAppBar ? undefined : com_window_border
+        sourceComponent: window.useSystemAppBar ? undefined : com_window_border
     }
     Component{
         id:com_window_border
