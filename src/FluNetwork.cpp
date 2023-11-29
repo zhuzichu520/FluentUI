@@ -12,7 +12,10 @@
 #include <QJSEngine>
 #include <QJsonArray>
 #include <QStandardPaths>
+#include <QThreadPool>
 #include <QDir>
+#include <QEventLoop>
+#include <QGuiApplication>
 
 NetworkCallable::NetworkCallable(QObject *parent):QObject{parent}{
 
@@ -158,37 +161,47 @@ void NetworkParams::go(NetworkCallable* callable){
 
 void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
     QPointer<NetworkCallable> callable(c);
-    if(!callable.isNull()){
-        callable->start();
-    }
-    QString cacheKey = params->buildCacheKey();
-    if(params->_cacheMode == FluNetworkType::CacheMode::FirstCacheThenRequest && cacheExists(cacheKey)){
+    QThreadPool::globalInstance()->start([=](){
         if(!callable.isNull()){
-            callable->cache(readCache(cacheKey));
+            callable->start();
         }
-    }
-    if(params->_cacheMode == FluNetworkType::CacheMode::IfNoneCacheRequest && cacheExists(cacheKey)){
-        if(!callable.isNull()){
-            callable->cache(readCache(cacheKey));
-            callable->finish();
-            params->deleteLater();
+        QString cacheKey = params->buildCacheKey();
+        if(params->_cacheMode == FluNetworkType::CacheMode::FirstCacheThenRequest && cacheExists(cacheKey)){
+            if(!callable.isNull()){
+                callable->cache(readCache(cacheKey));
+            }
         }
-        return;
-    }
-    std::shared_ptr<int> times = std::make_shared<int>(0);
-    QUrl url(params->_url);
-    QNetworkAccessManager* manager = new QNetworkAccessManager();
-    QNetworkReply *reply = nullptr;
-    manager->setTransferTimeout(params->getTimeout());
-    addQueryParam(&url,params->_queryMap);
-    QNetworkRequest request(url);
-    addHeaders(&request,params->_headerMap);
-    connect(manager,&QNetworkAccessManager::finished,this,[this,params,request,callable,manager,times,cacheKey](QNetworkReply *reply){
-        if(reply->error() != QNetworkReply::NoError && *times < params->getRetry()) {
-            (*times)++;
-            sendRequest(manager,request,params,reply,callable);
-        } else {
-            QString response = QString::fromUtf8(reply->readAll());
+        if(params->_cacheMode == FluNetworkType::CacheMode::IfNoneCacheRequest && cacheExists(cacheKey)){
+            if(!callable.isNull()){
+                callable->cache(readCache(cacheKey));
+                callable->finish();
+                params->deleteLater();
+            }
+            return;
+        }
+        QNetworkAccessManager manager;
+        manager.setTransferTimeout(params->getTimeout());
+        QEventLoop loop;
+        for (int i = 0; i < params->getRetry(); ++i) {
+            QUrl url(params->_url);
+            addQueryParam(&url,params->_queryMap);
+            QNetworkRequest request(url);
+            addHeaders(&request,params->_headerMap);
+            QNetworkReply* reply;
+            sendRequest(&manager,request,params,reply,callable);
+            if(!QPointer(qApp)){
+                reply->deleteLater();
+                reply = nullptr;
+                return;
+            }
+            QEventLoop loop;
+            connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
+            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
+            loop.exec();
+            QString response;
+            if(reply->isOpen()){
+                response = QString::fromUtf8(reply->readAll());
+            }
             QNetworkReply::NetworkError error = reply->error();
             if(error == QNetworkReply::NoError){
                 if(!callable.isNull()){
@@ -197,26 +210,27 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
                     }
                     callable->success(response);
                 }
+                break;
             }else{
-                if(!callable.isNull()){
-                    int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-                    if(params->_cacheMode == FluNetworkType::CacheMode::RequestFailedReadCache && cacheExists(cacheKey)){
-                        if(!callable.isNull()){
-                            callable->cache(readCache(cacheKey));
+                if(i == params->getRetry()-1){
+                    if(!callable.isNull()){
+                        int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+                        if(params->_cacheMode == FluNetworkType::CacheMode::RequestFailedReadCache && cacheExists(cacheKey)){
+                            if(!callable.isNull()){
+                                callable->cache(readCache(cacheKey));
+                            }
                         }
+                        callable->error(httpStatus,reply->errorString(),response);
                     }
-                    callable->error(httpStatus,reply->errorString(),response);
                 }
             }
-            params->deleteLater();
             reply->deleteLater();
-            manager->deleteLater();
-            if(!callable.isNull()){
-                callable->finish();
-            }
+        }
+        params->deleteLater();
+        if(!callable.isNull()){
+            callable->finish();
         }
     });
-    sendRequest(manager,request,params,reply,callable);
 }
 
 void FluNetwork::handleDownload(NetworkParams* params,NetworkCallable* c){
@@ -267,7 +281,6 @@ void FluNetwork::handleDownload(NetworkParams* params,NetworkCallable* c){
         }
         return;
     }
-
     if(params->_downloadParam->_append){
         if (!cacheFile->open(QIODevice::WriteOnly|QIODevice::Truncate))
         {
@@ -347,9 +360,6 @@ QString FluNetwork::getCacheFilePath(const QString& key){
 }
 
 void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,QPointer<NetworkCallable> callable){
-    if(reply){
-        reply->deleteLater();
-    }
     QByteArray verb = params->method2String().toUtf8();
     switch (params->_type) {
     case NetworkParams::TYPE_FORM:{

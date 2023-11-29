@@ -415,7 +415,7 @@ FluContentPage{
             (status,errorString,result)=>{
                 btn_upload.progress = 0
                 text_info.text = result
-                console.debug(result)
+                console.debug(status+";"+errorString+";"+result)
             }
         onSuccess:
             (result)=>{
@@ -481,9 +481,9 @@ FluContentPage{
         id: file_dialog
         onAccepted: {
             FluNetwork.postForm("https://httpbingo.org/post")
-            .setRetry(0)//请求失败后不重复请求
+            .setRetry(1)//只请求一次
             .add("accessToken","12345678")
-            .addFile("file",FluTools.toLocalPath(file_dialog.selectedFile))
+            .addFile("file",FluTools.toLocalPath(file_dialog.currentFile))
             .bind(root)
             .go(callable_upload_file)
         }

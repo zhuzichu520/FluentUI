@@ -130,7 +130,7 @@ Window {
         Item{
             data: window.appBar
             height: {
-                if(window.useSystemAppBar){
+                if(FluApp.useSystemAppBar){
                     return 0
                 }
                 return window.fitsAppBarWindows ? 0 : childrenRect.height
