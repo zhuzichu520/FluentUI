@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import Qt.labs.platform 1.0
 import "qrc:///example/qml/component"
 import "../component"
 
@@ -339,6 +340,95 @@ FluContentPage{
                     .go(callable)
                 }
             }
+            FluProgressButton{
+                id:btn_upload
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Upload File"
+                onClicked: {
+                    file_dialog.open()
+                }
+            }
+            FluProgressButton{
+                id:btn_download
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Download File"
+                onClicked: {
+                    folder_dialog.open()
+                }
+            }
+        }
+    }
+
+    FluNetworkCallable{
+        id:callable_upload_file
+        onStart: {
+            btn_upload.disabled = true
+        }
+        onFinish: {
+            btn_upload.disabled = false
+        }
+        onError:
+            (status,errorString,result)=>{
+                btn_upload.progress = 0
+                text_info.text = result
+                console.debug(result)
+            }
+        onSuccess:
+            (result)=>{
+                text_info.text = result
+            }
+        onUploadProgress:
+            (sent,total)=>{
+                btn_upload.progress = sent/total
+            }
+    }
+
+    FluNetworkCallable{
+        id:callable_download_file
+        onStart: {
+            btn_download.progress = 0
+            btn_download.disabled = true
+        }
+        onFinish: {
+            btn_download.disabled = false
+        }
+        onError:
+            (status,errorString,result)=>{
+                btn_download.progress = 0
+                showError(errorString)
+                console.debug(status+";"+errorString+";"+result)
+            }
+        onSuccess:
+            (result)=>{
+                showSuccess(result)
+            }
+        onDownloadProgress:
+            (recv,total)=>{
+                btn_download.progress = recv/total
+            }
+    }
+
+    FileDialog {
+        id: file_dialog
+        onAccepted: {
+            FluNetwork.postForm("https://httpbingo.org/post")
+            .setRetry(0)//请求失败后不重复请求
+            .add("accessToken","12345678")
+            .addFile("file",FluTools.toLocalPath(file_dialog.selectedFile))
+            .go(callable_upload_file)
+        }
+    }
+
+    FileDialog {
+        id: folder_dialog
+        currentFile: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]+"/big_buck_bunny.mp4"
+        fileMode: FileDialog.SaveFile
+        onAccepted: {
+            FluNetwork.get("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
+            .toDownload(FluTools.toLocalPath(folder_dialog.currentFile))
+            .go(callable_download_file)
         }
     }
 

@@ -65,7 +65,7 @@ public:
     Q_INVOKABLE NetworkParams* setTimeout(int val);
     Q_INVOKABLE NetworkParams* setRetry(int val);
     Q_INVOKABLE NetworkParams* setCacheMode(int val);
-    Q_INVOKABLE NetworkParams* toDownload(QString destPath,bool append);
+    Q_INVOKABLE NetworkParams* toDownload(QString destPath,bool append = false);
     Q_INVOKABLE void go(NetworkCallable* result);
     QString buildCacheKey();
     QString method2String();

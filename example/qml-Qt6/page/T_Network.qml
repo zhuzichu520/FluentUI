@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
-import QtQuick.Dialogs
 import FluentUI
+import Qt.labs.platform
 import "qrc:///example/qml/component"
 
 FluContentPage{
@@ -348,6 +348,32 @@ FluContentPage{
                     file_dialog.open()
                 }
             }
+            FluProgressButton{
+                id:btn_download
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Download File"
+                onClicked: {
+                    folder_dialog.showDialog(function(path){
+                        FluNetwork.get("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
+                        .toDownload(path)
+                        .go(callable_download_file)
+                    })
+                }
+            }
+            FluProgressButton{
+                id:btn_download_breakpoint
+                implicitWidth: parent.width
+                implicitHeight: 36
+                text: "Breakpoint Download File"
+                onClicked: {
+                    folder_dialog.showDialog(function(path){
+                        FluNetwork.get("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
+                        .toDownload(path,true)
+                        .go(callable_breakpoint_download_file)
+                    })
+                }
+            }
         }
     }
 
@@ -375,6 +401,56 @@ FluContentPage{
             }
     }
 
+    FluNetworkCallable{
+        id:callable_download_file
+        onStart: {
+            btn_download.progress = 0
+            btn_download.disabled = true
+        }
+        onFinish: {
+            btn_download.disabled = false
+        }
+        onError:
+            (status,errorString,result)=>{
+                btn_download.progress = 0
+                showError(errorString)
+                console.debug(status+";"+errorString+";"+result)
+            }
+        onSuccess:
+            (result)=>{
+                showSuccess(result)
+            }
+        onDownloadProgress:
+            (recv,total)=>{
+                btn_download.progress = recv/total
+            }
+    }
+
+    FluNetworkCallable{
+        id:callable_breakpoint_download_file
+        onStart: {
+            btn_download_breakpoint.progress = 0
+            btn_download_breakpoint.disabled = true
+        }
+        onFinish: {
+            btn_download_breakpoint.disabled = false
+        }
+        onError:
+            (status,errorString,result)=>{
+                btn_download_breakpoint.progress = 0
+                showError(errorString)
+                console.debug(status+";"+errorString+";"+result)
+            }
+        onSuccess:
+            (result)=>{
+                showSuccess(result)
+            }
+        onDownloadProgress:
+            (recv,total)=>{
+                btn_download_breakpoint.progress = recv/total
+            }
+    }
+
     FileDialog {
         id: file_dialog
         onAccepted: {
@@ -383,6 +459,20 @@ FluContentPage{
             .add("accessToken","12345678")
             .addFile("file",FluTools.toLocalPath(file_dialog.selectedFile))
             .go(callable_upload_file)
+        }
+    }
+
+    FileDialog {
+        property var onSelectListener
+        id: folder_dialog
+        currentFile: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]+"/big_buck_bunny.mp4"
+        fileMode: FileDialog.SaveFile
+        onAccepted: {
+            folder_dialog.onSelectListener(FluTools.toLocalPath(folder_dialog.currentFile))
+        }
+        function showDialog(listener){
+            folder_dialog.onSelectListener = listener
+            folder_dialog.open()
         }
     }
 
