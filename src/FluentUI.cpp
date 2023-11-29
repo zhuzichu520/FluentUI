@@ -8,8 +8,6 @@
 #include "FluTheme.h"
 #include "FluTools.h"
 #include "FluTextStyle.h"
-#include "FluHttp.h"
-#include "FluHttpInterceptor.h"
 #include "FluWatermark.h"
 #include "FluCaptcha.h"
 #include "FluEventBus.h"
@@ -36,10 +34,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<ScreenshotBackground>(uri,major,minor,"ScreenshotBackground");
     qmlRegisterType<Screenshot>(uri,major,minor,"Screenshot");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
-    qmlRegisterType<FluHttpInterceptor>(uri,major,minor,"FluHttpInterceptor");
-    qmlRegisterType<FluHttp>(uri,major,minor,"FluHttp");
-    qmlRegisterType<HttpCallable>(uri,major,minor,"HttpCallable");
-    qmlRegisterType<HttpRequest>(uri,major,minor,"HttpRequest");
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
     qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
@@ -144,7 +138,6 @@ void FluentUI::registerTypes(const char *uri){
 
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
-    qmlRegisterUncreatableMetaObject(FluHttpType::staticMetaObject,  uri,major,minor,"FluHttpType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluPageType::staticMetaObject,  uri,major,minor,"FluPageType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluWindowType::staticMetaObject,  uri,major,minor,"FluWindowType", "Access to enums & flags only");

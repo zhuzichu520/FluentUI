@@ -143,7 +143,6 @@
         <file>qml/page/T_Expander.qml</file>
         <file>qml/page/T_FlipView.qml</file>
         <file>qml/page/T_Home.qml</file>
-        <file>qml/page/T_Http.qml</file>
         <file>qml/page/T_Image.qml</file>
         <file>qml/page/T_InfoBar.qml</file>
         <file>qml/page/T_Menu.qml</file>

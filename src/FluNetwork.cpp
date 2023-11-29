@@ -121,19 +121,22 @@ NetworkParams* NetworkParams::toDownload(QString destPath,bool append){
     return this;
 }
 
+NetworkParams* NetworkParams::bind(QObject* target){
+    _target = target;
+    return this;
+}
+
 QString NetworkParams::buildCacheKey(){
     QJsonObject obj;
     obj.insert("url",_url);
     obj.insert("method",method2String());
     obj.insert("body",_body);
-    obj.insert("query",QString(QJsonDocument::fromVariant(_queryMap).toJson(QJsonDocument::Compact)));
-    obj.insert("param",QString(QJsonDocument::fromVariant(_paramMap).toJson(QJsonDocument::Compact)));
-    obj.insert("header",QString(QJsonDocument::fromVariant(_headerMap).toJson(QJsonDocument::Compact)));
-    obj.insert("file",QString(QJsonDocument::fromVariant(_fileMap).toJson(QJsonDocument::Compact)));
+    obj.insert("query",QJsonDocument::fromVariant(_queryMap).object());
+    obj.insert("param",QJsonDocument::fromVariant(_paramMap).object());
+    obj.insert("header",QJsonDocument::fromVariant(_headerMap).object());
+    obj.insert("file",QJsonDocument::fromVariant(_fileMap).object());
     if(_downloadParam){
         QJsonObject downObj;
-        QString _destPath;
-        bool _append;
         downObj.insert("destPath",_downloadParam->_destPath);
         downObj.insert("append",_downloadParam->_append);
         obj.insert("download",downObj);
@@ -275,10 +278,16 @@ void FluNetwork::handleDownload(NetworkParams* params,NetworkCallable* c){
             return;
         }
     }
-
     reply = manager->get(request);
     destFile->setParent(reply);
     cacheFile->setParent(reply);
+    if(params->_target){
+        connect(params->_target,&QObject::destroyed,this,[reply]{
+            if(reply){
+                reply->abort();
+            }
+        });
+    }
     connect(reply,&QNetworkReply::readyRead,reply,[reply,seek,destFile,cacheFile,callable]{
         if (!reply || !destFile || reply->error() != QNetworkReply::NoError)
         {

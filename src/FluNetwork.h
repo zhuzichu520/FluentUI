@@ -66,6 +66,7 @@ public:
     Q_INVOKABLE NetworkParams* setRetry(int val);
     Q_INVOKABLE NetworkParams* setCacheMode(int val);
     Q_INVOKABLE NetworkParams* toDownload(QString destPath,bool append = false);
+    Q_INVOKABLE NetworkParams* bind(QObject* target);
     Q_INVOKABLE void go(NetworkCallable* result);
     QString buildCacheKey();
     QString method2String();
@@ -73,6 +74,7 @@ public:
     int getRetry();
 public:
     DownloadParam* _downloadParam = nullptr;
+    QObject* _target = nullptr;
     Method _method;
     Type _type;
     QString _url;

@@ -407,12 +407,6 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
-            title:"Http(Deprecated)"
-            menuDelegate: paneItemMenu
-            url:"qrc:/example/qml/page/T_Http.qml"
-            onTap:{ navigationView.push(url) }
-        }
-        FluPaneItem{
             title:"Network"
             menuDelegate: paneItemMenu
             url:"qrc:/example/qml/page/T_Network.qml"

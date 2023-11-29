@@ -130,7 +130,6 @@ FluExpander{
                     "FluRadioButtons",
                     "FluImage",
                     "FluSpinBox",
-                    "FluHttp",
                     "FluWatermark",
                     "FluTour",
                     "FluQRCode",
@@ -140,7 +139,8 @@ FluExpander{
                     "FluStaggeredView",
                     "FluProgressButton",
                     "FluLoadingButton",
-                    "FluClip"
+                    "FluClip",
+                    "FluNetwork"
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");

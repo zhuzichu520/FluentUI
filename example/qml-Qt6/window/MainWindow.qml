@@ -164,7 +164,7 @@ FluWindow {
                 id:loader
                 lazy: true
                 anchors.fill: parent
-                source: "https://zhu-zichu.gitee.io/Qt6_156_LieflatPage.qml"
+                source: "https://zhu-zichu.gitee.io/Qt_163_LieflatPage.qml"
             }
         }
         front: Item{
@@ -294,10 +294,6 @@ FluWindow {
         }
     }
 
-    FluHttp{
-        id:http
-    }
-
     FpsItem{
         id:fps_item
     }
@@ -327,7 +323,7 @@ FluWindow {
         }
     }
 
-    HttpCallable{
+    FluNetworkCallable{
         id:callable
         property bool silent: true
         onStart: {
@@ -363,8 +359,8 @@ FluWindow {
 
     function checkUpdate(silent){
         callable.silent = silent
-        var request = http.newRequest("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest")
-        http.get(request,callable);
+        FluNetwork.get("https://api.github.com/repos/zhuzichu520/FluentUI/releases/latest")
+            .go(callable)
     }
 
 }

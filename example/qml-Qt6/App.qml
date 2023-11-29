@@ -24,23 +24,10 @@ Item {
         }
     }
 
-    FluHttpInterceptor{
-        id:interceptor
-        function onIntercept(request){
-            if(request.method === "get"){
-                request.params["method"] = "get"
-            }
-            if(request.method === "post"){
-                request.params["method"] = "post"
-            }
-            request.headers["token"] ="yyds"
-            request.headers["os"] ="pc"
-            console.debug(JSON.stringify(request))
-            return request
-        }
-    }
-
     Component.onCompleted: {
+        FluNetwork.setInterceptor(function(param){
+            param.addHeader("Token","000000000000000000000")
+        })
         FluApp.init(app)
         FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
         FluApp.vsync = SettingsHelper.getVsync()
@@ -57,7 +44,6 @@ Item {
             "/pageWindow":"qrc:/example/qml/window/PageWindow.qml"
         }
         FluApp.initialRoute = "/"
-        FluApp.httpInterceptor = interceptor
         FluApp.run()
     }
 }

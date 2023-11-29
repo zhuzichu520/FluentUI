@@ -8,6 +8,7 @@ import "qrc:///example/qml/component"
 
 FluContentPage{
 
+    id:root
     title:"Network"
 
     FluNetworkCallable{
@@ -59,6 +60,7 @@ FluContentPage{
                     .addQuery("name","孙悟空")
                     .addQuery("age",500)
                     .addQuery("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -70,6 +72,7 @@ FluContentPage{
                     text_info.text = ""
                     FluNetwork.postBody("https://httpbingo.org/post")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -83,6 +86,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -96,6 +100,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -109,6 +114,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -120,6 +126,7 @@ FluContentPage{
                     text_info.text = ""
                     FluNetwork.putBody("https://httpbingo.org/put")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -133,6 +140,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -146,6 +154,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -159,6 +168,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -170,6 +180,7 @@ FluContentPage{
                     text_info.text = ""
                     FluNetwork.patchBody("https://httpbingo.org/patch")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -183,6 +194,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -196,6 +208,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -209,6 +222,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -220,6 +234,7 @@ FluContentPage{
                     text_info.text = ""
                     FluNetwork.deleteBody("https://httpbingo.org/delete")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -233,6 +248,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -246,6 +262,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -259,6 +276,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -274,6 +292,7 @@ FluContentPage{
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -289,6 +308,7 @@ FluContentPage{
                     .add("age",500)
                     .add("address","花果山水帘洞")
                     .add("cacheMode","RequestFailedReadCache")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -304,6 +324,7 @@ FluContentPage{
                     .add("age",500)
                     .add("address","花果山水帘洞")
                     .add("cacheMode","IfNoneCacheRequest")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -319,6 +340,7 @@ FluContentPage{
                     .add("age",500)
                     .add("address","花果山水帘洞")
                     .add("cacheMode","FirstCacheThenRequest")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -336,6 +358,7 @@ FluContentPage{
                     .add("address","花果山水帘洞")
                     .add("timeout","5000")
                     .add("retry","3")
+                    .bind(root)
                     .go(callable)
                 }
             }
@@ -357,6 +380,7 @@ FluContentPage{
                     folder_dialog.showDialog(function(path){
                         FluNetwork.get("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
                         .toDownload(path)
+                        .bind(root)
                         .go(callable_download_file)
                     })
                 }
@@ -370,6 +394,7 @@ FluContentPage{
                     folder_dialog.showDialog(function(path){
                         FluNetwork.get("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
                         .toDownload(path,true)
+                        .bind(root)
                         .go(callable_breakpoint_download_file)
                     })
                 }
@@ -458,6 +483,7 @@ FluContentPage{
             .setRetry(0)//请求失败后不重复请求
             .add("accessToken","12345678")
             .addFile("file",FluTools.toLocalPath(file_dialog.selectedFile))
+            .bind(root)
             .go(callable_upload_file)
         }
     }
@@ -465,6 +491,7 @@ FluContentPage{
     FileDialog {
         property var onSelectListener
         id: folder_dialog
+        folder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
         currentFile: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]+"/big_buck_bunny.mp4"
         fileMode: FileDialog.SaveFile
         onAccepted: {

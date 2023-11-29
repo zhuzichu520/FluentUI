@@ -9,7 +9,6 @@
 #include <QJsonObject>
 #include <QQmlEngine>
 #include "FluRegister.h"
-#include "FluHttpInterceptor.h"
 #include "stdafx.h"
 #include "singleton.h"
 
@@ -22,7 +21,6 @@ class FluApp : public QObject
     Q_PROPERTY_AUTO(bool,vsync)
     Q_PROPERTY_AUTO(QString,initialRoute);
     Q_PROPERTY_AUTO(QJsonObject,routes);
-    Q_PROPERTY_AUTO(FluHttpInterceptor*,httpInterceptor);
     Q_PROPERTY_AUTO(bool,useSystemAppBar);
     QML_NAMED_ELEMENT(FluApp)
     QML_SINGLETON
