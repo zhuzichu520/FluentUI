@@ -5,6 +5,7 @@
 #include <QtQml/qqml.h>
 #include <QFile>
 #include <QJsonValue>
+#include <QJSValue>
 #include <QNetworkAccessManager>
 #include "Def.h"
 #include "stdafx.h"
@@ -116,6 +117,7 @@ public:
     Q_INVOKABLE NetworkParams* putJsonArray(const QString& url);
     Q_INVOKABLE NetworkParams* patchJsonArray(const QString& url);
     Q_INVOKABLE NetworkParams* deleteJsonArray(const QString& url);
+    Q_INVOKABLE void setInterceptor(QJSValue interceptor);
     void handle(NetworkParams* params,NetworkCallable* result);
     void handleDownload(NetworkParams* params,NetworkCallable* result);
 private:
@@ -126,6 +128,8 @@ private:
     QString readCache(const QString& key);
     bool cacheExists(const QString& key);
     QString getCacheFilePath(const QString& key);
+public:
+    QJSValue _interceptor;
 };
 
 #endif // FLUNETWORK_H

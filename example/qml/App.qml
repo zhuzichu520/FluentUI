@@ -41,6 +41,9 @@ Item {
     }
 
     Component.onCompleted: {
+        FluNetwork.setInterceptor(function(param){
+            param.addHeader("Token","000000000000000000000")
+        })
         FluApp.init(app)
         FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
         FluApp.vsync = SettingsHelper.getVsync()

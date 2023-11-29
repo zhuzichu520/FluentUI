@@ -7,6 +7,9 @@
 #include <QNetworkReply>
 #include <QJsonObject>
 #include <QNetworkDiskCache>
+#include <QQmlEngine>
+#include <QQmlContext>
+#include <QJSEngine>
 #include <QJsonArray>
 #include <QStandardPaths>
 #include <QDir>
@@ -132,11 +135,15 @@ QString NetworkParams::buildCacheKey(){
 }
 
 void NetworkParams::go(NetworkCallable* callable){
+    QJSValueList data;
+    data<<qjsEngine(FluNetwork::getInstance())->newQObject(this);
+    FluNetwork::getInstance()->_interceptor.call(data);
     if(_downloadParam){
         FluNetwork::getInstance()->handleDownload(this,callable);
     }else{
         FluNetwork::getInstance()->handle(this,callable);
     }
+
 }
 
 void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
@@ -346,73 +353,77 @@ FluNetwork::FluNetwork(QObject *parent): QObject{parent}
 }
 
 NetworkParams* FluNetwork::get(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_NONE,NetworkParams::METHOD_GET);
+    return new NetworkParams(url,NetworkParams::TYPE_NONE,NetworkParams::METHOD_GET,this);
 }
 
 NetworkParams* FluNetwork::head(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_NONE,NetworkParams::METHOD_HEAD);
+    return new NetworkParams(url,NetworkParams::TYPE_NONE,NetworkParams::METHOD_HEAD,this);
 }
 
 NetworkParams* FluNetwork::postBody(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_POST);
+    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_POST,this);
 }
 
 NetworkParams* FluNetwork::putBody(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_PUT);
+    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_PUT,this);
 }
 
 NetworkParams* FluNetwork::patchBody(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_PATCH);
+    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_PATCH,this);
 }
 
 NetworkParams* FluNetwork::deleteBody(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_DELETE);
+    return new NetworkParams(url,NetworkParams::TYPE_BODY,NetworkParams::METHOD_DELETE,this);
 }
 
 NetworkParams* FluNetwork::postForm(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_POST);
+    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_POST,this);
 }
 
 NetworkParams* FluNetwork::putForm(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_PUT);
+    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_PUT,this);
 }
 
 NetworkParams* FluNetwork::patchForm(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_PATCH);
+    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_PATCH,this);
 }
 
 NetworkParams* FluNetwork::deleteForm(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_DELETE);
+    return new NetworkParams(url,NetworkParams::TYPE_FORM,NetworkParams::METHOD_DELETE,this);
 }
 
 NetworkParams* FluNetwork::postJson(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_POST);
+    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_POST,this);
 }
 
 NetworkParams* FluNetwork::putJson(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_PUT);
+    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_PUT,this);
 }
 
 NetworkParams* FluNetwork::patchJson(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_PATCH);
+    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_PATCH,this);
 }
 
 NetworkParams* FluNetwork::deleteJson(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_DELETE);
+    return new NetworkParams(url,NetworkParams::TYPE_JSON,NetworkParams::METHOD_DELETE,this);
 }
 
 NetworkParams* FluNetwork::postJsonArray(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_POST);
+    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_POST,this);
 }
 
 NetworkParams* FluNetwork::putJsonArray(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_PUT);
+    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_PUT,this);
 }
 
 NetworkParams* FluNetwork::patchJsonArray(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_PATCH);
+    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_PATCH,this);
 }
 
 NetworkParams* FluNetwork::deleteJsonArray(const QString& url){
-    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_DELETE);
+    return new NetworkParams(url,NetworkParams::TYPE_JSONARRAY,NetworkParams::METHOD_DELETE,this);
+}
+
+void FluNetwork::setInterceptor(QJSValue interceptor){
+    this->_interceptor = interceptor;
 }
