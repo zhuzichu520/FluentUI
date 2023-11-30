@@ -182,6 +182,7 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
         QNetworkAccessManager manager;
         manager.setTransferTimeout(params->getTimeout());
         QEventLoop loop;
+        connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
         for (int i = 0; i < params->getRetry(); ++i) {
             QUrl url(params->_url);
             addQueryParam(&url,params->_queryMap);
@@ -194,10 +195,25 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
                 reply = nullptr;
                 return;
             }
-            QEventLoop loop;
-            connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
-            connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
+            auto abortCallable = [&loop,reply,&i,params]{
+                if(reply){
+                    i = params->getRetry();
+                    reply->abort();
+                }
+            };
+            QMetaObject::Connection conn_destoryed = {};
+            QMetaObject::Connection conn_quit = {};
+            if(params->_target){
+                conn_destoryed =  connect(params->_target,&QObject::destroyed,&manager,abortCallable);
+            }
+            conn_quit = connect(qApp,&QGuiApplication::aboutToQuit,&manager, abortCallable);
             loop.exec();
+            if(conn_destoryed){
+                disconnect(conn_destoryed);
+            }
+            if(conn_quit){
+                disconnect(conn_quit);
+            }
             QString response;
             if(reply->isOpen()){
                 response = QString::fromUtf8(reply->readAll());
@@ -234,99 +250,111 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
 }
 
 void FluNetwork::handleDownload(NetworkParams* params,NetworkCallable* c){
-    QString cacheKey = params->buildCacheKey();
     QPointer<NetworkCallable> callable(c);
-    if(!callable.isNull()){
-        callable->start();
-    }
-    QUrl url(params->_url);
-    QNetworkAccessManager* manager = new QNetworkAccessManager();
-    QNetworkReply *reply = nullptr;
-    manager->setTransferTimeout(params->getTimeout());
-    addQueryParam(&url,params->_queryMap);
-    QNetworkRequest request(url);
-    addHeaders(&request,params->_headerMap);
-    QString cachePath = getCacheFilePath(cacheKey);
-    QString destPath = params->_downloadParam->_destPath;
-    QFile* destFile = new QFile(destPath);
-    QFile* cacheFile = new QFile(cachePath);
-    bool isOpen = false;
-    qint64 seek = 0;
-    if(cacheFile->exists() && destFile->exists() && params->_downloadParam->_append){
-        QJsonObject cacheInfo = QJsonDocument::fromJson(readCache(cacheKey).toUtf8()).object();
-        qint64 fileSize = cacheInfo.value("fileSize").toDouble();
-        qint64 contentLength = cacheInfo.value("contentLength").toDouble();
-        if(fileSize == contentLength && destFile->size() == contentLength){
-            if(!callable.isNull()){
-                callable->downloadProgress(fileSize,contentLength);
-                callable->success(destPath);
-                callable->finish();
-            }
-            return;
+    QThreadPool::globalInstance()->start([=](){
+        if(!callable.isNull()){
+            callable->start();
         }
-        if(fileSize==destFile->size()){
-            request.setRawHeader("Range", QString("bytes=%1-").arg(fileSize).toUtf8());
-            seek = fileSize;
-            isOpen = destFile->open(QIODevice::WriteOnly|QIODevice::Append);
+        QString cacheKey = params->buildCacheKey();
+        QUrl url(params->_url);
+        QNetworkAccessManager manager;
+        manager.setTransferTimeout(params->getTimeout());
+        addQueryParam(&url,params->_queryMap);
+        QNetworkRequest request(url);
+        addHeaders(&request,params->_headerMap);
+        QString cachePath = getCacheFilePath(cacheKey);
+        QString destPath = params->_downloadParam->_destPath;
+        QFile* destFile = new QFile(destPath);
+        QFile* cacheFile = new QFile(cachePath);
+        bool isOpen = false;
+        qint64 seek = 0;
+        if(cacheFile->exists() && destFile->exists() && params->_downloadParam->_append){
+            QJsonObject cacheInfo = QJsonDocument::fromJson(readCache(cacheKey).toUtf8()).object();
+            qint64 fileSize = cacheInfo.value("fileSize").toDouble();
+            qint64 contentLength = cacheInfo.value("contentLength").toDouble();
+            if(fileSize == contentLength && destFile->size() == contentLength){
+                if(!callable.isNull()){
+                    callable->downloadProgress(fileSize,contentLength);
+                    callable->success(destPath);
+                    callable->finish();
+                }
+                return;
+            }
+            if(fileSize==destFile->size()){
+                request.setRawHeader("Range", QString("bytes=%1-").arg(fileSize).toUtf8());
+                seek = fileSize;
+                isOpen = destFile->open(QIODevice::WriteOnly|QIODevice::Append);
+            }else{
+                isOpen = destFile->open(QIODevice::WriteOnly|QIODevice::Truncate);
+            }
         }else{
             isOpen = destFile->open(QIODevice::WriteOnly|QIODevice::Truncate);
         }
-    }else{
-        isOpen = destFile->open(QIODevice::WriteOnly|QIODevice::Truncate);
-    }
-    if(!isOpen){
-        if(!callable.isNull()){
-            callable->error(-1,"device not open","");
-            callable->finish();
-        }
-        return;
-    }
-    if(params->_downloadParam->_append){
-        if (!cacheFile->open(QIODevice::WriteOnly|QIODevice::Truncate))
-        {
+        if(!isOpen){
             if(!callable.isNull()){
-                callable->error(-1,"cache file device not open","");
+                callable->error(-1,"device not open","");
                 callable->finish();
             }
             return;
         }
-    }
-    reply = manager->get(request);
-    destFile->setParent(reply);
-    cacheFile->setParent(reply);
-    if(params->_target){
-        connect(params->_target,&QObject::destroyed,this,[reply]{
+        if(params->_downloadParam->_append){
+            if (!cacheFile->open(QIODevice::WriteOnly|QIODevice::Truncate))
+            {
+                if(!callable.isNull()){
+                    callable->error(-1,"cache file device not open","");
+                    callable->finish();
+                }
+                return;
+            }
+        }
+        QEventLoop loop;
+        QNetworkReply *reply = manager.get(request);
+        destFile->setParent(reply);
+        cacheFile->setParent(reply);
+        auto abortCallable = [&loop,reply,params]{
             if(reply){
                 reply->abort();
             }
+        };
+        connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
+        connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
+        QMetaObject::Connection conn_destoryed = {};
+        QMetaObject::Connection conn_quit = {};
+        if(params->_target){
+            conn_destoryed =  connect(params->_target,&QObject::destroyed,&manager,abortCallable);
+        }
+        conn_quit = connect(qApp,&QGuiApplication::aboutToQuit,&manager, abortCallable);
+        connect(reply,&QNetworkReply::readyRead,reply,[reply,seek,destFile,cacheFile,callable]{
+            if (!reply || !destFile || reply->error() != QNetworkReply::NoError)
+            {
+                return;
+            }
+            QMap<QString, QVariant> downInfo;
+            qint64 contentLength = reply->header(QNetworkRequest::ContentLengthHeader).toLongLong()+seek;
+            downInfo.insert("contentLength",contentLength);
+            QString eTag = reply->header(QNetworkRequest::ETagHeader).toString();
+            downInfo.insert("eTag",eTag);
+            destFile->write(reply->readAll());
+            destFile->flush();
+            downInfo.insert("fileSize",destFile->size());
+            if(cacheFile->isOpen()){
+                cacheFile->resize(0);
+                cacheFile->write(QJsonDocument::fromVariant(QVariant(downInfo)).toJson().toBase64());
+                cacheFile->flush();
+            }
+            if(!callable.isNull()){
+                callable->downloadProgress(destFile->size(),contentLength);
+            }
         });
-    }
-    connect(reply,&QNetworkReply::readyRead,reply,[reply,seek,destFile,cacheFile,callable]{
-        if (!reply || !destFile || reply->error() != QNetworkReply::NoError)
-        {
-            return;
+        loop.exec();
+        if(conn_destoryed){
+            disconnect(conn_destoryed);
         }
-        QMap<QString, QVariant> downInfo;
-        qint64 contentLength = reply->header(QNetworkRequest::ContentLengthHeader).toLongLong()+seek;
-        downInfo.insert("contentLength",contentLength);
-        QString eTag = reply->header(QNetworkRequest::ETagHeader).toString();
-        downInfo.insert("eTag",eTag);
-        destFile->write(reply->readAll());
-        destFile->flush();
-        downInfo.insert("fileSize",destFile->size());
-        if(cacheFile->isOpen()){
-            cacheFile->resize(0);
-            cacheFile->write(QJsonDocument::fromVariant(QVariant(downInfo)).toJson().toBase64());
-            cacheFile->flush();
+        if(conn_quit){
+            disconnect(conn_quit);
         }
-        if(!callable.isNull()){
-            callable->downloadProgress(destFile->size(),contentLength);
-        }
-    });
-    connect(manager,&QNetworkAccessManager::finished,this,[params,manager,callable](QNetworkReply *reply){
         params->deleteLater();
         reply->deleteLater();
-        manager->deleteLater();
         if(!callable.isNull()){
             callable->finish();
         }
@@ -464,7 +492,7 @@ void FluNetwork::addQueryParam(QUrl* url,const QMap<QString, QVariant>& params){
 
 FluNetwork::FluNetwork(QObject *parent): QObject{parent}
 {
-    timeout(15000);
+    timeout(5000);
     retry(3);
     cacheDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation).append(QDir::separator()).append("network"));
 }
