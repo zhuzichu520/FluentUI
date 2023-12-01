@@ -96,5 +96,6 @@
         <file>FluentUI/Controls/FluLoadingButton.qml</file>
         <file>FluentUI/Controls/FluClip.qml</file>
         <file>FluentUI/Controls/FluLoader.qml</file>
+        <file>FluentUI/Controls/FluShortcutPicker.qml</file>
     </qresource>
 </RCC>

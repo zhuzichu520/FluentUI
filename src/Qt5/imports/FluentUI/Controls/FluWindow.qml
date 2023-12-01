@@ -254,7 +254,7 @@ Window {
         id:loader_window_border
         anchors.fill: parent
         z:999
-        sourceComponent: window.useSystemAppBar ? undefined : com_window_border
+        sourceComponent: FluApp.useSystemAppBar ? undefined : com_window_border
     }
     Component{
         id:com_window_border

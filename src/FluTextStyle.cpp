@@ -11,26 +11,26 @@ FluTextStyle::FluTextStyle(QObject *parent):QObject{parent}{
 
     QFont bodyStrong;
     bodyStrong.setPixelSize(13);
-    bodyStrong.setBold(true);
+    bodyStrong.setWeight(QFont::DemiBold);
     BodyStrong(bodyStrong);
 
     QFont subtitle;
     subtitle.setPixelSize(20);
-    subtitle.setBold(true);
+    subtitle.setWeight(QFont::DemiBold);
     Subtitle(subtitle);
 
     QFont title;
     title.setPixelSize(28);
-    title.setBold(true);
+    title.setWeight(QFont::DemiBold);
     Title(title);
 
     QFont titleLarge;
     titleLarge.setPixelSize(40);
-    titleLarge.setBold(true);
+    titleLarge.setWeight(QFont::DemiBold);
     TitleLarge(titleLarge);
 
     QFont display;
     display.setPixelSize(68);
-    display.setBold(true);
+    display.setWeight(QFont::DemiBold);
     Display(display);
 }

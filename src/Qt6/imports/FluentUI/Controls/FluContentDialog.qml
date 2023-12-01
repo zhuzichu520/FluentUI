@@ -66,7 +66,7 @@ FluPopup {
         }
         Rectangle{
             id:layout_actions
-            height: 68
+            height: 60
             radius: 5
             color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             anchors{
@@ -85,7 +85,6 @@ FluPopup {
                 FluButton{
                     id:neutral_btn
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
                     visible: popup.buttonFlags&FluContentDialogType.NeutralButton
                     text: neutralText
                     onClicked: {
@@ -97,7 +96,6 @@ FluPopup {
                 FluButton{
                     id:negative_btn
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
                     visible: popup.buttonFlags&FluContentDialogType.NegativeButton
                     text: negativeText
                     onClicked: {
@@ -109,7 +107,6 @@ FluPopup {
                 FluFilledButton{
                     id:positive_btn
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
                     visible: popup.buttonFlags&FluContentDialogType.PositiveButton
                     text: positiveText
                     onClicked: {

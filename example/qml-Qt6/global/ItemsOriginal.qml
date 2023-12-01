@@ -150,6 +150,12 @@ FluObject{
             url:"qrc:/example/qml/page/T_ColorPicker.qml"
             onTap:{ navigationView.push(url) }
         }
+        FluPaneItem{
+            title:"ShortcutPicker(ToDo)"
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/page/T_ShortcutPicker.qml"
+            onTap:{ navigationView.push(url) }
+        }
     }
 
     FluPaneItemExpander{
