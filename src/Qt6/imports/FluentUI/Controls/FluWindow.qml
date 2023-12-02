@@ -303,8 +303,7 @@ Window {
         return lifecycle.createRegister(window,path)
     }
     function moveWindowToDesktopCenter(){
-        window.x = (Screen.desktopAvailableWidth - window.width)/2
-        window.y = (Screen.desktopAvailableHeight - window.height)/2
+        return framless_helper.moveWindowToDesktopCenter()
     }
     function onResult(data){
         if(_pageRegister){
