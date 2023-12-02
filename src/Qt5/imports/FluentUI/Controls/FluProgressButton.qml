@@ -21,14 +21,14 @@ Button {
         if(d.checked){
             return FluTheme.dark ? Qt.darker(normalColor,1.1) : Qt.lighter(normalColor,1.1)
         }else{
-            return FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
+            return FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(246/255,246/255,246/255,1)
         }
     }
     property color disableColor: {
         if(d.checked){
             return FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
         }else{
-            return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
+            return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(244/255,244/255,244/255,1)
         }
     }
     property color pressedColor: FluTheme.dark ? Qt.darker(normalColor,1.2) : Qt.lighter(normalColor,1.2)
@@ -39,6 +39,7 @@ Button {
     focusPolicy:Qt.TabFocus
     id: control
     enabled: !disabled
+    verticalPadding: 0
     horizontalPadding:12
     background: FluClip{
         implicitWidth: 28
@@ -69,7 +70,7 @@ Button {
             color: FluTheme.primaryColor
             anchors.bottom: parent.bottom
             Behavior on height{
-                enabled: control.progress !== 1
+                enabled: control.progress === 1
                 SequentialAnimation {
                     PauseAnimation {
                         duration: FluTheme.enableAnimation ? 167 : 0

@@ -27,6 +27,7 @@ Button {
     enabled: !disabled
     focusPolicy:Qt.TabFocus
     font:FluTextStyle.Body
+    verticalPadding: 0
     horizontalPadding:12
     background: Rectangle{
         implicitWidth: 28
