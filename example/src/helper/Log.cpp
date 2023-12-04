@@ -3,7 +3,6 @@
 #include <QtCore/qfile.h>
 #include <QtCore/qtextstream.h>
 #include <iostream>
-#include <framelesshelpercore_global.h>
 
 #ifndef QT_ENDL
 #  if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
@@ -35,7 +34,7 @@ static inline void myMessageHandler(const QtMsgType type, const QMessageLogConte
     }
     if (!g_logFile) {
         g_logFile = std::make_unique<QFile>();
-        g_logFile->setFileName(FRAMELESSHELPER_STRING_LITERAL("debug-%1.log").arg(g_app));
+        g_logFile->setFileName(QString("debug-%1.log").arg(g_app));
         if (!g_logFile->open(QFile::WriteOnly | QFile::Text | QFile::Append)) {
             std::cerr << "Can't open file to write: " << qUtf8Printable(g_logFile->errorString()) << std::endl;
             g_logFile.reset();
@@ -62,7 +61,7 @@ void Log::setup(const QString &app)
     }
     once = true;
     g_app = app;
-    qSetMessagePattern(FRAMELESSHELPER_STRING_LITERAL(
+    qSetMessagePattern(QString(
         "[%{time yyyy/MM/dd hh:mm:ss.zzz}] <%{if-info}INFO%{endif}%{if-debug}DEBUG"
         "%{endif}%{if-warning}WARNING%{endif}%{if-critical}CRITICAL%{endif}%{if-fatal}"
         "FATAL%{endif}> %{if-category}%{category}: %{endif}%{message}"));
