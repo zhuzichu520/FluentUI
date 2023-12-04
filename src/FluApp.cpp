@@ -24,7 +24,7 @@ FluApp::~FluApp(){
 
 void FluApp::init(QObject *application){
     this->_application = application;
-    FramelessHelper::Quick::initialize();
+    FramelessHelperQuickInitialize();
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     QQmlEngine *engine = qmlEngine(_application);

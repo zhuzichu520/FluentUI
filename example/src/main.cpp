@@ -9,6 +9,7 @@
 #include <QtQml/qqmlextensionplugin.h>
 #include <QLoggingCategory>
 #include "AppInfo.h"
+#include "helper/Log.h"
 #include "src/component/CircularReveal.h"
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
@@ -23,6 +24,7 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 
 int main(int argc, char *argv[])
 {
+    Log::setup("example");
     QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
