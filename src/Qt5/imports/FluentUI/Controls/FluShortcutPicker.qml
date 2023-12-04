@@ -189,24 +189,25 @@ FluIconButton {
                     forceActiveFocus()
                 }
                 Keys.enabled: true
-                Keys.onPressed: {
-                    var keyNames = []
-                    if (event.modifiers & Qt.AltModifier) {
-                        keyNames.push("Alt")
+                Keys.onPressed:
+                    (event)=>{
+                        var keyNames = []
+                        if (event.modifiers & Qt.AltModifier) {
+                            keyNames.push("Alt")
+                        }
+                        if (event.modifiers & Qt.ControlModifier) {
+                            keyNames.push("Ctrl")
+                        }
+                        if (event.modifiers & Qt.ShiftModifier) {
+                            keyNames.push("Shift")
+                        }
+                        var keyName = d.keyToString(event.key,false)
+                        if(keyName!==""){
+                            keyNames.push(keyName)
+                            content_dialog.keysModel = keyNames
+                        }
+                        event.accepted = true
                     }
-                    if (event.modifiers & Qt.ControlModifier) {
-                        keyNames.push("Ctrl")
-                    }
-                    if (event.modifiers & Qt.ShiftModifier) {
-                        keyNames.push("Shift")
-                    }
-                    var keyName = d.keyToString(event.key,false)
-                    if(keyName!==""){
-                        keyNames.push(keyName)
-                        content_dialog.keysModel = keyNames
-                    }
-                    event.accepted = true
-                }
                 Keys.onTabPressed:
                     (event)=>{
                         event.accepted = true
