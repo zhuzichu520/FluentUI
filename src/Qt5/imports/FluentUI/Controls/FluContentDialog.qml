@@ -92,46 +92,61 @@ FluPopup {
                         margins: spacing
                         fill: parent
                     }
-                    spacing: 15
-                    FluButton{
-                        id:neutral_btn
+                    spacing: 10
+                    Item{
                         Layout.fillWidth: true
+                        Layout.fillHeight: true
                         visible: control.buttonFlags&FluContentDialogType.NeutralButton
-                        text: neutralText
-                        onClicked: {
-                            if(control.onNeutralClickListener){
-                                control.onNeutralClickListener()
-                            }else{
-                                neutralClicked()
-                                control.close()
+                        FluButton{
+                            id:neutral_btn
+                            text: neutralText
+                            width: parent.width
+                            anchors.centerIn: parent
+                            onClicked: {
+                                if(control.onNeutralClickListener){
+                                    control.onNeutralClickListener()
+                                }else{
+                                    neutralClicked()
+                                    control.close()
+                                }
                             }
                         }
                     }
-                    FluButton{
-                        id:negative_btn
+                    Item{
                         Layout.fillWidth: true
+                        Layout.fillHeight: true
                         visible: control.buttonFlags&FluContentDialogType.NegativeButton
-                        text: negativeText
-                        onClicked: {
-                            if(control.onNegativeClickListener){
-                                control.onNegativeClickListener()
-                            }else{
-                                negativeClicked()
-                                control.close()
+                        FluButton{
+                            id:negative_btn
+                            width: parent.width
+                            anchors.centerIn: parent
+                            text: negativeText
+                            onClicked: {
+                                if(control.onNegativeClickListener){
+                                    control.onNegativeClickListener()
+                                }else{
+                                    negativeClicked()
+                                    control.close()
+                                }
                             }
                         }
                     }
-                    FluFilledButton{
-                        id:positive_btn
+                    Item{
                         Layout.fillWidth: true
+                        Layout.fillHeight: true
                         visible: control.buttonFlags&FluContentDialogType.PositiveButton
-                        text: positiveText
-                        onClicked: {
-                            if(control.onPositiveClickListener){
-                                control.onPositiveClickListener()
-                            }else{
-                                positiveClicked()
-                                control.close()
+                        FluFilledButton{
+                            id:positive_btn
+                            text: positiveText
+                            width: parent.width
+                            anchors.centerIn: parent
+                            onClicked: {
+                                if(control.onPositiveClickListener){
+                                    control.onPositiveClickListener()
+                                }else{
+                                    positiveClicked()
+                                    control.close()
+                                }
                             }
                         }
                     }
