@@ -3,6 +3,8 @@
 #include <QtCore/qfile.h>
 #include <QtCore/qtextstream.h>
 #include <iostream>
+#include <QStandardPaths>
+#include <QDir>
 
 #ifndef QT_ENDL
 #  if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
@@ -13,6 +15,7 @@
 #endif
 
 static QString g_app = {};
+static QString g_file_path= {};
 static bool g_logError = false;
 
 static std::unique_ptr<QFile> g_logFile = nullptr;
@@ -33,8 +36,7 @@ static inline void myMessageHandler(const QtMsgType type, const QMessageLogConte
         return;
     }
     if (!g_logFile) {
-        g_logFile = std::make_unique<QFile>();
-        g_logFile->setFileName(QString("debug-%1.log").arg(g_app));
+        g_logFile = std::make_unique<QFile>(g_file_path);
         if (!g_logFile->open(QFile::WriteOnly | QFile::Text | QFile::Append)) {
             std::cerr << "Can't open file to write: " << qPrintable(g_logFile->errorString()) << std::endl;
             g_logFile.reset();
@@ -61,9 +63,17 @@ void Log::setup(const QString &app)
     }
     once = true;
     g_app = app;
+    const QString logFileName = QString("debug-%1.log").arg(g_app);
+    const QString logDirPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    const QDir logDir(logDirPath);
+    if(!logDir.exists()){
+        logDir.mkpath(logDirPath);
+    }
+    g_file_path = logDir.filePath(logFileName);
     qSetMessagePattern(QString(
         "[%{time yyyy/MM/dd hh:mm:ss.zzz}] <%{if-info}INFO%{endif}%{if-debug}DEBUG"
         "%{endif}%{if-warning}WARNING%{endif}%{if-critical}CRITICAL%{endif}%{if-fatal}"
         "FATAL%{endif}> %{if-category}%{category}: %{endif}%{message}"));
     qInstallMessageHandler(myMessageHandler);
+    qDebug()<<"Application log file path->"<<g_file_path;
 }

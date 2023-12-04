@@ -253,6 +253,9 @@ FluWindow {
         if(!FluTheme.enableAnimation || window.fitsAppBarWindows === false){
             changeDark()
         }else{
+            if(loader_reveal.sourceComponent){
+                return
+            }
             loader_reveal.sourceComponent = com_reveal
             var target = window.contentItem
             var pos = button.mapToItem(target,0,0)
