@@ -170,13 +170,15 @@ FluIconButton {
         neutralText: control.neutralText
         negativeText: control.negativeText
         onVisibleChanged: {
-            content_dialog.keysModel = control.current
+            if(visible){
+                content_dialog.keysModel = control.current
+            }
         }
         onPositiveClicked: {
             control.current = content_dialog.keysModel
             control.accepted()
         }
-        onNegativeClicked: {
+        onNegativeClickListener: function(){
             content_dialog.keysModel = control.current
         }
         contentDelegate: Component{
