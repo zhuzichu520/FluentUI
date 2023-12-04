@@ -151,7 +151,7 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
-            title:"ShortcutPicker(ToDo)"
+            title:"ShortcutPicker"
             menuDelegate: paneItemMenu
             url:"qrc:/example/qml/page/T_ShortcutPicker.qml"
             onTap:{ navigationView.push(url) }

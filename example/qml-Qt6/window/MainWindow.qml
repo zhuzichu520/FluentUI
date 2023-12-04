@@ -77,15 +77,23 @@ FluWindow {
             }
     }
 
+    Timer{
+        id:timer_window_hide_delay
+        interval: 150
+        onTriggered: {
+            window.hide()
+        }
+    }
+
     FluContentDialog{
         id:dialog_close
         title:"退出"
         message:"确定要退出程序吗？"
         negativeText:"最小化"
         buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.NeutralButton | FluContentDialogType.PositiveButton
-        onNegativeClicked:{
-            window.hide()
+        onNegativeClicked: {
             system_tray.showMessage("友情提示","FluentUI已隐藏至托盘,点击托盘可再次激活窗口");
+            timer_window_hide_delay.restart()
         }
         positiveText:"退出"
         neutralText:"取消"
