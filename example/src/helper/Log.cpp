@@ -25,9 +25,9 @@ static inline void myMessageHandler(const QtMsgType type, const QMessageLogConte
     }
     const QString finalMessage = qFormatLogMessage(type, context, message).trimmed();
     if ((type == QtInfoMsg) || (type == QtDebugMsg)) {
-        std::cout << qUtf8Printable(finalMessage) << std::endl;
+        std::cout << qPrintable(finalMessage) << std::endl;
     } else {
-        std::cerr << qUtf8Printable(finalMessage) << std::endl;
+        std::cerr << qPrintable(finalMessage) << std::endl;
     }
     if (g_logError) {
         return;
@@ -36,7 +36,7 @@ static inline void myMessageHandler(const QtMsgType type, const QMessageLogConte
         g_logFile = std::make_unique<QFile>();
         g_logFile->setFileName(QString("debug-%1.log").arg(g_app));
         if (!g_logFile->open(QFile::WriteOnly | QFile::Text | QFile::Append)) {
-            std::cerr << "Can't open file to write: " << qUtf8Printable(g_logFile->errorString()) << std::endl;
+            std::cerr << "Can't open file to write: " << qPrintable(g_logFile->errorString()) << std::endl;
             g_logFile.reset();
             g_logError = true;
             return;
