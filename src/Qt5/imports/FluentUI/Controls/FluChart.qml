@@ -50,31 +50,33 @@ Canvas {
             mouseEvent.left = 0;
             mouseEvent.top = 0;
             mouseEvent.target = control;
-
             if(handler) {
                 handler(mouseEvent);
             }
-
             control.requestPaint();
         }
-        onClicked:(mouse)=> {
-                      submitEvent(mouse, "click");
-                  }
-        onPositionChanged:(mouse)=> {
-                              submitEvent(mouse, "mousemove");
-                          }
+        onClicked:
+            (mouse)=> {
+                submitEvent(mouse, "click");
+            }
+        onPositionChanged:
+            (mouse)=> {
+                submitEvent(mouse, "mousemove");
+            }
         onExited: {
             submitEvent(undefined, "mouseout");
         }
         onEntered: {
             submitEvent(undefined, "mouseenter");
         }
-        onPressed:(mouse)=> {
-                      submitEvent(mouse, "mousedown");
-                  }
-        onReleased:(mouse)=> {
-                       submitEvent(mouse, "mouseup");
-                   }
+        onPressed:
+            (mouse)=> {
+                submitEvent(mouse, "mousedown");
+            }
+        onReleased:
+            (mouse)=> {
+                submitEvent(mouse, "mouseup");
+            }
     }
     PropertyAnimation {
         id: chartAnimator

@@ -134,7 +134,6 @@
         <file>qml/page/T_CalendarPicker.qml</file>
         <file>qml/page/T_Captcha.qml</file>
         <file>qml/page/T_Carousel.qml</file>
-        <file>qml/page/T_Chart.qml</file>
         <file>qml/page/T_CheckBox.qml</file>
         <file>qml/page/T_ColorPicker.qml</file>
         <file>qml/page/T_ComboBox.qml</file>

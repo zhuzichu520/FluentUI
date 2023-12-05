@@ -1618,10 +1618,6 @@ function hwbString(hwb, alpha) {
            + (alpha !== undefined && alpha !== 1 ? ", " + alpha : "") + ")";
 }
 
-function keyword(rgb) {
-  return reverseNames[rgb.slice(0, 3)];
-}
-
 // helpers
 function scale(num, min, max) {
    return Math.min(Math.max(min, num), max);
@@ -1632,11 +1628,14 @@ function hexDouble(num) {
   return (str.length < 2) ? "0" + str : str;
 }
 
-
 //create a list of reverse color names
 var reverseNames = {};
 for (var name in colorName$1) {
    reverseNames[colorName$1[name]] = name;
+}
+
+function keyword(rgb) {
+  return reverseNames[rgb.slice(0, 3)];
 }
 
 /* MIT license */
