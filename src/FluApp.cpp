@@ -29,6 +29,10 @@ void FluApp::init(QObject *application){
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     QQmlEngine *engine = qmlEngine(_application);
     FramelessHelper::Quick::registerTypes(engine);
+    QJSEngine * jsEngine = qjsEngine(_application);
+    std::string jsFunction = R"( (function () { console.log("FluentUI");}) )";
+    QJSValue function = jsEngine->evaluate(QString::fromStdString(jsFunction));
+    jsEngine->globalObject().setProperty("__fluentui",function);
 }
 
 void FluApp::run(){
