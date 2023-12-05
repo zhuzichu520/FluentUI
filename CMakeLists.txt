@@ -25,7 +25,7 @@ if(NOT FLUENTUI_QML_PLUGIN_DIRECTORY)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(zxing-cpp)
+add_subdirectory(3rdparty/zxing-cpp)
 
 if (FLUENTUI_BUILD_EXAMPLES)
     add_subdirectory(example)
@@ -34,7 +34,7 @@ endif ()
 set(FRAMELESSHELPER_BUILD_STATIC ON)
 set(FRAMELESSHELPER_NO_DEBUG_OUTPUT ON)
 set(FRAMELESSHELPER_BUILD_WIDGETS OFF)
-add_subdirectory(framelesshelper)
+add_subdirectory(3rdparty/framelesshelper)
 
 message("------------------------ FluentUI ------------------------")
 message("Build FluentUI demo applications.: ${FLUENTUI_BUILD_EXAMPLES}")
