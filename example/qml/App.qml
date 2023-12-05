@@ -45,6 +45,5 @@ Item {
         }
         FluApp.initialRoute = "/"
         FluApp.run()
-        __fluentui()
     }
 }
