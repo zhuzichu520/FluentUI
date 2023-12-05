@@ -190,5 +190,12 @@
         <file>qml/global/Lang.qml</file>
         <file>qml/page/T_Network.qml</file>
         <file>qml/page/T_ShortcutPicker.qml</file>
+        <file>qml/chart/T_BarChart.qml</file>
+        <file>qml/chart/T_LineChart.qml</file>
+        <file>qml/chart/T_PieChart.qml</file>
+        <file>qml/chart/T_RadarChart.qml</file>
+        <file>qml/chart/T_ScatterChart.qml</file>
+        <file>qml/chart/T_BubbleChart.qml</file>
+        <file>qml/chart/T_PolarAreaChart.qml</file>
     </qresource>
 </RCC>

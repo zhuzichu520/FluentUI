@@ -368,6 +368,53 @@ FluObject{
         }
     }
 
+    FluPaneItemExpander{
+        title: Lang.chart
+        icon:FluentIcons.AreaChart
+        FluPaneItem{
+            title:Lang.bar_chart
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/chart/T_BarChart.qml"
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
+            title:Lang.line_chart
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/chart/T_LineChart.qml"
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
+            title:Lang.pie_chart
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/chart/T_PieChart.qml"
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
+            title:Lang.polar_area_chart
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/chart/T_PolarAreaChart.qml"
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
+            title:Lang.bubble_chart
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/chart/T_BubbleChart.qml"
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
+            title:Lang.scatter_chart
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/chart/T_ScatterChart.qml"
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
+            title:Lang.radar_chart
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/chart/T_RadarChart.qml"
+            onTap:{ navigationView.push(url) }
+        }
+    }
+
     FluPaneItemSeparator{
         spacing:10
         size:1
@@ -404,12 +451,6 @@ FluObject{
             title:"Captcha"
             menuDelegate: paneItemMenu
             url:"qrc:/example/qml/page/T_Captcha.qml"
-            onTap:{ navigationView.push(url) }
-        }
-        FluPaneItem{
-            title:"Chart"
-            menuDelegate: paneItemMenu
-            url:"qrc:/example/qml/page/T_Chart.qml"
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
