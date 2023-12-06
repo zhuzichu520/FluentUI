@@ -79,10 +79,10 @@ if(WIN32)
         ${FLUENTUI_DIRECTORY}/.cmake/version_exe.rc.in
         ${EXAMPLE_VERSION_RC_PATH}
     )
-    configure_file(
-        ${FLUENTUI_DIRECTORY}/.cmake/InstallerScript.iss.in
-        ${FLUENTUI_DIRECTORY}/action-cli/InstallerScript.iss
-    )
+configure_file(
+    ${FLUENTUI_DIRECTORY}/.cmake/InstallerScript.iss.in
+    ${FLUENTUI_DIRECTORY}/action-cli/InstallerScript.iss
+)
 endif()
 
 #添加可执行文件
@@ -153,6 +153,11 @@ set_target_properties(example PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
+)
+
+target_compile_definitions(example
+    PRIVATE
+    QT_MESSAGELOGCONTEXT
 )
 
 target_link_libraries(example PRIVATE

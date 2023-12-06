@@ -24,8 +24,13 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 
 int main(int argc, char *argv[])
 {
-    Log::setup("example");
+    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
+    QGuiApplication::setOrganizationName("ZhuZiChu");
+    QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
+    QGuiApplication::setApplicationName("FluentUI");
     QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
+    SettingsHelper::getInstance()->init(argv);
+    Log::setup("example");
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -33,11 +38,6 @@ int main(int argc, char *argv[])
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
 #endif
-    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
-    QGuiApplication::setOrganizationName("ZhuZiChu");
-    QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
-    QGuiApplication::setApplicationName("FluentUI");
-    SettingsHelper::getInstance()->init(argv);
     if(SettingsHelper::getInstance()->getRender()=="software"){
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
         QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
@@ -55,7 +55,6 @@ int main(int argc, char *argv[])
 #ifdef FLUENTUI_BUILD_STATIC_LIB
     FluentUI::getInstance()->registerTypes(&engine);
 #endif
-    qDebug()<<engine.importPathList();
     qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
     qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
     qmlRegisterType<FpsItem>("example", 1, 0, "FpsItem");
