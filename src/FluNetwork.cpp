@@ -391,36 +391,51 @@ void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest requ
     QByteArray verb = params->method2String().toUtf8();
     switch (params->_type) {
     case NetworkParams::TYPE_FORM:{
-        QHttpMultiPart *multiPart = new QHttpMultiPart();
-        multiPart->setContentType(QHttpMultiPart::FormDataType);
-        for (const auto& each : params->_paramMap.toStdMap())
-        {
-            QHttpPart part;
-            part.setHeader(QNetworkRequest::ContentDispositionHeader, QString("form-data; name=\"%1\"").arg(each.first));
-            part.setBody(each.second.toByteArray());
-            multiPart->append(part);
-        }
-        for (const auto& each : params->_fileMap.toStdMap())
-        {
-            QString filePath = each.second.toString();
-            QString name = each.first;
-            QFile *file = new QFile(filePath);
-            QString fileName = QFileInfo(filePath).fileName();
-            file->open(QIODevice::ReadOnly);
-            file->setParent(multiPart);
-            QHttpPart part;
-            part.setHeader(QNetworkRequest::ContentDispositionHeader, QString("form-data; name=\"%1\"; filename=\"%2\"").arg(name,fileName));
-            part.setBodyDevice(file);
-            multiPart->append(part);
-        }
-        reply = manager->sendCustomRequest(request,verb,multiPart);
-        multiPart->setParent(reply);
-        if(!params->_fileMap.isEmpty()){
+        bool isFormData = !params->_fileMap.isEmpty();
+        if(isFormData){
+            QHttpMultiPart *multiPart = new QHttpMultiPart();
+            multiPart->setContentType(QHttpMultiPart::FormDataType);
+            for (const auto& each : params->_paramMap.toStdMap())
+            {
+                QHttpPart part;
+                part.setHeader(QNetworkRequest::ContentDispositionHeader, QString("form-data; name=\"%1\"").arg(each.first));
+                part.setBody(each.second.toByteArray());
+                multiPart->append(part);
+            }
+            for (const auto& each : params->_fileMap.toStdMap())
+            {
+                QString filePath = each.second.toString();
+                QString name = each.first;
+                QFile *file = new QFile(filePath);
+                QString fileName = QFileInfo(filePath).fileName();
+                file->open(QIODevice::ReadOnly);
+                file->setParent(multiPart);
+                QHttpPart part;
+                part.setHeader(QNetworkRequest::ContentDispositionHeader, QString("form-data; name=\"%1\"; filename=\"%2\"").arg(name,fileName));
+                part.setBodyDevice(file);
+                multiPart->append(part);
+            }
+            reply = manager->sendCustomRequest(request,verb,multiPart);
+            multiPart->setParent(reply);
             connect(reply,&QNetworkReply::uploadProgress,reply,[callable](qint64 bytesSent, qint64 bytesTotal){
                 if(!callable.isNull() && bytesSent!=0 && bytesTotal!=0){
-                    callable->uploadProgress(bytesSent,bytesTotal);
+                    Q_EMIT callable->uploadProgress(bytesSent,bytesTotal);
                 }
             });
+        }else{
+            request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/x-www-form-urlencoded"));
+            QString value;
+            for (const auto& each : params->_paramMap.toStdMap())
+            {
+                value += QString("%1=%2").arg(QString(QUrl::toPercentEncoding(each.first)),QString(QUrl::toPercentEncoding(each.second.toString())));
+                value += "&";
+            }
+            if(!params->_paramMap.isEmpty()){
+                value.chop(1);
+            }
+            qDebug()<<value;
+            QByteArray data = value.toUtf8();
+            reply = manager->sendCustomRequest(request,verb,data);
         }
         break;
     }
