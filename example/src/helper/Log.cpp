@@ -29,8 +29,22 @@ static bool g_logError = false;
 static std::unique_ptr<QFile> g_logFile = nullptr;
 static std::unique_ptr<QTextStream> g_logStream = nullptr;
 
+static int g_logLevel = 4;
+
+std::map<QtMsgType, int> logLevelMap = {
+    {QtFatalMsg,0},
+    {QtCriticalMsg,1},
+    {QtWarningMsg,2},
+    {QtInfoMsg,3},
+    {QtDebugMsg,4}
+};
+
+
 static inline void myMessageHandler(const QtMsgType type, const QMessageLogContext &context, const QString &message)
 {
+    if(logLevelMap[type]>g_logLevel){
+        return;
+    }
     if (context.file && !message.isEmpty()) {
         std::string strFileTmp = context.file;
         const char* ptr = strrchr(strFileTmp.c_str(), '/');
@@ -116,20 +130,20 @@ void Log::setup(const QString &app)
     }
     g_file_path = logDir.filePath(logFileName);
     qInstallMessageHandler(myMessageHandler);
-    qDebug()<<logDirPath;
     qInfo()<<"===================================================";
-    qInfo()<<"[AppName] FluentUI Example";
-    qInfo()<<"[AppVersion] "<<APPLICATION_VERSION;
+    qInfo()<<"[AppName]"<<"FluentUI Example";
+    qInfo()<<"[AppVersion]"<<APPLICATION_VERSION;
 #ifdef WIN32
-    qInfo()<<"[ProcessId] "<<QString::number(_getpid());
+    qInfo()<<"[ProcessId]"<<QString::number(_getpid());
 #else
-    qInfo()<<"[ProcessId] "<<QString::number(getpid());
+    qInfo()<<"[ProcessId]"<<QString::number(getpid());
 #endif
-    qInfo()<<"[GitHashCode] "<<COMMIT_HASH;
+    qInfo()<<"[GitHashCode]"<<COMMIT_HASH;
     qInfo()<<"[DeviceInfo]";
-    qInfo()<<"  [DeviceId] "<<QSysInfo::machineUniqueId();
-    qInfo()<<"  [Manufacturer] "<<QSysInfo::prettyProductName();
-    qInfo()<<"  [CPU_ABI] "<<QSysInfo::currentCpuArchitecture();
-    qInfo()<<"[LOG_PATH] "<<g_file_path;
+    qInfo()<<"  [DeviceId]"<<QSysInfo::machineUniqueId();
+    qInfo()<<"  [Manufacturer]"<<QSysInfo::prettyProductName();
+    qInfo()<<"  [CPU_ABI]"<<QSysInfo::currentCpuArchitecture();
+    qInfo()<<"[LOG_LEVEL]"<<g_logLevel;
+    qInfo()<<"[LOG_PATH]"<<g_file_path;
     qInfo()<<"===================================================";
 }
