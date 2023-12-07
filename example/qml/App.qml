@@ -25,6 +25,7 @@ Item {
     }
 
     Component.onCompleted: {
+        FluNetwork.openLog = true
         FluNetwork.setInterceptor(function(param){
             param.addHeader("Token","000000000000000000000")
         })

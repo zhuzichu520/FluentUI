@@ -14,9 +14,9 @@
 FRAMELESSHELPER_USE_NAMESPACE
 
 FluApp::FluApp(QObject *parent):QObject{parent}{
-    connect(this,&FluApp::useSystemAppBarChanged,this,[=]{FramelessConfig::instance()->set(Global::Option::UseSystemAppBar,_useSystemAppBar);});
     vsync(true);
     useSystemAppBar(false);
+    connect(this,&FluApp::useSystemAppBarChanged,this,[=]{FramelessConfig::instance()->set(Global::Option::UseSystemAppBar,_useSystemAppBar);});
 }
 
 FluApp::~FluApp(){

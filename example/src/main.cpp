@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
-    QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
     SettingsHelper::getInstance()->init(argv);
     Log::setup("example");
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))

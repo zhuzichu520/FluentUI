@@ -189,7 +189,7 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
             QNetworkRequest request(url);
             addHeaders(&request,params->_headerMap);
             QNetworkReply* reply;
-            sendRequest(&manager,request,params,reply,callable);
+            sendRequest(&manager,request,params,reply,i==0,callable);
             if(!QPointer(qApp)){
                 reply->deleteLater();
                 reply = nullptr;
@@ -224,8 +224,9 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
                     if(params->_cacheMode != FluNetworkType::CacheMode::NoCache){
                         saveResponse(cacheKey,response);
                     }
-                    callable->success(response);
+                    callable->success(response);              
                 }
+                printRequestEndLog(request,params,reply,response);
                 break;
             }else{
                 if(i == params->getRetry()-1){
@@ -238,6 +239,7 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
                         }
                         callable->error(httpStatus,reply->errorString(),response);
                     }
+                    printRequestEndLog(request,params,reply,response);
                 }
             }
             reply->deleteLater();
@@ -387,7 +389,15 @@ QString FluNetwork::getCacheFilePath(const QString& key){
     return cacheDir.absoluteFilePath(key);
 }
 
-void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,QPointer<NetworkCallable> callable){
+QString FluNetwork::map2String(const QMap<QString, QVariant>& map){
+    QStringList parameters;
+    for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
+        parameters << QString("%1=%2").arg(it.key(), it.value().toString());
+    }
+    return parameters.join(" ");
+}
+
+void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,bool isFirst,QPointer<NetworkCallable> callable){
     QByteArray verb = params->method2String().toUtf8();
     switch (params->_type) {
     case NetworkParams::TYPE_FORM:{
@@ -427,13 +437,12 @@ void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest requ
             QString value;
             for (const auto& each : params->_paramMap.toStdMap())
             {
-                value += QString("%1=%2").arg(QString(QUrl::toPercentEncoding(each.first)),QString(QUrl::toPercentEncoding(each.second.toString())));
+                value += QString("%1=%2").arg(each.first,each.second.toString());
                 value += "&";
             }
             if(!params->_paramMap.isEmpty()){
                 value.chop(1);
             }
-            qDebug()<<value;
             QByteArray data = value.toUtf8();
             reply = manager->sendCustomRequest(request,verb,data);
         }
@@ -473,6 +482,45 @@ void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest requ
         reply = manager->sendCustomRequest(request,verb);
         break;
     }
+    if(isFirst){
+        printRequestStartLog(request,params);
+    }
+}
+
+void FluNetwork::printRequestStartLog(QNetworkRequest request,NetworkParams* params){
+    if(!_openLog){
+        return;
+    }
+    qDebug()<<"<------"<<qUtf8Printable(request.header(QNetworkRequest::UserAgentHeader).toString())<<"Request Start ------>";
+    qDebug()<<qUtf8Printable(QString::fromStdString("<%1>").arg(params->method2String().toUtf8()))<<qUtf8Printable(params->_url);
+    auto contentType = request.header(QNetworkRequest::ContentTypeHeader).toString();
+    if(!contentType.isEmpty()){
+        qDebug()<<QString::fromStdString("<Header> %1=%2").arg("Content-Type",contentType);
+    }
+    for(const QByteArray& header:request.rawHeaderList()){
+        qDebug()<<QString::fromStdString("<Header> %1=%2").arg(header,request.rawHeader(header));
+    }
+    if(!params->_queryMap.isEmpty()){
+        qDebug()<<"<Query>"<<qUtf8Printable(map2String(params->_queryMap));
+    }
+    if(!params->_paramMap.isEmpty()){
+        qDebug()<<"<Param>"<<qUtf8Printable(map2String(params->_paramMap));
+    }
+    if(!params->_fileMap.isEmpty()){
+        qDebug()<<"<File>"<<qUtf8Printable(map2String(params->_fileMap));
+    }
+    if(!params->_body.isEmpty()){
+        qDebug()<<"<Body>"<<qUtf8Printable(params->_body);
+    }
+}
+
+void FluNetwork::printRequestEndLog(QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,const QString& response){
+    if(!_openLog){
+        return;
+    }
+    qDebug()<<"<------"<<qUtf8Printable(request.header(QNetworkRequest::UserAgentHeader).toString())<<"Request End ------>";
+    qDebug()<<qUtf8Printable(QString::fromStdString("<%1>").arg(params->method2String().toUtf8()))<<qUtf8Printable(params->_url);
+    qDebug()<<"<Result>"<<qUtf8Printable(response);
 }
 
 void FluNetwork::saveResponse(QString key,QString response){
@@ -486,6 +534,7 @@ void FluNetwork::saveResponse(QString key,QString response){
 }
 
 void FluNetwork::addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& headers){
+    request->setHeader(QNetworkRequest::UserAgentHeader,QString::fromStdString("Mozilla/5.0 %1/%2").arg(QGuiApplication::applicationName(),QGuiApplication::applicationVersion()));
     QMapIterator<QString, QVariant> iter(headers);
     while (iter.hasNext())
     {
@@ -509,6 +558,7 @@ FluNetwork::FluNetwork(QObject *parent): QObject{parent}
 {
     timeout(5000);
     retry(3);
+    openLog(false);
     cacheDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation).append(QDir::separator()).append("network"));
 }
 

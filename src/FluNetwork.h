@@ -94,6 +94,7 @@ class FluNetwork : public QObject
     Q_PROPERTY_AUTO(int,timeout)
     Q_PROPERTY_AUTO(int,retry)
     Q_PROPERTY_AUTO(QString,cacheDir)
+    Q_PROPERTY_AUTO(bool,openLog)
     QML_NAMED_ELEMENT(FluNetwork)
     QML_SINGLETON
 private:
@@ -123,13 +124,16 @@ public:
     void handle(NetworkParams* params,NetworkCallable* result);
     void handleDownload(NetworkParams* params,NetworkCallable* result);
 private:
-    void sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,QPointer<NetworkCallable> callable);
+    void sendRequest(QNetworkAccessManager* manager,QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,bool isFirst,QPointer<NetworkCallable> callable);
     void addQueryParam(QUrl* url,const QMap<QString, QVariant>& params);
     void addHeaders(QNetworkRequest* request,const QMap<QString, QVariant>& headers);
     void saveResponse(QString key,QString response);
     QString readCache(const QString& key);
     bool cacheExists(const QString& key);
     QString getCacheFilePath(const QString& key);
+    QString map2String(const QMap<QString, QVariant>& map);
+    void printRequestStartLog(QNetworkRequest request,NetworkParams* params);
+    void printRequestEndLog(QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,const QString& response);
 public:
     QJSValue _interceptor;
 };

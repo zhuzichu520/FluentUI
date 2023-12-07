@@ -126,7 +126,7 @@ void Log::setup(const QString &app)
     }
     once = true;
     g_app = app;
-    const QString logFileName = QString("%1-%2.log").arg(g_app,QString::number(QDateTime::currentMSecsSinceEpoch()));
+    const QString logFileName = QString("%1_%2.log").arg(g_app,QDateTime::currentDateTime().toString("yyyyMMdd"));
     const QString logDirPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)+"/log";
     const QDir logDir(logDirPath);
     if(!logDir.exists()){
