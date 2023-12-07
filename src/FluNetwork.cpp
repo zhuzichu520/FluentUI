@@ -492,13 +492,14 @@ void FluNetwork::printRequestStartLog(QNetworkRequest request,NetworkParams* par
         return;
     }
     qDebug()<<"<------"<<qUtf8Printable(request.header(QNetworkRequest::UserAgentHeader).toString())<<"Request Start ------>";
-    qDebug()<<qUtf8Printable(QString::fromStdString("<%1>").arg(params->method2String().toUtf8()))<<qUtf8Printable(params->_url);
+    qDebug()<<qUtf8Printable(QString::fromStdString("<%1>").arg(params->method2String()))<<qUtf8Printable(params->_url);
     auto contentType = request.header(QNetworkRequest::ContentTypeHeader).toString();
     if(!contentType.isEmpty()){
-        qDebug()<<QString::fromStdString("<Header> %1=%2").arg("Content-Type",contentType);
+        qDebug()<<qUtf8Printable(QString::fromStdString("<Header> %1=%2").arg("Content-Type",contentType));
     }
-    for(const QByteArray& header:request.rawHeaderList()){
-        qDebug()<<QString::fromStdString("<Header> %1=%2").arg(header,request.rawHeader(header));
+    QList<QByteArray> headers = request.rawHeaderList();
+    for(const QByteArray& header:headers){
+        qDebug()<<qUtf8Printable(QString::fromStdString("<Header> %1=%2").arg(header,request.rawHeader(header)));
     }
     if(!params->_queryMap.isEmpty()){
         qDebug()<<"<Query>"<<qUtf8Printable(map2String(params->_queryMap));
@@ -519,7 +520,7 @@ void FluNetwork::printRequestEndLog(QNetworkRequest request,NetworkParams* param
         return;
     }
     qDebug()<<"<------"<<qUtf8Printable(request.header(QNetworkRequest::UserAgentHeader).toString())<<"Request End ------>";
-    qDebug()<<qUtf8Printable(QString::fromStdString("<%1>").arg(params->method2String().toUtf8()))<<qUtf8Printable(params->_url);
+    qDebug()<<qUtf8Printable(QString::fromStdString("<%1>").arg(params->method2String()))<<qUtf8Printable(params->_url);
     qDebug()<<"<Result>"<<qUtf8Printable(response);
 }
 
