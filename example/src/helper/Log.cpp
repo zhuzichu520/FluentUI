@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QStandardPaths>
 #include <QDir>
+#include <QThread>
 #include "Version.h"
 #ifdef WIN32
 #include <process.h>
@@ -45,20 +46,7 @@ static inline void myMessageHandler(const QtMsgType type, const QMessageLogConte
     if(logLevelMap[type]>g_logLevel){
         return;
     }
-    if (context.file && !message.isEmpty()) {
-        std::string strFileTmp = context.file;
-        const char* ptr = strrchr(strFileTmp.c_str(), '/');
-        if (nullptr != ptr) {
-            char fn[512] = {0};
-            sprintf(fn, "%s", ptr + 1);
-            strFileTmp = fn;
-        }
-        const char* ptrTmp = strrchr(strFileTmp.c_str(), '\\');
-        if (nullptr != ptrTmp) {
-            char fn[512] = {0};
-            sprintf(fn, "%s", ptrTmp + 1);
-            strFileTmp = fn;
-        }
+    if (!message.isEmpty()) {
         QString levelName;
         switch (type) {
         case QtDebugMsg:
@@ -77,13 +65,29 @@ static inline void myMessageHandler(const QtMsgType type, const QMessageLogConte
             levelName = QStringLiteral("Fatal");
             break;
         }
-        const QString finalMessage = QString::fromStdString("[%1] <%2> [ %3:%4 ] %5").arg(
+        QString fileAndLineLogStr;
+        if(context.file){
+            std::string strFileTmp = context.file;
+            const char* ptr = strrchr(strFileTmp.c_str(), '/');
+            if (nullptr != ptr) {
+                char fn[512] = {0};
+                sprintf(fn, "%s", ptr + 1);
+                strFileTmp = fn;
+            }
+            const char* ptrTmp = strrchr(strFileTmp.c_str(), '\\');
+            if (nullptr != ptrTmp) {
+                char fn[512] = {0};
+                sprintf(fn, "%s", ptrTmp + 1);
+                strFileTmp = fn;
+            }
+            fileAndLineLogStr = QString::fromStdString("[%1:%2]").arg(QString::fromStdString(strFileTmp),QString::number(context.line));
+        }
+        const QString finalMessage = QString::fromStdString("%1[%2]%3[%4]:%5").arg(
             QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss.zzz"),
             levelName,
-            QString::fromStdString(strFileTmp),
-            QString::number(context.line),
-            message
-            );
+            fileAndLineLogStr,
+            QString::number(reinterpret_cast<quintptr>(QThread::currentThreadId())),
+            message);
         if ((type == QtInfoMsg) || (type == QtDebugMsg)) {
             std::cout << qPrintable(finalMessage) << std::endl;
         } else {
@@ -131,7 +135,7 @@ void Log::setup(const QString &app)
     g_file_path = logDir.filePath(logFileName);
     qInstallMessageHandler(myMessageHandler);
     qInfo()<<"===================================================";
-    qInfo()<<"[AppName]"<<"FluentUI Example";
+    qInfo()<<"[AppName]"<<g_app;
     qInfo()<<"[AppVersion]"<<APPLICATION_VERSION;
 #ifdef WIN32
     qInfo()<<"[ProcessId]"<<QString::number(_getpid());

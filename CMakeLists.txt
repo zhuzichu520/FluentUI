@@ -25,6 +25,12 @@ if(NOT FLUENTUI_QML_PLUGIN_DIRECTORY)
 endif()
 
 add_subdirectory(src)
+
+target_compile_definitions(fluentuiplugin
+    PRIVATE
+    QT_MESSAGELOGCONTEXT
+)
+
 add_subdirectory(3rdparty/zxing-cpp)
 
 if (FLUENTUI_BUILD_EXAMPLES)
