@@ -54,6 +54,13 @@ int NetworkParams::getRetry(){
     return FluNetwork::getInstance()->retry();
 }
 
+bool NetworkParams::getOpenLog(){
+    if(!_openLog.isNull()){
+        return _openLog.toBool();
+    }
+    return FluNetwork::getInstance()->openLog();
+}
+
 DownloadParam::DownloadParam(QObject *parent)
     : QObject{parent}
 {
@@ -126,6 +133,11 @@ NetworkParams* NetworkParams::toDownload(QString destPath,bool append){
 
 NetworkParams* NetworkParams::bind(QObject* target){
     _target = target;
+    return this;
+}
+
+NetworkParams* NetworkParams::openLog(QVariant val){
+    _openLog = val;
     return this;
 }
 
@@ -488,7 +500,7 @@ void FluNetwork::sendRequest(QNetworkAccessManager* manager,QNetworkRequest requ
 }
 
 void FluNetwork::printRequestStartLog(QNetworkRequest request,NetworkParams* params){
-    if(!_openLog){
+    if(!params->getOpenLog()){
         return;
     }
     qDebug()<<"<------"<<qUtf8Printable(request.header(QNetworkRequest::UserAgentHeader).toString())<<"Request Start ------>";
@@ -516,7 +528,7 @@ void FluNetwork::printRequestStartLog(QNetworkRequest request,NetworkParams* par
 }
 
 void FluNetwork::printRequestEndLog(QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,const QString& response){
-    if(!_openLog){
+    if(!params->getOpenLog()){
         return;
     }
     qDebug()<<"<------"<<qUtf8Printable(request.header(QNetworkRequest::UserAgentHeader).toString())<<"Request End ------>";

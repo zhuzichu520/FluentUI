@@ -67,11 +67,13 @@ public:
     Q_INVOKABLE NetworkParams* setCacheMode(int val);
     Q_INVOKABLE NetworkParams* toDownload(QString destPath,bool append = false);
     Q_INVOKABLE NetworkParams* bind(QObject* target);
+    Q_INVOKABLE NetworkParams* openLog(QVariant val);
     Q_INVOKABLE void go(NetworkCallable* result);
     QString buildCacheKey();
     QString method2String();
     int getTimeout();
     int getRetry();
+    bool getOpenLog();
 public:
     DownloadParam* _downloadParam = nullptr;
     QObject* _target = nullptr;
@@ -85,6 +87,7 @@ public:
     QMap<QString, QVariant> _fileMap;
     int _timeout = -1;
     int _retry = -1;
+    QVariant _openLog;
     int _cacheMode = FluNetworkType::CacheMode::NoCache;
 };
 

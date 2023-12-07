@@ -283,6 +283,21 @@ FluContentPage{
             FluButton{
                 implicitWidth: parent.width
                 implicitHeight: 36
+                text: "Open Log"
+                onClicked: {
+                    text_info.text = ""
+                    FluNetwork.postJson("https://httpbingo.org/post")
+                    .add("name","孙悟空")
+                    .add("age",500)
+                    .add("address","花果山水帘洞")
+                    .openLog(true)
+                    .bind(root)
+                    .go(callable)
+                }
+            }
+            FluButton{
+                implicitWidth: parent.width
+                implicitHeight: 36
                 text: "Custom Header"
                 onClicked: {
                     text_info.text = ""
