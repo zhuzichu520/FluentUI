@@ -12,23 +12,15 @@ SettingsHelper::~SettingsHelper() = default;
 
 void SettingsHelper::save(const QString& key,QVariant val)
 {
-    QByteArray data = {};
-    QDataStream stream(&data, QIODevice::WriteOnly);
-    stream.setVersion(QDataStream::Qt_5_6);
-    stream << val;
-    m_settings->setValue(key, data);
+    m_settings->setValue(key, val);
 }
 
 QVariant SettingsHelper::get(const QString& key,QVariant def){
-    const QByteArray data = m_settings->value(key).toByteArray();
-    if (data.isEmpty()) {
-        return def;
+    QVariant data = m_settings->value(key);
+    if (!data.isNull() && data.isValid()) {
+        return data;
     }
-    QDataStream stream(data);
-    stream.setVersion(QDataStream::Qt_5_6);
-    QVariant val;
-    stream >> val;
-    return val;
+    return def;
 }
 
 void SettingsHelper::init(char *argv[]){

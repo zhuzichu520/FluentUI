@@ -20,13 +20,13 @@ public:
     ~SettingsHelper() override;
     void init(char *argv[]);
     Q_INVOKABLE void saveRender(const QVariant& render){save("render",render);}
-    Q_INVOKABLE QVariant getRender(){return get("render");}
+    Q_INVOKABLE QString getRender(){return get("render").toString();}
     Q_INVOKABLE void saveDarkMode(int darkModel){save("darkMode",darkModel);}
-    Q_INVOKABLE QVariant getDarkMode(){return get("darkMode",QVariant(0));}
+    Q_INVOKABLE int getDarkMode(){return get("darkMode",QVariant(0)).toInt();}
     Q_INVOKABLE void saveVsync(bool vsync){save("vsync",vsync);}
-    Q_INVOKABLE QVariant getVsync(){return get("vsync",QVariant(true));}
+    Q_INVOKABLE bool getVsync(){return get("vsync",QVariant(true)).toBool();}
     Q_INVOKABLE void saveUseSystemAppBar(bool useSystemAppBar){save("useSystemAppBar",useSystemAppBar);}
-    Q_INVOKABLE QVariant getUseSystemAppBar(){return get("useSystemAppBar",QVariant(false));}
+    Q_INVOKABLE bool getUseSystemAppBar(){return get("useSystemAppBar",QVariant(false)).toBool();}
 private:
     void save(const QString& key,QVariant val);
     QVariant get(const QString& key,QVariant def={});
