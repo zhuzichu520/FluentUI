@@ -227,23 +227,26 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
                 disconnect(conn_quit);
             }
             QString response;
-            if(reply->isOpen()){
-                response = QString::fromUtf8(reply->readAll());
+            if(params->_method == NetworkParams::METHOD_HEAD){
+                response = headerList2String(reply->rawHeaderPairs());
+            }else{
+                if(reply->isOpen()){
+                    response = QString::fromUtf8(reply->readAll());
+                }
             }
-            QNetworkReply::NetworkError error = reply->error();
-            if(error == QNetworkReply::NoError){
+            int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            if(httpStatus == 200){
                 if(!callable.isNull()){
                     if(params->_cacheMode != FluNetworkType::CacheMode::NoCache){
                         saveResponse(cacheKey,response);
                     }
-                    callable->success(response);              
+                    callable->success(response);
                 }
                 printRequestEndLog(request,params,reply,response);
                 break;
             }else{
                 if(i == params->getRetry()-1){
                     if(!callable.isNull()){
-                        int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
                         if(params->_cacheMode == FluNetworkType::CacheMode::RequestFailedReadCache && cacheExists(cacheKey)){
                             if(!callable.isNull()){
                                 callable->cache(readCache(cacheKey));
@@ -399,6 +402,14 @@ QString FluNetwork::getCacheFilePath(const QString& key){
         cacheDir.mkpath(_cacheDir);
     }
     return cacheDir.absoluteFilePath(key);
+}
+
+QString FluNetwork::headerList2String(const QList<QNetworkReply::RawHeaderPair>& data){
+    QJsonObject object;
+    for (auto it = data.constBegin(); it != data.constEnd(); ++it) {
+        object.insert(QString(it->first),QString(it->second));
+    }
+    return QJsonDocument(object).toJson(QJsonDocument::Compact);
 }
 
 QString FluNetwork::map2String(const QMap<QString, QVariant>& map){

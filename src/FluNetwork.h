@@ -7,6 +7,7 @@
 #include <QJsonValue>
 #include <QJSValue>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include "Def.h"
 #include "stdafx.h"
 #include "singleton.h"
@@ -135,6 +136,7 @@ private:
     bool cacheExists(const QString& key);
     QString getCacheFilePath(const QString& key);
     QString map2String(const QMap<QString, QVariant>& map);
+    QString headerList2String(const QList<QNetworkReply::RawHeaderPair>& data);
     void printRequestStartLog(QNetworkRequest request,NetworkParams* params);
     void printRequestEndLog(QNetworkRequest request,NetworkParams* params,QNetworkReply*& reply,const QString& response);
 public:
