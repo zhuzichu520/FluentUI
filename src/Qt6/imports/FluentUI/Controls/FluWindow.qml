@@ -36,7 +36,7 @@ Window {
     property bool showMinimize: true
     property bool showMaximize: true
     property bool showStayTop: true
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
+    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
     property bool autoMaximize: false
     property var closeListener: function(event){
         if(closeDestory){

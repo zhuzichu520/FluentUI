@@ -15,38 +15,13 @@
 #include <winuser.h>
 #include <dwmapi.h>
 #include <codecvt>
-
+#include <cmath>
 static inline QByteArray qtNativeEventType()
 {
     static const auto result = "windows_generic_MSG";
     return result;
 }
-
-int getSystemMetrics2(const WId windowId, const int index, const bool scaled){
-    Q_ASSERT(windowId);
-    if (!windowId) {
-        return 0;
-    }
-    const UINT realDpi = GetDpiForWindow(reinterpret_cast<HWND>(windowId));
-    {
-        const UINT dpi = (scaled ? realDpi : USER_DEFAULT_SCREEN_DPI);
-        if (const int result = GetSystemMetricsForDpi(index, dpi); result > 0) {
-            return result;
-        }
-    }
-    const qreal dpr = (scaled ? qreal(1) : (qreal(realDpi) / qreal(USER_DEFAULT_SCREEN_DPI)));
-    return std::round(qreal(::GetSystemMetrics(index)) / dpr);
-}
-
-quint32 getResizeBorderThickness(const WId windowId, const bool scaled){
-    if (!windowId) {
-        return 0;
-    }
-    return getSystemMetrics2(windowId, SM_CXSIZEFRAME, scaled) + getSystemMetrics2(windowId, SM_CXPADDEDBORDER, scaled);
-}
-
 #endif
-
 
 FramelessEventFilter::FramelessEventFilter(QQuickWindow* window){
     _window = window;
@@ -73,7 +48,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         return false;
     }
     const LPARAM lParam = msg->lParam;
-    const int borderPadding = getResizeBorderThickness(_window->winId(), true);
+    const int borderPadding = 8;
     if (uMsg == WM_NCCALCSIZE) {
         if (_window->visibility() == QWindow::FullScreen) {
             NCCALCSIZE_PARAMS* sz = reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam);
@@ -256,9 +231,9 @@ void FluFrameless::componentComplete(){
     if(!_window.isNull()){
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
-        MARGINS margins[2]{{0, 0, 0, 0}, {0, 0, 1, 0}};
-        HWND hWnd = reinterpret_cast<HWND>(_window->winId());
-        DwmExtendFrameIntoClientArea(hWnd, &margins[false]);
+        //        MARGINS margins[2]{{0, 0, 0, 0}, {0, 0, 1, 0}};
+        //        HWND hWnd = reinterpret_cast<HWND>(_window->winId());
+        //        DwmExtendFrameIntoClientArea(hWnd, &margins[false]);
         refresLayout();
         connect(_window,&QWindow::visibilityChanged,this,[=](QWindow::Visibility visibility){ refresLayout(); });
     }
