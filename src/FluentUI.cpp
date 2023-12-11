@@ -16,6 +16,7 @@
 #include "Screenshot.h"
 #include "FluRectangle.h"
 #include "FluNetwork.h"
+#include "FluFrameless.h"
 #include "QRCode.h"
 
 void FluentUI::registerTypes(QQmlEngine *engine){
@@ -40,6 +41,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
     qmlRegisterType<NetworkCallable>(uri,major,minor,"FluNetworkCallable");
     qmlRegisterType<NetworkParams>(uri,major,minor,"FluNetworkParams");
+    qmlRegisterType<FluFrameless>(uri,major,minor,"FluFrameless");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/Checkerboard.qml"),uri,major,minor,"Checkerboard");

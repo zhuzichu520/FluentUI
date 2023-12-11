@@ -3,7 +3,6 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
-import org.wangwenx190.FramelessHelper 1.0
 
 Window {
     default property alias content: container.data
@@ -38,7 +37,7 @@ Window {
     property bool showMinimize: true
     property bool showMaximize: true
     property bool showStayTop: true
-    property bool useSystemAppBar
+    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
     property bool autoMaximize: false
     property var closeListener: function(event){
         if(closeDestory){
@@ -51,26 +50,21 @@ Window {
     signal initArgument(var argument)
     signal firstVisible()
     id:window
-    maximumWidth: useSystemAppBar&&fixSize ? width : 16777215
-    maximumHeight: useSystemAppBar&&fixSize ? height : 16777215
-    minimumWidth: useSystemAppBar&&fixSize ? width : 0
-    minimumHeight: useSystemAppBar&&fixSize ? height : 0
+    maximumWidth: fixSize ? width : 16777215
+    maximumHeight: fixSize ? height : 16777215
+    minimumWidth: fixSize ? width : 0
+    minimumHeight: fixSize ? height : 0
     color:"transparent"
     onStayTopChanged: {
         d.changedStayTop()
     }
     Component.onCompleted: {
-        useSystemAppBar = FluApp.useSystemAppBar
         lifecycle.onCompleted(window)
         initArgument(argument)
-        d.changedStayTop()
-        if(useSystemAppBar){
-            window.moveWindowToDesktopCenter()
-            if(window.autoMaximize){
-                window.showMaximized()
-            }else{
-                window.show()
-            }
+        if(window.autoMaximize){
+            window.showMaximized()
+        }else{
+            window.show()
         }
     }
     Component.onDestruction: {
@@ -82,6 +76,14 @@ Window {
             d.isFirstVisible = false
         }
         lifecycle.onVisible(visible)
+    }
+    Component{
+        id:com_frameless
+        FluFrameless{
+        }
+    }
+    FluLoader{
+        sourceComponent: FluApp.useSystemAppBar ? undefined : com_frameless
     }
     QtObject{
         id:d
@@ -124,7 +126,7 @@ Window {
             left: parent.left
             right: parent.right
         }
-        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
+        sourceComponent: FluApp.useSystemAppBar ? undefined : com_app_bar
     }
     Component{
         id:com_app_bar
@@ -220,33 +222,6 @@ Window {
         id:infoBar
         root: window
     }
-    Connections{
-        target: FluTheme
-        function onDarkChanged(){
-            if (FluTheme.dark)
-                FramelessUtils.systemTheme = FramelessHelperConstants.Dark
-            else
-                FramelessUtils.systemTheme = FramelessHelperConstants.Light
-        }
-    }
-    FramelessHelper{
-        id:framless_helper
-        onReady: {
-            flags = flags | Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
-            if(appBar){
-                var appbar = window.appBar
-                window.moveWindowToDesktopCenter()
-                setWindowFixedSize(fixSize)
-                if (blurBehindWindowEnabled)
-                    window.background = undefined
-            }
-            if(window.autoMaximize){
-                window.showMaximized()
-            }else{
-                window.show()
-            }
-        }
-    }
     WindowLifecycle{
         id:lifecycle
     }
@@ -259,10 +234,6 @@ Window {
     Component{
         id:com_window_border
         Item{
-            WindowBorder{
-                anchors.fill: parent
-                visible: !FluTools.isLinux()
-            }
             Rectangle{
                 anchors.fill: parent
                 color: Qt.rgba(0,0,0,0)
@@ -302,9 +273,6 @@ Window {
     }
     function registerForWindowResult(path){
         return lifecycle.createRegister(window,path)
-    }
-    function moveWindowToDesktopCenter(){
-        return framless_helper.moveWindowToDesktopCenter()
     }
     function onResult(data){
         if(_pageRegister){

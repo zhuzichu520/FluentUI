@@ -8,15 +8,10 @@
 #include <QUuid>
 #include <QFontDatabase>
 #include <QClipboard>
-#include <FramelessHelper/Quick/framelessquickmodule.h>
-#include <FramelessHelper/Core/private/framelessconfig_p.h>
-
-FRAMELESSHELPER_USE_NAMESPACE
 
 FluApp::FluApp(QObject *parent):QObject{parent}{
     vsync(true);
     useSystemAppBar(false);
-    connect(this,&FluApp::useSystemAppBarChanged,this,[=]{FramelessConfig::instance()->set(Global::Option::UseSystemAppBar,_useSystemAppBar);});
 }
 
 FluApp::~FluApp(){
@@ -24,11 +19,6 @@ FluApp::~FluApp(){
 
 void FluApp::init(QObject *application){
     this->_application = application;
-    FramelessHelperQuickInitialize();
-    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
-    FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
-    QQmlEngine *engine = qmlEngine(_application);
-    FramelessHelper::Quick::registerTypes(engine);
     QJSEngine * jsEngine = qjsEngine(_application);
     std::string jsFunction = R"( (function () { console.log("FluentUI");}) )";
     QJSValue function = jsEngine->evaluate(QString::fromStdString(jsFunction));

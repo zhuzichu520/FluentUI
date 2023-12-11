@@ -1,6 +1,3 @@
-[submodule "framelesshelper"]
-	path = 3rdparty/framelesshelper
-	url = https://github.com/zhuzichu520/framelesshelper.git
 [submodule "zxing-cpp"]
 	path = 3rdparty/zxing-cpp
 	url = https://github.com/zhuzichu520/zxing-cpp.git

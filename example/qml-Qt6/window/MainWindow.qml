@@ -297,7 +297,7 @@ FluWindow {
         id:tour
         steps:{
             var data = []
-            if(!window.useSystemAppBar){
+            if(!FluApp.useSystemAppBar){
                 data.push({title:"夜间模式",description: "这里可以切换夜间模式.",target:()=>appBar.darkButton()})
             }
             data.push({title:"隐藏彩蛋",description: "多点几下试试！！",target:()=>nav_view.logoButton()})
