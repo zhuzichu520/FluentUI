@@ -2,6 +2,55 @@
 
 #include <QGuiApplication>
 
+#ifdef Q_OS_WIN
+#pragma comment(lib, "user32.lib")
+#include <windows.h>
+static inline QByteArray qtNativeEventType()
+{
+    static const auto result = "windows_generic_MSG";
+    return result;
+}
+#endif
+
+FramelessEventFilter::FramelessEventFilter(QQuickWindow* window){
+    _window = window;
+    _current = window->winId();
+}
+
+bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *message, QT_NATIVE_EVENT_RESULT_TYPE *result){
+#ifdef Q_OS_WIN
+    if ((eventType != qtNativeEventType()) || !message || !result || !_window) {
+        return false;
+    }
+    const auto msg = static_cast<const MSG *>(message);
+    const HWND hWnd = msg->hwnd;
+    if (!hWnd) {
+        return false;
+    }
+    const qint64 wid = reinterpret_cast<qint64>(hWnd);
+    if(wid != _current){
+        return false;
+    }
+    const UINT uMsg = msg->message;
+    if (!msg || !msg->hwnd)
+    {
+        return false;
+    }
+    if(uMsg == WM_WINDOWPOSCHANGING){
+        WINDOWPOS* wp = reinterpret_cast<WINDOWPOS*>(msg->lParam);
+        if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0)
+        {
+            wp->flags |= SWP_NOCOPYBITS;
+            *result = DefWindowProc(msg->hwnd, msg->message, msg->wParam, msg->lParam);
+            return true;
+        }
+        return false;
+    }
+    return false;
+#endif
+    return false;
+}
+
 FluFrameless::FluFrameless(QObject *parent)
     : QObject{parent}
 {
@@ -13,23 +62,23 @@ void FluFrameless::classBegin(){
 void FluFrameless::updateCursor(int edges){
     switch (edges) {
     case 0:
-        _window->setCursor(Qt::ArrowCursor);
+        qApp->restoreOverrideCursor();
         break;
     case Qt::LeftEdge:
     case Qt::RightEdge:
-        _window->setCursor(Qt::SizeHorCursor);
+        qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor));
         break;
     case Qt::TopEdge:
     case Qt::BottomEdge:
-        _window->setCursor(Qt::SizeVerCursor);
+        qApp->setOverrideCursor(QCursor(Qt::SizeVerCursor));
         break;
     case Qt::LeftEdge | Qt::TopEdge:
     case Qt::RightEdge | Qt::BottomEdge:
-        _window->setCursor(Qt::SizeFDiagCursor);
+        qApp->setOverrideCursor(QCursor(Qt::SizeFDiagCursor));
         break;
     case Qt::RightEdge | Qt::TopEdge:
     case Qt::LeftEdge | Qt::BottomEdge:
-        _window->setCursor(Qt::SizeBDiagCursor);
+        qApp->setOverrideCursor(QCursor(Qt::SizeBDiagCursor));
         break;
     }
 }
@@ -46,7 +95,7 @@ bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
             }
             break;
         case QEvent::MouseButtonRelease:
-            edges = Qt::Edges();
+            edges = 0;
             updateCursor(edges);
             break;
         case QEvent::MouseMove: {
@@ -56,7 +105,7 @@ bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
             if(_window->width() == _window->maximumWidth() && _window->width() == _window->minimumWidth() && _window->height() == _window->maximumHeight() && _window->height() == _window->minimumHeight()){
                 break;
             }
-            edges = Qt::Edges();
+            edges = 0;
             QMouseEvent *event = static_cast<QMouseEvent*>(ev);
             QPoint p =
 #if QT_VERSION < QT_VERSION_CHECK(6,0,0)
@@ -92,20 +141,22 @@ void FluFrameless::componentComplete(){
         _window = (QQuickWindow*)o;
         o = o->parent();
     }
-
     if(!_window.isNull()){
         _window->setFlag(Qt::FramelessWindowHint,true);
-        _window->update();
-        QGuiApplication::processEvents();
         _window->installEventFilter(this);
+#ifdef Q_OS_WIN
+        _nativeEvent =new FramelessEventFilter(_window);
+        qApp->installNativeEventFilter(_nativeEvent);
+#endif
     }
 }
 
 FluFrameless::~FluFrameless(){
     if (!_window.isNull()) {
         _window->setFlag(Qt::FramelessWindowHint,false);
-        _window->update();
-        QGuiApplication::processEvents();
         _window->removeEventFilter(this);
+#ifdef Q_OS_WIN
+        qApp->removeNativeEventFilter(_nativeEvent);
+#endif
     }
 }
