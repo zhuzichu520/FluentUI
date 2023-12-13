@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(FluentUI VERSION 0.1 LANGUAGES CXX)
+project(FluentUI VERSION 1.0)
 
 set(FLUENTUI_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 list(APPEND CMAKE_MODULE_PATH ${FLUENTUI_DIRECTORY}/.cmake/)
@@ -30,8 +30,6 @@ target_compile_definitions(fluentuiplugin
     PRIVATE
     QT_MESSAGELOGCONTEXT
 )
-
-add_subdirectory(3rdparty/zxing-cpp)
 
 if (FLUENTUI_BUILD_EXAMPLES)
     add_subdirectory(example)

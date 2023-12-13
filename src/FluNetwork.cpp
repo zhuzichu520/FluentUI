@@ -202,7 +202,7 @@ void FluNetwork::handle(NetworkParams* params,NetworkCallable* c){
             addHeaders(&request,params->_headerMap);
             QNetworkReply* reply;
             sendRequest(&manager,request,params,reply,i==0,callable);
-            if(!QPointer(qApp)){
+            if(!QPointer<QGuiApplication>(qApp)){
                 reply->deleteLater();
                 reply = nullptr;
                 return;

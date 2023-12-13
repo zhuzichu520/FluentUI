@@ -37,6 +37,7 @@ Window {
     property bool showMaximize: true
     property bool showStayTop: true
     property bool autoMaximize: false
+    property bool useSystemAppBar
     property color resizeBorderColor: FluTheme.dark ? Qt.rgba(80/255,80/255,80/255,1) : Qt.rgba(210/255,210/255,210/255,1)
     property int resizeBorderWidth: 1
     property var closeListener: function(event){
@@ -59,6 +60,7 @@ Window {
         d.changedStayTop()
     }
     Component.onCompleted: {
+        useSystemAppBar = FluApp.useSystemAppBar
         lifecycle.onCompleted(window)
         initArgument(argument)
         if(window.autoMaximize){
@@ -83,7 +85,7 @@ Window {
         }
     }
     FluLoader{
-        sourceComponent: FluApp.useSystemAppBar ? undefined : com_frameless
+        sourceComponent: window.useSystemAppBar ? undefined : com_frameless
     }
     QtObject{
         id:d
@@ -127,12 +129,12 @@ Window {
             right: parent.right
         }
         height: {
-            if(FluApp.useSystemAppBar){
+            if(window.useSystemAppBar){
                 return 0
             }
             return window.fitsAppBarWindows ? 0 : window.appBar.height
         }
-        sourceComponent: FluApp.useSystemAppBar ? undefined : com_app_bar
+        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
     }
     Component{
         id:com_app_bar
@@ -231,7 +233,7 @@ Window {
         border.width: window.resizeBorderWidth
         border.color: window.resizeBorderColor
         visible: {
-            if(FluApp.useSystemAppBar){
+            if(window.useSystemAppBar){
                 return false
             }
             if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){

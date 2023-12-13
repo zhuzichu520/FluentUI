@@ -20,8 +20,8 @@ public:
     Q_SIGNAL void animationFinished();
     Q_SLOT void handleGrabResult();
 private:
+    QPropertyAnimation* _anim = nullptr;
     QImage _source;
-    QPropertyAnimation _anim = QPropertyAnimation(this, "radius", this);
     QPoint _center;
     QSharedPointer<QQuickItemGrabResult>  _grabResult;
 };

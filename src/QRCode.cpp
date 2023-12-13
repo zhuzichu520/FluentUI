@@ -1,10 +1,6 @@
 #include "QRCode.h"
 
-#include "BarcodeFormat.h"
-#include "BitMatrix.h"
-#include "MultiFormatWriter.h"
-
-using namespace ZXing;
+#include "qrcode/qrencode.h"
 
 QRCode::QRCode(QQuickItem* parent):QQuickPaintedItem(parent){
     color(QColor(0,0,0,255));
@@ -27,29 +23,35 @@ void QRCode::paint(QPainter* painter){
     if(_text.isEmpty()){
         return;
     }
-    if(_text.length()>1108){
+    if(_text.length()>1024){
         return;
     }
     painter->save();
-    auto format = ZXing::BarcodeFormatFromString("QRCode");
-    auto writer = MultiFormatWriter(format);
-    writer.setMargin(0);
-    writer.setEncoding(ZXing::CharacterSet::UTF8);
-    auto matrix = writer.encode(_text.toUtf8().constData(), 0, 0);
-    auto bitmap = ToMatrix<uint8_t>(matrix);
-    auto image = QImage(bitmap.data(), bitmap.width(), bitmap.height(), bitmap.width(), QImage::Format::Format_Grayscale8).copy();
-    QImage rgbImage = image.convertToFormat(QImage::Format_ARGB32);
-    for (int y = 0; y < rgbImage.height(); ++y) {
-        for (int x = 0; x < rgbImage.width(); ++x) {
-            QRgb pixel = rgbImage.pixel(x, y);
-            if (qRed(pixel) == 0 && qGreen(pixel) == 0 && qBlue(pixel) == 0) {
-                rgbImage.setPixelColor(x, y, _color);
-            }
-            if (qRed(pixel) == 255 && qGreen(pixel) == 255 && qBlue(pixel) == 255) {
-                rgbImage.setPixelColor(x, y, _bgColor);
+    QRcode *qrcode = QRcode_encodeString(_text.toUtf8().constData(), 2, QR_ECLEVEL_Q, QR_MODE_8, 1);
+    qint32 w = width();
+    qint32 h = height();
+    qint32 qrcodeW = qrcode->width > 0 ? qrcode->width : 1;
+    double scaleX = (double)w / (double)qrcodeW;
+    double scaleY = (double)h / (double)qrcodeW;
+    QImage image = QImage(w, h, QImage::Format_ARGB32);
+    QPainter p(&image);
+    p.setBrush(_bgColor);
+    p.setPen(Qt::NoPen);
+    p.drawRect(0, 0, w, h);
+    p.setBrush(_color);
+    for (qint32 y = 0; y < qrcodeW; y++)
+    {
+        for (qint32 x = 0; x < qrcodeW; x++)
+        {
+            unsigned char b = qrcode->data[y*qrcodeW + x];
+            if (b & 0x01)
+            {
+                QRectF r(x * scaleX,y * scaleY, scaleX, scaleY);
+                p.drawRects(&r, 1);
             }
         }
     }
-    painter->drawImage(QRect(0, 0, static_cast<int>(width()), static_cast<int>(height())), rgbImage);
+    QPixmap pixmap = QPixmap::fromImage(image);
+    painter->drawPixmap(QRect(0, 0, static_cast<int>(width()), static_cast<int>(height())), pixmap);
     painter->restore();
 }

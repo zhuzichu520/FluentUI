@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 
 if (FLUENTUI_BUILD_STATIC_LIB AND (QT_VERSION VERSION_GREATER_EQUAL "6.2"))
-    project(fluentui LANGUAGES CXX)
+    project(fluentui VERSION 1.0)
 else()
-    project(fluentuiplugin LANGUAGES CXX)
+    project(fluentuiplugin VERSION 1.0)
 endif()
 
 #配置通用编译
@@ -120,6 +120,10 @@ else()
     )
 endif()
 
+target_compile_definitions(${PROJECT_NAME}
+    PRIVATE
+    HAVE_CONFIG_H
+)
 
 #去掉mingw生成的动态库libxxx前缀lib，不去掉前缀会导致 module "FluentUI" plugin "fluentuiplugin" not found
 if(MINGW)
@@ -136,7 +140,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::CorePrivate
     Qt${QT_VERSION_MAJOR}::QuickPrivate
     Qt${QT_VERSION_MAJOR}::QmlPrivate
-    ZXing
 )
 
 #安装
