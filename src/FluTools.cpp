@@ -175,3 +175,7 @@ QPoint FluTools::cursorPos(){
 qint64 FluTools::currentTimestamp(){
     return QDateTime::currentMSecsSinceEpoch();
 }
+
+QIcon FluTools::windowIcon(){
+    return QGuiApplication::windowIcon();
+}

@@ -30,6 +30,7 @@ Item {
             param.addHeader("Token","000000000000000000000")
         })
         FluApp.init(app)
+        FluApp.windowIcon = "qrc:/example/res/image/favicon.ico"
         FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
         FluApp.vsync = SettingsHelper.getVsync()
         FluTheme.darkMode = SettingsHelper.getDarkMode()

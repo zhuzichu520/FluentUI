@@ -191,7 +191,12 @@ FluWindow {
                 pageMode: FluNavigationViewType.NoStack
                 items: ItemsOriginal
                 footerItems:ItemsFooter
-                topPadding:FluTools.isMacos() ? 20 : 0
+                topPadding:{
+                    if(window.useSystemAppBar){
+                        return 0
+                    }
+                    return FluTools.isMacos() ? 20 : 0
+                }
                 displayMode:viewmodel_settings.displayMode
                 logo: "qrc:/example/res/image/favicon.ico"
                 title:"FluentUI"

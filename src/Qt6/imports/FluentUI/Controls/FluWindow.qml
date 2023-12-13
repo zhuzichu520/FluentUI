@@ -5,6 +5,7 @@ import FluentUI
 
 Window {
     default property alias content: container.data
+    property string windowIcon: FluApp.windowIcon
     property bool closeDestory: true
     property int launchMode: FluWindowType.Standard
     property var argument:({})
@@ -21,6 +22,7 @@ Window {
         showMinimize: window.showMinimize
         showMaximize: window.showMaximize
         showStayTop: window.showStayTop
+        icon: window.windowIcon
     }
     property color backgroundColor: {
         if(active){
@@ -51,6 +53,7 @@ Window {
     signal initArgument(var argument)
     signal firstVisible()
     id:window
+    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
     maximumWidth: fixSize ? width : 16777215
     maximumHeight: fixSize ? height : 16777215
     minimumWidth: fixSize ? width : 0
