@@ -65,6 +65,9 @@ Window {
     }
     Component.onCompleted: {
         useSystemAppBar = FluApp.useSystemAppBar
+        if(!useSystemAppBar){
+            loader_frameless.sourceComponent = com_frameless
+        }
         lifecycle.onCompleted(window)
         initArgument(argument)
         if(window.autoMaximize){
@@ -89,7 +92,7 @@ Window {
         }
     }
     FluLoader{
-        sourceComponent: window.useSystemAppBar ? undefined : com_frameless
+        id:loader_frameless
     }
     QtObject{
         id:d

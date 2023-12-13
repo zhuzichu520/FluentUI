@@ -62,23 +62,23 @@ void FluFrameless::classBegin(){
 void FluFrameless::updateCursor(int edges){
     switch (edges) {
     case 0:
-        qApp->restoreOverrideCursor();
+        _window->setCursor(Qt::ArrowCursor);
         break;
     case Qt::LeftEdge:
     case Qt::RightEdge:
-        qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor));
+        _window->setCursor(Qt::SizeHorCursor);
         break;
     case Qt::TopEdge:
     case Qt::BottomEdge:
-        qApp->setOverrideCursor(QCursor(Qt::SizeVerCursor));
+        _window->setCursor(Qt::SizeVerCursor);
         break;
     case Qt::LeftEdge | Qt::TopEdge:
     case Qt::RightEdge | Qt::BottomEdge:
-        qApp->setOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+        _window->setCursor(Qt::SizeFDiagCursor);
         break;
     case Qt::RightEdge | Qt::TopEdge:
     case Qt::LeftEdge | Qt::BottomEdge:
-        qApp->setOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+        _window->setCursor(Qt::SizeBDiagCursor);
         break;
     }
 }
@@ -105,7 +105,6 @@ bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
             if(_window->width() == _window->maximumWidth() && _window->width() == _window->minimumWidth() && _window->height() == _window->maximumHeight() && _window->height() == _window->minimumHeight()){
                 break;
             }
-            edges = 0;
             QMouseEvent *event = static_cast<QMouseEvent*>(ev);
             QPoint p =
 #if QT_VERSION < QT_VERSION_CHECK(6,0,0)
@@ -113,6 +112,14 @@ bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
 #else
                 event->position().toPoint();
 #endif
+            if(p.x() >= margin && p.x() <= (_window->width() - margin) && p.y() >= margin && p.y() <= (_window->height() - margin)){
+                if(edges != 0){
+                    edges = 0;
+                    updateCursor(edges);
+                }
+                break;
+            }
+            edges = 0;
             if ( p.x() < margin ) {
                 edges |= Qt::LeftEdge;
             }
@@ -145,8 +152,12 @@ void FluFrameless::componentComplete(){
         _window->setFlag(Qt::FramelessWindowHint,true);
         _window->installEventFilter(this);
 #ifdef Q_OS_WIN
+        qDebug()<<"---------";
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
+        HWND hWnd = reinterpret_cast<HWND>(_window->winId());
+        ULONG_PTR cNewStyle = GetClassLongPtr(hWnd, GCL_STYLE) | CS_DROPSHADOW;
+        SetClassLongPtr(hWnd, GCL_STYLE, cNewStyle);
 #endif
     }
 }
