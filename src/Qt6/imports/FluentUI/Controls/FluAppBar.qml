@@ -74,14 +74,16 @@ Rectangle{
         property bool isRestore: win && Window.Maximized === win.visibility
         property bool resizable: win && !(win.height === win.maximumHeight && win.height === win.minimumHeight && win.width === win.maximumWidth && win.width === win.minimumWidth)
     }
-    TapHandler {
-        onTapped: if (tapCount === 2 && d.resizable) btn_maximize.clicked()
-        gesturePolicy: TapHandler.DragThreshold
-    }
-    DragHandler {
-        target: null
-        grabPermissions: TapHandler.CanTakeOverFromAnything
-        onActiveChanged: if (active) { d.win.startSystemMove(); }
+    MouseArea{
+        anchors.fill: parent
+        onPositionChanged: {
+            d.win.startSystemMove()
+        }
+        onDoubleClicked: {
+            if(d.resizable){
+                btn_maximize.clicked()
+            }
+        }
     }
     Row{
         anchors{
@@ -105,6 +107,49 @@ Rectangle{
             anchors.verticalCenter: parent.verticalCenter
         }
     }
+
+    Component{
+        id:com_mac_buttons
+        RowLayout{
+            FluImageButton{
+                Layout.preferredHeight: 12
+                Layout.preferredWidth: 12
+                normalImage: "../Image/btn_close_normal.png"
+                hoveredImage: "../Image/btn_close_hovered.png"
+                pushedImage: "../Image/btn_close_pushed.png"
+                visible: showClose
+                onClicked: closeClickListener()
+            }
+            FluImageButton{
+                Layout.preferredHeight: 12
+                Layout.preferredWidth: 12
+                normalImage: "../Image/btn_min_normal.png"
+                hoveredImage: "../Image/btn_min_hovered.png"
+                pushedImage: "../Image/btn_min_pushed.png"
+                onClicked: minClickListener()
+                visible: showMinimize
+            }
+            FluImageButton{
+                Layout.preferredHeight: 12
+                Layout.preferredWidth: 12
+                normalImage: "../Image/btn_max_normal.png"
+                hoveredImage: "../Image/btn_max_hovered.png"
+                pushedImage: "../Image/btn_max_pushed.png"
+                onClicked: maxClickListener()
+                visible: d.resizable && showMaximize
+            }
+        }
+    }
+
+    FluLoader{
+        anchors{
+            verticalCenter: parent.verticalCenter
+            left: parent.left
+            leftMargin: 10
+        }
+        sourceComponent: isMac ? com_mac_buttons : undefined
+    }
+
     RowLayout{
         anchors.right: parent.right
         height: control.height

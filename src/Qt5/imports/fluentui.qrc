@@ -97,5 +97,15 @@
         <file>FluentUI/Controls/FluClip.qml</file>
         <file>FluentUI/Controls/FluLoader.qml</file>
         <file>FluentUI/Controls/FluShortcutPicker.qml</file>
+        <file>FluentUI/Image/btn_close_hovered.png</file>
+        <file>FluentUI/Image/btn_close_normal.png</file>
+        <file>FluentUI/Image/btn_close_pushed.png</file>
+        <file>FluentUI/Image/btn_max_hovered.png</file>
+        <file>FluentUI/Image/btn_max_normal.png</file>
+        <file>FluentUI/Image/btn_max_pushed.png</file>
+        <file>FluentUI/Image/btn_min_hovered.png</file>
+        <file>FluentUI/Image/btn_min_normal.png</file>
+        <file>FluentUI/Image/btn_min_pushed.png</file>
+        <file>FluentUI/Controls/FluImageButton.qml</file>
     </qresource>
 </RCC>

@@ -36,8 +36,9 @@ Window {
     property bool showMinimize: true
     property bool showMaximize: true
     property bool showStayTop: true
-    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
     property bool autoMaximize: false
+    property color resizeBorderColor: FluTheme.dark ? Qt.rgba(80/255,80/255,80/255,1) : Qt.rgba(210/255,210/255,210/255,1)
+    property int resizeBorderWidth: 1
     property var closeListener: function(event){
         if(closeDestory){
             destoryOnClose()
@@ -125,18 +126,18 @@ Window {
             left: parent.left
             right: parent.right
         }
+        height: {
+            if(FluApp.useSystemAppBar){
+                return 0
+            }
+            return window.fitsAppBarWindows ? 0 : window.appBar.height
+        }
         sourceComponent: FluApp.useSystemAppBar ? undefined : com_app_bar
     }
     Component{
         id:com_app_bar
         Item{
             data: window.appBar
-            height: {
-                if(FluApp.useSystemAppBar){
-                    return 0
-                }
-                return window.fitsAppBarWindows ? 0 : childrenRect.height
-            }
         }
     }
     Item{
@@ -224,27 +225,19 @@ Window {
     WindowLifecycle{
         id:lifecycle
     }
-    FluLoader{
-        id:loader_window_border
+    Rectangle{
         anchors.fill: parent
-        z:999
-        sourceComponent: FluApp.useSystemAppBar ? undefined : com_window_border
-    }
-    Component{
-        id:com_window_border
-        Item{
-            Rectangle{
-                anchors.fill: parent
-                color: Qt.rgba(0,0,0,0)
-                border.width: 1
-                visible: FluTools.isLinux()
-                border.color: {
-                    if(window.active){
-                        return Qt.rgba(51/255,51/255,51/255,1)
-                    }
-                    return Qt.rgba(153/255,153/255,153/255,1)
-                }
+        color:"transparent"
+        border.width: window.resizeBorderWidth
+        border.color: window.resizeBorderColor
+        visible: {
+            if(FluApp.useSystemAppBar){
+                return false
             }
+            if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
+                return false
+            }
+            return true
         }
     }
     function destoryOnClose(){
