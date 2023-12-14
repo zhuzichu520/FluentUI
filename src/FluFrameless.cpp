@@ -152,7 +152,6 @@ void FluFrameless::componentComplete(){
         _window->setFlag(Qt::FramelessWindowHint,true);
         _window->installEventFilter(this);
 #ifdef Q_OS_WIN
-        qDebug()<<"---------";
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hWnd = reinterpret_cast<HWND>(_window->winId());

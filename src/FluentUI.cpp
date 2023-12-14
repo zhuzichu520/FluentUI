@@ -161,7 +161,7 @@ void FluentUI::registerTypes(const char *uri){
 void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
 #ifdef Q_OS_WIN
     QFont font;
-    font.setFamily("Microsoft YaHei UI");
+    font.setFamily("微软雅黑");
     QGuiApplication::setFont(font);
 #endif
     FluApp* app = FluApp::getInstance();
