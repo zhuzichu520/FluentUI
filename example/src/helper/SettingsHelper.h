@@ -23,8 +23,6 @@ public:
     Q_INVOKABLE QString getRender(){return get("render").toString();}
     Q_INVOKABLE void saveDarkMode(int darkModel){save("darkMode",darkModel);}
     Q_INVOKABLE int getDarkMode(){return get("darkMode",QVariant(0)).toInt();}
-    Q_INVOKABLE void saveVsync(bool vsync){save("vsync",vsync);}
-    Q_INVOKABLE bool getVsync(){return get("vsync",QVariant(true)).toBool();}
     Q_INVOKABLE void saveUseSystemAppBar(bool useSystemAppBar){save("useSystemAppBar",useSystemAppBar);}
     Q_INVOKABLE bool getUseSystemAppBar(){return get("useSystemAppBar",QVariant(false)).toBool();}
 private:

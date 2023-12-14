@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     //UOSv20 does not print logs
     qputenv("QT_LOGGING_RULES","");
+    //v-sync does not work
+    qputenv("QSG_RENDER_LOOP","basic");
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");

@@ -16,9 +16,6 @@ Item {
 
     Connections{
         target: FluApp
-        function onVsyncChanged(){
-            SettingsHelper.saveVsync(FluApp.vsync)
-        }
         function onUseSystemAppBarChanged(){
             SettingsHelper.saveUseSystemAppBar(FluApp.useSystemAppBar)
         }
@@ -32,7 +29,6 @@ Item {
         FluApp.init(app)
         FluApp.windowIcon = "qrc:/example/res/image/favicon.ico"
         FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
-        FluApp.vsync = SettingsHelper.getVsync()
         FluTheme.darkMode = SettingsHelper.getDarkMode()
         FluTheme.enableAnimation = true
         FluApp.routes = {

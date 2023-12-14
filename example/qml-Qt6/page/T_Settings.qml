@@ -62,22 +62,6 @@ FluScrollablePage{
         height: 50
         paddings: 10
         FluCheckBox{
-            text:"V-Sync"
-            checked: FluApp.vsync
-            anchors.verticalCenter: parent.verticalCenter
-            onClicked: {
-                FluApp.vsync = !FluApp.vsync
-                dialog_restart.open()
-            }
-        }
-    }
-
-    FluArea{
-        Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 50
-        paddings: 10
-        FluCheckBox{
             text:"Use System AppBar"
             checked: FluApp.useSystemAppBar
             anchors.verticalCenter: parent.verticalCenter
