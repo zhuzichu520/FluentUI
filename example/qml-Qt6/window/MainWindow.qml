@@ -42,7 +42,15 @@ FluWindow {
     }
 
     onFirstVisible: {
-        tour.open()
+        timer_tour_delay.restart()
+    }
+
+    Timer{
+        id:timer_tour_delay
+        interval: 200
+        onTriggered: {
+            tour.open()
+        }
     }
 
     Component.onCompleted: {
