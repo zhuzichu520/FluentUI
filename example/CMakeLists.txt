@@ -3,10 +3,9 @@ cmake_minimum_required(VERSION 3.20)
 project(example VERSION 1.0)
 
 #配置通用编译
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
-endif()
+
 
 #导入exmaple的QML位置，不然import example有时候会爆红
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/example CACHE STRING "Qt Creator extra QML import paths" FORCE)

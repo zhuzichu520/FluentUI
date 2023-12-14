@@ -9,6 +9,7 @@
 #include <QDir>
 #include <QThread>
 #include <QSettings>
+#include <QRegularExpression>
 #include "Version.h"
 #ifdef WIN32
 #include <process.h>

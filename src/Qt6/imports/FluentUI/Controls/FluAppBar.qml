@@ -34,10 +34,17 @@ Rectangle{
     property bool isMac: FluTools.isMacos()
     property color borerlessColor : FluTheme.primaryColor
     property var maxClickListener : function(){
-        if (d.win.visibility === Window.Maximized)
-            d.win.visibility = Window.Windowed
-        else
-            d.win.visibility = Window.Maximized
+        if(FluTools.isMacos()){
+            if (d.win.visibility === Window.FullScreen)
+                d.win.visibility = Window.Windowed
+            else
+                d.win.visibility = Window.FullScreen
+        }else{
+            if (d.win.visibility === Window.Maximized)
+                d.win.visibility = Window.Windowed
+            else
+                d.win.visibility = Window.Maximized
+        }
     }
     property var minClickListener: function(){
         d.win.visibility = Window.Minimized

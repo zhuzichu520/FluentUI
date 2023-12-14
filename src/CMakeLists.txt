@@ -7,10 +7,9 @@ else()
 endif()
 
 #配置通用编译
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
-endif()
+
 
 if (FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
