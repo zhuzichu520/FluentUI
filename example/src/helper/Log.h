@@ -4,6 +4,7 @@
 
 namespace Log
 {
+    QString prettyProductInfoWrapper();
     void setup(const QString &app);
 }
 
