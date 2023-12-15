@@ -28,6 +28,7 @@ public:
 class FluFrameless : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
+    Q_PROPERTY_AUTO(bool,stayTop)
     QML_NAMED_ELEMENT(FluFrameless)
 public:
     explicit FluFrameless(QObject *parent = nullptr);

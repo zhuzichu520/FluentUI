@@ -46,12 +46,10 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCCALCSIZE){
-#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
-        NCCALCSIZE_PARAMS& sz = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
+        NCCALCSIZE_PARAMS* sz = reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
         *result = WVR_REDRAW;
-        sz.rgrc[0].top -= 1;
+        sz->rgrc[0].top -= 1;
         return true;
-#endif
     }
     return false;
 #endif
@@ -161,10 +159,16 @@ void FluFrameless::componentComplete(){
 #ifdef Q_OS_WIN
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
-        HWND hWnd = reinterpret_cast<HWND>(_window->winId());
-        ULONG_PTR cNewStyle = GetClassLongPtr(hWnd, GCL_STYLE) | CS_DROPSHADOW;
-        SetClassLongPtr(hWnd, GCL_STYLE, cNewStyle);
-        SetWindowPos(hWnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
+        HWND hwnd = reinterpret_cast<HWND>(_window->winId());
+        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
+        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
+        DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
+        SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
+        SetWindowLong(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+        connect(this,&FluFrameless::stayTopChanged,this,[this,hwnd](){
+            DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
+            SetWindowLong(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+        });
 #endif
     }
 }
