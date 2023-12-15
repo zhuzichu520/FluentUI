@@ -200,7 +200,7 @@ Window {
         id:layout_content
         anchors.fill: parent
         anchors.margins: {
-            if(FluTools.isWin()){
+            if(FluTools.isWin() && !window.useSystemAppBar){
                 return window.visibility === Window.Maximized ? 8 : 0
             }
             return 0
