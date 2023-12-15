@@ -45,6 +45,12 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             return true;
         }
         return false;
+    }else if(uMsg == WM_NCCALCSIZE){
+        NCCALCSIZE_PARAMS& sz = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
+        if (sz.rgrc[0].top != 0)
+            sz.rgrc[0].top -= 1;
+        *result = WVR_REDRAW;
+        return true;
     }
     return false;
 #endif
