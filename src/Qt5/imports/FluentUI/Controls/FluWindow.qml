@@ -237,7 +237,7 @@ Window {
     }
     Rectangle{
         anchors.fill: parent
-        anchors.topMargin: 1/Screen.devicePixelRatio
+        anchors.topMargin: FluTools.isWin() ? 1/Screen.devicePixelRatio : 0
         color:"transparent"
         border.width: window.resizeBorderWidth
         border.color: window.resizeBorderColor
