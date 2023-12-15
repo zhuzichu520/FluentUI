@@ -48,9 +48,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCCALCSIZE){
 #if QT_VERSION < QT_VERSION_CHECK(6,0,0)
         NCCALCSIZE_PARAMS& sz = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
-        if (sz.rgrc[0].top != 0)
-            sz.rgrc[0].top -= 1;
         *result = WVR_REDRAW;
+        sz.rgrc[0].top -= 1;
         return true;
 #endif
     }

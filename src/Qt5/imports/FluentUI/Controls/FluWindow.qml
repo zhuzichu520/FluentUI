@@ -237,6 +237,7 @@ Window {
     }
     Rectangle{
         anchors.fill: parent
+        anchors.topMargin: 1/Screen.devicePixelRatio
         color:"transparent"
         border.width: window.resizeBorderWidth
         border.color: window.resizeBorderColor
@@ -248,15 +249,6 @@ Window {
                 return false
             }
             return true
-        }
-        Rectangle{
-            color: parent.border.color
-            width: parent.width
-            height: 1
-            anchors{
-                top: parent.top
-                topMargin: 1
-            }
         }
     }
     function destoryOnClose(){
