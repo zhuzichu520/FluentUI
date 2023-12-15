@@ -46,11 +46,13 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCCALCSIZE){
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
         NCCALCSIZE_PARAMS& sz = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
         if (sz.rgrc[0].top != 0)
             sz.rgrc[0].top -= 1;
         *result = WVR_REDRAW;
         return true;
+#endif
     }
     return false;
 #endif
@@ -163,6 +165,7 @@ void FluFrameless::componentComplete(){
         HWND hWnd = reinterpret_cast<HWND>(_window->winId());
         ULONG_PTR cNewStyle = GetClassLongPtr(hWnd, GCL_STYLE) | CS_DROPSHADOW;
         SetClassLongPtr(hWnd, GCL_STYLE, cNewStyle);
+        SetWindowPos(hWnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
 #endif
     }
 }

@@ -70,6 +70,7 @@ Window {
         }
         lifecycle.onCompleted(window)
         initArgument(argument)
+        moveWindowToDesktopCenter()
         if(window.autoMaximize){
             window.showMaximized()
         }else{
@@ -248,6 +249,15 @@ Window {
             }
             return true
         }
+        Rectangle{
+            color: parent.border.color
+            width: parent.width
+            height: 1
+            anchors{
+                top: parent.top
+                topMargin: 1
+            }
+        }
     }
     function destoryOnClose(){
         lifecycle.onDestoryOnClose()
@@ -274,6 +284,9 @@ Window {
     }
     function registerForWindowResult(path){
         return lifecycle.createRegister(window,path)
+    }
+    function moveWindowToDesktopCenter(){
+        window.setGeometry((Screen.width-window.width)/2+Screen.virtualX,(Screen.height-window.height)/2+Screen.virtualY,window.width,window.height)
     }
     function onResult(data){
         if(_pageRegister){
