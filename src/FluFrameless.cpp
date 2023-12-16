@@ -1,7 +1,7 @@
 #include "FluFrameless.h"
 
 #include <QGuiApplication>
-
+#include <QOperatingSystemVersion>
 #ifdef Q_OS_WIN
 #pragma comment(lib, "user32.lib")
 #include <windows.h>
@@ -46,10 +46,11 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCCALCSIZE){
-        NCCALCSIZE_PARAMS* sz = reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
         *result = WVR_REDRAW;
-        sz->rgrc[0].top -= 1;
         return true;
+    }else if(uMsg == WM_NCPAINT){
+        *result = WVR_REDRAW;
+        return false;
     }
     return false;
 #endif
@@ -90,6 +91,7 @@ void FluFrameless::updateCursor(int edges){
 
 bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
     if (!_window.isNull() && _window->flags()& Qt::FramelessWindowHint) {
+
         static int edges = 0;
         const int margin = 8;
         switch (ev->type()) {
@@ -162,13 +164,7 @@ void FluFrameless::componentComplete(){
         HWND hwnd = reinterpret_cast<HWND>(_window->winId());
         ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
         SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
-        DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
-        SetWindowLong(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
-        connect(this,&FluFrameless::stayTopChanged,this,[this,hwnd](){
-            DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
-            SetWindowLong(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
-        });
 #endif
     }
 }
