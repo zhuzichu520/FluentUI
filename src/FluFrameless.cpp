@@ -10,8 +10,6 @@ static inline QByteArray qtNativeEventType()
     static const auto result = "windows_generic_MSG";
     return result;
 }
-#endif
-
 static inline bool isCompositionEnabled(){
     typedef HRESULT (WINAPI* DwmIsCompositionEnabledPtr)(BOOL *pfEnabled);
     HMODULE module = LoadLibraryW(L"dwmapi.dll");
@@ -28,6 +26,7 @@ static inline bool isCompositionEnabled(){
     }
     return false;
 }
+#endif
 
 FramelessEventFilter::FramelessEventFilter(QQuickWindow* window){
     _window = window;
