@@ -5,6 +5,7 @@
 #include <QQuickWindow>
 #include <QtQml/qqml.h>
 #include <QAbstractNativeEventFilter>
+#include <QQmlProperty>
 #include "stdafx.h"
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
@@ -28,7 +29,6 @@ public:
 class FluFrameless : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
-    Q_PROPERTY_AUTO(bool,stayTop)
     QML_NAMED_ELEMENT(FluFrameless)
 public:
     explicit FluFrameless(QObject *parent = nullptr);
@@ -39,9 +39,11 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 private:
     void updateCursor(int edges);
+    Q_SLOT void _stayTopChange();
 private:
     QPointer<QQuickWindow> _window = nullptr;
     FramelessEventFilter* _nativeEvent = nullptr;
+    QQmlProperty _stayTop;
 };
 
 #endif // FLUFRAMELESS_H

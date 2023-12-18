@@ -197,11 +197,21 @@ void FluFrameless::componentComplete(){
         DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
         SetWindowLongPtr(hwnd,GWL_STYLE,style &~ WS_SYSMENU);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
+        _stayTop = QQmlProperty(_window,"stayTop");
+        _stayTop.connectNotifySignal(this,SLOT(_stayTopChange()));
 #else
         _window->setFlag(Qt::FramelessWindowHint,true);
 #endif
         _window->installEventFilter(this);
     }
+}
+
+void FluFrameless::_stayTopChange(){
+#ifdef Q_OS_WIN
+    HWND hwnd = reinterpret_cast<HWND>(_window->winId());
+    DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
+    SetWindowLongPtr(hwnd,GWL_STYLE,style &~ WS_SYSMENU);
+#endif
 }
 
 FluFrameless::~FluFrameless(){

@@ -111,9 +111,7 @@ Window {
     }
     Component{
         id:com_frameless
-        FluFrameless{
-            stayTop: window.stayTop
-        }
+        FluFrameless{}
     }
     Component{
         id:com_background
