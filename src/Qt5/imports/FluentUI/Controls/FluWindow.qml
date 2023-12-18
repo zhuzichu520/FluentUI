@@ -197,60 +197,69 @@ Window {
     FluLoader{
         id:loader_frameless
     }
-    onWidthChanged: {
-        window.appBar.width = width
-    }
-    FluLoader{
-        id:loader_app_bar
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: {
-            if(window.useSystemAppBar){
-                return 0
-            }
-            return window.fitsAppBarWindows ? 0 : window.appBar.height
-        }
-        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
-    }
     Item{
-        id:container
-        anchors{
-            top: loader_app_bar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        clip: true
-    }
-    FluLoader{
-        property string loadingText: "加载中..."
-        property bool cancel: false
-        id:loader_loading
-        anchors.fill: container
-    }
-    FluInfoBar{
-        id:infoBar
-        root: window
-    }
-    WindowLifecycle{
-        id:lifecycle
-    }
-    Rectangle{
         anchors.fill: parent
-        color:"transparent"
-        border.width: window.resizeBorderWidth
-        border.color: window.resizeBorderColor
-        visible: {
-            if(window.useSystemAppBar){
-                return false
+        anchors.margins: {
+            if(FluTools.isWin() && !window.useSystemAppBar){
+                return window.visibility === Window.Maximized ? 8 : 0
             }
-            if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
-                return false
+            return 0
+        }
+        onWidthChanged: {
+            window.appBar.width = width
+        }
+        FluLoader{
+            id:loader_app_bar
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
             }
-            return true
+            height: {
+                if(window.useSystemAppBar){
+                    return 0
+                }
+                return window.fitsAppBarWindows ? 0 : window.appBar.height
+            }
+            sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
+        }
+        Item{
+            id:container
+            anchors{
+                top: loader_app_bar.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            clip: true
+        }
+        FluLoader{
+            property string loadingText: "加载中..."
+            property bool cancel: false
+            id:loader_loading
+            anchors.fill: container
+        }
+        FluInfoBar{
+            id:infoBar
+            root: window
+        }
+        WindowLifecycle{
+            id:lifecycle
+        }
+        Rectangle{
+            anchors.fill: parent
+            color:"transparent"
+            border.width: window.resizeBorderWidth
+            border.color: window.resizeBorderColor
+            visible: {
+                if(window.useSystemAppBar){
+                    return false
+                }
+                if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
+                    return false
+                }
+                return true
+            }
         }
     }
     function destoryOnClose(){
