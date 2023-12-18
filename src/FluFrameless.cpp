@@ -73,16 +73,11 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCACTIVATE){
-        if(isCompositionEnabled()){
-            *result = DefWindowProc(hwnd, uMsg, wParam, -1);
-        }else{
-            if (wParam == FALSE) {
-                *result = TRUE;
-            } else {
-                *result = FALSE;
-            }
+        if(!isCompositionEnabled()){
+            *result = 1;
+            return true;
         }
-        return true;
+        return false;
     }
     return false;
 #endif
