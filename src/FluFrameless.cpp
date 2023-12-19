@@ -5,6 +5,7 @@
 #ifdef Q_OS_WIN
 #pragma comment(lib, "user32.lib")
 #include <windows.h>
+
 static inline QByteArray qtNativeEventType()
 {
     static const auto result = "windows_generic_MSG";
@@ -26,6 +27,7 @@ static inline bool isCompositionEnabled(){
     }
     return false;
 }
+
 #endif
 
 FramelessEventFilter::FramelessEventFilter(QQuickWindow* window){
@@ -183,7 +185,7 @@ void FluFrameless::componentComplete(){
         o = o->parent();
     }
     if(!_window.isNull()){
-        _window->setFlag(Qt::FramelessWindowHint,true);
+        _window->setFlags(Qt::FramelessWindowHint|Qt::Window|Qt::WindowTitleHint|Qt::WindowMinMaxButtonsHint|Qt::WindowCloseButtonHint);
 #ifdef Q_OS_WIN
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
@@ -193,24 +195,39 @@ void FluFrameless::componentComplete(){
         DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
         SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
-        _stayTop = QQmlProperty(_window,"stayTop");
-        _stayTop.connectNotifySignal(this,SLOT(_stayTopChange()));
 #endif
+        _stayTop = QQmlProperty(_window,"stayTop");
+        _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
+        _screen = QQmlProperty(_window,"screen");
+        _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
         _window->installEventFilter(this);
     }
 }
 
-void FluFrameless::_stayTopChange(){
+void FluFrameless::_onScreenChanged(){
+    _window->update();
+    QGuiApplication::processEvents();
+}
+
+void FluFrameless::_onStayTopChange(){
+    bool isStayTop = _stayTop.read().toBool();
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(_window->winId());
     DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
     SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
+    if(isStayTop){
+        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+    }else{
+        SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+    }
+#else
+    _window->setFlag(Qt::WindowStaysOnTopHint,isStayTop)
 #endif
 }
 
 FluFrameless::~FluFrameless(){
     if (!_window.isNull()) {
-        _window->setFlag(Qt::FramelessWindowHint,false);
+        _window->setFlags(Qt::Window);
 #ifdef Q_OS_WIN
         qApp->removeNativeEventFilter(_nativeEvent);
 #endif

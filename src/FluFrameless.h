@@ -6,7 +6,6 @@
 #include <QtQml/qqml.h>
 #include <QAbstractNativeEventFilter>
 #include <QQmlProperty>
-#include "stdafx.h"
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 using QT_NATIVE_EVENT_RESULT_TYPE = qintptr;
@@ -39,11 +38,13 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 private:
     void updateCursor(int edges);
-    Q_SLOT void _stayTopChange();
+    Q_SLOT void _onStayTopChange();
+    Q_SLOT void _onScreenChanged();
 private:
     QPointer<QQuickWindow> _window = nullptr;
     FramelessEventFilter* _nativeEvent = nullptr;
     QQmlProperty _stayTop;
+    QQmlProperty _screen;
 };
 
 #endif // FLUFRAMELESS_H

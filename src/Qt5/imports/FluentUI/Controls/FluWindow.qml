@@ -53,15 +53,11 @@ Window {
     signal initArgument(var argument)
     signal firstVisible()
     id:window
-    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint
     maximumWidth: fixSize ? width : 16777215
     maximumHeight: fixSize ? height : 16777215
     minimumWidth: fixSize ? width : 0
     minimumHeight: fixSize ? height : 0
     color:"transparent"
-    onStayTopChanged: {
-        d.changedStayTop()
-    }
     Component.onCompleted: {
         useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){
@@ -89,22 +85,6 @@ Window {
     QtObject{
         id:d
         property bool isFirstVisible: true
-        function changedStayTop(){
-            function toggleStayTop(){
-                if(window.stayTop){
-                    window.flags = window.flags | Qt.WindowStaysOnTopHint
-                }else{
-                    window.flags = window.flags &~ Qt.WindowStaysOnTopHint
-                }
-            }
-            if(window.visibility === Window.Maximized){
-                window.visibility = Window.Windowed
-                toggleStayTop()
-                window.visibility = Window.Maximized
-            }else{
-                toggleStayTop()
-            }
-        }
     }
     Connections{
         target: window
@@ -196,12 +176,24 @@ Window {
         id:loader_frameless
     }
     Item{
-        anchors.fill: parent
-        anchors.margins: {
-            if(FluTools.isWin() && !window.useSystemAppBar){
-                return window.visibility === Window.Maximized ? 8 : 0
+        property int offsetX: {
+            if(window.visibility === Window.Maximized){
+                return Math.abs(window.x-Screen.virtualX)
             }
             return 0
+        }
+        property int offsetY: {
+            if(window.visibility === Window.Maximized){
+                return Math.abs(window.y-Screen.virtualY)
+            }
+            return 0
+        }
+        anchors{
+            fill:parent
+            leftMargin: offsetX
+            rightMargin: offsetX
+            topMargin: offsetY
+            bottomMargin: offsetY
         }
         onWidthChanged: {
             window.appBar.width = width
