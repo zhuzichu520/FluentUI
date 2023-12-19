@@ -1,10 +1,12 @@
-#include "FluFrameless.h"
+#include "FluFramelessHelper.h"
 
 #include <QGuiApplication>
 #include <QOperatingSystemVersion>
 #ifdef Q_OS_WIN
-#pragma comment(lib, "user32.lib")
+#pragma comment (lib,"user32.lib")
+#pragma comment (lib,"dwmapi.lib")
 #include <windows.h>
+#include <dwmapi.h>
 
 static inline QByteArray qtNativeEventType()
 {
@@ -26,6 +28,26 @@ static inline bool isCompositionEnabled(){
         return composition_enabled;
     }
     return false;
+}
+
+static inline void showShadow(HWND hwnd){
+    if(isCompositionEnabled()){
+        const MARGINS shadow = { 1, 1, 1, 1 };
+        typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
+        HMODULE module = LoadLibraryW(L"dwmapi.dll");
+        if (module)
+        {
+            DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
+            dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+            if (dwm_extendframe_into_client_area_)
+            {
+                dwm_extendframe_into_client_area_(hwnd, &shadow);
+            }
+        }
+    }else{
+        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
+        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
+    }
 }
 
 #endif
@@ -86,15 +108,15 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     return false;
 }
 
-FluFrameless::FluFrameless(QObject *parent)
+FluFramelessHelper::FluFramelessHelper(QObject *parent)
     : QObject{parent}
 {
 }
 
-void FluFrameless::classBegin(){
+void FluFramelessHelper::classBegin(){
 }
 
-void FluFrameless::updateCursor(int edges){
+void FluFramelessHelper::updateCursor(int edges){
     switch (edges) {
     case 0:
         _window->setCursor(Qt::ArrowCursor);
@@ -118,7 +140,7 @@ void FluFrameless::updateCursor(int edges){
     }
 }
 
-bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
+bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
     if (!_window.isNull() && _window->flags() & Qt::FramelessWindowHint) {
 
         static int edges = 0;
@@ -178,7 +200,7 @@ bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
     return QObject::eventFilter(obj, ev);
 }
 
-void FluFrameless::componentComplete(){
+void FluFramelessHelper::componentComplete(){
     auto o = parent();
     while (nullptr != o) {
         _window = (QQuickWindow*)o;
@@ -190,11 +212,10 @@ void FluFrameless::componentComplete(){
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(_window->winId());
-        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
-        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
         DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
         SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
+        showShadow(hwnd);
 #endif
         _stayTop = QQmlProperty(_window,"stayTop");
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
@@ -204,12 +225,12 @@ void FluFrameless::componentComplete(){
     }
 }
 
-void FluFrameless::_onScreenChanged(){
+void FluFramelessHelper::_onScreenChanged(){
     _window->update();
     QGuiApplication::processEvents();
 }
 
-void FluFrameless::_onStayTopChange(){
+void FluFramelessHelper::_onStayTopChange(){
     bool isStayTop = _stayTop.read().toBool();
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(_window->winId());
@@ -225,7 +246,7 @@ void FluFrameless::_onStayTopChange(){
 #endif
 }
 
-FluFrameless::~FluFrameless(){
+FluFramelessHelper::~FluFramelessHelper(){
     if (!_window.isNull()) {
         _window->setFlags(Qt::Window);
 #ifdef Q_OS_WIN

@@ -1,5 +1,5 @@
-#ifndef FLUFRAMELESS_H
-#define FLUFRAMELESS_H
+#ifndef FLUFRAMELESSHELPER_H
+#define FLUFRAMELESSHELPER_H
 
 #include <QObject>
 #include <QQuickWindow>
@@ -25,13 +25,13 @@ public:
     qint64 _current = 0;
 };
 
-class FluFrameless : public QObject, public QQmlParserStatus
+class FluFramelessHelper : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(FluFrameless)
+    QML_NAMED_ELEMENT(FluFramelessHelper)
 public:
-    explicit FluFrameless(QObject *parent = nullptr);
-    ~FluFrameless();
+    explicit FluFramelessHelper(QObject *parent = nullptr);
+    ~FluFramelessHelper();
     void classBegin() override;
     void componentComplete() override;
 protected:
@@ -47,4 +47,4 @@ private:
     QQmlProperty _screen;
 };
 
-#endif // FLUFRAMELESS_H
+#endif // FLUFRAMELESSHELPER_H

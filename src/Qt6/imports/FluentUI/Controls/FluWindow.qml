@@ -91,7 +91,7 @@ Window {
     }
     Component{
         id:com_frameless
-        FluFrameless{}
+        FluFramelessHelper{}
     }
     Component{
         id:com_background
