@@ -117,7 +117,7 @@ void FluFrameless::updateCursor(int edges){
 }
 
 bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
-    if (!_window.isNull()) {
+    if (!_window.isNull() && _window->flags() & Qt::FramelessWindowHint) {
 
         static int edges = 0;
         const int margin = 8;
@@ -183,6 +183,7 @@ void FluFrameless::componentComplete(){
         o = o->parent();
     }
     if(!_window.isNull()){
+        _window->setFlag(Qt::FramelessWindowHint,true);
 #ifdef Q_OS_WIN
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
@@ -190,12 +191,10 @@ void FluFrameless::componentComplete(){
         ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
         SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
         DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
-        SetWindowLongPtr(hwnd,GWL_STYLE,style &~ WS_SYSMENU);
+        SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
         _stayTop = QQmlProperty(_window,"stayTop");
         _stayTop.connectNotifySignal(this,SLOT(_stayTopChange()));
-#else
-        _window->setFlag(Qt::FramelessWindowHint,true);
 #endif
         _window->installEventFilter(this);
     }
@@ -205,17 +204,16 @@ void FluFrameless::_stayTopChange(){
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(_window->winId());
     DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
-    SetWindowLongPtr(hwnd,GWL_STYLE,style &~ WS_SYSMENU);
+    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
 #endif
 }
 
 FluFrameless::~FluFrameless(){
     if (!_window.isNull()) {
-        _window->removeEventFilter(this);
+        _window->setFlag(Qt::FramelessWindowHint,false);
 #ifdef Q_OS_WIN
         qApp->removeNativeEventFilter(_nativeEvent);
-#else
-        _window->setFlag(Qt::FramelessWindowHint,false);
 #endif
+        _window->removeEventFilter(this);
     }
 }
