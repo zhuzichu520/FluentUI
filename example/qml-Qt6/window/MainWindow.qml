@@ -240,7 +240,7 @@ FluWindow {
         id:com_reveal
         CircularReveal{
             id:reveal
-            target:window.contentItem
+            target:window.layoutContainer()
             anchors.fill: parent
             onAnimationFinished:{
                 //动画结束后释放资源
@@ -269,7 +269,7 @@ FluWindow {
                 return
             }
             loader_reveal.sourceComponent = com_reveal
-            var target = window.contentItem
+            var target = window.layoutContainer()
             var pos = button.mapToItem(target,0,0)
             var mouseX = pos.x
             var mouseY = pos.y

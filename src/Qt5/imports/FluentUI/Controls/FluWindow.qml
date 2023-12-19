@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
 Window {
-    default property alias content: container.data
+    default property alias content: layout_content.data
     property string windowIcon: FluApp.windowIcon
     property bool closeDestory: true
     property int launchMode: FluWindowType.Standard
@@ -169,13 +169,10 @@ Window {
         }
     }
     FluLoader{
-        anchors.fill: parent
-        sourceComponent: background
-    }
-    FluLoader{
         id:loader_frameless
     }
     Item{
+        id:layout_container
         property int offsetX: {
             if(window.visibility === Window.Maximized){
                 return Math.abs(window.x-Screen.virtualX)
@@ -199,6 +196,10 @@ Window {
             window.appBar.width = width
         }
         FluLoader{
+            anchors.fill: parent
+            sourceComponent: background
+        }
+        FluLoader{
             id:loader_app_bar
             anchors {
                 top: parent.top
@@ -214,7 +215,7 @@ Window {
             sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
         }
         Item{
-            id:container
+            id:layout_content
             anchors{
                 top: loader_app_bar.bottom
                 left: parent.left
@@ -227,7 +228,7 @@ Window {
             property string loadingText: "加载中..."
             property bool cancel: false
             id:loader_loading
-            anchors.fill: container
+            anchors.fill: layout_content
         }
         FluInfoBar{
             id:infoBar
@@ -286,7 +287,10 @@ Window {
             _pageRegister.onResult(data)
         }
     }
-    function containerItem(){
-        return container
+    function layoutContainer(){
+        return layout_container
+    }
+    function layoutContent(){
+        return layout_content
     }
 }
