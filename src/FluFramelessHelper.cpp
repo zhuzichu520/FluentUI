@@ -212,12 +212,11 @@ void FluFramelessHelper::componentComplete(){
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(_window->winId());
-        DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
-        SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
         showShadow(hwnd);
 #endif
         _stayTop = QQmlProperty(_window,"stayTop");
+        _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen = QQmlProperty(_window,"screen");
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
