@@ -50,9 +50,7 @@ FluObject{
             }
             title:"Buttons"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/Button.png"
-            recentlyUpdated:true
-            desc:"A control that responds to user input and raisesa Click event."
+            extra:({image:"qrc:/example/res/image/control/Button.png",recentlyUpdated:true,desc:"A control that responds to user input and raisesa Click event."})
             url:"qrc:/example/qml/page/T_Buttons.qml"
             onTap:{
                 item_buttons.count = 0
@@ -83,18 +81,14 @@ FluObject{
         FluPaneItem{
             title:"Slider"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/Slider.png"
-            recentlyUpdated:true
-            desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."
+            extra:({image:"qrc:/example/res/image/control/Slider.png",recentlyUpdated:true,desc:"A control that lets the user select from a rangeof values by moving a Thumb control along atrack."})
             url:"qrc:/example/qml/page/T_Slider.qml"
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
             title:"CheckBox"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/Checkbox.png"
-            recentlyUpdated:true
-            desc:"A control that a user can select or clear."
+            extra:({image:"qrc:/example/res/image/control/Checkbox.png",recentlyUpdated:true,desc:"A control that a user can select or clear."})
             url:"qrc:/example/qml/page/T_CheckBox.qml"
             onTap:{ navigationView.push(url) }
         }
@@ -164,9 +158,7 @@ FluObject{
         FluPaneItem{
             title:"InfoBar"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/InfoBar.png"
-            recentlyUpdated:true
-            desc:"An inline message to display app-wide statuschange information."
+            extra:({image:"qrc:/example/res/image/control/InfoBar.png",recentlyUpdated:true,desc:"An inline message to display app-wide statuschange information."})
             url:"qrc:/example/qml/page/T_InfoBar.qml"
             onTap:{ navigationView.push(url) }
         }
@@ -276,10 +268,7 @@ FluObject{
         FluPaneItem{
             title:"Pivot"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/Pivot.png"
-            recentlyAdded:true
-            order:3
-            desc:"Presents information from different sources in atabbed view."
+            extra:({image:"qrc:/example/res/image/control/Pivot.png",order:3,recentlyAdded:true,desc:"Presents information from different sources in atabbed view."})
             url:"qrc:/example/qml/page/T_Pivot.qml"
             onTap:{ navigationView.push(url) }
         }
@@ -292,10 +281,7 @@ FluObject{
         FluPaneItem{
             title:"TabView"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/TabView.png"
-            recentlyAdded:true
-            order:1
-            desc:"A control that displays a collection of tabs thatcan be used to display several documents."
+            extra:({image:"qrc:/example/res/image/control/TabView.png",order:1,recentlyAdded:true,desc:"A control that displays a collection of tabs thatcan be used to display several documents."})
             url:"qrc:/example/qml/page/T_TabView.qml"
             onTap:{ navigationView.push(url) }
         }
@@ -308,10 +294,7 @@ FluObject{
         FluPaneItem{
             title:"TableView"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/DataGrid.png"
-            recentlyAdded:true
-            order:4
-            desc:"The TableView control provides a flexible way to display a collection of data in rows and columns"
+            extra:({image:"qrc:/example/res/image/control/DataGrid.png",order:4,recentlyAdded:true,desc:"The TableView control provides a flexible way to display a collection of data in rows and columns"})
             url:"qrc:/example/qml/page/T_TableView.qml"
             onTap:{ navigationView.push(url) }
         }
@@ -330,10 +313,7 @@ FluObject{
         FluPaneItem{
             title:"FlipView"
             menuDelegate: paneItemMenu
-            image:"qrc:/example/res/image/control/FlipView.png"
-            recentlyAdded:true
-            order:2
-            desc:"Presents a collection of items that the user canflip through, one item at a time."
+            extra:({image:"qrc:/example/res/image/control/FlipView.png",order:2,recentlyAdded:true,desc:"Presents a collection of items that the user canflip through, one item at a time."})
             url:"qrc:/example/qml/page/T_FlipView.qml"
             onTap:{ navigationView.push(url) }
         }
@@ -490,21 +470,14 @@ FluObject{
 
     function getRecentlyAddedData(){
         var arr = []
-        for(var i=0;i<children.length;i++){
-            var item = children[i]
-            if(item instanceof FluPaneItem && item.recentlyAdded){
+        var items = navigationView.getItems();
+        for(var i=0;i<items.length;i++){
+            var item = items[i]
+            if(item instanceof FluPaneItem && item.extra && item.extra.recentlyAdded){
                 arr.push(item)
             }
-            if(item instanceof FluPaneItemExpander){
-                for(var j=0;j<item.children.length;j++){
-                    var itemChild = item.children[j]
-                    if(itemChild instanceof FluPaneItem && itemChild.recentlyAdded){
-                        arr.push(itemChild)
-                    }
-                }
-            }
         }
-        arr.sort(function(o1,o2){ return o2.order-o1.order })
+        arr.sort(function(o1,o2){ return o2.extra.order-o1.extra.order })
         return arr
     }
 
@@ -513,7 +486,7 @@ FluObject{
         var items = navigationView.getItems();
         for(var i=0;i<items.length;i++){
             var item = items[i]
-            if(item instanceof FluPaneItem && item.recentlyUpdated){
+            if(item instanceof FluPaneItem && item.extra && item.extra.recentlyUpdated){
                 arr.push(item)
             }
         }

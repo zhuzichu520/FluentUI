@@ -160,7 +160,7 @@ FluScrollablePage{
     Component{
         id:com_item
         Item{
-            property string desc: modelData.desc
+            property string desc: modelData.extra.desc
             width: 320
             height: 120
             FluArea{
@@ -182,7 +182,7 @@ FluScrollablePage{
                     id:item_icon
                     height: 40
                     width: 40
-                    source: modelData.image
+                    source: modelData.extra.image
                     anchors{
                         left: parent.left
                         leftMargin: 20
