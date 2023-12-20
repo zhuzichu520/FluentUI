@@ -225,8 +225,10 @@ void FluFramelessHelper::componentComplete(){
 }
 
 void FluFramelessHelper::_onScreenChanged(){
-    _window->update();
-    QGuiApplication::processEvents();
+#ifdef Q_OS_WIN
+    HWND hwnd = reinterpret_cast<HWND>(_window->winId());
+    SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
+#endif
 }
 
 void FluFramelessHelper::_onStayTopChange(){
