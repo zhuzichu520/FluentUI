@@ -175,13 +175,19 @@ Window {
         id:layout_container
         property int offsetX: {
             if(window.visibility === Window.Maximized){
-                return Math.abs(window.x-Screen.virtualX)
+                var dx = window.x-Screen.virtualX
+                if(dx<0){
+                    return Math.abs(dx)
+                }
             }
             return 0
         }
         property int offsetY: {
             if(window.visibility === Window.Maximized){
-                return Math.abs(window.y-Screen.virtualY)
+                var dy = window.y-Screen.virtualY
+                if(dy<0){
+                    return Math.abs(dy)
+                }
             }
             return 0
         }
