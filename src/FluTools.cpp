@@ -179,3 +179,18 @@ qint64 FluTools::currentTimestamp(){
 QIcon FluTools::windowIcon(){
     return QGuiApplication::windowIcon();
 }
+
+int FluTools::cursorScreenIndex(){
+    int screenIndex = 0;
+    int screenCount = qApp->screens().count();
+    if (screenCount > 1) {
+        QPoint pos = QCursor::pos();
+        for (int i = 0; i < screenCount; ++i) {
+            if (qApp->screens().at(i)->geometry().contains(pos)) {
+                screenIndex = i;
+                break;
+            }
+        }
+    }
+    return screenIndex;
+}

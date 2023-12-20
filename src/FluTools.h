@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QColor>
 #include <QtQml/qqml.h>
+#include <QScreen>
 #include "singleton.h"
 
 /**
@@ -50,6 +51,7 @@ public:
     Q_INVOKABLE qint64 currentTimestamp();
     Q_INVOKABLE QPoint cursorPos();
     Q_INVOKABLE QIcon windowIcon();
+    Q_INVOKABLE int cursorScreenIndex();
 };
 
 #endif // FLUTOOLS_H

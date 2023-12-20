@@ -53,19 +53,15 @@ Window {
     signal initArgument(var argument)
     signal firstVisible()
     id:window
-    maximumWidth: fixSize ? width : 16777215
-    maximumHeight: fixSize ? height : 16777215
-    minimumWidth: fixSize ? width : 0
-    minimumHeight: fixSize ? height : 0
     color:"transparent"
     Component.onCompleted: {
+        moveWindowToDesktopCenter()
         useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){
             loader_frameless.sourceComponent = com_frameless
         }
         lifecycle.onCompleted(window)
         initArgument(argument)
-        moveWindowToDesktopCenter()
         if(window.autoMaximize){
             window.showMaximized()
         }else{
@@ -286,7 +282,12 @@ Window {
         return lifecycle.createRegister(window,path)
     }
     function moveWindowToDesktopCenter(){
+        screen = Qt.application.screens[FluTools.cursorScreenIndex()]
         window.setGeometry((Screen.width-window.width)/2+Screen.virtualX,(Screen.height-window.height)/2+Screen.virtualY,window.width,window.height)
+        maximumWidth = fixSize ? width : 16777215
+        maximumHeight = fixSize ? height : 16777215
+        minimumWidth = fixSize ? width : 0
+        minimumHeight = fixSize ? height : 0
     }
     function onResult(data){
         if(_pageRegister){
