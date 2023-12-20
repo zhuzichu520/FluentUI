@@ -5,7 +5,6 @@
 #include <QFile>
 #include <QColor>
 #include <QtQml/qqml.h>
-#include <QScreen>
 #include "singleton.h"
 
 /**
