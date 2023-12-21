@@ -233,7 +233,10 @@ Rectangle{
                 if(pressed){
                     return maximizePressColor
                 }
-                return d.hoverMaxBtn ? maximizeHoverColor : maximizeNormalColor
+                if(FluTools.isWin() && !FluApp.useSystemAppBar){
+                    return d.hoverMaxBtn ? maximizeHoverColor : maximizeNormalColor
+                }
+                return hovered ? maximizeHoverColor : maximizeNormalColor
             }
             Layout.alignment: Qt.AlignVCenter
             visible: d.resizable && !isMac && showMaximize

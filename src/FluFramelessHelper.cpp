@@ -33,7 +33,7 @@ static inline bool isCompositionEnabled(){
 
 static inline void showShadow(HWND hwnd){
     if(isCompositionEnabled()){
-        const MARGINS shadow = { 1, 1, 1, 1 };
+        const MARGINS shadow = { 1, 0, 0, 0 };
         typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
         HMODULE module = LoadLibraryW(L"dwmapi.dll");
         if (module)
@@ -105,7 +105,9 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         return false;
     }else if(uMsg == WM_NCHITTEST){
         if(_helper->hoverMaxBtn() && _helper->resizeable()){
-            *result = HTMAXBUTTON;
+            if (*result == HTNOWHERE) {
+                *result = HTZOOM;
+            }
             return true;
         }
         return false;
@@ -288,7 +290,7 @@ void FluFramelessHelper::_onStayTopChange(){
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
     DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
-    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION | WS_MAXIMIZEBOX &~ WS_SYSMENU);
+    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
     if(isStayTop){
         SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
     }else{
