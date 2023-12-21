@@ -26,6 +26,7 @@ endif()
 
 add_subdirectory(src)
 
+#Release也支持日志打印代码位置
 target_compile_definitions(fluentuiplugin
     PRIVATE
     QT_MESSAGELOGCONTEXT

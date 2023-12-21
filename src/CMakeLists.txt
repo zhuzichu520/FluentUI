@@ -14,6 +14,7 @@ if (FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
 endif()
 
+#导入Qt相关依赖包
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml)
 
@@ -89,6 +90,7 @@ if(WIN32)
 endif()
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
+    #如果是Qt6.2版本以上，则使用qt_add_library，qt_add_qml_module函数添加资源文件
     if(FLUENTUI_BUILD_STATIC_LIB)
         set(FLUENTUI_QML_PLUGIN_DIRECTORY ${CMAKE_BINARY_DIR}/FluentUI)
     endif()
@@ -106,6 +108,7 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
         RESOURCE_PREFIX "/qt/qml"
     )
 else()
+    #如果是Qt6.2版本以下，则使用add_qmlplugin函数添加资源文件，这是个自定义的函数，详情见.cmake/QmlPlugin.cmake
     include(QmlPlugin)
     add_qmlplugin(${PROJECT_NAME}
         URI "FluentUI"
@@ -120,6 +123,7 @@ endif()
 
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE
+    #导入qrcode配置文件
     HAVE_CONFIG_H
 )
 

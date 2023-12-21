@@ -39,7 +39,7 @@ public:
     void removeWindow(QQuickWindow* window);
 private:
     QMap<quint64, QQuickWindow*> _windows;
-    QObject* _application;
+    QObject* _application = nullptr;
 };
 
 #endif // FLUAPP_H

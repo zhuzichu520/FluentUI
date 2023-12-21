@@ -24,6 +24,7 @@ endif()
 #获取文件路径分隔符（解决执行命令的时候有些平台会报错）
 file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 
+#导入Qt相关依赖包
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
 
@@ -51,22 +52,28 @@ endforeach(filepath)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #遍历所有qml文件
-    file(GLOB_RECURSE QML_PATHS *.qml)
+    file(GLOB_RECURSE QML_PATHS *.qml qmldir)
     foreach(filepath ${QML_PATHS})
         string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-        if(${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
-            string(REPLACE "qml-Qt${QT_VERSION_MAJOR}" "qml" filealias ${filename})
+        if(${filepath} MATCHES "qml-Qt6")
+            string(REPLACE "qml-Qt6" "qml" filealias ${filename})
             set_source_files_properties(${filename} PROPERTIES QT_RESOURCE_ALIAS ${filealias})
-            list(APPEND qml_files ${filename})
+            if(${filename} MATCHES "qmldir")
+                list(APPEND resource_files ${filename})
+            else()
+                list(APPEND qml_files ${filename})
+            endif()
         endif()
     endforeach(filepath)
 
     #遍历所有资源文件
-    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.obj qmldir)
+    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.obj)
     foreach(filepath ${RES_PATHS})
         string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+        message(${filename})
         list(APPEND resource_files ${filename})
     endforeach(filepath)
+
 endif()
 
 #如果是Windows平台，则生成rc文件，还有inno setup脚本文件
@@ -95,20 +102,19 @@ else ()
     )
 endif ()
 
+#复制程序运行所需要的动态库
 if(WIN32)
-    #复制动态库到可执行文件同级目录下
-    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-        set(3RDPARTY_ARCH_DIR ${CMAKE_SOURCE_DIR}/3rdparty/Win_x86)
-    elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
-        set(3RDPARTY_ARCH_DIR ${CMAKE_SOURCE_DIR}/3rdparty/Win_x64)
-    endif()
     if(MSVC)
-        set(DLLPATH ${3RDPARTY_ARCH_DIR}/msvc/*.dll)
+        if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+            set(3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x86/*.dll)
+        elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
+            set(3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x64/*.dll)
+        endif()
     elseif(MINGW)
-        set(DLLPATH ${3RDPARTY_ARCH_DIR}/mingw/*.dll)
+        set(3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
     endif()
-    string(REPLACE "/" ${PATH_SEPARATOR} DLLPATH "${DLLPATH}")
-    file(GLOB DLL_FILES ${DLLPATH})
+    string(REPLACE "/" ${PATH_SEPARATOR} 3RDPARTY_DLL_DIR "${3RDPARTY_DLL_DIR}")
+    file(GLOB DLL_FILES ${3RDPARTY_DLL_DIR})
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
         ${DLL_FILES}
@@ -117,7 +123,7 @@ if(WIN32)
 endif()
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
-    #添加qml模块
+    #如果是Qt6.2以上，则使用qt_add_qml_module添加资源文件
     qt_add_qml_module(example
         URI "example"
         VERSION 1.0
@@ -126,10 +132,11 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
         RESOURCE_PREFIX "/"
     )
 else()
+    #如果是Qt6.2以下，则使用qrc添加资源文件
     target_include_directories(example PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
     )
-target_sources(example PRIVATE example.qrc)
+    target_sources(example PRIVATE example.qrc)
 endif()
 
 #导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
@@ -153,11 +160,13 @@ set_target_properties(example PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+#Release也支持日志打印代码位置
 target_compile_definitions(example
     PRIVATE
     QT_MESSAGELOGCONTEXT
 )
 
+#目标文件链接库
 target_link_libraries(example PRIVATE
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Svg

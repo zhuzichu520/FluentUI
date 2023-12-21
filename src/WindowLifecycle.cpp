@@ -4,6 +4,7 @@
 #include "FluRegister.h"
 
 WindowLifecycle::WindowLifecycle(QObject *parent):QObject{parent}{
+
 }
 
 void WindowLifecycle::onCompleted(QQuickWindow* window){
@@ -12,7 +13,10 @@ void WindowLifecycle::onCompleted(QQuickWindow* window){
 }
 
 void WindowLifecycle::onDestoryOnClose(){
-    FluApp::getInstance()->removeWindow(this->_window);
+    if(_window){
+        FluApp::getInstance()->removeWindow(this->_window);
+        _window = nullptr;
+    }
 }
 
 void WindowLifecycle::onDestruction(){

@@ -23,7 +23,7 @@ public:
     Q_INVOKABLE void onDestoryOnClose();
     Q_INVOKABLE QVariant createRegister(QQuickWindow* window,const QString& path);
 private:
-    QQuickWindow* _window;
+    QQuickWindow* _window = nullptr;
 };
 
 #endif // WINDOWLIFECYCLE_H
