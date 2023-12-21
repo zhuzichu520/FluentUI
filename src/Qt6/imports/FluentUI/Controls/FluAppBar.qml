@@ -64,6 +64,11 @@ Rectangle{
             FluTheme.darkMode = FluThemeType.Dark
         }
     }
+    property var systemMenuListener: function(){
+        if(d.win instanceof FluWindow){
+            d.win.showSystemMenu()
+        }
+    }
     id:control
     color: Qt.rgba(0,0,0,0)
     height: visible ? 30 : 0
@@ -71,6 +76,7 @@ Rectangle{
     z: 65535
     Item{
         id:d
+        property bool hoverMaxBtn: false
         property var win: Window.window
         property bool stayTop: {
             if(d.win instanceof FluWindow){
@@ -83,14 +89,23 @@ Rectangle{
     }
     MouseArea{
         anchors.fill: parent
-        onPositionChanged: {
-            d.win.startSystemMove()
-        }
-        onDoubleClicked: {
-            if(d.resizable){
-                btn_maximize.clicked()
+        onPositionChanged:
+            (mouse)=>{
+                d.win.startSystemMove()
             }
-        }
+        onDoubleClicked:
+            (mouse)=>{
+                if(d.resizable && Qt.LeftButton){
+                    btn_maximize.clicked()
+                }
+            }
+        acceptedButtons: Qt.LeftButton|Qt.RightButton
+        onClicked:
+            (mouse)=>{
+                if (mouse.button === Qt.RightButton){
+                    control.systemMenuListener()
+                }
+            }
     }
     Row{
         anchors{
@@ -218,7 +233,7 @@ Rectangle{
                 if(pressed){
                     return maximizePressColor
                 }
-                return hovered ? maximizeHoverColor : maximizeNormalColor
+                return d.hoverMaxBtn ? maximizeHoverColor : maximizeNormalColor
             }
             Layout.alignment: Qt.AlignVCenter
             visible: d.resizable && !isMac && showMaximize
@@ -262,5 +277,18 @@ Rectangle{
     }
     function darkButton(){
         return btn_dark
+    }
+    function maximizeButtonHover(){
+        var hover = false;
+        var pos = btn_maximize.mapToGlobal(0,0)
+        if(btn_maximize.visible){
+            var rect = Qt.rect(pos.x,pos.y,btn_maximize.width,btn_maximize.height)
+             pos = FluTools.cursorPos()
+            if(pos.x>rect.x && pos.x<(rect.x+rect.width) && pos.y>rect.y && pos.y<(rect.y+rect.height)){
+                hover = true;
+            }
+        }
+        d.hoverMaxBtn = hover
+        return hover;
     }
 }

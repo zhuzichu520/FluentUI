@@ -15,13 +15,15 @@ using QT_NATIVE_EVENT_RESULT_TYPE = long;
 using QT_ENTER_EVENT_TYPE = QEvent;
 #endif
 
+class FluFramelessHelper;
+
 class FramelessEventFilter : public QAbstractNativeEventFilter
 {
 public:
-    FramelessEventFilter(QQuickWindow* window);
+    FramelessEventFilter(FluFramelessHelper* helper);
     bool nativeEventFilter(const QByteArray &eventType, void *message, QT_NATIVE_EVENT_RESULT_TYPE *result) override;
 public:
-    QQuickWindow* _window = nullptr;
+    QPointer<FluFramelessHelper> _helper = nullptr;
     qint64 _current = 0;
 };
 
@@ -34,14 +36,21 @@ public:
     ~FluFramelessHelper();
     void classBegin() override;
     void componentComplete() override;
+    bool hoverMaxBtn();
+    bool resizeable();
+    QObject* maximizeButton();
+    Q_INVOKABLE void showSystemMenu();
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 private:
-    void updateCursor(int edges);
+    void _updateCursor(int edges);
+    bool _maximized();
+    bool _fullScreen();
     Q_SLOT void _onStayTopChange();
     Q_SLOT void _onScreenChanged();
+public:
+    QPointer<QQuickWindow> window = nullptr;
 private:
-    QPointer<QQuickWindow> _window = nullptr;
     FramelessEventFilter* _nativeEvent = nullptr;
     QQmlProperty _stayTop;
     QQmlProperty _screen;

@@ -49,6 +49,7 @@ Window {
             event.accepted = false
         }
     }
+    signal showSystemMenu
     signal initArgument(var argument)
     signal firstVisible()
     id:window
@@ -57,7 +58,7 @@ Window {
         moveWindowToDesktopCenter()
         useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){
-            loader_frameless.sourceComponent = com_frameless
+            loader_frameless_helper.sourceComponent = com_frameless
         }
         lifecycle.onCompleted(window)
         initArgument(argument)
@@ -69,6 +70,11 @@ Window {
     }
     Component.onDestruction: {
         lifecycle.onDestruction()
+    }
+    onShowSystemMenu: {
+        if(loader_frameless_helper.item){
+            loader_frameless_helper.item.showSystemMenu()
+        }
     }
     onVisibleChanged: {
         if(visible && d.isFirstVisible){
@@ -164,7 +170,7 @@ Window {
         }
     }
     FluLoader{
-        id:loader_frameless
+        id:loader_frameless_helper
     }
     Item{
         id:layout_container
