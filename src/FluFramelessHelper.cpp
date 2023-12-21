@@ -212,7 +212,7 @@ void FluFramelessHelper::componentComplete(){
         _nativeEvent =new FramelessEventFilter(_window);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(_window->winId());
-        SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
+        SetWindowPos(hwnd,0,0,0,0,0,SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
         showShadow(hwnd);
 #endif
         _stayTop = QQmlProperty(_window,"stayTop");
@@ -227,10 +227,9 @@ void FluFramelessHelper::componentComplete(){
 void FluFramelessHelper::_onScreenChanged(){
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(_window->winId());
-    SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE |SWP_FRAMECHANGED);
+    SetWindowPos(hwnd,0,0,0,0,0,SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
+    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
 #endif
-    _window->update();
-    QGuiApplication::processEvents();
 }
 
 void FluFramelessHelper::_onStayTopChange(){
