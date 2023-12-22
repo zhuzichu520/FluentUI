@@ -233,7 +233,7 @@ Rectangle{
                 if(pressed){
                     return maximizePressColor
                 }
-                if(FluTools.isWin() && !FluApp.useSystemAppBar){
+                if(FluTools.isWindows11OrGreater()){
                     return d.hoverMaxBtn ? maximizeHoverColor : maximizeNormalColor
                 }
                 return hovered ? maximizeHoverColor : maximizeNormalColor
@@ -286,7 +286,7 @@ Rectangle{
         var pos = btn_maximize.mapToGlobal(0,0)
         if(btn_maximize.visible){
             var rect = Qt.rect(pos.x,pos.y,btn_maximize.width,btn_maximize.height)
-             pos = FluTools.cursorPos()
+            pos = FluTools.cursorPos()
             if(pos.x>rect.x && pos.x<(rect.x+rect.width) && pos.y>rect.y && pos.y<(rect.y+rect.height)){
                 hover = true;
             }

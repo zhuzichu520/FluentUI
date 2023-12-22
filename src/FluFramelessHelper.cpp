@@ -1,7 +1,7 @@
 #include "FluFramelessHelper.h"
 
 #include <QGuiApplication>
-#include <QOperatingSystemVersion>
+#include "FluTools.h"
 #ifdef Q_OS_WIN
 #pragma comment (lib,"user32.lib")
 #pragma comment (lib,"dwmapi.lib")
@@ -104,7 +104,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCHITTEST){
-        if(_helper->hoverMaxBtn() && _helper->resizeable()){
+        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             if (*result == HTNOWHERE) {
                 *result = HTZOOM;
             }
@@ -112,14 +112,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN){
-        if(_helper->hoverMaxBtn() && _helper->resizeable()){
+        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
             return true;
         }
         return false;
     }else if(uMsg == WM_NCLBUTTONUP || uMsg == WM_NCRBUTTONUP){
-        if(_helper->hoverMaxBtn() && _helper->resizeable()){
+        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
@@ -277,7 +277,7 @@ void FluFramelessHelper::showSystemMenu(){
     }else{
         EnableMenuItem(hMenu,SC_MAXIMIZE,MFS_DISABLED);
     }
-    const int result = TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), point.x(), point.y(), 0, hwnd, nullptr);
+    const int result = TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), point.x()*window->devicePixelRatio(), point.y()*window->devicePixelRatio(), 0, hwnd, nullptr);
     if (result != FALSE) {
         PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
     }

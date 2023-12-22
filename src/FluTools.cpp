@@ -14,6 +14,7 @@
 #include <QTextDocument>
 #include <QQuickWindow>
 #include <QDateTime>
+#include <QSettings>
 
 FluTools::FluTools(QObject *parent):QObject{parent}{
 
@@ -193,4 +194,24 @@ int FluTools::cursorScreenIndex(){
         }
     }
     return screenIndex;
+}
+
+bool FluTools::isWindows11OrGreater(){
+    static QVariant var;
+    if(var.isNull()){
+#if defined(Q_OS_WIN)
+        QSettings regKey {QString::fromUtf8("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), QSettings::NativeFormat};
+        if (regKey.contains(QString::fromUtf8("CurrentBuildNumber"))) {
+            auto buildNumber = regKey.value(QString::fromUtf8("CurrentBuildNumber")).toInt();
+            if(buildNumber>=22000){
+                var = QVariant::fromValue(true);
+                return true;
+            }
+        }
+#endif
+        var = QVariant::fromValue(false);
+        return  false;
+    }else{
+        return var.toBool();
+    }
 }
