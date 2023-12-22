@@ -178,7 +178,7 @@ Window {
             if(window.visibility === Window.Maximized){
                 var dx = window.x-Screen.virtualX
                 if(dx<0){
-                    return Math.abs(dx)
+                    return Math.abs(dx+1)
                 }
             }
             return 0
@@ -187,7 +187,7 @@ Window {
             if(window.visibility === Window.Maximized){
                 var dy = window.y-Screen.virtualY
                 if(dy<0){
-                    return Math.abs(dy)
+                    return Math.abs(dy+1)
                 }
             }
             return 0
@@ -289,10 +289,12 @@ Window {
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]
         window.setGeometry((Screen.width-window.width)/2+Screen.virtualX,(Screen.height-window.height)/2+Screen.virtualY,window.width,window.height)
-        maximumWidth = fixSize ? width : 16777215
-        maximumHeight = fixSize ? height : 16777215
-        minimumWidth = fixSize ? width : 0
-        minimumHeight = fixSize ? height : 0
+        if(fixSize){
+            maximumWidth =  width
+            maximumHeight =  height
+            minimumWidth = width
+            minimumHeight = height
+        }
     }
     function onResult(data){
         if(_pageRegister){

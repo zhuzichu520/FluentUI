@@ -73,22 +73,11 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         return false;
     }
     const UINT uMsg = msg->message;
-    const WPARAM wParam = msg->wParam;
-    const LPARAM lParam = msg->lParam;
     if (!msg || !hwnd)
     {
         return false;
     }
-    if(uMsg == WM_WINDOWPOSCHANGING){
-        WINDOWPOS* wp = reinterpret_cast<WINDOWPOS*>(lParam);
-        if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0)
-        {
-            wp->flags |= SWP_NOCOPYBITS;
-            *result = DefWindowProc(hwnd, uMsg, wParam, lParam);
-            return true;
-        }
-        return false;
-    }else if(uMsg == WM_NCCALCSIZE){
+    if(uMsg == WM_NCCALCSIZE){
         *result = WVR_REDRAW;
         return true;
     }else if(uMsg == WM_NCPAINT){
