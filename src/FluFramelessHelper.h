@@ -39,7 +39,6 @@ public:
     bool hoverMaxBtn();
     bool resizeable();
     QObject* maximizeButton();
-    void setOffsetXY(QPoint val);
     Q_INVOKABLE void showSystemMenu();
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -55,7 +54,6 @@ private:
     FramelessEventFilter* _nativeEvent = nullptr;
     QQmlProperty _stayTop;
     QQmlProperty _screen;
-    QQmlProperty _offsetXY;
 };
 
 #endif // FLUFRAMELESSHELPER_H

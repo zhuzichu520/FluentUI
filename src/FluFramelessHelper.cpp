@@ -33,7 +33,7 @@ static inline bool isCompositionEnabled(){
 
 static inline void showShadow(HWND hwnd){
     if(isCompositionEnabled()){
-        const MARGINS shadow = { 1, 0, 0, 0 };
+        const MARGINS shadow = { 1, 1, 1, 1 };
         typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
         HMODULE module = LoadLibraryW(L"dwmapi.dll");
         if (module)
@@ -113,14 +113,6 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
         return false;
-    }else if(uMsg == WM_GETMINMAXINFO){
-        if(IsZoomed(hwnd)){
-            RECT frame = {0,0,0,0};
-            AdjustWindowRectEx(&frame,WS_OVERLAPPEDWINDOW,FALSE,0);
-            _helper->setOffsetXY(QPoint(floor(abs(frame.left)/_helper->window->devicePixelRatio()),floor(abs(frame.bottom)/_helper->window->devicePixelRatio())));
-        }else{
-            _helper->setOffsetXY(QPoint(0,0));
-        }
     }
     return false;
 #endif
@@ -247,7 +239,6 @@ void FluFramelessHelper::componentComplete(){
 #endif
         _stayTop = QQmlProperty(window,"stayTop");
         _screen = QQmlProperty(window,"screen");
-        _offsetXY = QQmlProperty(window,"_offsetXY");
         _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
@@ -339,10 +330,6 @@ QObject* FluFramelessHelper::maximizeButton(){
         return nullptr;
     }
     return var.value<QObject*>();
-}
-
-void FluFramelessHelper::setOffsetXY(QPoint val){
-    _offsetXY.write(val);
 }
 
 bool FluFramelessHelper::resizeable(){

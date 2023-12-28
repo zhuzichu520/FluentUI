@@ -73,6 +73,19 @@ Window {
     Component.onDestruction: {
         lifecycle.onDestruction()
     }
+    onVisibilityChanged: {
+        if(visibility === Window.Maximized || visibility === Window.FullScreen){
+            var dx = window.x-Screen.virtualX
+            var dy = window.y-Screen.virtualY
+            if(dx<0 && dy<0){
+                _offsetXY = Qt.point(Math.abs(dx+1),Math.abs(dy+1))
+            }else{
+                _offsetXY = Qt.point(0,0)
+            }
+        }else{
+            _offsetXY = Qt.point(0,0)
+        }
+    }
     onShowSystemMenu: {
         if(loader_frameless_helper.item){
             loader_frameless_helper.item.showSystemMenu()
