@@ -10,7 +10,3 @@ AppInfo::AppInfo(QObject *parent)
 {
     version(APPLICATION_VERSION);
 }
-
-void AppInfo::init(QQmlApplicationEngine *engine){
-    engine->rootContext();
-}

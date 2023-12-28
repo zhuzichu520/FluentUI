@@ -14,7 +14,6 @@ private:
     explicit AppInfo(QObject *parent = nullptr);
 public:
     SINGLETONG(AppInfo)
-    void init(QQmlApplicationEngine *engine);
 };
 
 #endif // APPINFO_H

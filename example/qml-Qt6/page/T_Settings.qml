@@ -87,26 +87,6 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
-        Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 50
-        paddings: 10
-        FluCheckBox{
-            text:"Software Render"
-            checked: SettingsHelper.getRender() === "software"
-            anchors.verticalCenter: parent.verticalCenter
-            onClicked: {
-                if(SettingsHelper.getRender() === "software"){
-                    SettingsHelper.saveRender("")
-                }else{
-                    SettingsHelper.saveRender("software")
-                }
-                dialog_restart.open()
-            }
-        }
-    }
-
     FluContentDialog{
         id:dialog_restart
         title:"友情提示"

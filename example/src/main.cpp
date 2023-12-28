@@ -43,18 +43,8 @@ int main(int argc, char *argv[])
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
 #endif
-    if(SettingsHelper::getInstance()->getRender()=="software"){
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
-        QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
-#elif (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-        QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
-#endif
-    }
     QGuiApplication app(argc, argv);
-    //    QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
-    //    qSetMessagePattern("%{category}: %{message}");
     QQmlApplicationEngine engine;
-    AppInfo::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
     engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
 #ifdef FLUENTUI_BUILD_STATIC_LIB

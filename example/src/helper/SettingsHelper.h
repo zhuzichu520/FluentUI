@@ -19,8 +19,6 @@ public:
     SINGLETONG(SettingsHelper)
     ~SettingsHelper() override;
     void init(char *argv[]);
-    Q_INVOKABLE void saveRender(const QVariant& render){save("render",render);}
-    Q_INVOKABLE QString getRender(){return get("render").toString();}
     Q_INVOKABLE void saveDarkMode(int darkModel){save("darkMode",darkModel);}
     Q_INVOKABLE int getDarkMode(){return get("darkMode",QVariant(0)).toInt();}
     Q_INVOKABLE void saveUseSystemAppBar(bool useSystemAppBar){save("useSystemAppBar",useSystemAppBar);}
