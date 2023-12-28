@@ -65,7 +65,6 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     endforeach()
 endif()
 
-#添加qml模块
 if (FLUENTUI_BUILD_STATIC_LIB)
     set(LIB_TYPE "STATIC")
 else()

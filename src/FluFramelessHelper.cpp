@@ -153,7 +153,7 @@ void FluFramelessHelper::_updateCursor(int edges){
 }
 
 bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
-    if (!window.isNull() && window->flags() & Qt::FramelessWindowHint) {
+    if (!window.isNull() && window->flags()) {
 
         static int edges = 0;
         const int margin = 8;
@@ -223,7 +223,9 @@ void FluFramelessHelper::componentComplete(){
     }
     if(!window.isNull()){
 #ifdef Q_OS_WIN
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
         window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+#endif
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -234,6 +236,7 @@ void FluFramelessHelper::componentComplete(){
             SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
         }
         showShadow(hwnd);
+        SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif
