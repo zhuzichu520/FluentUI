@@ -27,7 +27,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     Grey210("#161514");
     Grey220("#11100f");
 
-    FluColorSet *yellow = new FluColorSet();
+    FluColorSet *yellow = new FluColorSet(this);
     yellow->darkest("#f9a825");
     yellow->darker("#fbc02d");
     yellow->dark("#fdd435");
@@ -37,7 +37,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     yellow->lightest("#fff59b");
     Yellow(yellow);
 
-    FluColorSet *orange = new FluColorSet();
+    FluColorSet *orange = new FluColorSet(this);
     orange->darkest("#993d07");
     orange->darker("#ac4408");
     orange->dark("#d1580a");
@@ -47,7 +47,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     orange->lightest("#fac06a");
     Orange(orange);
 
-    FluColorSet *red = new FluColorSet();
+    FluColorSet *red = new FluColorSet(this);
     red->darkest("#8f0a15");
     red->darker("#a20b18");
     red->dark("#b90d1c");
@@ -57,7 +57,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     red->lightest("#f06b76");
     Red(red);
 
-    FluColorSet *magenta = new FluColorSet();
+    FluColorSet *magenta = new FluColorSet(this);
     magenta->darkest("#6f004f");
     magenta->darker("#a0076c");
     magenta->dark("#b50d7d");
@@ -67,7 +67,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     magenta->lightest("#f18cd5");
     Magenta(magenta);
 
-    FluColorSet *purple = new FluColorSet();
+    FluColorSet *purple = new FluColorSet(this);
     purple->darkest("#2c0f76");
     purple->darker("#3d0f99");
     purple->dark("#4e11ae");
@@ -77,7 +77,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     purple->lightest("#9e8ed9");
     Purple(purple);
 
-    FluColorSet *blue = new FluColorSet();
+    FluColorSet *blue = new FluColorSet(this);
     blue->darkest("#004A83");
     blue->darker("#005494");
     blue->dark("#0066B4");
@@ -87,7 +87,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     blue->lightest("#60ABE4");
     Blue(blue);
 
-    FluColorSet *teal = new FluColorSet();
+    FluColorSet *teal = new FluColorSet(this);
     teal->darkest("#006E5B");
     teal->darker("#007C67");
     teal->dark("#00977D");
@@ -97,7 +97,7 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
     teal->lightest("#60CFBC");
     Teal(teal);
 
-    FluColorSet *green = new FluColorSet();
+    FluColorSet *green = new FluColorSet(this);
     green->darkest("#094C09");
     green->darker("#0C5D0C");
     green->dark("#0E6F0E");

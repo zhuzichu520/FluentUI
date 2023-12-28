@@ -234,10 +234,7 @@ void FluFramelessHelper::componentComplete(){
     }
     if(!window.isNull()){
 #ifdef Q_OS_WIN
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
-        window->setFlag(Qt::FramelessWindowHint,true);
-#endif
-        window->setFlag(Qt::WindowMinimizeButtonHint,true);
+        window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());

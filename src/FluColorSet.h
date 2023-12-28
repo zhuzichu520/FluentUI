@@ -2,6 +2,7 @@
 #define FLUCOLORSET_H
 
 #include <QObject>
+#include <QtQml/qqml.h>
 #include "stdafx.h"
 
 /**
@@ -17,6 +18,7 @@ class FluColorSet : public QObject
     Q_PROPERTY_AUTO(QString,light)
     Q_PROPERTY_AUTO(QString,lighter)
     Q_PROPERTY_AUTO(QString,lightest)
+    QML_NAMED_ELEMENT(FluColorSet)
 public:
     explicit FluColorSet(QObject *parent = nullptr);
 };
