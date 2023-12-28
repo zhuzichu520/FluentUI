@@ -33,7 +33,7 @@ static inline bool isCompositionEnabled(){
 
 static inline void showShadow(HWND hwnd){
     if(isCompositionEnabled()){
-        const MARGINS shadow = { 1, 1, 1, 1 };
+        const MARGINS shadow = { 1, 0, 0, 0 };
         typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
         HMODULE module = LoadLibraryW(L"dwmapi.dll");
         if (module)
