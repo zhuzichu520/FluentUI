@@ -13,19 +13,17 @@ Rectangle {
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
         if(columnSource.length!==0){
-            var com_column = Qt.createComponent("FluTableModelColumn.qml")
-            if (com_column.status === Component.Ready) {
-                var columns= []
-                var header_rows = {}
-                columnSource.forEach(function(item){
-                    var column = com_column.createObject(table_model,{display:item.dataIndex});
-                    columns.push(column)
-                    header_rows[item.dataIndex] = item.title
-                })
-                table_model.columns = columns
-                header_model.columns = columns
-                d.header_rows = [header_rows]
-            }
+            var columns= []
+            var header_rows = {}
+            columnSource.forEach(function(item){
+                var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',table_model);
+                column.display = item.dataIndex
+                columns.push(column)
+                header_rows[item.dataIndex] = item.title
+            })
+            table_model.columns = columns
+            header_model.columns = columns
+            d.header_rows = [header_rows]
         }
     }
     QtObject{

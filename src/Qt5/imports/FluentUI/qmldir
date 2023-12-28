@@ -75,7 +75,6 @@ FluSlider 1.0 Controls/FluSlider.qml
 FluSpinBox 1.0 Controls/FluSpinBox.qml
 FluStatusView 1.0 Controls/FluStatusView.qml
 FluTabView 1.0 Controls/FluTabView.qml
-FluTableModelColumn 1.0 Controls/FluTableModelColumn.qml
 FluTableView 1.0 Controls/FluTableView.qml
 FluText 1.0 Controls/FluText.qml
 FluTextBox 1.0 Controls/FluTextBox.qml

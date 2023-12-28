@@ -116,7 +116,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSpinBox.qml"),uri,major,minor,"FluSpinBox");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStatusView.qml"),uri,major,minor,"FluStatusView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTabView.qml"),uri,major,minor,"FluTabView");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTableModelColumn.qml"),uri,major,minor,"FluTableModelColumn");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTableView.qml"),uri,major,minor,"FluTableView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluText.qml"),uri,major,minor,"FluText");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTextBox.qml"),uri,major,minor,"FluTextBox");

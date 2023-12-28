@@ -71,7 +71,6 @@
         <file>FluentUI/Controls/FluSpinBox.qml</file>
         <file>FluentUI/Controls/FluStaggeredView.qml</file>
         <file>FluentUI/Controls/FluStatusView.qml</file>
-        <file>FluentUI/Controls/FluTableModelColumn.qml</file>
         <file>FluentUI/Controls/FluTableView.qml</file>
         <file>FluentUI/Controls/FluTabView.qml</file>
         <file>FluentUI/Controls/FluText.qml</file>
