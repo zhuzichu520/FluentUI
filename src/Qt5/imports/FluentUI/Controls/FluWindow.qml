@@ -53,7 +53,6 @@ Window {
     signal showSystemMenu
     signal initArgument(var argument)
     signal firstVisible()
-    property point _offsetXY : Qt.point(0,0)
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -72,19 +71,6 @@ Window {
     }
     Component.onDestruction: {
         lifecycle.onDestruction()
-    }
-    onVisibilityChanged: {
-        if(visibility === Window.Maximized || visibility === Window.FullScreen){
-            var dx = window.x-Screen.virtualX
-            var dy = window.y-Screen.virtualY
-            if(dx<0 && dy<0){
-                _offsetXY = Qt.point(Math.abs(dx+1),Math.abs(dy+1))
-            }else{
-                _offsetXY = Qt.point(0,0)
-            }
-        }else{
-            _offsetXY = Qt.point(0,0)
-        }
     }
     onShowSystemMenu: {
         if(loader_frameless_helper.item){
@@ -191,10 +177,6 @@ Window {
         id:layout_container
         anchors{
             fill:parent
-            leftMargin: _offsetXY.x
-            rightMargin: _offsetXY.x
-            topMargin: _offsetXY.y
-            bottomMargin: _offsetXY.y
         }
         onWidthChanged: {
             window.appBar.width = width
@@ -247,7 +229,7 @@ Window {
             border.width: window.resizeBorderWidth
             border.color: window.resizeBorderColor
             visible: {
-                if(window.useSystemAppBar){
+                if(window.useSystemAppBar || FluTools.isWin()){
                     return false
                 }
                 if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){

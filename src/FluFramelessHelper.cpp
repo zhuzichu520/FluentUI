@@ -1,7 +1,6 @@
 #include "FluFramelessHelper.h"
 
 #include <QGuiApplication>
-#include "FluTools.h"
 #ifdef Q_OS_WIN
 #pragma comment (lib,"user32.lib")
 #pragma comment (lib,"dwmapi.lib")
@@ -12,6 +11,28 @@ static inline QByteArray qtNativeEventType()
 {
     static const auto result = "windows_generic_MSG";
     return result;
+}
+
+static inline bool isWindows11OrGreater() {
+    DWORD dwVersion = 0;
+    DWORD dwBuild = 0;
+#pragma warning(push)
+#pragma warning(disable : 4996)
+    dwVersion = GetVersion();
+    if (dwVersion < 0x80000000)
+        dwBuild = (DWORD)(HIWORD(dwVersion));
+#pragma warning(pop)
+    return dwBuild < 22000;
+}
+
+
+static inline bool isTaskbarAutoHide() {
+    APPBARDATA appBarData;
+    memset(&appBarData, 0, sizeof(appBarData));
+    appBarData.cbSize = sizeof(appBarData);
+    appBarData.hWnd = FindWindowW(L"Shell_TrayWnd", NULL);
+    LPARAM lParam = SHAppBarMessage(ABM_GETSTATE, &appBarData);
+    return lParam & ABS_AUTOHIDE;
 }
 
 static inline bool isCompositionEnabled(){
@@ -89,6 +110,20 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCCALCSIZE){
+        NCCALCSIZE_PARAMS* sz = reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam);
+        if(IsZoomed(hwnd)){
+            sz->rgrc[0].left += 8;
+            sz->rgrc[0].top += 8;
+            sz->rgrc[0].right -= 8;
+            sz->rgrc[0].bottom -= isTaskbarAutoHide() ? 9 : 8;
+        }else{
+            sz->rgrc[0].top += isWindows11OrGreater() ? 0 : 1;
+            if(isCompositionEnabled()){
+                sz->rgrc[0].right -= 8;
+                sz->rgrc[0].bottom -= 8;
+                sz->rgrc[0].left -= -8;
+            }
+        }
         *result = WVR_REDRAW;
         return true;
     }else if(uMsg == WM_NCPAINT){
@@ -104,7 +139,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCHITTEST){
-        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             if (*result == HTNOWHERE) {
                 *result = HTZOOM;
             }
@@ -112,14 +147,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN){
-        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
             return true;
         }
         return false;
     }else if(uMsg == WM_NCLBUTTONUP || uMsg == WM_NCRBUTTONUP){
-        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
@@ -234,7 +269,9 @@ void FluFramelessHelper::componentComplete(){
     }
     if(!window.isNull()){
 #ifdef Q_OS_WIN
-        window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+        if(!isCompositionEnabled()){
+            window->setFlag(Qt::FramelessWindowHint,true);
+        }
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -244,7 +281,6 @@ void FluFramelessHelper::componentComplete(){
         }else{
             SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
         }
-        showShadow(hwnd);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
