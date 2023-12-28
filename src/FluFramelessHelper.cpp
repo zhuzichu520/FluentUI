@@ -113,6 +113,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
         return false;
+    }else if(uMsg == WM_GETMINMAXINFO){
+        if(IsZoomed(hwnd)){
+            RECT frame = {0,0,0,0};
+            AdjustWindowRectEx(&frame,WS_OVERLAPPEDWINDOW,FALSE,0);
+            _helper->setOffsetXY(QPoint(floor(abs(frame.left)/_helper->window->devicePixelRatio()),floor(abs(frame.bottom)/_helper->window->devicePixelRatio())));
+        }else{
+            _helper->setOffsetXY(QPoint(0,0));
+        }
     }
     return false;
 #endif
@@ -222,18 +230,26 @@ void FluFramelessHelper::componentComplete(){
         o = o->parent();
     }
     if(!window.isNull()){
-        window->setFlags(Qt::FramelessWindowHint|Qt::Window|Qt::WindowTitleHint|Qt::WindowMinMaxButtonsHint|Qt::WindowCloseButtonHint);
 #ifdef Q_OS_WIN
+        window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
-        SetWindowPos(hwnd,0,0,0,0,0,SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
+        DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
+        if(resizeable()){
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+        }else{
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+        }
         showShadow(hwnd);
+#else
+        window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif
         _stayTop = QQmlProperty(window,"stayTop");
+        _screen = QQmlProperty(window,"screen");
+        _offsetXY = QQmlProperty(window,"_offsetXY");
         _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
-        _screen = QQmlProperty(window,"screen");
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
         window->installEventFilter(this);
     }
@@ -278,8 +294,6 @@ void FluFramelessHelper::_onStayTopChange(){
     bool isStayTop = _stayTop.read().toBool();
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
-    DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
-    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
     if(isStayTop){
         SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
     }else{
@@ -325,6 +339,10 @@ QObject* FluFramelessHelper::maximizeButton(){
         return nullptr;
     }
     return var.value<QObject*>();
+}
+
+void FluFramelessHelper::setOffsetXY(QPoint val){
+    _offsetXY.write(val);
 }
 
 bool FluFramelessHelper::resizeable(){

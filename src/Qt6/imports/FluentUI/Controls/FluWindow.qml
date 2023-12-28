@@ -52,6 +52,7 @@ Window {
     signal showSystemMenu
     signal initArgument(var argument)
     signal firstVisible()
+    property point _offsetXY : Qt.point(0,0)
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -174,30 +175,12 @@ Window {
     }
     Item{
         id:layout_container
-        property int offsetX: {
-            if(window.visibility === Window.Maximized){
-                var dx = window.x-Screen.virtualX
-                if(dx<0){
-                    return Math.abs(dx+1)
-                }
-            }
-            return 0
-        }
-        property int offsetY: {
-            if(window.visibility === Window.Maximized){
-                var dy = window.y-Screen.virtualY
-                if(dy<0){
-                    return Math.abs(dy+1)
-                }
-            }
-            return 0
-        }
         anchors{
             fill:parent
-            leftMargin: offsetX
-            rightMargin: offsetX
-            topMargin: offsetY
-            bottomMargin: offsetY
+            leftMargin: _offsetXY.x
+            rightMargin: _offsetXY.x
+            topMargin: _offsetXY.y
+            bottomMargin: _offsetXY.y
         }
         onWidthChanged: {
             window.appBar.width = width
