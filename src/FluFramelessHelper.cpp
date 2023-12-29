@@ -1,6 +1,7 @@
 #include "FluFramelessHelper.h"
 
 #include <QGuiApplication>
+#include "FluTools.h"
 #ifdef Q_OS_WIN
 #pragma comment (lib,"user32.lib")
 #pragma comment (lib,"dwmapi.lib")
@@ -12,19 +13,6 @@ static inline QByteArray qtNativeEventType()
     static const auto result = "windows_generic_MSG";
     return result;
 }
-
-static inline bool isWindows11OrGreater() {
-    DWORD dwVersion = 0;
-    DWORD dwBuild = 0;
-#pragma warning(push)
-#pragma warning(disable : 4996)
-    dwVersion = GetVersion();
-    if (dwVersion < 0x80000000)
-        dwBuild = (DWORD)(HIWORD(dwVersion));
-#pragma warning(pop)
-    return dwBuild >= 22000;
-}
-
 
 static inline bool isTaskbarAutoHide() {
     APPBARDATA appBarData;
@@ -125,7 +113,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCHITTEST){
-        if(isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             if (*result == HTNOWHERE) {
                 *result = HTZOOM;
             }
@@ -133,14 +121,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN){
-        if(isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
             return true;
         }
         return false;
     }else if(uMsg == WM_NCLBUTTONUP || uMsg == WM_NCRBUTTONUP){
-        if(isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }

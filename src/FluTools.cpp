@@ -200,15 +200,14 @@ bool FluTools::isWindows11OrGreater(){
     static QVariant var;
     if(var.isNull()){
 #if defined(Q_OS_WIN)
-        DWORD dwVersion = 0;
-        DWORD dwBuild = 0;
-#pragma warning(push)
-#pragma warning(disable : 4996)
-        dwVersion = GetVersion();
-        if (dwVersion < 0x80000000)
-            dwBuild = (DWORD)(HIWORD(dwVersion));
-#pragma warning(pop)
-        return dwBuild >= 22000;
+        QSettings regKey {QString::fromUtf8("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), QSettings::NativeFormat};
+        if (regKey.contains(QString::fromUtf8("CurrentBuildNumber"))) {
+            auto buildNumber = regKey.value(QString::fromUtf8("CurrentBuildNumber")).toInt();
+            if(buildNumber>=22000){
+                var = QVariant::fromValue(true);
+                return true;
+            }
+        }
 #endif
         var = QVariant::fromValue(false);
         return  false;
