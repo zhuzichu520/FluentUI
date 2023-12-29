@@ -98,6 +98,20 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCCALCSIZE){
+        const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
+        const LONG originalTop = clientRect->top;
+        const LONG originalLeft = clientRect->left;
+        const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
+        if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
+            *result = hitTestResult;
+            return true;
+        }
+        if(IsZoomed(hwnd)){
+            _helper->setOriginalPos(QPoint(originalLeft,originalTop));
+        }else{
+            _helper->setOriginalPos({});
+        }
+        clientRect->top = originalTop;
         *result = WVR_REDRAW;
         return true;
     }else if(uMsg == WM_NCPAINT){
@@ -243,7 +257,7 @@ void FluFramelessHelper::componentComplete(){
     }
     if(!window.isNull()){
 #ifdef Q_OS_WIN
-        window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+        //        window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -254,12 +268,12 @@ void FluFramelessHelper::componentComplete(){
             SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
         }
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-        showShadow(hwnd);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif
         _stayTop = QQmlProperty(window,"stayTop");
         _screen = QQmlProperty(window,"screen");
+        _originalPos = QQmlProperty(window,"_originalPos");
         _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
@@ -351,6 +365,10 @@ QObject* FluFramelessHelper::maximizeButton(){
         return nullptr;
     }
     return var.value<QObject*>();
+}
+
+void FluFramelessHelper::setOriginalPos(QVariant pos){
+    _originalPos.write(pos);
 }
 
 bool FluFramelessHelper::resizeable(){

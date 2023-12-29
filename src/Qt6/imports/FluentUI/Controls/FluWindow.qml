@@ -53,6 +53,7 @@ Window {
     signal initArgument(var argument)
     signal firstVisible()
     property point _offsetXY : Qt.point(0,0)
+    property var _originalPos
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -72,12 +73,12 @@ Window {
     Component.onDestruction: {
         lifecycle.onDestruction()
     }
-    onVisibilityChanged: {
-        if(visibility === Window.Maximized || visibility === Window.FullScreen){
-            var dx = window.x-Screen.virtualX
-            var dy = window.y-Screen.virtualY
+    on_OriginalPosChanged: {
+        if(_originalPos){
+            var dx = (_originalPos.x - screen.virtualX)/screen.devicePixelRatio
+            var dy = _originalPos.y - screen.virtualY/screen.devicePixelRatio
             if(dx<0 && dy<0){
-                _offsetXY = Qt.point(Math.abs(dx+1),Math.abs(dy+1))
+                _offsetXY = Qt.point(Math.abs(dx),Math.abs(dy))
             }else{
                 _offsetXY = Qt.point(0,0)
             }
@@ -190,10 +191,7 @@ Window {
         id:layout_container
         anchors{
             fill:parent
-            leftMargin: _offsetXY.x
-            rightMargin: _offsetXY.x
-            topMargin: _offsetXY.y
-            bottomMargin: _offsetXY.y
+            topMargin: _offsetXY.x
         }
         onWidthChanged: {
             window.appBar.width = width
