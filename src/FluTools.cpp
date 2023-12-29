@@ -208,7 +208,7 @@ bool FluTools::isWindows11OrGreater(){
         if (dwVersion < 0x80000000)
             dwBuild = (DWORD)(HIWORD(dwVersion));
 #pragma warning(pop)
-        return dwBuild < 22000;
+        return dwBuild >= 22000;
 #endif
         var = QVariant::fromValue(false);
         return  false;

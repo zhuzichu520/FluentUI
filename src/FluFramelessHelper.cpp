@@ -22,7 +22,7 @@ static inline bool isWindows11OrGreater() {
     if (dwVersion < 0x80000000)
         dwBuild = (DWORD)(HIWORD(dwVersion));
 #pragma warning(pop)
-    return dwBuild < 22000;
+    return dwBuild >= 22000;
 }
 
 
@@ -54,7 +54,7 @@ static inline bool isCompositionEnabled(){
 
 static inline void showShadow(HWND hwnd){
     if(isCompositionEnabled()){
-        const MARGINS shadow = { 1, 0, 0, 0 };
+        const MARGINS shadow = { 0, 0, 1, 0 };
         typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
         HMODULE module = LoadLibraryW(L"dwmapi.dll");
         if (module)
@@ -110,20 +110,6 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCCALCSIZE){
-        NCCALCSIZE_PARAMS* sz = reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam);
-        if(IsZoomed(hwnd)){
-            sz->rgrc[0].left += 8;
-            sz->rgrc[0].top += 8;
-            sz->rgrc[0].right -= 8;
-            sz->rgrc[0].bottom -= isTaskbarAutoHide() ? 9 : 8;
-        }else{
-            sz->rgrc[0].top += isWindows11OrGreater() ? 0 : 1;
-            if(isCompositionEnabled()){
-                sz->rgrc[0].right -= 8;
-                sz->rgrc[0].bottom -= 8;
-                sz->rgrc[0].left -= -8;
-            }
-        }
         *result = WVR_REDRAW;
         return true;
     }else if(uMsg == WM_NCPAINT){
@@ -269,9 +255,7 @@ void FluFramelessHelper::componentComplete(){
     }
     if(!window.isNull()){
 #ifdef Q_OS_WIN
-        if(!isCompositionEnabled()){
-            window->setFlag(Qt::FramelessWindowHint,true);
-        }
+        window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -282,6 +266,7 @@ void FluFramelessHelper::componentComplete(){
             SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
         }
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+        showShadow(hwnd);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif
