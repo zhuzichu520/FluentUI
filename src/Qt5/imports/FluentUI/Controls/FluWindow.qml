@@ -40,7 +40,12 @@ Window {
     property bool showStayTop: true
     property bool autoMaximize: false
     property bool useSystemAppBar
-    property color resizeBorderColor: FluTheme.dark ? Qt.rgba(80/255,80/255,80/255,1) : Qt.rgba(210/255,210/255,210/255,1)
+    property color resizeBorderColor: {
+        if(window.active){
+            return _accentColor
+        }
+        return FluTheme.dark ? "#3D3D3E" : "#A7A7A7"
+    }
     property int resizeBorderWidth: 1
     property var closeListener: function(event){
         if(closeDestory){
@@ -55,6 +60,7 @@ Window {
     signal firstVisible()
     property point _offsetXY : Qt.point(0,0)
     property var _originalPos
+    property color _accentColor : FluTheme.dark ? "#333333" : "#6E6E6E"
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -192,7 +198,7 @@ Window {
         id:layout_container
         anchors{
             fill:parent
-            topMargin: _offsetXY.x
+            topMargin: _offsetXY.y
         }
         onWidthChanged: {
             window.appBar.width = width
@@ -245,7 +251,21 @@ Window {
             border.width: window.resizeBorderWidth
             border.color: window.resizeBorderColor
             visible: {
-                if(window.useSystemAppBar){
+                if(window.useSystemAppBar || FluTools.isWindows10OrGreater()){
+                    return false
+                }
+                if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
+                    return false
+                }
+                return true
+            }
+        }
+        Rectangle{
+            height: 1
+            width: parent.width
+            color: window.resizeBorderColor
+            visible: {
+                if(window.useSystemAppBar || !FluTools.isWin()){
                     return false
                 }
                 if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){

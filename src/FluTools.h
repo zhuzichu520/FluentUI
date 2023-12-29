@@ -51,7 +51,9 @@ public:
     Q_INVOKABLE QPoint cursorPos();
     Q_INVOKABLE QIcon windowIcon();
     Q_INVOKABLE int cursorScreenIndex();
+    Q_INVOKABLE int windowBuildNumber();
     Q_INVOKABLE bool isWindows11OrGreater();
+    Q_INVOKABLE bool isWindows10OrGreater();
 };
 
 #endif // FLUTOOLS_H

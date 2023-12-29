@@ -23,6 +23,24 @@ static inline bool isTaskbarAutoHide() {
     return lParam & ABS_AUTOHIDE;
 }
 
+static inline QColor getAccentColor(){
+    typedef HRESULT (WINAPI* DwmGetColorizationColorPtr)(DWORD* pcrColorization,BOOL* pfOpaqueBlend);
+    HMODULE module = LoadLibraryW(L"dwmapi.dll");
+    if (module)
+    {
+        DwmGetColorizationColorPtr dwm_get_colorization_color;
+        dwm_get_colorization_color= reinterpret_cast<DwmGetColorizationColorPtr>(GetProcAddress(module, "DwmGetColorizationColor"));
+        DWORD color = 0;
+        BOOL bOpaque = FALSE;
+        if (dwm_get_colorization_color)
+        {
+            dwm_get_colorization_color(&color,&bOpaque);
+        }
+        return QColor(color);
+    }
+    return QColor();
+}
+
 static inline bool isCompositionEnabled(){
     typedef HRESULT (WINAPI* DwmIsCompositionEnabledPtr)(BOOL *pfEnabled);
     HMODULE module = LoadLibraryW(L"dwmapi.dll");
@@ -41,22 +59,17 @@ static inline bool isCompositionEnabled(){
 }
 
 static inline void showShadow(HWND hwnd){
-    if(isCompositionEnabled()){
-        const MARGINS shadow = { 0, 0, 1, 0 };
-        typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
-        HMODULE module = LoadLibraryW(L"dwmapi.dll");
-        if (module)
+    const MARGINS shadow = { 0, 0, 1, 0 };
+    typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
+    HMODULE module = LoadLibraryW(L"dwmapi.dll");
+    if (module)
+    {
+        DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
+        dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+        if (dwm_extendframe_into_client_area_)
         {
-            DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
-            dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-            if (dwm_extendframe_into_client_area_)
-            {
-                dwm_extendframe_into_client_area_(hwnd, &shadow);
-            }
+            dwm_extendframe_into_client_area_(hwnd, &shadow);
         }
-    }else{
-        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
-        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
     }
 }
 
@@ -108,25 +121,16 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         if(IsZoomed(hwnd)){
             _helper->setOriginalPos(QPoint(originalLeft,originalTop));
+            if(isTaskbarAutoHide()){
+                clientRect->bottom -= 1;
+            }
         }else{
             _helper->setOriginalPos({});
         }
         clientRect->top = originalTop;
         *result = WVR_REDRAW;
         return true;
-    }else if(uMsg == WM_NCPAINT){
-        if(!isCompositionEnabled()){
-            *result = WVR_REDRAW;
-            return true;
-        }
-        return false;
-    }else if(uMsg == WM_NCACTIVATE){
-        if(!isCompositionEnabled()){
-            *result = 1;
-            return true;
-        }
-        return false;
-    }else if(uMsg == WM_NCHITTEST){
+    }if(uMsg == WM_NCHITTEST){
         if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             if (*result == HTNOWHERE) {
                 *result = HTZOOM;
@@ -256,24 +260,34 @@ void FluFramelessHelper::componentComplete(){
         o = o->parent();
     }
     if(!window.isNull()){
+        _stayTop = QQmlProperty(window,"stayTop");
+        _screen = QQmlProperty(window,"screen");
+        _fixSize = QQmlProperty(window,"fixSize");
+        _originalPos = QQmlProperty(window,"_originalPos");
+        _accentColor = QQmlProperty(window,"_accentColor");
 #ifdef Q_OS_WIN
-        //        window->setFlags(window->flags() | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
-        _nativeEvent =new FramelessEventFilter(this);
-        qApp->installNativeEventFilter(_nativeEvent);
-        HWND hwnd = reinterpret_cast<HWND>(window->winId());
-        DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
-        if(resizeable()){
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+        if(isCompositionEnabled()){
+            _accentColor.write(getAccentColor());
+            _nativeEvent =new FramelessEventFilter(this);
+            qApp->installNativeEventFilter(_nativeEvent);
+            HWND hwnd = reinterpret_cast<HWND>(window->winId());
+            DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
+            if(resizeable()){
+                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+            }else{
+                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+            }
+            SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+            if(_fixSize.read().toBool()){
+                window->setMaximumSize(window->size());
+                window->setMinimumSize(window->size());
+            }
         }else{
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+            window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
         }
-        SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif
-        _stayTop = QQmlProperty(window,"stayTop");
-        _screen = QQmlProperty(window,"screen");
-        _originalPos = QQmlProperty(window,"_originalPos");
         _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
@@ -334,8 +348,10 @@ FluFramelessHelper::~FluFramelessHelper(){
     if (!window.isNull()) {
         window->setFlags(Qt::Window);
 #ifdef Q_OS_WIN
-        qApp->removeNativeEventFilter(_nativeEvent);
-        delete _nativeEvent;
+        if(isCompositionEnabled()){
+            qApp->removeNativeEventFilter(_nativeEvent);
+            delete _nativeEvent;
+        }
 #endif
         window->removeEventFilter(this);
     }
