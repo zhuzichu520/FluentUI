@@ -9,6 +9,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #导入exmaple的QML位置，不然import example有时候会爆红
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/example CACHE STRING "Qt Creator extra QML import paths" FORCE)
 
+if(APPLE)
+    set(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf")
+    set(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT[variant=Release] "dwarf")
+endif()
+
 #判断FluentUI库类型
 if(FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
