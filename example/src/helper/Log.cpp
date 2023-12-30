@@ -94,6 +94,9 @@ QString Log::prettyProductInfoWrapper()
 
 static inline void myMessageHandler(const QtMsgType type, const QMessageLogContext &context, const QString &message)
 {
+    if(message == "Could not get the INetworkConnection instance for the adapter GUID."){
+        return;
+    }
     if(logLevelMap[type]>g_logLevel){
         return;
     }
@@ -165,12 +168,13 @@ static inline void myMessageHandler(const QtMsgType type, const QMessageLogConte
     }
 }
 
-void Log::setup(const QString &app)
+void Log::setup(const QString &app,int level)
 {
     Q_ASSERT(!app.isEmpty());
     if (app.isEmpty()) {
         return;
     }
+    g_logLevel = level;
     static bool once = false;
     if (once) {
         return;

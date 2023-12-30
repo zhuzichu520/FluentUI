@@ -26,7 +26,6 @@ TextEdit {
         anchors.fill: parent
         cursorShape: Qt.IBeamCursor
         acceptedButtons: Qt.RightButton
-        visible: !readOnly
         onClicked: control.echoMode !== TextInput.Password && menu.popup()
     }
     FluTextBoxMenu{
