@@ -44,4 +44,10 @@ private:                                               \
         return Singleton<Class>::getInstance(); \
 }
 
+#define HIDE_CONSTRUCTOR(Class)         \
+private:                                \
+    Class() = default;                  \
+    Class(const Class& other) = delete; \
+    Class& operator=(const Class& other) = delete;
+
 #endif // SINGLETON_H
