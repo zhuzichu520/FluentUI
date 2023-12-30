@@ -55,6 +55,8 @@ jobs:
           
       - name: package
         run: |
+          # 先删除所有dSYM文件，减少包的体积
+          sudo find /Users/runner/work/FluentUI/Qt/6.6.1/macos/qml -name "*.dSYM" | xargs rm -r
           # 拷贝依赖
           sudo macdeployqt bin/release/${targetName}.app -qmldir=. -dmg     
           
