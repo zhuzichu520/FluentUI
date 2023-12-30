@@ -254,8 +254,14 @@ Window {
                 if(window.useSystemAppBar || FluTools.isWindows10OrGreater()){
                     return false
                 }
-                if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
-                    return false
+                if(FluTools.isMacos()){
+                    if(window.visibility == Window.FullScreen){
+                        return false
+                    }
+                }else{
+                    if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
+                        return false
+                    }
                 }
                 return true
             }
