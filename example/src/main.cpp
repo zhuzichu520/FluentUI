@@ -36,6 +36,9 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationName("FluentUI");
     SettingsHelper::getInstance()->init(argv);
     Log::setup("example");
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+#endif
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
