@@ -36,7 +36,7 @@ FluPopup {
             clip: true
             boundsBehavior:Flickable.StopAtBounds
             width: parent.width
-            height: Math.min(text_message.height,300)
+            height: message === "" ? 0 : Math.min(text_message.height,300)
             ScrollBar.vertical: FluScrollBar {}
             FluText{
                 id:text_message

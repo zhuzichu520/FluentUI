@@ -29,6 +29,43 @@ FluContentPage{
         }
     }
 
+    FluContentDialog{
+        id:custom_update_dialog
+        signal showDialog(string text,var callback)
+        property var _textBox
+        property var onAccpetListener
+        title:"修改列名"
+        negativeText:"取消"
+        contentDelegate: Component{
+            Item{
+                width: parent.width
+                height: 60
+                FluTextBox{
+                    id:textbox_text
+                    anchors.centerIn: parent
+                }
+                Connections{
+                    target: custom_update_dialog
+                    function onShowDialog(text,callback){
+                        custom_update_dialog._textBox = textbox_text
+                        custom_update_dialog.onAccpetListener = callback
+                        textbox_text.text = text
+                        textbox_text.forceActiveFocus()
+                        custom_update_dialog.open()
+                    }
+                }
+            }
+        }
+        onNegativeClicked:{
+        }
+        positiveText:"确定"
+        onPositiveClicked:{
+            if(custom_update_dialog.onAccpetListener && custom_update_dialog._textBox){
+                custom_update_dialog.onAccpetListener(custom_update_dialog._textBox.text)
+            }
+        }
+    }
+
     Component{
         id:com_checbox
         Item{
@@ -159,6 +196,34 @@ FluContentPage{
     }
 
     Component{
+        id:com_column_update_title
+        Item{
+            FluText{
+                id:text_title
+                text: {
+                    if(options.title){
+                        return options.title
+                    }
+                    return ""
+                }
+                anchors.fill: parent
+                verticalAlignment: Qt.AlignVCenter
+                horizontalAlignment: Qt.AlignHCenter
+                elide: Text.ElideRight
+            }
+            MouseArea{
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    custom_update_dialog.showDialog(options.title,function(text){
+                        itemModel.display = table_view.customItem(com_column_update_title,{"title":text})
+                    })
+                }
+            }
+        }
+    }
+
+    Component{
         id:com_column_sort_age
         Item{
             FluText{
@@ -236,7 +301,7 @@ FluContentPage{
                 maximumWidth:80,
             },
             {
-                title: '头像',
+                title: table_view.customItem(com_column_update_title,{title:'头像'}),
                 dataIndex: 'avatar',
                 width:100,
                 minimumWidth:100,
