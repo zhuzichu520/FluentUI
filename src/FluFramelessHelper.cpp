@@ -358,6 +358,16 @@ FluFramelessHelper::~FluFramelessHelper(){
         if(isCompositionEnabled()){
             qApp->removeNativeEventFilter(_nativeEvent);
             delete _nativeEvent;
+            HWND hwnd = reinterpret_cast<HWND>(window->winId());
+            SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+            int w = window->width();
+            int h = window->height();
+            if(_fixSize.read().toBool()){
+                window->setMaximumSize(QSize(w,h));
+                window->setMinimumSize(QSize(w,h));
+            }
+            window->setWidth(w);
+            window->setHeight(h);
         }
 #endif
         window->removeEventFilter(this);
