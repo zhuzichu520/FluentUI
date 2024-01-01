@@ -60,9 +60,14 @@ Window {
     property point _offsetXY : Qt.point(0,0)
     property var _originalPos
     property color _accentColor : FluTheme.dark ? "#333333" : "#6E6E6E"
+    property int _realHeight
+    property int _realWidth
+    property int _appBarHeight: appBar.height
     id:window
     color:"transparent"
     Component.onCompleted: {
+        _realHeight = height
+        _realWidth = width
         moveWindowToDesktopCenter()
         useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){

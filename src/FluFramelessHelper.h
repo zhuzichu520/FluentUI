@@ -58,6 +58,9 @@ private:
     QQmlProperty _originalPos;
     QQmlProperty _fixSize;
     QQmlProperty _accentColor;
+    QQmlProperty _realHeight;
+    QQmlProperty _realWidth;
+    QQmlProperty _appBarHeight;
 };
 
 #endif // FLUFRAMELESSHELPER_H

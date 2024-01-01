@@ -265,6 +265,9 @@ void FluFramelessHelper::componentComplete(){
         _fixSize = QQmlProperty(window,"fixSize");
         _originalPos = QQmlProperty(window,"_originalPos");
         _accentColor = QQmlProperty(window,"_accentColor");
+        _realHeight = QQmlProperty(window,"_realHeight");
+        _realWidth = QQmlProperty(window,"_realWidth");
+        _appBarHeight = QQmlProperty(window,"_appBarHeight");
 #ifdef Q_OS_WIN
         if(isCompositionEnabled()){
             _accentColor.write(getAccentColor());
@@ -278,16 +281,20 @@ void FluFramelessHelper::componentComplete(){
                 SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
             }
             SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-            if(_fixSize.read().toBool()){
-                window->setMaximumSize(window->size());
-                window->setMinimumSize(window->size());
-            }
         }else{
             window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
         }
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif
+        int w = _realWidth.read().toInt();
+        int h = _realHeight.read().toInt()+_appBarHeight.read().toInt();
+        if(_fixSize.read().toBool()){
+            window->setMaximumSize(QSize(w,h));
+            window->setMinimumSize(QSize(w,h));
+        }
+        window->setWidth(w);
+        window->setHeight(h);
         _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
