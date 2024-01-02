@@ -69,10 +69,10 @@ Window {
     Component.onCompleted: {
         _realHeight = height
         _realWidth = width
-        lifecycle.onCompleted(window)
-        initArgument(argument)
         moveWindowToDesktopCenter()
         fixWindowSize()
+        lifecycle.onCompleted(window)
+        initArgument(argument)
         useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){
             loader_frameless_helper.sourceComponent = com_frameless_helper
