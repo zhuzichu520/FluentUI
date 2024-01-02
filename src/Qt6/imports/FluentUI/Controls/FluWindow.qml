@@ -38,7 +38,7 @@ Window {
     property bool showMaximize: true
     property bool showStayTop: true
     property bool autoMaximize: false
-    property bool useSystemAppBar: FluApp.useSystemAppBar
+    property bool useSystemAppBar
     property color resizeBorderColor: {
         if(window.active){
             return _accentColor
@@ -69,9 +69,10 @@ Window {
         _realHeight = height
         _realWidth = width
         moveWindowToDesktopCenter()
-        loader_frameless_helper.sourceComponent = Qt.binding(function(){
-            return window.useSystemAppBar ? undefined : com_frameless
-        })
+        useSystemAppBar = FluApp.useSystemAppBar
+        if(!useSystemAppBar){
+            loader_frameless_helper.sourceComponent = com_frameless
+        }
         lifecycle.onCompleted(window)
         initArgument(argument)
         if(window.autoMaximize){

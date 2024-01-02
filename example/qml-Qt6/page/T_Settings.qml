@@ -67,6 +67,7 @@ FluScrollablePage{
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 FluApp.useSystemAppBar = !FluApp.useSystemAppBar
+                dialog_restart.open()
             }
         }
     }

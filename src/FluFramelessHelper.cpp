@@ -154,6 +154,11 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         return false;
     }else if(uMsg == WM_NCPAINT){
+        *result = 0;
+        return true;
+    }
+    else if(uMsg == WM_NCACTIVATE){
+        *result = DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
     }
     return false;
@@ -273,7 +278,7 @@ void FluFramelessHelper::componentComplete(){
         _appBarHeight = QQmlProperty(window,"_appBarHeight");
 #ifdef Q_OS_WIN
         if(isCompositionEnabled()){
-            window->setFlag(Qt::CustomizeWindowHint,true);
+            window->setFlags(Qt::Window|Qt::CustomizeWindowHint);
             _nativeEvent =new FramelessEventFilter(this);
             qApp->installNativeEventFilter(_nativeEvent);
             HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -284,6 +289,7 @@ void FluFramelessHelper::componentComplete(){
                 SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
             }
             SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+
         }else{
             window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
         }
@@ -361,16 +367,6 @@ FluFramelessHelper::~FluFramelessHelper(){
         if(isCompositionEnabled()){
             qApp->removeNativeEventFilter(_nativeEvent);
             delete _nativeEvent;
-            HWND hwnd = reinterpret_cast<HWND>(window->winId());
-            SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-            int w = window->width();
-            int h = window->height();
-            if(_fixSize.read().toBool()){
-                window->setMaximumSize(QSize(w,h));
-                window->setMinimumSize(QSize(w,h));
-            }
-            window->setWidth(w);
-            window->setHeight(h);
         }
 #endif
         window->removeEventFilter(this);
