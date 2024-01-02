@@ -67,10 +67,10 @@ FluScrollablePage{
                 text:"Always"
                 Layout.preferredWidth: 120
                 FluMenuItem{
-                    text:"Nerver"
+                    text:"Never"
                     onClicked: {
                         btn_close_button_visibility.text = text
-                        tab_view.closeButtonVisibility = FluTabViewType.Nerver
+                        tab_view.closeButtonVisibility = FluTabViewType.Never
                     }
                 }
                 FluMenuItem{

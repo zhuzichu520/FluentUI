@@ -80,6 +80,8 @@ Module {
         prototype: "QObject"
         exports: ["FluentUI/FluFramelessHelper 1.0"]
         exportMetaObjectRevisions: [0]
+        Signal { name: "loadCompleted" }
+        Method { name: "showSystemMenu" }
     }
     Component {
         name: "FluNavigationViewType"
@@ -186,7 +188,7 @@ Module {
         Enum {
             name: "CloseButtonVisibility"
             values: {
-                "Nerver": 0,
+                "Never": 0,
                 "Always": 1,
                 "OnHover": 2
             }
@@ -2341,11 +2343,13 @@ Module {
         Property { name: "closeClickListener"; type: "QVariant" }
         Property { name: "stayTopClickListener"; type: "QVariant" }
         Property { name: "darkClickListener"; type: "QVariant" }
+        Property { name: "systemMenuListener"; type: "QVariant" }
         Method { name: "stayTopButton"; type: "QVariant" }
         Method { name: "minimizeButton"; type: "QVariant" }
         Method { name: "maximizeButton"; type: "QVariant" }
         Method { name: "closeButton"; type: "QVariant" }
         Method { name: "darkButton"; type: "QVariant" }
+        Method { name: "maximizeButtonHover"; type: "QVariant" }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -3013,15 +3017,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_125"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_125"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_157"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_157"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_34"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_34"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_45"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_45"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -3109,21 +3113,17 @@ Module {
         Property { name: "_ext"; type: "QVariant" }
         Property { name: "_parent"; type: "QVariant" }
         Property { name: "title"; type: "string" }
-        Property { name: "order"; type: "int" }
         Property { name: "url"; type: "QVariant" }
         Property { name: "disabled"; type: "bool" }
         Property { name: "icon"; type: "int" }
         Property { name: "iconVisible"; type: "bool" }
         Property { name: "infoBadge"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "recentlyAdded"; type: "bool" }
-        Property { name: "recentlyUpdated"; type: "bool" }
-        Property { name: "desc"; type: "string" }
-        Property { name: "image"; type: "QVariant" }
         Property { name: "count"; type: "int" }
         Property { name: "onTapListener"; type: "QVariant" }
         Property { name: "iconDelegate"; type: "QQmlComponent"; isPointer: true }
         Property { name: "menuDelegate"; type: "QQmlComponent"; isPointer: true }
         Property { name: "editDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "extra"; type: "QVariant" }
         Property { name: "showEdit"; type: "bool" }
         Signal { name: "tap" }
     }
@@ -3535,13 +3535,6 @@ Module {
         Method { name: "count"; type: "QVariant" }
     }
     Component {
-        prototype: "QQmlTableModelColumn"
-        name: "FluentUI/FluTableModelColumn 1.0"
-        exports: ["FluentUI/FluTableModelColumn 1.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-    }
-    Component {
         prototype: "QQuickRectangle"
         name: "FluentUI/FluTableView 1.0"
         exports: ["FluentUI/FluTableView 1.0"]
@@ -3798,7 +3791,15 @@ Module {
         Property { name: "resizeBorderColor"; type: "QColor" }
         Property { name: "resizeBorderWidth"; type: "int" }
         Property { name: "closeListener"; type: "QVariant" }
+        Property { name: "_offsetXY"; type: "QPointF" }
+        Property { name: "_originalPos"; type: "QVariant" }
+        Property { name: "_accentColor"; type: "QColor" }
+        Property { name: "_realHeight"; type: "int" }
+        Property { name: "_realWidth"; type: "int" }
+        Property { name: "_appBarHeight"; type: "int" }
+        Property { name: "_enableMarginsBottomLeftRight"; type: "bool" }
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Signal { name: "showSystemMenu" }
         Signal {
             name: "initArgument"
             Parameter { name: "argument"; type: "QVariant" }
@@ -3846,12 +3847,14 @@ Module {
             Parameter { name: "path"; type: "QVariant" }
         }
         Method { name: "moveWindowToDesktopCenter"; type: "QVariant" }
+        Method { name: "fixWindowSize"; type: "QVariant" }
         Method {
             name: "onResult"
             type: "QVariant"
             Parameter { name: "data"; type: "QVariant" }
         }
-        Method { name: "containerItem"; type: "QVariant" }
+        Method { name: "layoutContainer"; type: "QVariant" }
+        Method { name: "layoutContent"; type: "QVariant" }
     }
     Component {
         prototype: "QQuickRow"

@@ -145,7 +145,7 @@ enum TabWidthBehavior {
 };
 Q_ENUM_NS(TabWidthBehavior)
 enum CloseButtonVisibility {
-    Nerver = 0x0000,
+    Never = 0x0000,
     Always = 0x0001,
     OnHover = 0x0002
 };

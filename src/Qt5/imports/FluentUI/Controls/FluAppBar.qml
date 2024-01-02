@@ -44,6 +44,7 @@ Rectangle{
                 d.win.visibility = Window.Windowed
             else
                 d.win.visibility = Window.Maximized
+            d.hoverMaxBtn = false
         }
     }
     property var minClickListener: function(){

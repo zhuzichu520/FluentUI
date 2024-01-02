@@ -236,7 +236,7 @@ Item {
                         width: visible ? 24 : 0
                         height: 24
                         visible: {
-                            if(closeButtonVisibility === FluTabViewType.Nerver)
+                            if(closeButtonVisibility === FluTabViewType.Never)
                                 return false
                             if(closeButtonVisibility === FluTabViewType.OnHover)
                                 return item_mouse_hove.containsMouse || item_btn_close.hovered
