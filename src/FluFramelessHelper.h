@@ -57,7 +57,6 @@ private:
     QQmlProperty _screen;
     QQmlProperty _originalPos;
     QQmlProperty _fixSize;
-    QQmlProperty _accentColor;
     QQmlProperty _realHeight;
     QQmlProperty _realWidth;
     QQmlProperty _appBarHeight;

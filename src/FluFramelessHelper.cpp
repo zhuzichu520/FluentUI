@@ -113,7 +113,9 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCCALCSIZE){
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
+        const LONG originalBottom = clientRect->bottom;
         const LONG originalLeft = clientRect->left;
+        const LONG originalRight= clientRect->right;
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
             *result = hitTestResult;
@@ -127,7 +129,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }else{
             _helper->setOriginalPos({});
         }
-        clientRect->top = originalTop;
+        clientRect->top = originalTop + 1;
         *result = WVR_REDRAW;
         return true;
     }if(uMsg == WM_NCHITTEST){
@@ -151,6 +153,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
         return false;
+    }else if(uMsg == WM_NCPAINT){
+        return true;
     }
     return false;
 #endif
@@ -264,21 +268,20 @@ void FluFramelessHelper::componentComplete(){
         _screen = QQmlProperty(window,"screen");
         _fixSize = QQmlProperty(window,"fixSize");
         _originalPos = QQmlProperty(window,"_originalPos");
-        _accentColor = QQmlProperty(window,"_accentColor");
         _realHeight = QQmlProperty(window,"_realHeight");
         _realWidth = QQmlProperty(window,"_realWidth");
         _appBarHeight = QQmlProperty(window,"_appBarHeight");
 #ifdef Q_OS_WIN
         if(isCompositionEnabled()){
-            _accentColor.write(getAccentColor());
+            window->setFlag(Qt::CustomizeWindowHint,true);
             _nativeEvent =new FramelessEventFilter(this);
             qApp->installNativeEventFilter(_nativeEvent);
             HWND hwnd = reinterpret_cast<HWND>(window->winId());
             DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
             if(resizeable()){
-                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
             }else{
-                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
             }
             SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
         }else{

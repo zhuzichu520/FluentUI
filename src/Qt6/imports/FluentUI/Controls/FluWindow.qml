@@ -86,7 +86,7 @@ Window {
     on_OriginalPosChanged: {
         if(_originalPos){
             var dx = (_originalPos.x - screen.virtualX)/screen.devicePixelRatio
-            var dy = _originalPos.y - screen.virtualY/screen.devicePixelRatio
+            var dy = (_originalPos.y - screen.virtualY)/screen.devicePixelRatio
             if(dx<0 && dy<0){
                 _offsetXY = Qt.point(Math.abs(dx),Math.abs(dy))
             }else{
@@ -265,20 +265,6 @@ Window {
                     if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
                         return false
                     }
-                }
-                return true
-            }
-        }
-        Rectangle{
-            height: 1
-            width: parent.width
-            color: window.resizeBorderColor
-            visible: {
-                if(window.useSystemAppBar || !FluTools.isWin()){
-                    return false
-                }
-                if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
-                    return false
                 }
                 return true
             }
