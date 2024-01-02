@@ -307,7 +307,7 @@ void FluFramelessHelper::componentComplete(){
 #endif
         int w = _realWidth.read().toInt();
         int h = _realHeight.read().toInt()+_appBarHeight.read().toInt();
-        if(_fixSize.read().toBool()){
+        if(!resizeable()){
             window->setMaximumSize(QSize(w,h));
             window->setMinimumSize(QSize(w,h));
         }
@@ -414,7 +414,7 @@ void FluFramelessHelper::setOriginalPos(QVariant pos){
 }
 
 bool FluFramelessHelper::resizeable(){
-    return !(window->width() == window->maximumWidth() && window->width() == window->minimumWidth() && window->height() == window->maximumHeight() && window->height() == window->minimumHeight());
+    return !_fixSize.read().toBool();
 }
 
 bool FluFramelessHelper::_maximized(){

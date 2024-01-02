@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QColor>
 #include <QtQml/qqml.h>
+#include <QQuickWindow>
 #include "singleton.h"
 
 /**
@@ -54,6 +55,7 @@ public:
     Q_INVOKABLE int windowBuildNumber();
     Q_INVOKABLE bool isWindows11OrGreater();
     Q_INVOKABLE bool isWindows10OrGreater();
+    Q_INVOKABLE int getTaskBarHeight(QQuickWindow* window);
 };
 
 #endif // FLUTOOLS_H

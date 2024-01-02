@@ -240,3 +240,7 @@ bool FluTools::isWindows10OrGreater(){
         return var.toBool();
     }
 }
+
+int FluTools::getTaskBarHeight(QQuickWindow* window){
+    return window->screen()->geometry().height() - window->screen()->availableGeometry().height();
+}

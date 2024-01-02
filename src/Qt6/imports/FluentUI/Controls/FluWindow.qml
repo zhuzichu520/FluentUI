@@ -68,14 +68,14 @@ Window {
     Component.onCompleted: {
         _realHeight = height
         _realWidth = width
+        lifecycle.onCompleted(window)
+        initArgument(argument)
         moveWindowToDesktopCenter()
         fixWindowSize()
         useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){
-            loader_frameless_helper.sourceComponent = com_frameless
+            loader_frameless_helper.sourceComponent = com_frameless_helper
         }
-        lifecycle.onCompleted(window)
-        initArgument(argument)
         if(window.autoMaximize){
             window.showMaximized()
         }else{
@@ -119,7 +119,7 @@ Window {
         function onClosing(event){closeListener(event)}
     }
     Component{
-        id:com_frameless
+        id:com_frameless_helper
         FluFramelessHelper{
             onLoadCompleted:{
                 window.moveWindowToDesktopCenter()
@@ -304,7 +304,8 @@ Window {
     }
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]
-        window.setGeometry((Screen.width-window.width)/2+Screen.virtualX,(Screen.height-window.height)/2+Screen.virtualY,window.width,window.height)
+        var taskBarHeight = FluTools.getTaskBarHeight(window)
+        window.setGeometry((Screen.width-window.width)/2+Screen.virtualX,(Screen.height-window.height-taskBarHeight)/2+Screen.virtualY,window.width,window.height)
     }
     function fixWindowSize(){
         if(fixSize){
