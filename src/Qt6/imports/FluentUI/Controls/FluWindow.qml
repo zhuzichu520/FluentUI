@@ -69,6 +69,7 @@ Window {
         _realHeight = height
         _realWidth = width
         moveWindowToDesktopCenter()
+        fixWindowSize()
         useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){
             loader_frameless_helper.sourceComponent = com_frameless
@@ -119,7 +120,11 @@ Window {
     }
     Component{
         id:com_frameless
-        FluFramelessHelper{}
+        FluFramelessHelper{
+            onLoadCompleted:{
+                window.moveWindowToDesktopCenter()
+            }
+        }
     }
     Component{
         id:com_background
@@ -300,11 +305,13 @@ Window {
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]
         window.setGeometry((Screen.width-window.width)/2+Screen.virtualX,(Screen.height-window.height)/2+Screen.virtualY,window.width,window.height)
+    }
+    function fixWindowSize(){
         if(fixSize){
-            maximumWidth =  width
-            maximumHeight =  height
-            minimumWidth = width
-            minimumHeight = height
+            window.maximumWidth =  window.width
+            window.maximumHeight =  window.height
+            window.minimumWidth = window.width
+            window.minimumHeight = window.height
         }
     }
     function onResult(data){

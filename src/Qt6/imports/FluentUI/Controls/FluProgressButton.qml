@@ -9,7 +9,7 @@ Button {
     property string contentDescription: ""
     QtObject{
         id:d
-        property bool checked: rect_back.height == background.height
+        property bool checked: (rect_back.height === background.height) && (progress === 1)
     }
     property color normalColor: {
         if(d.checked){

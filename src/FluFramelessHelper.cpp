@@ -1,11 +1,13 @@
 #include "FluFramelessHelper.h"
 
 #include <QGuiApplication>
+#include <QScreen>
 #include "FluTools.h"
 #ifdef Q_OS_WIN
 #pragma comment (lib,"user32.lib")
 #pragma comment (lib,"dwmapi.lib")
 #include <windows.h>
+#include <windowsx.h>
 #include <dwmapi.h>
 
 static inline QByteArray qtNativeEventType()
@@ -87,7 +89,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }
     const auto msg = static_cast<const MSG *>(message);
     const HWND hwnd = msg->hwnd;
-    if (!hwnd) {
+    if (!hwnd || !msg) {
         return false;
     }
     const qint64 wid = reinterpret_cast<qint64>(hwnd);
@@ -95,10 +97,6 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         return false;
     }
     const UINT uMsg = msg->message;
-    if (!msg || !hwnd)
-    {
-        return false;
-    }
     const WPARAM wParam = msg->wParam;
     const LPARAM lParam = msg->lParam;
     if(uMsg == WM_WINDOWPOSCHANGING){
@@ -113,23 +111,29 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCCALCSIZE){
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
-        const LONG originalBottom = clientRect->bottom;
         const LONG originalLeft = clientRect->left;
-        const LONG originalRight= clientRect->right;
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
             *result = hitTestResult;
             return true;
         }
-        if(IsZoomed(hwnd)){
+        int offsetTop = 0;
+        bool isMax = IsZoomed(hwnd);
+        if(isMax){
             _helper->setOriginalPos(QPoint(originalLeft,originalTop));
             if(isTaskbarAutoHide()){
                 clientRect->bottom -= 1;
             }
+            offsetTop = 0;
         }else{
             _helper->setOriginalPos({});
+            if(FluTools::getInstance()->isWindows11OrGreater()){
+                offsetTop = 0;
+            }else{
+                offsetTop = 1;
+            }
         }
-        clientRect->top = originalTop + 1;
+        clientRect->top = originalTop+offsetTop;
         *result = WVR_REDRAW;
         return true;
     }if(uMsg == WM_NCHITTEST){
@@ -156,10 +160,15 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCPAINT){
         *result = 0;
         return true;
-    }
-    else if(uMsg == WM_NCACTIVATE){
+    }else if(uMsg == WM_NCACTIVATE){
         *result = DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
+    }else if(uMsg == WM_SYSCOMMAND){
+        const WPARAM filteredWParam = (wParam & 0xFFF0);
+        if (filteredWParam == SC_MAXIMIZE) {
+            _helper->window->showMaximized();
+            return true;
+        }
     }
     return false;
 #endif
@@ -278,7 +287,7 @@ void FluFramelessHelper::componentComplete(){
         _appBarHeight = QQmlProperty(window,"_appBarHeight");
 #ifdef Q_OS_WIN
         if(isCompositionEnabled()){
-            window->setFlags(Qt::Window|Qt::CustomizeWindowHint);
+            window->setFlag(Qt::CustomizeWindowHint,true);
             _nativeEvent =new FramelessEventFilter(this);
             qApp->installNativeEventFilter(_nativeEvent);
             HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -308,6 +317,7 @@ void FluFramelessHelper::componentComplete(){
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
         window->installEventFilter(this);
+        Q_EMIT loadCompleted();
     }
 }
 
@@ -324,7 +334,7 @@ void FluFramelessHelper::showSystemMenu(){
     QPoint point = QCursor::pos();
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
     DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
-    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX);
+    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_SYSMENU);
     const HMENU hMenu = ::GetSystemMenu(hwnd, FALSE);
     DeleteMenu(hMenu, SC_MOVE, MF_BYCOMMAND);
     DeleteMenu(hMenu, SC_SIZE, MF_BYCOMMAND);
@@ -342,7 +352,7 @@ void FluFramelessHelper::showSystemMenu(){
     if (result != FALSE) {
         PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
     }
-    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION &~ WS_SYSMENU);
+    SetWindowLongPtr(hwnd, GWL_STYLE, style &~ WS_SYSMENU);
 #endif
 }
 

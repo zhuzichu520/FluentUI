@@ -41,6 +41,7 @@ public:
     QObject* maximizeButton();
     void setOriginalPos(QVariant pos);
     Q_INVOKABLE void showSystemMenu();
+    Q_SIGNAL void loadCompleted();
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 private:
