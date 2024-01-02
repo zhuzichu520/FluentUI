@@ -64,6 +64,7 @@ Window {
     property int _realHeight
     property int _realWidth
     property int _appBarHeight: appBar.height
+    property bool _enableMarginsBottomLeftRight: false
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -209,6 +210,9 @@ Window {
         anchors{
             fill:parent
             topMargin: _offsetXY.y
+            bottomMargin: _enableMarginsBottomLeftRight ? _offsetXY.y : 0
+            leftMargin: _enableMarginsBottomLeftRight ? _offsetXY.x : 0
+            rightMargin: _enableMarginsBottomLeftRight ? _offsetXY.x : 0
         }
         onWidthChanged: {
             window.appBar.width = width

@@ -57,21 +57,26 @@ static inline bool isCompositionEnabled(){
         }
         return composition_enabled;
     }
-    return false;
+    return true;
 }
 
 static inline void showShadow(HWND hwnd){
-    const MARGINS shadow = { 0, 0, 1, 0 };
-    typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
-    HMODULE module = LoadLibraryW(L"dwmapi.dll");
-    if (module)
-    {
-        DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
-        dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-        if (dwm_extendframe_into_client_area_)
+    if(isCompositionEnabled()){
+        const MARGINS shadow = { 0, 0, 1, 0 };
+        typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
+        HMODULE module = LoadLibraryW(L"dwmapi.dll");
+        if (module)
         {
-            dwm_extendframe_into_client_area_(hwnd, &shadow);
+            DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
+            dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+            if (dwm_extendframe_into_client_area_)
+            {
+                dwm_extendframe_into_client_area_(hwnd, &shadow);
+            }
         }
+    }else{
+        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
+        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
     }
 }
 
@@ -111,7 +116,9 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCCALCSIZE){
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
+        const LONG originalBottom = clientRect->bottom;
         const LONG originalLeft = clientRect->left;
+        const LONG originalRight = clientRect->right;
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
             *result = hitTestResult;
@@ -133,7 +140,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
                 offsetTop = 1;
             }
         }
-        clientRect->top = originalTop+offsetTop;
+        if(isCompositionEnabled()){
+            clientRect->top = originalTop+offsetTop;
+        }else{
+            clientRect->top = originalTop;
+            clientRect->bottom = originalBottom;
+            clientRect->left = originalLeft;
+            clientRect->right = originalRight;
+        }
         *result = WVR_REDRAW;
         return true;
     }if(uMsg == WM_NCHITTEST){
@@ -157,8 +171,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
         return false;
-    }else if(uMsg == WM_NCPAINT){
-        *result = 0;
+    }else if(uMsg == WM_NCPAINT || uMsg == 0x00AE || uMsg == 0x00AF){
+        *result = FALSE;
         return true;
     }else if(uMsg == WM_NCACTIVATE){
         *result = DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
@@ -285,23 +299,21 @@ void FluFramelessHelper::componentComplete(){
         _realHeight = QQmlProperty(window,"_realHeight");
         _realWidth = QQmlProperty(window,"_realWidth");
         _appBarHeight = QQmlProperty(window,"_appBarHeight");
+        _enableMarginsBottomLeftRight = QQmlProperty(window,"_enableMarginsBottomLeftRight");
 #ifdef Q_OS_WIN
-        if(isCompositionEnabled()){
-            window->setFlag(Qt::CustomizeWindowHint,true);
-            _nativeEvent =new FramelessEventFilter(this);
-            qApp->installNativeEventFilter(_nativeEvent);
-            HWND hwnd = reinterpret_cast<HWND>(window->winId());
-            DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
-            if(resizeable()){
-                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
-            }else{
-                SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
-            }
-            SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-
+        _enableMarginsBottomLeftRight.write(!isCompositionEnabled());
+        window->setFlag(Qt::CustomizeWindowHint,true);
+        _nativeEvent =new FramelessEventFilter(this);
+        qApp->installNativeEventFilter(_nativeEvent);
+        HWND hwnd = reinterpret_cast<HWND>(window->winId());
+        DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
+        if(resizeable()){
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
         }else{
-            window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         }
+        SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+        showShadow(hwnd);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif
@@ -374,10 +386,8 @@ FluFramelessHelper::~FluFramelessHelper(){
     if (!window.isNull()) {
         window->setFlags(Qt::Window);
 #ifdef Q_OS_WIN
-        if(isCompositionEnabled()){
-            qApp->removeNativeEventFilter(_nativeEvent);
-            delete _nativeEvent;
-        }
+        qApp->removeNativeEventFilter(_nativeEvent);
+        delete _nativeEvent;
 #endif
         window->removeEventFilter(this);
     }
