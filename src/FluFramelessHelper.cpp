@@ -140,14 +140,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
                 offsetTop = 1;
             }
         }
-        if(isCompositionEnabled()){
-            clientRect->top = originalTop+offsetTop;
-        }else{
-            clientRect->top = originalTop;
-            clientRect->bottom = originalBottom;
-            clientRect->left = originalLeft;
-            clientRect->right = originalRight;
-        }
+        clientRect->top = originalTop+offsetTop;
+        clientRect->bottom = originalBottom-offsetTop;
         *result = WVR_REDRAW;
         return true;
     }if(uMsg == WM_NCHITTEST){
@@ -299,18 +293,16 @@ void FluFramelessHelper::componentComplete(){
         _realHeight = QQmlProperty(window,"_realHeight");
         _realWidth = QQmlProperty(window,"_realWidth");
         _appBarHeight = QQmlProperty(window,"_appBarHeight");
-        _enableMarginsBottomLeftRight = QQmlProperty(window,"_enableMarginsBottomLeftRight");
 #ifdef Q_OS_WIN
-        _enableMarginsBottomLeftRight.write(!isCompositionEnabled());
         window->setFlag(Qt::CustomizeWindowHint,true);
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
         DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
         if(resizeable()){
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_BORDER);
         }else{
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_BORDER);
         }
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
         showShadow(hwnd);
