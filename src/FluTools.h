@@ -19,7 +19,7 @@ class FluTools : public QObject
 private:
     explicit FluTools(QObject *parent = nullptr);
 public:
-    SINGLETONG(FluTools)
+    SINGLETON(FluTools)
     static FluTools *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE int qtMajor();
     Q_INVOKABLE int qtMinor();

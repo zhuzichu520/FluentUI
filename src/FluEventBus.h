@@ -23,7 +23,7 @@ class FluEventBus : public QObject
 private:
     explicit FluEventBus(QObject *parent = nullptr);
 public:
-    SINGLETONG(FluEventBus)
+    SINGLETON(FluEventBus)
     static FluEventBus *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE void registerEvent(FluEvent* event);
     Q_INVOKABLE void unRegisterEvent(FluEvent* event);

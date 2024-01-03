@@ -23,7 +23,7 @@ public:
 private:
     explicit FluTextStyle(QObject *parent = nullptr);
 public:
-    SINGLETONG(FluTextStyle)
+    SINGLETON(FluTextStyle)
     static FluTextStyle *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
 };
 

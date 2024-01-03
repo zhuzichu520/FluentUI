@@ -29,7 +29,7 @@ private:
     explicit FluApp(QObject *parent = nullptr);
     ~FluApp();
 public:
-    SINGLETONG(FluApp)
+    SINGLETON(FluApp)
     static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE void run();
     Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluRegister* fluRegister = nullptr);

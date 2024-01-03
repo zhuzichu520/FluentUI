@@ -13,7 +13,7 @@ class AppInfo : public QObject
 private:
     explicit AppInfo(QObject *parent = nullptr);
 public:
-    SINGLETONG(AppInfo)
+    SINGLETON(AppInfo)
 };
 
 #endif // APPINFO_H
