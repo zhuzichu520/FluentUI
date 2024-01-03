@@ -8,6 +8,7 @@
 #include <QProcess>
 #include <QtQml/qqmlextensionplugin.h>
 #include <QLoggingCategory>
+#include "Version.h"
 #include "AppInfo.h"
 #include "helper/Log.h"
 #include "src/component/CircularReveal.h"
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
+    QGuiApplication::setApplicationVersion(APPLICATION_VERSION);
     SettingsHelper::getInstance()->init(argv);
     Log::setup("example");
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
