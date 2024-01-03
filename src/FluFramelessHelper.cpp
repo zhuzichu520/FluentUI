@@ -116,9 +116,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCCALCSIZE){
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
-        const LONG originalBottom = clientRect->bottom;
         const LONG originalLeft = clientRect->left;
-        const LONG originalRight = clientRect->right;
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
             *result = hitTestResult;
@@ -141,7 +139,6 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             }
         }
         clientRect->top = originalTop+offsetTop;
-        clientRect->bottom = originalBottom-offsetTop;
         *result = WVR_REDRAW;
         return true;
     }if(uMsg == WM_NCHITTEST){
@@ -300,9 +297,9 @@ void FluFramelessHelper::componentComplete(){
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
         DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
         if(resizeable()){
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_BORDER);
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
         }else{
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_BORDER);
+            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         }
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
         showShadow(hwnd);
