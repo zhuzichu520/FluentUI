@@ -26,6 +26,9 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 int main(int argc, char *argv[])
 {
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
+#ifdef Q_OS_WIN
+    qputenv("QT_QPA_PLATFORM","windows:darkmode=2");
+#endif
 #ifdef Q_OS_LINUX
     //fix bug UOSv20 does not print logs
     qputenv("QT_LOGGING_RULES","");
@@ -35,6 +38,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
+    QGuiApplication::setApplicationDisplayName("FluentUI Exmaple");
     QGuiApplication::setApplicationVersion(APPLICATION_VERSION);
     SettingsHelper::getInstance()->init(argv);
     Log::setup("example");

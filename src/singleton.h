@@ -23,12 +23,11 @@ T* Singleton<T>::getInstance() {
     return instance;
 }
 
-#define SINGLETON(Class)                              \
-private:                                               \
+#define SINGLETON(Class)                        \
+private:                                        \
     friend class Singleton<Class>;              \
-                                                       \
-    public:                                                \
-    static Class* getInstance() {                      \
+    public:                                     \
+    static Class* getInstance() {               \
         return Singleton<Class>::getInstance(); \
 }
 
