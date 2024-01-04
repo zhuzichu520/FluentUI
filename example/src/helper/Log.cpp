@@ -92,7 +92,7 @@ QString Log::prettyProductInfoWrapper()
     return productName;
 }
 
-static inline void myMessageHandler(const QtMsgType type, const QMessageLogContext &context, const QString &message)
+static inline void messageHandler(const QtMsgType type, const QMessageLogContext &context, const QString &message)
 {
     if(message == "Could not get the INetworkConnection instance for the adapter GUID."){
         return;
@@ -188,7 +188,7 @@ void Log::setup(const QString &app,int level)
         logDir.mkpath(logDirPath);
     }
     g_file_path = logDir.filePath(logFileName);
-    qInstallMessageHandler(myMessageHandler);
+    qInstallMessageHandler(messageHandler);
     qInfo()<<"===================================================";
     qInfo()<<"[AppName]"<<g_app;
     qInfo()<<"[AppVersion]"<<APPLICATION_VERSION;

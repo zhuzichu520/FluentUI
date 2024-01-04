@@ -466,6 +466,13 @@ FluObject{
             url:"qrc:/example/qml/page/T_3D.qml"
             onTap:{ navigationView.push(url) }
         }
+        FluPaneItem{
+            title:"Test Crash"
+            visible: FluTools.isWin()
+            onTapListener: function(){
+                AppInfo.testCrash()
+            }
+        }
     }
 
     function getRecentlyAddedData(){

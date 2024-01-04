@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(example VERSION 1.0)
+project(example VERSION 1.0 LANGUAGES CXX)
 
 #配置通用编译
 set(CMAKE_CXX_STANDARD 17)
@@ -49,6 +49,10 @@ foreach(filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND sources_files ${filename})
 endforeach(filepath)
+
+if(WIN32)
+    list(APPEND sources_files "src/app_dmp.h")
+endif()
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #遍历所有qml文件

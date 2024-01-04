@@ -196,5 +196,7 @@
         <file>qml/chart/T_ScatterChart.qml</file>
         <file>qml/chart/T_BubbleChart.qml</file>
         <file>qml/chart/T_PolarAreaChart.qml</file>
+        <file>res/image/ic_crash.png</file>
+        <file>qml/window/CrashWindow.qml</file>
     </qresource>
 </RCC>

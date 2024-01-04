@@ -7,6 +7,7 @@ QtObject {
     property int _idx
     property var _ext
     property var _parent
+    property bool visible: true
     property string title
     property var url
     property bool disabled: false

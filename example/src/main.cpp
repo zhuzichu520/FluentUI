@@ -23,12 +23,17 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 #include <FluentUI.h>
 #endif
 
+#ifdef WIN32
+#include "app_dmp.h"
+#endif
+
 int main(int argc, char *argv[])
 {
-    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
-#ifdef Q_OS_WIN
+#ifdef WIN32
+    ::SetUnhandledExceptionFilter(MyUnhandledExceptionFilter);
     qputenv("QT_QPA_PLATFORM","windows:darkmode=2");
 #endif
+    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
 #ifdef Q_OS_LINUX
     //fix bug UOSv20 does not print logs
     qputenv("QT_LOGGING_RULES","");

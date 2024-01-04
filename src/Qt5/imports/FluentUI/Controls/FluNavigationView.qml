@@ -41,15 +41,22 @@ Item {
         function handleItems(){
             var _idx = 0
             var data = []
+            var comEmpty = Qt.createComponent("FluPaneItemEmpty.qml");
             if(items){
                 for(var i=0;i<items.children.length;i++){
                     var item = items.children[i]
+                    if(item.visible !== true){
+                        continue
+                    }
                     item._idx = _idx
                     data.push(item)
                     _idx++
                     if(item instanceof FluPaneItemExpander){
                         for(var j=0;j<item.children.length;j++){
                             var itemChild = item.children[j]
+                            if(itemChild.visible !== true){
+                                continue
+                            }
                             itemChild._parent = item
                             itemChild._idx = _idx
                             data.push(itemChild)
@@ -58,19 +65,32 @@ Item {
                     }
                 }
                 if(footerItems){
-                    var comEmpty = Qt.createComponent("FluPaneItemEmpty.qml");
                     for(var k=0;k<footerItems.children.length;k++){
                         var itemFooter = footerItems.children[k]
-                        if (comEmpty.status === Component.Ready) {
-                            var objEmpty = comEmpty.createObject(items,{_idx:_idx});
-                            itemFooter._idx = _idx;
-                            data.push(objEmpty)
-                            _idx++
+                        if(itemFooter.visible !== true){
+                            continue
                         }
+                        var objEmpty = comEmpty.createObject(items,{_idx:_idx});
+                        itemFooter._idx = _idx;
+                        data.push(objEmpty)
+                        _idx++
                     }
                 }
             }
             return data
+        }
+        function handleFooterItems(){
+            var data = []
+            if(footerItems){
+                for(var i=0;i<footerItems.children.length;i++){
+                    var item = footerItems.children[i]
+                    if(item.visible !== true){
+                        continue
+                    }
+                    data.push(item)
+                }
+            }
+            return data;
         }
     }
     Component.onCompleted: {
@@ -257,6 +277,9 @@ Item {
                             }
                             for(var i=0;i<model.children.length;i++){
                                 var item = model.children[i]
+                                if(item.visible !== true){
+                                    continue
+                                }
                                 if(item._idx === nav_list.currentIndex && !model.isExpand){
                                     return true
                                 }
@@ -1039,11 +1062,7 @@ Item {
             interactive: false
             boundsBehavior: ListView.StopAtBounds
             currentIndex: -1
-            model: {
-                if(footerItems){
-                    return footerItems.children
-                }
-            }
+            model: d.handleFooterItems()
             highlightMoveDuration: 150
             highlight: Item{
                 clip: true

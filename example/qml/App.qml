@@ -36,12 +36,17 @@ Item {
             "/about":"qrc:/example/qml/window/AboutWindow.qml",
             "/login":"qrc:/example/qml/window/LoginWindow.qml",
             "/hotload":"qrc:/example/qml/window/HotloadWindow.qml",
+            "/crash":"qrc:/example/qml/window/CrashWindow.qml",
             "/singleTaskWindow":"qrc:/example/qml/window/SingleTaskWindow.qml",
             "/standardWindow":"qrc:/example/qml/window/StandardWindow.qml",
             "/singleInstanceWindow":"qrc:/example/qml/window/SingleInstanceWindow.qml",
             "/pageWindow":"qrc:/example/qml/window/PageWindow.qml"
         }
-        FluApp.initialRoute = "/"
-        FluApp.run()
+        var args = Qt.application.arguments
+        if(args.length>=2 && args[1].startsWith("-crashed=")){
+            FluApp.navigate("/crash",{crashFilePath:args[1].replace("-crashed=","")})
+        }else{
+            FluApp.navigate("/")
+        }
     }
 }
