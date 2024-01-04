@@ -51,7 +51,7 @@ class FluColors : public QObject
 private:
     explicit FluColors(QObject *parent = nullptr);
 public:
-    SINGLETONG(FluColors)
+    SINGLETON(FluColors)
     static FluColors *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
 };
 

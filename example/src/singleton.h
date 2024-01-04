@@ -34,7 +34,7 @@ T* Singleton<T>::getInstance() {
     return instance;
 }
 
-#define SINGLETONG(Class)                              \
+#define SINGLETON(Class)                              \
 private:                                               \
     friend class Singleton<Class>;              \
     friend struct QScopedPointerDeleter<Class>;        \

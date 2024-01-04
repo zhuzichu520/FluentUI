@@ -2,42 +2,30 @@
 #define SINGLETON_H
 
 #include <QMutex>
-#include <QScopedPointer>
-#include <memory>
-#include <mutex>
 
 template <typename T>
 class Singleton {
 public:
     static T* getInstance();
 
-    Singleton(const Singleton& other) = delete;
-    Singleton<T>& operator=(const Singleton& other) = delete;
-
 private:
-    static std::mutex mutex;
-    static T* instance;
+    Q_DISABLE_COPY_MOVE(Singleton)
 };
 
 template <typename T>
-std::mutex Singleton<T>::mutex;
-template <typename T>
-T* Singleton<T>::instance;
-template <typename T>
 T* Singleton<T>::getInstance() {
+    static QMutex mutex;
+    QMutexLocker locker(&mutex);
+    static T* instance = nullptr;
     if (instance == nullptr) {
-        std::lock_guard<std::mutex> locker(mutex);
-        if (instance == nullptr) {
-            instance = new T();
-        }
+        instance = new T();
     }
     return instance;
 }
 
-#define SINGLETONG(Class)                              \
+#define SINGLETON(Class)                              \
 private:                                               \
     friend class Singleton<Class>;              \
-    friend struct QScopedPointerDeleter<Class>;        \
                                                        \
     public:                                                \
     static Class* getInstance() {                      \
@@ -48,6 +36,6 @@ private:                                               \
 private:                                \
     Class() = default;                  \
     Class(const Class& other) = delete; \
-    Class& operator=(const Class& other) = delete;
+    Q_DISABLE_COPY_MOVE(Class);
 
 #endif // SINGLETON_H

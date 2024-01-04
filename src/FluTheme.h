@@ -40,7 +40,7 @@ private:
     bool systemDark();
     void refreshColors();
 public:
-    SINGLETONG(FluTheme)
+    SINGLETON(FluTheme)
     Q_INVOKABLE QJsonArray awesomeList(const QString& keyword = "");
     Q_SIGNAL void darkChanged();
     static FluTheme *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}

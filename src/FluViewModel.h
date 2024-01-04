@@ -53,7 +53,7 @@ class ViewModelManager:public QObject{
 private:
     explicit ViewModelManager(QObject *parent = nullptr);
 public:
-    SINGLETONG(ViewModelManager)
+    SINGLETON(ViewModelManager)
     bool exist(const QString& key);
     void insert(const QString& key,QObject* value);
     QObject* getModel(const QString& key);

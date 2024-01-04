@@ -16,7 +16,7 @@ class SettingsHelper : public QObject
 private:
     explicit SettingsHelper(QObject* parent = nullptr);
 public:
-    SINGLETONG(SettingsHelper)
+    SINGLETON(SettingsHelper)
     ~SettingsHelper() override;
     void init(char *argv[]);
     Q_INVOKABLE void saveDarkMode(int darkModel){save("darkMode",darkModel);}

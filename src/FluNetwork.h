@@ -104,7 +104,7 @@ class FluNetwork : public QObject
 private:
     explicit FluNetwork(QObject *parent = nullptr);
 public:
-    SINGLETONG(FluNetwork)
+    SINGLETON(FluNetwork)
     static FluNetwork *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE NetworkParams* get(const QString& url);
     Q_INVOKABLE NetworkParams* head(const QString& url);
