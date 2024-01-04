@@ -51,8 +51,7 @@ BOOL CALLBACK MyMiniDumpCallback(PVOID, const PMINIDUMP_CALLBACK_INPUT input, PM
 }
 
 void WriteDump(EXCEPTION_POINTERS* exp, const std::wstring& path) {
-    HANDLE h = ::CreateFileW(path.c_str(), GENERIC_WRITE | GENERIC_READ, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, CREATE_ALWAYS,
-                             FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE h = ::CreateFileW(path.c_str(), GENERIC_WRITE | GENERIC_READ, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     MINIDUMP_EXCEPTION_INFORMATION info;
     info.ThreadId = ::GetCurrentThreadId();
     info.ExceptionPointers = exp;
