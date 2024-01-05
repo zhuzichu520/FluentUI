@@ -16,15 +16,6 @@ static inline QByteArray qtNativeEventType()
     return result;
 }
 
-static inline bool isTaskbarAutoHide() {
-    APPBARDATA appBarData;
-    memset(&appBarData, 0, sizeof(appBarData));
-    appBarData.cbSize = sizeof(appBarData);
-    appBarData.hWnd = FindWindowW(L"Shell_TrayWnd", NULL);
-    LPARAM lParam = SHAppBarMessage(ABM_GETSTATE, &appBarData);
-    return lParam & ABS_AUTOHIDE;
-}
-
 static inline QColor getAccentColor(){
     typedef HRESULT (WINAPI* DwmGetColorizationColorPtr)(DWORD* pcrColorization,BOOL* pfOpaqueBlend);
     HMODULE module = LoadLibraryW(L"dwmapi.dll");
@@ -126,9 +117,6 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         bool isMax = IsZoomed(hwnd);
         if(isMax){
             _helper->setOriginalPos(QPoint(originalLeft,originalTop));
-            if(isTaskbarAutoHide()){
-                clientRect->bottom -= 1;
-            }
             offsetTop = 0;
         }else{
             _helper->setOriginalPos({});
@@ -148,7 +136,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             }
             return true;
         }
-        return false;
+        *result = HTCLIENT;
+        return true;
     }else if(uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN){
         if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);

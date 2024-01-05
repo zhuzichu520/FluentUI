@@ -162,7 +162,7 @@ QString NetworkParams::buildCacheKey(){
 
 void NetworkParams::go(NetworkCallable* callable){
     QJSValueList data;
-    data<<qjsEngine(FluNetwork::getInstance())->newQObject(this);
+    data<<qjsEngine(callable)->newQObject(this);
     FluNetwork::getInstance()->_interceptor.call(data);
     if(_downloadParam){
         FluNetwork::getInstance()->handleDownload(this,callable);
