@@ -364,6 +364,18 @@ void FluNetwork::handleDownload(NetworkParams* params,NetworkCallable* c){
             }
         });
         loop.exec();
+        int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        if(httpStatus == 200){
+            if(!callable.isNull()){
+                callable->success(destPath);
+            }
+            printRequestEndLog(request,params,reply,destPath);
+        }else{
+            if(!callable.isNull()){
+                callable->error(httpStatus,reply->errorString(),destPath);
+            }
+            printRequestEndLog(request,params,reply,destPath);
+        }
         if(conn_destoryed){
             disconnect(conn_destoryed);
         }

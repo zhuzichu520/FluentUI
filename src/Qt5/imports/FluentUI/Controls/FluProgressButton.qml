@@ -70,7 +70,7 @@ Button {
             color: FluTheme.primaryColor
             anchors.bottom: parent.bottom
             Behavior on height{
-                enabled: control.progress === 1
+                enabled: control.progress !== 0
                 SequentialAnimation {
                     PauseAnimation {
                         duration: FluTheme.enableAnimation ? 167 : 0
