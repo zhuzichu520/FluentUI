@@ -99,12 +99,12 @@ FluTextBox{
         loadData()
         if(d.flagVisible){
             var pos = control.mapToItem(null, 0, 0)
-            if(d.window.height>pos.y+control.height+container.height){
+            if(window.height>pos.y+control.height+container.implicitHeight){
                 control_popup.y = control.height
-            } else if(pos.y>container.height){
-                control_popup.y = -container.height
+            } else if(pos.y>container.implicitHeight){
+                control_popup.y = -container.implicitHeight
             } else {
-                popup.y = d.window.height-(pos.y+container.height)
+                control_popup.y = window.height-(pos.y+container.implicitHeight)
             }
             control_popup.visible = true
         }
