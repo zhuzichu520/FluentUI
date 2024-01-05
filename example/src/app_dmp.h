@@ -12,6 +12,20 @@
 
 #pragma comment(lib, "Dbghelp.lib")
 
+static void miniDumpWriteDump(HANDLE hProcess,DWORD ProcessId,HANDLE hFile,MINIDUMP_TYPE DumpType,CONST PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,CONST PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,CONST PMINIDUMP_CALLBACK_INFORMATION CallbackParam){
+    typedef HRESULT (WINAPI* MiniDumpWriteDumpPtr)(HANDLE hProcess,DWORD ProcessId,HANDLE hFile,MINIDUMP_TYPE DumpType,CONST PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,CONST PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,CONST PMINIDUMP_CALLBACK_INFORMATION CallbackParam);
+    HMODULE module = LoadLibraryW(L"Dbghelp.dll");
+    if (module)
+    {
+        MiniDumpWriteDumpPtr mini_dump_write_dump;
+        mini_dump_write_dump= reinterpret_cast<MiniDumpWriteDumpPtr>(GetProcAddress(module, "MiniDumpWriteDump"));
+        if (mini_dump_write_dump)
+        {
+            mini_dump_write_dump(hProcess,ProcessId,hFile,DumpType,ExceptionParam,UserStreamParam,CallbackParam);
+        }
+    }
+}
+
 BOOL CALLBACK MyMiniDumpCallback(PVOID, const PMINIDUMP_CALLBACK_INPUT input, PMINIDUMP_CALLBACK_OUTPUT output) {
     if (input == NULL || output == NULL)
         return FALSE;
@@ -37,17 +51,16 @@ BOOL CALLBACK MyMiniDumpCallback(PVOID, const PMINIDUMP_CALLBACK_INPUT input, PM
 }
 
 void WriteDump(EXCEPTION_POINTERS* exp, const std::wstring& path) {
-    HANDLE h = ::CreateFileW(path.c_str(), GENERIC_WRITE | GENERIC_READ, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, CREATE_ALWAYS,
-                            FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE h = ::CreateFileW(path.c_str(), GENERIC_WRITE | GENERIC_READ, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     MINIDUMP_EXCEPTION_INFORMATION info;
     info.ThreadId = ::GetCurrentThreadId();
     info.ExceptionPointers = exp;
-    info.ClientPointers = NULL;
+    info.ClientPointers = FALSE;
     MINIDUMP_CALLBACK_INFORMATION mci;
     mci.CallbackRoutine = (MINIDUMP_CALLBACK_ROUTINE)MyMiniDumpCallback;
     mci.CallbackParam = 0;
     MINIDUMP_TYPE mdt = (MINIDUMP_TYPE)(MiniDumpWithIndirectlyReferencedMemory | MiniDumpScanMemory);
-    MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), h, mdt, &info, NULL, &mci);
+    miniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), h, mdt, &info, NULL, &mci);
     ::CloseHandle(h);
 }
 
