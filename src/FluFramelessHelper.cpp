@@ -95,12 +95,13 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     const UINT uMsg = msg->message;
     const WPARAM wParam = msg->wParam;
     const LPARAM lParam = msg->lParam;
+    static QPoint offsetXY;
     if(uMsg == WM_WINDOWPOSCHANGING){
         WINDOWPOS* wp = reinterpret_cast<WINDOWPOS*>(lParam);
         if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0)
         {
             wp->flags |= SWP_NOCOPYBITS;
-            *result = DefWindowProc(hwnd, uMsg, wParam, lParam);
+            *result = DefWindowProcW(hwnd, uMsg, wParam, lParam);
             return true;
         }
         return false;
@@ -115,6 +116,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         int offsetTop = 0;
         bool isMax = IsZoomed(hwnd);
+        offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
         if(isMax){
             _helper->setOriginalPos(QPoint(originalLeft,originalTop));
             offsetTop = 0;
@@ -157,12 +159,15 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCACTIVATE){
         *result = DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
-    }else if(uMsg == WM_SYSCOMMAND){
-        const WPARAM filteredWParam = (wParam & 0xFFF0);
-        if (filteredWParam == SC_MAXIMIZE) {
-            _helper->window->showMaximized();
-            return true;
-        }
+    }else if(uMsg == WM_GETMINMAXINFO){
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+        MINMAXINFO* minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
+        auto pixelRatio = _helper->window->devicePixelRatio();
+        auto geometry = _helper->window->screen()->availableGeometry();
+        minmaxInfo->ptMaxSize.x = geometry.width()*pixelRatio + offsetXY.x()*2;
+        minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y()*2;
+#endif
+        return false;
     }
     return false;
 #endif
