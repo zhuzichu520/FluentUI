@@ -30,7 +30,7 @@ static inline bool isCompositionEnabled(){
         }
         return composition_enabled;
     }
-    return true;
+    return false;
 }
 
 #endif
@@ -83,15 +83,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         int offsetSize = 0;
         bool isMaximum = IsZoomed(hwnd);
         offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
-        if(isCompositionEnabled()){
-            if(isMaximum){
-                _helper->setOriginalPos(QPoint(originalLeft,originalTop));
-                offsetSize = 0;
-            }else{
-                _helper->setOriginalPos({});
-                offsetSize = 1;
-            }
+        if(isMaximum){
+            _helper->setOriginalPos(QPoint(originalLeft,originalTop));
+            offsetSize = 0;
         }else{
+            _helper->setOriginalPos({});
+            offsetSize = 1;
+        }
+        if(!isCompositionEnabled()){
             offsetSize = 0;
         }
         clientRect->top = originalTop+offsetSize;
