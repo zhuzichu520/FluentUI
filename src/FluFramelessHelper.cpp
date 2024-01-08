@@ -16,24 +16,6 @@ static inline QByteArray qtNativeEventType()
     return result;
 }
 
-static inline QColor getAccentColor(){
-    typedef HRESULT (WINAPI* DwmGetColorizationColorPtr)(DWORD* pcrColorization,BOOL* pfOpaqueBlend);
-    HMODULE module = LoadLibraryW(L"dwmapi.dll");
-    if (module)
-    {
-        DwmGetColorizationColorPtr dwm_get_colorization_color;
-        dwm_get_colorization_color= reinterpret_cast<DwmGetColorizationColorPtr>(GetProcAddress(module, "DwmGetColorizationColor"));
-        DWORD color = 0;
-        BOOL bOpaque = FALSE;
-        if (dwm_get_colorization_color)
-        {
-            dwm_get_colorization_color(&color,&bOpaque);
-        }
-        return QColor(color);
-    }
-    return QColor();
-}
-
 static inline bool isCompositionEnabled(){
     typedef HRESULT (WINAPI* DwmIsCompositionEnabledPtr)(BOOL *pfEnabled);
     HMODULE module = LoadLibraryW(L"dwmapi.dll");
@@ -49,26 +31,6 @@ static inline bool isCompositionEnabled(){
         return composition_enabled;
     }
     return true;
-}
-
-static inline void showShadow(HWND hwnd){
-    if(isCompositionEnabled()){
-        const MARGINS shadow = { 0, 0, 1, 0 };
-        typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
-        HMODULE module = LoadLibraryW(L"dwmapi.dll");
-        if (module)
-        {
-            DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
-            dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-            if (dwm_extendframe_into_client_area_)
-            {
-                dwm_extendframe_into_client_area_(hwnd, &shadow);
-            }
-        }
-    }else{
-        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
-        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
-    }
 }
 
 #endif
@@ -109,26 +71,35 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
         const LONG originalLeft = clientRect->left;
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+        const LONG originalRight = clientRect->right;
+        const LONG originalBottom = clientRect->bottom;
+#endif
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
             *result = hitTestResult;
             return true;
         }
-        int offsetTop = 0;
+        int offsetSize = 0;
         bool isMax = IsZoomed(hwnd);
         offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
-        if(isMax){
-            _helper->setOriginalPos(QPoint(originalLeft,originalTop));
-            offsetTop = 0;
-        }else{
-            _helper->setOriginalPos({});
-            if(FluTools::getInstance()->isWindows11OrGreater()){
-                offsetTop = 0;
+        if(isCompositionEnabled()){
+            if(isMax){
+                _helper->setOriginalPos(QPoint(originalLeft,originalTop));
+                offsetSize = 0;
             }else{
-                offsetTop = 1;
+                _helper->setOriginalPos({});
+                offsetSize = 1;
             }
+        }else{
+            offsetSize = 0;
         }
-        clientRect->top = originalTop+offsetTop;
+        clientRect->top = originalTop+offsetSize;
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+        clientRect->bottom = originalBottom-offsetSize;
+        clientRect->left = originalLeft+offsetSize;
+        clientRect->right = originalRight-offsetSize;
+#endif
         *result = WVR_REDRAW;
         return true;
     }if(uMsg == WM_NCHITTEST){
@@ -296,7 +267,6 @@ void FluFramelessHelper::componentComplete(){
             SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         }
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-        showShadow(hwnd);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
 #endif

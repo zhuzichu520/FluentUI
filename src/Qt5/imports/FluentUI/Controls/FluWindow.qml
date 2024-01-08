@@ -209,6 +209,9 @@ Window {
         anchors{
             fill:parent
             topMargin: _offsetXY.y
+            bottomMargin: _offsetXY.y
+            leftMargin: _offsetXY.x
+            rightMargin: _offsetXY.x
         }
         onWidthChanged: {
             window.appBar.width = width
