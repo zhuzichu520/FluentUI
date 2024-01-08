@@ -61,6 +61,7 @@ private:
     QQmlProperty _realHeight;
     QQmlProperty _realWidth;
     QQmlProperty _appBarHeight;
+    int _edges = 0;
 };
 
 #endif // FLUFRAMELESSHELPER_H

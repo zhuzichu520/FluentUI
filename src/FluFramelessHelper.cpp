@@ -3,6 +3,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include "FluTools.h"
+
 #ifdef Q_OS_WIN
 #pragma comment (lib,"user32.lib")
 #pragma comment (lib,"dwmapi.lib")
@@ -32,7 +33,6 @@ static inline bool isCompositionEnabled(){
     }
     return false;
 }
-
 #endif
 
 FramelessEventFilter::FramelessEventFilter(FluFramelessHelper* helper){
@@ -125,7 +125,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
         return false;
-    }else if(uMsg == WM_NCPAINT || uMsg == 0x00AE || uMsg == 0x00AF){
+    }else if(uMsg == WM_NCPAINT){
         *result = FALSE;
         return true;
     }else if(uMsg == WM_NCACTIVATE){
@@ -181,22 +181,20 @@ void FluFramelessHelper::_updateCursor(int edges){
 
 bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
     if (!window.isNull() && window->flags()) {
-
-        static int edges = 0;
-        const int margin = 8;
+        static int margin = 8;
         switch (ev->type()) {
         case QEvent::MouseButtonPress:
-            if(edges!=0){
+            if(_edges!=0){
                 QMouseEvent *event = static_cast<QMouseEvent*>(ev);
                 if(event->button() == Qt::LeftButton){
-                    _updateCursor(edges);
-                    window->startSystemResize(Qt::Edges(edges));
+                    _updateCursor(_edges);
+                    window->startSystemResize(Qt::Edges(_edges));
                 }
             }
             break;
         case QEvent::MouseButtonRelease:
-            edges = 0;
-            _updateCursor(edges);
+            _edges = 0;
+            _updateCursor(_edges);
             break;
         case QEvent::MouseMove: {
             if(_maximized() || _fullScreen()){
@@ -213,26 +211,26 @@ bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
                 event->position().toPoint();
 #endif
             if(p.x() >= margin && p.x() <= (window->width() - margin) && p.y() >= margin && p.y() <= (window->height() - margin)){
-                if(edges != 0){
-                    edges = 0;
-                    _updateCursor(edges);
+                if(_edges != 0){
+                    _edges = 0;
+                    _updateCursor(_edges);
                 }
                 break;
             }
-            edges = 0;
+            _edges = 0;
             if ( p.x() < margin ) {
-                edges |= Qt::LeftEdge;
+                _edges |= Qt::LeftEdge;
             }
             if ( p.x() > (window->width() - margin) ) {
-                edges |= Qt::RightEdge;
+                _edges |= Qt::RightEdge;
             }
             if ( p.y() < margin ) {
-                edges |= Qt::TopEdge;
+                _edges |= Qt::TopEdge;
             }
             if ( p.y() > (window->height() - margin) ) {
-                edges |= Qt::BottomEdge;
+                _edges |= Qt::BottomEdge;
             }
-            _updateCursor(edges);
+            _updateCursor(_edges);
             break;
         }
         default:
