@@ -7277,8 +7277,9 @@ var core_layouts = {
                 }
             }];
         };
-
-        chart.boxes.push(item);
+        if(Array.isArray(chart.boxes)){
+            chart.boxes.push(item);
+        }
     },
 
     /**
@@ -7287,9 +7288,13 @@ var core_layouts = {
      * @param {ILayoutItem} layoutItem - the item to remove from the layout
      */
     removeBox: function(chart, layoutItem) {
-        var index = chart.boxes ? chart.boxes.indexOf(layoutItem) : -1;
-        if (index !== -1) {
-            chart.boxes.splice(index, 1);
+        if(chart.boxes){
+            if(layoutItem){
+                if(Array.isArray(chart.boxes)){
+                    var index = chart.boxes.indexOf(layoutItem)
+                    chart.boxes.splice(index, 1);
+                }
+            }
         }
     },
 
@@ -9656,9 +9661,13 @@ helpers$1.extend(Chart.prototype, /** @lends Chart */ {
 
         // plugins options references might have change, let's invalidate the cache
         // https://github.com/chartjs/Chart.js/issues/5111#issuecomment-355934167
-        core_plugins._invalidate(me);
+//        core_plugins._invalidate(me);
 
         if (core_plugins.notify(me, 'beforeUpdate') === false) {
+            return;
+        }
+
+        if(me.data === undefined){
             return;
         }
 
@@ -9885,8 +9894,11 @@ helpers$1.extend(Chart.prototype, /** @lends Chart */ {
      */
     transition: function(easingValue) {
         var me = this;
-
-        for (var i = 0, ilen = (me.data.datasets || []).length; i < ilen; ++i) {
+        var datasets = [];
+        if(me.data){
+            datasets = me.data.datasets
+        }
+        for (var i = 0, ilen = datasets.length; i < ilen; ++i) {
             if (me.isDatasetVisible(i)) {
                 me.getDatasetMeta(i).controller.transition(easingValue);
             }
@@ -9900,7 +9912,10 @@ helpers$1.extend(Chart.prototype, /** @lends Chart */ {
      */
     _getSortedDatasetMetas: function(filterVisible) {
         var me = this;
-        var datasets = me.data.datasets || [];
+        var datasets = []
+        if(me.data){
+            datasets = me.data.datasets;
+        }
         var result = [];
         var i, ilen;
 
@@ -12357,9 +12372,9 @@ var Scale = core_element.extend({
                 }
 
                 // MV workaround, as it seems that emptying line dash does not work
-                if(ctx.getLineDash && ctx.getLineDash().length === 0) {
-                    ctx.setLineDash([9999]);
-                }
+//                if(ctx.getLineDash && ctx.getLineDash().length === 0) {
+//                    ctx.setLineDash([9999]);
+//                }
 
                 ctx.beginPath();
 
