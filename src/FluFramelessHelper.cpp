@@ -81,10 +81,10 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             return true;
         }
         int offsetSize = 0;
-        bool isMax = IsZoomed(hwnd);
+        bool isMaximum = IsZoomed(hwnd);
         offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
         if(isCompositionEnabled()){
-            if(isMax){
+            if(isMaximum){
                 _helper->setOriginalPos(QPoint(originalLeft,originalTop));
                 offsetSize = 0;
             }else{
@@ -96,9 +96,11 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         }
         clientRect->top = originalTop+offsetSize;
 #if QT_VERSION < QT_VERSION_CHECK(6,0,0)
-        clientRect->bottom = originalBottom-offsetSize;
-        clientRect->left = originalLeft+offsetSize;
-        clientRect->right = originalRight-offsetSize;
+        if(!isMaximum){
+            clientRect->bottom = originalBottom-offsetSize;
+            clientRect->left = originalLeft+offsetSize;
+            clientRect->right = originalRight-offsetSize;
+        }
 #endif
         *result = WVR_REDRAW;
         return true;

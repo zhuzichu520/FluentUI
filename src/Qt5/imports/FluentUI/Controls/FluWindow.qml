@@ -206,12 +206,13 @@ Window {
     }
     Item{
         id:layout_container
+        property bool isMaximum : window.visibility == Window.Maximized
         anchors{
             fill:parent
             topMargin: _offsetXY.y
-            bottomMargin: _offsetXY.y
-            leftMargin: _offsetXY.x
-            rightMargin: _offsetXY.x
+            bottomMargin: isMaximum ? 0 : _offsetXY.y
+            leftMargin:  isMaximum ? 0 :_offsetXY.x
+            rightMargin: isMaximum ? 0 : _offsetXY.x
         }
         onWidthChanged: {
             window.appBar.width = width
