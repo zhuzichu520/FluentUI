@@ -90,7 +90,7 @@ Window {
             var dx = (_originalPos.x - screen.virtualX)/screen.devicePixelRatio
             var dy = (_originalPos.y - screen.virtualY)/screen.devicePixelRatio
             if(dx<0 && dy<0){
-                _offsetXY = Qt.point(Math.abs(dx),Math.abs(dy))
+                _offsetXY = Qt.point(Math.abs(dx)-1,Math.abs(dy)-1)
             }else{
                 _offsetXY = Qt.point(0,0)
             }
