@@ -33,7 +33,11 @@ int main(int argc, char *argv[])
     ::SetUnhandledExceptionFilter(MyUnhandledExceptionFilter);
     qputenv("QT_QPA_PLATFORM","windows:darkmode=2");
 #endif
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
+#else
+    qputenv("QT_QUICK_CONTROLS_STYLE","Default");
+#endif
 #ifdef Q_OS_LINUX
     //fix bug UOSv20 does not print logs
     qputenv("QT_LOGGING_RULES","");
