@@ -74,7 +74,6 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.obj)
     foreach(filepath ${RES_PATHS})
         string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-        message(${filename})
         list(APPEND resource_files ${filename})
     endforeach(filepath)
 
