@@ -83,7 +83,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         int offsetSize = 0;
         bool isMaximum = IsZoomed(hwnd);
         offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
-        if(isMaximum){
+        if(isMaximum || _helper->window->visibility() == QWindow::FullScreen){
             _helper->setOriginalPos(QPoint(originalLeft,originalTop));
             offsetSize = 0;
         }else{
