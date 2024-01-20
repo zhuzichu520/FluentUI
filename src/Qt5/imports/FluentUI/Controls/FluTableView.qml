@@ -9,6 +9,8 @@ Rectangle {
     property var dataSource
     property color borderColor: FluTheme.dark ? "#252525" : "#e4e4e4"
     property alias tableModel: table_model
+    property bool horizonalHeaderVisible: true
+    property bool verticalHeaderVisible: true
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -380,8 +382,9 @@ Rectangle {
         syncDirection: Qt.Horizontal
         anchors.left: scroll_table.left
         anchors.top: parent.top
+        visible: control.horizonalHeaderVisible
         implicitWidth: syncView ? syncView.width : 0
-        implicitHeight: Math.max(1, contentHeight)
+        implicitHeight: visible ? Math.max(1, contentHeight) : 0
         syncView: table_view
         boundsBehavior: Flickable.StopAtBounds
         clip: true
@@ -517,7 +520,8 @@ Rectangle {
         boundsBehavior: Flickable.StopAtBounds
         anchors.top: scroll_table.top
         anchors.left: parent.left
-        implicitWidth: Math.max(1, contentWidth)
+        visible: control.verticalHeaderVisible
+        implicitWidth: visible ? Math.max(1, contentWidth) : 0
         implicitHeight: syncView ? syncView.height : 0
         syncDirection: Qt.Vertical
         syncView: table_view
