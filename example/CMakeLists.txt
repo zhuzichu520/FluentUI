@@ -21,9 +21,6 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${FLUENTUI_DIRECTORY}/bin/release>)
 endif()
 
-#获取文件路径分隔符（解决执行命令的时候有些平台会报错）
-file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
-
 #导入Qt相关依赖包
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
@@ -109,18 +106,16 @@ endif ()
 if(WIN32)
     if(MSVC)
         if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-            set(3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x86/*.dll)
+            file(GLOB_RECURSE 3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x86/*.dll)
         elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
-            set(3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x64/*.dll)
+            file(GLOB_RECURSE 3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x64/*.dll)
         endif()
     elseif(MINGW)
-        set(3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
+        file(GLOB_RECURSE 3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
     endif()
-    string(REPLACE "/" ${PATH_SEPARATOR} 3RDPARTY_DLL_DIR "${3RDPARTY_DLL_DIR}")
-    file(GLOB DLL_FILES ${3RDPARTY_DLL_DIR})
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-        ${DLL_FILES}
+        ${3RDPARTY_DLL_DIR}
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
     )
 endif()
@@ -139,7 +134,7 @@ else()
     target_include_directories(example PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
     )
-    target_sources(example PRIVATE example.qrc)
+target_sources(example PRIVATE example.qrc)
 endif()
 
 #导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
