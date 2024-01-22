@@ -194,7 +194,6 @@ bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
             break;
         case QEvent::MouseButtonRelease:
             _edges = 0;
-            _updateCursor(_edges);
             break;
         case QEvent::MouseMove: {
             if(_maximized() || _fullScreen()){

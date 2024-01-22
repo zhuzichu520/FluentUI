@@ -4,12 +4,12 @@ import QtQuick.Window 2.15
 import FluentUI 1.0
 
 Item {
-    property string  headerText: "Titlte"
+    property string  headerText: ""
     property bool expand: false
     property int contentHeight : 300
     default property alias content: container.data
     id:control
-    implicitHeight: Math.max((layout_header.height + container.height),layout_header.height)
+    implicitHeight: Math.max((layout_header.height + layout_container.height),layout_header.height)
     implicitWidth: 400
     Rectangle{
         id:layout_header
@@ -64,31 +64,32 @@ Item {
         }
     }
     Item{
+        id:layout_container
         anchors{
             top: layout_header.bottom
             topMargin: -1
             left: layout_header.left
         }
         width: parent.width
+        clip: true
         visible: contentHeight+container.y !== 0
         height: contentHeight+container.y
-        clip: true
         Rectangle{
             id:container
-            width: parent.width
-            height: parent.height
+            anchors.fill: parent
             radius: 4
             clip: true
             color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
             border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
-            y: -contentHeight
+            anchors.topMargin: -contentHeight
+            //            y: -contentHeight
             states: [
                 State{
                     name:"expand"
                     when: control.expand
                     PropertyChanges {
                         target: container
-                        y:0
+                        anchors.topMargin:0
                     }
                 },
                 State{
@@ -96,7 +97,7 @@ Item {
                     when: !control.expand
                     PropertyChanges {
                         target: container
-                        y:-contentHeight
+                        anchors.topMargin:-contentHeight
                     }
                 }
             ]
@@ -104,7 +105,7 @@ Item {
                 Transition {
                     to:"expand"
                     NumberAnimation {
-                        properties: "y"
+                        properties: "anchors.topMargin"
                         duration: FluTheme.enableAnimation ? 167 : 0
                         easing.type: Easing.OutCubic
                     }
@@ -112,7 +113,7 @@ Item {
                 Transition {
                     to:"collapsed"
                     NumberAnimation {
-                        properties: "y"
+                        properties: "anchors.topMargin"
                         duration: FluTheme.enableAnimation ? 167 : 0
                         easing.type: Easing.OutCubic
                     }
