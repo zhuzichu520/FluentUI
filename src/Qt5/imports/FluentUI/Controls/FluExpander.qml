@@ -70,10 +70,10 @@ Item {
             topMargin: -1
             left: layout_header.left
         }
-        width: parent.width
         clip: true
-        visible: contentHeight+container.y !== 0
-        height: contentHeight+container.y
+        visible: contentHeight+container.anchors.topMargin !== 0
+        height: contentHeight+container.anchors.topMargin
+        width: parent.width
         Rectangle{
             id:container
             anchors.fill: parent
@@ -82,7 +82,6 @@ Item {
             color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
             border.color: FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
             anchors.topMargin: -contentHeight
-            //            y: -contentHeight
             states: [
                 State{
                     name:"expand"
