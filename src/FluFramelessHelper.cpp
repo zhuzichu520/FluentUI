@@ -241,10 +241,13 @@ bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
 
 void FluFramelessHelper::componentComplete(){
     auto o = parent();
-    while (nullptr != o) {
-        window = (QQuickWindow*)o;
+    do {
+        window = qobject_cast<QQuickWindow *>(o);
+        if (window) {
+            break;
+        }
         o = o->parent();
-    }
+    } while (nullptr != o);
     if(!window.isNull()){
         _stayTop = QQmlProperty(window,"stayTop");
         _screen = QQmlProperty(window,"screen");
