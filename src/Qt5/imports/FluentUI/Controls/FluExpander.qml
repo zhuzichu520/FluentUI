@@ -11,6 +11,15 @@ Item {
     id:control
     implicitHeight: Math.max((layout_header.height + layout_container.height),layout_header.height)
     implicitWidth: 400
+    QtObject{
+        id:d
+        property bool flag: false
+        function toggle(){
+            d.flag = true
+            expand = !expand
+            d.flag = false
+        }
+    }
     Rectangle{
         id:layout_header
         width: parent.width
@@ -23,7 +32,7 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             onClicked: {
-                expand = !expand
+                d.toggle()
             }
         }
         FluText{
@@ -47,7 +56,7 @@ Item {
                 return FluTheme.dark ? Qt.rgba(0,0,0,0) : Qt.rgba(0,0,0,0)
             }
             onClicked: {
-                expand = !expand
+                d.toggle()
             }
             contentItem: FluIcon{
                 rotation: expand?0:180
@@ -105,7 +114,7 @@ Item {
                     to:"expand"
                     NumberAnimation {
                         properties: "anchors.topMargin"
-                        duration: FluTheme.enableAnimation ? 167 : 0
+                        duration: FluTheme.enableAnimation && d.flag ? 167 : 0
                         easing.type: Easing.OutCubic
                     }
                 },
@@ -113,7 +122,7 @@ Item {
                     to:"collapsed"
                     NumberAnimation {
                         properties: "anchors.topMargin"
-                        duration: FluTheme.enableAnimation ? 167 : 0
+                        duration: FluTheme.enableAnimation && d.flag ? 167 : 0
                         easing.type: Easing.OutCubic
                     }
                 }
