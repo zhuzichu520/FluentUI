@@ -3,8 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
-import "qrc:///example/qml/component"
-import "qrc:///example/qml/viewmodel"
+import "../component"
+import "../viewmodel"
 
 FluScrollablePage{
     title:"TextBox"

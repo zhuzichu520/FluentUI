@@ -5,9 +5,6 @@ import QtQuick.Layouts 1.15
 import Qt.labs.platform 1.1
 import FluentUI 1.0
 import example 1.0
-import "qrc:///example/qml/component"
-import "qrc:///example/qml/global"
-import "qrc:///example/qml/viewmodel"
 import "../component"
 import "../viewmodel"
 import "../global"

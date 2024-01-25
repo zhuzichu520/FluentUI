@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
-import "qrc:///example/qml/global"
 import FluentUI
+import "../global"
 
 FluScrollablePage{
 

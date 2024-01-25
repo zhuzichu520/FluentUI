@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import FluentUI
-import "qrc:///example/qml/component"
+import "../component"
 
 FluWindow {
 

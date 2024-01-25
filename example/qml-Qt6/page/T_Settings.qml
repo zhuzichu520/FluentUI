@@ -3,9 +3,9 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "qrc:///example/qml/global"
-import "qrc:///example/qml/component"
-import "qrc:///example/qml/viewmodel"
+import "../global"
+import "../component"
+import "../viewmodel"
 
 FluScrollablePage{
 

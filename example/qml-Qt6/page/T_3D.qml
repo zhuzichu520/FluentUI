@@ -10,7 +10,7 @@ import Qt3D.Extras
 import QtQuick.Scene3D
 import QtQuick.Dialogs
 import Qt.labs.platform
-import "qrc:///example/qml/component"
+import "../component"
 
 FluContentPage{
 

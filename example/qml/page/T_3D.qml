@@ -10,7 +10,6 @@ import QtQuick.Scene3D 2.15
 import QtQuick.Dialogs 1.3
 import Qt.labs.platform 1.1
 import FluentUI 1.0
-import "qrc:///example/qml/component"
 import "../component"
 
 FluContentPage{

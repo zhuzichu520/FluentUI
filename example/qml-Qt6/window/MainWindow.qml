@@ -5,9 +5,9 @@ import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
 import example
-import "qrc:///example/qml/component"
-import "qrc:///example/qml/global"
-import "qrc:///example/qml/viewmodel"
+import "../component"
+import "../global"
+import "../viewmodel"
 
 FluWindow {
 
