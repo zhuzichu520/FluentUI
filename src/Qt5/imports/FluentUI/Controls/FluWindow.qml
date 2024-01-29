@@ -39,6 +39,7 @@ Window {
     property bool showMaximize: true
     property bool showStayTop: true
     property bool autoMaximize: false
+    property bool autoVisible: true
     property bool useSystemAppBar
     property color resizeBorderColor: {
         if(window.active){
@@ -77,10 +78,12 @@ Window {
         if(!useSystemAppBar){
             loader_frameless_helper.sourceComponent = com_frameless_helper
         }
-        if(window.autoMaximize){
-            window.showMaximized()
-        }else{
-            window.show()
+        if(window.autoVisible){
+            if(window.autoMaximize){
+                window.showMaximized()
+            }else{
+                window.show()
+            }
         }
     }
     Component.onDestruction: {
