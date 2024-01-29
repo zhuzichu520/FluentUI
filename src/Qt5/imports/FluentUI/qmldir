@@ -96,4 +96,6 @@ FluLoadingButton 1.0 Controls/FluLoadingButton.qml
 FluClip 1.0 Controls/FluClip.qml
 FluLoader 1.0 Controls/FluLoader.qml
 FluShortcutPicker 1.0 Controls/FluShortcutPicker.qml
+FluSplitLayout 1.0 Controls/FluSplitLayout.qml
+FluStaggeredLayout 1.0 Controls/FluStaggeredLayout.qml
 plugin fluentuiplugin

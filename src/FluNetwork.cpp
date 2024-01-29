@@ -14,6 +14,7 @@
 #include <QStandardPaths>
 #include <QThreadPool>
 #include <QDir>
+#include <QCryptographicHash>
 #include <QEventLoop>
 #include <QGuiApplication>
 

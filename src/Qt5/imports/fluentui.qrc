@@ -106,5 +106,6 @@
         <file>FluentUI/Image/btn_min_normal.png</file>
         <file>FluentUI/Image/btn_min_pushed.png</file>
         <file>FluentUI/Controls/FluImageButton.qml</file>
+        <file>FluentUI/Controls/FluSplitLayout.qml</file>
     </qresource>
 </RCC>

@@ -137,6 +137,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluClip.qml"),uri,major,minor,"FluClip");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoader.qml"),uri,major,minor,"FluLoader");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluShortcutPicker.qml"),uri,major,minor,"FluShortcutPicker");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSplitLayout.qml"),uri,major,minor,"FluSplitLayout");
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");
