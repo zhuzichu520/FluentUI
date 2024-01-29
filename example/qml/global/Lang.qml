@@ -8,6 +8,7 @@ QtObject {
     property string basic_input
     property string form
     property string surface
+    property string layout
     property string popus
     property string navigation
     property string theming
@@ -34,6 +35,7 @@ QtObject {
         basic_input="基本输入"
         form="表单"
         surface="表面"
+        layout="布局"
         popus="弹窗"
         navigation="导航"
         theming="主题"
@@ -61,6 +63,7 @@ QtObject {
         basic_input="Basic Input"
         form="Form"
         surface="Surfaces"
+        layout="Layout"
         popus="Popus"
         navigation="Navigation"
         theming="Theming"

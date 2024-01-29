@@ -181,7 +181,7 @@
         <file>res/image/bg_scenic.png</file>
         <file>res/image/image_1.jpg</file>
         <file>qml/window/PageWindow.qml</file>
-        <file>qml/page/T_StaggeredView.qml</file>
+        <file>qml/page/T_StaggeredLayout.qml</file>
         <file>qml/viewmodel/SettingsViewModel.qml</file>
         <file>qml/viewmodel/TextBoxViewModel.qml</file>
         <file>qml/page/T_Clip.qml</file>

@@ -136,7 +136,7 @@ FluExpander{
                     "FluTimeline",
                     "FluChart",
                     "FluRangeSlider",
-                    "FluStaggeredView",
+                    "FluStaggeredLayout",
                     "FluProgressButton",
                     "FluLoadingButton",
                     "FluClip",

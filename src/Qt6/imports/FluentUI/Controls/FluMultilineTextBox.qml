@@ -65,7 +65,15 @@ TextArea{
         anchors.fill: parent
         cursorShape: Qt.IBeamCursor
         acceptedButtons: Qt.RightButton
-        onClicked: control.echoMode !== TextInput.Password && menu.popup()
+        onClicked: {
+            if(control.echoMode === TextInput.Password){
+                return
+            }
+            if(control.readOnly && control.text === ""){
+                return
+            }
+            menu.popup()
+        }
     }
     FluTextBoxMenu{
         id:menu

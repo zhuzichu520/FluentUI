@@ -131,12 +131,12 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTreeView.qml"),uri,major,minor,"FluTreeView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluWindow.qml"),uri,major,minor,"FluWindow");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRangeSlider.qml"),uri,major,minor,"FluRangeSlider");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStaggeredView.qml"),uri,major,minor,"FluStaggeredView");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStaggeredLayout.qml"),uri,major,minor,"FluStaggeredLayout");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluProgressButton.qml"),uri,major,minor,"FluProgressButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoadingButton.qml"),uri,major,minor,"FluLoadingButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluClip.qml"),uri,major,minor,"FluClip");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoader.qml"),uri,major,minor,"FluLoader");
-
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluShortcutPicker.qml"),uri,major,minor,"FluShortcutPicker");
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");

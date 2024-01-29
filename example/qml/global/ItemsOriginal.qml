@@ -211,15 +211,20 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
-            title:"StaggeredView"
-            menuDelegate: paneItemMenu
-            url:"qrc:/example/qml/page/T_StaggeredView.qml"
-            onTap:{ navigationView.push(url) }
-        }
-        FluPaneItem{
             title:"Watermark"
             menuDelegate: paneItemMenu
             url:"qrc:/example/qml/page/T_Watermark.qml"
+            onTap:{ navigationView.push(url) }
+        }
+    }
+
+    FluPaneItemExpander{
+        title:Lang.layout
+        icon:FluentIcons.DockLeft
+        FluPaneItem{
+            title:"StaggeredLayout"
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/page/T_StaggeredLayout.qml"
             onTap:{ navigationView.push(url) }
         }
     }
