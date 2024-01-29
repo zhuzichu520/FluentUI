@@ -198,5 +198,6 @@
         <file>qml/chart/T_PolarAreaChart.qml</file>
         <file>res/image/ic_crash.png</file>
         <file>qml/window/CrashWindow.qml</file>
+        <file>qml/page/T_SplitLayout.qml</file>
     </qresource>
 </RCC>

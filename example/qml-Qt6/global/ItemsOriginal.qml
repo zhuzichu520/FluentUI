@@ -227,6 +227,12 @@ FluObject{
             url:"qrc:/example/qml/page/T_StaggeredLayout.qml"
             onTap:{ navigationView.push(url) }
         }
+        FluPaneItem{
+            title:"SplitLayout"
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/page/T_SplitLayout.qml"
+            onTap:{ navigationView.push(url) }
+        }
     }
 
     FluPaneItemExpander{
