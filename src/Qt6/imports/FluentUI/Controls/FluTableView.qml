@@ -10,6 +10,7 @@ Rectangle {
     property var dataSource
     property color borderColor: FluTheme.dark ? "#252525" : "#e4e4e4"
     property alias tableModel: table_model
+    property alias tableView: table_view
     property bool horizonalHeaderVisible: true
     property bool verticalHeaderVisible: true
     id:control
@@ -19,7 +20,7 @@ Rectangle {
             var columns= []
             var header_rows = {}
             columnSource.forEach(function(item){
-                var column = Qt.createQmlObject('import Qt.labs.qmlmodels;TableModelColumn{}',table_model);
+                var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',table_model);
                 column.display = item.dataIndex
                 columns.push(column)
                 header_rows[item.dataIndex] = item.title
@@ -31,7 +32,7 @@ Rectangle {
     }
     QtObject{
         id:d
-        property var currentRow
+        property var currentIndex
         property int rowHoverIndex: -1
         property int defaultItemWidth: 100
         property int defaultItemHeight: 42
@@ -67,6 +68,16 @@ Rectangle {
     }
     TableModel {
         id:table_model
+        onRowCountChanged: {
+            timer_table_force_layout.restart()
+        }
+    }
+    Timer{
+        id:timer_table_force_layout
+        interval: 50
+        onTriggered: {
+            table_view.flick(0,1)
+        }
     }
     Component{
         id:com_edit
@@ -261,8 +272,9 @@ Rectangle {
                         id:item_table
                         anchors.fill: parent
                         property point position: Qt.point(column,row)
+                        property bool isRowSelected: d.currentIndex === table_model.getRow(row).__index
                         color:{
-                            if(d.rowHoverIndex === row || d.currentRow === table_model.getRow(row).__index){
+                            if(d.rowHoverIndex === row || item_table.isRowSelected){
                                 return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
                             }
                             return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
@@ -272,7 +284,7 @@ Rectangle {
                             radius: 1.5
                             color: FluTheme.primaryColor
                             width: 3
-                            visible: d.currentRow === table_model.getRow(row).__index && column === 0
+                            visible: item_table.isRowSelected && column === 0
                             anchors{
                                 verticalCenter: parent.verticalCenter
                                 left: parent.left
@@ -297,7 +309,7 @@ Rectangle {
                             }
                             onClicked:
                                 (event)=>{
-                                    d.currentRow = table_model.getRow(row).__index
+                                    d.currentIndex = table_model.getRow(row).__index
                                     item_loader.sourceComponent = undefined
                                     event.accepted = true
                                 }
@@ -536,11 +548,11 @@ Rectangle {
             }
         }
         onContentYChanged:{
-            timer_force_layout.restart()
+            timer_vertical_force_layout.restart()
         }
         Timer{
+            id:timer_vertical_force_layout
             interval: 50
-            id:timer_force_layout
             onTriggered: {
                 header_vertical.forceLayout()
             }
