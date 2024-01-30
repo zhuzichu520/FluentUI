@@ -244,6 +244,7 @@ Rectangle {
                 model: table_model
                 clip: true
                 delegate: MouseArea{
+                    property var rowObject : table_model.getRow(row)
                     hoverEnabled: true
                     implicitHeight: 40
                     implicitWidth: {
@@ -263,7 +264,6 @@ Rectangle {
                         id:item_table
                         anchors.fill: parent
                         property point position: Qt.point(column,row)
-                        property var rowObject : table_model.getRow(row)
                         property bool isRowSelected: d.currentIndex === rowObject.__index
                         color:{
                             if(d.rowHoverIndex === row || item_table.isRowSelected){
@@ -301,7 +301,7 @@ Rectangle {
                             }
                             onClicked:
                                 (event)=>{
-                                    d.currentIndex = table_model.getRow(row).__index
+                                    d.currentIndex = rowObject.__index
                                     item_loader.sourceComponent = undefined
                                     event.accepted = true
                                 }
@@ -398,7 +398,7 @@ Rectangle {
             readonly property real cellPadding: 8
             property bool canceled: false
             property int columnIndex: column
-            readonly property var obj : columnSource[column]
+            readonly property var columnObject : columnSource[column]
             implicitWidth: {
                 return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
             }
@@ -480,7 +480,7 @@ Rectangle {
                 anchors.right: parent.right
                 acceptedButtons: Qt.LeftButton
                 hoverEnabled: true
-                visible: !(obj.width === obj.minimumWidth && obj.width === obj.maximumWidth && obj.width)
+                visible: !(columnObject.width === columnObject.minimumWidth && columnObject.width === columnObject.maximumWidth && columnObject.width)
                 cursorShape: Qt.SplitHCursor
                 onPressed :
                     (mouse)=>{
@@ -502,9 +502,9 @@ Rectangle {
                             return
                         }
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
-                        var minimumWidth = obj.minimumWidth
-                        var maximumWidth = obj.maximumWidth
-                        var w = obj.width
+                        var minimumWidth = columnObject.minimumWidth
+                        var maximumWidth = columnObject.maximumWidth
+                        var w = columnObject.width
                         if(!w){
                             w = d.defaultItemWidth
                         }
@@ -514,7 +514,7 @@ Rectangle {
                         if(!maximumWidth){
                             maximumWidth = 65535
                         }
-                        obj.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
+                        columnObject.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
                         table_view.forceLayout()
                     }
             }
@@ -554,6 +554,7 @@ Rectangle {
             id:item_control
             readonly property real cellPadding: 8
             property bool canceled: false
+            property var rowObject: table_model.getRow(row)
             implicitWidth: Math.max(30, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
             width: implicitWidth
@@ -613,16 +614,12 @@ Rectangle {
             }
             MouseArea{
                 property point clickPos: "0,0"
-                property bool isResize: {
-                    var obj = table_model.getRow(row)
-                    return !(obj.height === obj.minimumHeight && obj.height === obj.maximumHeight && obj.height)
-                }
                 height: 6
                 width: parent.width
                 anchors.bottom: parent.bottom
                 acceptedButtons: Qt.LeftButton
                 cursorShape: Qt.SplitVCursor
-                visible: isResize
+                visible: !(rowObject.height === rowObject.minimumHeight && rowObject.height === rowObject.maximumHeight && rowObject.height)
                 onPressed :
                     (mouse)=>{
                         header_vertical.interactive = false
@@ -642,11 +639,10 @@ Rectangle {
                         if(!pressed){
                             return
                         }
-                        var obj = table_model.getRow(row)
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
-                        var minimumHeight = obj.minimumHeight
-                        var maximumHeight = obj.maximumHeight
-                        var h = obj.height
+                        var minimumHeight = rowObject.minimumHeight
+                        var maximumHeight = rowObject.maximumHeight
+                        var h = rowObject.height
                         if(!h){
                             h = d.defaultItemHeight
                         }
@@ -656,8 +652,8 @@ Rectangle {
                         if(!maximumHeight){
                             maximumHeight = 65535
                         }
-                        obj.height = Math.min(Math.max(minimumHeight, h + delta.y),maximumHeight)
-                        table_model.setRow(row,obj)
+                        rowObject.height = Math.min(Math.max(minimumHeight, h + delta.y),maximumHeight)
+                        table_model.setRow(row,rowObject)
                         table_view.forceLayout()
                     }
             }
