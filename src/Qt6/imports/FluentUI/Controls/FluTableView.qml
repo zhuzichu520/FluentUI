@@ -60,24 +60,16 @@ Rectangle {
     }
     onDataSourceChanged: {
         table_model.clear()
+        var rows = []
         for(var i =0;i<dataSource.length;i++){
             var row = dataSource[i]
             row.__index= i
-            table_model.appendRow(row)
+            rows.push(row)
         }
+        table_model.rows = rows
     }
     TableModel {
         id:table_model
-        onRowCountChanged: {
-            timer_table_force_layout.restart()
-        }
-    }
-    Timer{
-        id:timer_table_force_layout
-        interval: 50
-        onTriggered: {
-            table_view.flick(0,1)
-        }
     }
     Component{
         id:com_edit
@@ -272,7 +264,8 @@ Rectangle {
                         id:item_table
                         anchors.fill: parent
                         property point position: Qt.point(column,row)
-                        property bool isRowSelected: d.currentIndex === table_model.getRow(row).__index
+                        property var rowObject : table_model.getRow(row)
+                        property bool isRowSelected: d.currentIndex === rowObject.__index
                         color:{
                             if(d.rowHoverIndex === row || item_table.isRowSelected){
                                 return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
@@ -541,10 +534,11 @@ Rectangle {
         clip: true
         model: TableModel{
             TableModelColumn {}
-            rows: {
-                if(dataSource)
-                    return dataSource
-                return []
+        }
+        Connections{
+            target: table_model
+            function onRowCountChanged(){
+                header_vertical.model.rows = table_model.rows
             }
         }
         onContentYChanged:{
@@ -620,15 +614,16 @@ Rectangle {
             }
             MouseArea{
                 property point clickPos: "0,0"
+                property bool isResize: {
+                    var obj = table_model.getRow(row)
+                    return !(obj.height === obj.minimumHeight && obj.height === obj.maximumHeight && obj.height)
+                }
                 height: 6
                 width: parent.width
                 anchors.bottom: parent.bottom
                 acceptedButtons: Qt.LeftButton
                 cursorShape: Qt.SplitVCursor
-                visible: {
-                    var obj = table_model.getRow(row)
-                    return !(obj.height === obj.minimumHeight && obj.height === obj.maximumHeight && obj.height)
-                }
+                visible: isResize
                 onPressed :
                     (mouse)=>{
                         header_vertical.interactive = false
