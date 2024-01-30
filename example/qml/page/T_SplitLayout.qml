@@ -20,7 +20,7 @@ FluContentPage{
         }
         FluDropDownButton{
             id:btn_orientation
-            Layout.preferredWidth: 100
+            Layout.preferredWidth: 120
             text:"Horizontal"
             FluMenuItem{
                 text:"Horizontal"
