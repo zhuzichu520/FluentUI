@@ -30,6 +30,7 @@ public:
 class FluFramelessHelper : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
+    Q_INTERFACES(QQmlParserStatus)
     QML_NAMED_ELEMENT(FluFramelessHelper)
 public:
     explicit FluFramelessHelper(QObject *parent = nullptr);
