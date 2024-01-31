@@ -8,9 +8,9 @@ FluPopup {
     id: control
     property string title: ""
     property string message: ""
-    property string neutralText: "Neutral"
-    property string negativeText: "Negative"
-    property string positiveText: "Positive"
+    property string neutralText: "Close"
+    property string negativeText: "Cancel"
+    property string positiveText: "OK"
     property int messageTextFormart: Text.AutoText
     property int delayTime: 100
     property int buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
@@ -75,9 +75,15 @@ FluPopup {
                 Layout.preferredHeight: status===Loader.Ready ? item.height : 0
             }
             FluLoader{
-                sourceComponent: control.contentDelegate
+                sourceComponent:control.visible ? control.contentDelegate : undefined
                 Layout.fillWidth: true
-                Layout.preferredHeight: status===Loader.Ready ? item.height : 0
+                onStatusChanged: {
+                    if(status===Loader.Ready){
+                        Layout.preferredHeight = item.implicitHeight
+                    }else{
+                        Layout.preferredHeight = 0
+                    }
+                }
             }
             Rectangle{
                 id:layout_actions
