@@ -46,7 +46,7 @@ Use [Qt Online Installers](https://download.qt.io/archive/online_installers/) to
 
 ## ⚽ Get started
 
-+ Download the [pre-built release](https://github.com/zhuzichu520/FluentUI/releases). (Please pecify your platform and compilers.)
++ Download the [pre-built release](https://github.com/zhuzichu520/FluentUI/releases). (Please specify your platform and compilers.)
 
 + run `example` program.
 
