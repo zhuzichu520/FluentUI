@@ -10,8 +10,8 @@ SplitView {
         property bool isVertical: control.orientation === Qt.Vertical
     }
     handle: Rectangle {
-        implicitWidth: 12
-        implicitHeight: 12
+        implicitWidth: d.isVertical ? control.width : 12
+        implicitHeight: d.isVertical ? 12 : control.height
         clip: true
         color: {
             if(SplitHandle.pressed){
