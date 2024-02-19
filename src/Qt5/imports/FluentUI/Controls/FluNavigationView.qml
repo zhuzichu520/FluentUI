@@ -201,7 +201,7 @@ Item {
                 }
                 FluTooltip {
                     text: model.title
-                    visible: item_control.hovered && model.title && d.isCompact
+                    visible: item_control.hovered && model.title && d.isCompactAndNotPanel
                     delay: 800
                 }
                 MouseArea{
@@ -488,7 +488,7 @@ Item {
                 }
                 FluTooltip {
                     text: model.title
-                    visible: item_control.hovered && model.title && d.isCompact
+                    visible: item_control.hovered && model.title && d.isCompactAndNotPanel
                     delay: 800
                 }
                 onClicked:{
