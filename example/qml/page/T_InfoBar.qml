@@ -41,7 +41,7 @@ FluScrollablePage{
             FluButton{
                 text:"Success"
                 onClicked: {
-                    showSuccess("这是一个Success样式的InfoBar这是一个Success样式的InfoBar")
+                    showSuccess("这是一个Success样式的InfoBar")
                 }
             }
             FluButton{
