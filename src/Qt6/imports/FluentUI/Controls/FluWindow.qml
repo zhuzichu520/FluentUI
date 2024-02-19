@@ -258,6 +258,7 @@ Window {
             id:lifecycle
         }
         Rectangle{
+            z: -1000
             anchors.fill: parent
             color:"transparent"
             border.width: window.resizeBorderWidth
