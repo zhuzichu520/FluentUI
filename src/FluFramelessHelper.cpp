@@ -267,6 +267,10 @@ void FluFramelessHelper::componentComplete(){
         }else{
             SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         }
+        LONG exstyle = ::GetWindowLong(hwnd, GWL_EXSTYLE);
+        exstyle = exstyle | WS_EX_LAYERED;
+        SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
+        SetLayeredWindowAttributes(hwnd, RGB(251, 255, 242), 0, LWA_COLORKEY);
         SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
