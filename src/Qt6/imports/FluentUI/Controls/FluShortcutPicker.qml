@@ -183,8 +183,8 @@ FluIconButton {
         }
         contentDelegate: Component{
             Item{
-                width: parent.width
-                height: 100
+                implicitWidth: parent.width
+                implicitHeight: 100
                 Component.onCompleted: {
                     forceActiveFocus()
                 }
