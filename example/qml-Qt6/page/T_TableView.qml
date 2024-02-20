@@ -31,38 +31,37 @@ FluContentPage{
 
     FluContentDialog{
         id:custom_update_dialog
-        signal showDialog(string text,var callback)
-        property var _textBox
+        property var text
         property var onAccpetListener
         title:"修改列名"
         negativeText:"取消"
         contentDelegate: Component{
             Item{
-                width: parent.width
-                height: 60
+                implicitWidth: parent.width
+                implicitHeight: 60
                 FluTextBox{
                     id:textbox_text
                     anchors.centerIn: parent
-                }
-                Connections{
-                    target: custom_update_dialog
-                    function onShowDialog(text,callback){
-                        custom_update_dialog._textBox = textbox_text
-                        custom_update_dialog.onAccpetListener = callback
-                        textbox_text.text = text
-                        textbox_text.forceActiveFocus()
-                        custom_update_dialog.open()
+                    onTextChanged: {
+                        custom_update_dialog.text = textbox_text.text
                     }
                 }
+                Component.onCompleted: {
+                    textbox_text.text = custom_update_dialog.text
+                    textbox_text.forceActiveFocus()
+                }
             }
-        }
-        onNegativeClicked:{
         }
         positiveText:"确定"
         onPositiveClicked:{
-            if(custom_update_dialog.onAccpetListener && custom_update_dialog._textBox){
-                custom_update_dialog.onAccpetListener(custom_update_dialog._textBox.text)
+            if(custom_update_dialog.onAccpetListener){
+                custom_update_dialog.onAccpetListener(custom_update_dialog.text)
             }
+        }
+        function showDialog(text,listener){
+            custom_update_dialog.text = text
+            custom_update_dialog.onAccpetListener = listener
+            custom_update_dialog.open()
         }
     }
 
@@ -298,19 +297,17 @@ FluContentPage{
                 dataIndex: 'checkbox',
                 width:80,
                 minimumWidth:80,
-                maximumWidth:80,
+                maximumWidth:80
             },
             {
                 title: table_view.customItem(com_column_update_title,{title:'头像'}),
                 dataIndex: 'avatar',
-                width:100,
-                minimumWidth:100,
-                maximumWidth:100
+                width:100
             },
             {
                 title: '姓名',
                 dataIndex: 'name',
-                readOnly:true,
+                readOnly:true
             },
             {
                 title: table_view.customItem(com_column_sort_age,{sort:0}),
@@ -414,5 +411,4 @@ FluContentPage{
         root.dataSource = dataSource
         table_view.dataSource = root.dataSource
     }
-
 }
