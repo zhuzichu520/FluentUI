@@ -123,19 +123,21 @@ FluIconButton {
             visible: control.activeFocus
         }
     }
-    component ItemKey:Rectangle{
-        id:item_key_control
-        property string text : ""
-        color:FluTheme.primaryColor
-        width: Math.max(item_text.implicitWidth+12,28)
-        height: Math.max(item_text.implicitHeight,28)
-        radius: 4
-        Text{
-            id:item_text
-            color: FluTheme.dark ? Qt.rgba(0,0,0,1)  : Qt.rgba(1,1,1,1)
-            font.pixelSize: 13
-            text: item_key_control.text
-            anchors.centerIn: parent
+    Component{
+        id:com_item_key
+        Rectangle{
+            id:item_key_control
+            color:FluTheme.primaryColor
+            width: Math.max(item_text.implicitWidth+12,28)
+            height: Math.max(item_text.implicitHeight,28)
+            radius: 4
+            Text{
+                id:item_text
+                color: FluTheme.dark ? Qt.rgba(0,0,0,1)  : Qt.rgba(1,1,1,1)
+                font.pixelSize: 13
+                text: keyText
+                anchors.centerIn: parent
+            }
         }
     }
     Row{
@@ -144,8 +146,9 @@ FluIconButton {
         anchors.centerIn: parent
         Repeater{
             model: control.current
-            delegate: ItemKey{
-                text: modelData
+            delegate: Loader{
+                property var keyText: modelData
+                sourceComponent: com_item_key
             }
         }
         Item{
@@ -217,8 +220,9 @@ FluIconButton {
                     anchors.centerIn: parent
                     Repeater{
                         model: content_dialog.keysModel
-                        delegate: ItemKey{
-                            text: modelData
+                        delegate: Loader{
+                            property var keyText: modelData
+                            sourceComponent: com_item_key
                         }
                     }
                 }

@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic
 import FluentUI
 
 ProgressBar{
-    property int duration: 888
+    property int duration: 2000
     property real strokeWidth: 6
     property bool progressVisible: false
     property color color: FluTheme.primaryColor
@@ -21,16 +21,12 @@ ProgressBar{
         border.width: control.strokeWidth
     }
     onIndeterminateChanged:{
-        if(!indeterminate){
-            animator_r.duration = 0
-            layout_item.rotation = 0
-            animator_r.duration = control.duration
-        }
+        canvas.requestPaint()
     }
     QtObject{
         id:d
         property real _radius: control.width/2-control.strokeWidth/2
-        property real _progress: control.indeterminate ? 0.3 :  control.visualPosition
+        property real _progress: control.indeterminate ? 0.0 :  control.visualPosition
         on_ProgressChanged: {
             canvas.requestPaint()
         }
@@ -43,27 +39,39 @@ ProgressBar{
     }
     contentItem: Item {
         id:layout_item
-        RotationAnimation on rotation {
-            id:animator_r
-            running: control.indeterminate && control.visible
-            from: 0
-            to:360
-            loops: Animation.Infinite
-            duration: control.duration
-        }
         Canvas {
             id:canvas
             anchors.fill: parent
             antialiasing: true
             renderTarget: Canvas.Image
+            property real startAngle: 0
+            property real sweepAngle: 0
+            SequentialAnimation on startAngle {
+                loops: Animation.Infinite
+                PropertyAnimation { from: 0; to: 450; duration: control.duration/2 }
+                PropertyAnimation { from: 450; to: 1080; duration: control.duration/2 }
+            }
+            SequentialAnimation on sweepAngle {
+                loops: Animation.Infinite
+                PropertyAnimation { from: 0; to: 180; duration: control.duration/2 }
+                PropertyAnimation { from: 180; to: 0; duration: control.duration/2 }
+            }
+            onStartAngleChanged: {
+                requestPaint()
+            }
             onPaint: {
                 var ctx = canvas.getContext("2d")
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
                 ctx.save()
                 ctx.lineWidth = control.strokeWidth
                 ctx.strokeStyle = control.color
+                ctx.lineCap = "round"
                 ctx.beginPath()
-                ctx.arc(width/2, height/2, d._radius ,-0.5 * Math.PI,-0.5 * Math.PI + d._progress * 2 * Math.PI)
+                if(control.indeterminate){
+                    ctx.arc(width/2, height/2, d._radius , Math.PI * (startAngle - 90) / 180,  Math.PI * (startAngle - 90 + sweepAngle) / 180)
+                }else{
+                    ctx.arc(width/2, height/2, d._radius , -0.5 * Math.PI , -0.5 * Math.PI + d._progress * 2 * Math.PI)
+                }
                 ctx.stroke()
                 ctx.closePath()
                 ctx.restore()
