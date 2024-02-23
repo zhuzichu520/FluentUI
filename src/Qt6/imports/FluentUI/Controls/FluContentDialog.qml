@@ -102,9 +102,9 @@ FluPopup {
                     Item{
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        visible: control.buttonFlags&FluContentDialogType.NeutralButton
                         FluButton{
                             id:neutral_btn
+                            visible: control.buttonFlags&FluContentDialogType.NeutralButton
                             text: neutralText
                             width: parent.width
                             anchors.centerIn: parent
@@ -121,9 +121,9 @@ FluPopup {
                     Item{
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        visible: control.buttonFlags&FluContentDialogType.NegativeButton
                         FluButton{
                             id:negative_btn
+                            visible: control.buttonFlags&FluContentDialogType.NegativeButton
                             width: parent.width
                             anchors.centerIn: parent
                             text: negativeText
@@ -140,9 +140,9 @@ FluPopup {
                     Item{
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        visible: control.buttonFlags&FluContentDialogType.PositiveButton
                         FluFilledButton{
                             id:positive_btn
+                            visible: control.buttonFlags&FluContentDialogType.PositiveButton
                             text: positiveText
                             width: parent.width
                             anchors.centerIn: parent
