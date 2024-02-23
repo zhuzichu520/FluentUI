@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import FluentUI
 
-FluStatusView {
+FluStatusLayout {
     property url source: ""
     property bool lazy: false
     color:"transparent"
@@ -21,11 +21,11 @@ FluStatusView {
         asynchronous: true
         onStatusChanged: {
             if(status === Loader.Error){
-                control.statusMode = FluStatusViewType.Error
+                control.statusMode = FluStatusLayoutType.Error
             }else if(status === Loader.Loading){
-                control.statusMode = FluStatusViewType.Loading
+                control.statusMode = FluStatusLayoutType.Loading
             }else{
-                control.statusMode = FluStatusViewType.Success
+                control.statusMode = FluStatusLayoutType.Success
             }
         }
     }

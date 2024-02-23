@@ -70,7 +70,7 @@
         <file>FluentUI/Controls/FluSlider.qml</file>
         <file>FluentUI/Controls/FluSpinBox.qml</file>
         <file>FluentUI/Controls/FluStaggeredLayout.qml</file>
-        <file>FluentUI/Controls/FluStatusView.qml</file>
+        <file>FluentUI/Controls/FluStatusLayout.qml</file>
         <file>FluentUI/Controls/FluTableView.qml</file>
         <file>FluentUI/Controls/FluTabView.qml</file>
         <file>FluentUI/Controls/FluText.qml</file>

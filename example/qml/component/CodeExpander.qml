@@ -118,7 +118,7 @@ FluExpander{
                     "FluTableView",
                     "FluColors",
                     "FluTheme",
-                    "FluStatusView",
+                    "FluStatusLayout",
                     "FluRatingControl",
                     "FluPasswordBox",
                     "FluBreadcrumbBar",

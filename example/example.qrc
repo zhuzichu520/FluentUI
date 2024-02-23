@@ -157,7 +157,7 @@
         <file>qml/page/T_Screenshot.qml</file>
         <file>qml/page/T_Settings.qml</file>
         <file>qml/page/T_Slider.qml</file>
-        <file>qml/page/T_StatusView.qml</file>
+        <file>qml/page/T_StatusLayout.qml</file>
         <file>qml/page/T_TableView.qml</file>
         <file>qml/page/T_TabView.qml</file>
         <file>qml/page/T_Text.qml</file>

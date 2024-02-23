@@ -158,8 +158,8 @@ Module {
         }
     }
     Component {
-        name: "FluStatusViewType"
-        exports: ["FluentUI/FluStatusViewType 1.0"]
+        name: "FluStatusLayoutType"
+        exports: ["FluentUI/FluStatusLayoutType 1.0"]
         isCreatable: false
         exportMetaObjectRevisions: [0]
         Enum {
@@ -3521,8 +3521,8 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
-        name: "FluentUI/FluStatusView 1.0"
-        exports: ["FluentUI/FluStatusView 1.0"]
+        name: "FluentUI/FluStatusLayout 1.0"
+        exports: ["FluentUI/FluStatusLayout 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "content"

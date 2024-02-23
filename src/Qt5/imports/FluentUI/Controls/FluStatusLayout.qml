@@ -1,12 +1,13 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-import FluentUI
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import FluentUI 1.0
 
 Item{
     id:control
     default property alias content: container.data
-    property int statusMode: FluStatusViewType.Loading
+    property int statusMode: FluStatusLayoutType.Loading
     property string loadingText:"正在加载..."
     property string emptyText: "空空如也"
     property string errorText: "页面出错了.."
@@ -20,20 +21,20 @@ Item{
     Item{
         id:container
         anchors.fill: parent
-        visible: statusMode===FluStatusViewType.Success
+        visible: statusMode===FluStatusLayoutType.Success
     }
     FluLoader{
         id:loader
         anchors.fill: parent
-        visible: statusMode!==FluStatusViewType.Success
+        visible: statusMode!==FluStatusLayoutType.Success
         sourceComponent: {
-            if(statusMode === FluStatusViewType.Loading){
+            if(statusMode === FluStatusLayoutType.Loading){
                 return loadingItem
             }
-            if(statusMode === FluStatusViewType.Empty){
+            if(statusMode === FluStatusLayoutType.Empty){
                 return emptyItem
             }
-            if(statusMode === FluStatusViewType.Error){
+            if(statusMode === FluStatusLayoutType.Error){
                 return errorItem
             }
             return undefined
@@ -102,15 +103,15 @@ Item{
         }
     }
     function showSuccessView(){
-        statusMode = FluStatusViewType.Success
+        statusMode = FluStatusLayoutType.Success
     }
     function showLoadingView(){
-        statusMode = FluStatusViewType.Loading
+        statusMode = FluStatusLayoutType.Loading
     }
     function showEmptyView(){
-        statusMode = FluStatusViewType.Empty
+        statusMode = FluStatusLayoutType.Empty
     }
     function showErrorView(){
-        statusMode = FluStatusViewType.Error
+        statusMode = FluStatusLayoutType.Error
     }
 }

@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"StatusView"
+    title:"StatusLayout"
 
     FluArea{
         id:layout_actions
@@ -25,28 +25,28 @@ FluScrollablePage{
                     text:"Loading"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusViewType.Loading
+                        status_view.statusMode = FluStatusLayoutType.Loading
                     }
                 }
                 FluMenuItem{
                     text:"Empty"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusViewType.Empty
+                        status_view.statusMode = FluStatusLayoutType.Empty
                     }
                 }
                 FluMenuItem{
                     text:"Error"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusViewType.Error
+                        status_view.statusMode = FluStatusLayoutType.Error
                     }
                 }
                 FluMenuItem{
                     text:"Success"
                     onClicked: {
                         btn_status_mode.text = text
-                        status_view.statusMode = FluStatusViewType.Success
+                        status_view.statusMode = FluStatusLayoutType.Success
                     }
                 }
             }
@@ -58,7 +58,7 @@ FluScrollablePage{
         Layout.topMargin: 10
         height: 380
         paddings: 10
-        FluStatusView{
+        FluStatusLayout{
             id:status_view
             anchors.fill: parent
             onErrorClicked:{
@@ -73,9 +73,9 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'FluStatusView{
+        code:'FluStatusLayout{
     anchors.fill: parent
-    statusMode: FluStatusViewType.Loading
+    statusMode: FluStatusLayoutType.Loading
     Rectangle{
         anchors.fill: parent
         color:FluTheme.primaryColor

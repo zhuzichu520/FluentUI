@@ -38,10 +38,10 @@ FluPage {
             rightMargin: control.rightPadding
         }
     }
-    FluStatusView{
+    FluStatusLayout{
         id:status_view
         color: "#00000000"
-        statusMode: FluStatusViewType.Success
+        statusMode: FluStatusLayoutType.Success
         onErrorClicked: control.errorClicked()
         anchors{
             left: parent.left

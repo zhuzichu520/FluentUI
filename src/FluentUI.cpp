@@ -114,7 +114,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluShadow.qml"),uri,major,minor,"FluShadow");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSlider.qml"),uri,major,minor,"FluSlider");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSpinBox.qml"),uri,major,minor,"FluSpinBox");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStatusView.qml"),uri,major,minor,"FluStatusView");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStatusLayout.qml"),uri,major,minor,"FluStatusLayout");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTabView.qml"),uri,major,minor,"FluTabView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTableView.qml"),uri,major,minor,"FluTableView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluText.qml"),uri,major,minor,"FluText");
@@ -144,7 +144,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterUncreatableMetaObject(FluPageType::staticMetaObject,  uri,major,minor,"FluPageType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluWindowType::staticMetaObject,  uri,major,minor,"FluWindowType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTreeViewType::staticMetaObject,  uri,major,minor,"FluTreeViewType", "Access to enums & flags only");
-    qmlRegisterUncreatableMetaObject(FluStatusViewType::staticMetaObject,  uri,major,minor,"FluStatusViewType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluStatusLayoutType::staticMetaObject,  uri,major,minor,"FluStatusLayoutType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluContentDialogType::staticMetaObject,  uri,major,minor,"FluContentDialogType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimePickerType::staticMetaObject,  uri,major,minor,"FluTimePickerType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluCalendarViewType::staticMetaObject,  uri,major,minor,"FluCalendarViewType", "Access to enums & flags only");

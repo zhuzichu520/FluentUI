@@ -193,12 +193,6 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
-            title:"StatusView"
-            menuDelegate: paneItemMenu
-            url:"qrc:/example/qml/page/T_StatusView.qml"
-            onTap:{ navigationView.push(url) }
-        }
-        FluPaneItem{
             title:"Carousel"
             menuDelegate: paneItemMenu
             url:"qrc:/example/qml/page/T_Carousel.qml"
@@ -231,6 +225,12 @@ FluObject{
             title:"SplitLayout"
             menuDelegate: paneItemMenu
             url:"qrc:/example/qml/page/T_SplitLayout.qml"
+            onTap:{ navigationView.push(url) }
+        }
+        FluPaneItem{
+            title:"StatusLayout"
+            menuDelegate: paneItemMenu
+            url:"qrc:/example/qml/page/T_StatusLayout.qml"
             onTap:{ navigationView.push(url) }
         }
     }
