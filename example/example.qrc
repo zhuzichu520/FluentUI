@@ -154,7 +154,6 @@
         <file>qml/page/T_RatingControl.qml</file>
         <file>qml/page/T_Rectangle.qml</file>
         <file>qml/page/T_RemoteLoader.qml</file>
-        <file>qml/page/T_Screenshot.qml</file>
         <file>qml/page/T_Settings.qml</file>
         <file>qml/page/T_Slider.qml</file>
         <file>qml/page/T_StatusLayout.qml</file>

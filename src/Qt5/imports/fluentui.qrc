@@ -62,7 +62,6 @@
         <file>FluentUI/Controls/FluRangeSlider.qml</file>
         <file>FluentUI/Controls/FluRatingControl.qml</file>
         <file>FluentUI/Controls/FluRemoteLoader.qml</file>
-        <file>FluentUI/Controls/FluScreenshot.qml</file>
         <file>FluentUI/Controls/FluScrollablePage.qml</file>
         <file>FluentUI/Controls/FluScrollBar.qml</file>
         <file>FluentUI/Controls/FluScrollIndicator.qml</file>

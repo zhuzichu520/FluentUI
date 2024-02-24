@@ -433,12 +433,6 @@ FluObject{
             onTap:{ navigationView.push(url) }
         }
         FluPaneItem{
-            title:"Screenshot(Todo)"
-            menuDelegate: paneItemMenu
-            url:"qrc:/example/qml/page/T_Screenshot.qml"
-            onTap:{ navigationView.push(url) }
-        }
-        FluPaneItem{
             title:"Captcha"
             menuDelegate: paneItemMenu
             url:"qrc:/example/qml/page/T_Captcha.qml"

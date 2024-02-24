@@ -13,7 +13,6 @@
 #include "FluEventBus.h"
 #include "FluTreeModel.h"
 #include "FluViewModel.h"
-#include "Screenshot.h"
 #include "FluRectangle.h"
 #include "FluNetwork.h"
 #include "FluFramelessHelper.h"
@@ -32,8 +31,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<QRCode>(uri,major,minor,"QRCode");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
     qmlRegisterType<FluWatermark>(uri,major,minor,"FluWatermark");
-    qmlRegisterType<ScreenshotBackground>(uri,major,minor,"ScreenshotBackground");
-    qmlRegisterType<Screenshot>(uri,major,minor,"Screenshot");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
     qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
@@ -107,7 +104,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRadioButtons.qml"),uri,major,minor,"FluRadioButtons");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRatingControl.qml"),uri,major,minor,"FluRatingControl");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRemoteLoader.qml"),uri,major,minor,"FluRemoteLoader");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScreenshot.qml"),uri,major,minor,"FluScreenshot");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScrollBar.qml"),uri,major,minor,"FluScrollBar");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScrollIndicator.qml"),uri,major,minor,"FluScrollIndicator");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScrollablePage.qml"),uri,major,minor,"FluScrollablePage");
@@ -151,7 +147,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterUncreatableMetaObject(FluTabViewType::staticMetaObject,  uri,major,minor,"FluTabViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNavigationViewType::staticMetaObject,  uri,major,minor,"FluNavigationViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject,  uri,major,minor,"FluTimelineType", "Access to enums & flags only");
-    qmlRegisterUncreatableMetaObject(FluScreenshotType::staticMetaObject,  uri,major,minor,"FluScreenshotType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluViewModelType::staticMetaObject,  uri,major,minor,"FluViewModelType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNetworkType::staticMetaObject,  uri,major,minor,"FluNetworkType", "Access to enums & flags only");
 
