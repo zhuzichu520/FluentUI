@@ -192,6 +192,7 @@ void Log::setup(const QString &app,int level)
     qInfo()<<"===================================================";
     qInfo()<<"[AppName]"<<g_app;
     qInfo()<<"[AppVersion]"<<APPLICATION_VERSION;
+    qInfo()<<"[QtVersion]"<<QT_VERSION_STR;
 #ifdef WIN32
     qInfo()<<"[ProcessId]"<<QString::number(_getpid());
 #else

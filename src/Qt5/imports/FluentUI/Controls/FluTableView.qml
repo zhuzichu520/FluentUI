@@ -532,12 +532,13 @@ Rectangle {
         syncView: table_view
         clip: true
         model: TableModel{
-            TableModelColumn {}
+            id:model_rows
+            TableModelColumn { display: "rowIndex" }
         }
         Connections{
             target: table_model
             function onRowCountChanged(){
-                header_vertical.model.rows = table_model.rows
+               model_rows.rows = Array.from({length: table_model.rows.length}, (_, i) => ({rowIndex:i+1}));
             }
         }
         onContentYChanged:{
@@ -592,7 +593,7 @@ Rectangle {
             FluText{
                 id:row_text
                 anchors.centerIn: parent
-                text: row + 1
+                text: model.display
             }
             MouseArea{
                 id:item_control_mouse
