@@ -7,6 +7,7 @@ FluRectangle {
     id:control
     color: "#00000000"
     layer.enabled: !FluTools.isSoftware()
+    layer.textureSize: Qt.size(control.width*Math.ceil(Screen.devicePixelRatio),control.height*Math.ceil(Screen.devicePixelRatio))
     layer.effect: OpacityMask{
         maskSource: ShaderEffectSource{
             sourceItem: FluRectangle{
