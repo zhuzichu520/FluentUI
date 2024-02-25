@@ -20,7 +20,7 @@ FluButton {
             width: control.loading ? 16 : 0
             height: 16
             anchors.verticalCenter: parent.verticalCenter
-            visible: width!==0
+            visible: Number(width)!==0
             clip: true
             Behavior on width {
                 enabled: FluTheme.enableAnimation

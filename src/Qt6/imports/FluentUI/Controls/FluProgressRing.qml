@@ -48,11 +48,13 @@ ProgressBar{
             property real sweepAngle: 0
             SequentialAnimation on startAngle {
                 loops: Animation.Infinite
+                running: control.visible && control.indeterminate
                 PropertyAnimation { from: 0; to: 450; duration: control.duration/2 }
                 PropertyAnimation { from: 450; to: 1080; duration: control.duration/2 }
             }
             SequentialAnimation on sweepAngle {
                 loops: Animation.Infinite
+                running: control.visible && control.indeterminate
                 PropertyAnimation { from: 0; to: 180; duration: control.duration/2 }
                 PropertyAnimation { from: 180; to: 0; duration: control.duration/2 }
             }
