@@ -37,7 +37,7 @@ FluScrollablePage{
     positiveText:"确定"
     onPositiveClicked:{
         showSuccess("点击确定按钮")
-    }
+        }
     }
     dialog.open()'
     }
@@ -159,6 +159,7 @@ FluScrollablePage{
     positiveText:"确定"
     onPositiveClicked:{
         showSuccess("点击确定按钮")
+        }
     }
     dialog.open()'
     }
