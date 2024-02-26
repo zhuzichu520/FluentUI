@@ -12,9 +12,9 @@ Popup{
     property int index : 0
     id:control
     padding: 0
-    anchors.centerIn: Overlay.overlay
-    width: d.window?.width
-    height: d.window?.height
+    parent: Overlay.overlay
+    width: parent.width
+    height: parent.height
     background: Item{}
     contentItem: Item{}
     onVisibleChanged: {
@@ -50,7 +50,7 @@ Popup{
     Item{
         id:d
         property var window: Window.window
-        property var pos:Qt.point(0,0)
+        property point pos: Qt.point(0,0)
         property var step : steps[index]
         property var target : step.target()
     }
@@ -85,7 +85,8 @@ Popup{
             ctx.fillRect(0, 0, canvasSize.width, canvasSize.height)
             ctx.globalCompositeOperation = 'destination-out'
             ctx.fillStyle = 'black'
-            drawRoundedRect(Qt.rect(d.pos.x-control.targetMargins,d.pos.y-control.targetMargins, d.target.width+control.targetMargins*2, d.target.height+control.targetMargins*2),2,ctx)
+            var rect = Qt.rect(d.pos.x-control.targetMargins,d.pos.y-control.targetMargins, d.target.width+control.targetMargins*2, d.target.height+control.targetMargins*2)
+            drawRoundedRect(rect,2,ctx)
             ctx.restore()
         }
         function drawRoundedRect(rect, r, ctx) {
@@ -109,11 +110,17 @@ Popup{
         width: 500
         height: 88 + text_desc.height
         color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
-        property int dir : (y<d.pos.y)?1:0
-        x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),d.window?.width-width)
-        y: {
+        property int dir : {
+            if(y<d.pos.y)
+                return 1
+            return 0
+        }
+        x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),control.width-width)
+        y:{
             var ty=d.pos.y+d.target.height+control.targetMargins + 15
-            return ((ty+height)>d.window?.height)?(d.pos.y-height-control.targetMargins - 15):ty   
+            if((ty+height)>control.height)
+                return d.pos.y-height-control.targetMargins - 15
+            return ty
         }
         border.width: 0
         FluShadow{

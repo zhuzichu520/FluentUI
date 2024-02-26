@@ -12,9 +12,9 @@ Popup{
     property int index : 0
     id:control
     padding: 0
-    anchors.centerIn: Overlay.overlay
-    width: d.windowWidth
-    height: d.windowHeight
+    parent: Overlay.overlay
+    width: parent.width
+    height: parent.height
     background: Item{}
     contentItem: Item{}
     onVisibleChanged: {
@@ -50,16 +50,6 @@ Popup{
     Item{
         id:d
         property var window: Window.window
-        property int windowWidth: {
-            if(d.window)
-                return d.window.width
-            return 0
-        }
-        property int windowHeight: {
-            if(d.window)
-                return d.window.height
-            return 0
-        }
         property point pos: Qt.point(0,0)
         property var step : steps[index]
         property var target : step.target()
@@ -125,10 +115,10 @@ Popup{
                 return 1
             return 0
         }
-        x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),d.windowWidth-width)
+        x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),control.width-width)
         y:{
             var ty=d.pos.y+d.target.height+control.targetMargins + 15
-            if((ty+height)>d.windowHeight)
+            if((ty+height)>control.height)
                 return d.pos.y-height-control.targetMargins - 15
             return ty
         }

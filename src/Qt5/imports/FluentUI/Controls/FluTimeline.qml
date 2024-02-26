@@ -41,6 +41,7 @@ Item{
         color: control.lineColor
         height: parent.height
         width: 2
+        visible: repeater.count!==0
         state: d.stateName
         states: [
             State {
@@ -110,6 +111,7 @@ Item{
         id:layout_column
         spacing: 30
         width: control.width
+        height: repeater.count === 0 ? 1 : childrenRect.height
         Repeater{
             id:repeater
             Item{
