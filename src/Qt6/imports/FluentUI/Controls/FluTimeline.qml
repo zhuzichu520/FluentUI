@@ -39,7 +39,12 @@ Item{
     Rectangle{
         id:rect_line
         color: control.lineColor
-        height: parent.height
+        height: {
+            if(repeater.count===0){
+                return parent.height
+            }
+            return parent.height - layout_column.children[repeater.count-1].height
+        }
         width: 2
         visible: repeater.count!==0
         state: d.stateName
@@ -92,7 +97,12 @@ Item{
         FluText{
             wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
-            text: modelData.lable
+            text: {
+                if(modelData.lable){
+                    return modelData.lable
+                }
+                return ""
+            }
             color: FluTheme.primaryColor
         }
     }

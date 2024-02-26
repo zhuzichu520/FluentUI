@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import "Content"
 
-Rectangle {
+Item {
     id: colorPicker
     property color colorValue: "transparent"
     property bool enableAlphaChannel: true
@@ -18,7 +18,6 @@ Rectangle {
 
     implicitWidth: picker.implicitWidth
     implicitHeight: picker.implicitHeight
-    color: "#00000000"
     clip: true
 
     RowLayout {
@@ -29,7 +28,6 @@ Rectangle {
         anchors.rightMargin: colorHandleRadius
         anchors.bottom: parent.bottom
         spacing: 0
-
 
         SBPicker {
             id: sbPicker

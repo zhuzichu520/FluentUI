@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import "Content"
 
-Rectangle {
+Item {
     id: colorPicker
     property color colorValue: "transparent"
     property bool enableAlphaChannel: true
@@ -18,7 +18,6 @@ Rectangle {
 
     implicitWidth: picker.implicitWidth
     implicitHeight: picker.implicitHeight
-    color: "#00000000"
     clip: true
 
     RowLayout {
