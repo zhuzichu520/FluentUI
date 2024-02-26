@@ -325,13 +325,13 @@ void FluFramelessHelper::componentComplete(){
         exstyle = exstyle | WS_EX_LAYERED;
         SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
         SetLayeredWindowAttributes(hwnd, RGB(251, 255, 242), 0, LWA_COLORKEY);
-        SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
         connect(window,&QQuickWindow::activeChanged,this,[this,hwnd]{
             if(this->window->isActive()){
                 LONG exstyle = ::GetWindowLong(hwnd, GWL_EXSTYLE);
                 if(exstyle & WS_EX_LAYERED){
                     exstyle = exstyle &~ WS_EX_LAYERED;
                     SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
+                    SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
                 }
             }
         });
