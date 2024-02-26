@@ -2,6 +2,7 @@
 
 #include <QGuiApplication>
 #include <QScreen>
+#include <QQuickItem>
 #include "FluTools.h"
 
 #ifdef Q_OS_WIN
@@ -83,7 +84,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         int offsetSize = 0;
         bool isMaximum = IsZoomed(hwnd);
         offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
-        if(isMaximum || _helper->window->visibility() == QWindow::FullScreen){
+        if(isMaximum || _helper->fullScreen()){
             _helper->setOriginalPos(QPoint(originalLeft,originalTop));
             offsetSize = 0;
         }else{
@@ -109,6 +110,52 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
                 *result = HTZOOM;
             }
             return true;
+        }
+        *result = 0;
+        short x = LOWORD(msg->lParam);
+        short y = HIWORD(msg->lParam);
+        int margins = _helper->getMargins();
+        QPointer<QQuickWindow> win = _helper->window;
+        QPoint pos =  win->mapFromGlobal(QPoint(x, y));
+        bool left = pos.x() < margins;
+        bool right = pos.x() > win->width() - margins;
+        bool top = pos.y() < margins;
+        bool bottom = pos.y() > win->height() - margins;
+        *result = 0;
+        if (_helper->resizeable() && !_helper->fullScreen() && !_helper->maximized()) {
+            if (left && top) {
+                *result = HTTOPLEFT;
+            } else if (left && bottom) {
+                *result = HTBOTTOMLEFT;
+            } else if (right && top) {
+                *result = HTTOPRIGHT;
+            } else if (right && bottom) {
+                *result = HTBOTTOMRIGHT;
+            } else if (left) {
+                *result = HTLEFT;
+            } else if (right) {
+                *result = HTRIGHT;
+            } else if (top) {
+                *result = HTTOP;
+            } else if (bottom) {
+                *result = HTBOTTOM;
+            }
+        }
+        if (0 != *result) {
+            return true;
+        }
+        QVariant appBar = _helper->getAppBar();
+        if(!appBar.isNull()){
+            auto item = appBar.value<QQuickItem*>();
+            if(item->contains(pos)){
+                QPoint appBarTopLeft = item->mapToItem(_helper->window->contentItem(),QPoint(0, 0)).toPoint();
+                QRect rcAppBar = QRect(appBarTopLeft, QSize(item->width(), item->height()));
+                if (rcAppBar.contains(pos) && _helper->hoverAppBar())
+                {
+                    *result = HTCAPTION;
+                    return true;
+                }
+            }
         }
         *result = HTCLIENT;
         return true;
@@ -140,6 +187,10 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y()*2;
 #endif
         return false;
+    }else if(uMsg == WM_NCRBUTTONDOWN){
+        if (wParam == HTCAPTION) {
+            _helper->showSystemMenu();
+        }
     }
     return false;
 #endif
@@ -181,7 +232,6 @@ void FluFramelessHelper::_updateCursor(int edges){
 
 bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
     if (!window.isNull() && window->flags()) {
-        static int margin = 8;
         switch (ev->type()) {
         case QEvent::MouseButtonPress:
             if(_edges!=0){
@@ -196,7 +246,7 @@ bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
             _edges = 0;
             break;
         case QEvent::MouseMove: {
-            if(_maximized() || _fullScreen()){
+            if(maximized() || fullScreen()){
                 break;
             }
             if(!resizeable()){
@@ -209,7 +259,7 @@ bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
 #else
                 event->position().toPoint();
 #endif
-            if(p.x() >= margin && p.x() <= (window->width() - margin) && p.y() >= margin && p.y() <= (window->height() - margin)){
+            if(p.x() >= _margins && p.x() <= (window->width() - _margins) && p.y() >= _margins && p.y() <= (window->height() - _margins)){
                 if(_edges != 0){
                     _edges = 0;
                     _updateCursor(_edges);
@@ -217,16 +267,16 @@ bool FluFramelessHelper::eventFilter(QObject *obj, QEvent *ev){
                 break;
             }
             _edges = 0;
-            if ( p.x() < margin ) {
+            if ( p.x() < _margins ) {
                 _edges |= Qt::LeftEdge;
             }
-            if ( p.x() > (window->width() - margin) ) {
+            if ( p.x() > (window->width() - _margins) ) {
                 _edges |= Qt::RightEdge;
             }
-            if ( p.y() < margin ) {
+            if ( p.y() < _margins ) {
                 _edges |= Qt::TopEdge;
             }
-            if ( p.y() > (window->height() - margin) ) {
+            if ( p.y() > (window->height() - _margins) ) {
                 _edges |= Qt::BottomEdge;
             }
             _updateCursor(_edges);
@@ -256,7 +306,11 @@ void FluFramelessHelper::componentComplete(){
         _realHeight = QQmlProperty(window,"_realHeight");
         _realWidth = QQmlProperty(window,"_realWidth");
         _appBarHeight = QQmlProperty(window,"_appBarHeight");
+        _appBar = window->property("appBar");
 #ifdef Q_OS_WIN
+        if(!_appBar.isNull()){
+            _appBar.value<QObject*>()->setProperty("systemMoveEnable",false);
+        }
         window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint);
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
@@ -283,6 +337,7 @@ void FluFramelessHelper::componentComplete(){
         });
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
+        window->installEventFilter(this);
 #endif
         int w = _realWidth.read().toInt();
         int h = _realHeight.read().toInt()+_appBarHeight.read().toInt();
@@ -295,7 +350,6 @@ void FluFramelessHelper::componentComplete(){
         _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));
-        window->installEventFilter(this);
         Q_EMIT loadCompleted();
     }
 }
@@ -315,16 +369,18 @@ void FluFramelessHelper::showSystemMenu(){
     DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
     SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_SYSMENU);
     const HMENU hMenu = ::GetSystemMenu(hwnd, FALSE);
-    DeleteMenu(hMenu, SC_MOVE, MF_BYCOMMAND);
-    DeleteMenu(hMenu, SC_SIZE, MF_BYCOMMAND);
-    if(_maximized() || _fullScreen()){
+    if(maximized() || fullScreen()){
+        EnableMenuItem(hMenu,SC_MOVE,MFS_DISABLED);
         EnableMenuItem(hMenu,SC_RESTORE,MFS_ENABLED);
     }else{
+        EnableMenuItem(hMenu,SC_MOVE,MFS_ENABLED);
         EnableMenuItem(hMenu,SC_RESTORE,MFS_DISABLED);
     }
-    if(resizeable() && !_maximized() && !_fullScreen()){
+    if(resizeable() && !maximized() && !fullScreen()){
+        EnableMenuItem(hMenu,SC_SIZE,MFS_ENABLED);
         EnableMenuItem(hMenu,SC_MAXIMIZE,MFS_ENABLED);
     }else{
+        EnableMenuItem(hMenu,SC_SIZE,MFS_DISABLED);
         EnableMenuItem(hMenu,SC_MAXIMIZE,MFS_DISABLED);
     }
     const int result = TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), point.x()*window->devicePixelRatio(), point.y()*window->devicePixelRatio(), 0, hwnd, nullptr);
@@ -361,25 +417,38 @@ FluFramelessHelper::~FluFramelessHelper(){
 }
 
 bool FluFramelessHelper::hoverMaxBtn(){
-    QVariant appBar = window->property("appBar");
-    if(appBar.isNull()){
+    if(_appBar.isNull()){
         return false;
     }
     QVariant var;
-    QMetaObject::invokeMethod(appBar.value<QObject*>(), "maximizeButtonHover",Q_RETURN_ARG(QVariant, var));
+    QMetaObject::invokeMethod(_appBar.value<QObject*>(), "_maximizeButtonHover",Q_RETURN_ARG(QVariant, var));
     if(var.isNull()){
         return false;
     }
     return var.toBool();
 }
 
-QObject* FluFramelessHelper::maximizeButton(){
-    QVariant appBar = window->property("appBar");
-    if(appBar.isNull()){
-        return nullptr;
+bool FluFramelessHelper::hoverAppBar(){
+    if(_appBar.isNull()){
+        return false;
     }
     QVariant var;
-    QMetaObject::invokeMethod(appBar.value<QObject*>(), "maximizeButton",Q_RETURN_ARG(QVariant, var));
+    QMetaObject::invokeMethod(_appBar.value<QObject*>(), "_appBarHover",Q_RETURN_ARG(QVariant, var));
+    if(var.isNull()){
+        return false;
+    }
+    return var.toBool();
+}
+
+QVariant FluFramelessHelper::getAppBar(){
+    return _appBar;
+}
+
+QObject* FluFramelessHelper::maximizeButton(){
+    if(_appBar.isNull()){
+        return nullptr;
+    }
+    QVariant var = _appBar.value<QObject*>()->property("buttonMaximize");
     if(var.isNull()){
         return nullptr;
     }
@@ -394,10 +463,14 @@ bool FluFramelessHelper::resizeable(){
     return !_fixSize.read().toBool();
 }
 
-bool FluFramelessHelper::_maximized(){
+bool FluFramelessHelper::maximized(){
     return window->visibility() == QWindow::Maximized;
 }
 
-bool FluFramelessHelper::_fullScreen(){
+bool FluFramelessHelper::fullScreen(){
     return window->visibility() == QWindow::FullScreen;
+}
+
+int FluFramelessHelper::getMargins(){
+    return _margins;
 }
