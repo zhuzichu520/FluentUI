@@ -14,6 +14,7 @@ FluWindow {
     fixSize: true
     showMinimize: false
     showStayTop: false
+    stayTop:true
 
     property string crashFilePath
 
