@@ -94,6 +94,14 @@ Rectangle{
         }
         property bool isRestore: win && Window.Maximized === win.visibility
         property bool resizable: win && !(win.height === win.maximumHeight && win.height === win.minimumHeight && win.width === win.maximumWidth && win.width === win.minimumWidth)
+        function containsPointToItem(point,item){
+            var pos = item.mapToGlobal(0,0)
+            var rect = Qt.rect(pos.x,pos.y,item.width,item.height)
+            if(point.x>rect.x && point.x<(rect.x+rect.width) && point.y>rect.y && point.y<(rect.y+rect.height)){
+                return true
+            }
+            return false
+        }
     }
     MouseArea{
         id:mouse_app_bar
@@ -283,30 +291,28 @@ Rectangle{
     }
     function _maximizeButtonHover(){
         var hover = false
-        var pos = btn_maximize.mapToGlobal(0,0)
         if(btn_maximize.visible){
-            var rect = Qt.rect(pos.x,pos.y,btn_maximize.width,btn_maximize.height)
-            pos = FluTools.cursorPos()
-            if(pos.x>rect.x && pos.x<(rect.x+rect.width) && pos.y>rect.y && pos.y<(rect.y+rect.height)){
-                hover = true;
+            if(d.containsPointToItem(FluTools.cursorPos(),btn_maximize)){
+                hover = true
             }
         }
         d.hoverMaxBtn = hover
         return hover;
     }
     function _appBarHover(){
+        var cursorPos = FluTools.cursorPos()
         for(var i =0 ;i< d.hitTestList.length; i++){
             var item = d.hitTestList[i]
-            var pos = item.mapToGlobal(0,0)
             if(item.visible){
-                var rect = Qt.rect(pos.x,pos.y,item.width,item.height)
-                pos = FluTools.cursorPos()
-                if(pos.x>rect.x && pos.x<(rect.x+rect.width) && pos.y>rect.y && pos.y<(rect.y+rect.height)){
+                if(d.containsPointToItem(cursorPos,item)){
                     return false
                 }
             }
         }
-        return true
+        if(d.containsPointToItem(cursorPos,control)){
+            return true
+        }
+        return false
     }
     function setHitTestVisible(id){
         d.hitTestList.push(id)

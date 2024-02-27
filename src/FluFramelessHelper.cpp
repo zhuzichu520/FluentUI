@@ -112,16 +112,18 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             return true;
         }
         *result = 0;
-        short x = LOWORD(msg->lParam);
-        short y = HIWORD(msg->lParam);
+        POINT nativeGlobalPos{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
+        POINT nativeLocalPos = nativeGlobalPos;
+        ::ScreenToClient(hwnd, &nativeLocalPos);
+        RECT clientRect{0, 0, 0, 0};
+        ::GetClientRect(hwnd, &clientRect);
+        auto clientWidth = clientRect.right-clientRect.left;
+        auto clientHeight = clientRect.bottom-clientRect.top;
         int margins = _helper->getMargins();
-        QPointer<QQuickWindow> win = _helper->window;
-        qreal dp = _helper->window->devicePixelRatio();
-        QPoint pos =  win->mapFromGlobal(QPoint(x/dp, y/dp));
-        bool left = pos.x() < margins;
-        bool right = pos.x() > win->width() - margins;
-        bool top = pos.y() < margins;
-        bool bottom = pos.y() > win->height() - margins;
+        bool left = nativeLocalPos.x < margins;
+        bool right = nativeLocalPos.x > clientWidth - margins;
+        bool top = nativeLocalPos.y < margins;
+        bool bottom = nativeLocalPos.y > clientHeight - margins;
         *result = 0;
         if (_helper->resizeable() && !_helper->fullScreen() && !_helper->maximized()) {
             if (left && top) {
@@ -146,17 +148,9 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             return true;
         }
         QVariant appBar = _helper->getAppBar();
-        if(!appBar.isNull()){
-            auto item = appBar.value<QQuickItem*>();
-            if(item->contains(pos)){
-                QPoint appBarTopLeft = item->mapToItem(_helper->window->contentItem(),QPoint(0, 0)).toPoint();
-                QRect rcAppBar = QRect(appBarTopLeft, QSize(item->width(), item->height()));
-                if (rcAppBar.contains(pos) && _helper->hoverAppBar())
-                {
-                    *result = HTCAPTION;
-                    return true;
-                }
-            }
+        if(!appBar.isNull()&& _helper->hoverAppBar()){
+            *result = HTCAPTION;
+            return true;
         }
         *result = HTCLIENT;
         return true;
