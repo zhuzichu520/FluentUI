@@ -8,13 +8,9 @@
 #include "stdafx.h"
 #include "singleton.h"
 
-class Model : public QObject{
-    Q_OBJECT
-public:
-    explicit Model(QObject *parent = nullptr);
-    ~Model();
-};
-
+/**
+ * @brief The FluViewModel class
+ */
 class FluViewModel : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
@@ -34,11 +30,14 @@ private:
     QString _key = "";
 };
 
-class PropertyObserver: public QObject{
+/**
+ * @brief The FluPropertyObserver class
+ */
+class FluPropertyObserver: public QObject{
     Q_OBJECT
 public:
-    explicit PropertyObserver(QString name,QObject* model,QObject *parent = nullptr);
-    ~PropertyObserver();
+    explicit FluPropertyObserver(QString name,QObject* model,QObject *parent = nullptr);
+    ~FluPropertyObserver();
 private:
     Q_SLOT void _propertyChange();
 private:
@@ -47,13 +46,15 @@ private:
     QObject* _model = nullptr;
 };
 
-
-class ViewModelManager:public QObject{
+/**
+ * @brief The FluViewModelManager class
+ */
+class FluViewModelManager:public QObject{
     Q_OBJECT
 private:
-    explicit ViewModelManager(QObject *parent = nullptr);
+    explicit FluViewModelManager(QObject *parent = nullptr);
 public:
-    SINGLETON(ViewModelManager)
+    SINGLETON(FluViewModelManager)
     bool exist(const QString& key);
     void insert(const QString& key,QObject* value);
     QObject* getModel(const QString& key);

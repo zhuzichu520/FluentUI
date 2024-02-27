@@ -1,7 +1,7 @@
 #include "FluentUI.h"
 
 #include <QGuiApplication>
-#include "WindowLifecycle.h"
+#include "FluWindowLifecycle.h"
 #include "Def.h"
 #include "FluApp.h"
 #include "FluColors.h"
@@ -16,7 +16,7 @@
 #include "FluRectangle.h"
 #include "FluNetwork.h"
 #include "FluFramelessHelper.h"
-#include "QRCode.h"
+#include "FluQrCodeItem.h"
 
 void FluentUI::registerTypes(QQmlEngine *engine){
     initializeEngine(engine,uri);
@@ -27,8 +27,8 @@ void FluentUI::registerTypes(const char *uri){
 #if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
     Q_INIT_RESOURCE(fluentui);
 #endif
-    qmlRegisterType<WindowLifecycle>(uri,major,minor,"WindowLifecycle");
-    qmlRegisterType<QRCode>(uri,major,minor,"QRCode");
+    qmlRegisterType<FluWindowLifecycle>(uri,major,minor,"FluWindowLifecycle");
+    qmlRegisterType<FluQrCodeItem>(uri,major,minor,"FluQrCodeItem");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
     qmlRegisterType<FluWatermark>(uri,major,minor,"FluWatermark");
     qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
@@ -36,8 +36,8 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
     qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
-    qmlRegisterType<NetworkCallable>(uri,major,minor,"FluNetworkCallable");
-    qmlRegisterType<NetworkParams>(uri,major,minor,"FluNetworkParams");
+    qmlRegisterType<FluNetworkCallable>(uri,major,minor,"FluNetworkCallable");
+    qmlRegisterType<FluNetworkParams>(uri,major,minor,"FluNetworkParams");
     qmlRegisterType<FluFramelessHelper>(uri,major,minor,"FluFramelessHelper");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");

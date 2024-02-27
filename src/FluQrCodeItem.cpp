@@ -1,17 +1,17 @@
-#include "QRCode.h"
+#include "FluQrCodeItem.h"
 
 #include "qrcode/qrencode.h"
 
-QRCode::QRCode(QQuickItem* parent):QQuickPaintedItem(parent){
+FluQrCodeItem::FluQrCodeItem(QQuickItem* parent):QQuickPaintedItem(parent){
     color(QColor(0,0,0,255));
     bgColor(QColor(255,255,255,255));
     size(100);
     setWidth(_size);
     setHeight(_size);
-    connect(this,&QRCode::textChanged,this,[=]{update();});
-    connect(this,&QRCode::colorChanged,this,[=]{update();});
-    connect(this,&QRCode::bgColorChanged,this,[=]{update();});
-    connect(this,&QRCode::sizeChanged,this,[=]{
+    connect(this,&FluQrCodeItem::textChanged,this,[=]{update();});
+    connect(this,&FluQrCodeItem::colorChanged,this,[=]{update();});
+    connect(this,&FluQrCodeItem::bgColorChanged,this,[=]{update();});
+    connect(this,&FluQrCodeItem::sizeChanged,this,[=]{
         setWidth(_size);
         setHeight(_size);
         update();
@@ -19,7 +19,7 @@ QRCode::QRCode(QQuickItem* parent):QQuickPaintedItem(parent){
 }
 
 
-void QRCode::paint(QPainter* painter){
+void FluQrCodeItem::paint(QPainter* painter){
     if(_text.isEmpty()){
         return;
     }

@@ -17,6 +17,9 @@ using QT_ENTER_EVENT_TYPE = QEvent;
 
 class FluFramelessHelper;
 
+/**
+ * @brief The FramelessEventFilter class
+ */
 class FramelessEventFilter : public QAbstractNativeEventFilter
 {
 public:
@@ -27,6 +30,9 @@ public:
     qint64 _current = 0;
 };
 
+/**
+ * @brief The FluFramelessHelper class
+ */
 class FluFramelessHelper : public QObject, public QQmlParserStatus
 {
     Q_OBJECT

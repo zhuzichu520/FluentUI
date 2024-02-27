@@ -15,7 +15,7 @@ Item{
         color: bgColor
         anchors.fill: parent
     }
-    QRCode{
+    FluQrCodeItem{
         id:qrcode
         size:control.size-margins
         anchors.centerIn: parent

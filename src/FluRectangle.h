@@ -6,6 +6,9 @@
 #include <QPainter>
 #include "stdafx.h"
 
+/**
+ * @brief The FluRectangle class
+ */
 class FluRectangle : public QQuickPaintedItem
 {
     Q_OBJECT

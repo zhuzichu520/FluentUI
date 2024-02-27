@@ -106,6 +106,113 @@ Module {
         }
     }
     Component {
+        name: "FluNetworkCallable"
+        prototype: "QObject"
+        exports: ["FluentUI/FluNetworkCallable 1.0"]
+        exportMetaObjectRevisions: [0]
+        Signal { name: "start" }
+        Signal { name: "finish" }
+        Signal {
+            name: "error"
+            Parameter { name: "status"; type: "int" }
+            Parameter { name: "errorString"; type: "string" }
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "success"
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "cache"
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "uploadProgress"
+            Parameter { name: "sent"; type: "qlonglong" }
+            Parameter { name: "total"; type: "qlonglong" }
+        }
+        Signal {
+            name: "downloadProgress"
+            Parameter { name: "recv"; type: "qlonglong" }
+            Parameter { name: "total"; type: "qlonglong" }
+        }
+    }
+    Component {
+        name: "FluNetworkParams"
+        prototype: "QObject"
+        exports: ["FluentUI/FluNetworkParams 1.0"]
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "addQuery"
+            type: "FluNetworkParams*"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "val"; type: "QVariant" }
+        }
+        Method {
+            name: "addHeader"
+            type: "FluNetworkParams*"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "val"; type: "QVariant" }
+        }
+        Method {
+            name: "add"
+            type: "FluNetworkParams*"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "val"; type: "QVariant" }
+        }
+        Method {
+            name: "addFile"
+            type: "FluNetworkParams*"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "val"; type: "QVariant" }
+        }
+        Method {
+            name: "setBody"
+            type: "FluNetworkParams*"
+            Parameter { name: "val"; type: "string" }
+        }
+        Method {
+            name: "setTimeout"
+            type: "FluNetworkParams*"
+            Parameter { name: "val"; type: "int" }
+        }
+        Method {
+            name: "setRetry"
+            type: "FluNetworkParams*"
+            Parameter { name: "val"; type: "int" }
+        }
+        Method {
+            name: "setCacheMode"
+            type: "FluNetworkParams*"
+            Parameter { name: "val"; type: "int" }
+        }
+        Method {
+            name: "toDownload"
+            type: "FluNetworkParams*"
+            Parameter { name: "destPath"; type: "string" }
+            Parameter { name: "append"; type: "bool" }
+        }
+        Method {
+            name: "toDownload"
+            type: "FluNetworkParams*"
+            Parameter { name: "destPath"; type: "string" }
+        }
+        Method {
+            name: "bind"
+            type: "FluNetworkParams*"
+            Parameter { name: "target"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "openLog"
+            type: "FluNetworkParams*"
+            Parameter { name: "val"; type: "QVariant" }
+        }
+        Method {
+            name: "go"
+            Parameter { name: "result"; type: "FluNetworkCallable"; isPointer: true }
+        }
+    }
+    Component {
         name: "FluNetworkType"
         exports: ["FluentUI/FluNetworkType 1.0"]
         isCreatable: false
@@ -134,6 +241,17 @@ Module {
                 "SingleInstance": 4
             }
         }
+    }
+    Component {
+        name: "FluQrCodeItem"
+        defaultProperty: "data"
+        prototype: "QQuickPaintedItem"
+        exports: ["FluentUI/FluQrCodeItem 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "text"; type: "string" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "bgColor"; type: "QColor" }
+        Property { name: "size"; type: "int" }
     }
     Component {
         name: "FluRectangle"
@@ -335,6 +453,28 @@ Module {
         Property { name: "textColor"; type: "QColor" }
         Property { name: "rotate"; type: "int" }
         Property { name: "textSize"; type: "int" }
+    }
+    Component {
+        name: "FluWindowLifecycle"
+        prototype: "QObject"
+        exports: ["FluentUI/FluWindowLifecycle 1.0"]
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "onCompleted"
+            Parameter { name: "window"; type: "QQuickWindow"; isPointer: true }
+        }
+        Method { name: "onDestruction" }
+        Method {
+            name: "onVisible"
+            Parameter { name: "visible"; type: "bool" }
+        }
+        Method { name: "onDestoryOnClose" }
+        Method {
+            name: "createRegister"
+            type: "QVariant"
+            Parameter { name: "window"; type: "QQuickWindow"; isPointer: true }
+            Parameter { name: "path"; type: "string" }
+        }
     }
     Component {
         name: "FluWindowType"
@@ -1765,113 +1905,6 @@ Module {
         }
     }
     Component {
-        name: "NetworkCallable"
-        prototype: "QObject"
-        exports: ["FluentUI/FluNetworkCallable 1.0"]
-        exportMetaObjectRevisions: [0]
-        Signal { name: "start" }
-        Signal { name: "finish" }
-        Signal {
-            name: "error"
-            Parameter { name: "status"; type: "int" }
-            Parameter { name: "errorString"; type: "string" }
-            Parameter { name: "result"; type: "string" }
-        }
-        Signal {
-            name: "success"
-            Parameter { name: "result"; type: "string" }
-        }
-        Signal {
-            name: "cache"
-            Parameter { name: "result"; type: "string" }
-        }
-        Signal {
-            name: "uploadProgress"
-            Parameter { name: "sent"; type: "qlonglong" }
-            Parameter { name: "total"; type: "qlonglong" }
-        }
-        Signal {
-            name: "downloadProgress"
-            Parameter { name: "recv"; type: "qlonglong" }
-            Parameter { name: "total"; type: "qlonglong" }
-        }
-    }
-    Component {
-        name: "NetworkParams"
-        prototype: "QObject"
-        exports: ["FluentUI/FluNetworkParams 1.0"]
-        exportMetaObjectRevisions: [0]
-        Method {
-            name: "addQuery"
-            type: "NetworkParams*"
-            Parameter { name: "key"; type: "string" }
-            Parameter { name: "val"; type: "QVariant" }
-        }
-        Method {
-            name: "addHeader"
-            type: "NetworkParams*"
-            Parameter { name: "key"; type: "string" }
-            Parameter { name: "val"; type: "QVariant" }
-        }
-        Method {
-            name: "add"
-            type: "NetworkParams*"
-            Parameter { name: "key"; type: "string" }
-            Parameter { name: "val"; type: "QVariant" }
-        }
-        Method {
-            name: "addFile"
-            type: "NetworkParams*"
-            Parameter { name: "key"; type: "string" }
-            Parameter { name: "val"; type: "QVariant" }
-        }
-        Method {
-            name: "setBody"
-            type: "NetworkParams*"
-            Parameter { name: "val"; type: "string" }
-        }
-        Method {
-            name: "setTimeout"
-            type: "NetworkParams*"
-            Parameter { name: "val"; type: "int" }
-        }
-        Method {
-            name: "setRetry"
-            type: "NetworkParams*"
-            Parameter { name: "val"; type: "int" }
-        }
-        Method {
-            name: "setCacheMode"
-            type: "NetworkParams*"
-            Parameter { name: "val"; type: "int" }
-        }
-        Method {
-            name: "toDownload"
-            type: "NetworkParams*"
-            Parameter { name: "destPath"; type: "string" }
-            Parameter { name: "append"; type: "bool" }
-        }
-        Method {
-            name: "toDownload"
-            type: "NetworkParams*"
-            Parameter { name: "destPath"; type: "string" }
-        }
-        Method {
-            name: "bind"
-            type: "NetworkParams*"
-            Parameter { name: "target"; type: "QObject"; isPointer: true }
-        }
-        Method {
-            name: "openLog"
-            type: "NetworkParams*"
-            Parameter { name: "val"; type: "QVariant" }
-        }
-        Method {
-            name: "go"
-            Parameter { name: "result"; type: "NetworkCallable"; isPointer: true }
-        }
-    }
-    Component {
         name: "QAbstractItemModel"
         prototype: "QObject"
         Enum {
@@ -2145,39 +2178,6 @@ Module {
         }
     }
     Component {
-        name: "QRCode"
-        defaultProperty: "data"
-        prototype: "QQuickPaintedItem"
-        exports: ["FluentUI/QRCode 1.0"]
-        exportMetaObjectRevisions: [0]
-        Property { name: "text"; type: "string" }
-        Property { name: "color"; type: "QColor" }
-        Property { name: "bgColor"; type: "QColor" }
-        Property { name: "size"; type: "int" }
-    }
-    Component {
-        name: "WindowLifecycle"
-        prototype: "QObject"
-        exports: ["FluentUI/WindowLifecycle 1.0"]
-        exportMetaObjectRevisions: [0]
-        Method {
-            name: "onCompleted"
-            Parameter { name: "window"; type: "QQuickWindow"; isPointer: true }
-        }
-        Method { name: "onDestruction" }
-        Method {
-            name: "onVisible"
-            Parameter { name: "visible"; type: "bool" }
-        }
-        Method { name: "onDestoryOnClose" }
-        Method {
-            name: "createRegister"
-            type: "QVariant"
-            Parameter { name: "window"; type: "QQuickWindow"; isPointer: true }
-            Parameter { name: "path"; type: "string" }
-        }
-    }
-    Component {
         prototype: "QQuickGrid"
         name: "FluentUI/Checkerboard 1.0"
         exports: ["FluentUI/Checkerboard 1.0"]
@@ -2187,7 +2187,7 @@ Module {
         Property { name: "cellSide"; type: "int" }
     }
     Component {
-        prototype: "QQuickRectangle"
+        prototype: "QQuickItem"
         name: "FluentUI/ColorPicker 1.0"
         exports: ["FluentUI/ColorPicker 1.0"]
         exportMetaObjectRevisions: [0]
@@ -2293,18 +2293,50 @@ Module {
         Property { name: "iconSize"; type: "int" }
         Property { name: "isMac"; type: "bool" }
         Property { name: "borerlessColor"; type: "QColor" }
+        Property { name: "systemMoveEnable"; type: "bool" }
         Property { name: "maxClickListener"; type: "QVariant" }
         Property { name: "minClickListener"; type: "QVariant" }
         Property { name: "closeClickListener"; type: "QVariant" }
         Property { name: "stayTopClickListener"; type: "QVariant" }
         Property { name: "darkClickListener"; type: "QVariant" }
         Property { name: "systemMenuListener"; type: "QVariant" }
-        Method { name: "stayTopButton"; type: "QVariant" }
-        Method { name: "minimizeButton"; type: "QVariant" }
-        Method { name: "maximizeButton"; type: "QVariant" }
-        Method { name: "closeButton"; type: "QVariant" }
-        Method { name: "darkButton"; type: "QVariant" }
-        Method { name: "maximizeButtonHover"; type: "QVariant" }
+        Property {
+            name: "buttonStayTop"
+            type: "FluIconButton_QMLTYPE_26"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonMinimize"
+            type: "FluIconButton_QMLTYPE_26"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonMaximize"
+            type: "FluIconButton_QMLTYPE_26"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonClose"
+            type: "FluIconButton_QMLTYPE_26"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonDark"
+            type: "FluToggleSwitch_QMLTYPE_31"
+            isReadonly: true
+            isPointer: true
+        }
+        Method { name: "_maximizeButtonHover"; type: "QVariant" }
+        Method { name: "_appBarHover"; type: "QVariant" }
+        Method {
+            name: "setHitTestVisible"
+            type: "QVariant"
+            Parameter { name: "id"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickRectangle"
@@ -2972,20 +3004,33 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_156"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_156"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_163"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_163"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_49"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_49"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_51"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_51"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
         Property { name: "cellWidth"; type: "int" }
         Property { name: "hideNavAppBar"; type: "bool" }
+        Property {
+            name: "buttonMenu"
+            type: "FluIconButton_QMLTYPE_26"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonBack"
+            type: "FluIconButton_QMLTYPE_26"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "imageLogo"; type: "QQuickImage"; isReadonly: true; isPointer: true }
         Signal { name: "logoClicked" }
         Method { name: "collapseAll"; type: "QVariant" }
         Method {
@@ -3007,9 +3052,6 @@ Module {
             type: "QVariant"
             Parameter { name: "data"; type: "QVariant" }
         }
-        Method { name: "backButton"; type: "QVariant" }
-        Method { name: "navButton"; type: "QVariant" }
-        Method { name: "logoButton"; type: "QVariant" }
     }
     Component {
         prototype: "QObject"

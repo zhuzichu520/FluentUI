@@ -3,6 +3,9 @@
 
 #include <QMutex>
 
+/**
+ * @brief The Singleton class
+ */
 template <typename T>
 class Singleton {
 public:

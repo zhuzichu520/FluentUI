@@ -7,6 +7,9 @@
 #include <QtQml/qqml.h>
 #include "stdafx.h"
 
+/**
+ * @brief The Node class
+ */
 class Node : public QObject{
     Q_OBJECT
     Q_PROPERTY(QString key READ key CONSTANT)

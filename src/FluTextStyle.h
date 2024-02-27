@@ -7,6 +7,9 @@
 #include "stdafx.h"
 #include "singleton.h"
 
+/**
+ * @brief The FluTextStyle class
+ */
 class FluTextStyle : public QObject
 {
     Q_OBJECT

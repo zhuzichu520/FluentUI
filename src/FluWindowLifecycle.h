@@ -1,5 +1,5 @@
-#ifndef WINDOWLIFECYCLE_H
-#define WINDOWLIFECYCLE_H
+#ifndef FLUWINDOWLIFECYCLE_H
+#define FLUWINDOWLIFECYCLE_H
 
 #include <QObject>
 #include <QQuickWindow>
@@ -9,14 +9,14 @@
 #include <QJsonObject>
 
 /**
- * @brief The WindowLifecycle class
+ * @brief The FluWindowLifecycle class
  */
-class WindowLifecycle : public QObject
+class FluWindowLifecycle : public QObject
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(WindowLifecycle)
+    QML_NAMED_ELEMENT(FluWindowLifecycle)
 public:
-    explicit WindowLifecycle(QObject *parent = nullptr);
+    explicit FluWindowLifecycle(QObject *parent = nullptr);
     Q_INVOKABLE void onCompleted(QQuickWindow* window);
     Q_INVOKABLE void onDestruction();
     Q_INVOKABLE void onVisible(bool visible);
@@ -26,4 +26,4 @@ private:
     QQuickWindow* _window = nullptr;
 };
 
-#endif // WINDOWLIFECYCLE_H
+#endif // FLUWINDOWLIFECYCLE_H

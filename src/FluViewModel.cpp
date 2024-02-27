@@ -3,36 +3,30 @@
 #include <QQuickItem>
 #include "Def.h"
 
-Model::Model(QObject *parent):QObject{parent}{
+FluViewModelManager::FluViewModelManager(QObject *parent): QObject{parent}{
 }
 
-Model::~Model(){
-}
-
-ViewModelManager::ViewModelManager(QObject *parent): QObject{parent}{
-}
-
-void ViewModelManager::insertViewModel(FluViewModel* value){
+void FluViewModelManager::insertViewModel(FluViewModel* value){
     _viewmodel.append(value);
 }
 
-void ViewModelManager::deleteViewModel(FluViewModel* value){
+void FluViewModelManager::deleteViewModel(FluViewModel* value){
     _viewmodel.removeOne(value);
 }
 
-QObject* ViewModelManager::getModel(const QString& key){
+QObject* FluViewModelManager::getModel(const QString& key){
     return  _data.value(key);
 }
 
-void ViewModelManager::insert(const QString& key,QObject* value){
+void FluViewModelManager::insert(const QString& key,QObject* value){
     _data.insert(key,value);
 }
 
-bool ViewModelManager::exist(const QString& key){
+bool FluViewModelManager::exist(const QString& key){
     return _data.contains(key);
 }
 
-void ViewModelManager::refreshViewModel(FluViewModel* viewModel,QString key,QVariant value){
+void FluViewModelManager::refreshViewModel(FluViewModel* viewModel,QString key,QVariant value){
     foreach (auto item, _viewmodel) {
         if(item->getKey() == viewModel->getKey()){
             item->enablePropertyChange = false;
@@ -42,32 +36,32 @@ void ViewModelManager::refreshViewModel(FluViewModel* viewModel,QString key,QVar
     }
 }
 
-PropertyObserver::PropertyObserver(QString name,QObject* model,QObject *parent):QObject{parent}{
+FluPropertyObserver::FluPropertyObserver(QString name,QObject* model,QObject *parent):QObject{parent}{
     _name = name;
     _model = model;
     _property = QQmlProperty(parent,_name);
     _property.connectNotifySignal(this,SLOT(_propertyChange()));
 }
 
-PropertyObserver::~PropertyObserver(){
+FluPropertyObserver::~FluPropertyObserver(){
 }
 
-void PropertyObserver::_propertyChange(){
+void FluPropertyObserver::_propertyChange(){
     auto viewModel = (FluViewModel*)parent();
     if(viewModel->enablePropertyChange){
         auto value = _property.read();
         _model->setProperty(_name.toLatin1().constData(),value);
-        ViewModelManager::getInstance()->refreshViewModel(viewModel,_name,value);
+        FluViewModelManager::getInstance()->refreshViewModel(viewModel,_name,value);
     }
 }
 
 FluViewModel::FluViewModel(QObject *parent):QObject{parent}{
     scope(FluViewModelType::Scope::Window);
-    ViewModelManager::getInstance()->insertViewModel(this);
+    FluViewModelManager::getInstance()->insertViewModel(this);
 }
 
 FluViewModel::~FluViewModel(){
-    ViewModelManager::getInstance()->deleteViewModel(this);
+    FluViewModelManager::getInstance()->deleteViewModel(this);
 }
 
 void FluViewModel::classBegin(){
@@ -86,11 +80,11 @@ void FluViewModel::componentComplete(){
         _key = property("objectName").toString();
     }
     QObject * model;
-    if(!ViewModelManager::getInstance()->exist(_key)){
+    if(!FluViewModelManager::getInstance()->exist(_key)){
         if(_scope == FluViewModelType::Scope::Window){
-            model = new Model(_window);
+            model = new QObject(_window);
         }else{
-            model = new Model();
+            model = new QObject();
         }
         Q_EMIT initData();
         for (int i = 0; i < obj->propertyCount(); ++i) {
@@ -98,15 +92,15 @@ void FluViewModel::componentComplete(){
             QString propertyName = property.name();
             auto value = property.read(this);
             model->setProperty(propertyName.toLatin1().constData(),value);
-            new PropertyObserver(propertyName,model,this);
+            new FluPropertyObserver(propertyName,model,this);
         }
-        ViewModelManager::getInstance()->insert(_key,model);
+        FluViewModelManager::getInstance()->insert(_key,model);
     }else{
-        model = ViewModelManager::getInstance()->getModel(_key);
+        model = FluViewModelManager::getInstance()->getModel(_key);
         for (int i = 0; i < obj->propertyCount(); ++i) {
             const QMetaProperty property = obj->property(i);
             QString propertyName = property.name();
-            new PropertyObserver(propertyName,model,this);
+            new FluPropertyObserver(propertyName,model,this);
         }
     }
     foreach (auto key, model->dynamicPropertyNames()) {

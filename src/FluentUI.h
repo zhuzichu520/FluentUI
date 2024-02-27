@@ -5,6 +5,9 @@
 #include <QQmlEngine>
 #include "singleton.h"
 
+/**
+ * @brief The FluentUI class
+ */
 class FluentUI : public QObject
 {
     Q_OBJECT

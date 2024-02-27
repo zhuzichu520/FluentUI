@@ -259,7 +259,7 @@ Window {
             id:infoBar
             root: window
         }
-        WindowLifecycle{
+        FluWindowLifecycle{
             id:lifecycle
         }
         Rectangle{

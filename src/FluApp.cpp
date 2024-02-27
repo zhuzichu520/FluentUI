@@ -10,19 +10,14 @@
 #include <QClipboard>
 
 FluApp::FluApp(QObject *parent):QObject{parent}{
-    vsync(true);
     useSystemAppBar(false);
 }
 
 FluApp::~FluApp(){
 }
 
-void FluApp::init(QObject *application){
-    this->_application = application;
-    QJSEngine * jsEngine = qjsEngine(_application);
-    std::string jsFunction = R"( (function () { console.log("FluentUI");}) )";
-    QJSValue function = jsEngine->evaluate(QString::fromStdString(jsFunction));
-    jsEngine->globalObject().setProperty("__fluentui",function);
+void FluApp::init(QObject *target){
+    _engine = qmlEngine(target);
 }
 
 void FluApp::run(){
@@ -31,11 +26,10 @@ void FluApp::run(){
 
 void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegister* fluRegister){
     if(!routes().contains(route)){
-        qCritical()<<"No route found "<<route;
+        qCritical()<<"Not Found Route "<<route;
         return;
     }
-    QQmlEngine *engine = qmlEngine(_application);
-    QQmlComponent component(engine, routes().value(route).toString());
+    QQmlComponent component(_engine, routes().value(route).toString());
     if (component.isError()) {
         qCritical() << component.errors();
         return;
