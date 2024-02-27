@@ -116,7 +116,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         short y = HIWORD(msg->lParam);
         int margins = _helper->getMargins();
         QPointer<QQuickWindow> win = _helper->window;
-        QPoint pos =  win->mapFromGlobal(QPoint(x, y));
+        qreal dp = _helper->window->devicePixelRatio();
+        QPoint pos =  win->mapFromGlobal(QPoint(x/dp, y/dp));
         bool left = pos.x() < margins;
         bool right = pos.x() > win->width() - margins;
         bool top = pos.y() < margins;
