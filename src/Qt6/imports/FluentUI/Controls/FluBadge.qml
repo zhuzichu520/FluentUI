@@ -66,7 +66,7 @@ Rectangle{
             return true
         return count!==0
     }
-    Text{
+    FluText{
         anchors.centerIn: parent
         color: Qt.rgba(1,1,1,1)
         visible: !isDot

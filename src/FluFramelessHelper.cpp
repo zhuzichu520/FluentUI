@@ -180,7 +180,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         *result = DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
     }else if(uMsg == WM_GETMINMAXINFO){
-#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+#if QT_VERSION < QT_VERSION_CHECK(6,2,4)
         MINMAXINFO* minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
         auto pixelRatio = _helper->window->devicePixelRatio();
         auto geometry = _helper->window->screen()->availableGeometry();
