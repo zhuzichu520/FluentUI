@@ -49,10 +49,11 @@ public:
     int getMargins();
     bool maximized();
     bool fullScreen();
+    int getAppBarHeight();
     QVariant getAppBar();
     QObject* maximizeButton();
     void setOriginalPos(QVariant pos);
-    Q_INVOKABLE void showSystemMenu();
+    Q_INVOKABLE void showSystemMenu(QPoint point);
     Q_SIGNAL void loadCompleted();
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

@@ -184,7 +184,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         return false;
     }else if(uMsg == WM_NCRBUTTONDOWN){
         if (wParam == HTCAPTION) {
-            _helper->showSystemMenu();
+            _helper->showSystemMenu(QCursor::pos());
+        }
+    }else if(uMsg == WM_KEYDOWN || uMsg == WM_SYSKEYDOWN){
+        const bool altPressed = ((wParam == VK_MENU) || (::GetKeyState(VK_MENU) < 0));
+        const bool spacePressed = ((wParam == VK_SPACE) || (::GetKeyState(VK_SPACE) < 0));
+        if (altPressed && spacePressed) {
+            auto pos = _helper->window->position();
+            _helper->showSystemMenu(QPoint(pos.x(),pos.y()+_helper->getAppBarHeight()));
         }
     }
     return false;
@@ -306,7 +313,7 @@ void FluFramelessHelper::componentComplete(){
         if(!_appBar.isNull()){
             _appBar.value<QObject*>()->setProperty("systemMoveEnable",false);
         }
-        window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint);
+        window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -336,7 +343,9 @@ void FluFramelessHelper::componentComplete(){
 #endif
         int w = _realWidth.read().toInt();
         int h = _realHeight.read().toInt()+_appBarHeight.read().toInt();
-        if(!resizeable()){
+        if(resizeable()){
+            window->setFlag(Qt::WindowMaximizeButtonHint);
+        }else{
             window->setMaximumSize(QSize(w,h));
             window->setMinimumSize(QSize(w,h));
         }
@@ -357,9 +366,8 @@ void FluFramelessHelper::_onScreenChanged(){
 #endif
 }
 
-void FluFramelessHelper::showSystemMenu(){
+void FluFramelessHelper::showSystemMenu(QPoint point){
 #ifdef Q_OS_WIN
-    QPoint point = QCursor::pos();
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
     DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
     SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_SYSMENU);
@@ -437,6 +445,17 @@ bool FluFramelessHelper::hoverAppBar(){
 
 QVariant FluFramelessHelper::getAppBar(){
     return _appBar;
+}
+
+int FluFramelessHelper::getAppBarHeight(){
+    if(_appBar.isNull()){
+        return 0;
+    }
+    QVariant var = _appBar.value<QObject*>()->property("height");
+    if(var.isNull()){
+        return 0;
+    }
+    return var.toInt();
 }
 
 QObject* FluFramelessHelper::maximizeButton(){
