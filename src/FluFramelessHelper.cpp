@@ -314,6 +314,9 @@ void FluFramelessHelper::componentComplete(){
             _appBar.value<QObject*>()->setProperty("systemMoveEnable",false);
         }
         window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+        if(resizeable()){
+            window->setFlag(Qt::WindowMaximizeButtonHint);
+        }
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
@@ -343,9 +346,7 @@ void FluFramelessHelper::componentComplete(){
 #endif
         int w = _realWidth.read().toInt();
         int h = _realHeight.read().toInt()+_appBarHeight.read().toInt();
-        if(resizeable()){
-            window->setFlag(Qt::WindowMaximizeButtonHint);
-        }else{
+        if(!resizeable()){
             window->setMaximumSize(QSize(w,h));
             window->setMinimumSize(QSize(w,h));
         }
