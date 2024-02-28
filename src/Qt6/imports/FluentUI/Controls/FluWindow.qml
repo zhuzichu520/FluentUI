@@ -42,7 +42,7 @@ Window {
     property bool useSystemAppBar
     property color resizeBorderColor: {
         if(window.active){
-            return _accentColor
+            return FluTheme.dark ? "#333333" : "#6E6E6E"
         }
         return FluTheme.dark ? "#3D3D3E" : "#A7A7A7"
     }
@@ -60,7 +60,6 @@ Window {
     signal firstVisible()
     property point _offsetXY : Qt.point(0,0)
     property var _originalPos
-    property color _accentColor : FluTheme.dark ? "#333333" : "#6E6E6E"
     property int _realHeight
     property int _realWidth
     property int _appBarHeight: appBar.height
@@ -203,6 +202,14 @@ Window {
             }
         }
     }
+    Component{
+        id:com_border
+        Rectangle{
+            color:"transparent"
+            border.width: window.resizeBorderWidth
+            border.color: window.resizeBorderColor
+        }
+    }
     FluLoader{
         id:loader_frameless_helper
     }
@@ -257,27 +264,22 @@ Window {
         FluWindowLifecycle{
             id:lifecycle
         }
-        Rectangle{
-            anchors.fill: parent
-            color:"transparent"
-            border.width: window.resizeBorderWidth
-            border.color: window.resizeBorderColor
-            visible: {
-                if(window.useSystemAppBar || FluTools.isWindows10OrGreater()){
-                    return false
-                }
-                if(FluTools.isMacos()){
-                    if(window.visibility == Window.FullScreen){
-                        return false
-                    }
-                }else{
-                    if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
-                        return false
-                    }
-                }
-                return true
-            }
-        }
+//        FluLoader{
+//            id:loader_border
+//            anchors.fill: parent
+//            sourceComponent: {
+//                if(window.useSystemAppBar){
+//                    return undefined
+//                }
+//                if(FluTools.isWindows10OrGreater()){
+//                    return undefined
+//                }
+//                if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
+//                    return undefined
+//                }
+//                return com_border
+//            }
+//        }
     }
     function destoryOnClose(){
         lifecycle.onDestoryOnClose()
