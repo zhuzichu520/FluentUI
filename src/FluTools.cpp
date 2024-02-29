@@ -25,7 +25,7 @@ void FluTools::clipText(const QString& text){
 }
 
 QString FluTools::uuid(){
-    return QUuid::createUuid().toString();
+    return QUuid::createUuid().toString().remove('-').remove('{').remove('}');
 }
 
 QString FluTools::readFile(const QString &fileName){

@@ -81,7 +81,10 @@ Module {
         exports: ["FluentUI/FluFramelessHelper 1.0"]
         exportMetaObjectRevisions: [0]
         Signal { name: "loadCompleted" }
-        Method { name: "showSystemMenu" }
+        Method {
+            name: "showSystemMenu"
+            Parameter { name: "point"; type: "QPoint" }
+        }
     }
     Component {
         name: "FluNavigationViewType"
@@ -300,6 +303,32 @@ Module {
         }
     }
     Component {
+        name: "FluTableSortProxyModel"
+        prototype: "QSortFilterProxyModel"
+        exports: ["FluentUI/FluTableSortProxyModel 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "model"; type: "QAbstractTableModel"; isPointer: true }
+        Method {
+            name: "setSortComparator"
+            Parameter { name: "comparator"; type: "QJSValue" }
+        }
+        Method {
+            name: "getRow"
+            type: "QVariant"
+            Parameter { name: "rowIndex"; type: "int" }
+        }
+        Method {
+            name: "setRow"
+            Parameter { name: "rowIndex"; type: "int" }
+            Parameter { name: "val"; type: "QVariant" }
+        }
+        Method {
+            name: "removeRow"
+            Parameter { name: "rowIndex"; type: "int" }
+            Parameter { name: "rows"; type: "int" }
+        }
+    }
+    Component {
         name: "FluThemeType"
         exports: ["FluentUI/FluThemeType 1.0"]
         isCreatable: false
@@ -346,7 +375,7 @@ Module {
         exports: ["FluentUI/FluTreeModel 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "dataSourceSize"; type: "int" }
-        Property { name: "selectionModel"; type: "QList<Node*>" }
+        Property { name: "selectionModel"; type: "QList<FluNode*>" }
         Method {
             name: "removeRows"
             Parameter { name: "row"; type: "int" }
@@ -355,7 +384,7 @@ Module {
         Method {
             name: "insertRows"
             Parameter { name: "row"; type: "int" }
-            Parameter { name: "data"; type: "QList<Node*>" }
+            Parameter { name: "data"; type: "QList<FluNode*>" }
         }
         Method {
             name: "getRow"
@@ -364,7 +393,7 @@ Module {
         }
         Method {
             name: "setData"
-            Parameter { name: "data"; type: "QList<Node*>" }
+            Parameter { name: "data"; type: "QList<FluNode*>" }
         }
         Method {
             name: "setDataSource"
@@ -386,7 +415,7 @@ Module {
         }
         Method {
             name: "getNode"
-            type: "Node*"
+            type: "FluNode*"
             Parameter { name: "row"; type: "int" }
         }
         Method {
@@ -2178,6 +2207,99 @@ Module {
         }
     }
     Component {
+        name: "QAbstractProxyModel"
+        prototype: "QAbstractItemModel"
+        Property { name: "sourceModel"; type: "QAbstractItemModel"; isPointer: true }
+        Method {
+            name: "mapToSource"
+            type: "QModelIndex"
+            Parameter { name: "proxyIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapFromSource"
+            type: "QModelIndex"
+            Parameter { name: "sourceIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapSelectionToSource"
+            type: "QItemSelection"
+            Parameter { name: "selection"; type: "QItemSelection" }
+        }
+        Method {
+            name: "mapSelectionFromSource"
+            type: "QItemSelection"
+            Parameter { name: "selection"; type: "QItemSelection" }
+        }
+    }
+    Component {
+        name: "QSortFilterProxyModel"
+        prototype: "QAbstractProxyModel"
+        Property { name: "filterRegExp"; type: "QRegExp" }
+        Property { name: "filterRegularExpression"; type: "QRegularExpression" }
+        Property { name: "filterKeyColumn"; type: "int" }
+        Property { name: "dynamicSortFilter"; type: "bool" }
+        Property { name: "filterCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "sortCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "isSortLocaleAware"; type: "bool" }
+        Property { name: "sortRole"; type: "int" }
+        Property { name: "filterRole"; type: "int" }
+        Property { name: "recursiveFilteringEnabled"; type: "bool" }
+        Signal {
+            name: "dynamicSortFilterChanged"
+            Parameter { name: "dynamicSortFilter"; type: "bool" }
+        }
+        Signal {
+            name: "filterCaseSensitivityChanged"
+            Parameter { name: "filterCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        }
+        Signal {
+            name: "sortCaseSensitivityChanged"
+            Parameter { name: "sortCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        }
+        Signal {
+            name: "sortLocaleAwareChanged"
+            Parameter { name: "sortLocaleAware"; type: "bool" }
+        }
+        Signal {
+            name: "sortRoleChanged"
+            Parameter { name: "sortRole"; type: "int" }
+        }
+        Signal {
+            name: "filterRoleChanged"
+            Parameter { name: "filterRole"; type: "int" }
+        }
+        Signal {
+            name: "recursiveFilteringEnabledChanged"
+            Parameter { name: "recursiveFilteringEnabled"; type: "bool" }
+        }
+        Method {
+            name: "setFilterRegExp"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method {
+            name: "setFilterRegExp"
+            Parameter { name: "regExp"; type: "QRegExp" }
+        }
+        Method {
+            name: "setFilterRegularExpression"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method {
+            name: "setFilterRegularExpression"
+            Parameter { name: "regularExpression"; type: "QRegularExpression" }
+        }
+        Method {
+            name: "setFilterWildcard"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method {
+            name: "setFilterFixedString"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method { name: "clear" }
+        Method { name: "invalidate" }
+    }
+    Component {
         prototype: "QQuickGrid"
         name: "FluentUI/Checkerboard 1.0"
         exports: ["FluentUI/Checkerboard 1.0"]
@@ -2302,31 +2424,31 @@ Module {
         Property { name: "systemMenuListener"; type: "QVariant" }
         Property {
             name: "buttonStayTop"
-            type: "FluIconButton_QMLTYPE_26"
+            type: "FluIconButton_QMLTYPE_28"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMinimize"
-            type: "FluIconButton_QMLTYPE_26"
+            type: "FluIconButton_QMLTYPE_28"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMaximize"
-            type: "FluIconButton_QMLTYPE_26"
+            type: "FluIconButton_QMLTYPE_28"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonClose"
-            type: "FluIconButton_QMLTYPE_26"
+            type: "FluIconButton_QMLTYPE_28"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonDark"
-            type: "FluToggleSwitch_QMLTYPE_31"
+            type: "FluToggleSwitch_QMLTYPE_22"
             isReadonly: true
             isPointer: true
         }
@@ -3004,15 +3126,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_163"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_163"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_162"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_162"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_51"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_51"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_41"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_41"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -3020,13 +3142,13 @@ Module {
         Property { name: "hideNavAppBar"; type: "bool" }
         Property {
             name: "buttonMenu"
-            type: "FluIconButton_QMLTYPE_26"
+            type: "FluIconButton_QMLTYPE_28"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonBack"
-            type: "FluIconButton_QMLTYPE_26"
+            type: "FluIconButton_QMLTYPE_28"
             isReadonly: true
             isPointer: true
         }
@@ -3569,8 +3691,8 @@ Module {
         Property { name: "borderColor"; type: "QColor" }
         Property { name: "horizonalHeaderVisible"; type: "bool" }
         Property { name: "verticalHeaderVisible"; type: "bool" }
-        Property { name: "tableModel"; type: "QQmlTableModel"; isReadonly: true; isPointer: true }
-        Property { name: "tableView"; type: "QQuickTableView"; isReadonly: true; isPointer: true }
+        Property { name: "rows"; type: "int"; isReadonly: true }
+        Property { name: "columns"; type: "int"; isReadonly: true }
         Method { name: "closeEditor"; type: "QVariant" }
         Method { name: "resetPosition"; type: "QVariant" }
         Method {
@@ -3580,15 +3702,31 @@ Module {
             Parameter { name: "options"; type: "QVariant" }
         }
         Method {
-            name: "updateRow"
-            type: "QVariant"
-            Parameter { name: "row"; type: "QVariant" }
-            Parameter { name: "obj"; type: "QVariant" }
-        }
-        Method {
             name: "sort"
             type: "QVariant"
             Parameter { name: "order"; type: "QVariant" }
+        }
+        Method {
+            name: "setRow"
+            type: "QVariant"
+            Parameter { name: "rowIndex"; type: "QVariant" }
+            Parameter { name: "obj"; type: "QVariant" }
+        }
+        Method {
+            name: "getRow"
+            type: "QVariant"
+            Parameter { name: "rowIndex"; type: "QVariant" }
+        }
+        Method {
+            name: "removeRow"
+            type: "QVariant"
+            Parameter { name: "rowIndex"; type: "QVariant" }
+            Parameter { name: "rows"; type: "QVariant" }
+        }
+        Method {
+            name: "appendRow"
+            type: "QVariant"
+            Parameter { name: "obj"; type: "QVariant" }
         }
     }
     Component {
@@ -3814,13 +3952,13 @@ Module {
         Property { name: "showStayTop"; type: "bool" }
         Property { name: "autoMaximize"; type: "bool" }
         Property { name: "autoVisible"; type: "bool" }
+        Property { name: "autoCenter"; type: "bool" }
         Property { name: "useSystemAppBar"; type: "bool" }
         Property { name: "resizeBorderColor"; type: "QColor" }
         Property { name: "resizeBorderWidth"; type: "int" }
         Property { name: "closeListener"; type: "QVariant" }
         Property { name: "_offsetXY"; type: "QPointF" }
         Property { name: "_originalPos"; type: "QVariant" }
-        Property { name: "_accentColor"; type: "QColor" }
         Property { name: "_realHeight"; type: "int" }
         Property { name: "_realWidth"; type: "int" }
         Property { name: "_appBarHeight"; type: "int" }

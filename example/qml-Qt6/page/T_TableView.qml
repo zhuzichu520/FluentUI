@@ -13,9 +13,20 @@ FluContentPage{
 
     property var dataSource : []
     property int sortType: 0
+    property bool seletedAll: true
 
     Component.onCompleted: {
         loadData(1,1000)
+    }
+
+    onCheckBoxChanged: {
+        for(var i =0;i< table_view.rows ;i++){
+            if(false === table_view.getRow(i).checkbox.options.checked){
+                root.seletedAll = false
+                return
+            }
+        }
+        root.seletedAll = true
     }
 
     onSortTypeChanged: {
@@ -23,9 +34,23 @@ FluContentPage{
         if(sortType === 0){
             table_view.sort()
         }else if(sortType === 1){
-            table_view.sort((a, b) => a.age - b.age);
+            table_view.sort((l, r) =>{
+                                var lage = Number(l.age)
+                                var rage = Number(r.age)
+                                if(lage === rage){
+                                    return l._key>r._key
+                                }
+                                return lage>rage
+                            });
         }else if(sortType === 2){
-            table_view.sort((a, b) => b.age - a.age);
+            table_view.sort((l, r) => {
+                                var lage = Number(l.age)
+                                var rage = Number(r.age)
+                                if(lage === rage){
+                                    return l._key>r._key
+                                }
+                                return lage<rage
+                            });
         }
     }
 
@@ -73,9 +98,9 @@ FluContentPage{
                 checked: true === options.checked
                 enableAnimation: false
                 clickListener: function(){
-                    var obj = tableModel.getRow(row)
+                    var obj = table_view.getRow(row)
                     obj.checkbox = table_view.customItem(com_checbox,{checked:!options.checked})
-                    tableModel.setRow(row,obj)
+                    table_view.setRow(row,obj)
                     checkBoxChanged()
                 }
             }
@@ -91,17 +116,16 @@ FluContentPage{
                     text:"删除"
                     onClicked: {
                         table_view.closeEditor()
-                        tableModel.removeRow(row)
-                        checkBoxChanged()
+                        table_view.removeRow(row)
                     }
                 }
                 FluFilledButton{
                     text:"编辑"
                     onClicked: {
-                        var obj = tableModel.getRow(row)
+                        var obj = table_view.getRow(row)
                         obj.name = "12345"
-                        tableModel.setRow(row,obj)
-                        showSuccess(JSON.stringify(tableModel.getRow(row)))
+                        table_view.setRow(row,obj)
+                        showSuccess(JSON.stringify(obj))
                     }
                 }
             }
@@ -119,29 +143,18 @@ FluContentPage{
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluCheckBox{
-                    checked: true === options.checked
+                    checked: true === root.seletedAll
                     enableAnimation: false
                     Layout.alignment: Qt.AlignVCenter
                     clickListener: function(){
-                        var checked = !options.checked
+                        root.seletedAll = !root.seletedAll
+                        var checked = root.seletedAll
                         itemModel.display = table_view.customItem(com_column_checbox,{"checked":checked})
-                        for(var i =0;i< tableModel.rowCount ;i++){
-                            var rowData = tableModel.getRow(i)
+                        for(var i =0;i< table_view.rows ;i++){
+                            var rowData = table_view.getRow(i)
                             rowData.checkbox = table_view.customItem(com_checbox,{"checked":checked})
-                            tableModel.setRow(i,rowData)
+                            table_view.setRow(i,rowData)
                         }
-                    }
-                }
-                Connections{
-                    target: root
-                    function onCheckBoxChanged(){
-                        for(var i =0;i< tableModel.rowCount ;i++){
-                            if(false === tableModel.getRow(i).checkbox.options.checked){
-                                itemModel.display = table_view.customItem(com_column_checbox,{"checked":false})
-                                return
-                            }
-                        }
-                        itemModel.display = table_view.customItem(com_column_checbox,{"checked":true})
                     }
                 }
             }
@@ -166,7 +179,7 @@ FluContentPage{
                 selectAll()
             }
             onCommit: {
-                display = editText
+                editTextChaged(editText)
                 tableView.closeEditor()
             }
         }
@@ -282,15 +295,67 @@ FluContentPage{
         }
     }
 
+    FluArea{
+        id:layout_controls
+        anchors{
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            topMargin: 20
+        }
+        height: 60
+
+        Row{
+            spacing: 5
+            anchors{
+                left: parent.left
+                leftMargin: 10
+                verticalCenter: parent.verticalCenter
+            }
+
+            FluButton{
+                text:"清空"
+                onClicked: {
+                    table_view.dataSource = []
+                }
+            }
+
+            FluButton{
+                text:"删除选中"
+                onClicked: {
+                    var data = []
+                    for(var i =0;i< table_view.rows ;i++){
+                        var item = table_view.getRow(i)
+                        if(false === item.checkbox.options.checked){
+                            data.push(item)
+                        }
+                    }
+                    table_view.dataSource = data
+                }
+            }
+
+            FluButton{
+                text:"添加一行数据"
+                onClicked: {
+                    table_view.appendRow(genTestObject())
+                }
+            }
+
+        }
+    }
+
     FluTableView{
         id:table_view
         anchors{
             left: parent.left
             right: parent.right
-            top: parent.top
+            top: layout_controls.bottom
             bottom: gagination.top
         }
-        anchors.topMargin: 20
+        anchors.topMargin: 5
+        onRowsChanged: {
+            root.checkBoxChanged()
+        }
         columnSource:[
             {
                 title: table_view.customItem(com_column_checbox,{checked:true}),
@@ -366,11 +431,11 @@ FluContentPage{
             }
     }
 
-    function loadData(page,count){
-        var numbers = [100, 300, 500, 1000];
+    function genTestObject(){
+        var ages = ["100", "300", "500", "1000"];
         function getRandomAge() {
-            var randomIndex = Math.floor(Math.random() * numbers.length);
-            return numbers[randomIndex];
+            var randomIndex = Math.floor(Math.random() * ages.length);
+            return ages[randomIndex];
         }
         var names = ["孙悟空", "猪八戒", "沙和尚", "唐僧","白骨夫人","金角大王","熊山君","黄风怪","银角大王"];
         function getRandomName(){
@@ -387,26 +452,29 @@ FluContentPage{
             var randomIndex = Math.floor(Math.random() * addresses.length);
             return addresses[randomIndex];
         }
-
         var avatars = ["qrc:/example/res/svg/avatar_1.svg", "qrc:/example/res/svg/avatar_2.svg", "qrc:/example/res/svg/avatar_3.svg", "qrc:/example/res/svg/avatar_4.svg","qrc:/example/res/svg/avatar_5.svg","qrc:/example/res/svg/avatar_6.svg","qrc:/example/res/svg/avatar_7.svg","qrc:/example/res/svg/avatar_8.svg","qrc:/example/res/svg/avatar_9.svg","qrc:/example/res/svg/avatar_10.svg","qrc:/example/res/svg/avatar_11.svg","qrc:/example/res/svg/avatar_12.svg"];
         function getAvatar(){
             var randomIndex = Math.floor(Math.random() * avatars.length);
             return avatars[randomIndex];
         }
-
+        return {
+            checkbox: table_view.customItem(com_checbox,{checked:root.seletedAll}),
+            avatar:table_view.customItem(com_avatar,{avatar:getAvatar()}),
+            name: getRandomName(),
+            age:getRandomAge(),
+            address: getRandomAddresses(),
+            nickname: getRandomNickname(),
+            longstring:"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
+            action: table_view.customItem(com_action),
+            _minimumHeight:50,
+            _key:FluTools.uuid()
+        }
+    }
+    function loadData(page,count){
+        root.seletedAll = true
         const dataSource = []
         for(var i=0;i<count;i++){
-            dataSource.push({
-                                checkbox: table_view.customItem(com_checbox,{checked:true}),
-                                avatar:table_view.customItem(com_avatar,{avatar:getAvatar()}),
-                                name: getRandomName(),
-                                age:getRandomAge(),
-                                address: getRandomAddresses(),
-                                nickname: getRandomNickname(),
-                                longstring:"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
-                                action: table_view.customItem(com_action),
-                                minimumHeight:50
-                            })
+            dataSource.push(genTestObject())
         }
         root.dataSource = dataSource
         table_view.dataSource = root.dataSource

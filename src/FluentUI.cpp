@@ -17,6 +17,7 @@
 #include "FluNetwork.h"
 #include "FluFramelessHelper.h"
 #include "FluQrCodeItem.h"
+#include "FluTableSortProxyModel.h"
 
 void FluentUI::registerTypes(QQmlEngine *engine){
     initializeEngine(engine,uri);
@@ -39,6 +40,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluNetworkCallable>(uri,major,minor,"FluNetworkCallable");
     qmlRegisterType<FluNetworkParams>(uri,major,minor,"FluNetworkParams");
     qmlRegisterType<FluFramelessHelper>(uri,major,minor,"FluFramelessHelper");
+    qmlRegisterType<FluTableSortProxyModel>(uri,major,minor,"FluTableSortProxyModel");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/Checkerboard.qml"),uri,major,minor,"Checkerboard");
