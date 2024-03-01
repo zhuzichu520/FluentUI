@@ -8,12 +8,17 @@ FluTableSortProxyModel::FluTableSortProxyModel(QSortFilterProxyModel *parent)
     _model = nullptr;
     connect(this,&FluTableSortProxyModel::modelChanged,this,[=]{
         setSourceModel(this->model());
-        sort(0,Qt::AscendingOrder);
     });
 }
 
 bool FluTableSortProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const{
-    return true;
+    QJSValue filter = _filter;
+    if(filter.isUndefined()){
+        return true;
+    }
+    QJSValueList data;
+    data<<source_row;
+    return filter.call(data).toBool();
 }
 
 bool FluTableSortProxyModel::filterAcceptsColumn(int source_column, const QModelIndex &source_parent) const{
@@ -22,7 +27,7 @@ bool FluTableSortProxyModel::filterAcceptsColumn(int source_column, const QModel
 
 bool FluTableSortProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const{
     QJSValue comparator = _comparator;
-    if(comparator.isNull()){
+    if(comparator.isUndefined()){
         return true;
     }
     QJSValueList data;
@@ -36,14 +41,24 @@ bool FluTableSortProxyModel::lessThan(const QModelIndex &source_left, const QMod
     }
 }
 
-void FluTableSortProxyModel::setSortComparator(QJSValue comparator){
+void FluTableSortProxyModel::setComparator(QJSValue comparator){
+    int column = 0;
+    if(comparator.isUndefined()){
+        column = -1;
+    }
     this->_comparator = comparator;
     if(sortOrder()==Qt::AscendingOrder){
-        sort(0,Qt::DescendingOrder);
+        sort(column,Qt::DescendingOrder);
     }else{
-        sort(0,Qt::AscendingOrder);
+        sort(column,Qt::AscendingOrder);
     }
 }
+
+void FluTableSortProxyModel::setFilter(QJSValue filter){
+    this->_filter = filter;
+    invalidateFilter();
+}
+
 QVariant FluTableSortProxyModel::getRow(int rowIndex){
     QVariant result;
     QMetaObject::invokeMethod(_model, "getRow",Q_RETURN_ARG(QVariant, result),Q_ARG(int, mapToSource(index(rowIndex,0)).row()));
