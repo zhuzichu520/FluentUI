@@ -549,18 +549,16 @@ Rectangle {
                 hoverEnabled: true
                 visible: !(columnObject.width === columnObject.minimumWidth && columnObject.width === columnObject.maximumWidth && columnObject.width)
                 cursorShape: Qt.SplitHCursor
+                preventStealing: true
                 onPressed :
                     (mouse)=>{
-                        header_horizontal.interactive = false
                         FluTools.setOverrideCursor(Qt.SplitHCursor)
                         clickPos = Qt.point(mouse.x, mouse.y)
                     }
                 onReleased:{
-                    header_horizontal.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onCanceled: {
-                    header_horizontal.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onPositionChanged:
@@ -685,6 +683,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 acceptedButtons: Qt.LeftButton
                 cursorShape: Qt.SplitVCursor
+                preventStealing: true
                 visible: {
                     if(rowObject === null)
                         return false
@@ -692,16 +691,13 @@ Rectangle {
                 }
                 onPressed :
                     (mouse)=>{
-                        header_vertical.interactive = false
                         FluTools.setOverrideCursor(Qt.SplitVCursor)
                         clickPos = Qt.point(mouse.x, mouse.y)
                     }
                 onReleased:{
-                    header_vertical.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onCanceled: {
-                    header_vertical.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onPositionChanged:
