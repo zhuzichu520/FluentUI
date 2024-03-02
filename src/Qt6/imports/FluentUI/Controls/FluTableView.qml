@@ -13,6 +13,9 @@ Rectangle {
     property alias columns: table_view.columns
     property bool horizonalHeaderVisible: true
     property bool verticalHeaderVisible: true
+    property color selectedBorderColor: FluTheme.primaryColor
+    property color selectedColor: FluTools.colorAlpha(FluTheme.primaryColor,0.3)
+    property alias sourceModel: table_model
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -45,7 +48,7 @@ Rectangle {
             item_loader_layout.cellItem = cellItem
             item_loader_layout.x = table_view.contentX + cellPosition.x
             item_loader_layout.y = table_view.contentY + cellPosition.y
-            item_loader_layout.width = table_view.columnWidthProvider(column)
+            item_loader_layout.width = header_horizontal.columnWidthProvider(column)
             item_loader_layout.height = table_view.rowHeightProvider(row)
             item_loader.display = display
             var obj =columnSource[column].editDelegate
@@ -199,25 +202,8 @@ Rectangle {
                 ScrollBar.vertical: FluScrollBar{
                     id:scroll_bar_v
                 }
-                columnWidthProvider: function(column) {
-                    var w = columnSource[column].width
-                    if(!w){
-                        w = columnSource[column].minimumWidth
-                    }
-                    if(!w){
-                        w = d.defaultItemWidth
-                    }
-                    if(item_loader_layout.cellItem){
-                        if(column === item_loader.column){
-                            item_loader_layout.width = w
-                        }
-                        if(column === item_loader.column-1){
-                            let cellPosition = item_loader_layout.cellItem.mapToItem(scroll_table, 0, 0)
-                            item_loader_layout.x = table_view.contentX + cellPosition.x
-                        }
-                    }
-                    return w
-                }
+                syncView: header_horizontal
+                syncDirection: Qt.Horizontal
                 rowHeightProvider: function(row) {
                     if(row>=table_view.rows){
                         return 0
@@ -241,7 +227,7 @@ Rectangle {
                     }
                     return h
                 }
-                model: table_model
+                model: table_sort_model
                 clip: true
                 onRowsChanged: {
                     closeEditor()
@@ -277,22 +263,13 @@ Rectangle {
                             return false
                         }
                         color:{
+                            if(item_table.isRowSelected){
+                                return control.selectedColor
+                            }
                             if(d.rowHoverIndex === row || item_table.isRowSelected){
                                 return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
                             }
                             return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
-                        }
-                        Rectangle{
-                            height: 18
-                            radius: 1.5
-                            color: FluTheme.primaryColor
-                            width: 3
-                            visible: item_table.isRowSelected && column === 0
-                            anchors{
-                                verticalCenter: parent.verticalCenter
-                                left: parent.left
-                                leftMargin: 3
-                            }
                         }
                         MouseArea{
                             anchors.fill: parent
@@ -334,6 +311,36 @@ Rectangle {
                                     return modelData.comId
                                 }
                                 return com_text
+                            }
+                        }
+                        Item{
+                            anchors.fill: parent
+                            visible: item_table.isRowSelected
+                            Rectangle{
+                                width: 1
+                                height: parent.height
+                                anchors.left: parent.left
+                                color: control.selectedBorderColor
+                                visible: column === 0
+                            }
+                            Rectangle{
+                                width: 1
+                                height: parent.height
+                                anchors.right: parent.right
+                                color: control.selectedBorderColor
+                                visible: column === control.columns-1
+                            }
+                            Rectangle{
+                                width: parent.width
+                                height: 1
+                                anchors.top: parent.top
+                                color: control.selectedBorderColor
+                            }
+                            Rectangle{
+                                width: parent.width
+                                height: 1
+                                anchors.bottom: parent.bottom
+                                color: control.selectedBorderColor
                             }
                         }
                     }
@@ -398,11 +405,29 @@ Rectangle {
         anchors.left: scroll_table.left
         anchors.top: parent.top
         visible: control.horizonalHeaderVisible
-        implicitWidth: syncView ? syncView.width : 0
+        implicitWidth: table_view.width
         implicitHeight: visible ? Math.max(1, contentHeight) : 0
-        syncView: table_view
         boundsBehavior: Flickable.StopAtBounds
         clip: true
+        columnWidthProvider: function(column) {
+            var w = columnSource[column].width
+            if(!w){
+                w = columnSource[column].minimumWidth
+            }
+            if(!w){
+                w = d.defaultItemWidth
+            }
+            if(item_loader_layout.cellItem){
+                if(column === item_loader.column){
+                    item_loader_layout.width = w
+                }
+                if(column === item_loader.column-1){
+                    let cellPosition = item_loader_layout.cellItem.mapToItem(scroll_table, 0, 0)
+                    item_loader_layout.x = table_view.contentX + cellPosition.x
+                }
+            }
+            return w
+        }
         delegate: Rectangle {
             id:column_item_control
             readonly property real cellPadding: 8
@@ -525,7 +550,7 @@ Rectangle {
                             maximumWidth = 65535
                         }
                         columnObject.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
-                        table_view.forceLayout()
+                        header_horizontal.forceLayout()
                     }
             }
         }
@@ -688,14 +713,22 @@ Rectangle {
         o.options = options
         return o
     }
-    function sort(order){
-        if(order === undefined){
-            table_view.model = table_model
-        }else{
-            table_view.model = table_sort_model
-            table_sort_model.setSortComparator(function(left,right){
-                return order(table_model.getRow(left),table_model.getRow(right))
+    function sort(callback=undefined){
+        if(callback){
+            table_sort_model.setComparator(function(left,right){
+                return callback(table_model.getRow(left),table_model.getRow(right))
             })
+        }else{
+            table_sort_model.setComparator(undefined)
+        }
+    }
+    function filter(callback=undefined){
+        if(callback){
+            table_sort_model.setFilter(function(index){
+                return callback(table_model.getRow(index))
+            })
+        }else{
+            table_sort_model.setFilter(undefined)
         }
     }
     function setRow(rowIndex,obj){

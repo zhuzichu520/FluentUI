@@ -14,6 +14,16 @@ FluContentPage{
     property var dataSource : []
     property int sortType: 0
     property bool seletedAll: true
+    property string nameKeyword: ""
+
+    onNameKeywordChanged: {
+        table_view.filter(function(item){
+            if(item.name.includes(nameKeyword)){
+                return true
+            }
+            return false
+        })
+    }
 
     Component.onCompleted: {
         loadData(1,1000)
@@ -34,23 +44,25 @@ FluContentPage{
         if(sortType === 0){
             table_view.sort()
         }else if(sortType === 1){
-            table_view.sort((l, r) =>{
-                                var lage = Number(l.age)
-                                var rage = Number(r.age)
-                                if(lage === rage){
-                                    return l._key>r._key
-                                }
-                                return lage>rage
-                            });
+            table_view.sort(
+                        (l, r) =>{
+                            var lage = Number(l.age)
+                            var rage = Number(r.age)
+                            if(lage === rage){
+                                return l._key>r._key
+                            }
+                            return lage>rage
+                        });
         }else if(sortType === 2){
-            table_view.sort((l, r) => {
-                                var lage = Number(l.age)
-                                var rage = Number(r.age)
-                                if(lage === rage){
-                                    return l._key>r._key
-                                }
-                                return lage<rage
-                            });
+            table_view.sort(
+                        (l, r) => {
+                            var lage = Number(l.age)
+                            var rage = Number(r.age)
+                            if(lage === rage){
+                                return l._key>r._key
+                            }
+                            return lage<rage
+                        });
         }
     }
 
@@ -90,6 +102,57 @@ FluContentPage{
         }
     }
 
+    FluMenu{
+        id:pop_filter
+        width: 200
+        height: 89
+
+        contentItem: Item{
+
+            onVisibleChanged: {
+                if(visible){
+                    name_filter_text.text = root.nameKeyword
+                    name_filter_text.cursorPosition = name_filter_text.text.length
+                    name_filter_text.forceActiveFocus()
+                }
+            }
+
+            FluTextBox{
+                id:name_filter_text
+                anchors{
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                    leftMargin: 10
+                    rightMargin: 10
+                    topMargin: 10
+                }
+                iconSource: FluentIcons.Search
+            }
+
+            FluButton{
+                text:"搜索"
+                anchors{
+                    bottom: parent.bottom
+                    right: parent.right
+                    bottomMargin: 10
+                    rightMargin: 10
+                }
+                onClicked: {
+                    root.nameKeyword = name_filter_text.text
+                    pop_filter.close()
+                }
+            }
+
+        }
+
+        function showPopup(){
+            table_view.closeEditor()
+            pop_filter.popup()
+        }
+
+    }
+
     Component{
         id:com_checbox
         Item{
@@ -102,6 +165,38 @@ FluContentPage{
                     obj.checkbox = table_view.customItem(com_checbox,{checked:!options.checked})
                     table_view.setRow(row,obj)
                     checkBoxChanged()
+                }
+            }
+        }
+    }
+
+    Component{
+        id:com_column_filter_name
+        Item{
+            FluText{
+                text:"姓名"
+                anchors.centerIn: parent
+            }
+            FluIconButton{
+                width: 20
+                height: 20
+                iconSize: 12
+                verticalPadding:0
+                horizontalPadding:0
+                iconSource: FluentIcons.Filter
+                iconColor: {
+                    if("" !== root.nameKeyword){
+                        return FluTheme.primaryColor
+                    }
+                    return FluTheme.dark ?  Qt.rgba(1,1,1,1) : Qt.rgba(0,0,0,1)
+                }
+                anchors{
+                    right: parent.right
+                    rightMargin: 3
+                    verticalCenter: parent.verticalCenter
+                }
+                onClicked: {
+                    pop_filter.showPopup()
                 }
             }
         }
@@ -324,10 +419,20 @@ FluContentPage{
                 text:"删除选中"
                 onClicked: {
                     var data = []
-                    for(var i =0;i< table_view.rows ;i++){
-                        var item = table_view.getRow(i)
-                        if(false === item.checkbox.options.checked){
-                            data.push(item)
+                    var rows = []
+                    for (var i = 0; i < table_view.rows; i++) {
+                        var item = table_view.getRow(i);
+                        rows.push(item)
+                        if (!item.checkbox.options.checked) {
+                            data.push(item);
+                        }
+                    }
+                    var sourceModel = table_view.sourceModel;
+                    for (i = 0; i < sourceModel.rowCount; i++) {
+                        var sourceItem = sourceModel.getRow(i);
+                        const foundItem = rows.find(item=> item._key === sourceItem._key)
+                        if (!foundItem) {
+                            data.push(sourceItem);
                         }
                     }
                     table_view.dataSource = data
@@ -370,7 +475,7 @@ FluContentPage{
                 width:100
             },
             {
-                title: '姓名',
+                title: table_view.customItem(com_column_filter_name,{title:'姓名'}),
                 dataIndex: 'name',
                 readOnly:true
             },
