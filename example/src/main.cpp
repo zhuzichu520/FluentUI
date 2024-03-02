@@ -82,6 +82,5 @@ int main(int argc, char *argv[])
     if (exec == 931) {
         QProcess::startDetached(qApp->applicationFilePath(), QStringList());
     }
-    Log::teardown();
     return exec;
 }

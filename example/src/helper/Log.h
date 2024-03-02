@@ -6,7 +6,6 @@ namespace Log
 {
     QString prettyProductInfoWrapper();
     void setup(const QString &app,int level = 4);
-    void teardown();
 }
 
 #endif // LOG_H

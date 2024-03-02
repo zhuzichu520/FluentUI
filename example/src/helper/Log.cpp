@@ -207,8 +207,3 @@ void Log::setup(const QString &app,int level)
     qInfo()<<"[LOG_PATH]"<<g_file_path;
     qInfo()<<"===================================================";
 }
-
-void Log::teardown()
-{
-    qInstallMessageHandler(0);
-}

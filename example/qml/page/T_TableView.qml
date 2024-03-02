@@ -261,16 +261,16 @@ FluContentPage{
         FluComboBox {
             anchors.fill: parent
             focus: true
-            currentIndex: display
+            editText: display
             editable: true
             model: ListModel {
-                ListElement { text: 100 }
-                ListElement { text: 300 }
-                ListElement { text: 500 }
-                ListElement { text: 1000 }
+                ListElement { text: "100" }
+                ListElement { text: "300" }
+                ListElement { text: "500" }
+                ListElement { text: "1000" }
             }
             Component.onCompleted: {
-                currentIndex=[100,300,500,1000].findIndex((element) => element === Number(display))
+                currentIndex=["100","300","500","1000"].findIndex((element) => element === display)
                 selectAll()
             }
             onCommit: {
