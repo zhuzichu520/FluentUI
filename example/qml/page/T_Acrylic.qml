@@ -77,6 +77,7 @@ FluScrollablePage{
                 MouseArea {
                     property point clickPos: Qt.point(0,0)
                     id:drag_area
+                    preventStealing: true
                     anchors.fill: parent
                     onPressed: (mouse)=>{
                                    clickPos = Qt.point(mouse.x, mouse.y)
