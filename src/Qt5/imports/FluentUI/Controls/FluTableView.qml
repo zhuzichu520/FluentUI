@@ -182,24 +182,22 @@ Rectangle {
             ListModel{
                 id:model_columns
             }
-            anchors.fill: parent
             boundsBehavior: Flickable.StopAtBounds
             syncView: header_horizontal
             syncDirection: Qt.Horizontal
+            anchors.fill: parent
             ScrollBar.vertical:scroll_bar_v
             rowHeightProvider: function(row) {
-                if(row>=table_view.rows){
-                    return 0
-                }
                 var rowObject = control.getRow(row)
-                var h = rowObject.height
-                if(!h){
-                    h = rowObject._minimumHeight
+                var height = rowObject.height
+                if(height){
+                    return height
                 }
-                if(!h){
-                    h = d.defaultItemHeight
+                var minimumHeight = rowObject._minimumHeight
+                if(minimumHeight){
+                    return minimumHeight
                 }
-                return h
+                return d.defaultItemHeight
             }
             model: table_sort_model
             clip: true
@@ -442,23 +440,37 @@ Rectangle {
             rows: d.header_rows
         }
         syncDirection: Qt.Horizontal
-        anchors.left: layout_mouse_table.left
-        anchors.top: parent.top
+        anchors{
+            left: header_vertical.right
+            right: parent.right
+            top: parent.top
+        }
         visible: control.horizonalHeaderVisible
-        implicitWidth: table_view.width
-        implicitHeight: visible ? Math.max(1, contentHeight) : 0
+        height: visible ? Math.max(1, contentHeight) : 0
         boundsBehavior: Flickable.StopAtBounds
         clip: true
         ScrollBar.horizontal:scroll_bar_h
         columnWidthProvider: function(column) {
-            var w = columnSource[column].width
-            if(!w){
-                w = columnSource[column].minimumWidth
+            var columnObject = columnSource[column]
+            var width = columnObject.width
+            if(width){
+                return width
             }
-            if(!w){
-                w = d.defaultItemWidth
+            var minimumWidth = columnObject.minimumWidth
+            if(minimumWidth){
+                return minimumWidth
             }
-            return w
+            return d.defaultItemWidth
+        }
+        onContentXChanged:{
+            timer_horizontal_force_layout.restart()
+        }
+        Timer{
+            id:timer_horizontal_force_layout
+            interval: 50
+            onTriggered: {
+                header_horizontal.forceLayout()
+            }
         }
         delegate: Rectangle {
             id:column_item_control
