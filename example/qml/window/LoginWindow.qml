@@ -11,7 +11,7 @@ FluWindow {
     width: 400
     height: 400
     fixSize: true
-
+    modality: Qt.ApplicationModal
     onInitArgument:
         (argument)=>{
             textbox_uesrname.updateText(argument.username)

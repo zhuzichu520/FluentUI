@@ -20,6 +20,7 @@ Popup {
             to:1
         }
     }
+    height:Math.min(implicitHeight,parent.height)
     exit:Transition {
         NumberAnimation {
             property: "opacity"

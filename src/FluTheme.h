@@ -20,6 +20,7 @@ class FluTheme : public QObject
     Q_PROPERTY_AUTO(FluColorSet*,themeColor);
     Q_PROPERTY_AUTO(QColor,primaryColor);
     Q_PROPERTY_AUTO(QColor,backgroundColor);
+    Q_PROPERTY_AUTO(QColor,dividerColor);
     Q_PROPERTY_AUTO(QColor,windowBackgroundColor);
     Q_PROPERTY_AUTO(QColor,windowActiveBackgroundColor);
     Q_PROPERTY_AUTO(QColor,fontPrimaryColor);

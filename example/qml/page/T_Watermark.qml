@@ -111,9 +111,7 @@ FluContentPage{
                 }
                 FluColorPicker{
                     id:color_picker
-                    Component.onCompleted: {
-                        setColor(Qt.rgba(0,0,0,0.1))
-                    }
+                    current: Qt.rgba(0,0,0,0.1)
                 }
             }
         }
@@ -122,7 +120,7 @@ FluContentPage{
             id:water_mark
             anchors.fill: parent
             text:text_box.text
-            textColor: color_picker.colorValue
+            textColor: color_picker.current
             textSize: slider_text_size.value
             rotate: slider_rotate.value
             gap:Qt.point(slider_gap_x.value,slider_gap_y.value)

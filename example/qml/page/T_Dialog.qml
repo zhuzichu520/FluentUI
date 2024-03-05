@@ -182,8 +182,8 @@ FluScrollablePage{
             showSuccess("点击取消按钮")
         }
         positiveText:"确定"
-        onPositiveClicked:{
-            showSuccess("点击确定按钮")
+        onPositiveClickListener:function(){
+            showError("测试InfoBar层级在Popup之上")
         }
     }
 

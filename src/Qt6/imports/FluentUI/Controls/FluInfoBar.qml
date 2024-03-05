@@ -46,8 +46,10 @@ FluObject {
         Component{
             id:screenlayoutComponent
             Column{
+                parent: Overlay.overlay
+                z:999
                 spacing: 20
-                width: parent.width
+                width: root.width
                 move: Transition {
                     NumberAnimation {
                         properties: "y"

@@ -16,7 +16,6 @@
         <file>FluentUI/Controls/FluChart.qml</file>
         <file>FluentUI/Controls/FluCheckBox.qml</file>
         <file>FluentUI/Controls/FluColorPicker.qml</file>
-        <file>FluentUI/Controls/FluColorView.qml</file>
         <file>FluentUI/Controls/FluComboBox.qml</file>
         <file>FluentUI/Controls/FluContentDialog.qml</file>
         <file>FluentUI/Controls/FluContentPage.qml</file>
@@ -85,12 +84,6 @@
         <file>FluentUI/Controls/FluTour.qml</file>
         <file>FluentUI/Controls/FluTreeView.qml</file>
         <file>FluentUI/Controls/FluWindow.qml</file>
-        <file>FluentUI/Controls/ColorPicker/ColorPicker.qml</file>
-        <file>FluentUI/Controls/ColorPicker/Content/Checkerboard.qml</file>
-        <file>FluentUI/Controls/ColorPicker/Content/ColorSlider.qml</file>
-        <file>FluentUI/Controls/ColorPicker/Content/NumberBox.qml</file>
-        <file>FluentUI/Controls/ColorPicker/Content/PanelBorder.qml</file>
-        <file>FluentUI/Controls/ColorPicker/Content/SBPicker.qml</file>
         <file>FluentUI/Controls/FluLoadingButton.qml</file>
         <file>FluentUI/Controls/FluClip.qml</file>
         <file>FluentUI/Controls/FluLoader.qml</file>

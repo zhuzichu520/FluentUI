@@ -99,7 +99,7 @@ TextField{
             }
             contentDescription:"Clean"
             onClicked:{
-                control.text = ""
+                control.clear()
             }
         }
         FluIcon{

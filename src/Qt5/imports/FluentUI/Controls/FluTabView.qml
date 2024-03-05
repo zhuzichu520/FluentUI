@@ -174,12 +174,13 @@ Item {
                         }
                         function updatePosition(pos){
                             var idx = tab_nav.indexAt(pos.x+tab_nav.contentX+1, pos.y)
-                            var firstIdx = tab_nav.indexAt(tab_nav.contentX+1, pos.y)
-                            var lastIdx = tab_nav.indexAt(tab_nav.width+tab_nav.contentX-1, pos.y)
-                            if(lastIdx === -1){
-                                lastIdx = tab_nav.count-1
+                            if(idx<0){
+                                return
                             }
-                            if (idx!==-1 && idx >= firstIdx && idx <= lastIdx && d.dragIndex !== idx) {
+                            if(idx>=tab_nav.count){
+                                return
+                            }
+                            if (d.dragIndex !== idx) {
                                 tab_model.move(d.dragIndex, idx, 1)
                                 d.dragIndex = idx;
                             }
