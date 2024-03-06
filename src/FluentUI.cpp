@@ -27,7 +27,6 @@ void FluentUI::registerTypes(QQmlEngine *engine){
 void FluentUI::registerTypes(const char *uri){
 #if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
     Q_INIT_RESOURCE(fluentui);
-#endif
     qmlRegisterType<FluWindowLifecycle>(uri,major,minor,"FluWindowLifecycle");
     qmlRegisterType<FluQrCodeItem>(uri,major,minor,"FluQrCodeItem");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
@@ -145,6 +144,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterUncreatableMetaObject(FluNetworkType::staticMetaObject,  uri,major,minor,"FluNetworkType", "Access to enums & flags only");
 
     qmlRegisterModule(uri,major,minor);
+#endif
 }
 
 void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
@@ -167,5 +167,4 @@ void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
     engine->rootContext()->setContextProperty("FluEventBus",eventBus);
     FluNetwork* network = FluNetwork::getInstance();
     engine->rootContext()->setContextProperty("FluNetwork",network);
-    engine->addImportPath("qrc:/qt/qml");
 }
