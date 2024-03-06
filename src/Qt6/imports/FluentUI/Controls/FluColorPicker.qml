@@ -39,7 +39,7 @@ Button{
         id:color_dialog
         implicitWidth: 326
         implicitHeight: 560
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+        closePolicy: Popup.CloseOnEscape
         Rectangle{
             id:layout_actions
             width: parent.width
@@ -280,7 +280,6 @@ Button{
                         onPressed:(mouse)=> handleMouse(mouse)
                     }
                 }
-
                 FluClip{
                     width: 40
                     height: 200

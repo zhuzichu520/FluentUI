@@ -38,15 +38,30 @@ Button {
             visible: control.visualFocus
             radius:4
         }
-        color:{
-            if(!enabled){
-                return disableColor
-            }
-            if(pressed){
-                return pressedColor
-            }
-            return hovered ? hoverColor :normalColor
+        gradient: Gradient {
+            GradientStop { position: 0.33; color: control.normalColor }
+            GradientStop { position: 1.0; color: Qt.darker(control.normalColor,1.3) }
         }
+        Rectangle{
+            radius: parent.radius
+            anchors{
+                fill: parent
+                topMargin: 1
+                leftMargin: 1
+                rightMargin: 1
+                bottomMargin: 2
+            }
+            color:{
+                if(!enabled){
+                    return disableColor
+                }
+                if(pressed){
+                    return pressedColor
+                }
+                return hovered ? hoverColor :normalColor
+            }
+        }
+
     }
     contentItem: FluText {
         text: control.text

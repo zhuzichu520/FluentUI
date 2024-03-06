@@ -24,7 +24,7 @@ void FluApp::run(){
     navigate(initialRoute());
 }
 
-void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegister* fluRegister){
+void FluApp::navigate(const QString& route,const QJsonObject& argument,FluWindowRegister* windowRegister){
     if(!routes().contains(route)){
         qCritical()<<"Not Found Route "<<route;
         return;
@@ -36,8 +36,8 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
     }
     QVariantMap properties;
     properties.insert("_route",route);
-    if(fluRegister){
-        properties.insert("_pageRegister",QVariant::fromValue(fluRegister));
+    if(windowRegister){
+        properties.insert("_windowRegister",QVariant::fromValue(windowRegister));
     }
     properties.insert("argument",argument);
     QQuickWindow *win=nullptr;
@@ -61,8 +61,8 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluRegist
         }
     }
     win = qobject_cast<QQuickWindow*>(component.createWithInitialProperties(properties));
-    if(fluRegister){
-        fluRegister->to(win);
+    if(windowRegister){
+        windowRegister->to(win);
     }
     win->setColor(QColor(Qt::transparent));
 }
@@ -85,4 +85,11 @@ void FluApp::removeWindow(QQuickWindow* window){
         window->deleteLater();
         window = nullptr;
     }
+}
+
+QVariant FluApp::createWindowRegister(QQuickWindow* window,const QString& path){
+    FluWindowRegister *p = new FluWindowRegister(window);
+    p->from(window);
+    p->path(path);
+    return  QVariant::fromValue(p);
 }

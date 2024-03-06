@@ -21,7 +21,6 @@ public:
     Q_INVOKABLE void onDestruction();
     Q_INVOKABLE void onVisible(bool visible);
     Q_INVOKABLE void onDestoryOnClose();
-    Q_INVOKABLE QVariant createRegister(QQuickWindow* window,const QString& path);
 private:
     QQuickWindow* _window = nullptr;
 };

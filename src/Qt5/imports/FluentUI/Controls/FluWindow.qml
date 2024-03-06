@@ -31,8 +31,6 @@ Window {
         return FluTheme.windowBackgroundColor
     }
     property bool stayTop: false
-    property var _pageRegister
-    property string _route
     property bool showDark: false
     property bool showClose: true
     property bool showMinimize: true
@@ -65,6 +63,8 @@ Window {
     property int _realHeight
     property int _realWidth
     property int _appBarHeight: appBar.height
+    property var _windowRegister
+    property string _route
     id:window
     color:"transparent"
     Component.onCompleted: {
@@ -280,7 +280,7 @@ Window {
                 if(FluTools.isWindows10OrGreater()){
                     return undefined
                 }
-                if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
+                if(window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
                     return undefined
                 }
                 return com_border
@@ -310,9 +310,6 @@ Window {
     function showError(text,duration,moremsg){
         infoBar.showError(text,duration,moremsg)
     }
-    function registerForWindowResult(path){
-        return lifecycle.createRegister(window,path)
-    }
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]
         var taskBarHeight = FluTools.getTaskBarHeight(window)
@@ -326,9 +323,12 @@ Window {
             window.minimumHeight = window.height
         }
     }
+    function registerForWindowResult(path){
+        return FluApp.createWindowRegister(window,path)
+    }
     function onResult(data){
-        if(_pageRegister){
-            _pageRegister.onResult(data)
+        if(_windowRegister){
+            _windowRegister.onResult(data)
         }
     }
     function layoutContainer(){

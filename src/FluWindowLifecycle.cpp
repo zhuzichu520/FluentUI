@@ -1,7 +1,6 @@
 #include "FluWindowLifecycle.h"
 
 #include "FluApp.h"
-#include "FluRegister.h"
 
 FluWindowLifecycle::FluWindowLifecycle(QObject *parent):QObject{parent}{
 
@@ -23,11 +22,4 @@ void FluWindowLifecycle::onDestruction(){
 }
 
 void FluWindowLifecycle::onVisible(bool visible){
-}
-
-QVariant FluWindowLifecycle::createRegister(QQuickWindow* window,const QString& path){
-    FluRegister *p = new FluRegister(window);
-    p->from(window);
-    p->path(path);
-    return  QVariant::fromValue(p);
 }

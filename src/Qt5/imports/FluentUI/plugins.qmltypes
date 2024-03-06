@@ -502,12 +502,6 @@ Module {
             Parameter { name: "visible"; type: "bool" }
         }
         Method { name: "onDestoryOnClose" }
-        Method {
-            name: "createRegister"
-            type: "QVariant"
-            Parameter { name: "window"; type: "QQuickWindow"; isPointer: true }
-            Parameter { name: "path"; type: "string" }
-        }
     }
     Component {
         name: "FluWindowType"
@@ -2386,7 +2380,7 @@ Module {
         }
         Property {
             name: "buttonDark"
-            type: "FluToggleSwitch_QMLTYPE_22"
+            type: "FluToggleSwitch_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
@@ -3044,15 +3038,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_149"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_149"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_156"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_156"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_38"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_38"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_33"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_33"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -3869,8 +3863,6 @@ Module {
         Property { name: "appBar"; type: "QQuickItem"; isPointer: true }
         Property { name: "backgroundColor"; type: "QColor" }
         Property { name: "stayTop"; type: "bool" }
-        Property { name: "_pageRegister"; type: "QVariant" }
-        Property { name: "_route"; type: "string" }
         Property { name: "showDark"; type: "bool" }
         Property { name: "showClose"; type: "bool" }
         Property { name: "showMinimize"; type: "bool" }
@@ -3888,6 +3880,8 @@ Module {
         Property { name: "_realHeight"; type: "int" }
         Property { name: "_realWidth"; type: "int" }
         Property { name: "_appBarHeight"; type: "int" }
+        Property { name: "_windowRegister"; type: "QVariant" }
+        Property { name: "_route"; type: "string" }
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
         Signal { name: "showSystemMenu" }
         Signal {
@@ -3931,13 +3925,13 @@ Module {
             Parameter { name: "duration"; type: "QVariant" }
             Parameter { name: "moremsg"; type: "QVariant" }
         }
+        Method { name: "moveWindowToDesktopCenter"; type: "QVariant" }
+        Method { name: "fixWindowSize"; type: "QVariant" }
         Method {
             name: "registerForWindowResult"
             type: "QVariant"
             Parameter { name: "path"; type: "QVariant" }
         }
-        Method { name: "moveWindowToDesktopCenter"; type: "QVariant" }
-        Method { name: "fixWindowSize"; type: "QVariant" }
         Method {
             name: "onResult"
             type: "QVariant"
