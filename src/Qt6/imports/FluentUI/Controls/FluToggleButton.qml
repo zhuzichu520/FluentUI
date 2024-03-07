@@ -8,9 +8,9 @@ Button {
     property string contentDescription: ""
     property color normalColor: {
         if(checked){
-           return FluTheme.primaryColor
+            return FluTheme.primaryColor
         }else{
-           return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+            return FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
         }
     }
     property color hoverColor: {
@@ -45,22 +45,41 @@ Button {
         implicitWidth: 28
         implicitHeight: 28
         radius: 4
-        border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
-        border.width: checked ? 0 : 1
         FluFocusRectangle{
             visible: control.activeFocus
             radius:4
         }
-        color:{
-            if(!enabled){
-                return disableColor
+        gradient: Gradient {
+            GradientStop { position: 0.33; color: control.normalColor }
+            GradientStop { position: 1.0; color: Qt.darker(control.normalColor,1.3) }
+        }
+        Rectangle{
+            radius: parent.radius
+            anchors{
+                fill: parent
+                topMargin: checked ? 1 : 0
+                leftMargin: checked ? 1 : 0
+                rightMargin: checked ? 1 : 0
+                bottomMargin: checked ? 2 : 0
             }
-            if(checked){
-                if(pressed){
-                    return pressedColor
+            color:{
+                if(!enabled){
+                    return disableColor
                 }
+                if(checked){
+                    if(pressed){
+                        return pressedColor
+                    }
+                }
+                return hovered ? hoverColor :normalColor
             }
-            return hovered ? hoverColor :normalColor
+        }
+        Rectangle{
+            color:"#00000000"
+            anchors.fill: parent
+            border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
+            border.width: checked ? 0 : 1
+            radius: parent.radius
         }
     }
     contentItem: FluText {

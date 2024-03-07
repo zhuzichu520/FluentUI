@@ -60,7 +60,6 @@ Button {
                 return hovered ? hoverColor :normalColor
             }
         }
-
     }
     contentItem: FluText {
         text: control.text

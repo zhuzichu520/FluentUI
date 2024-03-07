@@ -6,7 +6,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QColor>
-#include "FluColorSet.h"
+#include "FluAccentColor.h"
 #include "stdafx.h"
 #include "singleton.h"
 
@@ -17,7 +17,7 @@ class FluTheme : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool dark READ dark NOTIFY darkChanged)
-    Q_PROPERTY_AUTO(FluColorSet*,themeColor);
+    Q_PROPERTY_AUTO(FluAccentColor*,accentColor);
     Q_PROPERTY_AUTO(QColor,primaryColor);
     Q_PROPERTY_AUTO(QColor,backgroundColor);
     Q_PROPERTY_AUTO(QColor,dividerColor);

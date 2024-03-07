@@ -31,7 +31,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluQrCodeItem>(uri,major,minor,"FluQrCodeItem");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
     qmlRegisterType<FluWatermark>(uri,major,minor,"FluWatermark");
-    qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
+    qmlRegisterType<FluAccentColor>(uri,major,minor,"FluAccentColor");
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
     qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");

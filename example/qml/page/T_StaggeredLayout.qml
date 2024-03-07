@@ -11,13 +11,12 @@ FluContentPage{
 
     property var colors : [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
 
-
     ListModel{
         id:list_model
         Component.onCompleted: {
             for(var i=0;i<=100;i++){
                 var item = {}
-                item.color = colors[rand(0,7)].dark
+                item.color = colors[rand(0,7)]
                 item.height = rand(100,300)
                 append(item)
             }
@@ -40,7 +39,7 @@ FluContentPage{
             model:list_model
             delegate: Rectangle{
                 height: model.height
-                color:model.color
+                color:model.color.normal
                 FluText{
                     color:"#FFFFFF"
                     text:model.index
@@ -57,4 +56,3 @@ FluContentPage{
     }
 
 }
-
