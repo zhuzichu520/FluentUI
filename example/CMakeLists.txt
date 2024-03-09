@@ -18,6 +18,12 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
 endif()
 
+if(APPLE)
+    set(APPLICATION_DIR_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.app/Contents/MacOS)
+else()
+    set(APPLICATION_DIR_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+endif()
+
 #导入Qt相关依赖包
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
@@ -33,20 +39,20 @@ endif()
 #国际化
 find_program(QT_LUPDATE NAMES lupdate)
 find_program(QT_LRELEASE NAMES lrelease)
-if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/example_en.qm)
-    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts example_en.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-    execute_process(COMMAND ${QT_LRELEASE} example_en.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}_en.qm)
+    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_en.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+    execute_process(COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_en.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 endif ()
-if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/example_zh.qm)
-    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts example_zh.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-    execute_process(COMMAND ${QT_LRELEASE} example_zh.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}_zh.qm)
+    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_zh.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+    execute_process(COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_zh.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 endif ()
 
 file(GLOB QM_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.qm)
-file(COPY ${QM_FILE_PATHS} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/i18n)
+file(COPY ${QM_FILE_PATHS} DESTINATION ${APPLICATION_DIR_PATH}/i18n)
 
 ##生成版本信息头文件
-set(HEADER_FILE_VERSION_PATH ${CMAKE_SOURCE_DIR}/example/Version.h)
+set(HEADER_FILE_VERSION_PATH ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/Version.h)
 configure_file(
     ${CMAKE_SOURCE_DIR}/.cmake/Version.h.in
     ${HEADER_FILE_VERSION_PATH}
@@ -103,12 +109,12 @@ endif()
 
 #添加可执行文件
 if (WIN32)
-    add_executable(example
+    add_executable(${PROJECT_NAME}
         ${sources_files}
         ${EXAMPLE_VERSION_RC_PATH}
     )
 else ()
-    add_executable(example
+    add_executable(${PROJECT_NAME}
         ${sources_files}
     )
 endif ()
@@ -132,12 +138,12 @@ if(WIN32)
 endif()
 
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/source/)
-file(COPY ${CMAKE_SOURCE_DIR}/src/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/source/)
+file(COPY ${CMAKE_SOURCE_DIR}/src/ DESTINATION ${APPLICATION_DIR_PATH}/source/)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #如果是Qt6.2以上，则使用qt_add_qml_module添加资源文件
-    qt_add_qml_module(example
-        URI "example"
+    qt_add_qml_module(${PROJECT_NAME}
+        URI ${PROJECT_NAME}
         VERSION 1.0
         QML_FILES ${qml_files}
         RESOURCES ${resource_files}
@@ -145,27 +151,27 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     )
 else()
     #如果是Qt6.2以下，则使用qrc添加资源文件
-    target_include_directories(example PRIVATE
+    target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
     )
-target_sources(example PRIVATE example.qrc)
+target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}.qrc)
 endif()
 
 #导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
-target_include_directories(example PRIVATE
+target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/component
 )
 
 #如果是静态库则需要手动注册插件，导入FluentUI.h头文件
 if(FLUENTUI_BUILD_STATIC_LIB)
-    target_include_directories(example PRIVATE
+    target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/src
     )
 endif()
 
 #设置属性
-set_target_properties(example PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    MACOSX_BUNDLE_GUI_IDENTIFIER my.${PROJECT_NAME}.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
@@ -173,13 +179,13 @@ set_target_properties(example PROPERTIES
 )
 
 #Release也支持日志打印代码位置
-target_compile_definitions(example
+target_compile_definitions(${PROJECT_NAME}
     PRIVATE
     QT_MESSAGELOGCONTEXT
 )
 
 #目标文件链接库
-target_link_libraries(example PRIVATE
+target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Svg
     Qt${QT_VERSION_MAJOR}::Network
@@ -187,7 +193,7 @@ target_link_libraries(example PRIVATE
 )
 
 #安装
-install(TARGETS example
+install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
