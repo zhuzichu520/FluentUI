@@ -13,8 +13,8 @@ FluWindow {
 
     id:window
     title: "FluentUI"
-    width: 980
-    height: 600
+    width: 1000
+    height: 680
     minimumWidth: 520
     minimumHeight: 200
     launchMode: FluWindowType.SingleTask
