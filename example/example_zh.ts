@@ -680,7 +680,7 @@
         <location filename="qml/window/MainWindow.qml" line="118"/>
         <location filename="qml-Qt6/window/MainWindow.qml" line="118"/>
         <source>Open in Separate Window</source>
-        <translation type="unfinished">单独窗口打开</translation>
+        <translation type="unfinished">在独立窗口中打开</translation>
     </message>
     <message>
         <location filename="qml/window/MainWindow.qml" line="215"/>

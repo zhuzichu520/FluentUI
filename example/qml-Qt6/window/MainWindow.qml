@@ -112,11 +112,10 @@ FluWindow {
     Component{
         id: nav_item_right_menu
         FluMenu{
-            id: menu
-            width: 130
+            width: 186
             FluMenuItem{
                 text: qsTr("Open in Separate Window")
-                visible: true
+                font.pixelSize: 12
                 onClicked: {
                     FluApp.navigate("/pageWindow",{title:modelData.title,url:modelData.url})
                 }
