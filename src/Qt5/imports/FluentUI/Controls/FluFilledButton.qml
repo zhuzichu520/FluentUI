@@ -45,7 +45,7 @@ Button {
             radius: parent.radius
             anchors{
                 fill: parent
-                topMargin: control.enabled ? 1 : 0
+                topMargin: control.enabled ? 0 : 0
                 leftMargin: control.enabled ? 1 : 0
                 rightMargin: control.enabled ? 1 : 0
                 bottomMargin: control.enabled ? 2 : 0

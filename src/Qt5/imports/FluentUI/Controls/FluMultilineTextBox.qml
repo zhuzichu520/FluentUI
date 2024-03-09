@@ -20,7 +20,7 @@ TextArea{
         return normalColor
     }
     font:FluTextStyle.Body
-    wrapMode: Text.WordWrap
+    wrapMode: Text.WrapAnywhere
     padding: 8
     leftPadding: padding+4
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering

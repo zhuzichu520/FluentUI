@@ -44,7 +44,7 @@ FluWindow {
             leftMargin: 10
             rightMargin: 10
         }
-        wrapMode: Text.WordWrap
+        wrapMode: Text.WrapAnywhere
         text: qsTr("We apologize for the inconvenience caused by an unexpected error")
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

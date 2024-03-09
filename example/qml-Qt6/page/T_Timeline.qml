@@ -23,7 +23,7 @@ FluScrollablePage{
     Component{
         id:com_lable
         FluText{
-            wrapMode: Text.WordWrap
+            wrapMode: Text.WrapAnywhere
             font.bold: true
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.lable
@@ -41,7 +41,7 @@ FluScrollablePage{
     Component{
         id:com_text
         FluText{
-            wrapMode: Text.WordWrap
+            wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
             font.bold: true

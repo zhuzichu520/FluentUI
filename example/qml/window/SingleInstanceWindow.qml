@@ -22,7 +22,7 @@ FluWindow {
     }
 
     FluText{
-        wrapMode: Text.WordWrap
+        wrapMode: Text.WrapAnywhere
         anchors{
             left: parent.left
             right: parent.right

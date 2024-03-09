@@ -95,7 +95,7 @@ Item{
     Component{
         id:com_lable
         FluText{
-            wrapMode: Text.WordWrap
+            wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: {
                 if(modelData.lable){
@@ -110,7 +110,7 @@ Item{
     Component{
         id:com_text
         FluText{
-            wrapMode: Text.WordWrap
+            wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
             textFormat: Text.RichText

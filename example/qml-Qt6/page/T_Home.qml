@@ -118,7 +118,7 @@ FluScrollablePage{
                             Layout.leftMargin: 20
                             color: FluColors.Grey120
                             font.pixelSize: 12
-                            wrapMode: Text.WordWrap
+                            wrapMode: Text.WrapAnywhere
                         }
                     }
                     FluIcon{
@@ -214,7 +214,7 @@ FluScrollablePage{
                     id:item_desc
                     text:desc
                     color:FluColors.Grey120
-                    wrapMode: Text.WordWrap
+                    wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight
                     font: FluTextStyle.Caption
                     maximumLineCount: 2

@@ -64,7 +64,7 @@ FluScrollablePage{
                         FluText{
                             id:text_info
                             width: scrollview.width
-                            wrapMode: Text.WordWrap
+                            wrapMode: Text.WrapAnywhere
                             padding: 14
                             text: qsTr("Permit me to observe: the late emperor was taken from us before he could finish his life`s work, the restoration of Han. Today, the empire is still divided in three, and our very survival is threatened. Yet still the officials at court and the soldiers throughout the realm remain loyal to you, your majesty. Because they remember the late emperor, all of them, and they wish to repay his kindness in service to you. This is the moment to extend your divine influence, to honour the memory of the late Emperor and strengthen the morale of your officers. It is not time to listen to bad advice, or close your ears to the suggestions of loyal men.
 The court and the administration are as one. Both must be judged by one standard. Those who are loyal and good must get what they deserve, but so must the evil-doers who break the law. This will demonstrate the justice of your rule. There cannot be one law for the court and another for the administration.
@@ -97,7 +97,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
             FluText{
                 id:text_info
                 width: scrollview.width
-                wrapMode: Text.WordWrap
+                wrapMode: Text.WrapAnywhere
                 padding: 14
                 text: qsTr("Permit me to observe: the late emperor was taken from us before he could finish his life`s work...")
             }

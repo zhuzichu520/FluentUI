@@ -23,7 +23,7 @@ FluScrollablePage{
                 right: parent.right
             }
             FluText{
-                wrapMode: Text.WordWrap
+                wrapMode: Text.WrapAnywhere
                 width: parent.width
                 text: qsTr("It usually appears in the upper right corner of the notification icon or avatar to display the number of messages that need to be processed")
             }

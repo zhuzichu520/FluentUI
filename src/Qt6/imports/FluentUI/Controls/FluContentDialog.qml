@@ -41,7 +41,7 @@ FluPopup {
             FluText{
                 id:text_message
                 font: FluTextStyle.Body
-                wrapMode: Text.WordWrap
+                wrapMode: Text.WrapAnywhere
                 text:message
                 width: parent.width
                 topPadding: 4
@@ -67,7 +67,7 @@ FluPopup {
                 topPadding: 20
                 leftPadding: 20
                 rightPadding: 20
-                wrapMode: Text.WordWrap
+                wrapMode: Text.WrapAnywhere
             }
             FluLoader{
                 sourceComponent: com_message

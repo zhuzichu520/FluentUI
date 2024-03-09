@@ -13,7 +13,7 @@ FluWindow {
 
     id:window
     title: "FluentUI"
-    width: 960
+    width: 980
     height: 600
     minimumWidth: 520
     minimumHeight: 200

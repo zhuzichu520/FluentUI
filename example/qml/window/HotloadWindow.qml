@@ -32,7 +32,7 @@ FluWindow {
                     text:loader.itemLodaer().sourceComponent.errorString()
                     color:"red"
                     anchors.fill: parent
-                    wrapMode: Text.WordWrap
+                    wrapMode: Text.WrapAnywhere
                     padding: 20
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter

@@ -62,7 +62,7 @@ FluContentPage {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: item_icon.bottom
                 width:parent.width
-                wrapMode: Text.WordWrap
+                wrapMode: Text.WrapAnywhere
                 text: modelData.name
                 horizontalAlignment: Text.AlignHCenter
             }

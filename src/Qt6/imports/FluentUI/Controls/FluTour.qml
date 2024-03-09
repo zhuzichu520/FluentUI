@@ -145,7 +145,7 @@ Popup{
         FluText{
             id: text_desc
             font: FluTextStyle.Body
-            wrapMode: Text.WordWrap
+            wrapMode: Text.WrapAnywhere
             maximumLineCount: 4
             elide: Text.ElideRight
             text: d.step.description

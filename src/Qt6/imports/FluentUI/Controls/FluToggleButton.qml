@@ -57,7 +57,7 @@ Button {
             radius: parent.radius
             anchors{
                 fill: parent
-                topMargin: checked && enabled ? 1 : 0
+                topMargin: checked && enabled ? 0 : 0
                 leftMargin: checked && enabled ? 1 : 0
                 rightMargin: checked && enabled ? 1 : 0
                 bottomMargin: checked && enabled ? 2 : 0
