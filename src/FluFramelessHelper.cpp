@@ -20,12 +20,12 @@ static inline QByteArray qtNativeEventType()
 
 static inline bool isCompositionEnabled(){
     typedef HRESULT (WINAPI* DwmIsCompositionEnabledPtr)(BOOL *pfEnabled);
-    HMODULE module = LoadLibraryW(L"dwmapi.dll");
+    HMODULE module = ::LoadLibraryW(L"dwmapi.dll");
     if (module)
     {
         BOOL composition_enabled = false;
         DwmIsCompositionEnabledPtr dwm_is_composition_enabled;
-        dwm_is_composition_enabled= reinterpret_cast<DwmIsCompositionEnabledPtr>(GetProcAddress(module, "DwmIsCompositionEnabled"));
+        dwm_is_composition_enabled= reinterpret_cast<DwmIsCompositionEnabledPtr>(::GetProcAddress(module, "DwmIsCompositionEnabled"));
         if (dwm_is_composition_enabled)
         {
             dwm_is_composition_enabled(&composition_enabled);
@@ -64,7 +64,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0)
         {
             wp->flags |= SWP_NOCOPYBITS;
-            *result = 0;
+            *result = ::DefWindowProcW(hwnd, uMsg, wParam, lParam);
             return true;
         }
         return false;
@@ -82,7 +82,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             return true;
         }
         int offsetSize = 0;
-        bool isMaximum = IsZoomed(hwnd);
+        bool isMaximum = ::IsZoomed(hwnd);
         offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
         if(isMaximum || _helper->fullScreen()){
             _helper->setOriginalPos(QPoint(originalLeft,originalTop));
@@ -171,7 +171,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         *result = FALSE;
         return true;
     }else if(uMsg == WM_NCACTIVATE){
-        *result = DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
+        *result = ::DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
     }else if(uMsg == WM_GETMINMAXINFO){
 #if QT_VERSION < QT_VERSION_CHECK(6,2,4)
@@ -322,21 +322,21 @@ void FluFramelessHelper::componentComplete(){
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
         DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
         if(resizeable()){
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
+            ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
         }else{
-            SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
+            ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         }
         LONG exstyle = ::GetWindowLong(hwnd, GWL_EXSTYLE);
         exstyle = exstyle | WS_EX_LAYERED;
-        SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
-        SetLayeredWindowAttributes(hwnd, RGB(251, 255, 242), 0, LWA_COLORKEY);
+        ::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
+        ::SetLayeredWindowAttributes(hwnd, RGB(251, 255, 242), 0, LWA_COLORKEY);
         connect(window,&QQuickWindow::activeChanged,this,[this,hwnd]{
             if(this->window->isActive()){
                 LONG exstyle = ::GetWindowLong(hwnd, GWL_EXSTYLE);
                 if(exstyle & WS_EX_LAYERED){
                     exstyle = exstyle &~ WS_EX_LAYERED;
-                    SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
-                    SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+                    ::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
+                    ::SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
                 }
             }
         });
@@ -362,36 +362,36 @@ void FluFramelessHelper::componentComplete(){
 void FluFramelessHelper::_onScreenChanged(){
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
-    SetWindowPos(hwnd,0,0,0,0,0,SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
-    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+    ::SetWindowPos(hwnd,0,0,0,0,0,SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
+    ::RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
 #endif
 }
 
 void FluFramelessHelper::showSystemMenu(QPoint point){
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
-    DWORD style = GetWindowLongPtr(hwnd,GWL_STYLE);
-    SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_SYSMENU);
+    DWORD style = ::GetWindowLongPtr(hwnd,GWL_STYLE);
+    ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_SYSMENU);
     const HMENU hMenu = ::GetSystemMenu(hwnd, FALSE);
     if(maximized() || fullScreen()){
-        EnableMenuItem(hMenu,SC_MOVE,MFS_DISABLED);
-        EnableMenuItem(hMenu,SC_RESTORE,MFS_ENABLED);
+        ::EnableMenuItem(hMenu,SC_MOVE,MFS_DISABLED);
+        ::EnableMenuItem(hMenu,SC_RESTORE,MFS_ENABLED);
     }else{
-        EnableMenuItem(hMenu,SC_MOVE,MFS_ENABLED);
-        EnableMenuItem(hMenu,SC_RESTORE,MFS_DISABLED);
+        ::EnableMenuItem(hMenu,SC_MOVE,MFS_ENABLED);
+        ::EnableMenuItem(hMenu,SC_RESTORE,MFS_DISABLED);
     }
     if(resizeable() && !maximized() && !fullScreen()){
-        EnableMenuItem(hMenu,SC_SIZE,MFS_ENABLED);
-        EnableMenuItem(hMenu,SC_MAXIMIZE,MFS_ENABLED);
+        ::EnableMenuItem(hMenu,SC_SIZE,MFS_ENABLED);
+        ::EnableMenuItem(hMenu,SC_MAXIMIZE,MFS_ENABLED);
     }else{
-        EnableMenuItem(hMenu,SC_SIZE,MFS_DISABLED);
-        EnableMenuItem(hMenu,SC_MAXIMIZE,MFS_DISABLED);
+        ::EnableMenuItem(hMenu,SC_SIZE,MFS_DISABLED);
+        ::EnableMenuItem(hMenu,SC_MAXIMIZE,MFS_DISABLED);
     }
-    const int result = TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), point.x()*window->devicePixelRatio(), point.y()*window->devicePixelRatio(), 0, hwnd, nullptr);
+    const int result = ::TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), point.x()*window->devicePixelRatio(), point.y()*window->devicePixelRatio(), 0, hwnd, nullptr);
     if (result != FALSE) {
-        PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
+        ::PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
     }
-    SetWindowLongPtr(hwnd, GWL_STYLE, style &~ WS_SYSMENU);
+    ::SetWindowLongPtr(hwnd, GWL_STYLE, style &~ WS_SYSMENU);
 #endif
 }
 
@@ -400,9 +400,9 @@ void FluFramelessHelper::_onStayTopChange(){
 #ifdef Q_OS_WIN
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
     if(isStayTop){
-        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+        ::SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
     }else{
-        SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+        ::SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
     }
 #else
     window->setFlag(Qt::WindowStaysOnTopHint,isStayTop);
