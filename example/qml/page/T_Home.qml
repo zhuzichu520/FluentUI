@@ -24,7 +24,7 @@ FluScrollablePage{
         ListElement{
             icon: "qrc:/example/res/image/favicon.ico"
             title: qsTr("FluentUI Initalizr")
-            desc: qsTr("FluentUI Initializr is a FluentUI tool that helps you create and customize Fluent UI projects with various options.")
+            desc: qsTr("FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.")
             url: "https://github.com/zhuzichu520/FluentUI"
             clicked: function(model){
                 FluApp.navigate("/fluentInitalizr")

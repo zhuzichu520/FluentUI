@@ -396,7 +396,6 @@
         <location filename="qml/global/ItemsOriginal.qml" line="282"/>
         <location filename="qml-Qt6/global/ItemsOriginal.qml" line="282"/>
         <source>Presents information from different sources in a tabbed view.</source>
-        <oldsource>Presents information from different sources in atabbed view.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -529,7 +528,6 @@
         <location filename="qml/global/ItemsOriginal.qml" line="396"/>
         <location filename="qml-Qt6/global/ItemsOriginal.qml" line="396"/>
         <source>Scatter Chart</source>
-        <oldsource>Lang Scatter Chart</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -613,7 +611,6 @@
         <location filename="qml/window/LoginWindow.qml" line="31"/>
         <location filename="qml-Qt6/window/LoginWindow.qml" line="31"/>
         <source>Please enter the account</source>
-        <oldsource>Please enter the account number</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1339,7 +1336,6 @@ Updated content:
         <location filename="qml/page/T_ColorPicker.qml" line="28"/>
         <location filename="qml-Qt6/page/T_ColorPicker.qml" line="28"/>
         <source>Green</source>
-        <oldsource>Greeb</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1498,6 +1494,12 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_Dialog.qml" line="67"/>
+        <location filename="qml-Qt6/page/T_Dialog.qml" line="67"/>
+        <source>Show Triple Button Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="qml/page/T_Dialog.qml" line="111"/>
         <location filename="qml-Qt6/page/T_Dialog.qml" line="111"/>
         <source>Minimize</source>
@@ -1624,7 +1626,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_Home.qml" line="27"/>
         <location filename="qml-Qt6/page/T_Home.qml" line="27"/>
-        <source>FluentUI Initializr is a FluentUI tool that helps you create and customize Fluent UI projects with various options.</source>
+        <source>FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1767,7 +1769,9 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_Menu.qml" line="26"/>
+        <location filename="qml/page/T_Menu.qml" line="30"/>
         <location filename="qml-Qt6/page/T_Menu.qml" line="26"/>
+        <location filename="qml-Qt6/page/T_Menu.qml" line="30"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1963,7 +1967,6 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/chart/T_PieChart.qml" line="10"/>
         <location filename="qml-Qt6/chart/T_PieChart.qml" line="10"/>
         <source>Pie Chart</source>
-        <oldsource>Doughnut and Pie Chart</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2030,7 +2033,6 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/chart/T_PolarAreaChart.qml" line="10"/>
         <location filename="qml-Qt6/chart/T_PolarAreaChart.qml" line="10"/>
         <source>Polar Area Chart</source>
-        <oldsource>PolarArea Chart</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>

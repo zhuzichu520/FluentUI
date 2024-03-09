@@ -1498,6 +1498,12 @@ Updated content:
         <translation type="unfinished">单击确定按钮</translation>
     </message>
     <message>
+        <location filename="qml/page/T_Dialog.qml" line="67"/>
+        <location filename="qml-Qt6/page/T_Dialog.qml" line="67"/>
+        <source>Show Triple Button Dialog</source>
+        <translation type="unfinished">显示三个按钮对话框</translation>
+    </message>
+    <message>
         <location filename="qml/page/T_Dialog.qml" line="111"/>
         <location filename="qml-Qt6/page/T_Dialog.qml" line="111"/>
         <source>Minimize</source>
@@ -1558,13 +1564,13 @@ Updated content:
         <location filename="qml/page/T_Expander.qml" line="26"/>
         <location filename="qml-Qt6/page/T_Expander.qml" line="26"/>
         <source>Open a radio box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打开一个单选框</translation>
     </message>
     <message>
         <location filename="qml/page/T_Expander.qml" line="53"/>
         <location filename="qml-Qt6/page/T_Expander.qml" line="53"/>
         <source>Open a sliding text box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打开一个滑动文本框</translation>
     </message>
     <message>
         <location filename="qml/page/T_Expander.qml" line="69"/>
@@ -1632,7 +1638,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_Home.qml" line="27"/>
         <location filename="qml-Qt6/page/T_Home.qml" line="27"/>
-        <source>FluentUI Initializr is a FluentUI tool that helps you create and customize Fluent UI projects with various options.</source>
+        <source>FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.</source>
         <translation type="unfinished">FluentUI 脚手架是一个快速创建项目工具，可帮助您创建和自定义具有各种选项的 Fluent UI 项目</translation>
     </message>
 </context>
@@ -1775,7 +1781,9 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_Menu.qml" line="26"/>
+        <location filename="qml/page/T_Menu.qml" line="30"/>
         <location filename="qml-Qt6/page/T_Menu.qml" line="26"/>
+        <location filename="qml-Qt6/page/T_Menu.qml" line="30"/>
         <source>Search</source>
         <translation type="unfinished">搜索</translation>
     </message>
@@ -1793,7 +1801,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_Menu.qml" line="41"/>
         <location filename="qml-Qt6/page/T_Menu.qml" line="41"/>
         <source>Check</source>
-        <translation type="unfinished">Check</translation>
+        <translation type="unfinished">复选</translation>
     </message>
     <message>
         <location filename="qml/page/T_Menu.qml" line="43"/>
@@ -1823,13 +1831,13 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_Menu.qml" line="68"/>
         <location filename="qml-Qt6/page/T_Menu.qml" line="68"/>
         <source>Show Menu Popup</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打开菜单弹框</translation>
     </message>
     <message>
         <location filename="qml/page/T_Menu.qml" line="115"/>
         <location filename="qml-Qt6/page/T_Menu.qml" line="115"/>
         <source>MenuBar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">菜单栏</translation>
     </message>
     <message>
         <location filename="qml/page/T_Menu.qml" line="138"/>

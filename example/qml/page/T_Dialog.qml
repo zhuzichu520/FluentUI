@@ -64,7 +64,7 @@ FluScrollablePage{
         Layout.topMargin: 20
         FluButton{
             anchors.verticalCenter: parent.verticalCenter
-            text:"Show Triple Button Dialog"
+            text: qsTr("Show Triple Button Dialog")
             onClicked: {
                 triple_btn_dialog.open()
             }

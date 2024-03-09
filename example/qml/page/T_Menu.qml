@@ -27,7 +27,7 @@ FluScrollablePage{
             iconSource: FluentIcons.Zoom
             iconSpacing: 3
             onTriggered: {
-                showError("Search")
+                showError(qsTr("Search"))
             }
         }
         Action {
