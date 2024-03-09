@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Bubble Chart"
+    title: qsTr("Bubble Chart")
 
     function randomScalingFactor() {
         return Math.random().toFixed(1);

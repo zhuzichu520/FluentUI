@@ -48,31 +48,38 @@
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="11"/>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="31"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="11"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="31"/>
         <source>FluentUI Initalizr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="52"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="52"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="60"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="60"/>
         <source>Create In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="67"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="67"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="98"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="98"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="106"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="106"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
@@ -936,6 +943,15 @@ Updated content:
     </message>
 </context>
 <context>
+    <name>T_BarChart</name>
+    <message>
+        <location filename="qml/chart/T_BarChart.qml" line="10"/>
+        <location filename="qml-Qt6/chart/T_BarChart.qml" line="10"/>
+        <source>Bar Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>T_BreadcrumbBar</name>
     <message>
         <location filename="qml/page/T_BreadcrumbBar.qml" line="10"/>
@@ -947,6 +963,15 @@ Updated content:
         <location filename="qml/page/T_BreadcrumbBar.qml" line="51"/>
         <location filename="qml-Qt6/page/T_BreadcrumbBar.qml" line="51"/>
         <source>Reset sample</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_BubbleChart</name>
+    <message>
+        <location filename="qml/chart/T_BubbleChart.qml" line="10"/>
+        <location filename="qml-Qt6/chart/T_BubbleChart.qml" line="10"/>
+        <source>Bubble Chart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1272,6 +1297,61 @@ Updated content:
         <location filename="qml/page/T_ColorPicker.qml" line="10"/>
         <location filename="qml-Qt6/page/T_ColorPicker.qml" line="10"/>
         <source>ColorPicker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="19"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="19"/>
+        <source>Click to Select a Color - &gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="23"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="23"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="24"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="24"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="25"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="25"/>
+        <source>Color Picker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="26"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="26"/>
+        <source>Edit Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="27"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="27"/>
+        <source>Red</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="28"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="28"/>
+        <source>Green</source>
+        <oldsource>Greeb</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="29"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="29"/>
+        <source>Blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ColorPicker.qml" line="30"/>
+        <location filename="qml-Qt6/page/T_ColorPicker.qml" line="30"/>
+        <source>Opacity</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1627,6 +1707,15 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
 </context>
 <context>
+    <name>T_LineChart</name>
+    <message>
+        <location filename="qml/chart/T_LineChart.qml" line="10"/>
+        <location filename="qml-Qt6/chart/T_LineChart.qml" line="10"/>
+        <source>Line Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>T_Menu</name>
     <message>
         <location filename="qml/page/T_Menu.qml" line="10"/>
@@ -1831,6 +1920,15 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
 </context>
 <context>
+    <name>T_Network</name>
+    <message>
+        <location filename="qml/page/T_Network.qml" line="12"/>
+        <location filename="qml-Qt6/page/T_Network.qml" line="12"/>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>T_Pagination</name>
     <message>
         <location filename="qml/page/T_Pagination.qml" line="10"/>
@@ -1856,6 +1954,16 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml-Qt6/page/T_Pagination.qml" line="32"/>
         <location filename="qml-Qt6/page/T_Pagination.qml" line="39"/>
         <source>Next&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_PieChart</name>
+    <message>
+        <location filename="qml/chart/T_PieChart.qml" line="10"/>
+        <location filename="qml-Qt6/chart/T_PieChart.qml" line="10"/>
+        <source>Pie Chart</source>
+        <oldsource>Doughnut and Pie Chart</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1917,6 +2025,16 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
 </context>
 <context>
+    <name>T_PolarAreaChart</name>
+    <message>
+        <location filename="qml/chart/T_PolarAreaChart.qml" line="10"/>
+        <location filename="qml-Qt6/chart/T_PolarAreaChart.qml" line="10"/>
+        <source>Polar Area Chart</source>
+        <oldsource>PolarArea Chart</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>T_Progress</name>
     <message>
         <location filename="qml/page/T_Progress.qml" line="10"/>
@@ -1931,6 +2049,15 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_QRCode.qml" line="10"/>
         <location filename="qml-Qt6/page/T_QRCode.qml" line="10"/>
         <source>QRCode</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_RadarChart</name>
+    <message>
+        <location filename="qml/chart/T_RadarChart.qml" line="10"/>
+        <location filename="qml-Qt6/chart/T_RadarChart.qml" line="10"/>
+        <source>Radar Chart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1996,6 +2123,15 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_Rectangle.qml" line="10"/>
         <location filename="qml-Qt6/page/T_Rectangle.qml" line="10"/>
         <source>Rectangle</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_ScatterChart</name>
+    <message>
+        <location filename="qml/chart/T_ScatterChart.qml" line="10"/>
+        <location filename="qml-Qt6/chart/T_ScatterChart.qml" line="10"/>
+        <source>Scatter Chart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2122,6 +2258,36 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_ShortcutPicker.qml" line="10"/>
         <location filename="qml-Qt6/page/T_ShortcutPicker.qml" line="10"/>
         <source>ShortcutPicker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ShortcutPicker.qml" line="19"/>
+        <location filename="qml-Qt6/page/T_ShortcutPicker.qml" line="19"/>
+        <source>Activate the Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ShortcutPicker.qml" line="20"/>
+        <location filename="qml-Qt6/page/T_ShortcutPicker.qml" line="20"/>
+        <source>Press the key combination to change the shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ShortcutPicker.qml" line="21"/>
+        <location filename="qml-Qt6/page/T_ShortcutPicker.qml" line="21"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ShortcutPicker.qml" line="22"/>
+        <location filename="qml-Qt6/page/T_ShortcutPicker.qml" line="22"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ShortcutPicker.qml" line="23"/>
+        <location filename="qml-Qt6/page/T_ShortcutPicker.qml" line="23"/>
+        <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2310,6 +2476,18 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_TableView.qml" line="532"/>
         <location filename="qml-Qt6/page/T_TableView.qml" line="532"/>
         <source>Next&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TableView.qml" line="419"/>
+        <location filename="qml-Qt6/page/T_TableView.qml" line="419"/>
+        <source>Delete Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TableView.qml" line="443"/>
+        <location filename="qml-Qt6/page/T_TableView.qml" line="443"/>
+        <source>Add a row of Data</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2656,6 +2834,12 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_Tour.qml" line="65"/>
         <location filename="qml-Qt6/page/T_Tour.qml" line="65"/>
         <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Tour.qml" line="10"/>
+        <location filename="qml-Qt6/page/T_Tour.qml" line="10"/>
+        <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"PolarArea Chart"
+    title: qsTr("Polar Area Chart")
 
     FluArea{
         width: 500

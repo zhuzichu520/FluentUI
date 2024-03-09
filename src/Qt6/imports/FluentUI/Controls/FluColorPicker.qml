@@ -13,6 +13,14 @@ Button{
     property color current : Qt.rgba(1,1,1,1)
     signal accepted()
     property int colorHandleRadius: 8
+    property string cancelText: "取消"
+    property string okText: "确定"
+    property string titleText: "颜色选择器"
+    property string editText: "编辑颜色"
+    property string redText: "红色"
+    property string greenText: "绿色"
+    property string blueText: "蓝色"
+    property string opacityText: "透明度"
     background:
         Rectangle{
         id:layout_color
@@ -60,7 +68,7 @@ Button{
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     FluButton{
-                        text: "取消"
+                        text: control.cancelText
                         width: parent.width
                         anchors.centerIn: parent
                         onClicked: {
@@ -72,7 +80,7 @@ Button{
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     FluFilledButton{
-                        text: "确认"
+                        text: control.okText
                         width: parent.width
                         anchors.centerIn: parent
                         onClicked: {
@@ -93,13 +101,13 @@ Button{
             clip: true
             ScrollBar.vertical: FluScrollBar {}
             Item{
-                id:layout_content
+                id: layout_content
                 width: parent.width
                 height: childrenRect.height
                 FluText{
-                    id:text_titile
-                    font:FluTextStyle.Subtitle
-                    text:"颜色选择器"
+                    id: text_titile
+                    font: FluTextStyle.Subtitle
+                    text: control.titleText
                     anchors{
                         left: parent.left
                         top: parent.top
@@ -108,7 +116,7 @@ Button{
                     }
                 }
                 Item{
-                    id:layout_sb
+                    id: layout_sb
                     width: 200
                     height: 200
                     anchors{
@@ -117,7 +125,7 @@ Button{
                         leftMargin: 12
                     }
                     FluClip{
-                        id:layout_color_hue
+                        id: layout_color_hue
                         property color colorValue
                         property real xPercent: pickerCursor.x/width
                         property real yPercent: pickerCursor.y/height
@@ -455,7 +463,7 @@ Button{
                         width: parent.width
                         height: text_box_color.height
                         FluText{
-                            text:"编辑颜色"
+                            text: control.editText
                             anchors{
                                 verticalCenter: parent.verticalCenter
                                 left:parent.left
@@ -507,7 +515,7 @@ Button{
                             }
                         }
                         FluText{
-                            text:"Red"
+                            text: control.redText
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -526,7 +534,7 @@ Button{
                             }
                         }
                         FluText{
-                            text:"Green"
+                            text: control.greenText
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -545,7 +553,7 @@ Button{
                             }
                         }
                         FluText{
-                            text:"Blue"
+                            text: control.blueText
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -570,7 +578,7 @@ Button{
                             }
                         }
                         FluText{
-                            text:"Opacity"
+                            text: control.opacityText
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }

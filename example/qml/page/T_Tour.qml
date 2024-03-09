@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Tour"
+    title: qsTr("Tour")
 
     FluTour{
         id:tour

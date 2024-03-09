@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Line Chart"
+    title: qsTr("Line Chart")
 
     FluArea{
         width: 500

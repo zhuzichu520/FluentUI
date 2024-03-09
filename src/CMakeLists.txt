@@ -83,7 +83,7 @@ endif()
 #如果是Windows平台，则生成rc文件
 set(FLUENTUI_VERSION_RC_PATH "")
 if(WIN32)
-    set(FLUENTUI_VERSION_RC_PATH ${CMAKE_CURRENT_SOURCE_DIR}/version_${PROJECT_NAME}.rc)
+    set(FLUENTUI_VERSION_RC_PATH ${CMAKE_CURRENT_BINARY_DIR}/version_${PROJECT_NAME}.rc)
     configure_file(
         ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/version_dll.rc.in
         ${FLUENTUI_VERSION_RC_PATH}

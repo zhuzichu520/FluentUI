@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Scatter Chart"
+    title: qsTr("Scatter Chart")
 
     function randomScalingFactor() {
         return Math.random().toFixed(1);

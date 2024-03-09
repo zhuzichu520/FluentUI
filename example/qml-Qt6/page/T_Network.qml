@@ -9,7 +9,7 @@ import "../component"
 FluContentPage{
 
     id:root
-    title:"Network"
+    title: qsTr("Network")
 
     FluNetworkCallable{
         id:callable

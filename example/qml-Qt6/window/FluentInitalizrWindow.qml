@@ -8,11 +8,11 @@ import "../component"
 FluWindow {
 
     id:window
-    title:"FluentUI Initalizr"
+    title:qsTr("FluentUI Initalizr")
     width: 600
     height: 400
     fixSize: true
-    modality: Qt.ApplicationModal
+    //    modality: Qt.ApplicationModal
     launchMode: FluWindowType.SingleTask
     showStayTop: false
 
@@ -28,7 +28,7 @@ FluWindow {
 
     FluText{
         id:text_title
-        text:"FluentUI脚手架"
+        text:qsTr("FluentUI Initalizr")
         font: FluTextStyle.Title
         anchors{
             left: parent.left
@@ -49,7 +49,7 @@ FluWindow {
         FluTextBox{
             id:text_box_name
             width: 180
-            placeholderText: "名称"
+            placeholderText: qsTr("Name")
             focus: true
         }
         Row{
@@ -57,14 +57,14 @@ FluWindow {
             FluTextBox{
                 id:text_box_path
                 width: 300
-                placeholderText: "创建路径"
+                placeholderText: qsTr("Create In")
                 anchors.verticalCenter: parent.verticalCenter
                 Component.onCompleted: {
                     text = FluTools.toLocalPath(StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0])
                 }
             }
             FluButton{
-                text:"浏览"
+                text:qsTr("Browse")
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: {
                     folder_dialog.open()
@@ -95,7 +95,7 @@ FluWindow {
                 rightMargin: 20
             }
             FluButton{
-                text:"取消"
+                text:qsTr("Cancel")
                 width: 120
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: {
@@ -103,7 +103,7 @@ FluWindow {
                 }
             }
             FluFilledButton{
-                text:"创建"
+                text:qsTr("Create")
                 width: 120
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: {

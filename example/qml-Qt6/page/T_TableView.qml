@@ -416,7 +416,7 @@ FluContentPage{
             }
 
             FluButton{
-                text:"Delete Selection"
+                text: qsTr("Delete Selection")
                 onClicked: {
                     var data = []
                     var rows = []
@@ -440,7 +440,7 @@ FluContentPage{
             }
 
             FluButton{
-                text:"Add a row of Data"
+                text: qsTr("Add a row of Data")
                 onClicked: {
                     table_view.appendRow(genTestObject())
                 }

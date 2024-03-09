@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Radar Chart"
+    title: qsTr("Radar Chart")
 
     FluArea{
         width: 500

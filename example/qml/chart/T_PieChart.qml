@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Doughnut and Pie Chart"
+    title: qsTr("Pie Chart")
 
     FluArea{
         width: 500

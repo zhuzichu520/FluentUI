@@ -64,7 +64,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0)
         {
             wp->flags |= SWP_NOCOPYBITS;
-            *result = DefWindowProcW(hwnd, uMsg, wParam, lParam);
+            *result = 0;
             return true;
         }
         return false;
