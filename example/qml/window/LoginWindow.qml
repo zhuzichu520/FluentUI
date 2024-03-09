@@ -6,8 +6,8 @@ import "../component"
 
 FluWindow {
 
-    id:window
-    title:"登录"
+    id: window
+    title: qsTr("Login")
     width: 400
     height: 400
     fixSize: true
@@ -26,38 +26,34 @@ FluWindow {
         }
 
         FluAutoSuggestBox{
-            id:textbox_uesrname
+            id: textbox_uesrname
             items:[{title:"Admin"},{title:"User"}]
-            placeholderText: "请输入账号"
+            placeholderText: qsTr("Please enter the account")
             Layout.preferredWidth: 260
             Layout.alignment: Qt.AlignHCenter
         }
 
         FluTextBox{
-            id:textbox_password
+            id: textbox_password
             Layout.topMargin: 20
             Layout.preferredWidth: 260
-            placeholderText: "请输入密码"
+            placeholderText: qsTr("Please enter your password")
             echoMode:TextInput.Password
             Layout.alignment: Qt.AlignHCenter
         }
 
         FluFilledButton{
-            text:"登录"
+            text: qsTr("Login")
             Layout.alignment: Qt.AlignHCenter
             Layout.topMargin: 20
             onClicked:{
                 if(textbox_password.text === ""){
-                    showError("请随便输入一个密码")
+                    showError(qsTr("Please feel free to enter a password"))
                     return
                 }
                 onResult({password:textbox_password.text})
                 window.close()
             }
         }
-
     }
-
-
-
 }

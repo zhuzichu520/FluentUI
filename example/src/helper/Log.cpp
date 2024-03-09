@@ -168,7 +168,7 @@ static inline void messageHandler(const QtMsgType type, const QMessageLogContext
     }
 }
 
-void Log::setup(const QString &app,int level)
+void Log::setup(char *argv[],const QString &app,int level)
 {
     Q_ASSERT(!app.isEmpty());
     if (app.isEmpty()) {
@@ -179,6 +179,7 @@ void Log::setup(const QString &app,int level)
     if (once) {
         return;
     }
+    QString applicationPath = QString::fromStdString(argv[0]);
     once = true;
     g_app = app;
     const QString logFileName = QString("%1_%2.log").arg(g_app,QDateTime::currentDateTime().toString("yyyyMMdd"));
@@ -192,6 +193,7 @@ void Log::setup(const QString &app,int level)
     qInfo()<<"===================================================";
     qInfo()<<"[AppName]"<<g_app;
     qInfo()<<"[AppVersion]"<<APPLICATION_VERSION;
+    qInfo()<<"[AppPath]"<<applicationPath;
     qInfo()<<"[QtVersion]"<<QT_VERSION_STR;
 #ifdef WIN32
     qInfo()<<"[ProcessId]"<<QString::number(_getpid());

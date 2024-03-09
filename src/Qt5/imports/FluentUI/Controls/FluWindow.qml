@@ -7,7 +7,6 @@ import FluentUI 1.0
 Window {
     default property alias content: layout_content.data
     property string windowIcon: FluApp.windowIcon
-    property bool closeDestory: true
     property int launchMode: FluWindowType.Standard
     property var argument:({})
     property var background : com_background
@@ -39,6 +38,7 @@ Window {
     property bool autoMaximize: false
     property bool autoVisible: true
     property bool autoCenter: true
+    property bool autoDestory: true
     property bool useSystemAppBar
     property color resizeBorderColor: {
         if(window.active){
@@ -48,7 +48,7 @@ Window {
     }
     property int resizeBorderWidth: 1
     property var closeListener: function(event){
-        if(closeDestory){
+        if(autoDestory){
             destoryOnClose()
         }else{
             visible = false

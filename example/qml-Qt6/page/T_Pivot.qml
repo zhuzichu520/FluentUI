@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Pivot"
+    title: qsTr("Pivot")
 
     FluArea{
         Layout.fillWidth: true
@@ -15,31 +15,34 @@ FluScrollablePage{
         height: 400
         paddings: 10
 
+
+
         FluPivot{
             anchors.fill: parent
             currentIndex: 2
+
             FluPivotItem{
-                title:"All"
+                title: qsTr("All")
                 contentItem:FluText{
-                    text:"All emails go here."
+                    text: qsTr("All emails go here.")
                 }
             }
             FluPivotItem{
-                title:"Unread"
-                contentItem:FluText{
-                    text:"Unread emails go here."
+                title: qsTr("Unread")
+                contentItem: FluText{
+                    text: qsTr("Unread emails go here.")
                 }
             }
             FluPivotItem{
-                title:"Flagged"
-                contentItem:FluText{
-                    text:"Flagged emails go here."
+                title: qsTr("Flagged")
+                contentItem: FluText{
+                    text: qsTr("Flagged emails go here.")
                 }
             }
             FluPivotItem{
-                title:"Urgent"
-                contentItem:FluText{
-                    text:"Urgent emails go here."
+                title: qsTr("Urgent")
+                contentItem: FluText{
+                    text: qsTr("Urgent emails go here.")
                 }
             }
         }
@@ -50,27 +53,27 @@ FluScrollablePage{
         code:'FluPivot{
     anchors.fill: parent
     FluPivotItem:{
-        text:"All"
+        text: qsTr("All")
         contentItem: FluText{
-            text:"All emails go here."
+            text: qsTr("All emails go here.")
         }
     }
     FluPivotItem:{
-        text:"Unread"
+        text: qsTr("Unread")
         contentItem: FluText{
-            text:"Unread emails go here."
+            text: qsTr("Unread emails go here.")
         }
     }
     FluPivotItem:{
-        text:"Flagged"
+        text: qsTr("Flagged")
         contentItem: FluText{
-            text:"Flagged emails go here."
+            text: qsTr("Flagged emails go here.")
         }
     }
     FluPivotItem:{
-        text:"Urgent"
+        text: qsTr("Urgent")
         contentItem: FluText{
-            text:"Urgent emails go here."
+            text: qsTr("Urgent emails go here.")
         }
     }
 }

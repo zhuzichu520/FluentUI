@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Acrylic"
+    title: qsTr("Acrylic")
 
     RowLayout{
         spacing: 10

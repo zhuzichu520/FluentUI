@@ -7,7 +7,7 @@ import "../component"
 
 FluContentPage{
 
-    title:"SplitLayout"
+    title: qsTr("SplitLayout")
 
     RowLayout{
         id:layout_dropdown

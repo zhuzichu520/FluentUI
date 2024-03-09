@@ -7,7 +7,7 @@ import "../component"
 
 FluContentPage{
 
-    title:"StaggeredLayout"
+    title: qsTr("StaggeredLayout")
 
     property var colors : [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
 

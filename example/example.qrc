@@ -185,7 +185,6 @@
         <file>qml/viewmodel/TextBoxViewModel.qml</file>
         <file>qml/page/T_Clip.qml</file>
         <file>qml/page/T_3D.qml</file>
-        <file>qml/global/Lang.qml</file>
         <file>qml/page/T_Network.qml</file>
         <file>qml/page/T_ShortcutPicker.qml</file>
         <file>qml/chart/T_BarChart.qml</file>
@@ -198,5 +197,6 @@
         <file>res/image/ic_crash.png</file>
         <file>qml/window/CrashWindow.qml</file>
         <file>qml/page/T_SplitLayout.qml</file>
+        <file>qml/window/FluentInitalizrWindow.qml</file>
     </qresource>
 </RCC>

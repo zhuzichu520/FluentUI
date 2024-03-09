@@ -6,9 +6,6 @@ project(example VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#导入exmaple的QML位置，不然import example有时候会爆红
-set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/example CACHE STRING "Qt Creator extra QML import paths" FORCE)
-
 #判断FluentUI库类型
 if(FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
@@ -16,9 +13,9 @@ endif()
 
 #设置可执行文件输出目录
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${FLUENTUI_DIRECTORY}/bin/debug>)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
 else()
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${FLUENTUI_DIRECTORY}/bin/release>)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/release)
 endif()
 
 #导入Qt相关依赖包
@@ -33,10 +30,25 @@ else()
     set(CMAKE_AUTOUIC ON)
 endif()
 
+#国际化
+find_program(QT_LUPDATE NAMES lupdate)
+find_program(QT_LRELEASE NAMES lrelease)
+if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/example_en.qm)
+    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts example_en.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+    execute_process(COMMAND ${QT_LRELEASE} example_en.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+endif ()
+if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/example_zh.qm)
+    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts example_zh.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+    execute_process(COMMAND ${QT_LRELEASE} example_zh.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+endif ()
+
+file(GLOB QM_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.qm)
+file(COPY ${QM_FILE_PATHS} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/i18n)
+
 ##生成版本信息头文件
-set(HEADER_FILE_VERSION_PATH ${FLUENTUI_DIRECTORY}/example/Version.h)
+set(HEADER_FILE_VERSION_PATH ${CMAKE_SOURCE_DIR}/example/Version.h)
 configure_file(
-    ${FLUENTUI_DIRECTORY}/.cmake/Version.h.in
+    ${CMAKE_SOURCE_DIR}/.cmake/Version.h.in
     ${HEADER_FILE_VERSION_PATH}
 )
 
@@ -73,20 +85,19 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
         string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
         list(APPEND resource_files ${filename})
     endforeach(filepath)
-
 endif()
 
 #如果是Windows平台，则生成rc文件，还有inno setup脚本文件
 set(EXAMPLE_VERSION_RC_PATH "")
 if(WIN32)
-    set(EXAMPLE_VERSION_RC_PATH ${CMAKE_BINARY_DIR}/version_${PROJECT_NAME}.rc)
+    set(EXAMPLE_VERSION_RC_PATH ${CMAKE_CURRENT_BINARY_DIR}/version_${PROJECT_NAME}.rc)
     configure_file(
-        ${FLUENTUI_DIRECTORY}/.cmake/version_exe.rc.in
+        ${CMAKE_SOURCE_DIR}/.cmake/version_exe.rc.in
         ${EXAMPLE_VERSION_RC_PATH}
     )
 configure_file(
-    ${FLUENTUI_DIRECTORY}/.cmake/InstallerScript.iss.in
-    ${FLUENTUI_DIRECTORY}/action-cli/InstallerScript.iss
+    ${CMAKE_SOURCE_DIR}/.cmake/InstallerScript.iss.in
+    ${CMAKE_SOURCE_DIR}/action-cli/InstallerScript.iss
 )
 endif()
 
@@ -119,6 +130,9 @@ if(WIN32)
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
     )
 endif()
+
+file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/source/)
+file(COPY ${CMAKE_SOURCE_DIR}/src/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/source/)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #如果是Qt6.2以上，则使用qt_add_qml_module添加资源文件

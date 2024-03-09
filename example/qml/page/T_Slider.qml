@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Slider"
+    title: qsTr("Slider")
 
     FluArea{
         Layout.fillWidth: true

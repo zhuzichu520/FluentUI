@@ -7,11 +7,11 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Tooltip"
+    title: qsTr("Tooltip")
 
     FluText{
         Layout.topMargin: 20
-        text:"鼠标悬停不动，弹出Tooltip"
+        text: qsTr("Hover over Tultip and it pops up")
     }
 
     FluArea{
@@ -27,14 +27,14 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:"FluIconButton的text属性自带Tooltip效果"
+                text: qsTr("Text properties of FluIconButton support the Tooltip pop-up window by default")
             }
             FluIconButton{
                 iconSource:FluentIcons.ChromeCloseContrast
                 iconSize: 15
-                text:"删除"
+                text: qsTr("Delete")
                 onClicked:{
-                    showSuccess("点击IconButton")
+                    showSuccess(qsTr("Click IconButton"))
                 }
             }
         }
@@ -45,9 +45,9 @@ FluScrollablePage{
         code:'FluIconButton{
     iconSource:FluentIcons.ChromeCloseContrast
     iconSize: 15
-    text:"删除"
+    text: qsTr("Delete")
     onClicked:{
-        showSuccess("点击IconButton")
+        showSuccess(qsTr("Click IconButton"))
     }
 }
 '
@@ -66,13 +66,13 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:"给一个Button添加Tooltip效果"
+                text: qsTr("Add a Tooltip pop-up to a Button")
             }
             FluButton{
                 id:button_1
-                text:"删除"
+                text: qsTr("Delete")
                 onClicked:{
-                    showSuccess("点击一个Button")
+                    showSuccess(qsTr("Click Button"))
                 }
                 FluTooltip{
                     visible: button_1.hovered
@@ -86,15 +86,15 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluButton{
-    id:button_1
-    text:"删除"
+    id: button_1
+    text: qsTr("Delete")
     FluTooltip{
         visible: button_1.hovered
         text:button_1.text
         delay: 1000
     }
     onClicked:{
-        showSuccess("点击一个Button")
+        showSuccess(qsTr("Click Button"))
     }
 }'
     }

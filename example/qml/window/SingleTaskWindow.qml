@@ -6,8 +6,8 @@ import "../component"
 
 FluWindow {
 
-    id:window
-    title:"SingleTask"
+    id: window
+    title: qsTr("SingleTask")
     width: 500
     height: 600
     fixSize: true
@@ -15,7 +15,7 @@ FluWindow {
 
     FluText{
         anchors.centerIn: parent
-        text:"我是一个SingleTask模式的窗口，如果我存在，我就激活窗口"
+        text: qsTr("I'm a SingleTask mode window, and if I exist, I activate the window")
     }
 
 }

@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Menu"
+    title: qsTr("Menu")
 
     FluMenu {
         id:menu
@@ -34,13 +34,13 @@ FluScrollablePage{
             text: qsTr("Disable")
             enabled:false
             onTriggered: {
-                showError("Disable")
+                showError(qsTr("Disable"))
             }
         }
         FluMenuSeparator { }
         Action { text: qsTr("Check");checkable: true;checked: true}
         FluMenu{
-            title: "Save As..."
+            title: qsTr("Save As...")
             Action { text: qsTr("Doc") }
             Action { text: qsTr("PDF") }
         }
@@ -53,7 +53,7 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         Column{
-            id:layout_column
+            id: layout_column
             spacing: 15
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -61,11 +61,11 @@ FluScrollablePage{
             }
 
             FluText{
-                text:"Menu"
+                text: qsTr("Menu")
             }
 
             FluButton{
-                text:"Show Menu Popup"
+                text: qsTr("Show Menu Popup")
                 Layout.topMargin: 20
                 onClicked:{
                     menu.popup()
@@ -112,7 +112,7 @@ menu.popup()
             }
 
             FluText{
-                text:"MenuBar"
+                text: qsTr("MenuBar")
             }
 
             FluMenuBar {
@@ -129,7 +129,7 @@ menu.popup()
                         enabled:false
                     }
                     FluMenu{
-                        title: "Save As..."
+                        title: qsTr("Save As...")
                         Action { text: qsTr("Doc") }
                         Action { text: qsTr("PDF") }
                     }
@@ -168,8 +168,4 @@ menu.popup()
 menu.popup()
 '
     }
-
-
-
-
 }

@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"TimePicker"
+    title: qsTr("TimePicker")
 
     FluArea{
         Layout.fillWidth: true
@@ -20,10 +20,15 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:"showYear=true"
+                text: qsTr("showYear=true")
             }
             FluDatePicker{
                 current: new Date()
+                yearText: qsTr("Year")
+                monthText: qsTr("Month")
+                dayText: qsTr("Day")
+                cancelText: qsTr("Cancel")
+                okText: qsTr("OK")
                 onAccepted: {
                     showSuccess(current.toLocaleDateString())
                 }
@@ -49,10 +54,15 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:"showYear=false"
+                text: qsTr("showYear=false")
             }
             FluDatePicker{
-                showYear:false
+                showYear: false
+                yearText: qsTr("Year")
+                monthText: qsTr("Month")
+                dayText: qsTr("Day")
+                cancelText: qsTr("Cancel")
+                okText: qsTr("OK")
                 onAccepted: {
                     showSuccess(current.toLocaleDateString())
                 }

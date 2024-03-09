@@ -6,6 +6,8 @@ else()
     project(fluentuiplugin VERSION 1.0)
 endif()
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
+
 #配置通用编译
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -81,9 +83,9 @@ endif()
 #如果是Windows平台，则生成rc文件
 set(FLUENTUI_VERSION_RC_PATH "")
 if(WIN32)
-    set(FLUENTUI_VERSION_RC_PATH ${CMAKE_BINARY_DIR}/version_${PROJECT_NAME}.rc)
+    set(FLUENTUI_VERSION_RC_PATH ${CMAKE_CURRENT_SOURCE_DIR}/version_${PROJECT_NAME}.rc)
     configure_file(
-        ${FLUENTUI_DIRECTORY}/.cmake/version_dll.rc.in
+        ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/version_dll.rc.in
         ${FLUENTUI_VERSION_RC_PATH}
     )
 endif()
@@ -91,7 +93,7 @@ endif()
 if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #如果是Qt6.2版本以上，则使用qt_add_library，qt_add_qml_module函数添加资源文件
     if(FLUENTUI_BUILD_STATIC_LIB)
-        set(FLUENTUI_QML_PLUGIN_DIRECTORY ${CMAKE_BINARY_DIR}/FluentUI)
+        set(FLUENTUI_QML_PLUGIN_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/FluentUI)
     endif()
     qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
     qt_add_qml_module(${PROJECT_NAME}

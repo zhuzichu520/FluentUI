@@ -11,12 +11,24 @@ FluScrollablePage{
     animDisabled: true
 
     ListModel{
-        id:model_header
+        id: model_header
         ListElement{
-            icon:"qrc:/example/res/image/ic_home_github.png"
-            title:"FluentUI GitHub"
-            desc:"The latest FluentUI controls and styles for your applications."
-            url:"https://github.com/zhuzichu520/FluentUI"
+            icon: "qrc:/example/res/image/ic_home_github.png"
+            title: qsTr("FluentUI GitHub")
+            desc: qsTr("The latest FluentUI controls and styles for your applications.")
+            url: "https://github.com/zhuzichu520/FluentUI"
+            clicked: function(model){
+                Qt.openUrlExternally(model.url)
+            }
+        }
+        ListElement{
+            icon: "qrc:/example/res/image/favicon.ico"
+            title: qsTr("FluentUI Initalizr")
+            desc: qsTr("FluentUI Initializr is a FluentUI tool that helps you create and customize Fluent UI projects with various options.")
+            url: "https://github.com/zhuzichu520/FluentUI"
+            clicked: function(model){
+                FluApp.navigate("/fluentInitalizr")
+            }
         }
     }
 
@@ -106,7 +118,7 @@ FluScrollablePage{
                             Layout.leftMargin: 20
                             color: FluColors.Grey120
                             font.pixelSize: 12
-                            wrapMode: Text.WrapAnywhere
+                            wrapMode: Text.WordWrap
                         }
                     }
                     FluIcon{
@@ -129,7 +141,7 @@ FluScrollablePage{
                                 else scrollbar_header.increase()
                             }
                         onClicked: {
-                            Qt.openUrlExternally(model.url)
+                            model.clicked(model)
                         }
                     }
                 }
@@ -202,7 +214,7 @@ FluScrollablePage{
                     id:item_desc
                     text:desc
                     color:FluColors.Grey120
-                    wrapMode: Text.WrapAnywhere
+                    wrapMode: Text.WordWrap
                     elide: Text.ElideRight
                     font: FluTextStyle.Caption
                     maximumLineCount: 2
@@ -275,3 +287,4 @@ FluScrollablePage{
     }
 
 }
+

@@ -8,8 +8,8 @@ import "../component"
 FluScrollablePage{
 
     property var colorData: [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
-    id:root
-    title:"Theme"
+    id: root
+    title: qsTr("Theme")
 
     FluArea{
         Layout.fillWidth: true
@@ -23,7 +23,7 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:"主题颜色"
+                text: qsTr("Theme colors")
                 Layout.topMargin: 10
             }
             RowLayout{
@@ -58,7 +58,7 @@ FluScrollablePage{
                 Layout.topMargin: 10
                 spacing: 10
                 FluText{
-                    text:"自定义主题颜色"
+                    text: qsTr("Customize the Theme Color")
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 FluColorPicker{
@@ -84,7 +84,7 @@ FluScrollablePage{
                 }
             }
             FluText{
-                text:"夜间模式"
+                text: qsTr("Dark Mode")
                 Layout.topMargin: 20
             }
             FluToggleSwitch{
@@ -99,7 +99,7 @@ FluScrollablePage{
                 }
             }
             FluText{
-                text:"native文本渲染"
+                text: qsTr("Native Text")
                 Layout.topMargin: 20
             }
             FluToggleSwitch{
@@ -110,7 +110,7 @@ FluScrollablePage{
                 }
             }
             FluText{
-                text:"开启动画效果"
+                text: qsTr("Open Animation")
                 Layout.topMargin: 20
             }
             FluToggleSwitch{

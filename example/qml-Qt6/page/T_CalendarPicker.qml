@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"CalendarPicker"
+    title: qsTr("CalendarPicker")
 
     FluArea{
         Layout.fillWidth: true

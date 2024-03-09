@@ -1,0 +1,115 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import FluentUI
+import Qt.labs.platform
+import "../component"
+
+FluWindow {
+
+    id:window
+    title:"FluentUI Initalizr"
+    width: 600
+    height: 400
+    fixSize: true
+    modality: Qt.ApplicationModal
+    launchMode: FluWindowType.SingleTask
+    showStayTop: false
+
+    Connections{
+        target: InitalizrHelper
+        function onError(message){
+            showError(message)
+        }
+        function onSuccess(){
+            showSuccess("创建成功")
+        }
+    }
+
+    FluText{
+        id:text_title
+        text:"FluentUI脚手架"
+        font: FluTextStyle.Title
+        anchors{
+            left: parent.left
+            top: parent.top
+            leftMargin: 20
+            topMargin: 20
+        }
+    }
+
+    Column{
+        spacing: 14
+        anchors{
+            left: parent.left
+            top: text_title.bottom
+            leftMargin: 20
+            topMargin: 20
+        }
+        FluTextBox{
+            id:text_box_name
+            width: 180
+            placeholderText: "名称"
+            focus: true
+        }
+        Row{
+            spacing: 8
+            FluTextBox{
+                id:text_box_path
+                width: 300
+                placeholderText: "创建路径"
+                anchors.verticalCenter: parent.verticalCenter
+                Component.onCompleted: {
+                    text = FluTools.toLocalPath(StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0])
+                }
+            }
+            FluButton{
+                text:"浏览"
+                anchors.verticalCenter: parent.verticalCenter
+                onClicked: {
+                    folder_dialog.open()
+                }
+            }
+        }
+    }
+
+    FolderDialog{
+        id:folder_dialog
+        folder: StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0]
+        onAccepted: {
+            text_box_path.text = FluTools.toLocalPath(currentFolder)
+        }
+    }
+
+    Rectangle{
+        id:layout_actions
+        width: parent.width
+        height: 60
+        anchors.bottom: parent.bottom
+        color: FluTheme.backgroundColor
+        Row{
+            height: parent.height
+            spacing: 20
+            anchors{
+                right: parent.right
+                rightMargin: 20
+            }
+            FluButton{
+                text:"取消"
+                width: 120
+                anchors.verticalCenter: parent.verticalCenter
+                onClicked: {
+                    window.close()
+                }
+            }
+            FluFilledButton{
+                text:"创建"
+                width: 120
+                anchors.verticalCenter: parent.verticalCenter
+                onClicked: {
+                    InitalizrHelper.generate(text_box_name.text,text_box_path.text)
+                }
+            }
+        }
+    }
+}

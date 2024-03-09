@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Clip"
+    title: qsTr("Clip")
 
     FluArea{
         Layout.fillWidth: true
@@ -22,8 +22,7 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:"配合图片使用(software渲染下该组件将没有效果)"
-                font: FluTextStyle.Subtitle
+                text: qsTr("Use with images (this component will have no effect under software rendering)")
                 Layout.topMargin: 20
             }
             RowLayout{
@@ -31,7 +30,7 @@ FluScrollablePage{
                 FluClip{
                     width: 50
                     height: 50
-                    radius:[25,0,25,25]
+                    radius: [25,0,25,25]
                     Image {
                         asynchronous: true
                         anchors.fill: parent
@@ -42,7 +41,7 @@ FluScrollablePage{
                 FluClip{
                     width: 50
                     height: 50
-                    radius:[10,10,10,10]
+                    radius: [10,10,10,10]
                     Image {
                         asynchronous: true
                         anchors.fill: parent
@@ -53,7 +52,7 @@ FluScrollablePage{
                 FluClip{
                     width: 50
                     height: 50
-                    radius:[25,25,25,25]
+                    radius: [25,25,25,25]
                     Image {
                         asynchronous: true
                         anchors.fill: parent
@@ -64,7 +63,7 @@ FluScrollablePage{
                 FluClip{
                     width: 50
                     height: 50
-                    radius:[0,25,25,25]
+                    radius: [0,25,25,25]
                     Image {
                         asynchronous: true
                         anchors.fill: parent
@@ -76,7 +75,7 @@ FluScrollablePage{
             FluClip{
                 width: 1920/5
                 height: 1200/5
-                radius:[8,8,8,8]
+                radius: [8,8,8,8]
                 Image {
                     asynchronous: true
                     source: "qrc:/example/res/image/banner_1.jpg"

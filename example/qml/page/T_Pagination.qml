@@ -7,7 +7,7 @@ import FluentUI 1.0
 
 FluScrollablePage{
 
-    title:"Pagination"
+    title: qsTr("Pagination")
 
     FluArea{
         Layout.fillWidth: true
@@ -21,16 +21,22 @@ FluScrollablePage{
                 pageCurrent: 1
                 pageButtonCount: 5
                 itemCount: 5000
+                previousText: qsTr("<Previous")
+                nextText: qsTr("Next>")
             }
             FluPagination{
                 pageCurrent: 2
                 itemCount: 5000
                 pageButtonCount: 7
+                previousText: qsTr("<Previous")
+                nextText: qsTr("Next>")
             }
             FluPagination{
                 pageCurrent: 3
                 itemCount: 5000
                 pageButtonCount: 9
+                previousText: qsTr("<Previous")
+                nextText: qsTr("Next>")
             }
         }
 

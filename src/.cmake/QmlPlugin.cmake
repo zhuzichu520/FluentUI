@@ -1,7 +1,6 @@
 include(CMakeParseArguments)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
-
 function(FindQmlPluginDump)
     get_target_property (QT_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
     execute_process(
@@ -10,7 +9,6 @@ function(FindQmlPluginDump)
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 endfunction()
-
 function(FindQtInstallQml)
     execute_process(
         COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_QML
@@ -19,7 +17,6 @@ function(FindQtInstallQml)
     )
 set(QT_INSTALL_QML ${PROC_RESULT} PARENT_SCOPE)
 endfunction()
-
 function(add_qmlplugin TARGET)
     set(options NO_AUTORCC NO_AUTOMOC)
     set(oneValueArgs URI VERSION BINARY_DIR QMLDIR LIBTYPE)
@@ -30,13 +27,12 @@ function(add_qmlplugin TARGET)
         return()
     endif()
     if(NOT QMLPLUGIN_BINARY_DIR)
-        set(QMLPLUGIN_BINARY_DIR ${CMAKE_BINARY_DIR}/${QMLPLUGIN_URI})
+        set(QMLPLUGIN_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/${QMLPLUGIN_URI})
     endif()
     add_library(${TARGET} ${QMLPLUGIN_LIBTYPE}
         ${QMLPLUGIN_SOURCES}
     )
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/lib)
-
 if(QMLPLUGIN_NO_AUTORCC)
     set_target_properties(${TARGET} PROPERTIES AUTOMOC OFF)
 else()
@@ -47,25 +43,24 @@ if(QMLPLUGIN_NO_AUTOMOC)
 else()
     set_target_properties(${TARGET} PROPERTIES AUTOMOC ON)
 endif()
-
 if (${QMLPLUGIN_LIBTYPE} MATCHES "SHARED")
     FindQmlPluginDump()
     FindQtInstallQml()
     if(QMLPLUGIN_BINARY_DIR)
         set(MAKE_QMLPLUGINDIR_COMMAND ${CMAKE_COMMAND} -E make_directory ${QMLPLUGIN_BINARY_DIR})
     endif()
-    set(COPY_QMLDIR_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/qmldir $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI}/qmldir)
-    set(INSTALL_QMLDIR_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/qmldir ${QMLPLUGIN_BINARY_DIR}/qmldir)
-    set(COPY_QMLTYPES_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/plugins.qmltypes $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI}/plugins.qmltypes)
-    set(INSTALL_QMLTYPES_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/plugins.qmltypes ${QMLPLUGIN_BINARY_DIR}/plugins.qmltypes)
+    set(COPY_QMLDIR_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/qmldir $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI}/qmldir)
+    set(INSTALL_QMLDIR_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/qmldir ${QMLPLUGIN_BINARY_DIR}/qmldir)
+    set(COPY_QMLTYPES_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/plugins.qmltypes $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI}/plugins.qmltypes)
+    set(INSTALL_QMLTYPES_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/${QMLPLUGIN_QMLDIR}/plugins.qmltypes ${QMLPLUGIN_BINARY_DIR}/plugins.qmltypes)
     set(COPY_LIBRARY_COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE_DIR:${TARGET}>/$<TARGET_FILE_NAME:${TARGET}> $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI})
     set(INSTALL_LIBRARY_COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE_DIR:${TARGET}>/$<TARGET_FILE_NAME:${TARGET}> ${QMLPLUGIN_BINARY_DIR})
     if(QMLPLUGIN_QMLDIR)
-        set(COPY_QMLFILES_COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/Qt5/${QMLPLUGIN_QMLDIR} $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI})
+        set(COPY_QMLFILES_COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/${QMLPLUGIN_QMLDIR} $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI})
     else()
-        set(COPY_QMLFILES_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/${QMLPLUGIN_QMLFILES} $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI})
+        set(COPY_QMLFILES_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${QMLPLUGIN_QMLFILES} $<TARGET_FILE_DIR:${TARGET}>/${QMLPLUGIN_URI})
     endif()
-    set(INSTALL_QMLFILES_COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/Qt5/${QMLPLUGIN_QMLDIR} ${QMLPLUGIN_BINARY_DIR})
+    set(INSTALL_QMLFILES_COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/${QMLPLUGIN_QMLDIR} ${QMLPLUGIN_BINARY_DIR})
     if(QMLPLUGIN_BINARY_DIR)
         add_custom_command(
             TARGET ${TARGET}
@@ -82,7 +77,6 @@ else()
         COMMENT "Copying qmldir to binary directory"
     )
 endif()
-
 if(QMLPLUGIN_BINARY_DIR)
     add_custom_command(
         TARGET ${TARGET}
@@ -99,14 +93,12 @@ else()
         COMMENT "Copying qmltypes to binary directory"
     )
 endif()
-
 add_custom_command(
     TARGET ${TARGET}
     POST_BUILD
     COMMAND ${COPY_LIBRARY_COMMAND}
     COMMENT "Copying Lib to binary plugin directory"
 )
-
 if(QMLPLUGIN_QMLFILES)
     add_custom_command(
         TARGET ${TARGET}
@@ -115,16 +107,13 @@ if(QMLPLUGIN_QMLFILES)
         COMMENT "Copying QML files to binary directory"
     )
 endif()
-
 add_custom_command(
     TARGET ${TARGET}
     POST_BUILD
     COMMAND ${GENERATE_QMLTYPES_COMMAND}
     COMMENT "Generating plugin.qmltypes"
 )
-
 string(REPLACE "." "/" QMLPLUGIN_INSTALL_URI ${QMLPLUGIN_URI})
-
 add_custom_command(
     TARGET ${TARGET}
     POST_BUILD

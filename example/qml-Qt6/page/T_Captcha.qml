@@ -7,10 +7,10 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Captcha"
+    title: qsTr("Captcha")
 
     FluCaptcha{
-        id:captcha
+        id: captcha
         Layout.topMargin: 20
         ignoreCase:switch_case.checked
         MouseArea{
@@ -23,7 +23,7 @@ FluScrollablePage{
     }
 
     FluButton{
-        text:"Refresh"
+        text: qsTr("Refresh")
         Layout.topMargin: 20
         onClicked: {
             captcha.refresh()
@@ -31,8 +31,8 @@ FluScrollablePage{
     }
 
     FluToggleSwitch{
-        id:switch_case
-        text:"Ignore Case"
+        id: switch_case
+        text: qsTr("Ignore Case")
         checked: true
         Layout.topMargin: 10
     }
@@ -42,7 +42,7 @@ FluScrollablePage{
         Layout.topMargin: 10
         FluTextBox{
             id:text_box
-            placeholderText: "请输入验证码"
+            placeholderText: qsTr("Please enter a verification code")
             Layout.preferredWidth: 240
         }
         FluButton{
@@ -50,9 +50,9 @@ FluScrollablePage{
             onClicked: {
                 var success =  captcha.verify(text_box.text)
                 if(success){
-                    showSuccess("验证码正确")
+                    showSuccess(qsTr("The verification code is correct"))
                 }else{
-                    showError("错误验证，请重新输入")
+                    showError(qsTr("Error validation, please re-enter"))
                 }
             }
         }

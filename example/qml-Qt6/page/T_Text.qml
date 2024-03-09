@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Text"
+    title: qsTr("Text")
 
     FluArea{
         Layout.fillWidth: true
@@ -16,7 +16,7 @@ FluScrollablePage{
         paddings: 10
 
         FluCopyableText{
-            text: "这是一个可以支持复制的Text"
+            text: qsTr("This is a text that can be copied")
             anchors.verticalCenter: parent.verticalCenter
         }
 
@@ -25,7 +25,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluCopyableText{
-    text:"这是一个可以支持复制的Text"
+    text: qsTr("This is a text that can be copied")
 }'
     }
 

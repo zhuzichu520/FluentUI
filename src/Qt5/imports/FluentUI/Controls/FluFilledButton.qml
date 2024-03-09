@@ -38,17 +38,17 @@ Button {
             radius:4
         }
         gradient: Gradient {
-            GradientStop { position: 0.33; color: control.normalColor }
-            GradientStop { position: 1.0; color: Qt.darker(control.normalColor,1.3) }
+            GradientStop { position: 0.33; color: control.enabled ? control.normalColor : Qt.rgba(0,0,0,0) }
+            GradientStop { position: 1.0; color: control.enabled ? Qt.darker(control.normalColor,1.3) : Qt.rgba(0,0,0,0) }
         }
         Rectangle{
             radius: parent.radius
             anchors{
                 fill: parent
-                topMargin: 1
-                leftMargin: 1
-                rightMargin: 1
-                bottomMargin: 2
+                topMargin: control.enabled ? 1 : 0
+                leftMargin: control.enabled ? 1 : 0
+                rightMargin: control.enabled ? 1 : 0
+                bottomMargin: control.enabled ? 2 : 0
             }
             color:{
                 if(!enabled){

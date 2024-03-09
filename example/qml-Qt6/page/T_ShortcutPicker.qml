@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"ShortcutPicker"
+    title: qsTr("ShortcutPicker")
 
     FluArea{
         Layout.fillWidth: true

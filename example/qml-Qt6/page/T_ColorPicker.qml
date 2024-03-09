@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"ColorPicker"
+    title: qsTr("ColorPicker")
 
     FluArea{
         Layout.fillWidth: true

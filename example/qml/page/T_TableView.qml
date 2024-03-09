@@ -8,7 +8,7 @@ import "../component"
 FluContentPage{
 
     id:root
-    title:"TableView"
+    title: qsTr("TableView")
     signal checkBoxChanged
 
     property var dataSource : []
@@ -70,8 +70,8 @@ FluContentPage{
         id:custom_update_dialog
         property var text
         property var onAccpetListener
-        title:"修改列名"
-        negativeText:"取消"
+        title: qsTr("Modify the column name")
+        negativeText: qsTr("Cancel")
         contentDelegate: Component{
             Item{
                 implicitWidth: parent.width
@@ -89,7 +89,7 @@ FluContentPage{
                 }
             }
         }
-        positiveText:"确定"
+        positiveText: qsTr("OK")
         onPositiveClicked:{
             if(custom_update_dialog.onAccpetListener){
                 custom_update_dialog.onAccpetListener(custom_update_dialog.text)
@@ -131,7 +131,7 @@ FluContentPage{
             }
 
             FluButton{
-                text:"搜索"
+                text: qsTr("Search")
                 anchors{
                     bottom: parent.bottom
                     right: parent.right
@@ -174,7 +174,7 @@ FluContentPage{
         id:com_column_filter_name
         Item{
             FluText{
-                text:"姓名"
+                text: qsTr("Name")
                 anchors.centerIn: parent
             }
             FluIconButton{
@@ -208,14 +208,14 @@ FluContentPage{
             RowLayout{
                 anchors.centerIn: parent
                 FluButton{
-                    text:"删除"
+                    text: qsTr("Delete")
                     onClicked: {
                         table_view.closeEditor()
                         table_view.removeRow(row)
                     }
                 }
                 FluFilledButton{
-                    text:"编辑"
+                    text: qsTr("Edit")
                     onClicked: {
                         var obj = table_view.getRow(row)
                         obj.name = "12345"
@@ -234,7 +234,7 @@ FluContentPage{
             RowLayout{
                 anchors.centerIn: parent
                 FluText{
-                    text:"全选"
+                    text: qsTr("Select All")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluCheckBox{
@@ -334,7 +334,7 @@ FluContentPage{
         id:com_column_sort_age
         Item{
             FluText{
-                text:"年龄"
+                text: qsTr("Age")
                 anchors.centerIn: parent
             }
             ColumnLayout{
@@ -409,14 +409,14 @@ FluContentPage{
             }
 
             FluButton{
-                text:"清空"
+                text: qsTr("Clear All")
                 onClicked: {
                     table_view.dataSource = []
                 }
             }
 
             FluButton{
-                text:"删除选中"
+                text:"Delete Selection"
                 onClicked: {
                     var data = []
                     var rows = []
@@ -440,7 +440,7 @@ FluContentPage{
             }
 
             FluButton{
-                text:"添加一行数据"
+                text:"Add a row of Data"
                 onClicked: {
                     table_view.appendRow(genTestObject())
                 }
@@ -465,17 +465,17 @@ FluContentPage{
             {
                 title: table_view.customItem(com_column_checbox,{checked:true}),
                 dataIndex: 'checkbox',
-                width:80,
-                minimumWidth:80,
-                maximumWidth:80
+                width:100,
+                minimumWidth:100,
+                maximumWidth:100
             },
             {
-                title: table_view.customItem(com_column_update_title,{title:'头像'}),
+                title: table_view.customItem(com_column_update_title,{title:qsTr("Avatar")}),
                 dataIndex: 'avatar',
                 width:100
             },
             {
-                title: table_view.customItem(com_column_filter_name,{title:'姓名'}),
+                title: table_view.customItem(com_column_filter_name,{title:qsTr("Name")}),
                 dataIndex: 'name',
                 readOnly:true
             },
@@ -488,28 +488,28 @@ FluContentPage{
                 maximumWidth:100
             },
             {
-                title: '住址',
+                title: qsTr("Address"),
                 dataIndex: 'address',
                 width:200,
                 minimumWidth:100,
                 maximumWidth:250
             },
             {
-                title: '别名',
+                title: qsTr("Nickname"),
                 dataIndex: 'nickname',
                 width:100,
                 minimumWidth:80,
                 maximumWidth:200
             },
             {
-                title: '长字符串',
+                title: qsTr("Long String"),
                 dataIndex: 'longstring',
                 width:200,
                 minimumWidth:100,
                 maximumWidth:300
             },
             {
-                title: '操作',
+                title: qsTr("Options"),
                 dataIndex: 'action',
                 width:160,
                 minimumWidth:160,
@@ -528,6 +528,8 @@ FluContentPage{
         itemCount: 100000
         pageButtonCount: 7
         __itemPerPage: 1000
+        previousText: qsTr("<Previous")
+        nextText: qsTr("Next>")
         onRequestPage:
             (page,count)=> {
                 table_view.closeEditor()

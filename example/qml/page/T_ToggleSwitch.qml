@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"ToggleSwitch"
+    title: qsTr("ToggleSwitch")
 
     FluArea{
         Layout.fillWidth: true
@@ -22,21 +22,21 @@ FluScrollablePage{
             }
             FluToggleSwitch{
                 disabled: toggle_switch.checked
-                text:"Right"
+                text: qsTr("Right")
             }
             FluToggleSwitch{
                 disabled: toggle_switch.checked
-                text:"Left"
+                text: qsTr("Left")
                 textRight: false
             }
         }
         FluToggleSwitch{
-            id:toggle_switch
+            id: toggle_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{

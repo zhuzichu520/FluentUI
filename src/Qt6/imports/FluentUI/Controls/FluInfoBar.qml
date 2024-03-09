@@ -192,7 +192,7 @@ FluObject {
                     spacing: 5
                     FluText{
                         text:_super.text
-                        wrapMode: Text.WrapAnywhere
+                        wrapMode: Text.WordWrap
                         width: Math.min(implicitWidth,mcontrol.maxWidth)
                     }
                     FluText{

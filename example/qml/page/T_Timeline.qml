@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Timeline"
+    title: qsTr("Timeline")
 
     Component{
         id:com_dot
@@ -23,7 +23,7 @@ FluScrollablePage{
     Component{
         id:com_lable
         FluText{
-            wrapMode: Text.WrapAnywhere
+            wrapMode: Text.WordWrap
             font.bold: true
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.lable
@@ -41,7 +41,7 @@ FluScrollablePage{
     Component{
         id:com_text
         FluText{
-            wrapMode: Text.WrapAnywhere
+            wrapMode: Text.WordWrap
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
             font.bold: true
@@ -108,18 +108,18 @@ FluScrollablePage{
         spacing: 20
         Layout.topMargin: 20
         FluTextBox{
-            id:text_box
-            text:"Technical testing 2015-09-01"
+            id: text_box
+            text: "Technical testing 2015-09-01"
             Layout.preferredWidth: 240
         }
         FluFilledButton{
-            text:"Append"
+            text: qsTr("Append")
             onClicked: {
                 list_model.append({text:text_box.text})
             }
         }
         FluFilledButton{
-            text:"clear"
+            text: qsTr("clear")
             onClicked: {
                 list_model.clear()
             }
@@ -132,25 +132,25 @@ FluScrollablePage{
             text:"mode:"
         }
         FluDropDownButton{
-            id:btn_mode
+            id: btn_mode
             Layout.preferredWidth: 100
-            text:"Alternate"
+            text: "Alternate"
             FluMenuItem{
-                text:"Left"
+                text: "Left"
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Left
                 }
             }
             FluMenuItem{
-                text:"Right"
+                text: "Right"
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Right
                 }
             }
             FluMenuItem{
-                text:"Alternate"
+                text: "Alternate"
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Alternate
@@ -160,12 +160,12 @@ FluScrollablePage{
     }
 
     FluTimeline{
-        id:time_line
+        id: time_line
         Layout.fillWidth: true
         Layout.topMargin: 20
         Layout.bottomMargin: 20
         mode: FluTimelineType.Alternate
-        model:list_model
+        model: list_model
     }
 
 }

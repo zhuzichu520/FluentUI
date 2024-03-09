@@ -29,7 +29,7 @@ FluTheme::FluTheme(QObject *parent):QObject{parent}{
 void FluTheme::refreshColors(){
     auto isDark = dark();
     primaryColor(isDark ? _accentColor->lighter() : _accentColor->dark());
-    backgroundColor(isDark ? QColor(0,0,0,255) : QColor(1,1,1,255));
+    backgroundColor(isDark ? QColor(0,0,0,255) : QColor(255,255,255,255));
     dividerColor(isDark ? QColor(80,80,80,255) : QColor(210,210,210,255));
     windowBackgroundColor(isDark ? QColor(32,32,32,255) : QColor(237,237,237,255));
     windowActiveBackgroundColor(isDark ? QColor(26,26,26,255) : QColor(243,243,243,255));

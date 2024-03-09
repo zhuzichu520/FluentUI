@@ -5,7 +5,7 @@
 namespace Log
 {
     QString prettyProductInfoWrapper();
-    void setup(const QString &app,int level = 4);
+    void setup(char *argv[], const QString &app,int level = 4);
 }
 
 #endif // LOG_H

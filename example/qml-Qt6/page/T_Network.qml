@@ -552,7 +552,7 @@ FluContentPage{
             FluText{
                 id:text_info
                 width: scrollview.width
-                wrapMode: Text.WrapAnywhere
+                wrapMode: Text.WordWrap
                 padding: 14
             }
         }

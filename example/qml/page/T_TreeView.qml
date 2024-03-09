@@ -7,7 +7,7 @@ import "../component"
 
 FluContentPage {
 
-    title:"TreeView"
+    title: qsTr("TreeView")
 
     function treeData(){
         const dig = (path = '0', level = 4) => {
@@ -29,7 +29,7 @@ FluContentPage {
     }
 
     Column{
-        id:layout_column
+        id: layout_column
         spacing: 12
         width: 300
         anchors{
@@ -42,21 +42,21 @@ FluContentPage {
         }
 
         FluText{
-            text:"共计%1条数据，当前显示的%2条数据".arg(tree_view.count()).arg(tree_view.visibleCount())
+            text: qsTr("Total %1 data, %2 data currently displayed").arg(tree_view.count()).arg(tree_view.visibleCount())
         }
 
         FluText{
-            text:"共计选中%1条数据".arg(tree_view.selectionModel().length)
+            text: qsTr("A total of %1 data items are selected").arg(tree_view.selectionModel().length)
         }
 
         RowLayout{
             spacing: 10
             FluText{
-                text:"cellHeight:"
+                text: "cellHeight:"
                 Layout.alignment: Qt.AlignVCenter
             }
             FluSlider{
-                id:slider_cell_height
+                id: slider_cell_height
                 value: 30
                 from: 30
                 to:100
@@ -65,39 +65,39 @@ FluContentPage {
         RowLayout{
             spacing: 10
             FluText{
-                text:"depthPadding:"
+                text: "depthPadding:"
                 Layout.alignment: Qt.AlignVCenter
             }
             FluSlider{
-                id:slider_depth_padding
+                id: slider_depth_padding
                 value: 30
                 from: 30
                 to:100
             }
         }
         FluToggleSwitch{
-            id:switch_showline
+            id: switch_showline
             text:"showLine"
             checked: false
         }
         FluToggleSwitch{
-            id:switch_draggable
+            id: switch_draggable
             text:"draggable"
             checked: false
         }
         FluToggleSwitch{
-            id:switch_checkable
+            id: switch_checkable
             text:"checkable"
             checked: false
         }
         FluButton{
-            text:"all expand"
+            text: "all expand"
             onClicked: {
                 tree_view.allExpand()
             }
         }
         FluButton{
-            text:"all collapse"
+            text: "all collapse"
             onClicked: {
                 tree_view.allCollapse()
             }

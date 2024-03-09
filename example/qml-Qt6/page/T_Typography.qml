@@ -7,7 +7,7 @@ FluContentPage {
 
     property real textScale: 1
 
-    title: "Typography"
+    title: qsTr("Typography")
     rightPadding: 10
 
     FluArea{

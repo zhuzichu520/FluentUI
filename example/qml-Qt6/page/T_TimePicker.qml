@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"TimePicker"
+    title: qsTr("TimePicker")
     launchMode: FluPageType.SingleInstance
     FluArea{
         Layout.fillWidth: true
@@ -23,11 +23,17 @@ FluScrollablePage{
             }
 
             FluText{
-                text:"hourFormat=FluTimePickerType.H"
+                text: qsTr("hourFormat=FluTimePickerType.H")
             }
 
             FluTimePicker{
                 current: new Date()
+                amText: qsTr("AM")
+                pmText: qsTr("PM")
+                hourText: qsTr("Hour")
+                minuteText: qsTr("Minute")
+                cancelText: qsTr("Cancel")
+                okText: qsTr("OK")
                 onAccepted: {
                     showSuccess(current.toLocaleTimeString(Qt.locale("de_DE")))
                 }
@@ -57,11 +63,17 @@ FluScrollablePage{
             }
 
             FluText{
-                text:"hourFormat=FluTimePickerType.HH"
+                text: qsTr("hourFormat=FluTimePickerType.HH")
             }
 
             FluTimePicker{
                 hourFormat:FluTimePickerType.HH
+                amText: qsTr("AM")
+                pmText: qsTr("PM")
+                hourText: qsTr("Hour")
+                minuteText: qsTr("Minute")
+                cancelText: qsTr("Cancel")
+                okText: qsTr("OK")
                 onAccepted: {
                     showSuccess(current.toLocaleTimeString(Qt.locale("de_DE")))
                 }

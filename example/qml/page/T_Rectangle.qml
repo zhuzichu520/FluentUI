@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Rectangle"
+    title: qsTr("Rectangle")
 
     FluArea{
         Layout.fillWidth: true

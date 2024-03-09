@@ -7,11 +7,11 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"Buttons"
+    title: qsTr("Buttons")
 
     FluText{
         Layout.topMargin: 20
-        text:"支持Tab键切换焦点，空格键执行点击事件"
+        text: qsTr("Support the Tab key to switch focus, and the Space key to perform click events")
     }
 
     FluArea{
@@ -21,9 +21,8 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluTextButton{
-            disabled:text_button_switch.checked
-            text:"Text Button"
-            contentDescription: "文本按钮"
+            disabled: text_button_switch.checked
+            text: qsTr("Text Button")
             onClicked: {
                 showInfo("点击Text Button")
             }
@@ -33,12 +32,12 @@ FluScrollablePage{
             }
         }
         FluToggleSwitch{
-            id:text_button_switch
+            id: text_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
@@ -59,10 +58,10 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluButton{
-            disabled:button_switch.checked
-            text:"Standard Button"
+            disabled: button_switch.checked
+            text: qsTr("Standard Button")
             onClicked: {
-                showInfo("点击StandardButton")
+                showInfo(qsTr("Click StandardButton"))
             }
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -70,12 +69,12 @@ FluScrollablePage{
             }
         }
         FluToggleSwitch{
-            id:button_switch
+            id: button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
@@ -96,10 +95,10 @@ FluScrollablePage{
         paddings: 10
 
         FluFilledButton{
-            disabled:filled_button_switch.checked
-            text:"Filled Button"
+            disabled: filled_button_switch.checked
+            text: qsTr("Filled Button")
             onClicked: {
-                showWarning("点击FilledButton"+height)
+                showWarning(qsTr("Click FilledButton"))
             }
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -107,12 +106,12 @@ FluScrollablePage{
             }
         }
         FluToggleSwitch{
-            id:filled_button_switch
+            id: filled_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
@@ -134,19 +133,19 @@ FluScrollablePage{
 
         FluToggleButton{
             disabled:toggle_button_switch.checked
-            text:"Toggle Button"
+            text: qsTr("Toggle Button")
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
         }
         FluToggleSwitch{
-            id:toggle_button_switch
+            id: toggle_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
@@ -161,7 +160,7 @@ FluScrollablePage{
     }
 
     Timer{
-        id:timer_progress
+        id: timer_progress
         interval: 200
         onTriggered: {
             btn_progress.progress = (btn_progress.progress + 0.1).toFixed(1)
@@ -180,9 +179,9 @@ FluScrollablePage{
         paddings: 10
 
         FluProgressButton{
-            id:btn_progress
-            disabled:progress_button_switch.checked
-            text:"Progress Button"
+            id: btn_progress
+            disabled: progress_button_switch.checked
+            text: qsTr("Progress Button")
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -193,12 +192,12 @@ FluScrollablePage{
             }
         }
         FluToggleSwitch{
-            id:progress_button_switch
+            id: progress_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
@@ -219,9 +218,9 @@ FluScrollablePage{
         paddings: 10
 
         FluLoadingButton{
-            id:btn_loading
-            loading:loading_button_switch.checked
-            text:"Loading Button"
+            id: btn_loading
+            loading: loading_button_switch.checked
+            text: qsTr("Loading Button")
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -231,13 +230,13 @@ FluScrollablePage{
             }
         }
         FluToggleSwitch{
-            id:loading_button_switch
+            id: loading_button_switch
             checked: true
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Loading"
+            text: qsTr("Loading")
         }
     }
     CodeExpander{
@@ -258,7 +257,7 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         Flow{
-            id:layout_icon_button
+            id: layout_icon_button
             spacing: 10
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -266,60 +265,60 @@ FluScrollablePage{
                 right: icon_button_switch.left
             }
             FluIconButton{
-                disabled:icon_button_switch.checked
+                disabled: icon_button_switch.checked
                 iconDelegate: Image{ sourceSize: Qt.size(40,40) ; width: 20; height: 20; source: "qrc:/example/res/image/ic_home_github.png" }
                 onClicked:{
-                    showSuccess("点击IconButton")
+                    showSuccess(qsTr("Click IconButton"))
                 }
             }
             FluIconButton{
-                iconSource:FluentIcons.ChromeCloseContrast
-                disabled:icon_button_switch.checked
+                iconSource: FluentIcons.ChromeCloseContrast
+                disabled: icon_button_switch.checked
                 iconSize: 15
-                text:"IconOnly"
+                text: qsTr("IconOnly")
                 display: Button.IconOnly
                 onClicked:{
-                    showSuccess("Button.IconOnly")
+                    showSuccess(qsTr("Button.IconOnly"))
                 }
             }
             FluIconButton{
-                iconSource:FluentIcons.ChromeCloseContrast
-                disabled:icon_button_switch.checked
+                iconSource: FluentIcons.ChromeCloseContrast
+                disabled: icon_button_switch.checked
                 iconSize: 15
-                text:"TextOnly"
+                text: qsTr("TextOnly")
                 display: Button.TextOnly
                 onClicked:{
-                    showSuccess("Button.TextOnly")
+                    showSuccess(qsTr("Button.TextOnly"))
                 }
             }
             FluIconButton{
-                iconSource:FluentIcons.ChromeCloseContrast
-                disabled:icon_button_switch.checked
+                iconSource: FluentIcons.ChromeCloseContrast
+                disabled: icon_button_switch.checked
                 iconSize: 15
-                text:"TextBesideIcon"
+                text: qsTr("TextBesideIcon")
                 display: Button.TextBesideIcon
                 onClicked:{
-                    showSuccess("Button.TextBesideIcon")
+                    showSuccess(qsTr("Button.TextBesideIcon"))
                 }
             }
             FluIconButton{
-                iconSource:FluentIcons.ChromeCloseContrast
-                disabled:icon_button_switch.checked
+                iconSource: FluentIcons.ChromeCloseContrast
+                disabled: icon_button_switch.checked
                 iconSize: 15
-                text:"TextUnderIcon"
+                text: qsTr("TextUnderIcon")
                 display: Button.TextUnderIcon
                 onClicked:{
-                    showSuccess("Button.TextUnderIcon")
+                    showSuccess(qsTr("Button.TextUnderIcon"))
                 }
             }
         }
         FluToggleSwitch{
-            id:icon_button_switch
+            id: icon_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
@@ -339,35 +338,35 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         FluDropDownButton{
-            disabled:drop_down_button_switch.checked
-            text:"DropDownButton"
+            disabled: drop_down_button_switch.checked
+            text: qsTr("DropDownButton")
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
             FluMenuItem{
-                text:"Menu_1"
+                text: qsTr("Menu_1")
             }
             FluMenuItem{
-                text:"Menu_2"
+                text: qsTr("Menu_2")
             }
             FluMenuItem{
-                text:"Menu_3"
+                text: qsTr("Menu_3")
             }
             FluMenuItem{
-                text:"Menu_4"
+                text: qsTr("Menu_4")
                 onClicked: {
 
                 }
             }
         }
         FluToggleSwitch{
-            id:drop_down_button_switch
+            id: drop_down_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
@@ -403,24 +402,24 @@ FluScrollablePage{
             }
             FluRadioButton{
                 disabled:radio_button_switch.checked
-                text:"Radio Button_1"
+                text: qsTr("Radio Button_1")
             }
             FluRadioButton{
                 disabled:radio_button_switch.checked
-                text:"Radio Button_2"
+                text: qsTr("Radio Button_2")
             }
             FluRadioButton{
                 disabled:radio_button_switch.checked
-                text:"Radio Button_3"
+                text: qsTr("Radio Button_3")
             }
         }
         FluToggleSwitch{
-            id:radio_button_switch
+            id: radio_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{

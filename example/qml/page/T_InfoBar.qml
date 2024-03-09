@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"InfoBar"
+    title: qsTr("InfoBar")
 
     FluArea{
         Layout.fillWidth: true
@@ -21,39 +21,39 @@ FluScrollablePage{
                 left: parent.left
             }
             FluButton{
-                text:"Info"
+                text: qsTr("Info")
                 onClicked: {
-                    showInfo("这是一个Info样式的InfoBar")
+                    showInfo(qsTr("This is an InfoBar in the Info Style"))
                 }
             }
             FluButton{
-                text:"Warning"
+                text: qsTr("Warning")
                 onClicked: {
-                    showWarning("这是一个Warning样式的InfoBar")
+                    showWarning(qsTr("This is an InfoBar in the Warning Style"))
                 }
             }
             FluButton{
                 text:"Error"
                 onClicked: {
-                    showError("这是一个Error样式的InfoBar")
+                    showError(qsTr("This is an InfoBar in the Error Style"))
                 }
             }
             FluButton{
                 text:"Success"
                 onClicked: {
-                    showSuccess("这是一个Success样式的InfoBar")
+                    showSuccess(qsTr("This is an InfoBar in the Success Style"))
                 }
             }
             FluButton{
-                text:"手动关闭的InfoBar"
+                text: qsTr("InfoBar that needs to be turned off manually")
                 onClicked: {
-                    showInfo("这是一个Info样式的InfoBar",0,"支持手动关闭")
+                    showInfo("This is an InfoBar in the Info Style",0,"Manual shutdown is supported")
                 }
             }
             FluButton{
                 text:"Loading"
                 onClicked: {
-                    showLoading()
+                    showLoading(qsTr("Loading..."))
                 }
             }
         }
@@ -61,12 +61,12 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'showInfo("这是一个Info样式的InfoBar")
+        code:'showInfo(qsTr("This is an InfoBar in the Info Style"))
 
-showWarning("这是一个Warning样式的InfoBar")
+showWarning(qsTr("This is an InfoBar in the Warning Style"))
 
-showError("这是一个Error样式的InfoBar")
+showError(qsTr("This is an InfoBar in the Error Style"))
 
-showSuccess("这是一个Success样式的InfoBar这是一个Success样式的InfoBar")'
+showSuccess(qsTr("This is an InfoBar in the Success Style"))'
     }
 }

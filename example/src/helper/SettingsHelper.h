@@ -23,6 +23,8 @@ public:
     Q_INVOKABLE int getDarkMode(){return get("darkMode",QVariant(0)).toInt();}
     Q_INVOKABLE void saveUseSystemAppBar(bool useSystemAppBar){save("useSystemAppBar",useSystemAppBar);}
     Q_INVOKABLE bool getUseSystemAppBar(){return get("useSystemAppBar",QVariant(false)).toBool();}
+    Q_INVOKABLE void saveLanguage(QString language){save("language",language);}
+    Q_INVOKABLE QString getLanguage(){return get("language",QVariant("en")).toString();}
 private:
     void save(const QString& key,QVariant val);
     QVariant get(const QString& key,QVariant def={});

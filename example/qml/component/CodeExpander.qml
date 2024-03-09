@@ -8,7 +8,7 @@ FluExpander{
 
     id:control
     property string code: ""
-    headerText: "Source"
+    headerText: qsTr("Source")
     contentHeight:content.height
     focus: false
 
@@ -34,7 +34,7 @@ FluExpander{
         }
         onClicked:{
             FluTools.clipText(FluTools.html2PlantText(content.text))
-            showSuccess("复制成功")
+            showSuccess(qsTr("The Copy is Successful"))
         }
     }
 
@@ -49,7 +49,6 @@ FluExpander{
     }
 
     function highlightQmlCode(code) {
-        // 定义 QML 关键字列表
         var qmlKeywords = [
                     "FluTextButton",
                     "FluAppBar",

@@ -10,6 +10,11 @@ Rectangle {
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property bool showYear: true
     property var current
+    property string yearText: "年"
+    property string monthText: "月"
+    property string dayText: "日"
+    property string cancelText: "取消"
+    property string okText: "确定"
     signal accepted()
     id:control
     color: {
@@ -26,9 +31,9 @@ Rectangle {
     Component.onCompleted: {
         if(current){
             const now = current;
-            var year = text_year.text === "年"? now.getFullYear() : Number(text_year.text);
-            var month = text_month.text === "月"? now.getMonth() + 1 : Number(text_month.text);
-            var day =  text_day.text === "日" ? now.getDate() : Number(text_day.text);
+            var year = text_year.text === control.yearText? now.getFullYear() : Number(text_year.text);
+            var month = text_month.text === control.monthText? now.getMonth() + 1 : Number(text_month.text);
+            var day =  text_day.text === control.dayText ? now.getDate() : Number(text_day.text);
             text_year.text = year
             text_month.text = month
             text_day.text = day
@@ -75,7 +80,7 @@ Rectangle {
         visible: showYear
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text:"年"
+        text:control.yearText
     }
     FluText{
         id:text_month
@@ -87,7 +92,7 @@ Rectangle {
         }
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text:"月"
+        text:control.monthText
     }
     FluText{
         id:text_day
@@ -99,7 +104,7 @@ Rectangle {
         }
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text:"日"
+        text:control.dayText
     }
     Menu{
         id:popup
@@ -315,7 +320,7 @@ Rectangle {
                             right: divider.left
                             verticalCenter: parent.verticalCenter
                         }
-                        text: "取消"
+                        text: control.cancelText
                         onClicked: {
                             popup.close()
                         }
@@ -328,7 +333,7 @@ Rectangle {
                             leftMargin: 10
                             verticalCenter: parent.verticalCenter
                         }
-                        text: "确定"
+                        text: control.okText
                         onClicked: {
                             d.changeFlag = false
                             popup.close()
@@ -356,9 +361,9 @@ Rectangle {
             d.rowData[1] = text_month.text
             d.rowData[2] = text_day.text
             const now = new Date();
-            var year = text_year.text === "年"? now.getFullYear() : Number(text_year.text);
-            var month = text_month.text === "月"? now.getMonth() + 1 : Number(text_month.text);
-            var day =  text_day.text === "日" ? now.getDate() : Number(text_day.text);
+            var year = text_year.text === control.yearText? now.getFullYear() : Number(text_year.text);
+            var month = text_month.text === control.monthText? now.getMonth() + 1 : Number(text_month.text);
+            var day =  text_day.text === control.dayText ? now.getDate() : Number(text_day.text);
             list_view_1.currentIndex = list_view_1.model.indexOf(year)
             text_year.text = year
             list_view_2.model = generateMonthArray(1,12)

@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"StatusLayout"
+    title: qsTr("StatusLayout")
 
     FluArea{
         id:layout_actions
@@ -61,8 +61,12 @@ FluScrollablePage{
         FluStatusLayout{
             id:status_view
             anchors.fill: parent
+            loadingText: qsTr("Loading...")
+            emptyText: qsTr("Empty")
+            errorText: qsTr("The page went wrong...")
+            errorButtonText: qsTr("Reload")
             onErrorClicked:{
-                showError("点击重新加载")
+                showError("Click Reload")
             }
             Rectangle {
                 anchors.fill: parent

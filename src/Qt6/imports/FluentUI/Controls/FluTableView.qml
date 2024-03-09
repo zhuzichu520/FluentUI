@@ -142,7 +142,7 @@ Rectangle {
             id:item_text
             text: String(display)
             elide: Text.ElideRight
-            wrapMode: Text.WrapAnywhere
+            wrapMode: Text.WordWrap
             anchors{
                 fill: parent
                 leftMargin: 11

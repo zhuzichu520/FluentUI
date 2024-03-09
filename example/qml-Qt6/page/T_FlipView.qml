@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"FlipView"
+    title: qsTr("FlipView")
 
     FluArea{
         Layout.fillWidth: true
@@ -17,7 +17,7 @@ FluScrollablePage{
         ColumnLayout{
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text:"水平方向的FlipView"
+                text: qsTr("Horizontal FlipView")
             }
             FluFlipView{
                 Image{
@@ -69,7 +69,7 @@ FluScrollablePage{
         ColumnLayout{
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text:"垂直方向的FlipView"
+                text: qsTr("Vertical FlipView")
             }
             FluFlipView{
                 vertical:true

@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"QRCode"
+    title: qsTr("QRCode")
 
     FluQRCode{
         id:qrcode

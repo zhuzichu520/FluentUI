@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title:"ComboBox"
+    title: qsTr("ComboBox")
 
     FluArea{
         Layout.fillWidth: true

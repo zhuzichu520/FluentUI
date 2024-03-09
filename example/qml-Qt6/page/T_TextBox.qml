@@ -7,14 +7,11 @@ import "../component"
 import "../viewmodel"
 
 FluScrollablePage{
-    title:"TextBox"
+
+    title: qsTr("TextBox")
 
     TextBoxViewModel{
         id:viewModel
-    }
-
-    Component.onDestruction: {
-        console.debug("T_TextBox页面销毁了")
     }
 
     FluArea{
@@ -24,10 +21,10 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluTextBox{
-            placeholderText: "单行输入框"
-            disabled:text_box_switch.checked
+            placeholderText: qsTr("Single-line Input Box")
+            disabled: text_box_switch.checked
             cleanEnabled: true
-            text:viewModel.text1
+            text: viewModel.text1
             onTextChanged: {
                 viewModel.text1 = text
             }
@@ -38,19 +35,19 @@ FluScrollablePage{
         }
 
         FluToggleSwitch{
-            id:text_box_switch
+            id: text_box_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluTextBox{
-    placeholderText:"单行输入框"
+    placeholderText: qsTr("Single-line Input Box")
 }'
     }
 
@@ -61,7 +58,7 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluPasswordBox{
-            placeholderText: "请输入密码"
+            placeholderText: qsTr("Please enter your password")
             disabled:password_box_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -74,14 +71,14 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluPasswordBox{
-    placeholderText:"请输入密码"
+    placeholderText: qsTr("Please enter your password")
 }'
     }
 
@@ -93,13 +90,13 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluMultilineTextBox{
-            id:multiine_textbox
-            placeholderText: "多行输入框"
+            id: multiine_textbox
+            placeholderText: qsTr("Multi-line Input Box")
             text:viewModel.text2
             onTextChanged: {
                 viewModel.text2 = text
             }
-            disabled:text_box_multi_switch.checked
+            disabled: text_box_multi_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -112,14 +109,14 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluMultilineTextBox{
-    placeholderText:"多行输入框"
+    placeholderText: qsTr("Multi-line Input Box")
 }'
     }
 
@@ -129,9 +126,9 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         FluAutoSuggestBox{
-            placeholderText: "AutoSuggestBox"
-            items:generateRandomNames(100)
-            disabled:text_box_suggest_switch.checked
+            placeholderText: qsTr("AutoSuggestBox")
+            items: generateRandomNames(100)
+            disabled: text_box_suggest_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -143,14 +140,14 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluAutoSuggestBox{
-    placeholderText:"AutoSuggestBox"
+    placeholderText: qsTr("AutoSuggestBox")
 }'
     }
 
@@ -167,12 +164,12 @@ FluScrollablePage{
             }
         }
         FluToggleSwitch{
-            id:spin_box_switch
+            id: spin_box_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text:"Disabled"
+            text: qsTr("Disabled")
         }
     }
     CodeExpander{
