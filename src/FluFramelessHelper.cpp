@@ -155,18 +155,16 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         *result = HTCLIENT;
         return true;
     }else if(uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN){
-        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(_helper->hoverMaxBtn()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
             return true;
         }
-        return false;
     }else if(uMsg == WM_NCLBUTTONUP || uMsg == WM_NCRBUTTONUP){
-        if(FluTools::getInstance()->isWindows11OrGreater() && _helper->hoverMaxBtn() && _helper->resizeable()){
+        if(_helper->hoverMaxBtn()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_helper->maximizeButton(),&event);
         }
-        return false;
     }else if(uMsg == WM_NCPAINT){
         *result = FALSE;
         return true;

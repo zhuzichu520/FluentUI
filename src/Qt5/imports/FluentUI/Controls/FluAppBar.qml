@@ -253,7 +253,7 @@ Rectangle{
             Layout.preferredHeight: 30
             iconSource : d.isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
             color: {
-                if(pressed){
+                if(down){
                     return maximizePressColor
                 }
                 if(FluTools.isWindows11OrGreater()){
@@ -291,9 +291,13 @@ Rectangle{
     }
     function _maximizeButtonHover(){
         var hover = false
-        if(btn_maximize.visible){
+        if(btn_maximize.visible && FluTools.isWindows11OrGreater() && d.resizable){
             if(d.containsPointToItem(FluTools.cursorPos(),btn_maximize)){
                 hover = true
+            }else{
+                if(btn_maximize.down){
+                    btn_maximize.down = false
+                }
             }
         }
         d.hoverMaxBtn = hover
