@@ -12,7 +12,7 @@ FluWindow {
     width: 600
     height: 400
     fixSize: true
-    //    modality: Qt.ApplicationModal
+    modality: Qt.ApplicationModal
     launchMode: FluWindowType.SingleTask
     showStayTop: false
 
@@ -21,8 +21,9 @@ FluWindow {
         function onError(message){
             showError(message)
         }
-        function onSuccess(){
-            showSuccess("创建成功")
+        function onSuccess(path){
+            FluTools.showFileInFolder(path+"/CMakeLists.txt")
+            window.close()
         }
     }
 

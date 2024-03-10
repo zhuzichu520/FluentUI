@@ -7,8 +7,8 @@
 
 TranslateHelper::TranslateHelper(QObject *parent) : QObject(parent)
 {
-    _languages<<"en";
-    _languages<<"zh";
+    _languages<<"en_US";
+    _languages<<"zh_CN";
     _current = SettingsHelper::getInstance()->getLanguage();
 }
 

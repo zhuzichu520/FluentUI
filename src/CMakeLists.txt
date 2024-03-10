@@ -12,13 +12,28 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#设置版本号
+add_definitions(-DFLUENTUI_VERSION=1,6,9,0)
+
 if (FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
 endif()
 
+#编译参数设置
+option(FLUENTUI_BUILD_STATIC_LIB "Build static library." OFF)
+
 #导入Qt相关依赖包
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml)
+
+set(QT_SDK_DIR "${Qt${QT_VERSION_MAJOR}_DIR}/../../..")
+cmake_path(SET QT_SDK_DIR NORMALIZE ${QT_SDK_DIR})
+
+#设置QML插件输出目录，可以通过外部设置，如果外部没有设置就默认到<QT_SDK_DIR_PATH>\qml\FluentUI目录下
+set(FLUENTUI_QML_PLUGIN_DIRECTORY "" CACHE PATH "Path to FluentUI plugin")
+if(NOT FLUENTUI_QML_PLUGIN_DIRECTORY)
+    set(FLUENTUI_QML_PLUGIN_DIRECTORY ${QT_SDK_DIR}/qml/FluentUI)
+endif()
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()

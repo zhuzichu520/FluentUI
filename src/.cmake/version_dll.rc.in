@@ -1,6 +1,13 @@
-1 VERSIONINFO
- FILEVERSION ${GIT_TAG_WITH_COMMA},${GIT_COMMIT_COUNT}
- PRODUCTVERSION ${GIT_TAG_WITH_COMMA},${GIT_COMMIT_COUNT}
+#include <windows.h>
+
+#define STR(x) #x
+#define VER_JOIN(a,b,c,d) STR(a.b.c.d)
+#define VER_JOIN_(x) VER_JOIN x
+#define VER_STR VER_JOIN_((FLUENTUI_VERSION))
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION FLUENTUI_VERSION
+ PRODUCTVERSION FLUENTUI_VERSION
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -16,13 +23,13 @@ BEGIN
         BLOCK "080404b0"
         BEGIN
             VALUE "CompanyName", "ZhuZiChu"
-            VALUE "FileDescription", "${PROJECT_DESCRIPTION}"
-            VALUE "FileVersion", "${GIT_SEMVER}.${GIT_COMMIT_COUNT}"
+            VALUE "FileDescription", "https://github.com/zhuzichu520/FluentUI"
+            VALUE "FileVersion", VER_STR
             VALUE "InternalName", "${PROJECT_NAME}.dll"
             VALUE "LegalCopyright", "Copyright (C) 2023 ZhuZiChu. All rights reserved."
             VALUE "OriginalFilename", "${PROJECT_NAME}.dll"
             VALUE "ProductName", "${PROJECT_NAME}"
-            VALUE "ProductVersion", "${GIT_SEMVER}.0"
+            VALUE "ProductVersion", VER_STR
         END
     END
     BLOCK "VarFileInfo"

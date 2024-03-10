@@ -1,6 +1,7 @@
 #include "InitalizrHelper.h"
 
 #include <QDir>
+#include <QGuiApplication>
 
 InitalizrHelper::InitalizrHelper(QObject *parent) : QObject(parent)
 {
@@ -9,6 +10,63 @@ InitalizrHelper::InitalizrHelper(QObject *parent) : QObject(parent)
 
 InitalizrHelper::~InitalizrHelper() = default;
 
+bool InitalizrHelper::copyDir(const QDir& fromDir, const QDir& toDir, bool coverIfFileExists){
+    QDir _formDir = fromDir;
+    QDir _toDir = toDir;
+    if(!_toDir.exists())
+    {
+        if(!_toDir.mkdir(toDir.absolutePath()))
+            return false;
+    }
+    QFileInfoList fileInfoList = _formDir.entryInfoList();
+    foreach(QFileInfo fileInfo, fileInfoList)
+    {
+        if(fileInfo.fileName() == "." || fileInfo.fileName() == "..")
+            continue;
+        if(fileInfo.isDir())
+        {
+            if(!copyDir(fileInfo.filePath(), _toDir.filePath(fileInfo.fileName()),true))
+                return false;
+        }
+        else
+        {
+            if(coverIfFileExists && _toDir.exists(fileInfo.fileName()))
+            {
+                _toDir.remove(fileInfo.fileName());
+            }
+            if(!QFile::copy(fileInfo.filePath(), _toDir.filePath(fileInfo.fileName())))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+template <typename...Args>
+void InitalizrHelper::templateToFile(const QString& source,const QString& dest,Args &&...args){
+    QFile file(source);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        QString content = in.readAll().arg(std::forward<Args>(args)...);
+        file.close();
+        QFile outputFile(dest);
+        if (outputFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream out(&outputFile);
+            out << content;
+            outputFile.close();
+        } else {
+            qDebug() << "Failed to open output file.";
+        }
+    } else {
+        qDebug() << "Failed to open resource file.";
+    }
+}
+
+void InitalizrHelper::copyFile(const QString& source,const QString& dest){
+    QFile::copy(source,dest);
+    QFile::setPermissions(dest, QFile::WriteOwner | QFile::WriteUser | QFile::WriteGroup | QFile::WriteOther);
+}
 
 void InitalizrHelper::generate(const QString& name,const QString& path){
     if(name.isEmpty()){
@@ -19,10 +77,27 @@ void InitalizrHelper::generate(const QString& name,const QString& path){
         error(tr("The creation path cannot be empty"));
         return;
     }
-    QDir projectDir(path);
-    if(!projectDir.exists()){
+    QDir projectRootDir(path);
+    if(!projectRootDir.exists()){
         error(tr("The path does not exist"));
         return;
     }
-    return success();
+    QString projectPath = projectRootDir.filePath(name);
+    QDir projectDir(projectPath);
+    if(projectDir.exists()){
+        error(tr("%1 folder already exists").arg(name));
+        return;
+    }
+    projectDir.mkpath(projectPath);
+    QDir fluentDir(projectDir.filePath("FluentUI"));
+    copyDir(QDir(QGuiApplication::applicationDirPath()+"/source"),fluentDir);
+    templateToFile(":/example/res/template/CMakeLists.txt.in",projectDir.filePath("CMakeLists.txt"),name);
+    templateToFile(":/example/res/template/main.cpp.in",projectDir.filePath("main.cpp"),name);
+    templateToFile(":/example/res/template/main.qml.in",projectDir.filePath("main.qml"),name);
+    templateToFile(":/example/res/template/en_US.ts.in",projectDir.filePath(name+"_en_US.ts"),name);
+    templateToFile(":/example/res/template/zh_CN.ts.in",projectDir.filePath(name+"_zh_CN.ts"),name);
+    copyFile(":/example/res/template/App.qml.in",projectDir.filePath("App.qml"));
+    copyFile(":/example/res/template/qml.qrc.in",projectDir.filePath("qml.qrc"));
+    copyFile(":/example/res/template/logo.ico.in",projectDir.filePath("logo.ico"));
+    return this->success(projectPath);
 }
