@@ -327,19 +327,8 @@ void FluFramelessHelper::componentComplete(){
             ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         }
         LONG exstyle = ::GetWindowLong(hwnd, GWL_EXSTYLE);
-        exstyle = exstyle | WS_EX_LAYERED;
+        exstyle = exstyle | 0x02000000;
         ::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
-        ::SetLayeredWindowAttributes(hwnd, RGB(251, 255, 242), 0, LWA_COLORKEY);
-        connect(window,&QQuickWindow::activeChanged,this,[this,hwnd]{
-            if(this->window->isActive()){
-                LONG exstyle = ::GetWindowLong(hwnd, GWL_EXSTYLE);
-                if(exstyle & WS_EX_LAYERED){
-                    exstyle = exstyle &~ WS_EX_LAYERED;
-                    ::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
-                    ::SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-                }
-            }
-        });
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
         window->installEventFilter(this);
