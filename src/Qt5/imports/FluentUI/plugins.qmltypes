@@ -9,6 +9,19 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: ["QtQuick 2.0"]
     Component {
+        name: "FluAccentColor"
+        prototype: "QObject"
+        exports: ["FluentUI/FluAccentColor 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "darkest"; type: "QColor" }
+        Property { name: "darker"; type: "QColor" }
+        Property { name: "dark"; type: "QColor" }
+        Property { name: "normal"; type: "QColor" }
+        Property { name: "light"; type: "QColor" }
+        Property { name: "lighter"; type: "QColor" }
+        Property { name: "lightest"; type: "QColor" }
+    }
+    Component {
         name: "FluCalendarViewType"
         exports: ["FluentUI/FluCalendarViewType 1.0"]
         isCreatable: false
@@ -36,19 +49,6 @@ Module {
             type: "bool"
             Parameter { name: "code"; type: "string" }
         }
-    }
-    Component {
-        name: "FluColorSet"
-        prototype: "QObject"
-        exports: ["FluentUI/FluColorSet 1.0"]
-        exportMetaObjectRevisions: [0]
-        Property { name: "darkest"; type: "string" }
-        Property { name: "darker"; type: "string" }
-        Property { name: "dark"; type: "string" }
-        Property { name: "normal"; type: "string" }
-        Property { name: "light"; type: "string" }
-        Property { name: "lighter"; type: "string" }
-        Property { name: "lightest"; type: "string" }
     }
     Component {
         name: "FluContentDialogType"
@@ -85,6 +85,7 @@ Module {
             name: "showSystemMenu"
             Parameter { name: "point"; type: "QPoint" }
         }
+        Method { name: "showMaximized" }
     }
     Component {
         name: "FluNavigationViewType"
@@ -2380,7 +2381,7 @@ Module {
         }
         Property {
             name: "buttonDark"
-            type: "FluToggleSwitch_QMLTYPE_21"
+            type: "FluToggleSwitch_QMLTYPE_22"
             isReadonly: true
             isPointer: true
         }
@@ -2398,13 +2399,13 @@ Module {
         exports: ["FluentUI/FluArea 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "content"
+        defaultProperty: "contentData"
+        Property { name: "contentData"; type: "QObject"; isList: true; isReadonly: true }
         Property { name: "paddings"; type: "int" }
         Property { name: "leftPadding"; type: "int" }
         Property { name: "rightPadding"; type: "int" }
         Property { name: "topPadding"; type: "int" }
         Property { name: "bottomPadding"; type: "int" }
-        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
         prototype: "QQuickTextField"
@@ -2650,6 +2651,14 @@ Module {
         defaultProperty: "data"
         Property { name: "current"; type: "QColor" }
         Property { name: "colorHandleRadius"; type: "int" }
+        Property { name: "cancelText"; type: "string" }
+        Property { name: "okText"; type: "string" }
+        Property { name: "titleText"; type: "string" }
+        Property { name: "editText"; type: "string" }
+        Property { name: "redText"; type: "string" }
+        Property { name: "greenText"; type: "string" }
+        Property { name: "blueText"; type: "string" }
+        Property { name: "opacityText"; type: "string" }
         Signal { name: "accepted" }
     }
     Component {
@@ -2748,6 +2757,11 @@ Module {
         Property { name: "normalColor"; type: "QColor" }
         Property { name: "showYear"; type: "bool" }
         Property { name: "current"; type: "QVariant" }
+        Property { name: "yearText"; type: "string" }
+        Property { name: "monthText"; type: "string" }
+        Property { name: "dayText"; type: "string" }
+        Property { name: "cancelText"; type: "string" }
+        Property { name: "okText"; type: "string" }
         Signal { name: "accepted" }
         Method {
             name: "generateYearArray"
@@ -3038,15 +3052,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_156"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_156"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_157"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_157"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_33"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_33"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_47"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_47"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -3735,6 +3749,12 @@ Module {
         Property { name: "hourFormat"; type: "int" }
         Property { name: "isH"; type: "int" }
         Property { name: "current"; type: "QVariant" }
+        Property { name: "amText"; type: "string" }
+        Property { name: "pmText"; type: "string" }
+        Property { name: "hourText"; type: "string" }
+        Property { name: "minuteText"; type: "string" }
+        Property { name: "cancelText"; type: "string" }
+        Property { name: "okText"; type: "string" }
         Signal { name: "accepted" }
         Method {
             name: "generateArray"
@@ -3813,6 +3833,9 @@ Module {
         Property { name: "nextButton"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prevButton"; type: "QQmlComponent"; isPointer: true }
         Property { name: "index"; type: "int" }
+        Property { name: "finishText"; type: "string" }
+        Property { name: "nextText"; type: "string" }
+        Property { name: "previousText"; type: "string" }
     }
     Component {
         prototype: "QQuickItem"
@@ -3851,9 +3874,9 @@ Module {
         exports: ["FluentUI/FluWindow 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "content"
+        defaultProperty: "contentData"
+        Property { name: "contentData"; type: "QObject"; isList: true; isReadonly: true }
         Property { name: "windowIcon"; type: "string" }
-        Property { name: "closeDestory"; type: "bool" }
         Property { name: "launchMode"; type: "int" }
         Property { name: "argument"; type: "QVariant" }
         Property { name: "background"; type: "QVariant" }
@@ -3871,18 +3894,16 @@ Module {
         Property { name: "autoMaximize"; type: "bool" }
         Property { name: "autoVisible"; type: "bool" }
         Property { name: "autoCenter"; type: "bool" }
+        Property { name: "autoDestory"; type: "bool" }
         Property { name: "useSystemAppBar"; type: "bool" }
         Property { name: "resizeBorderColor"; type: "QColor" }
         Property { name: "resizeBorderWidth"; type: "int" }
         Property { name: "closeListener"; type: "QVariant" }
-        Property { name: "_offsetXY"; type: "QPointF" }
-        Property { name: "_originalPos"; type: "QVariant" }
         Property { name: "_realHeight"; type: "int" }
         Property { name: "_realWidth"; type: "int" }
         Property { name: "_appBarHeight"; type: "int" }
         Property { name: "_windowRegister"; type: "QVariant" }
         Property { name: "_route"; type: "string" }
-        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
         Signal { name: "showSystemMenu" }
         Signal {
             name: "initArgument"
@@ -3937,7 +3958,6 @@ Module {
             type: "QVariant"
             Parameter { name: "data"; type: "QVariant" }
         }
-        Method { name: "layoutContainer"; type: "QVariant" }
-        Method { name: "layoutContent"; type: "QVariant" }
+        Method { name: "showMaximized"; type: "QVariant" }
     }
 }

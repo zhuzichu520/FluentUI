@@ -47,39 +47,39 @@
     <name>FluentInitalizrWindow</name>
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="11"/>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="31"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="32"/>
         <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="11"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="31"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="32"/>
         <source>FluentUI Initalizr</source>
         <translation type="unfinished">FluentUI脚手架</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="52"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="52"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="53"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="53"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="60"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="60"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="61"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="61"/>
         <source>Create In</source>
         <translation type="unfinished">创建路径</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="67"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="67"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="65"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="65"/>
         <source>Browse</source>
         <translation type="unfinished">浏览</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="98"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="98"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="95"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="95"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="106"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="106"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="103"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="103"/>
         <source>Create</source>
         <translation type="unfinished">创建</translation>
     </message>
@@ -102,22 +102,22 @@
 <context>
     <name>InitalizrHelper</name>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="48"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="73"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished">名称不能为空</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="52"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="77"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished">创建路径不能为空</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="57"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="82"/>
         <source>The path does not exist</source>
         <translation type="unfinished">路径不存在</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="63"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="88"/>
         <source>%1 folder already exists</source>
         <translation type="unfinished"></translation>
     </message>

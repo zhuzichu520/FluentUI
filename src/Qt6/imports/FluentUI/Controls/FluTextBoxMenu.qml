@@ -13,10 +13,17 @@ FluMenu{
     width: 120
     focus: false
     onVisibleChanged: {
-        inputItem.forceActiveFocus()
+        if(inputItem){
+            inputItem.forceActiveFocus()
+        }
     }
     Connections{
-        target: inputItem
+        target: {
+            if(inputItem){
+                return inputItem
+            }
+            return null
+        }
         function onTextChanged() {
             menu.close()
         }
@@ -32,7 +39,12 @@ FluMenu{
         focus: false
         padding: 0
         height: visible ? 36 : 0
-        visible: inputItem.selectedText !== "" && !inputItem.readOnly
+        visible: {
+            if(inputItem){
+                return inputItem.selectedText !== "" && !inputItem.readOnly
+            }
+            return false
+        }
         onClicked: {
             inputItem.cut()
             menu.close()
@@ -44,7 +56,12 @@ FluMenu{
         focus: false
         padding: 0
         height: visible ? 36 : 0
-        visible: inputItem.selectedText !== ""
+        visible: {
+            if(inputItem){
+                return inputItem.selectedText !== ""
+            }
+            return false
+        }
         onClicked: {
             inputItem.copy()
             menu.close()
@@ -55,7 +72,12 @@ FluMenu{
         text:pasteText
         focus: false
         padding: 0
-        visible: !inputItem.readOnly
+        visible: {
+            if(inputItem){
+                return !inputItem.readOnly
+            }
+            return false
+        }
         height: visible ? 36 : 0
         onClicked: {
             inputItem.paste()
@@ -68,11 +90,15 @@ FluMenu{
         focus: false
         padding: 0
         height: visible ? 36 : 0
-        visible: inputItem.text !== ""
+        visible: {
+            if(inputItem){
+                return inputItem.text !== ""
+            }
+            return false
+        }
         onClicked: {
             inputItem.selectAll()
             menu.close()
         }
     }
 }
-

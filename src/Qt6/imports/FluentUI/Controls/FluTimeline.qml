@@ -15,6 +15,9 @@ Item{
         property bool isRight: control.mode === FluTimelineType.Right
         property bool isAlternate: control.mode === FluTimelineType.Alternate
         property bool hasLable: {
+            if(!model){
+                return false
+            }
             for(var i=0;i<model.count;i++){
                 var lable = model.get(i).lable
                 if(lable !== undefined && undefined !== ""){

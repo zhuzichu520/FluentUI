@@ -58,6 +58,7 @@ Rectangle {
     }
     TableModel {
         id:table_model
+        TableModelColumn {}
     }
     FluTableSortProxyModel{
         id:table_sort_model
@@ -433,12 +434,14 @@ Rectangle {
             right: layout_mouse_table.right
         }
     }
+    TableModel{
+        id:header_model
+        rows: d.header_rows
+        TableModelColumn {}
+    }
     TableView {
         id: header_horizontal
-        model: TableModel{
-            id:header_model
-            rows: d.header_rows
-        }
+        model: header_model
         syncDirection: Qt.Horizontal
         anchors{
             left: header_vertical.right
@@ -597,6 +600,10 @@ Rectangle {
             }
         }
     }
+    TableModel{
+        id:model_rows
+        TableModelColumn { display: "rowIndex" }
+    }
     TableView {
         id: header_vertical
         boundsBehavior: Flickable.StopAtBounds
@@ -608,10 +615,7 @@ Rectangle {
         syncDirection: Qt.Vertical
         syncView: table_view
         clip: true
-        model: TableModel{
-            id:model_rows
-            TableModelColumn { display: "rowIndex" }
-        }
+        model: model_rows
         Connections{
             target: table_model
             function onRowCountChanged(){

@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import FluentUI
 
 Window {
-    default property alias content: layout_content.data
+    default property list<QtObject> contentData
     property string windowIcon: FluApp.windowIcon
     property int launchMode: FluWindowType.Standard
     property var argument:({})
@@ -99,6 +99,9 @@ Window {
             d.isFirstVisible = false
         }
         lifecycle.onVisible(visible)
+    }
+    onWidthChanged: {
+        window.appBar.width = width
     }
     QtObject{
         id:d
@@ -203,71 +206,62 @@ Window {
     FluLoader{
         id:loader_frameless_helper
     }
+    FluLoader{
+        anchors.fill: parent
+        sourceComponent: background
+    }
+    FluLoader{
+        id:loader_app_bar
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: {
+            if(window.useSystemAppBar){
+                return 0
+            }
+            return window.fitsAppBarWindows ? 0 : window.appBar.height
+        }
+        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
+    }
     Item{
-        id:layout_container
+        data: window.contentData
         anchors{
-            fill:parent
+            top: loader_app_bar.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
         }
-        onWidthChanged: {
-            window.appBar.width = width
-        }
-        FluLoader{
-            anchors.fill: parent
-            sourceComponent: background
-        }
-        FluLoader{
-            id:loader_app_bar
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
+        clip: true
+    }
+    FluLoader{
+        property string loadingText: "加载中..."
+        property bool cancel: false
+        id:loader_loading
+        anchors.fill: parent
+    }
+    FluInfoBar{
+        id:infoBar
+        root: window
+    }
+    FluWindowLifecycle{
+        id:lifecycle
+    }
+    FluLoader{
+        id:loader_border
+        anchors.fill: parent
+        sourceComponent: {
+            if(window.useSystemAppBar){
+                return undefined
             }
-            height: {
-                if(window.useSystemAppBar){
-                    return 0
-                }
-                return window.fitsAppBarWindows ? 0 : window.appBar.height
+            if(FluTools.isWindows10OrGreater()){
+                return undefined
             }
-            sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
-        }
-        Item{
-            id:layout_content
-            anchors{
-                top: loader_app_bar.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
+            if(window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
+                return undefined
             }
-            clip: true
-        }
-        FluLoader{
-            property string loadingText: "加载中..."
-            property bool cancel: false
-            id:loader_loading
-            anchors.fill: layout_content
-        }
-        FluInfoBar{
-            id:infoBar
-            root: window
-        }
-        FluWindowLifecycle{
-            id:lifecycle
-        }
-        FluLoader{
-            id:loader_border
-            anchors.fill: parent
-            sourceComponent: {
-                if(window.useSystemAppBar){
-                    return undefined
-                }
-                if(FluTools.isWindows10OrGreater()){
-                    return undefined
-                }
-                if(window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
-                    return undefined
-                }
-                return com_border
-            }
+            return com_border
         }
     }
     function destoryOnClose(){
@@ -313,12 +307,6 @@ Window {
         if(_windowRegister){
             _windowRegister.onResult(data)
         }
-    }
-    function layoutContainer(){
-        return layout_container
-    }
-    function layoutContent(){
-        return layout_content
     }
     function showMaximized(){
         if(FluTools.isWin()){

@@ -11,7 +11,10 @@ ColumnLayout {
         for(var i = 0;i<buttons.length;i++){
             buttons[i].checked = false
         }
-        buttons[currentIndex].checked = true
+        var button = buttons[currentIndex]
+        if(button){
+            button.checked = true
+        }
     }
     Component.onCompleted: {
         for(var i = 0;i<buttons.length;i++){

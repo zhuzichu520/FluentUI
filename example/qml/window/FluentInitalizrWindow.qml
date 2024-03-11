@@ -60,9 +60,6 @@ FluWindow {
                 width: 300
                 placeholderText: qsTr("Create In")
                 anchors.verticalCenter: parent.verticalCenter
-                Component.onCompleted: {
-                    text = FluTools.toLocalPath(StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0])
-                }
             }
             FluButton{
                 text:qsTr("Browse")
@@ -76,7 +73,6 @@ FluWindow {
 
     FolderDialog{
         id:folder_dialog
-        folder: StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0]
         onAccepted: {
             text_box_path.text = FluTools.toLocalPath(currentFolder)
         }

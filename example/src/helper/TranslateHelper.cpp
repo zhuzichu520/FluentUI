@@ -19,6 +19,7 @@ void TranslateHelper::init(QQmlEngine* engine){
     _translator = new QTranslator(this);
     qApp->installTranslator(_translator);
     QString translatorPath = QGuiApplication::applicationDirPath()+"/i18n";
-    _translator->load(QString::fromStdString("%1/example_%2.qm").arg(translatorPath,_current));
-    _engine->retranslate();
+    if(_translator->load(QString::fromStdString("%1/example_%2.qm").arg(translatorPath,_current))){
+        _engine->retranslate();
+    }
 }
