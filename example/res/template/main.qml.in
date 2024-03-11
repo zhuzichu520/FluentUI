@@ -32,4 +32,19 @@ FluWindow {
         }
     }
 
+    Row{
+        anchors{
+            bottom: parent.bottom
+            bottomMargin: 14
+            horizontalCenter: parent.horizontalCenter
+        }
+        FluText{
+            text: qsTr("Author's WeChat ID: ")
+        }
+        FluText{
+            text: "FluentUI"
+            color: FluTheme.fontSecondaryColor
+        }
+    }
+
 }

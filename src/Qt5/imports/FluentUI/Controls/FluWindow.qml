@@ -34,7 +34,7 @@ Window {
     property bool showClose: true
     property bool showMinimize: true
     property bool showMaximize: true
-    property bool showStayTop: true
+    property bool showStayTop: false
     property bool autoMaximize: false
     property bool autoVisible: true
     property bool autoCenter: true

@@ -18,5 +18,10 @@
         <source>Learn FluentUI</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="main.qml" line="42"/>
+        <source>Author&apos;s WeChat ID: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
