@@ -13,10 +13,12 @@ FluWindow {
     height: 400
     fixSize: true
     showMinimize: false
-    showStayTop: false
-    stayTop:true
 
     property string crashFilePath
+
+    Component.onCompleted: {
+        window.stayTop = true
+    }
 
     onInitArgument:
         (argument)=>{
