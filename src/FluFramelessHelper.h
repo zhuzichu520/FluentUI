@@ -54,6 +54,7 @@ public:
     QObject* maximizeButton();
     void setOriginalPos(QVariant pos);
     Q_INVOKABLE void showSystemMenu(QPoint point);
+    Q_INVOKABLE void showMaximized();
     Q_SIGNAL void loadCompleted();
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -67,7 +68,6 @@ private:
     FramelessEventFilter* _nativeEvent = nullptr;
     QQmlProperty _stayTop;
     QQmlProperty _screen;
-    QQmlProperty _originalPos;
     QQmlProperty _fixSize;
     QQmlProperty _realHeight;
     QQmlProperty _realWidth;

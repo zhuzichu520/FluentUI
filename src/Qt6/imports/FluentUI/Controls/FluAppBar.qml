@@ -37,19 +37,19 @@ Rectangle{
     property var maxClickListener : function(){
         if(FluTools.isMacos()){
             if (d.win.visibility === Window.FullScreen)
-                d.win.visibility = Window.Windowed
+                d.win.showNormal()
             else
-                d.win.visibility = Window.FullScreen
+                d.win.showFullScreen()
         }else{
             if (d.win.visibility === Window.Maximized)
-                d.win.visibility = Window.Windowed
+                d.win.showNormal()
             else
-                d.win.visibility = Window.Maximized
+                d.win.showMaximized()
             d.hoverMaxBtn = false
         }
     }
     property var minClickListener: function(){
-        d.win.visibility = Window.Minimized
+        d.win.showMinimized()
     }
     property var closeClickListener : function(){
         d.win.close()

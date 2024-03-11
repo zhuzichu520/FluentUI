@@ -58,8 +58,6 @@ Window {
     signal showSystemMenu
     signal initArgument(var argument)
     signal firstVisible()
-    property point _offsetXY : Qt.point(0,0)
-    property var _originalPos
     property int _realHeight
     property int _realWidth
     property int _appBarHeight: appBar.height
@@ -90,19 +88,6 @@ Window {
     }
     Component.onDestruction: {
         lifecycle.onDestruction()
-    }
-    on_OriginalPosChanged: {
-        if(_originalPos){
-            var dx = (_originalPos.x - screen.virtualX)/screen.devicePixelRatio
-            var dy = (_originalPos.y - screen.virtualY)/screen.devicePixelRatio
-            if(dx<0 && dy<0){
-                _offsetXY = Qt.point(Math.abs(dx)-1,Math.abs(dy)-1)
-            }else{
-                _offsetXY = Qt.point(0,0)
-            }
-        }else{
-            _offsetXY = Qt.point(0,0)
-        }
     }
     onShowSystemMenu: {
         if(loader_frameless_helper.item){
@@ -223,7 +208,6 @@ Window {
         id:layout_container
         anchors{
             fill:parent
-            topMargin: _offsetXY.y
         }
         onWidthChanged: {
             window.appBar.width = width
@@ -336,5 +320,14 @@ Window {
     }
     function layoutContent(){
         return layout_content
+    }
+    function showMaximized(){
+        if(FluTools.isWin()){
+            if(loader_frameless_helper.item){
+                loader_frameless_helper.item.showMaximized()
+            }
+        }else{
+            window.visibility = Qt.WindowMaximized
+        }
     }
 }

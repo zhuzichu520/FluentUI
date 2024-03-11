@@ -72,10 +72,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
         const LONG originalLeft = clientRect->left;
-#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
         const LONG originalRight = clientRect->right;
         const LONG originalBottom = clientRect->bottom;
-#endif
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
             *result = hitTestResult;
@@ -85,23 +83,19 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         bool isMaximum = ::IsZoomed(hwnd);
         offsetXY = QPoint(abs(clientRect->left - originalLeft),abs(clientRect->top - originalTop));
         if(isMaximum || _helper->fullScreen()){
-            _helper->setOriginalPos(QPoint(originalLeft,originalTop));
             offsetSize = 0;
         }else{
-            _helper->setOriginalPos({});
             offsetSize = 1;
         }
         if(!isCompositionEnabled()){
             offsetSize = 0;
         }
-        clientRect->top = originalTop+offsetSize;
-#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
-        if(!isMaximum){
-            clientRect->bottom = originalBottom-offsetSize;
-            clientRect->left = originalLeft+offsetSize;
-            clientRect->right = originalRight-offsetSize;
+        if (!isMaximum || QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)) {
+            clientRect->top = originalTop + offsetSize;
+            clientRect->bottom = originalBottom - offsetSize;
+            clientRect->left = originalLeft + offsetSize;
+            clientRect->right = originalRight - offsetSize;
         }
-#endif
         *result = WVR_REDRAW;
         return true;
     }if(uMsg == WM_NCHITTEST){
@@ -172,13 +166,11 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         *result = ::DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
     }else if(uMsg == WM_GETMINMAXINFO){
-#if QT_VERSION < QT_VERSION_CHECK(6,2,4)
         MINMAXINFO* minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
         auto pixelRatio = _helper->window->devicePixelRatio();
         auto geometry = _helper->window->screen()->availableGeometry();
-        minmaxInfo->ptMaxSize.x = geometry.width()*pixelRatio + offsetXY.x()*2;
-        minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y()*2;
-#endif
+        minmaxInfo->ptMaxSize.x = geometry.width()*pixelRatio + offsetXY.x() * 2;
+        minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y() * 2;
         return false;
     }else if(uMsg == WM_NCRBUTTONDOWN){
         if (wParam == HTCAPTION) {
@@ -302,7 +294,6 @@ void FluFramelessHelper::componentComplete(){
         _stayTop = QQmlProperty(window,"stayTop");
         _screen = QQmlProperty(window,"screen");
         _fixSize = QQmlProperty(window,"fixSize");
-        _originalPos = QQmlProperty(window,"_originalPos");
         _realHeight = QQmlProperty(window,"_realHeight");
         _realWidth = QQmlProperty(window,"_realWidth");
         _appBarHeight = QQmlProperty(window,"_appBarHeight");
@@ -311,7 +302,7 @@ void FluFramelessHelper::componentComplete(){
         if(!_appBar.isNull()){
             _appBar.value<QObject*>()->setProperty("systemMoveEnable",false);
         }
-        window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+        window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
         if(resizeable()){
             window->setFlag(Qt::WindowMaximizeButtonHint);
         }
@@ -324,9 +315,6 @@ void FluFramelessHelper::componentComplete(){
         }else{
             ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         }
-        LONG exstyle = ::GetWindowLong(hwnd, GWL_EXSTYLE);
-        exstyle = exstyle | 0x02000000;
-        ::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
         window->installEventFilter(this);
@@ -379,6 +367,13 @@ void FluFramelessHelper::showSystemMenu(QPoint point){
         ::PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
     }
     ::SetWindowLongPtr(hwnd, GWL_STYLE, style &~ WS_SYSMENU);
+#endif
+}
+
+void FluFramelessHelper::showMaximized(){
+#ifdef Q_OS_WIN
+    HWND hwnd = reinterpret_cast<HWND>(window->winId());
+    ::ShowWindow(hwnd,3);
 #endif
 }
 
@@ -455,10 +450,6 @@ QObject* FluFramelessHelper::maximizeButton(){
         return nullptr;
     }
     return var.value<QObject*>();
-}
-
-void FluFramelessHelper::setOriginalPos(QVariant pos){
-    _originalPos.write(pos);
 }
 
 bool FluFramelessHelper::resizeable(){
