@@ -55,7 +55,7 @@ public:
     Q_INVOKABLE int windowBuildNumber();
     Q_INVOKABLE bool isWindows11OrGreater();
     Q_INVOKABLE bool isWindows10OrGreater();
-    Q_INVOKABLE int getTaskBarHeight(QQuickWindow* window);
+    Q_INVOKABLE QRect desktopAvailableGeometry(QQuickWindow* window);
 };
 
 #endif // FLUTOOLS_H

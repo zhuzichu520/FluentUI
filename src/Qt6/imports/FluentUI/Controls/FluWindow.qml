@@ -236,7 +236,7 @@ Window {
         clip: true
     }
     FluLoader{
-        property string loadingText: "加载中..."
+        property string loadingText
         property bool cancel: false
         id:loader_loading
         anchors.fill: parent
@@ -289,8 +289,8 @@ Window {
     }
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]
-        var taskBarHeight = FluTools.getTaskBarHeight(window)
-        window.setGeometry((Screen.width-window.width)/2+Screen.virtualX,(Screen.height-window.height-taskBarHeight)/2+Screen.virtualY,window.width,window.height)
+        var availableGeometry = FluTools.desktopAvailableGeometry(window)
+        window.setGeometry((availableGeometry.width-window.width)/2+Screen.virtualX,(availableGeometry.height-window.height)/2+Screen.virtualY,window.width,window.height)
     }
     function fixWindowSize(){
         if(fixSize){

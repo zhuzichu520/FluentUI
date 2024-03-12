@@ -21,7 +21,6 @@ FluWindow {
     fitsAppBarWindows: true
     appBar: FluAppBar {
         height: 30
-        darkText: qsTr("Dark Mode")
         showDark: true
         darkClickListener:(button)=>handleDarkChanged(button)
         closeClickListener: ()=>{dialog_close.open()}

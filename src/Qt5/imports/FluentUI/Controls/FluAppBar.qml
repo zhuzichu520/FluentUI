@@ -6,7 +6,8 @@ import FluentUI 1.0
 
 Rectangle{
     property string title: ""
-    property string darkText : "夜间模式"
+    property string darkText : "深色"
+    property string lightText : "浅色"
     property string minimizeText : "最小化"
     property string restoreText : "向下还原"
     property string maximizeText : "最大化"
@@ -199,24 +200,33 @@ Rectangle{
         Component.onCompleted: {
             setHitTestVisible(layout_row)
         }
-        FluToggleSwitch{
+        FluIconButton{
             id:btn_dark
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
+            rightPadding: 2
+            iconSource: FluTheme.dark ? FluentIcons.Brightness : FluentIcons.QuietHours
             Layout.alignment: Qt.AlignVCenter
-            Layout.rightMargin: 5
+            iconSize: 15
             visible: showDark
-            text:darkText
-            textColor:control.textColor
-            checked: FluTheme.dark
-            textRight: false
-            clickListener:()=> darkClickListener(btn_dark)
+            text: FluTheme.dark ? control.lightText : control.darkText
+            radius: 0
+            iconColor:control.textColor
+            onClicked:()=> darkClickListener(btn_dark)
         }
         FluIconButton{
             id:btn_stay_top
             Layout.preferredWidth: 40
             Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
             iconSource : FluentIcons.Pinned
             Layout.alignment: Qt.AlignVCenter
-            iconSize: 13
+            iconSize: 14
             visible: {
                 if(!(d.win instanceof FluWindow)){
                     return false
@@ -232,6 +242,9 @@ Rectangle{
             id:btn_minimize
             Layout.preferredWidth: 40
             Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
             iconSource : FluentIcons.ChromeMinimize
             Layout.alignment: Qt.AlignVCenter
             iconSize: 11
@@ -251,6 +264,9 @@ Rectangle{
             id:btn_maximize
             Layout.preferredWidth: 40
             Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
             iconSource : d.isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
             color: {
                 if(down){
@@ -271,11 +287,14 @@ Rectangle{
         }
         FluIconButton{
             id:btn_close
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
             iconSource : FluentIcons.ChromeClose
             Layout.alignment: Qt.AlignVCenter
             text:closeText
-            Layout.preferredWidth: 40
-            Layout.preferredHeight: 30
             visible: !isMac && showClose
             radius: 0
             iconSize: 10

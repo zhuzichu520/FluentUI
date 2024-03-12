@@ -182,6 +182,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         minmaxInfo->ptMaxSize.x = geometry.width()*pixelRatio + offsetXY.x() * 2;
         minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y() * 2;
 #endif
+        return false;
     }else if(uMsg == WM_NCRBUTTONDOWN){
         if (wParam == HTCAPTION) {
             _helper->showSystemMenu(QCursor::pos());

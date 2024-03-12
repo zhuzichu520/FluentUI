@@ -35,7 +35,7 @@ FluScrollablePage{
                         height: 42
                         radius: 4
                         color: mouse_item.containsMouse ? Qt.lighter(modelData.normal,1.1) : modelData.normal
-                        border.color: modelData.darkest
+                        border.color: modelData.darker
                         FluIcon {
                             anchors.centerIn: parent
                             iconSource: FluentIcons.AcceptMedium
