@@ -165,8 +165,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCACTIVATE){
         *result = ::DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
-    }else if(uMsg == WM_GETMINMAXINFO && QT_VERSION < QT_VERSION_CHECK(6,0,0)){
+    }else if(uMsg == WM_GETMINMAXINFO){
         MINMAXINFO* minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
+#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
+        minmaxInfo->ptMaxPosition.x = 0;
+        minmaxInfo->ptMaxPosition.y = 0;
+        minmaxInfo->ptMaxSize.x = 0;
+        minmaxInfo->ptMaxSize.y = 0;
+#else
         auto pixelRatio = _helper->window->devicePixelRatio();
         auto geometry = _helper->window->screen()->availableGeometry();
         RECT rect;
@@ -175,7 +181,7 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
         minmaxInfo->ptMaxSize.x = geometry.width()*pixelRatio + offsetXY.x() * 2;
         minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y() * 2;
-
+#endif
     }else if(uMsg == WM_NCRBUTTONDOWN){
         if (wParam == HTCAPTION) {
             _helper->showSystemMenu(QCursor::pos());
