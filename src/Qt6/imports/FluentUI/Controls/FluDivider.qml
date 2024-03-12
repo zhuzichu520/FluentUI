@@ -27,8 +27,8 @@ Item {
     height: d.isVertical ? d.parentHeight : spacing*2+size
     FluRectangle{
         color: FluTheme.dividerColor
-        width: d.isVertical ? size : d.parentWidth
-        height: d.isVertical ? d.parentHeight : size
+        width: d.isVertical ? size : control.width
+        height: d.isVertical ? control.height : size
         anchors.centerIn: parent
     }
 }

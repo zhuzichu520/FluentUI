@@ -25,20 +25,20 @@
         <translation type="unfinished">友情提示</translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="48"/>
-        <location filename="qml-Qt6/window/CrashWindow.qml" line="48"/>
+        <location filename="qml/window/CrashWindow.qml" line="50"/>
+        <location filename="qml-Qt6/window/CrashWindow.qml" line="50"/>
         <source>We apologize for the inconvenience caused by an unexpected error</source>
         <translation type="unfinished">对于意外错误给您带来的不便，我们深表歉意</translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="60"/>
-        <location filename="qml-Qt6/window/CrashWindow.qml" line="60"/>
+        <location filename="qml/window/CrashWindow.qml" line="62"/>
+        <location filename="qml-Qt6/window/CrashWindow.qml" line="62"/>
         <source>Report Logs</source>
         <translation type="unfinished">上报日志</translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="70"/>
-        <location filename="qml-Qt6/window/CrashWindow.qml" line="70"/>
+        <location filename="qml/window/CrashWindow.qml" line="72"/>
+        <location filename="qml-Qt6/window/CrashWindow.qml" line="72"/>
         <source>Restart Program</source>
         <translation type="unfinished">重启程序</translation>
     </message>
@@ -497,7 +497,7 @@
         <location filename="qml/global/ItemsOriginal.qml" line="363"/>
         <location filename="qml-Qt6/global/ItemsOriginal.qml" line="363"/>
         <source>Chart</source>
-        <translation type="unfinished">表格</translation>
+        <translation type="unfinished">图表</translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="366"/>

@@ -137,6 +137,7 @@ if(WIN32)
     )
 endif()
 
+#复制FluentUI源码到运行目录下，用于脚手架生成
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/source/)
 file(COPY ${CMAKE_SOURCE_DIR}/src/ DESTINATION ${APPLICATION_DIR_PATH}/source/)
 

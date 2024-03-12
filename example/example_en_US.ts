@@ -25,20 +25,20 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="48"/>
-        <location filename="qml-Qt6/window/CrashWindow.qml" line="48"/>
+        <location filename="qml/window/CrashWindow.qml" line="50"/>
+        <location filename="qml-Qt6/window/CrashWindow.qml" line="50"/>
         <source>We apologize for the inconvenience caused by an unexpected error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="60"/>
-        <location filename="qml-Qt6/window/CrashWindow.qml" line="60"/>
+        <location filename="qml/window/CrashWindow.qml" line="62"/>
+        <location filename="qml-Qt6/window/CrashWindow.qml" line="62"/>
         <source>Report Logs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="70"/>
-        <location filename="qml-Qt6/window/CrashWindow.qml" line="70"/>
+        <location filename="qml/window/CrashWindow.qml" line="72"/>
+        <location filename="qml-Qt6/window/CrashWindow.qml" line="72"/>
         <source>Restart Program</source>
         <translation type="unfinished"></translation>
     </message>
