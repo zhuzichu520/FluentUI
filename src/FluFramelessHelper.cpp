@@ -165,13 +165,16 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
     }else if(uMsg == WM_NCACTIVATE){
         *result = ::DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
         return true;
-    }else if(uMsg == WM_GETMINMAXINFO){
+    }else if(uMsg == WM_GETMINMAXINFO && QT_VERSION < QT_VERSION_CHECK(6,0,0)){
         MINMAXINFO* minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
-        auto pixelRatio = _helper->window->devicePixelRatio();
-        auto geometry = _helper->window->screen()->availableGeometry();
-        minmaxInfo->ptMaxSize.x = geometry.width()*pixelRatio + offsetXY.x() * 2;
-        minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y() * 2;
-        return false;
+        RECT rect;
+        SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
+        int cx = rect.right - rect.left + offsetXY.x()*2;
+        int cy = rect.bottom - rect.top + offsetXY.y()*2;
+        minmaxInfo->ptMaxPosition.x = rect.left - offsetXY.x();
+        minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
+        minmaxInfo->ptMaxSize.x = cx;
+        minmaxInfo->ptMaxSize.y = cy;
     }else if(uMsg == WM_NCRBUTTONDOWN){
         if (wParam == HTCAPTION) {
             _helper->showSystemMenu(QCursor::pos());
