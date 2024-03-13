@@ -50,6 +50,10 @@ void InitalizrHelper::templateToFile(const QString& source,const QString& dest,A
         QTextStream in(&file);
         QString content = in.readAll().arg(std::forward<Args>(args)...);
         file.close();
+        QDir outputDir = QFileInfo(dest).absoluteDir();
+        if(!outputDir.exists()){
+            outputDir.mkpath(outputDir.absolutePath());
+        }
         QFile outputFile(dest);
         if (outputFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
             QTextStream out(&outputFile);
@@ -92,12 +96,13 @@ void InitalizrHelper::generate(const QString& name,const QString& path){
     QDir fluentDir(projectDir.filePath("FluentUI"));
     copyDir(QDir(QGuiApplication::applicationDirPath()+"/source"),fluentDir);
     templateToFile(":/example/res/template/CMakeLists.txt.in",projectDir.filePath("CMakeLists.txt"),name);
-    templateToFile(":/example/res/template/main.cpp.in",projectDir.filePath("main.cpp"),name);
-    templateToFile(":/example/res/template/main.qml.in",projectDir.filePath("main.qml"),name);
-    templateToFile(":/example/res/template/en_US.ts.in",projectDir.filePath(name+"_en_US.ts"),name);
-    templateToFile(":/example/res/template/zh_CN.ts.in",projectDir.filePath(name+"_zh_CN.ts"),name);
-    copyFile(":/example/res/template/App.qml.in",projectDir.filePath("App.qml"));
-    copyFile(":/example/res/template/qml.qrc.in",projectDir.filePath("qml.qrc"));
-    copyFile(":/example/res/template/logo.ico.in",projectDir.filePath("logo.ico"));
+    templateToFile(":/example/res/template/src/CMakeLists.txt.in",projectDir.filePath("src/CMakeLists.txt"),name);
+    templateToFile(":/example/res/template/src/main.cpp.in",projectDir.filePath("src/main.cpp"),name);
+    templateToFile(":/example/res/template/src/main.qml.in",projectDir.filePath("src/main.qml"),name);
+    templateToFile(":/example/res/template/src/en_US.ts.in",projectDir.filePath("src/"+name+"_en_US.ts"),name);
+    templateToFile(":/example/res/template/src/zh_CN.ts.in",projectDir.filePath("src/"+name+"_zh_CN.ts"),name);
+    copyFile(":/example/res/template/src/App.qml.in",projectDir.filePath("src/App.qml"));
+    copyFile(":/example/res/template/src/qml.qrc.in",projectDir.filePath("src/qml.qrc"));
+    copyFile(":/example/res/template/src/logo.ico.in",projectDir.filePath("src/logo.ico"));
     return this->success(projectPath);
 }

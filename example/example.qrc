@@ -199,12 +199,13 @@
         <file>qml/page/T_SplitLayout.qml</file>
         <file>qml/window/FluentInitalizrWindow.qml</file>
         <file>res/template/CMakeLists.txt.in</file>
-        <file>res/template/App.qml.in</file>
-        <file>res/template/logo.ico.in</file>
-        <file>res/template/main.cpp.in</file>
-        <file>res/template/main.qml.in</file>
-        <file>res/template/qml.qrc.in</file>
-        <file>res/template/en_US.ts.in</file>
-        <file>res/template/zh_CN.ts.in</file>
+        <file>res/template/src/App.qml.in</file>
+        <file>res/template/src/CMakeLists.txt.in</file>
+        <file>res/template/src/en_US.ts.in</file>
+        <file>res/template/src/logo.ico.in</file>
+        <file>res/template/src/main.cpp.in</file>
+        <file>res/template/src/main.qml.in</file>
+        <file>res/template/src/qml.qrc.in</file>
+        <file>res/template/src/zh_CN.ts.in</file>
     </qresource>
 </RCC>

@@ -7,16 +7,44 @@ FluTextBox{
     property var items:[]
     property string emptyText: qsTr("No results found")
     property int autoSuggestBoxReplacement: FluentIcons.Search
+    property var filter: function(item){
+        if(item.title.indexOf(control.text)!==-1){
+            return true
+        }
+        return false
+    }
     signal itemClicked(var data)
-    signal handleClicked
     id:control
     Component.onCompleted: {
-        loadData()
+        d.loadData()
     }
     Item{
         id:d
         property bool flagVisible: true
         property var window : Window.window
+        function handleClick(modelData){
+            control_popup.visible = false
+            control.itemClicked(modelData)
+            d.updateText(modelData.title)
+        }
+        function updateText(text){
+            d.flagVisible = false
+            control.text = text
+            d.flagVisible = true
+        }
+        function loadData(){
+            var result = []
+            if(items==null){
+                list_view.model = result
+                return
+            }
+            items.map(function(item){
+                if(control.filter(item)){
+                    result.push(item)
+                }
+            })
+            list_view.model = result
+        }
     }
     onActiveFocusChanged: {
         if(!activeFocus){
@@ -66,7 +94,7 @@ FluTextBox{
                     height: 38
                     width: control.width
                     onClicked:{
-                        handleClick(modelData)
+                        d.handleClick(modelData)
                     }
                     background: Rectangle{
                         FluFocusRectangle{
@@ -96,7 +124,7 @@ FluTextBox{
         }
     }
     onTextChanged: {
-        loadData()
+        d.loadData()
         if(d.flagVisible){
             var pos = control.mapToItem(null, 0, 0)
             if(d.window.height>pos.y+control.height+container.implicitHeight){
@@ -108,28 +136,5 @@ FluTextBox{
             }
             control_popup.visible = true
         }
-    }
-    function handleClick(modelData){
-        control_popup.visible = false
-        control.itemClicked(modelData)
-        updateText(modelData.title)
-    }
-    function updateText(text){
-        d.flagVisible = false
-        control.text = text
-        d.flagVisible = true
-    }
-    function loadData(){
-        var result = []
-        if(items==null){
-            list_view.model = result
-            return
-        }
-        items.map(function(item){
-            if(item.title.indexOf(control.text)!==-1){
-                result.push(item)
-            }
-        })
-        list_view.model = result
     }
 }
