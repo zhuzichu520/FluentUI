@@ -99,5 +99,7 @@
         <file>FluentUI/Image/btn_min_pushed.png</file>
         <file>FluentUI/Controls/FluImageButton.qml</file>
         <file>FluentUI/Controls/FluSplitLayout.qml</file>
+        <file>FluentUI/i18n/fluentuiplugin_en_US.qm</file>
+        <file>FluentUI/i18n/fluentuiplugin_zh_CN.qm</file>
     </qresource>
 </RCC>

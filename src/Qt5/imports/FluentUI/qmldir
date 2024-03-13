@@ -3,12 +3,6 @@ classname FluentUIPlugin
 designersupported
 typeinfo plugins.qmltypes
 
-ColorPicker 1.0 Controls/ColorPicker/ColorPicker.qml
-Checkerboard 1.0 Controls/ColorPicker/Content/Checkerboard.qml
-ColorSlider 1.0 Controls/ColorPicker/Content/ColorSlider.qml
-NumberBox 1.0 Controls/ColorPicker/Content/NumberBox.qml
-PanelBorder 1.0 Controls/ColorPicker/Content/PanelBorder.qml
-SBPicker 1.0 Controls/ColorPicker/Content/SBPicker.qml
 FluAcrylic 1.0 Controls/FluAcrylic.qml
 FluAppBar 1.0 Controls/FluAppBar.qml
 FluArea 1.0 Controls/FluArea.qml
@@ -21,8 +15,8 @@ FluCalendarView 1.0 Controls/FluCalendarView.qml
 FluCarousel 1.0 Controls/FluCarousel.qml
 FluChart 1.0 Controls/FluChart.qml
 FluCheckBox 1.0 Controls/FluCheckBox.qml
+FluClip 1.0 Controls/FluClip.qml
 FluColorPicker 1.0 Controls/FluColorPicker.qml
-FluColorView 1.0 Controls/FluColorView.qml
 FluComboBox 1.0 Controls/FluComboBox.qml
 FluContentDialog 1.0 Controls/FluContentDialog.qml
 FluContentPage 1.0 Controls/FluContentPage.qml
@@ -38,8 +32,11 @@ FluFocusRectangle 1.0 Controls/FluFocusRectangle.qml
 FluIcon 1.0 Controls/FluIcon.qml
 FluIconButton 1.0 Controls/FluIconButton.qml
 FluImage 1.0 Controls/FluImage.qml
+FluImageButton 1.0 Controls/FluImageButton.qml
 FluInfoBar 1.0 Controls/FluInfoBar.qml
 FluItemDelegate 1.0 Controls/FluItemDelegate.qml
+FluLoader 1.0 Controls/FluLoader.qml
+FluLoadingButton 1.0 Controls/FluLoadingButton.qml
 FluMenu 1.0 Controls/FluMenu.qml
 FluMenuBar 1.0 Controls/FluMenuBar.qml
 FluMenuBarItem 1.0 Controls/FluMenuBarItem.qml
@@ -60,20 +57,24 @@ FluPivot 1.0 Controls/FluPivot.qml
 FluPivotItem 1.0 Controls/FluPivotItem.qml
 FluPopup 1.0 Controls/FluPopup.qml
 FluProgressBar 1.0 Controls/FluProgressBar.qml
+FluProgressButton 1.0 Controls/FluProgressButton.qml
 FluProgressRing 1.0 Controls/FluProgressRing.qml
 FluQRCode 1.0 Controls/FluQRCode.qml
 FluRadioButton 1.0 Controls/FluRadioButton.qml
 FluRadioButtons 1.0 Controls/FluRadioButtons.qml
+FluRangeSlider 1.0 Controls/FluRangeSlider.qml
 FluRatingControl 1.0 Controls/FluRatingControl.qml
 FluRemoteLoader 1.0 Controls/FluRemoteLoader.qml
-FluScreenshot 1.0 Controls/FluScreenshot.qml
 FluScrollBar 1.0 Controls/FluScrollBar.qml
 FluScrollIndicator 1.0 Controls/FluScrollIndicator.qml
 FluScrollablePage 1.0 Controls/FluScrollablePage.qml
 FluShadow 1.0 Controls/FluShadow.qml
+FluShortcutPicker 1.0 Controls/FluShortcutPicker.qml
 FluSlider 1.0 Controls/FluSlider.qml
 FluSpinBox 1.0 Controls/FluSpinBox.qml
-FluStatusView 1.0 Controls/FluStatusView.qml
+FluSplitLayout 1.0 Controls/FluSplitLayout.qml
+FluStaggeredLayout 1.0 Controls/FluStaggeredLayout.qml
+FluStatusLayout 1.0 Controls/FluStatusLayout.qml
 FluTabView 1.0 Controls/FluTabView.qml
 FluTableView 1.0 Controls/FluTableView.qml
 FluText 1.0 Controls/FluText.qml
@@ -89,13 +90,5 @@ FluTooltip 1.0 Controls/FluTooltip.qml
 FluTour 1.0 Controls/FluTour.qml
 FluTreeView 1.0 Controls/FluTreeView.qml
 FluWindow 1.0 Controls/FluWindow.qml
-FluRangeSlider 1.0 Controls/FluRangeSlider.qml
-FluStaggeredView 1.0 Controls/FluStaggeredView.qml
-FluProgressButton 1.0 Controls/FluProgressButton.qml
-FluLoadingButton 1.0 Controls/FluLoadingButton.qml
-FluClip 1.0 Controls/FluClip.qml
-FluLoader 1.0 Controls/FluLoader.qml
-FluShortcutPicker 1.0 Controls/FluShortcutPicker.qml
-FluSplitLayout 1.0 Controls/FluSplitLayout.qml
-FluStaggeredLayout 1.0 Controls/FluStaggeredLayout.qml
+
 plugin fluentuiplugin

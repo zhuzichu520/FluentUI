@@ -6,14 +6,14 @@ import FluentUI
 
 Rectangle{
     property string title: ""
-    property string darkText : "深色"
-    property string lightText : "浅色"
-    property string minimizeText : "最小化"
-    property string restoreText : "向下还原"
-    property string maximizeText : "最大化"
-    property string closeText : "关闭"
-    property string stayTopText : "置顶"
-    property string stayTopCancelText : "取消置顶"
+    property string darkText : qsTr("Dark")
+    property string lightText : qsTr("Light")
+    property string minimizeText : qsTr("Minimize")
+    property string restoreText : qsTr("Restore")
+    property string maximizeText : qsTr("Maximize")
+    property string closeText : qsTr("Close")
+    property string stayTopText : qsTr("Sticky on Top")
+    property string stayTopCancelText : qsTr("Sticky on Top cancelled")
     property color textColor: FluTheme.dark ? "#FFFFFF" : "#000000"
     property color minimizeNormalColor: FluTheme.itemNormalColor
     property color minimizeHoverColor: FluTheme.itemHoverColor

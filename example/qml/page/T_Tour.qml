@@ -11,9 +11,6 @@ FluScrollablePage{
 
     FluTour{
         id:tour
-        finishText: qsTr("Finish")
-        nextText: qsTr("Next")
-        previousText: qsTr("Previous")
         steps:[
             {title:qsTr("Upload File"),description: qsTr("Put your files here."),target:()=>btn_upload},
             {title:qsTr("Save"),description: qsTr("Save your changes."),target:()=>btn_save},

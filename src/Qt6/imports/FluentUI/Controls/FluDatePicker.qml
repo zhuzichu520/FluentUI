@@ -10,11 +10,11 @@ Rectangle {
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property bool showYear: true
     property var current
-    property string yearText: "年"
-    property string monthText: "月"
-    property string dayText: "日"
-    property string cancelText: "取消"
-    property string okText: "确定"
+    property string yearText: qsTr("Year")
+    property string monthText: qsTr("Month")
+    property string dayText: qsTr("Day")
+    property string cancelText: qsTr("Cancel")
+    property string okText: qsTr("OK")
     signal accepted()
     id:control
     color: {

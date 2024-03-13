@@ -5,8 +5,8 @@ import FluentUI 1.0
 
 Item {
     signal requestPage(int page,int count)
-    property string previousText: "<上一页"
-    property string nextText: "下一页>"
+    property string previousText: qsTr("<Previous")
+    property string nextText: qsTr("Next>")
     property int pageCurrent: 0
     property int itemCount: 0
     property int pageButtonCount: 5

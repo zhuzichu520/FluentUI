@@ -8,6 +8,7 @@
 #include <QQmlContext>
 #include <QJsonObject>
 #include <QQmlEngine>
+#include <QTranslator>
 #include "FluWindowRegister.h"
 #include "stdafx.h"
 #include "singleton.h"
@@ -32,7 +33,7 @@ public:
     static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE void run();
     Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluWindowRegister* windowRegister = nullptr);
-    Q_INVOKABLE void init(QObject *target);
+    Q_INVOKABLE void init(QObject *target,QLocale locale = QLocale::system());
     Q_INVOKABLE void exit(int retCode = 0);
     Q_INVOKABLE QVariant createWindowRegister(QQuickWindow* window,const QString& path);
     void addWindow(QQuickWindow* window);
@@ -40,6 +41,7 @@ public:
 private:
     QMap<quint64, QQuickWindow*> _windows;
     QQmlEngine *_engine;
+    QTranslator* _translator = nullptr;
 };
 
 #endif // FLUAPP_H

@@ -53,7 +53,7 @@ FluScrollablePage{
             FluButton{
                 text:"Loading"
                 onClicked: {
-                    showLoading(qsTr("Loading..."))
+                    showLoading()
                 }
             }
         }

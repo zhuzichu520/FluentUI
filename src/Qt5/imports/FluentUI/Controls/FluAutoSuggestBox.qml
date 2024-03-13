@@ -5,7 +5,7 @@ import FluentUI 1.0
 
 FluTextBox{
     property var items:[]
-    property string emptyText: "没有找到结果"
+    property string emptyText: qsTr("No results found")
     property int autoSuggestBoxReplacement: FluentIcons.Search
     signal itemClicked(var data)
     signal handleClicked
@@ -99,12 +99,12 @@ FluTextBox{
         loadData()
         if(d.flagVisible){
             var pos = control.mapToItem(null, 0, 0)
-            if(window.height>pos.y+control.height+container.implicitHeight){
+            if(d.window.height>pos.y+control.height+container.implicitHeight){
                 control_popup.y = control.height
             } else if(pos.y>container.implicitHeight){
                 control_popup.y = -container.implicitHeight
             } else {
-                control_popup.y = window.height-(pos.y+container.implicitHeight)
+                control_popup.y = d.window.height-(pos.y+container.implicitHeight)
             }
             control_popup.visible = true
         }

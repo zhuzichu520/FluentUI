@@ -10,9 +10,9 @@ Popup{
     property Component nextButton: com_next_button
     property Component prevButton: com_prev_button
     property int index : 0
-    property string finishText: "结束导览"
-    property string nextText: "下一步"
-    property string previousText: "上一步"
+    property string finishText: qsTr("Finish")
+    property string nextText: qsTr("Next")
+    property string previousText: qsTr("Previous")
     id:control
     padding: 0
     parent: Overlay.overlay

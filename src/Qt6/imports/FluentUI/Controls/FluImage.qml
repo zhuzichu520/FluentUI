@@ -3,7 +3,7 @@ import QtQuick.Controls
 import FluentUI
 
 Image {
-    property string errorButtonText: "重新加载"
+    property string errorButtonText: qsTr("Reload")
     property var clickErrorListener : function(){
         image.source = ""
         image.source = control.source

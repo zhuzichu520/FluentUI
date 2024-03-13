@@ -43,6 +43,21 @@ else()
     set(CMAKE_AUTOUIC ON)
 endif()
 
+#国际化
+find_program(QT_LUPDATE NAMES lupdate)
+find_program(QT_LRELEASE NAMES lrelease)
+if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}_en_US.qm)
+    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+    execute_process(COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+endif ()
+if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}_zh_CN.qm)
+    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_zh_CN.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+    execute_process(COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_zh_CN.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+endif ()
+
+file(GLOB QM_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.qm)
+file(COPY ${QM_FILE_PATHS} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/Qt${QT_VERSION_MAJOR}/imports/FluentUI/i18n")
+
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
 foreach(filepath ${CPP_FILES})
@@ -67,7 +82,7 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     endforeach(filepath)
 
     #遍历所有资源文件
-    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.js)
+    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.js *.qm)
     foreach(filepath ${RES_PATHS})
         if(${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
             string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})

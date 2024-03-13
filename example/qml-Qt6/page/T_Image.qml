@@ -24,7 +24,6 @@ FluScrollablePage{
                 width: 384
                 height: 240
                 source: "https://gitee.com/zhu-zichu/zhu-zichu/raw/74f075efe2f8d3c3bb7ba3c2259e403450e4050b/image/banner_4.jpg"
-                errorButtonText: qsTr("Reload")
                 onStatusChanged:{
                     if(status === Image.Error){
                         showError(qsTr("The image failed to load, please reload"))

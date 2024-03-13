@@ -8,9 +8,9 @@ FluPopup {
     id: control
     property string title: ""
     property string message: ""
-    property string neutralText: "Close"
-    property string negativeText: "Cancel"
-    property string positiveText: "OK"
+    property string neutralText: qsTr("Close")
+    property string negativeText: qsTr("Cancel")
+    property string positiveText: qsTr("OK")
     property int messageTextFormart: Text.AutoText
     property int delayTime: 100
     property int buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton

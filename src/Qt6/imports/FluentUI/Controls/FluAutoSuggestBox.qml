@@ -4,18 +4,18 @@ import FluentUI
 
 FluTextBox{
     property var items:[]
-    property string emptyText: "没有找到结果"
+    property string emptyText: qsTr("No results found")
     property int autoSuggestBoxReplacement: FluentIcons.Search
-    property var window : Window.window
     signal itemClicked(var data)
     signal handleClicked
     id:control
     Component.onCompleted: {
         loadData()
     }
-    QtObject{
+    Item{
         id:d
         property bool flagVisible: true
+        property var window : Window.window
     }
     onActiveFocusChanged: {
         if(!activeFocus){
@@ -98,12 +98,12 @@ FluTextBox{
         loadData()
         if(d.flagVisible){
             var pos = control.mapToItem(null, 0, 0)
-            if(window.height>pos.y+control.height+container.implicitHeight){
+            if(d.window.height>pos.y+control.height+container.implicitHeight){
                 control_popup.y = control.height
             } else if(pos.y>container.implicitHeight){
                 control_popup.y = -container.implicitHeight
             } else {
-                control_popup.y = window.height-(pos.y+container.implicitHeight)
+                control_popup.y = d.window.height-(pos.y+container.implicitHeight)
             }
             control_popup.visible = true
         }

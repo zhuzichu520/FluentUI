@@ -24,11 +24,6 @@ FluScrollablePage{
             }
             FluDatePicker{
                 current: new Date()
-                yearText: qsTr("Year")
-                monthText: qsTr("Month")
-                dayText: qsTr("Day")
-                cancelText: qsTr("Cancel")
-                okText: qsTr("OK")
                 onAccepted: {
                     showSuccess(current.toLocaleDateString())
                 }

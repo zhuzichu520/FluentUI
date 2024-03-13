@@ -243,7 +243,7 @@ Window {
         anchors.fill: parent
     }
     FluInfoBar{
-        id:infoBar
+        id:info_bar
         root: window
     }
     FluWindowLifecycle{
@@ -268,7 +268,7 @@ Window {
     function destoryOnClose(){
         lifecycle.onDestoryOnClose()
     }
-    function showLoading(text = "加载中...",cancel = true){
+    function showLoading(text = qsTr("Loading..."),cancel = true){
         loader_loading.loadingText = text
         loader_loading.cancel = cancel
         loader_loading.sourceComponent = com_loading
@@ -277,16 +277,16 @@ Window {
         loader_loading.sourceComponent = undefined
     }
     function showSuccess(text,duration,moremsg){
-        infoBar.showSuccess(text,duration,moremsg)
+        info_bar.showSuccess(text,duration,moremsg)
     }
     function showInfo(text,duration,moremsg){
-        infoBar.showInfo(text,duration,moremsg)
+        info_bar.showInfo(text,duration,moremsg)
     }
     function showWarning(text,duration,moremsg){
-        infoBar.showWarning(text,duration,moremsg)
+        info_bar.showWarning(text,duration,moremsg)
     }
     function showError(text,duration,moremsg){
-        infoBar.showError(text,duration,moremsg)
+        info_bar.showError(text,duration,moremsg)
     }
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]

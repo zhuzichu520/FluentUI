@@ -3,10 +3,10 @@ import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 FluMenu{
-    property string cutText : "剪切"
-    property string copyText : "复制"
-    property string pasteText : "粘贴"
-    property string selectAllText : "全选"
+    property string cutText : qsTr("Cut")
+    property string copyText : qsTr("Copy")
+    property string pasteText : qsTr("Paste")
+    property string selectAllText : qsTr("Select All")
     property var inputItem
     id:menu
     enableAnimation: false
