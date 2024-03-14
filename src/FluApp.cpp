@@ -18,10 +18,11 @@ FluApp::~FluApp(){
 }
 
 void FluApp::init(QObject *target,QLocale locale){
+    _locale = locale;
     _engine = qmlEngine(target);
     _translator = new QTranslator(this);
     qApp->installTranslator(_translator);
-    const QStringList uiLanguages = locale.uiLanguages();
+    const QStringList uiLanguages = _locale.uiLanguages();
     for (const QString &name : uiLanguages) {
         const QString baseName = "fluentuiplugin_" + QLocale(name).name();
         if (_translator->load(":/qt/qml/FluentUI/i18n/"+ baseName)) {

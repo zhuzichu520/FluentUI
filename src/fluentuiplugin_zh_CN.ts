@@ -65,9 +65,13 @@
     <name>FluCalendarPicker</name>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluCalendarPicker.qml" line="11"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluCalendarPicker.qml" line="11"/>
         <source>Please select a date</source>
         <translation type="unfinished">请选择日期</translation>
+    </message>
+    <message>
+        <location filename="Qt6/imports/FluentUI/Controls/FluCalendarPicker.qml" line="11"/>
+        <source>Pick a date</source>
+        <translation type="unfinished">选择日期</translation>
     </message>
 </context>
 <context>

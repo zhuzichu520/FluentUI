@@ -49,7 +49,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluBreadcrumbBar.qml"),uri,major,minor,"FluBreadcrumbBar");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluButton.qml"),uri,major,minor,"FluButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluCalendarPicker.qml"),uri,major,minor,"FluCalendarPicker");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluCalendarView.qml"),uri,major,minor,"FluCalendarView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluCarousel.qml"),uri,major,minor,"FluCarousel");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluChart.qml"),uri,major,minor,"FluChart");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluCheckBox.qml"),uri,major,minor,"FluCheckBox");
