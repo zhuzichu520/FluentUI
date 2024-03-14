@@ -465,14 +465,7 @@ Rectangle {
                                                 }
                                                 onClicked: {
                                                     d.displayDate = new Date(layout_congrol.year,month)
-                                                    timer_delay_start.restart()
-                                                }
-                                                Timer{
-                                                    id:timer_delay_start
-                                                    interval: 100
-                                                    onTriggered: {
-                                                        d.pageIndex = 0
-                                                    }
+                                                    d.pageIndex = 0
                                                 }
                                             }
                                         }
