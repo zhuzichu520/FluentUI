@@ -242,7 +242,6 @@ Rectangle {
                                     var toYear = calender_model.to.getFullYear()
                                     return toYear-fromYear+1
                                 }
-                                snapMode: GridView.SnapOneRow
                                 highlightRangeMode: GridView.StrictlyEnforceRange
                                 onCurrentIndexChanged:{
                                     var year = currentIndex + calender_model.from.getFullYear()
@@ -348,7 +347,6 @@ Rectangle {
                             ListView{
                                 id:listview
                                 ScrollBar.vertical: FluScrollBar {}
-                                snapMode: ListView.SnapOneItem
                                 highlightRangeMode: ListView.StrictlyEnforceRange
                                 clip: true
                                 boundsBehavior: ListView.StopAtBounds
@@ -492,7 +490,6 @@ Rectangle {
                                 ListView{
                                     id:listview
                                     property bool isCompleted: false
-                                    snapMode: ListView.SnapOneItem
                                     Layout.fillWidth: true
                                     Layout.fillHeight: true
                                     highlightRangeMode: ListView.StrictlyEnforceRange
