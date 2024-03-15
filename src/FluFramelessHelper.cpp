@@ -342,9 +342,11 @@ void FluFramelessHelper::componentComplete(){
             _appBar.value<QObject*>()->setProperty("systemMoveEnable",false);
         }
         window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
-        if(FluTools::getInstance()->isSoftware() && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)){
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+        if(FluTools::getInstance()->isSoftware()){
             window->setFlag(Qt::FramelessWindowHint,false);
         }
+#endif
         if(resizeable()){
             window->setFlag(Qt::WindowMaximizeButtonHint);
         }
