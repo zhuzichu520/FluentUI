@@ -9,11 +9,19 @@ FluWindow {
     property Component contentDelegate
     autoVisible: false
     autoCenter: false
-    autoDestory: false
+    autoDestory: true
     fixSize: true
     Loader{
         anchors.fill: parent
-        sourceComponent: control.visible ? control.contentDelegate : undefined
+        sourceComponent: {
+            if(control.autoDestory){
+                return control.visible ? control.contentDelegate : undefined
+            }
+            return control.contentDelegate
+        }
+    }
+    closeListener: function(event){
+        event.accepted = true
     }
     function showDialog(){
         var x = transientParent.x + (transientParent.width - width)/2
