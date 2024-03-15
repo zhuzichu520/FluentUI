@@ -100,5 +100,6 @@
         <file>FluentUI/Controls/FluSplitLayout.qml</file>
         <file>FluentUI/i18n/fluentuiplugin_en_US.qm</file>
         <file>FluentUI/i18n/fluentuiplugin_zh_CN.qm</file>
+        <file>FluentUI/Controls/FluWindowDialog.qml</file>
     </qresource>
 </RCC>

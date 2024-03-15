@@ -44,7 +44,6 @@ Item {
             "/login":"qrc:/example/qml/window/LoginWindow.qml",
             "/hotload":"qrc:/example/qml/window/HotloadWindow.qml",
             "/crash":"qrc:/example/qml/window/CrashWindow.qml",
-            "/fluentInitalizr":"qrc:/example/qml/window/FluentInitalizrWindow.qml",
             "/singleTaskWindow":"qrc:/example/qml/window/SingleTaskWindow.qml",
             "/standardWindow":"qrc:/example/qml/window/StandardWindow.qml",
             "/singleInstanceWindow":"qrc:/example/qml/window/SingleInstanceWindow.qml",

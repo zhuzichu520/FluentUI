@@ -194,6 +194,14 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
             auto pos = _helper->window->position();
             _helper->showSystemMenu(QPoint(pos.x(),pos.y()+_helper->getAppBarHeight()));
         }
+    }else if(uMsg == WM_SYSCOMMAND){
+        if(wParam == SC_MINIMIZE){
+            if(_helper->window->transientParent()){
+                _helper->window->transientParent()->showMinimized();
+            }
+            return true;
+        }
+        return false;
     }
     return false;
 #endif

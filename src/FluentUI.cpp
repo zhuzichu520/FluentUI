@@ -68,6 +68,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluIcon.qml"),uri,major,minor,"FluIcon");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluIconButton.qml"),uri,major,minor,"FluIconButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluImage.qml"),uri,major,minor,"FluImage");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluImageButton.qml"),uri,major,minor,"FluImageButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluInfoBar.qml"),uri,major,minor,"FluInfoBar");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluItemDelegate.qml"),uri,major,minor,"FluItemDelegate");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluMenu.qml"),uri,major,minor,"FluMenu");
@@ -118,6 +119,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTour.qml"),uri,major,minor,"FluTour");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTreeView.qml"),uri,major,minor,"FluTreeView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluWindow.qml"),uri,major,minor,"FluWindow");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluWindowDialog.qml"),uri,major,minor,"FluWindowDialog");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRangeSlider.qml"),uri,major,minor,"FluRangeSlider");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStaggeredLayout.qml"),uri,major,minor,"FluStaggeredLayout");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluProgressButton.qml"),uri,major,minor,"FluProgressButton");

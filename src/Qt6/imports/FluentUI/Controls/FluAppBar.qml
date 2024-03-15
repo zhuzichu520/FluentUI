@@ -50,7 +50,11 @@ Rectangle{
         }
     }
     property var minClickListener: function(){
-        d.win.showMinimized()
+        if(d.win.transientParent != null){
+            d.win.transientParent.showMinimized()
+        }else{
+            d.win.showMinimized()
+        }
     }
     property var closeClickListener : function(){
         d.win.close()

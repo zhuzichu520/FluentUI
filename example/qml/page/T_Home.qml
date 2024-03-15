@@ -3,12 +3,17 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import "../window"
 import "../global"
 
 FluScrollablePage{
 
     launchMode: FluPageType.SingleTask
     animDisabled: true
+
+    FluentInitalizrWindow{
+        id:fluent_initalizr
+    }
 
     ListModel{
         id: model_header
@@ -27,11 +32,10 @@ FluScrollablePage{
             desc: qsTr("FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.")
             url: "https://github.com/zhuzichu520/FluentUI"
             clicked: function(model){
-                FluApp.navigate("/fluentInitalizr")
+                fluent_initalizr.showDialog()
             }
         }
     }
-
     Item{
         Layout.fillWidth: true
         Layout.preferredHeight: 320
@@ -60,7 +64,6 @@ FluScrollablePage{
                 leftMargin: 20
             }
         }
-
         Component{
             id:com_grallery
             Item{

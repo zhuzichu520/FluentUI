@@ -2315,6 +2315,87 @@ Module {
     }
     Component {
         prototype: "QQuickRectangle"
+        name: "FluentUI/FluAppBar 1.0"
+        exports: ["FluentUI/FluAppBar 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "title"; type: "string" }
+        Property { name: "darkText"; type: "string" }
+        Property { name: "lightText"; type: "string" }
+        Property { name: "minimizeText"; type: "string" }
+        Property { name: "restoreText"; type: "string" }
+        Property { name: "maximizeText"; type: "string" }
+        Property { name: "closeText"; type: "string" }
+        Property { name: "stayTopText"; type: "string" }
+        Property { name: "stayTopCancelText"; type: "string" }
+        Property { name: "textColor"; type: "QColor" }
+        Property { name: "minimizeNormalColor"; type: "QColor" }
+        Property { name: "minimizeHoverColor"; type: "QColor" }
+        Property { name: "minimizePressColor"; type: "QColor" }
+        Property { name: "maximizeNormalColor"; type: "QColor" }
+        Property { name: "maximizeHoverColor"; type: "QColor" }
+        Property { name: "maximizePressColor"; type: "QColor" }
+        Property { name: "closeNormalColor"; type: "QColor" }
+        Property { name: "closeHoverColor"; type: "QColor" }
+        Property { name: "closePressColor"; type: "QColor" }
+        Property { name: "showDark"; type: "bool" }
+        Property { name: "showClose"; type: "bool" }
+        Property { name: "showMinimize"; type: "bool" }
+        Property { name: "showMaximize"; type: "bool" }
+        Property { name: "showStayTop"; type: "bool" }
+        Property { name: "titleVisible"; type: "bool" }
+        Property { name: "icon"; type: "QUrl" }
+        Property { name: "iconSize"; type: "int" }
+        Property { name: "isMac"; type: "bool" }
+        Property { name: "borerlessColor"; type: "QColor" }
+        Property { name: "systemMoveEnable"; type: "bool" }
+        Property { name: "maxClickListener"; type: "QVariant" }
+        Property { name: "minClickListener"; type: "QVariant" }
+        Property { name: "closeClickListener"; type: "QVariant" }
+        Property { name: "stayTopClickListener"; type: "QVariant" }
+        Property { name: "darkClickListener"; type: "QVariant" }
+        Property { name: "systemMenuListener"; type: "QVariant" }
+        Property {
+            name: "buttonStayTop"
+            type: "FluIconButton_QMLTYPE_18"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonMinimize"
+            type: "FluIconButton_QMLTYPE_18"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonMaximize"
+            type: "FluIconButton_QMLTYPE_18"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonClose"
+            type: "FluIconButton_QMLTYPE_18"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "buttonDark"
+            type: "FluIconButton_QMLTYPE_18"
+            isReadonly: true
+            isPointer: true
+        }
+        Method { name: "_maximizeButtonHover"; type: "QVariant" }
+        Method { name: "_appBarHover"; type: "QVariant" }
+        Method {
+            name: "setHitTestVisible"
+            type: "QVariant"
+            Parameter { name: "id"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickRectangle"
         name: "FluentUI/FluArea 1.0"
         exports: ["FluentUI/FluArea 1.0"]
         exportMetaObjectRevisions: [0]
@@ -2415,6 +2496,8 @@ Module {
         Property { name: "hoverColor"; type: "QColor" }
         Property { name: "normalColor"; type: "QColor" }
         Property { name: "text"; type: "string" }
+        Property { name: "from"; type: "QDateTime" }
+        Property { name: "to"; type: "QDateTime" }
         Property { name: "current"; type: "QVariant" }
         Signal { name: "accepted" }
     }
@@ -2757,6 +2840,17 @@ Module {
         Property { name: "loadingItem"; type: "QQmlComponent"; isPointer: true }
     }
     Component {
+        prototype: "QQuickButton"
+        name: "FluentUI/FluImageButton 1.0"
+        exports: ["FluentUI/FluImageButton 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "normalImage"; type: "string" }
+        Property { name: "hoveredImage"; type: "string" }
+        Property { name: "pushedImage"; type: "string" }
+    }
+    Component {
         prototype: "QObject"
         name: "FluentUI/FluInfoBar 1.0"
         exports: ["FluentUI/FluInfoBar 1.0"]
@@ -2908,15 +3002,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_139"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_139"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_166"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_166"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_35"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_35"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_40"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_40"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -2924,13 +3018,13 @@ Module {
         Property { name: "hideNavAppBar"; type: "bool" }
         Property {
             name: "buttonMenu"
-            type: "FluIconButton_QMLTYPE_17"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonBack"
-            type: "FluIconButton_QMLTYPE_17"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
@@ -3723,5 +3817,191 @@ Module {
         }
         Method { name: "allExpand"; type: "QVariant" }
         Method { name: "allCollapse"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickWindowQmlImpl"
+        name: "FluentUI/FluWindow 1.0"
+        exports: ["FluentUI/FluWindow 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "contentData"
+        Property { name: "contentData"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "windowIcon"; type: "string" }
+        Property { name: "launchMode"; type: "int" }
+        Property { name: "argument"; type: "QVariant" }
+        Property { name: "background"; type: "QVariant" }
+        Property { name: "fixSize"; type: "bool" }
+        Property { name: "loadingItem"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "fitsAppBarWindows"; type: "bool" }
+        Property { name: "appBar"; type: "QQuickItem"; isPointer: true }
+        Property { name: "backgroundColor"; type: "QColor" }
+        Property { name: "stayTop"; type: "bool" }
+        Property { name: "showDark"; type: "bool" }
+        Property { name: "showClose"; type: "bool" }
+        Property { name: "showMinimize"; type: "bool" }
+        Property { name: "showMaximize"; type: "bool" }
+        Property { name: "showStayTop"; type: "bool" }
+        Property { name: "autoMaximize"; type: "bool" }
+        Property { name: "autoVisible"; type: "bool" }
+        Property { name: "autoCenter"; type: "bool" }
+        Property { name: "autoDestory"; type: "bool" }
+        Property { name: "useSystemAppBar"; type: "bool" }
+        Property { name: "resizeBorderColor"; type: "QColor" }
+        Property { name: "resizeBorderWidth"; type: "int" }
+        Property { name: "closeListener"; type: "QVariant" }
+        Property { name: "_realHeight"; type: "int" }
+        Property { name: "_realWidth"; type: "int" }
+        Property { name: "_appBarHeight"; type: "int" }
+        Property { name: "_windowRegister"; type: "QVariant" }
+        Property { name: "_route"; type: "string" }
+        Signal { name: "showSystemMenu" }
+        Signal {
+            name: "initArgument"
+            Parameter { name: "argument"; type: "QVariant" }
+        }
+        Signal { name: "firstVisible" }
+        Method { name: "destoryOnClose"; type: "QVariant" }
+        Method {
+            name: "showLoading"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "cancel"; type: "QVariant" }
+        }
+        Method { name: "hideLoading"; type: "QVariant" }
+        Method {
+            name: "showSuccess"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showInfo"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showWarning"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showError"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method { name: "moveWindowToDesktopCenter"; type: "QVariant" }
+        Method { name: "fixWindowSize"; type: "QVariant" }
+        Method {
+            name: "registerForWindowResult"
+            type: "QVariant"
+            Parameter { name: "path"; type: "QVariant" }
+        }
+        Method {
+            name: "onResult"
+            type: "QVariant"
+            Parameter { name: "data"; type: "QVariant" }
+        }
+        Method { name: "showMaximized"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickWindowQmlImpl"
+        name: "FluentUI/FluWindowDialog 1.0"
+        exports: ["FluentUI/FluWindowDialog 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "contentData"
+        Property { name: "contentDelegate"; type: "QQmlComponent"; isPointer: true }
+        Method { name: "showDialog"; type: "QVariant" }
+        Property { name: "contentData"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "windowIcon"; type: "string" }
+        Property { name: "launchMode"; type: "int" }
+        Property { name: "argument"; type: "QVariant" }
+        Property { name: "background"; type: "QVariant" }
+        Property { name: "fixSize"; type: "bool" }
+        Property { name: "loadingItem"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "fitsAppBarWindows"; type: "bool" }
+        Property { name: "appBar"; type: "QQuickItem"; isPointer: true }
+        Property { name: "backgroundColor"; type: "QColor" }
+        Property { name: "stayTop"; type: "bool" }
+        Property { name: "showDark"; type: "bool" }
+        Property { name: "showClose"; type: "bool" }
+        Property { name: "showMinimize"; type: "bool" }
+        Property { name: "showMaximize"; type: "bool" }
+        Property { name: "showStayTop"; type: "bool" }
+        Property { name: "autoMaximize"; type: "bool" }
+        Property { name: "autoVisible"; type: "bool" }
+        Property { name: "autoCenter"; type: "bool" }
+        Property { name: "autoDestory"; type: "bool" }
+        Property { name: "useSystemAppBar"; type: "bool" }
+        Property { name: "resizeBorderColor"; type: "QColor" }
+        Property { name: "resizeBorderWidth"; type: "int" }
+        Property { name: "closeListener"; type: "QVariant" }
+        Property { name: "_realHeight"; type: "int" }
+        Property { name: "_realWidth"; type: "int" }
+        Property { name: "_appBarHeight"; type: "int" }
+        Property { name: "_windowRegister"; type: "QVariant" }
+        Property { name: "_route"; type: "string" }
+        Signal { name: "showSystemMenu" }
+        Signal {
+            name: "initArgument"
+            Parameter { name: "argument"; type: "QVariant" }
+        }
+        Signal { name: "firstVisible" }
+        Method { name: "destoryOnClose"; type: "QVariant" }
+        Method {
+            name: "showLoading"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "cancel"; type: "QVariant" }
+        }
+        Method { name: "hideLoading"; type: "QVariant" }
+        Method {
+            name: "showSuccess"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showInfo"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showWarning"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method {
+            name: "showError"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "duration"; type: "QVariant" }
+            Parameter { name: "moremsg"; type: "QVariant" }
+        }
+        Method { name: "moveWindowToDesktopCenter"; type: "QVariant" }
+        Method { name: "fixWindowSize"; type: "QVariant" }
+        Method {
+            name: "registerForWindowResult"
+            type: "QVariant"
+            Parameter { name: "path"; type: "QVariant" }
+        }
+        Method {
+            name: "onResult"
+            type: "QVariant"
+            Parameter { name: "data"; type: "QVariant" }
+        }
+        Method { name: "showMaximized"; type: "QVariant" }
     }
 }
