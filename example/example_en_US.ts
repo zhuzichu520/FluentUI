@@ -47,39 +47,39 @@
     <name>FluentInitalizrWindow</name>
     <message>
         <location filename="qml/window/FluentInitalizrWindow.qml" line="11"/>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="32"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="30"/>
         <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="11"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="32"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="30"/>
         <source>FluentUI Initalizr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="53"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="53"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="51"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="51"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="61"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="61"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="59"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="59"/>
         <source>Create In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="65"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="65"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="63"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="63"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="95"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="95"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="93"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="93"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="103"/>
-        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="103"/>
+        <location filename="qml/window/FluentInitalizrWindow.qml" line="101"/>
+        <location filename="qml-Qt6/window/FluentInitalizrWindow.qml" line="101"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1594,26 +1594,26 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
 <context>
     <name>T_Home</name>
     <message>
-        <location filename="qml/page/T_Home.qml" line="17"/>
-        <location filename="qml-Qt6/page/T_Home.qml" line="17"/>
+        <location filename="qml/page/T_Home.qml" line="22"/>
+        <location filename="qml-Qt6/page/T_Home.qml" line="23"/>
         <source>FluentUI GitHub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="18"/>
-        <location filename="qml-Qt6/page/T_Home.qml" line="18"/>
+        <location filename="qml/page/T_Home.qml" line="23"/>
+        <location filename="qml-Qt6/page/T_Home.qml" line="24"/>
         <source>The latest FluentUI controls and styles for your applications.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="26"/>
-        <location filename="qml-Qt6/page/T_Home.qml" line="26"/>
+        <location filename="qml/page/T_Home.qml" line="31"/>
+        <location filename="qml-Qt6/page/T_Home.qml" line="32"/>
         <source>FluentUI Initalizr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="27"/>
-        <location filename="qml-Qt6/page/T_Home.qml" line="27"/>
+        <location filename="qml/page/T_Home.qml" line="32"/>
+        <location filename="qml-Qt6/page/T_Home.qml" line="33"/>
         <source>FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.</source>
         <translation type="unfinished"></translation>
     </message>

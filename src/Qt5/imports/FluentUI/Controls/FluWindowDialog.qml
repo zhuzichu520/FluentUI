@@ -21,7 +21,8 @@ FluWindow {
         }
     }
     closeListener: function(event){
-        event.accepted = true
+        visible = false
+        event.accepted = false
     }
     function showDialog(){
         var x = transientParent.x + (transientParent.width - width)/2
