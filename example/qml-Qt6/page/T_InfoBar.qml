@@ -47,7 +47,7 @@ FluScrollablePage{
             FluButton{
                 text: qsTr("InfoBar that needs to be turned off manually")
                 onClicked: {
-                    showInfo("This is an InfoBar in the Info Style",0,"Manual shutdown is supported")
+                    showInfo(qsTr("This is an InfoBar in the Info Style"),0,qsTr("Manual shutdown is supported"))
                 }
             }
             FluButton{

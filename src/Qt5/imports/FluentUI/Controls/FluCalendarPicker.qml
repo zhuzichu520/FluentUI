@@ -10,6 +10,8 @@ Rectangle {
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property string text: qsTr("Pick a date")
+    property date from: new Date(1924, 0, 1)
+    property date to: new Date(2124, 11, 31)
     property var current
     signal accepted()
     id:control
@@ -34,8 +36,8 @@ Rectangle {
     }
     CalendarModel {
         id:calender_model
-        from: new Date(1924, 0, 1)
-        to: new Date(2124, 11, 31)
+        from: control.from
+        to: control.to
     }
     Item{
         id:d

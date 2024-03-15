@@ -102,22 +102,22 @@
 <context>
     <name>InitalizrHelper</name>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="73"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="77"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="77"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="81"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="82"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="86"/>
         <source>The path does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="88"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="92"/>
         <source>%1 folder already exists</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1649,7 +1649,9 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="26"/>
+        <location filename="qml/page/T_InfoBar.qml" line="50"/>
         <location filename="qml-Qt6/page/T_InfoBar.qml" line="26"/>
+        <location filename="qml-Qt6/page/T_InfoBar.qml" line="50"/>
         <source>This is an InfoBar in the Info Style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1681,6 +1683,12 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_InfoBar.qml" line="48"/>
         <location filename="qml-Qt6/page/T_InfoBar.qml" line="48"/>
         <source>InfoBar that needs to be turned off manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="50"/>
+        <location filename="qml-Qt6/page/T_InfoBar.qml" line="50"/>
+        <source>Manual shutdown is supported</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

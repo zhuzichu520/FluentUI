@@ -102,22 +102,22 @@
 <context>
     <name>InitalizrHelper</name>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="73"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="77"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished">名称不能为空</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="77"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="81"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished">创建路径不能为空</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="82"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="86"/>
         <source>The path does not exist</source>
         <translation type="unfinished">路径不存在</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="88"/>
+        <location filename="src/helper/InitalizrHelper.cpp" line="92"/>
         <source>%1 folder already exists</source>
         <translation type="unfinished"></translation>
     </message>
@@ -239,19 +239,19 @@
         <location filename="qml/global/ItemsOriginal.qml" line="124"/>
         <location filename="qml-Qt6/global/ItemsOriginal.qml" line="124"/>
         <source>TimePicker</source>
-        <translation type="unfinished">时间选取器</translation>
+        <translation type="unfinished">时间选择器</translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="130"/>
         <location filename="qml-Qt6/global/ItemsOriginal.qml" line="130"/>
         <source>DatePicker</source>
-        <translation type="unfinished">日期选取器</translation>
+        <translation type="unfinished">日期选择器</translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="136"/>
         <location filename="qml-Qt6/global/ItemsOriginal.qml" line="136"/>
         <source>CalendarPicker</source>
-        <translation type="unfinished">日历选取器</translation>
+        <translation type="unfinished">日历选择器</translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="142"/>
@@ -1176,7 +1176,7 @@ Updated content:
         <location filename="qml/page/T_CalendarPicker.qml" line="10"/>
         <location filename="qml-Qt6/page/T_CalendarPicker.qml" line="10"/>
         <source>CalendarPicker</source>
-        <translation type="unfinished">日历选取器</translation>
+        <translation type="unfinished">日历选择器</translation>
     </message>
 </context>
 <context>
@@ -1373,7 +1373,7 @@ Updated content:
         <location filename="qml/page/T_DatePicker.qml" line="10"/>
         <location filename="qml-Qt6/page/T_DatePicker.qml" line="10"/>
         <source>TimePicker</source>
-        <translation type="unfinished">时间选取器</translation>
+        <translation type="unfinished">时间选择器</translation>
     </message>
     <message>
         <location filename="qml/page/T_DatePicker.qml" line="23"/>
@@ -1665,7 +1665,9 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="26"/>
+        <location filename="qml/page/T_InfoBar.qml" line="50"/>
         <location filename="qml-Qt6/page/T_InfoBar.qml" line="26"/>
+        <location filename="qml-Qt6/page/T_InfoBar.qml" line="50"/>
         <source>This is an InfoBar in the Info Style</source>
         <translation type="unfinished">这是一个Info样式的信息栏</translation>
     </message>
@@ -1698,6 +1700,12 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml-Qt6/page/T_InfoBar.qml" line="48"/>
         <source>InfoBar that needs to be turned off manually</source>
         <translation type="unfinished">需要手动关闭的信息栏</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="50"/>
+        <location filename="qml-Qt6/page/T_InfoBar.qml" line="50"/>
+        <source>Manual shutdown is supported</source>
+        <translation type="unfinished">支持手动关闭</translation>
     </message>
     <message>
         <source>Loading...</source>
@@ -2576,7 +2584,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_TimePicker.qml" line="10"/>
         <location filename="qml-Qt6/page/T_TimePicker.qml" line="10"/>
         <source>TimePicker</source>
-        <translation type="unfinished">时间选取器</translation>
+        <translation type="unfinished">时间选择器</translation>
     </message>
     <message>
         <location filename="qml/page/T_TimePicker.qml" line="26"/>
