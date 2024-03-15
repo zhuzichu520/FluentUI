@@ -20,6 +20,7 @@ Item {
             d.flag = false
         }
     }
+    clip: true
     Rectangle{
         id:layout_header
         width: parent.width
@@ -79,10 +80,10 @@ Item {
             topMargin: -1
             left: layout_header.left
         }
-        clip: true
         visible: contentHeight+container.anchors.topMargin !== 0
         height: contentHeight+container.anchors.topMargin
         width: parent.width
+        z:-999
         Rectangle{
             id:container
             anchors.fill: parent

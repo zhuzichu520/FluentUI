@@ -34,6 +34,26 @@ static inline bool isCompositionEnabled(){
     }
     return false;
 }
+
+static inline void showShadow(HWND hwnd){
+    if(isCompositionEnabled()){
+        const MARGINS shadow = { 0, 0, 1, 0 };
+        typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
+        HMODULE module = LoadLibraryW(L"dwmapi.dll");
+        if (module)
+        {
+            DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
+            dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+            if (dwm_extendframe_into_client_area_)
+            {
+                dwm_extendframe_into_client_area_(hwnd, &shadow);
+            }
+        }
+    }else{
+        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
+        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
+    }
+}
 #endif
 
 FramelessEventFilter::FramelessEventFilter(FluFramelessHelper* helper){
@@ -322,6 +342,9 @@ void FluFramelessHelper::componentComplete(){
             _appBar.value<QObject*>()->setProperty("systemMoveEnable",false);
         }
         window->setFlags((window->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
+        if(FluTools::getInstance()->isSoftware() && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)){
+            window->setFlag(Qt::FramelessWindowHint,false);
+        }
         if(resizeable()){
             window->setFlag(Qt::WindowMaximizeButtonHint);
         }
