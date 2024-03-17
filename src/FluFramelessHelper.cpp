@@ -35,25 +35,6 @@ static inline bool isCompositionEnabled(){
     return false;
 }
 
-static inline void showShadow(HWND hwnd){
-    if(isCompositionEnabled()){
-        const MARGINS shadow = { 0, 0, 1, 0 };
-        typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
-        HMODULE module = LoadLibraryW(L"dwmapi.dll");
-        if (module)
-        {
-            DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
-            dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-            if (dwm_extendframe_into_client_area_)
-            {
-                dwm_extendframe_into_client_area_(hwnd, &shadow);
-            }
-        }
-    }else{
-        ULONG_PTR cNewStyle = GetClassLongPtr(hwnd, GCL_STYLE) | CS_DROPSHADOW;
-        SetClassLongPtr(hwnd, GCL_STYLE, cNewStyle);
-    }
-}
 #endif
 
 FramelessEventFilter::FramelessEventFilter(FluFramelessHelper* helper){
@@ -218,6 +199,8 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
         if(wParam == SC_MINIMIZE){
             if(_helper->window->transientParent()){
                 _helper->window->transientParent()->showMinimized();
+            }else{
+                _helper->window->showMinimized();
             }
             return true;
         }
@@ -231,7 +214,6 @@ bool FramelessEventFilter::nativeEventFilter(const QByteArray &eventType, void *
 FluFramelessHelper::FluFramelessHelper(QObject *parent)
     : QObject{parent}
 {
-
 }
 
 void FluFramelessHelper::classBegin(){
