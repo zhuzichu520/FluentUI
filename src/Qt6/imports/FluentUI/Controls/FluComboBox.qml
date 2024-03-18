@@ -80,7 +80,6 @@ T.ComboBox {
             accepted()
         }
     }
-
     background: Rectangle {
         implicitWidth: 140
         implicitHeight: 32
@@ -100,7 +99,6 @@ T.ComboBox {
             return hovered ? hoverColor :normalColor
         }
     }
-
     popup: T.Popup {
         y: control.height
         width: control.width
