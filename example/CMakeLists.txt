@@ -4,6 +4,10 @@ project(example VERSION 1.0 LANGUAGES CXX)
 
 #配置通用编译
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #判断FluentUI库类型
@@ -24,19 +28,11 @@ endif()
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
 
-if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
-    qt_standard_project_setup()
-else()
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTORCC ON)
-    set(CMAKE_AUTOUIC ON)
-endif()
-
-#国际化
+#添加国际化脚本
 find_program(QT_LUPDATE NAMES lupdate)
 find_program(QT_LRELEASE NAMES lrelease)
 file(GLOB TS_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.ts)
-add_custom_target(UpdateTranslations
+add_custom_target(Script-UpdateTranslations
     COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
     COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_zh_CN.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
     COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
@@ -64,30 +60,6 @@ if(WIN32)
     list(APPEND sources_files "src/app_dmp.h")
 endif()
 
-if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
-    #遍历所有qml文件
-    file(GLOB_RECURSE QML_PATHS *.qml qmldir)
-    foreach(filepath ${QML_PATHS})
-        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-        if(${filepath} MATCHES "qml-Qt6")
-            string(REPLACE "qml-Qt6" "qml" filealias ${filename})
-            set_source_files_properties(${filename} PROPERTIES QT_RESOURCE_ALIAS ${filealias})
-            if(${filename} MATCHES "qmldir")
-                list(APPEND resource_files ${filename})
-            else()
-                list(APPEND qml_files ${filename})
-            endif()
-        endif()
-    endforeach(filepath)
-
-    #遍历所有资源文件
-    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.in)
-    foreach(filepath ${RES_PATHS})
-        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-        list(APPEND resource_files ${filename})
-    endforeach(filepath)
-endif()
-
 #如果是Windows平台，则生成rc文件，还有inno setup脚本文件
 set(EXAMPLE_VERSION_RC_PATH "")
 if(WIN32)
@@ -103,21 +75,26 @@ configure_file(
 endif()
 
 #添加可执行文件
-if (WIN32)
+list(APPEND sources_files ${PROJECT_NAME}.qrc)
+if(WIN32)
+    list(APPEND sources_files ${EXAMPLE_VERSION_RC_PATH})
+endif()
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(${PROJECT_NAME}
+        MANUAL_FINALIZATION
+        ${sources_files}
+    )
+else()
     add_executable(${PROJECT_NAME}
         ${sources_files}
-        ${EXAMPLE_VERSION_RC_PATH}
     )
-else ()
-    add_executable(${PROJECT_NAME}
-        ${sources_files}
-    )
-endif ()
-
-add_dependencies(${PROJECT_NAME} UpdateTranslations)
+endif()
+add_dependencies(${PROJECT_NAME} Script-UpdateTranslations)
 
 #复制程序运行所需要的动态库
 if(WIN32)
+    message("-----------------------------")
+    message(${CMAKE_CXX_COMPILER_ID})
     if(MSVC)
         if(CMAKE_SIZEOF_VOID_P EQUAL 4)
             file(GLOB_RECURSE 3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x86/*.dll)
@@ -133,23 +110,6 @@ endif()
 #复制FluentUI源码到运行目录下，用于脚手架生成
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/source/)
 file(COPY ${CMAKE_SOURCE_DIR}/src/ DESTINATION ${APPLICATION_DIR_PATH}/source/)
-
-if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
-    #如果是Qt6.2以上，则使用qt_add_qml_module添加资源文件
-    qt_add_qml_module(${PROJECT_NAME}
-        URI ${PROJECT_NAME}
-        VERSION 1.0
-        QML_FILES ${qml_files}
-        RESOURCES ${resource_files}
-        RESOURCE_PREFIX "/"
-    )
-else()
-    #如果是Qt6.2以下，则使用qrc添加资源文件
-    target_include_directories(${PROJECT_NAME} PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}.qrc)
-endif()
 
 #导入component头文件,不然通过QML_NAMED_ELEMENT生成的c++类会找不到头文件报错
 target_include_directories(${PROJECT_NAME} PRIVATE
@@ -186,9 +146,28 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     fluentuiplugin
 )
 
-#安装
-install(TARGETS ${PROJECT_NAME}
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+#添加部署脚本
+if (CMAKE_BUILD_TYPE MATCHES "Release")
+    if (APPLE)
+        find_program(QT_DEPLOY_QT NAMES macdeployqt)
+        add_custom_target(Script-DeployRelease
+            COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/dist
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/dist
+            COMMAND ${QT_DEPLOY_QT} ${CMAKE_SOURCE_DIR}/dist/${PROJECT_NAME} -qmldir=${CMAKE_CURRENT_LIST_DIR}
+            COMMENT "MacOs Deploying Qt Dependencies After Build........."
+            SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+    endif()
+    if(WIN32)
+        find_program(QT_DEPLOY_QT NAMES windeployqt)
+        add_custom_target(Script-DeployRelease
+            COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/dist
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/dist
+            COMMAND ${QT_DEPLOY_QT} ${CMAKE_SOURCE_DIR}/dist/${PROJECT_NAME}.exe -qmldir=${CMAKE_CURRENT_LIST_DIR}
+            COMMENT "Windows Deploying Qt Dependencies After Build........."
+            SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+endif()
+endif()

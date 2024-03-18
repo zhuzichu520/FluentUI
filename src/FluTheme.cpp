@@ -1,14 +1,7 @@
 #include "FluTheme.h"
 
 #include <QGuiApplication>
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
-#include <QStyleHints>
-#elif ((QT_VERSION >= QT_VERSION_CHECK(6, 2, 1)))
-#include <QtGui/qpa/qplatformtheme.h>
-#include <QtGui/private/qguiapplication_p.h>
-#else
 #include <QPalette>
-#endif
 #include "Def.h"
 #include "FluColors.h"
 
@@ -71,18 +64,9 @@ QJsonArray FluTheme::awesomeList(const QString& keyword){
 }
 
 bool FluTheme::systemDark(){
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
-    return (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
-#elif ((QT_VERSION >= QT_VERSION_CHECK(6, 2, 1)))
-    if (const QPlatformTheme * const theme = QGuiApplicationPrivate::platformTheme()) {
-        return (theme->appearance() == QPlatformTheme::Appearance::Dark);
-    }
-    return false;
-#else
     QPalette palette = qApp->palette();
     QColor color = palette.color(QPalette::Window).rgb();
     return !(color.red() * 0.2126 + color.green() * 0.7152 + color.blue() * 0.0722 > 255 / 2);
-#endif
 }
 
 bool FluTheme::dark(){

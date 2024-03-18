@@ -4,7 +4,7 @@ import QtQuick.Window 2.15
 import FluentUI 1.0
 
 Rectangle {
-    default property list<QtObject> contentData
+    default property alias contentData : layout_content.data
     property int paddings : 0
     property int leftPadding : 0
     property int rightPadding : 0
@@ -18,7 +18,7 @@ Rectangle {
     implicitHeight: height
     implicitWidth: width
     Item {
-        data: control.contentData
+        id: layout_content
         anchors.fill: parent
         anchors.leftMargin: Math.max(paddings,leftPadding)
         anchors.rightMargin: Math.max(paddings,rightPadding)

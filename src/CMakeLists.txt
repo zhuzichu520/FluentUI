@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #设置版本号
-add_definitions(-DFLUENTUI_VERSION=1,7,2,0)
+add_definitions(-DFLUENTUI_VERSION=1,7,3,0)
 
 if (FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
@@ -170,9 +170,9 @@ endif()
 
 #链接库
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    Qt${QT_VERSION_MAJOR}::CorePrivate
-    Qt${QT_VERSION_MAJOR}::QuickPrivate
-    Qt${QT_VERSION_MAJOR}::QmlPrivate
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Qml
 )
 
 #安装
