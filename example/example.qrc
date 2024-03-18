@@ -207,5 +207,6 @@
         <file>res/template/src/main.qml.in</file>
         <file>res/template/src/qml.qrc.in</file>
         <file>res/template/src/zh_CN.ts.in</file>
+        <file>res/template/src/README.md.in</file>
     </qresource>
 </RCC>

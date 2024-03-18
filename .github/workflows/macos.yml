@@ -58,7 +58,7 @@ jobs:
           # 先删除所有dSYM文件，减少包的体积
           sudo find /Users/runner/work/FluentUI/Qt/${{ matrix.qt_ver }}/macos/qml -name "*.dSYM" | xargs rm -r
           # 拷贝依赖
-          sudo macdeployqt bin/release/${targetName}.app -qmldir=. -dmg     
+          sudo macdeployqt bin/Release/${targetName}.app -qmldir=. -dmg     
           
       - uses: actions/upload-artifact@v2
         with:

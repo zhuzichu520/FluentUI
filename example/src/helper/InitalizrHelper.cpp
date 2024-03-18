@@ -104,5 +104,6 @@ void InitalizrHelper::generate(const QString& name,const QString& path){
     copyFile(":/example/res/template/src/App.qml.in",projectDir.filePath("src/App.qml"));
     copyFile(":/example/res/template/src/qml.qrc.in",projectDir.filePath("src/qml.qrc"));
     copyFile(":/example/res/template/src/logo.ico.in",projectDir.filePath("src/logo.ico"));
+    copyFile(":/example/res/template/src/README.md.in",projectDir.filePath("src/README.md"));
     return this->success(projectPath);
 }

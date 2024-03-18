@@ -17,7 +17,7 @@ function Main() {
 
     New-Item -ItemType Directory dist
     # 拷贝exe
-    Copy-Item bin\release\* dist\ -Force -Recurse | Out-Null
+    Copy-Item bin\Release\* dist\ -Force -Recurse | Out-Null
     # 拷贝依赖
     windeployqt --qmldir . --plugindir dist\plugins --no-translations --compiler-runtime dist\$targetName
     # 删除不必要的文件
