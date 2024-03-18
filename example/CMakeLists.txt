@@ -93,8 +93,6 @@ add_dependencies(${PROJECT_NAME} Script-UpdateTranslations)
 
 #复制程序运行所需要的动态库
 if(WIN32)
-    message("-----------------------------")
-    message(${CMAKE_CXX_COMPILER_ID})
     if(MSVC)
         if(CMAKE_SIZEOF_VOID_P EQUAL 4)
             file(GLOB_RECURSE 3RDPARTY_DLL_DIR ${CMAKE_SOURCE_DIR}/3rdparty/msvc/x86/*.dll)

@@ -13,6 +13,3 @@
 2. **Script-DeployRelease**
 
    执行Qt的windeployqt或macdeployqt命令，这个脚本只在windows与macos才有，linux不支持
-
-
-
