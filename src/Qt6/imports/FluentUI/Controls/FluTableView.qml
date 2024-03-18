@@ -342,12 +342,9 @@ Rectangle {
         }
         TableView {
             id:table_view
-            ListModel{
-                id:model_columns
-            }
             boundsBehavior: Flickable.StopAtBounds
             anchors.fill: parent
-            contentX: header_horizontal.contentX
+            ScrollBar.horizontal:scroll_bar_h
             ScrollBar.vertical:scroll_bar_v
             columnWidthProvider: function(column) {
                 var columnObject = d.columns_data[column]
@@ -732,9 +729,10 @@ Rectangle {
         height: visible ? Math.max(1, contentHeight) : 0
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        contentX: table_view.contentX
+        syncDirection: Qt.Horizontal
+        ScrollBar.horizontal:scroll_bar_h_2
         columnWidthProvider: table_view.columnWidthProvider
-        ScrollBar.horizontal:scroll_bar_h
+        syncView: table_view.rows === 0 ? null : table_view
         onContentXChanged:{
             timer_horizontal_force_layout.restart()
         }
@@ -761,14 +759,15 @@ Rectangle {
         syncView: table_view
         clip: true
         model: header_row_model
+        delegate: com_row_header_delegate
+        onContentYChanged:{
+            timer_vertical_force_layout.restart()
+        }
         Connections{
             target: table_model
             function onRowCountChanged(){
                 header_row_model.rows = Array.from({length: table_model.rows.length}, (_, i) => ({rowIndex:i+1}))
             }
-        }
-        onContentYChanged:{
-            timer_vertical_force_layout.restart()
         }
         Timer{
             id:timer_vertical_force_layout
@@ -777,19 +776,29 @@ Rectangle {
                 header_vertical.forceLayout()
             }
         }
-        delegate: com_row_header_delegate
     }
     FluScrollBar {
-        id:scroll_bar_h
+        id: scroll_bar_h
         anchors{
             left: layout_mouse_table.left
             right: parent.right
             bottom: layout_mouse_table.bottom
         }
+        visible: table_view.rows !== 0
         z:999
     }
     FluScrollBar {
-        id:scroll_bar_v
+        id: scroll_bar_h_2
+        anchors{
+            left: layout_mouse_table.left
+            right: parent.right
+            bottom: layout_mouse_table.bottom
+        }
+        visible: table_view.rows === 0
+        z:999
+    }
+    FluScrollBar {
+        id: scroll_bar_v
         anchors{
             top: layout_mouse_table.top
             bottom: layout_mouse_table.bottom
