@@ -345,10 +345,21 @@ Rectangle {
                 id:model_columns
             }
             boundsBehavior: Flickable.StopAtBounds
-            syncView: header_horizontal
-            syncDirection: Qt.Horizontal
             anchors.fill: parent
+            contentX: header_horizontal.contentX
             ScrollBar.vertical:scroll_bar_v
+            columnWidthProvider: function(column) {
+                var columnObject = d.columns_data[column]
+                var width = columnObject.width
+                if(width){
+                    return width
+                }
+                var minimumWidth = columnObject.minimumWidth
+                if(minimumWidth){
+                    return minimumWidth
+                }
+                return d.defaultItemWidth
+            }
             rowHeightProvider: function(row) {
                 var rowObject = control.getRow(row)
                 var height = rowObject.height
@@ -542,6 +553,7 @@ Rectangle {
                             maximumWidth = 65535
                         }
                         columnObject.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
+                        table_view.forceLayout()
                         header_horizontal.forceLayout()
                     }
             }
@@ -719,19 +731,9 @@ Rectangle {
         height: visible ? Math.max(1, contentHeight) : 0
         boundsBehavior: Flickable.StopAtBounds
         clip: true
+        contentX: table_view.contentX
+        columnWidthProvider: table_view.columnWidthProvider
         ScrollBar.horizontal:scroll_bar_h
-        columnWidthProvider: function(column) {
-            var columnObject = d.columns_data[column]
-            var width = columnObject.width
-            if(width){
-                return width
-            }
-            var minimumWidth = columnObject.minimumWidth
-            if(minimumWidth){
-                return minimumWidth
-            }
-            return d.defaultItemWidth
-        }
         onContentXChanged:{
             timer_horizontal_force_layout.restart()
         }
