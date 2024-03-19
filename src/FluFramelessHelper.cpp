@@ -340,7 +340,13 @@ void FluFramelessHelper::componentComplete(){
             ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
         }else{
             ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
+            for (int i = 0; i < qApp->screens().count(); ++i) {
+                connect( qApp->screens().at(i),&QScreen::logicalDotsPerInchChanged,this,[=]{
+                    SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
+                });
+            }
         }
+        SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
 #else
         window->setFlags((window->flags() & (~Qt::WindowMinMaxButtonsHint) & (~Qt::Dialog)) | Qt::FramelessWindowHint | Qt::Window);
         window->installEventFilter(this);
@@ -351,8 +357,7 @@ void FluFramelessHelper::componentComplete(){
             window->setMaximumSize(QSize(w,h));
             window->setMinimumSize(QSize(w,h));
         }
-        window->setWidth(w);
-        window->setHeight(h);
+        window->resize(QSize(w,h));
         _onStayTopChange();
         _stayTop.connectNotifySignal(this,SLOT(_onStayTopChange()));
         _screen.connectNotifySignal(this,SLOT(_onScreenChanged()));

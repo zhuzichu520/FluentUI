@@ -76,7 +76,6 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluWindow
     if(windowRegister){
         windowRegister->to(win);
     }
-    win->setColor(QColor(Qt::transparent));
 }
 
 void FluApp::exit(int retCode){

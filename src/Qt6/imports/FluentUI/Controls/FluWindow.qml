@@ -15,6 +15,7 @@ Window {
     property Item appBar: FluAppBar {
         title: window.title
         height: 30
+        width: window.width
         showDark: window.showDark
         showClose: window.showClose
         showMinimize: window.showMinimize
@@ -99,9 +100,6 @@ Window {
             d.isFirstVisible = false
         }
         lifecycle.onVisible(visible)
-    }
-    onWidthChanged: {
-        window.appBar.width = width
     }
     QtObject{
         id:d
