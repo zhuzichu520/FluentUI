@@ -506,7 +506,8 @@ FluContentPage{
                 dataIndex: 'longstring',
                 width:200,
                 minimumWidth:100,
-                maximumWidth:300
+                maximumWidth:300,
+                editMultiline: true
             },
             {
                 title: qsTr("Options"),

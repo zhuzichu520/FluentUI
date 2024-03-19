@@ -98,27 +98,23 @@ Rectangle {
         id:com_edit_multiline
         Item{
             anchors.fill: parent
-            ScrollView{
+            Flickable{
                 id:item_scroll
                 clip: true
                 anchors.fill: parent
-                ScrollBar.vertical: FluScrollBar{
-                    parent: item_scroll
-                    x: item_scroll.mirrored ? 0 : item_scroll.width - width
-                    y: item_scroll.topPadding
-                    height: item_scroll.availableHeight
-                    active: item_scroll.ScrollBar.horizontal.active
-                }
-                FluMultilineTextBox {
+                ScrollBar.vertical: multiline_text_srcoll_bar
+                boundsBehavior: Flickable.StopAtBounds
+                TextArea.flickable: FluMultilineTextBox {
                     id:text_box
-                    text: display
+                    text: String(display)
                     readOnly: true === d.columns_data[column].readOnly
                     verticalAlignment: TextInput.AlignVCenter
+                    isCtrlEnterForNewline: true
                     Component.onCompleted: {
                         forceActiveFocus()
                         selectAll()
                     }
-                    rightPadding: 24
+                    rightPadding: 34
                     onCommit: {
                         if(!readOnly){
                             editTextChaged(text_box.text)
@@ -132,6 +128,9 @@ Rectangle {
                 iconSize: 10
                 width: 20
                 height: 20
+                padding: 0
+                verticalPadding: 0
+                horizontalPadding: 0
                 visible: {
                     if(text_box.readOnly)
                         return false
@@ -140,10 +139,21 @@ Rectangle {
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: parent.right
-                    rightMargin: 5
+                    rightMargin: 15
                 }
                 onClicked:{
                     text_box.text = ""
+                }
+            }
+            FluScrollBar{
+                id:multiline_text_srcoll_bar
+                anchors{
+                    right: parent.right
+                    rightMargin: 5
+                    top: parent.top
+                    bottom: parent.bottom
+                    topMargin: 3
+                    bottomMargin: 3
                 }
             }
         }

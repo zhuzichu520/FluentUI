@@ -1982,17 +1982,17 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="512"/>
+        <location filename="qml/page/T_TableView.qml" line="513"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="531"/>
+        <location filename="qml/page/T_TableView.qml" line="532"/>
         <source>&lt;Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="532"/>
+        <location filename="qml/page/T_TableView.qml" line="533"/>
         <source>Next&gt;</source>
         <translation type="unfinished"></translation>
     </message>

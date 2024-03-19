@@ -27,6 +27,7 @@ FluWindow {
     function showDialog(){
         var x = transientParent.x + (transientParent.width - width)/2
         var y = transientParent.y + (transientParent.height - height)/2
+        control.stayTop = Qt.binding(function(){return transientParent.stayTop})
         setGeometry(x,y,width,height)
         visible = true
     }
