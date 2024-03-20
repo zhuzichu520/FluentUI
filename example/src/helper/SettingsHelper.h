@@ -24,7 +24,7 @@ public:
     Q_INVOKABLE void saveUseSystemAppBar(bool useSystemAppBar){save("useSystemAppBar",useSystemAppBar);}
     Q_INVOKABLE bool getUseSystemAppBar(){return get("useSystemAppBar",QVariant(false)).toBool();}
     Q_INVOKABLE void saveLanguage(QString language){save("language",language);}
-    Q_INVOKABLE QString getLanguage(){return get("language",QVariant("en")).toString();}
+    Q_INVOKABLE QString getLanguage(){return get("language",QVariant("en_US")).toString();}
 private:
     void save(const QString& key,QVariant val);
     QVariant get(const QString& key,QVariant def={});
