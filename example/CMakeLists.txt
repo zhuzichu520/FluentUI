@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #判断FluentUI库类型
@@ -74,8 +73,13 @@ configure_file(
 )
 endif()
 
+#加快qrc编译
+qt_add_big_resources(QRC_RESOURCES ${PROJECT_NAME}.qrc)
+list(APPEND QRC_RESOURCES ${PROJECT_NAME}.qrc)
+set_property(SOURCE ${PROJECT_NAME}.qrc PROPERTY SKIP_AUTORCC ON)
+list(APPEND sources_files ${QRC_RESOURCES})
+
 #添加可执行文件
-list(APPEND sources_files ${PROJECT_NAME}.qrc)
 if(WIN32)
     list(APPEND sources_files ${EXAMPLE_VERSION_RC_PATH})
 endif()

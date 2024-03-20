@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 project(%1 VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -33,9 +32,13 @@ add_custom_target(Script-UpdateTranslations
     SOURCES ${TS_FILE_PATHS}
 )
 
+qt_add_big_resources(QRC_RESOURCES qml.qrc)
+list(APPEND QRC_RESOURCES qml.qrc)
+set_property(SOURCE qml.qrc PROPERTY SKIP_AUTORCC ON)
+
 set(PROJECT_SOURCES
     main.cpp
-    qml.qrc
+    ${QRC_RESOURCES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
