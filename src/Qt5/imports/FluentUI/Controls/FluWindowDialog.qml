@@ -10,6 +10,7 @@ FluWindow {
     autoVisible: false
     autoCenter: false
     autoDestory: true
+    stayTop: true
     fixSize: true
     Loader{
         anchors.fill: parent
@@ -24,11 +25,19 @@ FluWindow {
         visible = false
         event.accepted = false
     }
+    Connections{
+        target: control.transientParent
+        function onVisibilityChanged(){
+            if(control.transientParent.visibility === Window.Hidden){
+                control.visibility = Window.Hidden
+            }
+        }
+    }
     function showDialog(){
         var x = transientParent.x + (transientParent.width - width)/2
         var y = transientParent.y + (transientParent.height - height)/2
         control.stayTop = Qt.binding(function(){return transientParent.stayTop})
-        setGeometry(x,y,width,height)
-        visible = true
+        control.setGeometry(x,y,width,height)
+        control.visible = true
     }
 }
