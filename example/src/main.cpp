@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationName("FluentUI");
     QGuiApplication::setApplicationDisplayName("FluentUI Exmaple");
     QGuiApplication::setApplicationVersion(APPLICATION_VERSION);
+    QGuiApplication::setQuitOnLastWindowClosed(false);
     SettingsHelper::getInstance()->init(argv);
     Log::setup(argv,"example");
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
