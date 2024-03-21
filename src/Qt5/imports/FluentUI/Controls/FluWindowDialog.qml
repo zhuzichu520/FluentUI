@@ -10,7 +10,6 @@ FluWindow {
     autoVisible: false
     autoCenter: false
     autoDestory: true
-    stayTop: true
     fixSize: true
     Loader{
         anchors.fill: parent
