@@ -312,7 +312,7 @@ Window {
                 loader_frameless_helper.item.showMaximized()
             }
         }else{
-            window.visibility = Qt.WindowMaximized
+            window.visibility = Window.Maximized
         }
     }
 }
