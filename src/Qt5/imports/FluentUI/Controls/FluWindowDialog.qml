@@ -37,6 +37,6 @@ FluWindow {
         var y = transientParent.y + (transientParent.height - height)/2
         control.stayTop = Qt.binding(function(){return transientParent.stayTop})
         control.setGeometry(x,y,width,height)
-        control.visible = true
+        control.visibility = Window.Windowed
     }
 }

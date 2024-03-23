@@ -26,9 +26,9 @@ FluWindow {
     }
     Connections{
         target: control.transientParent
-        function onVisibleChanged(){
-            if(control.transientParent.visible === false){
-                control.visible = false
+        function onVisibilityChanged(){
+            if(control.transientParent.visibility === Window.Hidden){
+                control.visibility = Window.Hidden
             }
         }
     }
@@ -37,6 +37,6 @@ FluWindow {
         var y = transientParent.y + (transientParent.height - height)/2
         control.stayTop = Qt.binding(function(){return transientParent.stayTop})
         control.setGeometry(x,y,width,height)
-        control.visible = true
+        control.visibility = Window.Windowed
     }
 }
