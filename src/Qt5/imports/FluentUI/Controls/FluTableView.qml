@@ -192,10 +192,7 @@ Rectangle {
             property var rowObject : control.getRow(row)
             property var itemModel: model
             property bool editVisible: {
-                if(d.editPosition === undefined){
-                    return false
-                }
-                if(d.editPosition._key === rowObject._key && d.editPosition.column === column){
+                if(rowObject && d.editPosition && d.editPosition._key === rowObject._key && d.editPosition.column === column){
                     return true
                 }
                 return false

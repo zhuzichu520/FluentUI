@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(example VERSION 1.0 LANGUAGES CXX)
+project(example VERSION 1.0)
 
 #配置通用编译
 set(CMAKE_CXX_STANDARD 17)
@@ -49,9 +49,13 @@ configure_file(
 )
 
 #遍历所有Cpp文件
+
+message("---------->${filename}")
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
 foreach(filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+
+    message(${filename})
     list(APPEND sources_files ${filename})
 endforeach(filepath)
 
