@@ -27,9 +27,14 @@ endif()
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
 
+set(QT_SDK_DIR "${Qt${QT_VERSION_MAJOR}_DIR}/../../..")
+cmake_path(SET QT_SDK_DIR NORMALIZE ${QT_SDK_DIR})
+set(QT_BIN_DIR "${Qt${QT_VERSION_MAJOR}_DIR}/../../../bin")
+cmake_path(SET QT_BIN_DIR NORMALIZE ${QT_BIN_DIR})
+
 #添加国际化脚本
-find_program(QT_LUPDATE NAMES lupdate)
-find_program(QT_LRELEASE NAMES lrelease)
+find_program(QT_LUPDATE NAMES lupdate HINTS "${QT_BIN_DIR}")
+find_program(QT_LRELEASE NAMES lrelease HINTS "${QT_BIN_DIR}")
 file(GLOB TS_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.ts)
 add_custom_target(Script-UpdateTranslations
     COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
@@ -151,7 +156,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 #添加部署脚本
 if (CMAKE_BUILD_TYPE MATCHES "Release")
     if (APPLE)
-        find_program(QT_DEPLOY_QT NAMES macdeployqt)
+        find_program(QT_DEPLOY_QT NAMES macdeployqt HINTS "${QT_BIN_DIR}")
         add_custom_target(Script-DeployRelease
             COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/dist
             COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/dist
@@ -162,7 +167,7 @@ if (CMAKE_BUILD_TYPE MATCHES "Release")
         )
     endif()
     if(WIN32)
-        find_program(QT_DEPLOY_QT NAMES windeployqt)
+        find_program(QT_DEPLOY_QT NAMES windeployqt HINTS "${QT_BIN_DIR}")
         add_custom_target(Script-DeployRelease
             COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/dist
             COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/dist
@@ -171,5 +176,14 @@ if (CMAKE_BUILD_TYPE MATCHES "Release")
             SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
+    endif()
 endif()
+
+if(WIN32)
+    find_program(QT_DEPLOY_QT NAMES windeployqt HINTS "${QT_BIN_DIR}")
+    add_custom_command(TARGET ${PROJECT_NAME}
+            POST_BUILD
+            COMMAND ${QT_DEPLOY_QT} "$<TARGET_FILE:${PROJECT_NAME}>"
+            --$<LOWER_CASE:$<CONFIG>> --qmldir ${CMAKE_CURRENT_LIST_DIR}
+    )
 endif()
