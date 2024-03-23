@@ -28,6 +28,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml)
 
 set(QT_SDK_DIR "${Qt${QT_VERSION_MAJOR}_DIR}/../../..")
 cmake_path(SET QT_SDK_DIR NORMALIZE ${QT_SDK_DIR})
+set(QT_BIN_DIR "${Qt${QT_VERSION_MAJOR}_DIR}/../../../bin")
+cmake_path(SET QT_BIN_DIR NORMALIZE ${QT_BIN_DIR})
 
 #设置QML插件输出目录，可以通过外部设置，如果外部没有设置就默认到<QT_SDK_DIR_PATH>\qml\FluentUI目录下
 set(FLUENTUI_QML_PLUGIN_DIRECTORY "" CACHE PATH "Path to FluentUI plugin")
@@ -44,8 +46,9 @@ else()
 endif()
 
 #国际化
-find_program(QT_LUPDATE NAMES lupdate)
-find_program(QT_LRELEASE NAMES lrelease)
+find_program(QT_LUPDATE NAMES lupdate HINTS "${QT_BIN_DIR}")
+find_program(QT_LRELEASE NAMES lrelease HINTS "${QT_BIN_DIR}")
+
 if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}_en_US.qm)
     execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
     execute_process(COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
