@@ -21,7 +21,7 @@ FluWindow {
         }
     }
     closeListener: function(event){
-        visible = false
+        control.visibility = Window.Hidden
         event.accepted = false
     }
     Connections{

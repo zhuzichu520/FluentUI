@@ -52,7 +52,7 @@ Window {
         if(autoDestory){
             destoryOnClose()
         }else{
-            visible = false
+            window.visibility = Window.Hidden
             event.accepted = false
         }
     }
