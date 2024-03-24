@@ -335,7 +335,7 @@ void FluFramelessHelper::componentComplete(){
         _nativeEvent =new FramelessEventFilter(this);
         qApp->installNativeEventFilter(_nativeEvent);
         HWND hwnd = reinterpret_cast<HWND>(window->winId());
-        DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
+        DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
         if(resizeable()){
             ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
         }else{
