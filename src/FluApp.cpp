@@ -24,7 +24,7 @@ void FluApp::init(QObject *target,QLocale locale){
     qApp->installTranslator(_translator);
     const QStringList uiLanguages = _locale.uiLanguages();
     for (const QString &name : uiLanguages) {
-        const QString baseName = "fluentuiplugin_" + QLocale(name).name();
+        const QString baseName = "FluentUI_" + QLocale(name).name();
         if (_translator->load(":/qt/qml/FluentUI/i18n/"+ baseName)) {
             _engine->retranslate();
             break;
@@ -63,7 +63,7 @@ void FluApp::navigate(const QString& route,const QJsonObject& argument,FluWindow
     if(win){
         int launchMode = win->property("launchMode").toInt();
         if(launchMode == 1){
-            win->setProperty("argument",argument);
+            win->setProperty("",argument);
             win->show();
             win->raise();
             win->requestActivate();

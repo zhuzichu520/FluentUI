@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file alias="/qt/qml/FluentUI">D:/QtProjects/FluentUI/src/FluentUI</file>
-
-  </qresource>
-</RCC>

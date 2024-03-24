@@ -232,8 +232,8 @@
 <context>
     <name>FluWindow</name>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="271"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="270"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="269"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="268"/>
         <source>Loading...</source>
         <translation type="unfinished"></translation>
     </message>
