@@ -10,6 +10,20 @@
 #include <QClipboard>
 #include <QTranslator>
 
+FluWindowRegister::FluWindowRegister(QObject *parent):QObject{parent}{
+    from(nullptr);
+    to(nullptr);
+    path("");
+}
+
+void FluWindowRegister::launch(const QJsonObject& argument){
+    FluApp::getInstance()->navigate(path(),argument,this);
+}
+
+void FluWindowRegister::onResult(const QJsonObject& data){
+    Q_EMIT result(data);
+}
+
 FluApp::FluApp(QObject *parent):QObject{parent}{
     useSystemAppBar(false);
 }

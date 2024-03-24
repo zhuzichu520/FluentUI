@@ -24,12 +24,7 @@ FluTextBox{
         function handleClick(modelData){
             control_popup.visible = false
             control.itemClicked(modelData)
-            d.updateText(modelData.title)
-        }
-        function updateText(text){
-            d.flagVisible = false
-            control.text = text
-            d.flagVisible = true
+            control.updateText(modelData.title)
         }
         function loadData(){
             var result = []
@@ -135,5 +130,10 @@ FluTextBox{
             }
             control_popup.visible = true
         }
+    }
+    function updateText(text){
+        d.flagVisible = false
+        control.text = text
+        d.flagVisible = true
     }
 }
