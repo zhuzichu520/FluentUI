@@ -20,7 +20,7 @@ public:
     Q_INVOKABLE void onCompleted(QQuickWindow* window);
     Q_INVOKABLE void onDestruction();
     Q_INVOKABLE void onVisible(bool visible);
-    Q_INVOKABLE void onDestoryOnClose();
+    Q_INVOKABLE void onDestroyOnClose();
 private:
     QQuickWindow* _window = nullptr;
 };

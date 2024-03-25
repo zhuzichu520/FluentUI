@@ -39,7 +39,7 @@ Window {
     property bool autoMaximize: false
     property bool autoVisible: true
     property bool autoCenter: true
-    property bool autoDestory: true
+    property bool autoDestroy: true
     property bool useSystemAppBar
     property color resizeBorderColor: {
         if(window.active){
@@ -49,8 +49,8 @@ Window {
     }
     property int resizeBorderWidth: 1
     property var closeListener: function(event){
-        if(autoDestory){
-            destoryOnClose()
+        if(autoDestroy){
+            destroyOnClose()
         }else{
             window.visibility = Window.Hidden
             event.accepted = false
@@ -263,8 +263,8 @@ Window {
             return com_border
         }
     }
-    function destoryOnClose(){
-        lifecycle.onDestoryOnClose()
+    function destroyOnClose(){
+        lifecycle.onDestroyOnClose()
     }
     function showLoading(text = qsTr("Loading..."),cancel = true){
         loader_loading.loadingText = text

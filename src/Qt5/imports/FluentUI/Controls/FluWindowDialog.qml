@@ -9,12 +9,12 @@ FluWindow {
     property Component contentDelegate
     autoVisible: false
     autoCenter: false
-    autoDestory: true
+    autoDestroy: true
     fixSize: true
     Loader{
         anchors.fill: parent
         sourceComponent: {
-            if(control.autoDestory){
+            if(control.autoDestroy){
                 return control.visible ? control.contentDelegate : undefined
             }
             return control.contentDelegate

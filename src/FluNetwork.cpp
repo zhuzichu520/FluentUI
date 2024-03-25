@@ -214,15 +214,15 @@ void FluNetwork::handle(FluNetworkParams* params,FluNetworkCallable* c){
                     reply->abort();
                 }
             };
-            QMetaObject::Connection conn_destoryed = {};
+            QMetaObject::Connection conn_destroyed = {};
             QMetaObject::Connection conn_quit = {};
             if(params->_target){
-                conn_destoryed =  connect(params->_target,&QObject::destroyed,&manager,abortCallable);
+                conn_destroyed =  connect(params->_target,&QObject::destroyed,&manager,abortCallable);
             }
             conn_quit = connect(qApp,&QGuiApplication::aboutToQuit,&manager, abortCallable);
             loop.exec();
-            if(conn_destoryed){
-                disconnect(conn_destoryed);
+            if(conn_destroyed){
+                disconnect(conn_destroyed);
             }
             if(conn_quit){
                 disconnect(conn_quit);
@@ -336,10 +336,10 @@ void FluNetwork::handleDownload(FluNetworkParams* params,FluNetworkCallable* c){
         };
         connect(&manager,&QNetworkAccessManager::finished,&manager,[&loop](QNetworkReply *reply){loop.quit();});
         connect(qApp,&QGuiApplication::aboutToQuit,&manager, [&loop,reply](){reply->abort(),loop.quit();});
-        QMetaObject::Connection conn_destoryed = {};
+        QMetaObject::Connection conn_destroyed = {};
         QMetaObject::Connection conn_quit = {};
         if(params->_target){
-            conn_destoryed =  connect(params->_target,&QObject::destroyed,&manager,abortCallable);
+            conn_destroyed =  connect(params->_target,&QObject::destroyed,&manager,abortCallable);
         }
         conn_quit = connect(qApp,&QGuiApplication::aboutToQuit,&manager, abortCallable);
         connect(reply,&QNetworkReply::readyRead,reply,[reply,seek,destFile,cacheFile,callable]{
@@ -377,8 +377,8 @@ void FluNetwork::handleDownload(FluNetworkParams* params,FluNetworkCallable* c){
             }
             printRequestEndLog(request,params,reply,destPath);
         }
-        if(conn_destoryed){
-            disconnect(conn_destoryed);
+        if(conn_destroyed){
+            disconnect(conn_destroyed);
         }
         if(conn_quit){
             disconnect(conn_quit);

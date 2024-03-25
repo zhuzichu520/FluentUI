@@ -13,7 +13,7 @@ void FluWindowLifecycle::onCompleted(QQuickWindow* window){
     }
 }
 
-void FluWindowLifecycle::onDestoryOnClose(){
+void FluWindowLifecycle::onDestroyOnClose(){
     if(_window && _window->transientParent() == nullptr){
         FluApp::getInstance()->removeWindow(_window);
         _window = nullptr;
