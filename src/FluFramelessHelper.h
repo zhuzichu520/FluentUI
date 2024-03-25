@@ -52,7 +52,6 @@ public:
     int getAppBarHeight();
     QVariant getAppBar();
     QObject* maximizeButton();
-    void setOriginalPos(QVariant pos);
     Q_INVOKABLE void showSystemMenu(QPoint point);
     Q_INVOKABLE void showMaximized();
     Q_SIGNAL void loadCompleted();
