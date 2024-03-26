@@ -51,7 +51,7 @@ FluWindow {
                     showError(qsTr("Please feel free to enter a password"))
                     return
                 }
-                onResult({password:textbox_password.text})
+                setResult({password:textbox_password.text})
                 window.close()
             }
         }

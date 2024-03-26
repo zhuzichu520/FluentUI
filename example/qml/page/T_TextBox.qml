@@ -4,15 +4,10 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 import "../component"
-import "../viewmodel"
 
 FluScrollablePage{
 
     title: qsTr("TextBox")
-
-    TextBoxViewModel{
-        id:viewModel
-    }
 
     FluArea{
         Layout.fillWidth: true
@@ -24,10 +19,6 @@ FluScrollablePage{
             placeholderText: qsTr("Single-line Input Box")
             disabled: text_box_switch.checked
             cleanEnabled: true
-            text: viewModel.text1
-            onTextChanged: {
-                viewModel.text1 = text
-            }
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -82,7 +73,6 @@ FluScrollablePage{
 }'
     }
 
-
     FluArea{
         Layout.fillWidth: true
         height: 36+multiine_textbox.height
@@ -92,10 +82,6 @@ FluScrollablePage{
         FluMultilineTextBox{
             id: multiine_textbox
             placeholderText: qsTr("Multi-line Input Box")
-            text:viewModel.text2
-            onTextChanged: {
-                viewModel.text2 = text
-            }
             disabled: text_box_multi_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter

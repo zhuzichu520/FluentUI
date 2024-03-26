@@ -73,11 +73,15 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     endif()
 
     #遍历所有qml文件
-    file(GLOB_RECURSE QML_PATHS *.qml)
+    file(GLOB_RECURSE QML_PATHS *.qml qmldir)
     foreach(filepath ${QML_PATHS})
         if(${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
             string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-            list(APPEND qml_files ${filename})
+            if(${filename} MATCHES "qmldir")
+                list(APPEND resource_files ${filename})
+            else()
+                list(APPEND qml_files ${filename})
+            endif()
         endif()
     endforeach(filepath)
 

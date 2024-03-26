@@ -4,16 +4,11 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 import "../component"
-import "../viewmodel"
 import "../global"
 
 FluScrollablePage{
 
     title: qsTr("Settings")
-
-    SettingsViewModel{
-        id:viewmodel_settings
-    }
 
     FluEvent{
         id:event_checkupdate_finish
@@ -95,7 +90,7 @@ FluScrollablePage{
         negativeText: qsTr("Cancel")
         positiveText: qsTr("OK")
         onPositiveClicked: {
-            FluApp.exit(931)
+            FluRouter.exit(931)
         }
     }
 
@@ -149,10 +144,10 @@ FluScrollablePage{
             Repeater{
                 model: [{title:qsTr("Open"),mode:FluNavigationViewType.Open},{title:qsTr("Compact"),mode:FluNavigationViewType.Compact},{title:qsTr("Minimal"),mode:FluNavigationViewType.Minimal},{title:qsTr("Auto"),mode:FluNavigationViewType.Auto}]
                 delegate: FluRadioButton{
-                    checked : viewmodel_settings.displayMode===modelData.mode
-                    text:modelData.title
+                    text: modelData.title
+                    checked: GlobalModel.displayMode === modelData.mode
                     clickListener:function(){
-                        viewmodel_settings.displayMode = modelData.mode
+                        GlobalModel.displayMode = modelData.mode
                     }
                 }
             }

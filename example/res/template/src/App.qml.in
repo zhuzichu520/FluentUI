@@ -12,6 +12,6 @@ Item {
         FluApp.routes = {
             "/":"qrc:/main.qml",
         }
-        FluApp.navigate("/")
+        FluRouter.navigate("/")
     }
 }

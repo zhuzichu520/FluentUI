@@ -71,7 +71,7 @@ FluWindow {
         FluFilledButton{
             text: qsTr("Restart Program")
             onClicked: {
-                FluApp.exit(931)
+                FluRouter.exit(931)
             }
         }
     }

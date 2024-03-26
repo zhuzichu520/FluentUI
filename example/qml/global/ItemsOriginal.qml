@@ -462,7 +462,7 @@ FluObject{
         FluPaneItem{
             title: qsTr("Hot Loader")
             onTapListener: function(){
-                FluApp.navigate("/hotload")
+                FluRouter.navigate("/hotload")
             }
         }
         FluPaneItem{

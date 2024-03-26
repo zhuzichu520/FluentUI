@@ -1,7 +1,6 @@
 #include "FluentUI.h"
 
 #include <QGuiApplication>
-#include "FluWindowLifecycle.h"
 #include "Def.h"
 #include "FluApp.h"
 #include "FluColors.h"
@@ -12,7 +11,6 @@
 #include "FluCaptcha.h"
 #include "FluEventBus.h"
 #include "FluTreeModel.h"
-#include "FluViewModel.h"
 #include "FluRectangle.h"
 #include "FluNetwork.h"
 #include "FluFramelessHelper.h"
@@ -27,13 +25,11 @@ void FluentUI::registerTypes(QQmlEngine *engine){
 void FluentUI::registerTypes(const char *uri){
 #if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
     Q_INIT_RESOURCE(fluentui);
-    qmlRegisterType<FluWindowLifecycle>(uri,major,minor,"FluWindowLifecycle");
     qmlRegisterType<FluQrCodeItem>(uri,major,minor,"FluQrCodeItem");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
     qmlRegisterType<FluWatermark>(uri,major,minor,"FluWatermark");
     qmlRegisterType<FluAccentColor>(uri,major,minor,"FluAccentColor");
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
-    qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
     qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
     qmlRegisterType<FluNetworkCallable>(uri,major,minor,"FluNetworkCallable");
@@ -128,6 +124,9 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoader.qml"),uri,major,minor,"FluLoader");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluShortcutPicker.qml"),uri,major,minor,"FluShortcutPicker");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSplitLayout.qml"),uri,major,minor,"FluSplitLayout");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluWindowResultLauncher.qml"),uri,major,minor,"FluWindowResultLauncher");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLauncher.qml"),uri,major,minor,"FluLauncher");
+    qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRouter.qml"),uri,major,minor,"FluRouter");
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");
@@ -141,7 +140,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterUncreatableMetaObject(FluTabViewType::staticMetaObject,  uri,major,minor,"FluTabViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNavigationViewType::staticMetaObject,  uri,major,minor,"FluNavigationViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject,  uri,major,minor,"FluTimelineType", "Access to enums & flags only");
-    qmlRegisterUncreatableMetaObject(FluViewModelType::staticMetaObject,  uri,major,minor,"FluViewModelType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNetworkType::staticMetaObject,  uri,major,minor,"FluNetworkType", "Access to enums & flags only");
 
     qmlRegisterModule(uri,major,minor);
@@ -154,18 +152,11 @@ void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
     font.setFamily("微软雅黑");
     QGuiApplication::setFont(font);
 #endif
-    FluApp* app = FluApp::getInstance();
-    engine->rootContext()->setContextProperty("FluApp",app);
-    FluColors* colors = FluColors::getInstance();
-    engine->rootContext()->setContextProperty("FluColors",colors);
-    FluTheme* theme = FluTheme::getInstance();
-    engine->rootContext()->setContextProperty("FluTheme",theme);
-    FluTools* tools = FluTools::getInstance();
-    engine->rootContext()->setContextProperty("FluTools",tools);
-    FluTextStyle* textStyle = FluTextStyle::getInstance();
-    engine->rootContext()->setContextProperty("FluTextStyle",textStyle);
-    FluEventBus* eventBus = FluEventBus::getInstance();
-    engine->rootContext()->setContextProperty("FluEventBus",eventBus);
-    FluNetwork* network = FluNetwork::getInstance();
-    engine->rootContext()->setContextProperty("FluNetwork",network);
+    engine->rootContext()->setContextProperty("FluApp",FluApp::getInstance());
+    engine->rootContext()->setContextProperty("FluColors",FluColors::getInstance());
+    engine->rootContext()->setContextProperty("FluTheme",FluTheme::getInstance());
+    engine->rootContext()->setContextProperty("FluTools",FluTools::getInstance());
+    engine->rootContext()->setContextProperty("FluTextStyle",FluTextStyle::getInstance());
+    engine->rootContext()->setContextProperty("FluEventBus",FluEventBus::getInstance());
+    engine->rootContext()->setContextProperty("FluNetwork",FluNetwork::getInstance());
 }

@@ -101,5 +101,10 @@
         <file>FluentUI/Controls/FluWindowDialog.qml</file>
         <file>FluentUI/i18n/fluentui_en_US.qm</file>
         <file>FluentUI/i18n/fluentui_zh_CN.qm</file>
+        <file>FluentUI/Controls/FluLauncher.qml</file>
+        <file>FluentUI/Controls/FluRouter.qml</file>
+        <file>FluentUI/Controls/FluWindowResultLauncher.qml</file>
+        <file>FluentUI/JS/Global.js</file>
+        <file>FluentUI/Controls/qmldir</file>
     </qresource>
 </RCC>

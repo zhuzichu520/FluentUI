@@ -16,7 +16,7 @@ FluObject{
         title:qsTr("About")
         icon:FluentIcons.Contact
         onTapListener:function(){
-            FluApp.navigate("/about")
+            FluRouter.navigate("/about")
         }
     }
 

@@ -86,9 +86,9 @@ void FluTools::restoreOverrideCursor(){
     qApp->restoreOverrideCursor();
 }
 
-void FluTools::deleteItem(QObject *p){
+void FluTools::deleteLater(QObject *p){
     if(p){
-        delete p;
+        p->deleteLater();
         p = nullptr;
     }
 }

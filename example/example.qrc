@@ -181,8 +181,6 @@
         <file>res/image/image_1.jpg</file>
         <file>qml/window/PageWindow.qml</file>
         <file>qml/page/T_StaggeredLayout.qml</file>
-        <file>qml/viewmodel/SettingsViewModel.qml</file>
-        <file>qml/viewmodel/TextBoxViewModel.qml</file>
         <file>qml/page/T_Clip.qml</file>
         <file>qml/page/T_3D.qml</file>
         <file>qml/page/T_Network.qml</file>
@@ -208,5 +206,6 @@
         <file>res/template/src/qml.qrc.in</file>
         <file>res/template/src/zh_CN.ts.in</file>
         <file>res/template/src/README.md.in</file>
+        <file>qml/global/GlobalModel.qml</file>
     </qresource>
 </RCC>

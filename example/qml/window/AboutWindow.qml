@@ -31,7 +31,7 @@ FluWindow {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        FluApp.navigate("/")
+                        FluRouter.navigate("/")
                     }
                 }
             }

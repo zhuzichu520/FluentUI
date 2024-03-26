@@ -8,16 +8,17 @@ import "../component"
 FluScrollablePage{
 
     property string password: ""
-    property var loginPageRegister: registerForWindowResult("/login")
 
     title: qsTr("MultiWindow")
 
-    Connections{
-        target: loginPageRegister
-        function onResult(data)
-        {
-            password = data.password
-        }
+    FluWindowResultLauncher{
+        id:loginResultLauncher
+        path: "/login"
+        onResult:
+            (data)=>{
+                password = data.password
+            }
+
     }
 
     FluArea{
@@ -37,7 +38,7 @@ FluScrollablePage{
             FluButton{
                 text: qsTr("Create Window")
                 onClicked: {
-                    FluApp.navigate("/standardWindow")
+                    FluRouter.navigate("/standardWindow")
                 }
             }
         }
@@ -61,7 +62,7 @@ FluScrollablePage{
             FluButton{
                 text: qsTr("Create Window")
                 onClicked: {
-                    FluApp.navigate("/singleTaskWindow")
+                    FluRouter.navigate("/singleTaskWindow")
                 }
             }
         }
@@ -84,7 +85,7 @@ FluScrollablePage{
             FluButton{
                 text: qsTr("Create Window")
                 onClicked: {
-                    FluApp.navigate("/singleInstanceWindow")
+                    FluRouter.navigate("/singleInstanceWindow")
                 }
             }
         }
@@ -118,7 +119,7 @@ FluScrollablePage{
             FluButton{
                 text: qsTr("Create Window")
                 onClicked: {
-                    FluApp.navigate("/about")
+                    FluRouter.navigate("/about")
                 }
             }
         }
@@ -129,7 +130,7 @@ FluScrollablePage{
         code:'FluButton{
     text: qsTr("Create Window")
     onClicked: {
-        FluApp.navigate("/about")
+        FluRouter.navigate("/about")
     }
 }
 '
@@ -153,7 +154,7 @@ FluScrollablePage{
             FluButton{
                 text: qsTr("Create Window")
                 onClicked: {
-                    loginPageRegister.launch({username:"zhuzichu"})
+                    loginResultLauncher.launch({username:"zhuzichu"})
                 }
             }
             FluText{

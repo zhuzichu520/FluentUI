@@ -4,16 +4,6 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 
-namespace FluViewModelType {
-Q_NAMESPACE
-enum Scope {
-    Window = 0x0000,
-    Application = 0x0001
-};
-Q_ENUM_NS(Scope)
-QML_NAMED_ELEMENT(FluViewModelType)
-}
-
 namespace FluNetworkType {
 Q_NAMESPACE
 enum CacheMode {

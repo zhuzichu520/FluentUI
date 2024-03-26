@@ -49,7 +49,7 @@ Window {
     property int resizeBorderWidth: 1
     property var closeListener: function(event){
         if(autoDestroy){
-            destroyOnClose()
+            FluRouter.removeWindow(window)
         }else{
             window.visibility = Window.Hidden
             event.accepted = false
@@ -66,6 +66,7 @@ Window {
     id:window
     color:"transparent"
     Component.onCompleted: {
+        FluRouter.addWindow(window)
         _realHeight = height
         _realWidth = width
         useSystemAppBar = FluApp.useSystemAppBar
@@ -73,7 +74,6 @@ Window {
             moveWindowToDesktopCenter()
         }
         fixWindowSize()
-        lifecycle.onCompleted(window)
         initArgument(argument)
         if(!useSystemAppBar){
             loader_frameless_helper.sourceComponent = com_frameless_helper
@@ -86,9 +86,6 @@ Window {
             }
         }
     }
-    Component.onDestruction: {
-        lifecycle.onDestruction()
-    }
     onShowSystemMenu: {
         if(loader_frameless_helper.item){
             loader_frameless_helper.item.showSystemMenu()
@@ -99,7 +96,6 @@ Window {
             window.firstVisible()
             d.isFirstVisible = false
         }
-        lifecycle.onVisible(visible)
     }
     QtObject{
         id:d
@@ -243,9 +239,6 @@ Window {
         id:info_bar
         root: window
     }
-    FluWindowLifecycle{
-        id:lifecycle
-    }
     FluLoader{
         id:loader_border
         anchors.fill: parent
@@ -261,9 +254,6 @@ Window {
             }
             return com_border
         }
-    }
-    function destroyOnClose(){
-        lifecycle.onDestroyOnClose()
     }
     function showLoading(text = qsTr("Loading..."),cancel = true){
         loader_loading.loadingText = text
@@ -301,9 +291,9 @@ Window {
     function registerForWindowResult(path){
         return FluApp.createWindowRegister(window,path)
     }
-    function onResult(data){
+    function setResult(data){
         if(_windowRegister){
-            _windowRegister.onResult(data)
+            _windowRegister.setResult(data)
         }
     }
     function showMaximized(){
