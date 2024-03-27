@@ -12,7 +12,6 @@
 #include "FluEventBus.h"
 #include "FluTreeModel.h"
 #include "FluRectangle.h"
-#include "FluNetwork.h"
 #include "FluFramelessHelper.h"
 #include "FluQrCodeItem.h"
 #include "FluTableSortProxyModel.h"
@@ -32,8 +31,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
     qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
-    qmlRegisterType<FluNetworkCallable>(uri,major,minor,"FluNetworkCallable");
-    qmlRegisterType<FluNetworkParams>(uri,major,minor,"FluNetworkParams");
     qmlRegisterType<FluFramelessHelper>(uri,major,minor,"FluFramelessHelper");
     qmlRegisterType<FluTableSortProxyModel>(uri,major,minor,"FluTableSortProxyModel");
 
@@ -140,7 +137,6 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterUncreatableMetaObject(FluTabViewType::staticMetaObject,  uri,major,minor,"FluTabViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNavigationViewType::staticMetaObject,  uri,major,minor,"FluNavigationViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject,  uri,major,minor,"FluTimelineType", "Access to enums & flags only");
-    qmlRegisterUncreatableMetaObject(FluNetworkType::staticMetaObject,  uri,major,minor,"FluNetworkType", "Access to enums & flags only");
 
     qmlRegisterModule(uri,major,minor);
 #endif
@@ -158,5 +154,4 @@ void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
     engine->rootContext()->setContextProperty("FluTools",FluTools::getInstance());
     engine->rootContext()->setContextProperty("FluTextStyle",FluTextStyle::getInstance());
     engine->rootContext()->setContextProperty("FluEventBus",FluEventBus::getInstance());
-    engine->rootContext()->setContextProperty("FluNetwork",FluNetwork::getInstance());
 }

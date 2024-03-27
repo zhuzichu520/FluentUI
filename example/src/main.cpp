@@ -17,6 +17,7 @@
 #include "src/helper/SettingsHelper.h"
 #include "src/helper/InitalizrHelper.h"
 #include "src/helper/TranslateHelper.h"
+#include "src/helper/Network.h"
 
 #ifdef FLUENTUI_BUILD_STATIC_LIB
 #if (QT_VERSION > QT_VERSION_CHECK(6, 2, 0))
@@ -65,18 +66,25 @@ int main(int argc, char *argv[])
 #endif
 #endif
     QGuiApplication app(argc, argv);
+    const char *uri = "example";
+    int major = 1;
+    int minor = 0;
+    //@uri example
+    qmlRegisterType<CircularReveal>(uri, major, minor, "CircularReveal");
+    qmlRegisterType<FileWatcher>(uri, major, minor, "FileWatcher");
+    qmlRegisterType<FpsItem>(uri, major, minor, "FpsItem");
+    qmlRegisterType<NetworkCallable>(uri,major,minor,"NetworkCallable");
+    qmlRegisterType<NetworkParams>(uri,major,minor,"NetworkParams");
     QQmlApplicationEngine engine;
     TranslateHelper::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
     engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
     engine.rootContext()->setContextProperty("InitalizrHelper",InitalizrHelper::getInstance());
     engine.rootContext()->setContextProperty("TranslateHelper",TranslateHelper::getInstance());
+    engine.rootContext()->setContextProperty("Network",Network::getInstance());
 #ifdef FLUENTUI_BUILD_STATIC_LIB
     FluentUI::getInstance()->registerTypes(&engine);
 #endif
-    qmlRegisterType<CircularReveal>("example", 1, 0, "CircularReveal");
-    qmlRegisterType<FileWatcher>("example", 1, 0, "FileWatcher");
-    qmlRegisterType<FpsItem>("example", 1, 0, "FpsItem");
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {

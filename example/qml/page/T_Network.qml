@@ -4,6 +4,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 import Qt.labs.platform 1.0
+import example 1.0
 import "../component"
 
 FluContentPage{
@@ -11,7 +12,7 @@ FluContentPage{
     id:root
     title: qsTr("Network")
 
-    FluNetworkCallable{
+    NetworkCallable{
         id:callable
         onStart: {
             showLoading()
@@ -56,7 +57,7 @@ FluContentPage{
                 text: "Get"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.get("https://httpbingo.org/get")
+                    Network.get("https://httpbingo.org/get")
                     .addQuery("name","孙悟空")
                     .addQuery("age",500)
                     .addQuery("address","花果山水帘洞")
@@ -70,7 +71,7 @@ FluContentPage{
                 text: "Head"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.head("https://httpbingo.org/head")
+                    Network.head("https://httpbingo.org/head")
                     .addQuery("name","孙悟空")
                     .addQuery("age",500)
                     .addQuery("address","花果山水帘洞")
@@ -84,7 +85,7 @@ FluContentPage{
                 text: "Post Body"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postBody("https://httpbingo.org/post")
+                    Network.postBody("https://httpbingo.org/post")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
                     .bind(root)
                     .go(callable)
@@ -96,7 +97,7 @@ FluContentPage{
                 text: "Post Form"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postForm("https://httpbingo.org/post")
+                    Network.postForm("https://httpbingo.org/post")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -110,7 +111,7 @@ FluContentPage{
                 text: "Post JSON"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJson("https://httpbingo.org/post")
+                    Network.postJson("https://httpbingo.org/post")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -124,7 +125,7 @@ FluContentPage{
                 text: "Post JSON Array"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJsonArray("https://httpbingo.org/post")
+                    Network.postJsonArray("https://httpbingo.org/post")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -138,7 +139,7 @@ FluContentPage{
                 text: "Put Body"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.putBody("https://httpbingo.org/put")
+                    Network.putBody("https://httpbingo.org/put")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
                     .bind(root)
                     .go(callable)
@@ -150,7 +151,7 @@ FluContentPage{
                 text: "Put Form"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.putForm("https://httpbingo.org/put")
+                    Network.putForm("https://httpbingo.org/put")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -164,7 +165,7 @@ FluContentPage{
                 text: "Put JSON"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.putJson("https://httpbingo.org/put")
+                    Network.putJson("https://httpbingo.org/put")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -178,7 +179,7 @@ FluContentPage{
                 text: "Put JSON Array"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.putJsonArray("https://httpbingo.org/put")
+                    Network.putJsonArray("https://httpbingo.org/put")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -192,7 +193,7 @@ FluContentPage{
                 text: "Patch Body"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.patchBody("https://httpbingo.org/patch")
+                    Network.patchBody("https://httpbingo.org/patch")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
                     .bind(root)
                     .go(callable)
@@ -204,7 +205,7 @@ FluContentPage{
                 text: "Patch Form"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.patchForm("https://httpbingo.org/patch")
+                    Network.patchForm("https://httpbingo.org/patch")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -218,7 +219,7 @@ FluContentPage{
                 text: "Patch JSON"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.patchJson("https://httpbingo.org/patch")
+                    Network.patchJson("https://httpbingo.org/patch")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -232,7 +233,7 @@ FluContentPage{
                 text: "Patch JSON Array"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.patchJsonArray("https://httpbingo.org/patch")
+                    Network.patchJsonArray("https://httpbingo.org/patch")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -246,7 +247,7 @@ FluContentPage{
                 text: "Delete Body"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.deleteBody("https://httpbingo.org/delete")
+                    Network.deleteBody("https://httpbingo.org/delete")
                     .setBody("花果山水帘洞美猴王齐天大圣孙悟空")
                     .bind(root)
                     .go(callable)
@@ -258,7 +259,7 @@ FluContentPage{
                 text: "Delete Form"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.deleteForm("https://httpbingo.org/delete")
+                    Network.deleteForm("https://httpbingo.org/delete")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -272,7 +273,7 @@ FluContentPage{
                 text: "Delete JSON"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.deleteJson("https://httpbingo.org/delete")
+                    Network.deleteJson("https://httpbingo.org/delete")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -286,7 +287,7 @@ FluContentPage{
                 text: "Delete JSON Array"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.deleteJsonArray("https://httpbingo.org/delete")
+                    Network.deleteJsonArray("https://httpbingo.org/delete")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -300,7 +301,7 @@ FluContentPage{
                 text: "Open Log"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJson("https://httpbingo.org/post")
+                    Network.postJson("https://httpbingo.org/post")
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -315,7 +316,7 @@ FluContentPage{
                 text: "Custom Header"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJson("https://httpbingo.org/post")
+                    Network.postJson("https://httpbingo.org/post")
                     .addHeader("os","PC")
                     .addHeader("version","1.0.0")
                     .add("name","孙悟空")
@@ -331,8 +332,8 @@ FluContentPage{
                 text: "RequestFailedReadCache"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJson("https://httpbingo.org/post")
-                    .setCacheMode(FluNetworkType.RequestFailedReadCache)
+                    Network.postJson("https://httpbingo.org/post")
+                    .setCacheMode(NetworkType.RequestFailedReadCache)
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -347,8 +348,8 @@ FluContentPage{
                 text: "IfNoneCacheRequest"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJson("https://httpbingo.org/post")
-                    .setCacheMode(FluNetworkType.IfNoneCacheRequest)
+                    Network.postJson("https://httpbingo.org/post")
+                    .setCacheMode(NetworkType.IfNoneCacheRequest)
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -363,8 +364,8 @@ FluContentPage{
                 text: "FirstCacheThenRequest"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJson("https://httpbingo.org/post")
-                    .setCacheMode(FluNetworkType.FirstCacheThenRequest)
+                    Network.postJson("https://httpbingo.org/post")
+                    .setCacheMode(NetworkType.FirstCacheThenRequest)
                     .add("name","孙悟空")
                     .add("age",500)
                     .add("address","花果山水帘洞")
@@ -379,7 +380,7 @@ FluContentPage{
                 text: "Timeout And Retry"
                 onClicked: {
                     text_info.text = ""
-                    FluNetwork.postJson("https://httpbingo.org/post")
+                    Network.postJson("https://httpbingo.org/post")
                     .setTimeout(5000)
                     .setRetry(3)
                     .add("name","孙悟空")
@@ -407,7 +408,7 @@ FluContentPage{
                 text: "Download File"
                 onClicked: {
                     folder_dialog.showDialog(function(path){
-                        FluNetwork.get("http://vjs.zencdn.net/v/oceans.mp4")
+                        Network.get("http://vjs.zencdn.net/v/oceans.mp4")
                         .toDownload(path)
                         .bind(root)
                         .go(callable_download_file)
@@ -421,7 +422,7 @@ FluContentPage{
                 text: "Breakpoint Download File"
                 onClicked: {
                     folder_dialog.showDialog(function(path){
-                        FluNetwork.get("http://vjs.zencdn.net/v/oceans.mp4")
+                        Network.get("http://vjs.zencdn.net/v/oceans.mp4")
                         .toDownload(path,true)
                         .bind(root)
                         .go(callable_breakpoint_download_file)
@@ -431,7 +432,7 @@ FluContentPage{
         }
     }
 
-    FluNetworkCallable{
+    NetworkCallable{
         id:callable_upload_file
         onStart: {
             btn_upload.disabled = true
@@ -455,7 +456,7 @@ FluContentPage{
             }
     }
 
-    FluNetworkCallable{
+    NetworkCallable{
         id:callable_download_file
         onStart: {
             btn_download.progress = 0
@@ -480,7 +481,7 @@ FluContentPage{
             }
     }
 
-    FluNetworkCallable{
+    NetworkCallable{
         id:callable_breakpoint_download_file
         onStart: {
             btn_download_breakpoint.progress = 0
@@ -508,7 +509,7 @@ FluContentPage{
     FileDialog {
         id: file_dialog
         onAccepted: {
-            FluNetwork.postForm("https://httpbingo.org/post")
+            Network.postForm("https://httpbingo.org/post")
             .setRetry(1)//只请求一次
             .add("accessToken","12345678")
             .addFile("file",FluTools.toLocalPath(file_dialog.currentFile))

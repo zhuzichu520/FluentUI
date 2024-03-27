@@ -25,8 +25,8 @@ FluLauncher {
         }
     }
     Component.onCompleted: {
-        FluNetwork.openLog = false
-        FluNetwork.setInterceptor(function(param){
+        Network.openLog = false
+        Network.setInterceptor(function(param){
             param.addHeader("Token","000000000000000000000")
         })
         FluApp.init(app,Qt.locale(TranslateHelper.current))

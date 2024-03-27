@@ -1568,7 +1568,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
 <context>
     <name>T_Network</name>
     <message>
-        <location filename="qml/page/T_Network.qml" line="12"/>
+        <location filename="qml/page/T_Network.qml" line="13"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
