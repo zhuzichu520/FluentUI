@@ -24,6 +24,8 @@ FluCopyableText 1.0 Controls/FluCopyableText.qml
 FluDatePicker 1.0 Controls/FluDatePicker.qml
 FluDivider 1.0 Controls/FluDivider.qml
 FluDropDownButton 1.0 Controls/FluDropDownButton.qml
+FluEvent 1.0 Controls/FluEvent.qml
+FluEventBus 1.0 Controls/FluEventBus.qml
 FluExpander 1.0 Controls/FluExpander.qml
 FluFilledButton 1.0 Controls/FluFilledButton.qml
 FluFlipView 1.0 Controls/FluFlipView.qml

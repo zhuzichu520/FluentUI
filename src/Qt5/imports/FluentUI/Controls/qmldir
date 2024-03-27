@@ -1,1 +1,2 @@
 singleton FluRouter 1.0 FluRouter.qml
+singleton FluEventBus 1.0 FluEventBus.qml

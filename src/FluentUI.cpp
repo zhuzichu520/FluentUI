@@ -9,7 +9,6 @@
 #include "FluTextStyle.h"
 #include "FluWatermark.h"
 #include "FluCaptcha.h"
-#include "FluEventBus.h"
 #include "FluTreeModel.h"
 #include "FluRectangle.h"
 #include "FluFramelessHelper.h"
@@ -24,11 +23,12 @@ void FluentUI::registerTypes(QQmlEngine *engine){
 void FluentUI::registerTypes(const char *uri){
 #if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
     Q_INIT_RESOURCE(fluentui);
+
+    //@uri FluentUI
     qmlRegisterType<FluQrCodeItem>(uri,major,minor,"FluQrCodeItem");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
     qmlRegisterType<FluWatermark>(uri,major,minor,"FluWatermark");
     qmlRegisterType<FluAccentColor>(uri,major,minor,"FluAccentColor");
-    qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
     qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
     qmlRegisterType<FluFramelessHelper>(uri,major,minor,"FluFramelessHelper");
@@ -123,7 +123,9 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSplitLayout.qml"),uri,major,minor,"FluSplitLayout");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluWindowResultLauncher.qml"),uri,major,minor,"FluWindowResultLauncher");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLauncher.qml"),uri,major,minor,"FluLauncher");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEvent.qml"),uri,major,minor,"FluEvent");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRouter.qml"),uri,major,minor,"FluRouter");
+    qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEventBus.qml"),uri,major,minor,"FluEventBus");
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");
@@ -153,5 +155,4 @@ void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
     engine->rootContext()->setContextProperty("FluTheme",FluTheme::getInstance());
     engine->rootContext()->setContextProperty("FluTools",FluTools::getInstance());
     engine->rootContext()->setContextProperty("FluTextStyle",FluTextStyle::getInstance());
-    engine->rootContext()->setContextProperty("FluEventBus",FluEventBus::getInstance());
 }

@@ -11,19 +11,10 @@ FluScrollablePage{
     title: qsTr("Settings")
 
     FluEvent{
-        id:event_checkupdate_finish
         name: "checkUpdateFinish"
         onTriggered: {
             btn_checkupdate.loading = false
         }
-    }
-
-    Component.onCompleted: {
-        FluEventBus.registerEvent(event_checkupdate_finish)
-    }
-
-    Component.onDestruction: {
-        FluEventBus.unRegisterEvent(event_checkupdate_finish)
     }
 
     FluArea{

@@ -105,5 +105,7 @@
         <file>FluentUI/Controls/FluRouter.qml</file>
         <file>FluentUI/Controls/FluWindowResultLauncher.qml</file>
         <file>FluentUI/Controls/qmldir</file>
+        <file>FluentUI/Controls/FluEvent.qml</file>
+        <file>FluentUI/Controls/FluEventBus.qml</file>
     </qresource>
 </RCC>

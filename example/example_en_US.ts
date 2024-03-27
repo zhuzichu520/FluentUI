@@ -535,104 +535,104 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="318"/>
+        <location filename="qml/window/MainWindow.qml" line="315"/>
         <source>Dark Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="94"/>
-        <location filename="qml/window/MainWindow.qml" line="102"/>
+        <location filename="qml/window/MainWindow.qml" line="91"/>
+        <location filename="qml/window/MainWindow.qml" line="99"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="95"/>
+        <location filename="qml/window/MainWindow.qml" line="92"/>
         <source>Are you sure you want to exit the program?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="96"/>
+        <location filename="qml/window/MainWindow.qml" line="93"/>
         <source>Minimize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="99"/>
+        <location filename="qml/window/MainWindow.qml" line="96"/>
         <source>Friendly Reminder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="99"/>
+        <location filename="qml/window/MainWindow.qml" line="96"/>
         <source>FluentUI is hidden from the tray, click on the tray to activate the window again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="103"/>
-        <location filename="qml/window/MainWindow.qml" line="347"/>
+        <location filename="qml/window/MainWindow.qml" line="100"/>
+        <location filename="qml/window/MainWindow.qml" line="344"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="114"/>
+        <location filename="qml/window/MainWindow.qml" line="111"/>
         <source>Open in Separate Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="211"/>
+        <location filename="qml/window/MainWindow.qml" line="208"/>
         <source>Click Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="221"/>
+        <location filename="qml/window/MainWindow.qml" line="218"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="312"/>
+        <location filename="qml/window/MainWindow.qml" line="309"/>
         <source>Finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="313"/>
+        <location filename="qml/window/MainWindow.qml" line="310"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="314"/>
+        <location filename="qml/window/MainWindow.qml" line="311"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="318"/>
+        <location filename="qml/window/MainWindow.qml" line="315"/>
         <source>Here you can switch to night mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="320"/>
+        <location filename="qml/window/MainWindow.qml" line="317"/>
         <source>Hide Easter eggs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="320"/>
+        <location filename="qml/window/MainWindow.qml" line="317"/>
         <source>Try a few more clicks!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="344"/>
+        <location filename="qml/window/MainWindow.qml" line="341"/>
         <source>Upgrade Tips</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="345"/>
+        <location filename="qml/window/MainWindow.qml" line="342"/>
         <source>FluentUI is currently up to date </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="345"/>
+        <location filename="qml/window/MainWindow.qml" line="342"/>
         <source> -- The current app version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="345"/>
+        <location filename="qml/window/MainWindow.qml" line="342"/>
         <source> 
 Now go and download the new version？
 
@@ -641,17 +641,17 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="348"/>
+        <location filename="qml/window/MainWindow.qml" line="345"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="375"/>
+        <location filename="qml/window/MainWindow.qml" line="372"/>
         <source>The current version is already the latest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="382"/>
+        <location filename="qml/window/MainWindow.qml" line="379"/>
         <source>The network is abnormal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1741,92 +1741,92 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="38"/>
+        <location filename="qml/page/T_Settings.qml" line="29"/>
         <source>Current Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="44"/>
+        <location filename="qml/page/T_Settings.qml" line="35"/>
         <source>Check for Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="60"/>
+        <location filename="qml/page/T_Settings.qml" line="51"/>
         <source>Use System AppBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="76"/>
+        <location filename="qml/page/T_Settings.qml" line="67"/>
         <source>Fits AppBar Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="87"/>
+        <location filename="qml/page/T_Settings.qml" line="78"/>
         <source>Friendly Reminder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="88"/>
+        <location filename="qml/page/T_Settings.qml" line="79"/>
         <source>This action requires a restart of the program to take effect, is it restarted?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="90"/>
+        <location filename="qml/page/T_Settings.qml" line="81"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="91"/>
+        <location filename="qml/page/T_Settings.qml" line="82"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="110"/>
+        <location filename="qml/page/T_Settings.qml" line="101"/>
         <source>Dark Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="115"/>
+        <location filename="qml/page/T_Settings.qml" line="106"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="115"/>
+        <location filename="qml/page/T_Settings.qml" line="106"/>
         <source>Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="115"/>
+        <location filename="qml/page/T_Settings.qml" line="106"/>
         <source>Dark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="140"/>
+        <location filename="qml/page/T_Settings.qml" line="131"/>
         <source>Navigation View Display Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="145"/>
+        <location filename="qml/page/T_Settings.qml" line="136"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="145"/>
+        <location filename="qml/page/T_Settings.qml" line="136"/>
         <source>Compact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="145"/>
+        <location filename="qml/page/T_Settings.qml" line="136"/>
         <source>Minimal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="145"/>
+        <location filename="qml/page/T_Settings.qml" line="136"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Settings.qml" line="180"/>
+        <location filename="qml/page/T_Settings.qml" line="171"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>

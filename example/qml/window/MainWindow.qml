@@ -29,7 +29,6 @@ FluWindow {
     }
 
     FluEvent{
-        id:event_checkupdate
         name: "checkUpdate"
         onTriggered: {
             checkUpdate(false)
@@ -50,11 +49,9 @@ FluWindow {
 
     Component.onCompleted: {
         checkUpdate(true)
-        FluEventBus.registerEvent(event_checkupdate)
     }
 
     Component.onDestruction: {
-        FluEventBus.unRegisterEvent(event_checkupdate)
         FluRouter.exit()
     }
 

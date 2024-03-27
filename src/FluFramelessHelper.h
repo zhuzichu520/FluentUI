@@ -6,6 +6,7 @@
 #include <QtQml/qqml.h>
 #include <QAbstractNativeEventFilter>
 #include <QQmlProperty>
+#include <QQuickItem>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 using QT_NATIVE_EVENT_RESULT_TYPE = qintptr;
@@ -33,13 +34,12 @@ public:
 /**
  * @brief The FluFramelessHelper class
  */
-class FluFramelessHelper : public QObject, public QQmlParserStatus
+class FluFramelessHelper : public QQuickItem
 {
     Q_OBJECT
-    Q_INTERFACES(QQmlParserStatus)
     QML_NAMED_ELEMENT(FluFramelessHelper)
 public:
-    explicit FluFramelessHelper(QObject *parent = nullptr);
+    explicit FluFramelessHelper(QQuickItem *parent = nullptr);
     ~FluFramelessHelper();
     void classBegin() override;
     void componentComplete() override;
@@ -62,7 +62,7 @@ private:
     Q_SLOT void _onStayTopChange();
     Q_SLOT void _onScreenChanged();
 public:
-    QPointer<QQuickWindow> window = nullptr;
+    QPointer<QQuickWindow> window_ = nullptr;
 private:
     FramelessEventFilter* _nativeEvent = nullptr;
     QQmlProperty _stayTop;

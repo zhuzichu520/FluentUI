@@ -4,12 +4,12 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
-Item {
+FluLauncher {
     id: app
     Component.onCompleted: {
         FluApp.init(app)
         FluApp.windowIcon = "qrc:/logo.ico"
-        FluApp.routes = {
+        FluRouter.routes = {
             "/":"qrc:/main.qml",
         }
         FluRouter.navigate("/")
