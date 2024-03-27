@@ -4,32 +4,20 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 
-Rectangle {
-    property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
-    property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
-    property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+FluButton {
     property int hourFormat: FluTimePickerType.H
     property int isH: hourFormat === FluTimePickerType.H
     property var current
-    property string amText: "上午"
-    property string pmText: "下午"
-    property string hourText: "时"
-    property string minuteText: "分"
-    property string cancelText: "取消"
-    property string okText: "确定"
+    property string amText: qsTr("AM")
+    property string pmText: qsTr("PM")
+    property string hourText: qsTr("Hour")
+    property string minuteText: qsTr("Minute")
+    property string cancelText: qsTr("Cancel")
+    property string okText: qsTr("OK")
     signal accepted()
     id:control
-    color: {
-        if(mouse_area.containsMouse){
-            return hoverColor
-        }
-        return normalColor
-    }
-    height: 30
-    width: 300
-    radius: 4
-    border.width: 1
-    border.color: dividerColor
+    implicitHeight: 30
+    implicitWidth: 300
     Component.onCompleted: {
         if(current){
             var now = current;
@@ -62,16 +50,9 @@ Rectangle {
         property bool changeFlag: true
         property var rowData: ["","",""]
         visible: false
-
-
     }
-    MouseArea{
-        id: mouse_area
-        hoverEnabled: true
-        anchors.fill: parent
-        onClicked: {
-            popup.showPopup()
-        }
+    onClicked: {
+        popup.showPopup()
     }
     Rectangle{
         id: divider_1
@@ -99,6 +80,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         text: control.hourText
+        color: control.textColor
     }
     FluText{
         id: text_minute
@@ -111,6 +93,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         text: control.minuteText
+        color: control.textColor
     }
     FluText{
         id:text_ampm
@@ -124,6 +107,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         text: "%1/%2".arg(control.amText).arg(control.pmText)
+        color: control.textColor
     }
     Menu{
         id:popup
@@ -254,7 +238,7 @@ Rectangle {
                     Rectangle{
                         width: 1
                         height: parent.height
-                        color: dividerColor
+                        color: control.dividerColor
                     }
                     ListView{
                         id:list_view_2
@@ -277,7 +261,7 @@ Rectangle {
                     Rectangle{
                         width: 1
                         height: parent.height
-                        color: dividerColor
+                        color: control.dividerColor
                         visible: isH
                     }
                     ListView{
@@ -305,7 +289,7 @@ Rectangle {
                     width: parent.width
                     height: 1
                     anchors.top: layout_content.bottom
-                    color: dividerColor
+                    color: control.dividerColor
                 }
                 Rectangle{
                     id:layout_actions

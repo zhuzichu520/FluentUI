@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title: qsTr("TimePicker")
+    title: qsTr("DatePicker")
 
     FluArea{
         Layout.fillWidth: true

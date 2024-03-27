@@ -1153,8 +1153,8 @@ Updated content:
     <name>T_DatePicker</name>
     <message>
         <location filename="qml/page/T_DatePicker.qml" line="10"/>
-        <source>TimePicker</source>
-        <translation type="unfinished">时间选择器</translation>
+        <source>DatePicker</source>
+        <translation type="unfinished">日期选择器</translation>
     </message>
     <message>
         <location filename="qml/page/T_DatePicker.qml" line="23"/>

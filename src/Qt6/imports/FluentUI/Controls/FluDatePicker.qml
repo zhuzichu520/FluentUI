@@ -4,10 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
 
-Rectangle {
-    property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
-    property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
-    property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
+FluButton {
     property bool showYear: true
     property var current
     property string yearText: qsTr("Year")
@@ -17,17 +14,8 @@ Rectangle {
     property string okText: qsTr("OK")
     signal accepted()
     id:control
-    color: {
-        if(mouse_area.containsMouse){
-            return hoverColor
-        }
-        return normalColor
-    }
-    height: 30
-    width: 300
-    radius: 4
-    border.width: 1
-    border.color: dividerColor
+    implicitHeight: 30
+    implicitWidth: 300
     Component.onCompleted: {
         if(current){
             const now = current;
@@ -46,20 +34,15 @@ Rectangle {
         property var rowData: ["","",""]
         visible: false
     }
-    MouseArea{
-        id:mouse_area
-        hoverEnabled: true
-        anchors.fill: parent
-        onClicked: {
-            popup.showPopup()
-        }
+    onClicked: {
+        popup.showPopup()
     }
     Rectangle{
         id:divider_1
         width: 1
         x:  parent.width/3
         height: parent.height
-        color: dividerColor
+        color: control.dividerColor
         visible: showYear
     }
     Rectangle{
@@ -67,7 +50,7 @@ Rectangle {
         width: 1
         x: showYear ? parent.width*2/3 :  parent.width/2
         height: parent.height
-        color: dividerColor
+        color: control.dividerColor
     }
     FluText{
         id:text_year
@@ -81,6 +64,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         text:control.yearText
+        color: control.textColor
     }
     FluText{
         id:text_month
@@ -93,6 +77,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         text:control.monthText
+        color: control.textColor
     }
     FluText{
         id:text_day
@@ -105,6 +90,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         text:control.dayText
+        color: control.textColor
     }
     Menu{
         id:popup
@@ -247,7 +233,7 @@ Rectangle {
                     Rectangle{
                         width: 1
                         height: parent.height
-                        color: dividerColor
+                        color: control.dividerColor
                     }
                     ListView{
                         id:list_view_2
@@ -269,7 +255,7 @@ Rectangle {
                     Rectangle{
                         width: 1
                         height: parent.height
-                        color: dividerColor
+                        color: control.dividerColor
                     }
                     ListView{
                         id:list_view_3
@@ -294,7 +280,7 @@ Rectangle {
                     width: parent.width
                     height: 1
                     anchors.top: layout_content.bottom
-                    color: dividerColor
+                    color: control.dividerColor
                 }
                 Rectangle{
                     id:layout_actions

@@ -4,35 +4,22 @@ import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
 
-Rectangle {
-    property color dividerColor: FluTheme.dark ? Qt.rgba(77/255,77/255,77/255,1) : Qt.rgba(239/255,239/255,239/255,1)
-    property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
-    property color normalColor: FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(254/255,254/255,254/255,1)
-    property string text: qsTr("Pick a date")
+FluButton {
+    text: {
+        if(control.current){
+            return control.current.toLocaleDateString(FluApp.locale,"yyyy/M/d")
+        }
+        return qsTr("Pick a date")
+    }
     property date from: new Date(1924, 0, 1)
     property date to: new Date(2124, 11, 31)
     property var current
     signal accepted()
     id:control
-    color: {
-        if(mouse_area.containsMouse){
-            return hoverColor
-        }
-        return normalColor
+    onClicked: {
+        popup.showPopup()
     }
-    height: 30
-    width: 120
-    radius: 4
-    border.width: 1
-    border.color: dividerColor
-    MouseArea{
-        id:mouse_area
-        hoverEnabled: true
-        anchors.fill: parent
-        onClicked: {
-            popup.showPopup()
-        }
-    }
+    rightPadding: 36
     CalendarModel {
         id:calender_model
         from: control.from
@@ -53,28 +40,10 @@ Rectangle {
         signal previousButton
         property point yearRing : Qt.point(0,0)
     }
-    FluText{
-        id:text_date
-        anchors{
-            left: parent.left
-            right: parent.right
-            rightMargin: 30
-            top: parent.top
-            bottom: parent.bottom
-        }
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        text:{
-            if(control.current){
-                return control.current.toLocaleDateString(FluApp.locale,"yyyy/M/d")
-            }
-            return control.text
-        }
-    }
     FluIcon{
         iconSource: FluentIcons.Calendar
         iconSize: 14
-        iconColor: text_date.color
+        iconColor: control.textColor
         anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right

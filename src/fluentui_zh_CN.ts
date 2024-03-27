@@ -68,8 +68,8 @@
         <translation type="obsolete">请选择日期</translation>
     </message>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluCalendarPicker.qml" line="12"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluCalendarPicker.qml" line="11"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluCalendarPicker.qml" line="13"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluCalendarPicker.qml" line="12"/>
         <source>Pick a date</source>
         <translation type="unfinished">选择日期</translation>
     </message>
@@ -98,32 +98,32 @@
 <context>
     <name>FluDatePicker</name>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="13"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="13"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="11"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="10"/>
         <source>Year</source>
         <translation type="unfinished">年</translation>
     </message>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="14"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="14"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="12"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="11"/>
         <source>Month</source>
         <translation type="unfinished">月</translation>
     </message>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="15"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="15"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="13"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="12"/>
         <source>Day</source>
         <translation type="unfinished">日</translation>
     </message>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="16"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="16"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="14"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="13"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="17"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="17"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluDatePicker.qml" line="15"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluDatePicker.qml" line="14"/>
         <source>OK</source>
         <translation type="unfinished">确定</translation>
     </message>
@@ -213,6 +213,39 @@
     </message>
 </context>
 <context>
+    <name>FluTimePicker</name>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="11"/>
+        <source>AM</source>
+        <translation type="unfinished">上午</translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="12"/>
+        <source>PM</source>
+        <translation type="unfinished">下午</translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="13"/>
+        <source>Hour</source>
+        <translation type="unfinished">时</translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="14"/>
+        <source>Minute</source>
+        <translation type="unfinished">分</translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="15"/>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="16"/>
+        <source>OK</source>
+        <translation type="unfinished">确定</translation>
+    </message>
+</context>
+<context>
     <name>FluTour</name>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTour.qml" line="13"/>
@@ -236,8 +269,8 @@
 <context>
     <name>FluWindow</name>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="269"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="268"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="259"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="258"/>
         <source>Loading...</source>
         <translation type="unfinished">加载中...</translation>
     </message>
