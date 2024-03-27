@@ -165,20 +165,19 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'property var loginPageRegister: registerForWindowResult("/login")
-
-Connections{
-    target: loginPageRegister
-    function onResult(data)
-    {
-        password = data.password
-    }
+        code:'FluWindowResultLauncher{
+    id:loginResultLauncher
+    path: "/login"
+    onResult:
+        (data)=>{
+            password = data.password
+     }
 }
 
 FluButton{
     text: qsTr("Create Window")
     onClicked: {
-        loginPageRegister.launch({username:"zhuzichu"})
+        loginResultLauncher.launch({username:"zhuzichu"})
     }
 }
 '
