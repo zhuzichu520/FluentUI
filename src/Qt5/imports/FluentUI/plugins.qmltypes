@@ -65,17 +65,26 @@ Module {
         }
     }
     Component {
-        name: "FluFramelessHelper"
+        name: "FluFrameless"
         defaultProperty: "data"
         prototype: "QQuickItem"
-        exports: ["FluentUI/FluFramelessHelper 1.0"]
+        exports: ["FluentUI/FluFrameless 1.0"]
         exportMetaObjectRevisions: [0]
-        Signal { name: "loadCompleted" }
-        Method {
-            name: "showSystemMenu"
-            Parameter { name: "point"; type: "QPoint" }
-        }
+        Property { name: "appbar"; type: "QQuickItem"; isPointer: true }
+        Property { name: "topmost"; type: "bool" }
+        Property { name: "maximizeButton"; type: "QQuickItem"; isPointer: true }
+        Property { name: "minimizedButton"; type: "QQuickItem"; isPointer: true }
+        Property { name: "closeButton"; type: "QQuickItem"; isPointer: true }
+        Property { name: "disabled"; type: "bool" }
+        Property { name: "fixSize"; type: "bool" }
+        Method { name: "showFullScreen" }
         Method { name: "showMaximized" }
+        Method { name: "showMinimized" }
+        Method { name: "showNormal" }
+        Method {
+            name: "setHitTestVisible"
+            Parameter { type: "QQuickItem"; isPointer: true }
+        }
     }
     Component {
         name: "FluNavigationViewType"
@@ -2180,49 +2189,52 @@ Module {
         Property { name: "iconSize"; type: "int" }
         Property { name: "isMac"; type: "bool" }
         Property { name: "borerlessColor"; type: "QColor" }
-        Property { name: "systemMoveEnable"; type: "bool" }
         Property { name: "maxClickListener"; type: "QVariant" }
         Property { name: "minClickListener"; type: "QVariant" }
         Property { name: "closeClickListener"; type: "QVariant" }
         Property { name: "stayTopClickListener"; type: "QVariant" }
         Property { name: "darkClickListener"; type: "QVariant" }
-        Property { name: "systemMenuListener"; type: "QVariant" }
         Property {
             name: "buttonStayTop"
-            type: "FluIconButton_QMLTYPE_18"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMinimize"
-            type: "FluIconButton_QMLTYPE_18"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMaximize"
-            type: "FluIconButton_QMLTYPE_18"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonClose"
-            type: "FluIconButton_QMLTYPE_18"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonDark"
-            type: "FluIconButton_QMLTYPE_18"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
-        Method { name: "_maximizeButtonHover"; type: "QVariant" }
-        Method { name: "_appBarHover"; type: "QVariant" }
-        Method {
-            name: "setHitTestVisible"
-            type: "QVariant"
-            Parameter { name: "id"; type: "QVariant" }
+        Property {
+            name: "layoutMacosButtons"
+            type: "FluLoader_QMLTYPE_13"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "layoutStandardbuttons"
+            type: "QQuickRowLayout"
+            isReadonly: true
+            isPointer: true
         }
     }
     Component {
@@ -2894,15 +2906,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_128"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_128"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_168"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_168"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_34"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_34"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_32"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_32"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -2910,13 +2922,13 @@ Module {
         Property { name: "hideNavAppBar"; type: "bool" }
         Property {
             name: "buttonMenu"
-            type: "FluIconButton_QMLTYPE_18"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonBack"
-            type: "FluIconButton_QMLTYPE_18"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
@@ -3777,24 +3789,14 @@ Module {
         Property { name: "resizeBorderColor"; type: "QColor" }
         Property { name: "resizeBorderWidth"; type: "int" }
         Property { name: "closeListener"; type: "QVariant" }
-        Property { name: "_realHeight"; type: "int" }
-        Property { name: "_realWidth"; type: "int" }
-        Property { name: "_appBarHeight"; type: "int" }
         Property { name: "_windowRegister"; type: "QVariant" }
         Property { name: "_route"; type: "string" }
         Property { name: "contentData"; type: "QObject"; isList: true; isReadonly: true }
-        Signal { name: "showSystemMenu" }
         Signal {
             name: "initArgument"
             Parameter { name: "argument"; type: "QVariant" }
         }
-        Signal { name: "firstVisible" }
-        Method {
-            name: "showLoading"
-            type: "QVariant"
-            Parameter { name: "text"; type: "QVariant" }
-            Parameter { name: "cancel"; type: "QVariant" }
-        }
+        Signal { name: "lazyLoad" }
         Method { name: "hideLoading"; type: "QVariant" }
         Method {
             name: "showSuccess"
@@ -3837,6 +3839,17 @@ Module {
             Parameter { name: "data"; type: "QVariant" }
         }
         Method { name: "showMaximized"; type: "QVariant" }
+        Method {
+            name: "showLoading"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "cancel"; type: "QVariant" }
+        }
+        Method {
+            name: "setHitTestVisible"
+            type: "QVariant"
+            Parameter { name: "val"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickWindowQmlImpl"
@@ -3870,24 +3883,14 @@ Module {
         Property { name: "resizeBorderColor"; type: "QColor" }
         Property { name: "resizeBorderWidth"; type: "int" }
         Property { name: "closeListener"; type: "QVariant" }
-        Property { name: "_realHeight"; type: "int" }
-        Property { name: "_realWidth"; type: "int" }
-        Property { name: "_appBarHeight"; type: "int" }
         Property { name: "_windowRegister"; type: "QVariant" }
         Property { name: "_route"; type: "string" }
         Property { name: "contentData"; type: "QObject"; isList: true; isReadonly: true }
-        Signal { name: "showSystemMenu" }
         Signal {
             name: "initArgument"
             Parameter { name: "argument"; type: "QVariant" }
         }
-        Signal { name: "firstVisible" }
-        Method {
-            name: "showLoading"
-            type: "QVariant"
-            Parameter { name: "text"; type: "QVariant" }
-            Parameter { name: "cancel"; type: "QVariant" }
-        }
+        Signal { name: "lazyLoad" }
         Method { name: "hideLoading"; type: "QVariant" }
         Method {
             name: "showSuccess"
@@ -3930,6 +3933,17 @@ Module {
             Parameter { name: "data"; type: "QVariant" }
         }
         Method { name: "showMaximized"; type: "QVariant" }
+        Method {
+            name: "showLoading"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "cancel"; type: "QVariant" }
+        }
+        Method {
+            name: "setHitTestVisible"
+            type: "QVariant"
+            Parameter { name: "val"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickItem"

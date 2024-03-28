@@ -35,16 +35,8 @@ FluWindow {
         }
     }
 
-    onFirstVisible: {
-        timer_tour_delay.restart()
-    }
-
-    Timer{
-        id:timer_tour_delay
-        interval: 200
-        onTriggered: {
-            tour.open()
-        }
+    onLazyLoad: {
+        tour.open()
     }
 
     Component.onCompleted: {
@@ -168,7 +160,7 @@ FluWindow {
                     }
                 }
                 Component.onCompleted: {
-                    appBar.setHitTestVisible(layout_back_buttons)
+                    window.setHitTestVisible(layout_back_buttons)
                 }
             }
             FluRemoteLoader{
@@ -226,9 +218,9 @@ FluWindow {
                     ItemsOriginal.paneItemMenu = nav_item_right_menu
                     ItemsFooter.navigationView = nav_view
                     ItemsFooter.paneItemMenu = nav_item_right_menu
-                    appBar.setHitTestVisible(nav_view.buttonMenu)
-                    appBar.setHitTestVisible(nav_view.buttonBack)
-                    appBar.setHitTestVisible(nav_view.imageLogo)
+                    window.setHitTestVisible(nav_view.buttonMenu)
+                    window.setHitTestVisible(nav_view.buttonBack)
+                    window.setHitTestVisible(nav_view.imageLogo)
                     setCurrentIndex(0)
                 }
             }

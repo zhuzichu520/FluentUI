@@ -56,29 +56,20 @@ Window {
             event.accepted = false
         }
     }
-    signal showSystemMenu
     signal initArgument(var argument)
-    signal firstVisible()
-    property int _realHeight
-    property int _realWidth
-    property int _appBarHeight: appBar.height
+    signal lazyLoad()
     property var _windowRegister
     property string _route
     id:window
     color:"transparent"
     Component.onCompleted: {
         FluRouter.addWindow(window)
-        _realHeight = height
-        _realWidth = width
         useSystemAppBar = FluApp.useSystemAppBar
         if(useSystemAppBar && autoCenter){
             moveWindowToDesktopCenter()
         }
         fixWindowSize()
         initArgument(argument)
-        if(!useSystemAppBar){
-            loader_frameless_helper.sourceComponent = com_frameless_helper
-        }
         if(window.autoVisible){
             if(window.autoMaximize){
                 window.showMaximized()
@@ -87,33 +78,30 @@ Window {
             }
         }
     }
-    onShowSystemMenu: {
-        if(loader_frameless_helper.item){
-            loader_frameless_helper.item.showSystemMenu()
-        }
-    }
     onVisibleChanged: {
-        if(visible && d.isFirstVisible){
-            window.firstVisible()
-            d.isFirstVisible = false
+        if(visible && d.isLazyInit){
+            window.lazyLoad()
+            d.isLazyInit = false
         }
     }
     QtObject{
         id:d
-        property bool isFirstVisible: true
+        property bool isLazyInit: true
     }
     Connections{
         target: window
         function onClosing(event){closeListener(event)}
     }
-    Component{
-        id:com_frameless_helper
-        FluFramelessHelper{
-            onLoadCompleted:{
-                if(autoCenter){
-                    window.moveWindowToDesktopCenter()
-                }
-            }
+    FluFrameless{
+        id: frameless
+        appbar: window.appBar
+        maximizeButton: appBar.buttonMaximize
+        fixSize: window.fixSize
+        topmost: window.stayTop
+        disabled: FluApp.useSystemAppBar
+        Component.onCompleted: {
+            frameless.setHitTestVisible(appBar.layoutMacosButtons)
+            frameless.setHitTestVisible(appBar.layoutStandardbuttons)
         }
     }
     Component{
@@ -199,9 +187,6 @@ Window {
         }
     }
     FluLoader{
-        id:loader_frameless_helper
-    }
-    FluLoader{
         anchors.fill: parent
         sourceComponent: background
     }
@@ -256,11 +241,6 @@ Window {
             return com_border
         }
     }
-    function showLoading(text = qsTr("Loading..."),cancel = true){
-        loader_loading.loadingText = text
-        loader_loading.cancel = cancel
-        loader_loading.sourceComponent = com_loading
-    }
     function hideLoading(){
         loader_loading.sourceComponent = undefined
     }
@@ -298,12 +278,17 @@ Window {
         }
     }
     function showMaximized(){
-        if(FluTools.isWin()){
-            if(loader_frameless_helper.item){
-                loader_frameless_helper.item.showMaximized()
-            }
-        }else{
-            window.visibility = Window.Maximized
+        frameless.showMaximized()
+    }
+    function showLoading(text = "",cancel = true){
+        if(text===""){
+            text = qsTr("Loading...")
         }
+        loader_loading.loadingText = text
+        loader_loading.cancel = cancel
+        loader_loading.sourceComponent = com_loading
+    }
+    function setHitTestVisible(val){
+        frameless.setHitTestVisible(val)
     }
 }
