@@ -47,9 +47,8 @@ private:
     bool _containsCursorToItem(QQuickItem* item);
     bool _hitAppBar();
     bool _hitMaximizeButton();
-    qint64 _current;
-
 private:
+    qint64 _current;
     int _edges = 0;
     int _margins = 8;
     QList<QPointer<QQuickItem>> _hitTestList;

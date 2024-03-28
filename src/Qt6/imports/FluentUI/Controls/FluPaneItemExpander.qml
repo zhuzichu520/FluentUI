@@ -3,7 +3,7 @@ import QtQuick.Controls
 import FluentUI
 
 FluObject {
-    readonly property string key : FluTools.uuid()
+    property string key
     property int _idx
     property bool visible: true
     property string title
@@ -15,4 +15,7 @@ FluObject {
     property Component iconDelegate
     property Component menuDelegate
     property Component editDelegate
+    Component.onCompleted: {
+        key = FluTools.uuid()
+    }
 }

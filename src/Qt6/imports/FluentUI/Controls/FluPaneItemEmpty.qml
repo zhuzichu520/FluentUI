@@ -3,9 +3,12 @@ import QtQuick.Controls
 import FluentUI
 
 QtObject {
-    readonly property string key : FluTools.uuid()
+    property string key
     property int _idx
     property var _ext
     property var _parent
     property bool visible: true
+    Component.onCompleted: {
+        key = FluTools.uuid()
+    }
 }

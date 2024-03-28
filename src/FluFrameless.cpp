@@ -195,8 +195,7 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
         if (0 != *result) {
             return true;
         }
-        auto aa = _hitAppBar();
-        if(aa){
+        if(_hitAppBar()){
             *result = HTCAPTION;
             return true;
         }
