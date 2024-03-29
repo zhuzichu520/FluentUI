@@ -10,15 +10,14 @@ FluScrollablePage{
     title: qsTr("Tooltip")
 
     FluText{
-        Layout.topMargin: 20
         text: qsTr("Hover over Tultip and it pops up")
     }
 
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 68
-        paddings: 10
+        Layout.preferredHeight: 68
+        padding: 10
 
         Column{
             spacing: 5
@@ -41,7 +40,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluIconButton{
     iconSource:FluentIcons.ChromeCloseContrast
     iconSize: 15
@@ -56,8 +55,8 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 68
-        paddings: 10
+        Layout.preferredHeight: 68
+        padding: 10
 
         Column{
             spacing: 5
@@ -84,7 +83,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluButton{
     id: button_1
     text: qsTr("Delete")

@@ -11,9 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 130
-        paddings: 10
+        Layout.preferredHeight: 130
+        padding: 10
 
         ColumnLayout{
             spacing: 10
@@ -32,7 +31,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluProgressBar{
 
 }
@@ -45,8 +44,8 @@ FluProgressRing{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 286
-        paddings: 10
+        Layout.preferredHeight: 286
+        padding: 10
 
         ColumnLayout{
             spacing: 10
@@ -88,7 +87,7 @@ FluProgressRing{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluProgressBar{
     indeterminate: false
 }

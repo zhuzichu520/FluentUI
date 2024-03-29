@@ -11,9 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 260
-        paddings: 10
-        Layout.topMargin: 20
+        Layout.preferredHeight: 260
+        padding: 10
         Column{
             spacing: 15
             anchors{
@@ -37,7 +36,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluImage{
     width: 400
     height: 300

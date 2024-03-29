@@ -12,9 +12,8 @@ FluScrollablePage{
     FluArea{
         id:layout_actions
         Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 50
-        paddings: 10
+        Layout.preferredHeight: 50
+        padding: 10
         RowLayout{
             spacing: 14
             FluDropDownButton{
@@ -56,8 +55,8 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 10
-        height: 380
-        paddings: 10
+        Layout.preferredHeight: 380
+        padding: 10
         FluStatusLayout{
             id:status_view
             anchors.fill: parent
@@ -76,7 +75,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluStatusLayout{
     anchors.fill: parent
     statusMode: FluStatusLayoutType.Loading

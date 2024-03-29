@@ -20,8 +20,8 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 60
-        paddings: 10
+        Layout.preferredHeight: 60
+        padding: 10
         Row{
             spacing: 20
             anchors.verticalCenter: parent.verticalCenter
@@ -46,7 +46,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: 20
         height: 50
-        paddings: 10
+        padding: 10
         FluCheckBox{
             text: qsTr("Use System AppBar")
             checked: FluApp.useSystemAppBar
@@ -62,7 +62,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: 20
         height: 50
-        paddings: 10
+        padding: 10
         FluCheckBox{
             text:qsTr("Fits AppBar Windows")
             checked: window.fitsAppBarWindows
@@ -89,7 +89,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: 20
         height: 128
-        paddings: 10
+        padding: 10
 
         ColumnLayout{
             spacing: 5
@@ -119,7 +119,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: 20
         height: 160
-        paddings: 10
+        padding: 10
 
         ColumnLayout{
             spacing: 5
@@ -159,7 +159,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: 20
         height: 80
-        paddings: 10
+        padding: 10
 
         ColumnLayout{
             spacing: 10

@@ -103,7 +103,7 @@ Button {
                     }
                 }
                 Behavior on x  {
-                    enabled: FluTheme.enableAnimation
+                    enabled: FluTheme.animationEnabled
                     NumberAnimation {
                         duration: 167
                         easing.type: Easing.OutCubic

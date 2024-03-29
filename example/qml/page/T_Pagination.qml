@@ -11,9 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 200
-        paddings: 10
-        Layout.topMargin: 20
+        Layout.preferredHeight: 200
+        padding: 10
         ColumnLayout{
             spacing: 20
             anchors.verticalCenter: parent.verticalCenter
@@ -37,7 +36,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluPagination{
     pageCurrent: 1
     itemCount: 1000

@@ -24,7 +24,7 @@ FluButton {
             visible: Number(width)!==0
             clip: true
             Behavior on width {
-                enabled: FluTheme.enableAnimation
+                enabled: FluTheme.animationEnabled
                 NumberAnimation{
                     duration: 167
                     easing.type: Easing.OutCubic

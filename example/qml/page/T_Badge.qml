@@ -11,9 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 20
         height: 120
-        paddings: 10
+        padding: 10
 
         Column{
             spacing: 15
@@ -114,7 +113,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'Rectangle{
     width: 40
     height: 40

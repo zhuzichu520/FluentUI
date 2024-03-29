@@ -11,16 +11,15 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 100
-        paddings: 10
+        Layout.preferredHeight: 100
+        padding: 10
         FluShortcutPicker{
             anchors.verticalCenter: parent.verticalCenter
         }
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluShortcutPicker{
 
 }'

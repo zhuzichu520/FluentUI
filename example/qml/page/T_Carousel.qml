@@ -25,8 +25,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         height: 370
-        paddings: 10
-        Layout.topMargin: 20
+        padding: 10
         Column{
             spacing: 15
             anchors{
@@ -65,7 +64,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         height: 340
-        paddings: 10
+        padding: 10
         Layout.topMargin: 10
         Column{
             spacing: 15
@@ -126,7 +125,7 @@ FluScrollablePage{
 
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluCarousel{
     id:carousel
     width: 400

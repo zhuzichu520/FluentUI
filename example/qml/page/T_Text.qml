@@ -11,9 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 60
-        paddings: 10
+        Layout.preferredHeight: 60
+        padding: 10
 
         FluCopyableText{
             text: qsTr("This is a text that can be copied")
@@ -23,7 +22,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluCopyableText{
     text: qsTr("This is a text that can be copied")
 }'

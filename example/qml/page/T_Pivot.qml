@@ -11,11 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 400
-        paddings: 10
-
-
+        Layout.preferredHeight: 400
+        padding: 10
 
         FluPivot{
             anchors.fill: parent
@@ -49,7 +46,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluPivot{
     anchors.fill: parent
     FluPivotItem:{

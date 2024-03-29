@@ -10,9 +10,9 @@ FluScrollablePage{
     title: qsTr("Bar Chart")
 
     FluArea{
-        width: 500
-        height: 370
-        paddings: 10
+        Layout.preferredWidth: 500
+        Layout.preferredHeight: 370
+        padding: 10
         Layout.topMargin: 20
         FluChart{
             anchors.fill: parent
@@ -72,7 +72,7 @@ FluScrollablePage{
     FluArea{
         width: 500
         height: 370
-        paddings: 10
+        padding: 10
         Layout.topMargin: 20
         FluChart{
             anchors.fill: parent

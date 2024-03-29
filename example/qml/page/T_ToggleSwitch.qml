@@ -11,9 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
-        Layout.topMargin: 20
+        Layout.preferredHeight: 68
+        padding: 10
         Row{
             spacing: 30
             anchors.verticalCenter: parent.verticalCenter
@@ -41,7 +40,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluToggleSwitch{
     text:"Text"
 }'

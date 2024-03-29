@@ -4,40 +4,45 @@ import QtQuick.Controls
 import QtQuick.Window
 import FluentUI
 
-Item {
+Page {
     property int launchMode: FluPageType.SingleTop
-    property bool animDisabled: false
+    property bool animationEnabled: FluTheme.animationEnabled
     property string url : ""
-    signal animationEnd()
     id: control
-    opacity: visible
-    visible: false
     StackView.onRemoved: destroy()
-    Behavior on opacity{
-        enabled: !animDisabled && FluTheme.enableAnimation
-        NumberAnimation{
-            duration: 167
-        }
-    }
+    padding: 5
+    visible: false
+    opacity: visible
     transform: Translate {
         y: control.visible ? 0 : 80
         Behavior on y{
-            enabled: !animDisabled && FluTheme.enableAnimation
+            enabled: control.animationEnabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
             }
         }
     }
-    Component.onCompleted: {
-        visible = true
-        timer.restart()
-    }
-    Timer{
-        id:timer
-        interval: !animDisabled && FluTheme.enableAnimation ?  200 : 0
-        onTriggered: {
-            control.animationEnd()
+    Behavior on opacity {
+        enabled: control.animationEnabled
+        NumberAnimation{
+            duration: 83
         }
+    }
+    background: Item{}
+    header: Item{
+        implicitHeight: 40
+        FluText{
+            id:text_title
+            text: control.title
+            font: FluTextStyle.Title
+            anchors{
+                left: parent.left
+                leftMargin: 5
+            }
+        }
+    }
+    Component.onCompleted: {
+        control.visible = true
     }
 }

@@ -167,7 +167,7 @@ Item {
                 return  control.cellHeight
             }
             Behavior on height {
-                enabled: FluTheme.enableAnimation && d.animDisabled
+                enabled: FluTheme.animationEnabled && d.animDisabled
                 NumberAnimation{
                     duration: 83
                 }
@@ -310,7 +310,7 @@ Item {
                             return true
                         }
                         Behavior on rotation {
-                            enabled: FluTheme.enableAnimation && d.animDisabled
+                            enabled: FluTheme.animationEnabled && d.animDisabled
                             NumberAnimation{
                                 duration: 167
                                 easing.type: Easing.OutCubic
@@ -457,7 +457,7 @@ Item {
         id:com_panel_item
         Item{
             Behavior on height {
-                enabled: FluTheme.enableAnimation && d.animDisabled
+                enabled: FluTheme.animationEnabled && d.animDisabled
                 NumberAnimation{
                     duration: 167
                     easing.type: Easing.OutCubic
@@ -771,13 +771,13 @@ Item {
                 visible: opacity
                 opacity: d.isMinimal
                 Behavior on opacity{
-                    enabled: FluTheme.enableAnimation && d.animDisabled
+                    enabled: FluTheme.animationEnabled && d.animDisabled
                     NumberAnimation{
                         duration: 83
                     }
                 }
                 Behavior on Layout.preferredWidth {
-                    enabled: FluTheme.enableAnimation && d.animDisabled
+                    enabled: FluTheme.animationEnabled && d.animDisabled
                     NumberAnimation{
                         duration: 167
                         easing.type: Easing.OutCubic
@@ -880,7 +880,7 @@ Item {
             }
         }
         Behavior on anchors.leftMargin {
-            enabled: FluTheme.enableAnimation && d.animDisabled
+            enabled: FluTheme.animationEnabled && d.animDisabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
@@ -925,14 +925,14 @@ Item {
         }
         x: visible ? 0 : -width
         Behavior on width {
-            enabled: FluTheme.enableAnimation && d.animDisabled
+            enabled: FluTheme.animationEnabled && d.animDisabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
             }
         }
         Behavior on x {
-            enabled: FluTheme.enableAnimation && d.animDisabled
+            enabled: FluTheme.animationEnabled && d.animDisabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
@@ -1012,7 +1012,7 @@ Item {
                 interactive: false
                 model:d.handleItems()
                 boundsBehavior: ListView.StopAtBounds
-                highlightMoveDuration: FluTheme.enableAnimation && d.animDisabled ? 167 : 0
+                highlightMoveDuration: FluTheme.animationEnabled && d.animDisabled ? 167 : 0
                 highlight: Item{
                     clip: true
                     Rectangle{
@@ -1231,10 +1231,14 @@ Item {
         }
     }
     function setCurrentIndex(index){
-        nav_list.currentIndex = index
         var item = nav_list.model[index]
-        if(item instanceof FluPaneItem){
-            item.tap()
+        if(item.url){
+            nav_list.currentIndex = index
+            if(item instanceof FluPaneItem){
+                item.tap()
+            }
+        }else{
+            item.onTapListener()
         }
     }
     function getItems(){

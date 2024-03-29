@@ -15,7 +15,7 @@ Popup {
     enter: Transition {
         NumberAnimation {
             property: "opacity"
-            duration: FluTheme.enableAnimation ? 83 : 0
+            duration: FluTheme.animationEnabled ? 83 : 0
             from:0
             to:1
         }
@@ -24,7 +24,7 @@ Popup {
     exit:Transition {
         NumberAnimation {
             property: "opacity"
-            duration: FluTheme.enableAnimation ? 83 : 0
+            duration: FluTheme.animationEnabled ? 83 : 0
             from:1
             to:0
         }

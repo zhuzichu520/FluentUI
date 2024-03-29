@@ -32,7 +32,7 @@ class FluTheme : public QObject
     Q_PROPERTY_AUTO(QColor,itemCheckColor);
     Q_PROPERTY_AUTO(int,darkMode);
     Q_PROPERTY_AUTO(bool,nativeText);
-    Q_PROPERTY_AUTO(bool,enableAnimation);
+    Q_PROPERTY_AUTO(bool,animationEnabled);
     QML_NAMED_ELEMENT(FluTheme)
     QML_SINGLETON
 private:

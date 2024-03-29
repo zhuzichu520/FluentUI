@@ -64,7 +64,7 @@ Item {
                 iconSource:FluentIcons.ChevronUp
                 iconSize: 15
                 Behavior on rotation {
-                    enabled: FluTheme.enableAnimation
+                    enabled: FluTheme.animationEnabled
                     NumberAnimation{
                         duration: 167
                         easing.type: Easing.OutCubic
@@ -115,7 +115,7 @@ Item {
                     to:"expand"
                     NumberAnimation {
                         properties: "anchors.topMargin"
-                        duration: FluTheme.enableAnimation && d.flag ? 167 : 0
+                        duration: FluTheme.animationEnabled && d.flag ? 167 : 0
                         easing.type: Easing.OutCubic
                     }
                 },
@@ -123,7 +123,7 @@ Item {
                     to:"collapsed"
                     NumberAnimation {
                         properties: "anchors.topMargin"
-                        duration: FluTheme.enableAnimation && d.flag ? 167 : 0
+                        duration: FluTheme.animationEnabled && d.flag ? 167 : 0
                         easing.type: Easing.OutCubic
                     }
                 }

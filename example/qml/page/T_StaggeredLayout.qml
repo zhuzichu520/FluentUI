@@ -27,7 +27,6 @@ FluContentPage{
     Flickable{
         id: scroll
         anchors.fill: parent
-        anchors.topMargin: 20
         boundsBehavior:Flickable.StopAtBounds
         contentHeight: staggered_view.implicitHeight
         clip: true

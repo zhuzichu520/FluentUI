@@ -22,7 +22,7 @@ Button {
     property alias textColor: btn_text.textColor
     property bool textRight: true
     property real textSpacing: 6
-    property bool enableAnimation: FluTheme.enableAnimation
+    property bool animationEnabled: FluTheme.animationEnabled
     property var clickListener : function(){
         checked = !checked
     }
@@ -94,7 +94,7 @@ Button {
                 return normalColor
             }
             Behavior on color {
-                enabled: control.enableAnimation
+                enabled: control.animationEnabled
                 ColorAnimation{
                     duration: 83
                 }
@@ -107,7 +107,7 @@ Button {
                 visible: indeterminate
                 iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                 Behavior on visible {
-                    enabled: control.enableAnimation
+                    enabled: control.animationEnabled
                     NumberAnimation{
                         duration: 83
                     }
@@ -121,7 +121,7 @@ Button {
                 visible: checked && !indeterminate
                 iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                 Behavior on visible {
-                    enabled: control.enableAnimation
+                    enabled: control.animationEnabled
                     NumberAnimation{
                         duration: 83
                     }

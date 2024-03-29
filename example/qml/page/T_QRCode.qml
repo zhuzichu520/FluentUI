@@ -11,7 +11,6 @@ FluScrollablePage{
 
     FluQRCode{
         id:qrcode
-        Layout.topMargin: 20
         size:slider_size.value
         text:text_box.text
         color:color_picker.current

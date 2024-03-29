@@ -13,9 +13,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 20
         Layout.preferredHeight: 340
-        paddings: 10
+        padding: 10
 
         ColumnLayout{
             spacing:0
@@ -115,16 +114,16 @@ FluScrollablePage{
             }
             FluToggleSwitch{
                 Layout.topMargin: 5
-                checked: FluTheme.enableAnimation
+                checked: FluTheme.animationEnabled
                 onClicked: {
-                    FluTheme.enableAnimation = !FluTheme.enableAnimation
+                    FluTheme.animationEnabled = !FluTheme.animationEnabled
                 }
             }
         }
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluTheme.accentColor = FluColors.Orange
 
 FluTheme.dark = true

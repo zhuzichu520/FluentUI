@@ -49,9 +49,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 100
-        paddings: 10
-        Layout.topMargin: 20
+        Layout.preferredHeight: 100
+        padding: 10
         Column{
             id: layout_column
             spacing: 15
@@ -78,7 +77,7 @@ FluScrollablePage{
 
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluMenu{
     id:menu
     FluMenuItem:{
@@ -101,8 +100,8 @@ menu.popup()
 
     FluArea{
         Layout.fillWidth: true
-        height: 100
-        paddings: 10
+        Layout.preferredHeight: 100
+        padding: 10
         Layout.topMargin: 20
         Column{
             spacing: 15
@@ -151,7 +150,7 @@ menu.popup()
 
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluMenuBar{
     id:menu
     FluMenu:{

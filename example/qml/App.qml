@@ -33,7 +33,7 @@ FluLauncher {
         FluApp.windowIcon = "qrc:/example/res/image/favicon.ico"
         FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
         FluTheme.darkMode = SettingsHelper.getDarkMode()
-        FluTheme.enableAnimation = true
+        FluTheme.animationEnabled = true
         FluRouter.routes = {
             "/":"qrc:/example/qml/window/MainWindow.qml",
             "/about":"qrc:/example/qml/window/AboutWindow.qml",

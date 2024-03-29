@@ -11,7 +11,6 @@ FluScrollablePage{
 
     FluCaptcha{
         id: captcha
-        Layout.topMargin: 20
         ignoreCase:switch_case.checked
         MouseArea{
             anchors.fill: parent

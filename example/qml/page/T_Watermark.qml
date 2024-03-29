@@ -11,7 +11,6 @@ FluContentPage{
 
     FluArea{
         anchors.fill: parent
-        anchors.topMargin: 20
 
         ColumnLayout{
             anchors{

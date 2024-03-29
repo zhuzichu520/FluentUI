@@ -11,9 +11,8 @@ FluScrollablePage{
     launchMode: FluPageType.SingleInstance
     FluArea{
         Layout.fillWidth: true
-        Layout.topMargin: 20
-        height: 80
-        paddings: 10
+        Layout.preferredHeight: 80
+        padding: 10
 
         ColumnLayout{
 
@@ -43,7 +42,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluTimePicker{
 
 }'
@@ -52,8 +51,8 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        height: 80
-        paddings: 10
+        Layout.preferredHeight: 80
+        padding: 10
 
         ColumnLayout{
 
@@ -83,7 +82,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluTimePicker{
     hourFormat:FluTimePickerType.HH
 }'

@@ -13,7 +13,6 @@ FluContentPage{
         id:layout_dropdown
         anchors{
             top: parent.top
-            topMargin: 20
         }
         FluText{
             text:"orientation:"

@@ -159,7 +159,7 @@ FluContentPage{
             FluCheckBox{
                 anchors.centerIn: parent
                 checked: true === options.checked
-                enableAnimation: false
+                animationEnabled: false
                 clickListener: function(){
                     var obj = table_view.getRow(row)
                     obj.checkbox = table_view.customItem(com_checbox,{checked:!options.checked})
@@ -239,7 +239,7 @@ FluContentPage{
                 }
                 FluCheckBox{
                     checked: true === root.seletedAll
-                    enableAnimation: false
+                    animationEnabled: false
                     Layout.alignment: Qt.AlignVCenter
                     clickListener: function(){
                         root.seletedAll = !root.seletedAll

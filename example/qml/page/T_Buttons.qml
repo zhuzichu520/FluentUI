@@ -10,15 +10,14 @@ FluScrollablePage{
     title: qsTr("Buttons")
 
     FluText{
-        Layout.topMargin: 20
         text: qsTr("Support the Tab key to switch focus, and the Space key to perform click events")
     }
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
-        Layout.topMargin: 20
+        Layout.preferredHeight: 68
+        Layout.topMargin: 10
+        padding: 10
 
         FluTextButton{
             disabled: text_button_switch.checked
@@ -42,7 +41,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluTextButton{
     text:"Text Button"
     onClicked: {
@@ -53,8 +52,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
+        Layout.preferredHeight: 68
+        padding: 10
         Layout.topMargin: 20
 
         FluButton{
@@ -79,7 +78,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluButton{
     text:"Standard Button"
     onClicked: {
@@ -90,9 +89,9 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
+        Layout.preferredHeight: 68
         Layout.topMargin: 20
-        paddings: 10
+        padding: 10
 
         FluFilledButton{
             disabled: filled_button_switch.checked
@@ -116,7 +115,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluFilledButton{
     text:"Filled Button"
     onClicked: {
@@ -127,9 +126,9 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
+        Layout.preferredHeight: 68
         Layout.topMargin: 20
-        paddings: 10
+        padding: 10
 
         FluToggleButton{
             disabled:toggle_button_switch.checked
@@ -150,7 +149,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluToggleButton{
     text:"Toggle Button"
     onClicked: {
@@ -174,9 +173,9 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
+        Layout.preferredHeight: 68
         Layout.topMargin: 20
-        paddings: 10
+        padding: 10
 
         FluProgressButton{
             id: btn_progress
@@ -202,7 +201,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluProgressButton{
     text:"Progress Button"
     onClicked: {
@@ -213,9 +212,9 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
+        Layout.preferredHeight: 68
         Layout.topMargin: 20
-        paddings: 10
+        padding: 10
 
         FluLoadingButton{
             id: btn_loading
@@ -241,7 +240,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluLoadingButton{
     text:"Loading Button"
     onClicked: {
@@ -253,8 +252,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: layout_icon_button.height + 30
-        paddings: 10
+        Layout.preferredHeight: layout_icon_button.height + 30
+        padding: 10
         Layout.topMargin: 20
         Flow{
             id: layout_icon_button
@@ -323,7 +322,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluIconButton{
     iconSource:FluentIcons.ChromeCloseContrast
     onClicked: {
@@ -334,8 +333,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
+        Layout.preferredHeight: 68
+        padding: 10
         Layout.topMargin: 20
         FluDropDownButton{
             disabled: drop_down_button_switch.checked
@@ -371,7 +370,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluDropDownButton{
     text:"DropDownButton"
     FluMenuItem{
@@ -391,8 +390,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 100
-        paddings: 10
+        Layout.preferredHeight: 100
+        padding: 10
         Layout.topMargin: 20
         FluRadioButtons{
             spacing: 8
@@ -424,7 +423,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluRadioButton{
     checked:true
     text:"Text Button"

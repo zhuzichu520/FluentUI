@@ -74,10 +74,10 @@ Button {
                 enabled: control.progress !== 0
                 SequentialAnimation {
                     PauseAnimation {
-                        duration: FluTheme.enableAnimation ? 167 : 0
+                        duration: FluTheme.animationEnabled ? 167 : 0
                     }
                     NumberAnimation{
-                        duration: FluTheme.enableAnimation ? 167 : 0
+                        duration: FluTheme.animationEnabled ? 167 : 0
                         from: 3
                         to: background.height
                     }

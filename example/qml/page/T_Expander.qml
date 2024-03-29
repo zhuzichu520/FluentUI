@@ -12,8 +12,7 @@ FluScrollablePage{
     FluArea{
         Layout.fillWidth: true
         height: layout_column.height+20
-        paddings: 10
-        Layout.topMargin: 20
+        padding: 10
         Column{
             id:layout_column
             spacing: 15
@@ -83,7 +82,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
 
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluExpander{
     headerText: qsTr("Open a radio box")
     Item{

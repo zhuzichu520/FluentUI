@@ -473,9 +473,11 @@ FluObject{
         }
         FluPaneItem{
             title: qsTr("Test Crash")
-            visible: FluTools.isWin()
             onTapListener: function(){
                 AppInfo.testCrash()
+            }
+            Component.onCompleted: {
+                visible = FluTools.isWin()
             }
         }
     }

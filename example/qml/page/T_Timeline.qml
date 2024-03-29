@@ -106,7 +106,6 @@ FluScrollablePage{
 
     RowLayout{
         spacing: 20
-        Layout.topMargin: 20
         FluTextBox{
             id: text_box
             text: "Technical testing 2015-09-01"

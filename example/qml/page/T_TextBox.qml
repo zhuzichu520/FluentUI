@@ -11,9 +11,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
-        Layout.topMargin: 20
+        Layout.preferredHeight: 68
+        padding: 10
 
         FluTextBox{
             placeholderText: qsTr("Single-line Input Box")
@@ -36,7 +35,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluTextBox{
     placeholderText: qsTr("Single-line Input Box")
 }'
@@ -44,8 +43,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
+        Layout.preferredHeight: 68
+        padding: 10
         Layout.topMargin: 20
 
         FluPasswordBox{
@@ -67,7 +66,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluPasswordBox{
     placeholderText: qsTr("Please enter your password")
 }'
@@ -75,8 +74,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 36+multiine_textbox.height
-        paddings: 10
+        Layout.preferredHeight: 36+multiine_textbox.height
+        padding: 10
         Layout.topMargin: 20
 
         FluMultilineTextBox{
@@ -100,7 +99,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluMultilineTextBox{
     placeholderText: qsTr("Multi-line Input Box")
 }'
@@ -108,8 +107,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
+        Layout.preferredHeight: 68
+        padding: 10
         Layout.topMargin: 20
         FluAutoSuggestBox{
             placeholderText: qsTr("AutoSuggestBox")
@@ -131,7 +130,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluAutoSuggestBox{
     placeholderText: qsTr("AutoSuggestBox")
 }'
@@ -139,8 +138,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 68
-        paddings: 10
+        Layout.preferredHeight: 68
+        padding: 10
         Layout.topMargin: 20
         FluSpinBox{
             disabled: spin_box_switch.checked
@@ -160,7 +159,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluSpinBox{
 
 }'

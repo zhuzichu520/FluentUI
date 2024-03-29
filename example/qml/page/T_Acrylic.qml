@@ -11,7 +11,6 @@ FluScrollablePage{
 
     RowLayout{
         spacing: 10
-        Layout.topMargin: 20
         FluText{
             text:"tintColor:"
             Layout.alignment: Qt.AlignVCenter
@@ -44,8 +43,8 @@ FluScrollablePage{
     }
     FluArea{
         Layout.fillWidth: true
-        height: 1200/4+20
-        paddings: 10
+        Layout.preferredHeight: 1200/4+20
+        padding: 10
         Layout.topMargin: 10
         FluClip{
             width: 1920/4
@@ -95,7 +94,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'Image{
     id:image
     width: 800

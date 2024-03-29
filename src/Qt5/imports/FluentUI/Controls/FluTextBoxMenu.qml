@@ -9,7 +9,7 @@ FluMenu{
     property string selectAllText : qsTr("Select All")
     property var inputItem
     id:menu
-    enableAnimation: false
+    animationEnabled: false
     width: 120
     focus: false
     onVisibleChanged: {

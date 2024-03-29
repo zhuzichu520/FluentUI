@@ -33,7 +33,6 @@ FluContentPage {
         spacing: 12
         width: 300
         anchors{
-            topMargin: 20
             top:parent.top
             left: parent.left
             leftMargin: 10

@@ -253,7 +253,7 @@ FluWindow {
     }
 
     function handleDarkChanged(button){
-        if(!FluTheme.enableAnimation || window.fitsAppBarWindows === false){
+        if(!FluTheme.animationEnabled || window.fitsAppBarWindows === false){
             changeDark()
         }else{
             if(loader_reveal.sourceComponent){

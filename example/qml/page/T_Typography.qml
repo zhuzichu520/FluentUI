@@ -16,9 +16,8 @@ FluContentPage {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
-            topMargin: 20
         }
-        paddings: 10
+        padding: 10
         ColumnLayout{
             spacing: 0
             scale: textScale

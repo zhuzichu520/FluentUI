@@ -55,7 +55,7 @@ FluTextBox{
                 property: "opacity"
                 from:0
                 to:1
-                duration: FluTheme.enableAnimation ? 83 : 0
+                duration: FluTheme.animationEnabled ? 83 : 0
             }
         }
         contentItem: FluRectangle{

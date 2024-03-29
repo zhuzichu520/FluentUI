@@ -9,7 +9,8 @@ import "../global"
 FluScrollablePage{
 
     launchMode: FluPageType.SingleTask
-    animDisabled: true
+    animationEnabled: false
+    header: Item{}
 
     FluentInitalizrWindow{
         id:fluent_initalizr

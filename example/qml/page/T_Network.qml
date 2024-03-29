@@ -40,7 +40,6 @@ FluContentPage{
         clip: true
         anchors{
             top: parent.top
-            topMargin: 20
             bottom: parent.bottom
             left: parent.left
         }

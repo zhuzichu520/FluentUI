@@ -33,7 +33,7 @@ Item {
                 properties: "opacity"
                 from: 1
                 to: 0
-                duration: FluTheme.enableAnimation ? 83 : 1
+                duration: FluTheme.animationEnabled ? 83 : 1
             }
         }
         add: Transition {
@@ -41,7 +41,7 @@ Item {
                 properties: "opacity"
                 from: 0
                 to: 1
-                duration: FluTheme.enableAnimation ? 83 : 1
+                duration: FluTheme.animationEnabled ? 83 : 1
             }
         }
         delegate: Item{

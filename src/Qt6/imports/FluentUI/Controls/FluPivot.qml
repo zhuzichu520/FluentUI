@@ -31,7 +31,7 @@ Page {
         spacing: control.headerSpacing
         interactive: false
         orientation: ListView.Horizontal
-        highlightMoveDuration: FluTheme.enableAnimation ? 167 : 0
+        highlightMoveDuration: FluTheme.animationEnabled ? 167 : 0
         highlight: Item{
             clip: true
             Rectangle{
@@ -41,7 +41,7 @@ Page {
                 width: nav_list.currentItem ? nav_list.currentItem.width : 0
                 y:d.tabY
                 Behavior on width {
-                    enabled: FluTheme.enableAnimation
+                    enabled: FluTheme.animationEnabled
                     NumberAnimation{
                         duration: 167
                         easing.type: Easing.OutCubic

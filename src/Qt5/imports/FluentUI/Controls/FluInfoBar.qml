@@ -54,7 +54,7 @@ FluObject {
                     NumberAnimation {
                         properties: "y"
                         easing.type: Easing.OutCubic
-                        duration: FluTheme.enableAnimation ? 333 : 0
+                        duration: FluTheme.animationEnabled ? 333 : 0
                     }
                 }
                 onChildrenChanged: if(children.length === 0)  destroy();
@@ -95,7 +95,7 @@ FluObject {
                     scale: item ? 1 : 0;
                     asynchronous: true
                     Behavior on scale {
-                        enabled: FluTheme.enableAnimation
+                        enabled: FluTheme.animationEnabled
                         NumberAnimation {
                             easing.type: Easing.OutCubic
                             duration: 167

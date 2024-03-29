@@ -12,7 +12,6 @@ FluContentPage {
         id:text_box
         placeholderText: qsTr("Please enter a keyword")
         anchors{
-            topMargin: 20
             top:parent.top
         }
     }

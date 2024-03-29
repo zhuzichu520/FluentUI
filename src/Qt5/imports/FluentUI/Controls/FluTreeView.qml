@@ -51,7 +51,7 @@ Item {
                 }
                 NumberAnimation {
                     properties: "opacity"
-                    duration: 88
+                    duration: 83
                     from: 0
                     to: 1
                 }
@@ -70,7 +70,7 @@ Item {
                 }
                 NumberAnimation {
                     properties: "opacity"
-                    duration: 88
+                    duration: 83
                     from: 0
                     to: 1
                 }
@@ -373,7 +373,7 @@ Item {
                     horizontalPadding:0
                     verticalPadding: 0
                     checked: itemModel.checked
-                    enableAnimation:false
+                    animationEnabled:false
                     visible: control.checkable
                     padding: 0
                     clickListener: function(){

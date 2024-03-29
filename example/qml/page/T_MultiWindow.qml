@@ -23,9 +23,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 86
-        paddings: 10
-        Layout.topMargin: 20
+        Layout.preferredHeight: 86
+        padding: 10
         Column{
             spacing: 15
             anchors{
@@ -46,8 +45,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 86
-        paddings: 10
+        Layout.preferredHeight: 86
+        padding: 10
         Layout.topMargin: 10
         Column{
             spacing: 15
@@ -70,8 +69,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 86
-        paddings: 10
+        Layout.preferredHeight: 86
+        padding: 10
         Layout.topMargin: 10
         Column{
             spacing: 15
@@ -92,7 +91,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluWindow{
   //launchMode: FluWindowType.Standard
   //launchMode: FluWindowType.SingleTask
@@ -104,8 +103,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 100
-        paddings: 10
+        Layout.preferredHeight: 100
+        padding: 10
         Layout.topMargin: 20
         Column{
             spacing: 15
@@ -126,7 +125,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluButton{
     text: qsTr("Create Window")
     onClicked: {
@@ -138,8 +137,8 @@ FluScrollablePage{
 
     FluArea{
         Layout.fillWidth: true
-        height: 130
-        paddings: 10
+        Layout.preferredHeight: 130
+        padding: 10
         Layout.topMargin: 20
 
         Column{
@@ -164,7 +163,7 @@ FluScrollablePage{
     }
     CodeExpander{
         Layout.fillWidth: true
-        Layout.topMargin: -1
+        Layout.topMargin: -6
         code:'FluWindowResultLauncher{
     id:loginResultLauncher
     path: "/login"

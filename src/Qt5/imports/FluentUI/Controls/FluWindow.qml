@@ -142,7 +142,7 @@ Window {
             Behavior on opacity {
                 SequentialAnimation {
                     PauseAnimation {
-                        duration: 88
+                        duration: 83
                     }
                     NumberAnimation{
                         duration:  167

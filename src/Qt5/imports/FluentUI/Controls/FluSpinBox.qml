@@ -62,7 +62,7 @@ T.SpinBox {
                 }
             }
             Behavior on height{
-                enabled: FluTheme.enableAnimation
+                enabled: FluTheme.animationEnabled
                 NumberAnimation{
                     duration: 83
                     easing.type: Easing.OutCubic
