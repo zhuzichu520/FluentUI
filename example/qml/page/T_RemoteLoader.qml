@@ -7,8 +7,9 @@ import "../component"
 
 FluPage{
     launchMode: FluPageType.SingleTop
+    header:Item{}
     FluRemoteLoader{
         anchors.fill: parent
-        source: "https://zhu-zichu.gitee.io/Qt5_T_RemoteLoader.qml"
+        source: "https://zhu-zichu.gitee.io/Qt_174_RemoteLoader.qml"
     }
 }

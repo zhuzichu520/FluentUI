@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("ShortcutPicker")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 100
         padding: 10

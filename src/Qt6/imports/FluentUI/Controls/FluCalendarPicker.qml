@@ -75,7 +75,7 @@ FluButton {
         }
         contentItem: Item{
             clip: true
-            FluArea{
+            FluFrame{
                 id:container
                 width: 300
                 height: 360

@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("StatusLayout")
 
-    FluArea{
+    FluFrame{
         id:layout_actions
         Layout.fillWidth: true
         Layout.preferredHeight: 50
@@ -52,7 +52,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.topMargin: 10
         Layout.preferredHeight: 380

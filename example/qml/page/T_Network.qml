@@ -532,7 +532,7 @@ FluContentPage{
         }
     }
 
-    FluArea{
+    FluFrame{
         anchors{
             top: layout_flick.top
             bottom: layout_flick.bottom

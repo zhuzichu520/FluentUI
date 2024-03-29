@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("CalendarPicker")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 80
         padding: 10

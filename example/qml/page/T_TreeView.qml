@@ -102,7 +102,7 @@ FluContentPage {
             }
         }
     }
-    FluArea{
+    FluFrame{
         anchors{
             left: layout_column.right
             top: parent.top

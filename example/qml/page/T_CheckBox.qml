@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("CheckBox")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 72
         padding: 10
@@ -54,7 +54,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 72
         padding: 10

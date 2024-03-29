@@ -42,7 +42,7 @@ Item{
     }
     Component{
         id:com_loading
-        FluArea{
+        FluFrame{
             padding: 0
             border.width: 0
             radius: 0
@@ -62,7 +62,7 @@ Item{
     }
     Component {
         id:com_empty
-        FluArea{
+        FluFrame{
             padding: 0
             border.width: 0
             radius: 0
@@ -79,7 +79,7 @@ Item{
     }
     Component{
         id:com_error
-        FluArea{
+        FluFrame{
             padding: 0
             border.width: 0
             radius: 0

@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Expander")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         height: layout_column.height+20
         padding: 10

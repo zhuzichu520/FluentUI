@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Pivot")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 400
         padding: 10

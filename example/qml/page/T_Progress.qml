@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Progress")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 130
         padding: 10
@@ -41,7 +41,7 @@ FluProgressRing{
 '
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.topMargin: 20
         Layout.preferredHeight: 286

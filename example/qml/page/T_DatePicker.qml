@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("DatePicker")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 80
         padding: 10
@@ -37,7 +37,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.topMargin: 20
         Layout.preferredHeight: 80

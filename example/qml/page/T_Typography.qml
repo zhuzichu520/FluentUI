@@ -10,7 +10,7 @@ FluContentPage {
     title: qsTr("Typography")
     rightPadding: 10
 
-    FluArea{
+    FluFrame{
         anchors{
             top:parent.top
             left: parent.left

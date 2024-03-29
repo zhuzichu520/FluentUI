@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Pagination")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 200
         padding: 10

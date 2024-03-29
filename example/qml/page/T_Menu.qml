@@ -47,7 +47,7 @@ FluScrollablePage{
     }
 
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 100
         padding: 10
@@ -98,7 +98,7 @@ menu.popup()
     }
 
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 100
         padding: 10

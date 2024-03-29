@@ -124,7 +124,7 @@ Popup{
             ctx.fill()
         }
     }
-    FluArea{
+    FluFrame{
         id: layout_panne
         radius: 5
         width: 500

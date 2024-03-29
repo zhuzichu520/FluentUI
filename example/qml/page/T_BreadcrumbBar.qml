@@ -18,7 +18,7 @@ FluScrollablePage{
         breadcrumb_2.items = items
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10
@@ -35,7 +35,7 @@ FluScrollablePage{
     }
 
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 100
         padding: 10

@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Line Chart")
 
-    FluArea{
+    FluFrame{
         Layout.preferredWidth: 500
         Layout.preferredHeight: 370
         padding: 10

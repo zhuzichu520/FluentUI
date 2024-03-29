@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("ComboBox")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 80
         padding: 5
@@ -31,7 +31,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea {
+    FluFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: 80
         padding: 5
@@ -55,7 +55,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         height: 80
         padding: 10

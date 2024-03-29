@@ -13,7 +13,7 @@ FluScrollablePage{
         text: qsTr("Support the Tab key to switch focus, and the Space key to perform click events")
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 10
@@ -50,7 +50,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10
@@ -87,7 +87,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 20
@@ -124,7 +124,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 20
@@ -171,7 +171,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 20
@@ -210,7 +210,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 20
@@ -250,7 +250,7 @@ FluScrollablePage{
     }
 
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: layout_icon_button.height + 30
         padding: 10
@@ -331,7 +331,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10
@@ -388,7 +388,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 100
         padding: 10

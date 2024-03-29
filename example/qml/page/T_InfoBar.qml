@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("InfoBar")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 270
         padding: 10

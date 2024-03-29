@@ -11,7 +11,7 @@ FluScrollablePage{
     id: root
     title: qsTr("Theme")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 340
         padding: 10

@@ -29,7 +29,7 @@ FluScrollablePage{
         newTab()
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 50
         padding: 10
@@ -90,7 +90,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.topMargin: 15
         Layout.preferredHeight: 400

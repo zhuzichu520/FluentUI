@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Bar Chart")
 
-    FluArea{
+    FluFrame{
         Layout.preferredWidth: 500
         Layout.preferredHeight: 370
         padding: 10
@@ -69,7 +69,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
+    FluFrame{
         width: 500
         height: 370
         padding: 10

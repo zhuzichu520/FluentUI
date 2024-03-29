@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("TextBox")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10
@@ -41,7 +41,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10
@@ -72,7 +72,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 36+multiine_textbox.height
         padding: 10
@@ -105,7 +105,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10
@@ -136,7 +136,7 @@ FluScrollablePage{
 }'
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10

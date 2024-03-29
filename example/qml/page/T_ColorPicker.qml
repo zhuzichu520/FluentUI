@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("ColorPicker")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 60
         padding: 10

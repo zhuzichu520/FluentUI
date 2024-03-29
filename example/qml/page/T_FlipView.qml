@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("FlipView")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 340
         padding: 10
@@ -60,7 +60,7 @@ FluScrollablePage{
 '
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         height: 340
         padding: 10

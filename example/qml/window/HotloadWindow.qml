@@ -20,7 +20,7 @@ FluWindow {
             loader.reload()
         }
     }
-    FluArea{
+    FluFrame{
         anchors.fill: parent
         FluRemoteLoader{
             id:loader

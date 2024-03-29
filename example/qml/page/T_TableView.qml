@@ -390,7 +390,7 @@ FluContentPage{
         }
     }
 
-    FluArea{
+    FluFrame{
         id:layout_controls
         anchors{
             left: parent.left

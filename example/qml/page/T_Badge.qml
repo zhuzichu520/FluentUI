@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Badge")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         height: 120
         padding: 10

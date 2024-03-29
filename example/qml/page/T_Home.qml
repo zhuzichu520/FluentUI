@@ -178,7 +178,7 @@ FluScrollablePage{
             property string desc: modelData.extra.desc
             width: 320
             height: 120
-            FluArea{
+            FluFrame{
                 radius: 8
                 width: 300
                 height: 100

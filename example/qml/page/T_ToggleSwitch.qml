@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("ToggleSwitch")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         padding: 10

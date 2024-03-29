@@ -9,7 +9,7 @@ FluScrollablePage{
 
     title: qsTr("Slider")
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 200
         padding: 10
@@ -33,7 +33,7 @@ FluScrollablePage{
     }
 
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 200
         Layout.topMargin: 20

@@ -21,7 +21,7 @@ FluScrollablePage{
 
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 86
         padding: 10
@@ -43,7 +43,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 86
         padding: 10
@@ -67,7 +67,7 @@ FluScrollablePage{
         }
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 86
         padding: 10
@@ -101,7 +101,7 @@ FluScrollablePage{
     }
 
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 100
         padding: 10
@@ -135,7 +135,7 @@ FluScrollablePage{
 '
     }
 
-    FluArea{
+    FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 130
         padding: 10
