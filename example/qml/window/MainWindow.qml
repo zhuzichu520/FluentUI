@@ -344,7 +344,7 @@ FluWindow {
         id:callable
         property bool silent: true
         onStart: {
-            console.debug("satrt check update...")
+            console.debug("start check update...")
         }
         onFinish: {
             console.debug("check update finish")

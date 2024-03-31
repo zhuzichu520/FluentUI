@@ -102,6 +102,9 @@ Window {
             frameless.setHitTestVisible(appBar.layoutMacosButtons)
             frameless.setHitTestVisible(appBar.layoutStandardbuttons)
         }
+        Component.onDestruction: {
+            frameless.onDestruction()
+        }
     }
     Component{
         id:com_background

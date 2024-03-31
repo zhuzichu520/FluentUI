@@ -76,7 +76,7 @@ QObject* FluTreeModel::getRow(int row){
     return _rows.at(row);
 }
 
-void FluTreeModel::checkRow(int row,bool chekced){
+void FluTreeModel::checkRow(int row,bool checked){
     auto itemData = _rows.at(row);
     if(itemData->hasChildren()){
         QList<FluNode*> stack = itemData->_children;
@@ -85,7 +85,7 @@ void FluTreeModel::checkRow(int row,bool chekced){
             auto item = stack.at(stack.count()-1);
             stack.pop_back();
             if(!item->hasChildren()){
-                item->_checked = chekced;
+                item->_checked = checked;
             }
             QList<FluNode*> children = item->_children;
             if(!children.isEmpty()){
@@ -96,10 +96,10 @@ void FluTreeModel::checkRow(int row,bool chekced){
             }
         }
     }else{
-        if(itemData->_checked == chekced){
+        if(itemData->_checked == checked){
             return;
         }
-        itemData->_checked = chekced;
+        itemData->_checked = checked;
     }
     Q_EMIT layoutChanged(QList<QPersistentModelIndex>(),QAbstractItemModel::VerticalSortHint);
     QList<FluNode*> data;
@@ -201,7 +201,7 @@ void FluTreeModel::expand(int row){
     insertRows(row+1,insertData);
 }
 
-void FluTreeModel::dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea){
+void FluTreeModel::dragAndDrop(int dragIndex,int dropIndex,bool isDropTopArea){
     if(dropIndex>_rows.count() || dropIndex<0){
         return;
     }

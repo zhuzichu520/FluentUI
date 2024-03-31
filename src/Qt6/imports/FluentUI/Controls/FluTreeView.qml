@@ -224,7 +224,7 @@ Item {
                 onReleased: {
                     loader_container.sourceComponent = undefined
                     if(d.dropIndex !== -1){
-                        tree_model.dragAnddrop(d.dragIndex,d.dropIndex,d.isDropTopArea)
+                        tree_model.dragAndDrop(d.dragIndex,d.dropIndex,d.isDropTopArea)
                     }
                     d.dropIndex = -1
                     d.dragIndex = -1

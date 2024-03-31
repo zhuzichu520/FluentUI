@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     engine.load(url);
     const int exec = QGuiApplication::exec();
     if (exec == 931) {
-        QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+        QProcess::startDetached(qApp->applicationFilePath(), qApp->arguments());
     }
     return exec;
 }

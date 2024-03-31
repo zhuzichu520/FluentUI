@@ -102,10 +102,10 @@ public:
     Q_INVOKABLE void setDataSource(QList<QMap<QString,QVariant>> data);
     Q_INVOKABLE void collapse(int row);
     Q_INVOKABLE void expand(int row);
-    Q_INVOKABLE void dragAnddrop(int dragIndex,int dropIndex,bool isDropTopArea);
+    Q_INVOKABLE void dragAndDrop(int dragIndex,int dropIndex,bool isDropTopArea);
     Q_INVOKABLE FluNode* getNode(int row);
     Q_INVOKABLE void refreshNode(int row);
-    Q_INVOKABLE void checkRow(int row,bool chekced);
+    Q_INVOKABLE void checkRow(int row,bool checked);
     Q_INVOKABLE bool hitHasChildrenExpanded(int row);
     Q_INVOKABLE void allExpand();
     Q_INVOKABLE void allCollapse();

@@ -36,6 +36,7 @@ public:
     Q_INVOKABLE void showMinimized();
     Q_INVOKABLE void showNormal();
     Q_INVOKABLE void setHitTestVisible(QQuickItem*);
+    Q_INVOKABLE void onDestruction();
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 private:
@@ -48,7 +49,7 @@ private:
     bool _hitAppBar();
     bool _hitMaximizeButton();
     void _setMaximizePressed(bool val);
-    void _setMaximizeHoverd(bool val);
+    void _setMaximizeHovered(bool val);
 private:
     qint64 _current;
     int _edges = 0;

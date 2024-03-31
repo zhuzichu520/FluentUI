@@ -45,6 +45,9 @@ FluFrameless::FluFrameless(QQuickItem *parent)
 }
 
 FluFrameless::~FluFrameless(){
+}
+
+void FluFrameless::onDestruction(){
     qApp->removeNativeEventFilter(this);
 }
 
@@ -142,7 +145,6 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
         }else{
             offsetSize = 1;
         }
-        _maximizeButton->setProperty("hover",false);
         if(!isCompositionEnabled()){
             offsetSize = 0;
         }
@@ -152,6 +154,7 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
             clientRect->left = originalLeft + offsetSize;
             clientRect->right = originalRight - offsetSize;
         }
+        _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;
     }else if(uMsg == WM_NCHITTEST){
@@ -159,10 +162,10 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
             if (*result == HTNOWHERE) {
                 *result = HTZOOM;
             }
-            _setMaximizeHoverd(true);
+            _setMaximizeHovered(true);
             return true;
         }
-        _setMaximizeHoverd(false);
+        _setMaximizeHovered(false);
         _setMaximizePressed(false);
         *result = 0;
         POINT nativeGlobalPos{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
@@ -341,7 +344,7 @@ void FluFrameless::_setMaximizePressed(bool val){
     _maximizeButton->setProperty("down",val);
 }
 
-void FluFrameless::_setMaximizeHoverd(bool val){
+void FluFrameless::_setMaximizeHovered(bool val){
     _maximizeButton->setProperty("hover",val);
 }
 

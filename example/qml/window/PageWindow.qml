@@ -16,7 +16,7 @@ FluWindow {
     onInitArgument:
         (arg)=>{
             window.title = arg.title
-            loader.setSource( arg.url,{animDisabled:true})
+            loader.setSource(arg.url,{animationEnabled:false})
         }
     FluLoader{
         id: loader
