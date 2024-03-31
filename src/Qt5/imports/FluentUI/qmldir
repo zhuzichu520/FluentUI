@@ -5,7 +5,6 @@ typeinfo plugins.qmltypes
 
 FluAcrylic 1.0 Controls/FluAcrylic.qml
 FluAppBar 1.0 Controls/FluAppBar.qml
-FluArea 1.0 Controls/FluArea.qml
 FluAutoSuggestBox 1.0 Controls/FluAutoSuggestBox.qml
 FluBadge 1.0 Controls/FluBadge.qml
 FluBreadcrumbBar 1.0 Controls/FluBreadcrumbBar.qml
@@ -30,6 +29,8 @@ FluExpander 1.0 Controls/FluExpander.qml
 FluFilledButton 1.0 Controls/FluFilledButton.qml
 FluFlipView 1.0 Controls/FluFlipView.qml
 FluFocusRectangle 1.0 Controls/FluFocusRectangle.qml
+FluFrame 1.0 Controls/FluFrame.qml
+FluGroupBox 1.0 Controls/FluGroupBox.qml
 FluIcon 1.0 Controls/FluIcon.qml
 FluIconButton 1.0 Controls/FluIconButton.qml
 FluImage 1.0 Controls/FluImage.qml
@@ -72,6 +73,7 @@ FluScrollBar 1.0 Controls/FluScrollBar.qml
 FluScrollIndicator 1.0 Controls/FluScrollIndicator.qml
 FluScrollablePage 1.0 Controls/FluScrollablePage.qml
 FluShadow 1.0 Controls/FluShadow.qml
+FluSheet 1.0 Controls/FluSheet.qml
 FluShortcutPicker 1.0 Controls/FluShortcutPicker.qml
 FluSlider 1.0 Controls/FluSlider.qml
 FluSpinBox 1.0 Controls/FluSpinBox.qml

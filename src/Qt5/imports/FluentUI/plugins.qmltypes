@@ -144,6 +144,21 @@ Module {
         Property { name: "radius"; type: "QList<int>" }
     }
     Component {
+        name: "FluSheetType"
+        exports: ["FluentUI/FluSheetType 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Position"
+            values: {
+                "Left": 0,
+                "Top": 1,
+                "Right": 2,
+                "Bottom": 4
+            }
+        }
+    }
+    Component {
         name: "FluStatusLayoutType"
         exports: ["FluentUI/FluStatusLayoutType 1.0"]
         isCreatable: false
@@ -2196,31 +2211,31 @@ Module {
         Property { name: "darkClickListener"; type: "QVariant" }
         Property {
             name: "buttonStayTop"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMinimize"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMaximize"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonClose"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonDark"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
@@ -2236,20 +2251,6 @@ Module {
             isReadonly: true
             isPointer: true
         }
-    }
-    Component {
-        prototype: "QQuickRectangle"
-        name: "FluentUI/FluArea 1.0"
-        exports: ["FluentUI/FluArea 1.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "contentData"
-        Property { name: "paddings"; type: "int" }
-        Property { name: "leftPadding"; type: "int" }
-        Property { name: "rightPadding"; type: "int" }
-        Property { name: "topPadding"; type: "int" }
-        Property { name: "bottomPadding"; type: "int" }
-        Property { name: "contentData"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
         prototype: "QQuickTextField"
@@ -2420,7 +2421,7 @@ Module {
         Property { name: "size"; type: "double" }
         Property { name: "textRight"; type: "bool" }
         Property { name: "textSpacing"; type: "double" }
-        Property { name: "enableAnimation"; type: "bool" }
+        Property { name: "animationEnabled"; type: "bool" }
         Property { name: "clickListener"; type: "QVariant" }
         Property { name: "indeterminate"; type: "bool" }
         Property { name: "textColor"; type: "QColor" }
@@ -2492,30 +2493,14 @@ Module {
         Signal { name: "positiveClicked" }
     }
     Component {
-        prototype: "QQuickItem"
+        prototype: "QQuickPage"
         name: "FluentUI/FluContentPage 1.0"
         exports: ["FluentUI/FluContentPage 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "content"
-        Property { name: "leftPadding"; type: "int" }
-        Property { name: "topPadding"; type: "int" }
-        Property { name: "rightPadding"; type: "int" }
-        Property { name: "bottomPadding"; type: "int" }
-        Property { name: "title"; type: "string" }
-        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
-        Property { name: "color"; type: "QColor" }
-        Property { name: "statusMode"; type: "int" }
-        Property { name: "loadingText"; type: "string" }
-        Property { name: "emptyText"; type: "string" }
-        Property { name: "errorText"; type: "string" }
-        Property { name: "errorButtonText"; type: "string" }
-        Property { name: "loadingItem"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "emptyItem"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "errorItem"; type: "QQmlComponent"; isPointer: true }
-        Signal { name: "errorClicked" }
+        defaultProperty: "contentData"
         Property { name: "launchMode"; type: "int" }
-        Property { name: "animDisabled"; type: "bool" }
+        Property { name: "animationEnabled"; type: "bool" }
         Property { name: "url"; type: "string" }
     }
     Component {
@@ -2690,6 +2675,29 @@ Module {
         Property { name: "radius"; type: "int" }
     }
     Component {
+        prototype: "QQuickFrame"
+        name: "FluentUI/FluFrame 1.0"
+        exports: ["FluentUI/FluFrame 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "contentData"
+        Property { name: "border"; type: "QQuickPen"; isReadonly: true; isPointer: true }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "radius"; type: "double" }
+    }
+    Component {
+        prototype: "QQuickGroupBox"
+        name: "FluentUI/FluGroupBox 1.0"
+        exports: ["FluentUI/FluGroupBox 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "contentData"
+        Property { name: "borderWidth"; type: "int" }
+        Property { name: "borderColor"; type: "QColor" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "radius"; type: "int" }
+    }
+    Component {
         prototype: "QQuickText"
         name: "FluentUI/FluIcon 1.0"
         exports: ["FluentUI/FluIcon 1.0"]
@@ -2837,7 +2845,7 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "contentData"
-        Property { name: "enableAnimation"; type: "bool" }
+        Property { name: "animationEnabled"; type: "bool" }
     }
     Component {
         prototype: "QQuickMenuBar"
@@ -2906,15 +2914,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_168"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_168"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_134"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_134"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_32"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_32"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_42"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_42"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -2922,13 +2930,13 @@ Module {
         Property { name: "hideNavAppBar"; type: "bool" }
         Property {
             name: "buttonMenu"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonBack"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
@@ -2965,14 +2973,14 @@ Module {
         Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
-        prototype: "QQuickItem"
+        prototype: "QQuickPage"
         name: "FluentUI/FluPage 1.0"
         exports: ["FluentUI/FluPage 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        defaultProperty: "data"
+        defaultProperty: "contentData"
         Property { name: "launchMode"; type: "int" }
-        Property { name: "animDisabled"; type: "bool" }
+        Property { name: "animationEnabled"; type: "bool" }
         Property { name: "url"; type: "string" }
     }
     Component {
@@ -3007,7 +3015,7 @@ Module {
         exports: ["FluentUI/FluPaneItem 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        Property { name: "key"; type: "string"; isReadonly: true }
+        Property { name: "key"; type: "string" }
         Property { name: "_idx"; type: "int" }
         Property { name: "_ext"; type: "QVariant" }
         Property { name: "_parent"; type: "QVariant" }
@@ -3033,7 +3041,7 @@ Module {
         exports: ["FluentUI/FluPaneItemEmpty 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        Property { name: "key"; type: "string"; isReadonly: true }
+        Property { name: "key"; type: "string" }
         Property { name: "_idx"; type: "int" }
         Property { name: "_ext"; type: "QVariant" }
         Property { name: "_parent"; type: "QVariant" }
@@ -3046,7 +3054,7 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "children"
-        Property { name: "key"; type: "string"; isReadonly: true }
+        Property { name: "key"; type: "string" }
         Property { name: "_idx"; type: "int" }
         Property { name: "visible"; type: "bool" }
         Property { name: "title"; type: "string" }
@@ -3066,7 +3074,7 @@ Module {
         exports: ["FluentUI/FluPaneItemHeader 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        Property { name: "key"; type: "string"; isReadonly: true }
+        Property { name: "key"; type: "string" }
         Property { name: "_idx"; type: "int" }
         Property { name: "visible"; type: "bool" }
         Property { name: "title"; type: "string" }
@@ -3078,7 +3086,7 @@ Module {
         exports: ["FluentUI/FluPaneItemSeparator 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
-        Property { name: "key"; type: "string"; isReadonly: true }
+        Property { name: "key"; type: "string" }
         Property { name: "_idx"; type: "int" }
         Property { name: "visible"; type: "bool" }
         Property { name: "parent"; type: "QVariant" }
@@ -3146,6 +3154,7 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
+        Property { name: "duration"; type: "int" }
         Property { name: "strokeWidth"; type: "double" }
         Property { name: "progressVisible"; type: "bool" }
         Property { name: "color"; type: "QColor" }
@@ -3323,31 +3332,15 @@ Module {
         defaultProperty: "data"
     }
     Component {
-        prototype: "QQuickItem"
+        prototype: "QQuickPage"
         name: "FluentUI/FluScrollablePage 1.0"
         exports: ["FluentUI/FluScrollablePage 1.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "content"
-        Property { name: "spacing"; type: "int" }
-        Property { name: "leftPadding"; type: "int" }
-        Property { name: "topPadding"; type: "int" }
-        Property { name: "rightPadding"; type: "int" }
-        Property { name: "bottomPadding"; type: "int" }
-        Property { name: "title"; type: "string" }
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
-        Property { name: "color"; type: "QColor" }
-        Property { name: "statusMode"; type: "int" }
-        Property { name: "loadingText"; type: "string" }
-        Property { name: "emptyText"; type: "string" }
-        Property { name: "errorText"; type: "string" }
-        Property { name: "errorButtonText"; type: "string" }
-        Property { name: "loadingItem"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "emptyItem"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "errorItem"; type: "QQmlComponent"; isPointer: true }
-        Signal { name: "errorClicked" }
         Property { name: "launchMode"; type: "int" }
-        Property { name: "animDisabled"; type: "bool" }
+        Property { name: "animationEnabled"; type: "bool" }
         Property { name: "url"; type: "string" }
     }
     Component {
@@ -3360,6 +3353,23 @@ Module {
         Property { name: "color"; type: "QColor" }
         Property { name: "elevation"; type: "int" }
         Property { name: "radius"; type: "int" }
+    }
+    Component {
+        prototype: "QQuickPopup"
+        name: "FluentUI/FluSheet 1.0"
+        exports: ["FluentUI/FluSheet 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "title"; type: "string" }
+        Property { name: "header"; type: "QVariant" }
+        Property { name: "size"; type: "int" }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Method {
+            name: "open"
+            type: "QVariant"
+            Parameter { name: "position"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickButton"
@@ -3601,7 +3611,7 @@ Module {
         Property { name: "pasteText"; type: "string" }
         Property { name: "selectAllText"; type: "string" }
         Property { name: "inputItem"; type: "QVariant" }
-        Property { name: "enableAnimation"; type: "bool" }
+        Property { name: "animationEnabled"; type: "bool" }
     }
     Component {
         prototype: "QQuickButton"
