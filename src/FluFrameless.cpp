@@ -142,6 +142,7 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
         }else{
             offsetSize = 1;
         }
+        _maximizeButton->setProperty("hover",false);
         if(!isCompositionEnabled()){
             offsetSize = 0;
         }
@@ -158,8 +159,11 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
             if (*result == HTNOWHERE) {
                 *result = HTZOOM;
             }
+            _setMaximizeHoverd(true);
             return true;
         }
+        _setMaximizeHoverd(false);
+        _setMaximizePressed(false);
         *result = 0;
         POINT nativeGlobalPos{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
         POINT nativeLocalPos = nativeGlobalPos;
@@ -205,12 +209,14 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
         if(_hitMaximizeButton()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_maximizeButton,&event);
+            _setMaximizePressed(true);
             return true;
         }
     }else if(uMsg == WM_NCLBUTTONUP || uMsg == WM_NCRBUTTONUP){
         if(_hitMaximizeButton()){
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_maximizeButton,&event);
+            _setMaximizePressed(false);
             return true;
         }
     }else if(uMsg == WM_NCPAINT){
@@ -331,6 +337,14 @@ bool FluFrameless::_hitMaximizeButton(){
     return false;
 }
 
+void FluFrameless::_setMaximizePressed(bool val){
+    _maximizeButton->setProperty("down",val);
+}
+
+void FluFrameless::_setMaximizeHoverd(bool val){
+    _maximizeButton->setProperty("hover",val);
+}
+
 void FluFrameless::_updateCursor(int edges){
     switch (edges) {
     case 0:
@@ -377,7 +391,9 @@ void FluFrameless::showNormal(){
 }
 
 void FluFrameless::setHitTestVisible(QQuickItem* val){
-    _hitTestList.append(val);
+    if(!_hitTestList.contains(val)){
+        _hitTestList.append(val);
+    }
 }
 
 

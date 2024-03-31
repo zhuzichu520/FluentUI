@@ -89,6 +89,7 @@ Button {
             text: control.text
             Layout.alignment: Qt.AlignVCenter
             font: control.font
+            visible: text !== ""
         }
     }
 }

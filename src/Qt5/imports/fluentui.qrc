@@ -107,5 +107,7 @@
         <file>FluentUI/Controls/FluEvent.qml</file>
         <file>FluentUI/Controls/FluEventBus.qml</file>
         <file>FluentUI/Controls/FluFrame.qml</file>
+        <file>FluentUI/Controls/FluSheet.qml</file>
+        <file>FluentUI/Controls/FluGroupBox.qml</file>
     </qresource>
 </RCC>

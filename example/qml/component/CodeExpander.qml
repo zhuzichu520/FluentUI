@@ -137,7 +137,9 @@ FluExpander{
                     "FluNetwork",
                     "FluShortcutPicker",
                     "FluWindowResultLauncher",
-                    "FluRouter"
+                    "FluRouter",
+                    "FluGroupBox",
+                    "FluSheet",
                 ];
         code = code.replace(/\n/g, "<br>");
         code = code.replace(/ /g, "&nbsp;");

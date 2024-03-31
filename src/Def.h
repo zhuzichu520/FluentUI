@@ -4,6 +4,17 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 
+namespace FluSheetType {
+Q_NAMESPACE
+enum Position {
+    Left = 0x0000,
+    Top = 0x0001,
+    Right = 0x0002,
+    Bottom = 0x0004,
+};
+Q_ENUM_NS(Position)
+QML_NAMED_ELEMENT(FluSheetType)
+}
 
 namespace FluThemeType {
 Q_NAMESPACE

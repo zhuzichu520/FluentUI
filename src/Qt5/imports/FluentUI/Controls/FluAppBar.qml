@@ -225,6 +225,7 @@ Rectangle{
         }
         FluIconButton{
             id:btn_maximize
+            property bool hover: btn_maximize.hovered
             Layout.preferredWidth: 40
             Layout.preferredHeight: 30
             padding: 0
@@ -232,10 +233,10 @@ Rectangle{
             horizontalPadding: 0
             iconSource : d.isRestore  ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
             color: {
-                if(pressed){
+                if(down){
                     return maximizePressColor
                 }
-                return hovered ? maximizeHoverColor : maximizeNormalColor
+                return btn_maximize.hover ? maximizeHoverColor : maximizeNormalColor
             }
             Layout.alignment: Qt.AlignVCenter
             visible: d.resizable && !isMac && showMaximize

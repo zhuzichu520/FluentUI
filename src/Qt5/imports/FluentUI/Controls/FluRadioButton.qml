@@ -92,6 +92,7 @@ Button {
             id:btn_text
             text: control.text
             Layout.alignment: Qt.AlignVCenter
+            visible: text !== ""
             font: control.font
         }
     }

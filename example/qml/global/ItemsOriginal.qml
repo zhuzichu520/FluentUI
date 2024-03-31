@@ -105,6 +105,12 @@ FluObject{
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{
+            title: qsTr("GroupBox")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_GroupBox.qml"
+            onTap: { navigationView.push(url) }
+        }
+        FluPaneItem{
             title: qsTr("PaneItem Disabled")
             disabled: true
             icon: FluentIcons.Error
@@ -269,6 +275,12 @@ FluObject{
             title: qsTr("Menu")
             menuDelegate: paneItemMenu
             url: "qrc:/example/qml/page/T_Menu.qml"
+            onTap: { navigationView.push(url) }
+        }
+        FluPaneItem{
+            title: qsTr("Sheet")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_Sheet.qml"
             onTap: { navigationView.push(url) }
         }
     }

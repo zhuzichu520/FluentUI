@@ -124,6 +124,8 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluWindowResultLauncher.qml"),uri,major,minor,"FluWindowResultLauncher");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLauncher.qml"),uri,major,minor,"FluLauncher");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEvent.qml"),uri,major,minor,"FluEvent");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSheet.qml"),uri,major,minor,"FluSheet");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluGroupBox.qml"),uri,major,minor,"FluGroupBox");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRouter.qml"),uri,major,minor,"FluRouter");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEventBus.qml"),uri,major,minor,"FluEventBus");
 
@@ -139,6 +141,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterUncreatableMetaObject(FluTabViewType::staticMetaObject,  uri,major,minor,"FluTabViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNavigationViewType::staticMetaObject,  uri,major,minor,"FluNavigationViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject,  uri,major,minor,"FluTimelineType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluSheetType::staticMetaObject,  uri,major,minor,"FluSheetType", "Access to enums & flags only");
 
     qmlRegisterModule(uri,major,minor);
 #endif

@@ -207,5 +207,7 @@
         <file>res/template/src/zh_CN.ts.in</file>
         <file>res/template/src/README.md.in</file>
         <file>qml/global/GlobalModel.qml</file>
+        <file>qml/page/T_Sheet.qml</file>
+        <file>qml/page/T_GroupBox.qml</file>
     </qresource>
 </RCC>

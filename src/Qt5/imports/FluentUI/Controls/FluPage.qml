@@ -16,7 +16,7 @@ Page {
     transform: Translate {
         y: control.visible ? 0 : 80
         Behavior on y{
-            enabled: control.animationEnabled
+            enabled: control.animationEnabled && FluTheme.animationEnabled
             NumberAnimation{
                 duration: 167
                 easing.type: Easing.OutCubic
@@ -24,21 +24,27 @@ Page {
         }
     }
     Behavior on opacity {
-        enabled: control.animationEnabled
+        enabled: control.animationEnabled && FluTheme.animationEnabled
         NumberAnimation{
             duration: 83
         }
     }
     background: Item{}
-    header: Item{
-        implicitHeight: 40
-        FluText{
-            id:text_title
-            text: control.title
-            font: FluTextStyle.Title
-            anchors{
-                left: parent.left
-                leftMargin: 5
+    header: FluLoader{
+        sourceComponent: control.title === "" ? undefined : com_header
+    }
+    Component{
+        id: com_header
+        Item{
+            implicitHeight: 40
+            FluText{
+                id:text_title
+                text: control.title
+                font: FluTextStyle.Title
+                anchors{
+                    left: parent.left
+                    leftMargin: 5
+                }
             }
         }
     }

@@ -47,6 +47,8 @@ private:
     bool _containsCursorToItem(QQuickItem* item);
     bool _hitAppBar();
     bool _hitMaximizeButton();
+    void _setMaximizePressed(bool val);
+    void _setMaximizeHoverd(bool val);
 private:
     qint64 _current;
     int _edges = 0;

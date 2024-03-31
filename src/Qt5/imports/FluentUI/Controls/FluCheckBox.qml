@@ -41,6 +41,8 @@ Button {
             visible: control.activeFocus
         }
     }
+    focusPolicy:Qt.TabFocus
+    font:FluTextStyle.Body
     horizontalPadding:0
     verticalPadding: 0
     padding: 0
@@ -48,7 +50,6 @@ Button {
     Accessible.name: control.text
     Accessible.description: contentDescription
     Accessible.onPressAction: control.clicked()
-    focusPolicy:Qt.TabFocus
     contentItem: RowLayout{
         spacing: control.textSpacing
         layoutDirection:control.textRight ? Qt.LeftToRight : Qt.RightToLeft
@@ -133,6 +134,7 @@ Button {
             text: control.text
             Layout.alignment: Qt.AlignVCenter
             visible: text !== ""
+            font: control.font
         }
     }
 }
