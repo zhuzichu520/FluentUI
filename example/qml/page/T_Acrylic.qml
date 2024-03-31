@@ -53,7 +53,7 @@ FluScrollablePage{
             Image {
                 id:image
                 asynchronous: true
-                source: "qrc:/example/res/image/bg_scenic.png"
+                source: "qrc:/example/res/image/bg_scenic.jpg"
                 anchors.fill: parent
                 sourceSize: Qt.size(2*width,2*height)
             }
