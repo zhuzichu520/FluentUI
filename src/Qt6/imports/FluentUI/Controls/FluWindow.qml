@@ -64,7 +64,7 @@ Window {
     Component.onCompleted: {
         FluRouter.addWindow(window)
         useSystemAppBar = FluApp.useSystemAppBar
-        if(useSystemAppBar && autoCenter){
+        if(!useSystemAppBar && autoCenter){
             moveWindowToDesktopCenter()
         }
         fixWindowSize()

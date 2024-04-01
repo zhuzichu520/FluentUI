@@ -375,6 +375,7 @@
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="318"/>
         <source>TableView</source>
+        <oldsource>TreeView2</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2382,6 +2383,14 @@ Some contents...</source>
     <message>
         <location filename="qml/page/T_TreeView.qml" line="48"/>
         <source>A total of %1 data items are selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_TreeView2</name>
+    <message>
+        <location filename="qml/page/T_TreeView2.qml" line="10"/>
+        <source>TreeView2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -11,7 +11,7 @@ Popup {
     parent: Overlay.overlay
     x: Math.round((d.parentWidth - width) / 2)
     y: Math.round((d.parentHeight - height) / 2)
-    closePolicy: Popup.CloseOnEscape
+    closePolicy: Popup.NoAutoClose
     enter: Transition {
         NumberAnimation {
             property: "opacity"
