@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Controls.Basic
 import FluentUI
 
+
 Button {
     property bool disabled: false
     property string contentDescription: ""
@@ -49,8 +50,7 @@ Button {
             }
             return hovered ? hoverColor :normalColor
         }
-        shadow: enabled
-        border.color: FluTheme.dark ? Qt.rgba(48/255,48/255,48/255,1) : Qt.rgba(206/255,206/255,206/255,1)
+        shadow: !pressed && enabled
         FluFocusRectangle{
             visible: control.activeFocus
             radius:4

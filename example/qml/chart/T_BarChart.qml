@@ -70,8 +70,8 @@ FluScrollablePage{
     }
 
     FluFrame{
-        width: 500
-        height: 370
+        Layout.preferredWidth: 500
+        Layout.preferredHeight: 370
         padding: 10
         Layout.topMargin: 20
         FluChart{

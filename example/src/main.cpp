@@ -33,7 +33,7 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 int main(int argc, char *argv[])
 {
 #ifdef WIN32
-    ::SetUnhandledExceptionFilter(MyUnhandledExceptionFilter);
+//    ::SetUnhandledExceptionFilter(MyUnhandledExceptionFilter);
     qputenv("QT_QPA_PLATFORM","windows:darkmode=2");
 #endif
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))

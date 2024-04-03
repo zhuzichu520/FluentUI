@@ -39,6 +39,11 @@ Button {
     enabled: !disabled
     verticalPadding: 0
     horizontalPadding:12
+    onCheckableChanged: {
+        if(checkable){
+            checkable = false
+        }
+    }
     onClicked: clickListener()
     background: FluControlBackground{
         implicitWidth: 30
@@ -77,19 +82,16 @@ Button {
             if(checked){
                 return true
             }else{
-                return enabled
+                return !pressed && enabled
             }
         }
         border.color: {
             if(checked){
                 return enabled ? Qt.darker(control.normalColor,1.2) : disableColor
             }else{
-                return FluTheme.dark ? Qt.rgba(48/255,48/255,48/255,1) : Qt.rgba(206/255,206/255,206/255,1)
+                return FluTheme.dark ? Qt.rgba(48/255,48/255,48/255,1) : Qt.rgba(188/255,188/255,188/255,1)
             }
         }
-
-
-
     }
     contentItem: FluText {
         text: control.text

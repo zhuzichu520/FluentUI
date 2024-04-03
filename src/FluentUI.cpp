@@ -126,6 +126,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEvent.qml"),uri,major,minor,"FluEvent");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSheet.qml"),uri,major,minor,"FluSheet");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluGroupBox.qml"),uri,major,minor,"FluGroupBox");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluControlBackground.qml"),uri,major,minor,"FluControlBackground");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRouter.qml"),uri,major,minor,"FluRouter");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEventBus.qml"),uri,major,minor,"FluEventBus");
 

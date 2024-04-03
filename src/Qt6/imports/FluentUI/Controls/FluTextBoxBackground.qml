@@ -26,7 +26,7 @@ FluControlBackground{
     bottomMargin: inputItem && inputItem.activeFocus ? 2 : 1
     QtObject{
         id:d
-        property color startColor: FluTheme.dark ? Qt.rgba(23/255,23/255,23/255,1) : Qt.rgba(232/255,232/255,232/255,1)
+        property color startColor: FluTheme.dark ? Qt.rgba(66/255,66/255,66/255,1) : Qt.rgba(232/255,232/255,232/255,1)
         property color endColor: {
             if(!control.enabled){
                 return d.startColor

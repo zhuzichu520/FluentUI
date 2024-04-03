@@ -67,7 +67,8 @@ T.ComboBox {
         bottomInset:1
         rightInset:1
         background: FluTextBoxBackground{
-            borderWidth: 0
+            border.width: 0
+            bottomMargin: 0
             inputItem: contentItem
         }
         Component.onCompleted: {

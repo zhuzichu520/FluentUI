@@ -6,7 +6,7 @@ FluButton {
     property real progress
     QtObject{
         id:d
-        property bool checked: (rect_back.height === background.height) && (progress === 1)
+        property bool checked: (Number(rect_back.height) === Number(background.height)) && (progress === 1)
     }
     id: control
     property color normalColor: {
@@ -35,7 +35,7 @@ FluButton {
         implicitWidth: 30
         implicitHeight: 30
         radius: 4
-        border.color: FluTheme.dark ? Qt.rgba(48/255,48/255,48/255,1) : Qt.rgba(206/255,206/255,206/255,1)
+        border.color: FluTheme.dark ? Qt.rgba(48/255,48/255,48/255,1) : Qt.rgba(188/255,188/255,188/255,1)
         border.width: d.checked ? 0 : 1
         color:{
             if(!enabled){
