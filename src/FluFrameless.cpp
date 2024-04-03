@@ -3,6 +3,7 @@
 #include <QQuickWindow>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QDateTime>
 
 #ifdef Q_OS_WIN
 #pragma comment (lib,"user32.lib")
@@ -62,9 +63,6 @@ void FluFrameless::componentComplete(){
     }
     window()->installEventFilter(this);
     qApp->installNativeEventFilter(this);
-    if(_appbar){
-        _appbar->installEventFilter(this);
-    }
     if(_maximizeButton){
         setHitTestVisible(_maximizeButton);
     }
@@ -425,7 +423,18 @@ bool FluFrameless::eventFilter(QObject *obj, QEvent *ev){
             }
         }else{
             if(_hitAppBar()){
-                window()->startSystemMove();
+                qint64 clickTimer = QDateTime::currentMSecsSinceEpoch();
+                qint64 offset =  clickTimer - this->_clickTimer;
+                this->_clickTimer = clickTimer;
+                if(offset<300){
+                    if(_isMaximized()){
+                        showNormal();
+                    }else{
+                        showMaximized();
+                    }
+                }else{
+                    window()->startSystemMove();
+                }
             }
         }
         break;

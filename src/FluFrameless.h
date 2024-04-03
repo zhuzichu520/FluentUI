@@ -54,6 +54,7 @@ private:
     qint64 _current;
     int _edges = 0;
     int _margins = 8;
+    qint64 _clickTimer = 0;
     QList<QPointer<QQuickItem>> _hitTestList;
 };
 
