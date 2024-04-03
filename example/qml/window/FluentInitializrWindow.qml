@@ -8,14 +8,14 @@ import "../component"
 FluWindowDialog {
 
     id:window
-    title:qsTr("FluentUI Initalizr")
+    title:qsTr("FluentUI Initializr")
     width: 600
     height: 400
 
     contentDelegate:Component{
         Item{
             Connections{
-                target: InitalizrHelper
+                target: InitializrHelper
                 function onError(message){
                     showError(message)
                 }
@@ -27,7 +27,7 @@ FluWindowDialog {
 
             FluText{
                 id:text_title
-                text:qsTr("FluentUI Initalizr")
+                text:qsTr("FluentUI Initializr")
                 font: FluTextStyle.Title
                 anchors{
                     left: parent.left
@@ -102,7 +102,7 @@ FluWindowDialog {
                         width: 120
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked: {
-                            InitalizrHelper.generate(text_box_name.text,text_box_path.text)
+                            InitializrHelper.generate(text_box_name.text,text_box_path.text)
                         }
                     }
                 }
