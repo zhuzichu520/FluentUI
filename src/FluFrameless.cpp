@@ -76,7 +76,7 @@ void FluFrameless::componentComplete(){
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if(_fixSize){
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
         for (int i = 0; i < qApp->screens().count(); ++i) {
             connect( qApp->screens().at(i),&QScreen::logicalDotsPerInchChanged,this,[=]{
                 SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
@@ -228,12 +228,6 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
         return true;
     }else if(uMsg == WM_GETMINMAXINFO){
         MINMAXINFO* minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
-#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
-        minmaxInfo->ptMaxPosition.x = 0;
-        minmaxInfo->ptMaxPosition.y = 0;
-        minmaxInfo->ptMaxSize.x = 0;
-        minmaxInfo->ptMaxSize.y = 0;
-#else
         auto pixelRatio = window()->devicePixelRatio();
         auto geometry = window()->screen()->availableGeometry();
         RECT rect;
@@ -242,7 +236,6 @@ bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message,
         minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
         minmaxInfo->ptMaxSize.x = geometry.width()*pixelRatio + offsetXY.x() * 2;
         minmaxInfo->ptMaxSize.y = geometry.height()*pixelRatio + offsetXY.y() * 2;
-#endif
         return false;
     }else if(uMsg == WM_NCRBUTTONDOWN){
         if (wParam == HTCAPTION) {

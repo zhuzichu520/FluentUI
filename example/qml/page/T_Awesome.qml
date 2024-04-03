@@ -58,6 +58,7 @@ FluContentPage {
             FluText {
                 id:item_name
                 font.pixelSize: 10
+                font.family: FluTextStyle.family
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: item_icon.bottom
                 width:parent.width

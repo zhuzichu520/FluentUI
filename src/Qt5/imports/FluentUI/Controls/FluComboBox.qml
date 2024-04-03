@@ -68,7 +68,12 @@ T.ComboBox {
         rightInset:1
         background: FluTextBoxBackground{
             border.width: 0
-            bottomMargin: 0
+            bottomMargin: {
+                if(!control.editable){
+                    return 0
+                }
+                return contentItem && contentItem.activeFocus ? 2 : 1
+            }
             inputItem: contentItem
         }
         Component.onCompleted: {

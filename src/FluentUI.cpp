@@ -149,11 +149,6 @@ void FluentUI::registerTypes(const char *uri){
 }
 
 void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
-#ifdef Q_OS_WIN
-    QFont font;
-    font.setFamily("微软雅黑");
-    QGuiApplication::setFont(font);
-#endif
     engine->rootContext()->setContextProperty("FluApp",FluApp::getInstance());
     engine->rootContext()->setContextProperty("FluColors",FluColors::getInstance());
     engine->rootContext()->setContextProperty("FluTheme",FluTheme::getInstance());

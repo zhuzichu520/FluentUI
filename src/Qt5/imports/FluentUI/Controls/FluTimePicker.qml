@@ -58,14 +58,14 @@ FluButton {
         id: divider_1
         width: 1
         x: isH ? parent.width/3 : parent.width/2
-        height: parent.height
+        height: parent.height - 1
         color: dividerColor
     }
     Rectangle{
         id: divider_2
         width: 1
         x: parent.width*2/3
-        height: parent.height
+        height: parent.height - 1
         color: dividerColor
         visible: isH
     }

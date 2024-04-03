@@ -101,7 +101,7 @@ FluWindow {
             width: 186
             FluMenuItem{
                 text: qsTr("Open in Separate Window")
-                font.pixelSize: 12
+                font: FluTextStyle.Caption
                 onClicked: {
                     FluRouter.navigate("/pageWindow",{title:modelData.title,url:modelData.url})
                 }

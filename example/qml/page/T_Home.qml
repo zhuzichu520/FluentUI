@@ -122,6 +122,7 @@ FluScrollablePage{
                             Layout.leftMargin: 20
                             color: FluColors.Grey120
                             font.pixelSize: 12
+                            font.family: FluTextStyle.family
                             wrapMode: Text.WrapAnywhere
                         }
                     }

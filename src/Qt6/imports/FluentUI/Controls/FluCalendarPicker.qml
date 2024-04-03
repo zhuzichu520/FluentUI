@@ -448,7 +448,7 @@ FluButton {
                                 DayOfWeekRow {
                                     id: dayOfWeekRow
                                     locale: FluApp.locale
-                                    font.bold: false
+                                    font: FluTextStyle.Body
                                     delegate: Label {
                                         text: model.shortName
                                         font: dayOfWeekRow.font

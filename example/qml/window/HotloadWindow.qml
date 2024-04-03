@@ -41,7 +41,7 @@ FluWindow {
         }
         FluText{
             text: qsTr("Drag in a qml file")
-            font.pixelSize: 26
+            font: FluTextStyle.Title
             anchors.centerIn: parent
             visible: !loader.itemLodaer().item && loader.statusMode === FluStatusLayoutType.Success
         }

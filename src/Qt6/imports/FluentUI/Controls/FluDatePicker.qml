@@ -41,7 +41,7 @@ FluButton {
         id:divider_1
         width: 1
         x:  parent.width/3
-        height: parent.height
+        height: parent.height-1
         color: control.dividerColor
         visible: showYear
     }
@@ -49,7 +49,7 @@ FluButton {
         id:divider_2
         width: 1
         x: showYear ? parent.width*2/3 :  parent.width/2
-        height: parent.height
+        height: parent.height-1
         color: control.dividerColor
     }
     FluText{

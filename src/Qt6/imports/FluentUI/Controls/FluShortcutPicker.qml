@@ -131,10 +131,9 @@ FluIconButton {
             width: Math.max(item_text.implicitWidth+12,28)
             height: Math.max(item_text.implicitHeight,28)
             radius: 4
-            Text{
+            FluText{
                 id:item_text
                 color: FluTheme.dark ? Qt.rgba(0,0,0,1)  : Qt.rgba(1,1,1,1)
-                font.pixelSize: 13
                 text: keyText
                 anchors.centerIn: parent
             }

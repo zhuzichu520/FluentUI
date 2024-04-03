@@ -103,7 +103,6 @@ FluScrollablePage{
                                     horizontalAlignment: Qt.AlignHCenter
                                     text:model.title
                                     color: FluColors.Grey10
-                                    font.pixelSize: 15
                                 }
                             }
                         }

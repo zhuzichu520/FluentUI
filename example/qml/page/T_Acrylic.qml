@@ -71,7 +71,7 @@ FluScrollablePage{
                     anchors.centerIn: parent
                     text: "Acrylic"
                     color: "#FFFFFF"
-                    font.bold: true
+                    font: FluTextStyle.Subtitle
                 }
                 MouseArea {
                     property point clickPos: Qt.point(0,0)

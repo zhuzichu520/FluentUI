@@ -14,6 +14,7 @@ class FluTextStyle : public QObject
 {
     Q_OBJECT
 public:
+    Q_PROPERTY_AUTO(QString,family)
     Q_PROPERTY_AUTO(QFont,Caption);
     Q_PROPERTY_AUTO(QFont,Body);
     Q_PROPERTY_AUTO(QFont,BodyStrong);
