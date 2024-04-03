@@ -20,12 +20,13 @@ FluControlBackground{
     border.width: 1
     gradient: Gradient {
         GradientStop { position: 0.0; color: d.startColor }
-        GradientStop { position: 0.92; color: d.startColor }
+        GradientStop { position: d.position; color: d.startColor }
         GradientStop { position: 1.0; color: d.endColor }
     }
     bottomMargin: inputItem && inputItem.activeFocus ? 2 : 1
     QtObject{
         id:d
+        property real position: 1 - 3/control.height
         property color startColor: FluTheme.dark ? Qt.rgba(66/255,66/255,66/255,1) : Qt.rgba(232/255,232/255,232/255,1)
         property color endColor: {
             if(!control.enabled){

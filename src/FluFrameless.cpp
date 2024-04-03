@@ -76,7 +76,7 @@ void FluFrameless::componentComplete(){
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if(_fixSize){
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
         for (int i = 0; i < qApp->screens().count(); ++i) {
             connect( qApp->screens().at(i),&QScreen::logicalDotsPerInchChanged,this,[=]{
                 SetWindowPos(hwnd,nullptr,0,0,0,0,SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);

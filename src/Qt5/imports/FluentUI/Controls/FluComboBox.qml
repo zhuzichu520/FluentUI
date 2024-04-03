@@ -62,10 +62,6 @@ T.ComboBox {
         validator: control.validator
         selectByMouse: true
         verticalAlignment: Text.AlignVCenter
-        leftInset:1
-        topInset:1
-        bottomInset:1
-        rightInset:1
         background: FluTextBoxBackground{
             border.width: 0
             bottomMargin: {
