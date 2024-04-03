@@ -32,8 +32,11 @@ Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 
 int main(int argc, char *argv[])
 {
+    const char *uri = "example";
+    int major = 1;
+    int minor = 0;
 #ifdef WIN32
-//    ::SetUnhandledExceptionFilter(MyUnhandledExceptionFilter);
+    ::SetUnhandledExceptionFilter(MyUnhandledExceptionFilter);
     qputenv("QT_QPA_PLATFORM","windows:darkmode=2");
 #endif
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
@@ -54,8 +57,8 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationVersion(APPLICATION_VERSION);
     QGuiApplication::setQuitOnLastWindowClosed(false);
     SettingsHelper::getInstance()->init(argv);
-    Log::setup(argv,"example");
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+    Log::setup(argv,uri);
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 #endif
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
@@ -66,9 +69,6 @@ int main(int argc, char *argv[])
 #endif
 #endif
     QGuiApplication app(argc, argv);
-    const char *uri = "example";
-    int major = 1;
-    int minor = 0;
     //@uri example
     qmlRegisterType<CircularReveal>(uri, major, minor, "CircularReveal");
     qmlRegisterType<FileWatcher>(uri, major, minor, "FileWatcher");
