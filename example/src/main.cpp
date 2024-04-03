@@ -15,7 +15,7 @@
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
 #include "src/helper/SettingsHelper.h"
-#include "src/helper/InitalizrHelper.h"
+#include "src/helper/InitializrHelper.h"
 #include "src/helper/TranslateHelper.h"
 #include "src/helper/Network.h"
 
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     TranslateHelper::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
     engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
-    engine.rootContext()->setContextProperty("InitalizrHelper",InitalizrHelper::getInstance());
+    engine.rootContext()->setContextProperty("InitializrHelper",InitializrHelper::getInstance());
     engine.rootContext()->setContextProperty("TranslateHelper",TranslateHelper::getInstance());
     engine.rootContext()->setContextProperty("Network",Network::getInstance());
 #ifdef FLUENTUI_BUILD_STATIC_LIB

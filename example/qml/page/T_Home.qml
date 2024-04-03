@@ -12,8 +12,8 @@ FluScrollablePage{
     animationEnabled: false
     header: Item{}
 
-    FluentInitalizrWindow{
-        id:fluent_initalizr
+    FluentInitializrWindow{
+        id:fluent_Initializr
     }
 
     ListModel{
@@ -29,11 +29,11 @@ FluScrollablePage{
         }
         ListElement{
             icon: "qrc:/example/res/image/favicon.ico"
-            title: qsTr("FluentUI Initalizr")
+            title: qsTr("FluentUI Initializr")
             desc: qsTr("FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.")
             url: "https://github.com/zhuzichu520/FluentUI"
             clicked: function(model){
-                fluent_initalizr.showDialog()
+                fluent_Initializr.showDialog()
             }
         }
     }

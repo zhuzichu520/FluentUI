@@ -38,35 +38,35 @@
     </message>
 </context>
 <context>
-    <name>FluentInitalizrWindow</name>
+    <name>FluentInitializrWindow</name>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="11"/>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="30"/>
-        <source>FluentUI Initalizr</source>
+        <location filename="qml/window/FluentInitializrWindow.qml" line="11"/>
+        <location filename="qml/window/FluentInitializrWindow.qml" line="30"/>
+        <source>FluentUI Initializr</source>
         <translation type="unfinished">FluentUI脚手架</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="51"/>
+        <location filename="qml/window/FluentInitializrWindow.qml" line="51"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="59"/>
+        <location filename="qml/window/FluentInitializrWindow.qml" line="59"/>
         <source>Create In</source>
         <translation type="unfinished">创建路径</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="63"/>
+        <location filename="qml/window/FluentInitializrWindow.qml" line="63"/>
         <source>Browse</source>
         <translation type="unfinished">浏览</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="93"/>
+        <location filename="qml/window/FluentInitializrWindow.qml" line="93"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
     <message>
-        <location filename="qml/window/FluentInitalizrWindow.qml" line="101"/>
+        <location filename="qml/window/FluentInitializrWindow.qml" line="101"/>
         <source>Create</source>
         <translation type="unfinished">创建</translation>
     </message>
@@ -85,26 +85,26 @@
     </message>
 </context>
 <context>
-    <name>InitalizrHelper</name>
+    <name>InitializrHelper</name>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="77"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="77"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished">名称不能为空</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="81"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="81"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished">创建路径不能为空</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="86"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="86"/>
         <source>The path does not exist</source>
         <translation type="unfinished">路径不存在</translation>
     </message>
     <message>
-        <location filename="src/helper/InitalizrHelper.cpp" line="92"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="92"/>
         <source>%1 folder already exists</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 文件夹已经存在</translation>
     </message>
 </context>
 <context>
@@ -1403,7 +1403,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_Home.qml" line="32"/>
-        <source>FluentUI Initalizr</source>
+        <source>FluentUI Initializr</source>
         <translation type="unfinished">FluentUI脚手架</translation>
     </message>
     <message>

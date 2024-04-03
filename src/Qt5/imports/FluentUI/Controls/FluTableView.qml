@@ -5,16 +5,17 @@ import Qt.labs.qmlmodels 1.0
 import FluentUI 1.0
 
 Rectangle {
+    readonly property alias rows: table_view.rows
+    readonly property alias columns: table_view.columns
+    readonly property alias current: d.current
+    readonly property alias sourceModel: table_model
     property var columnSource
     property var dataSource
-    property color borderColor: FluTheme.dark ? "#252525" : "#e4e4e4"
-    property alias rows: table_view.rows
-    property alias columns: table_view.columns
+    property color borderColor: FluTheme.dark ? Qt.rgba(37/255,37/255,37/255,1) : Qt.rgba(228/255,228/255,228/255,1)
     property bool horizonalHeaderVisible: true
     property bool verticalHeaderVisible: true
     property color selectedBorderColor: FluTheme.primaryColor
     property color selectedColor: FluTools.colorAlpha(FluTheme.primaryColor,0.3)
-    property alias sourceModel: table_model
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -379,7 +380,7 @@ Rectangle {
             model: table_sort_model
             clip: true
             onRowsChanged: {
-                closeEditor()
+                control.closeEditor()
             }
             delegate: com_table_delegate
             FluLoader{
@@ -492,7 +493,7 @@ Rectangle {
                 }
                 onClicked:
                     (event)=>{
-                        closeEditor()
+                        control.closeEditor()
                     }
             }
             FluLoader{
@@ -623,7 +624,7 @@ Rectangle {
                 }
                 onClicked:
                     (event)=>{
-                        closeEditor()
+                        control.closeEditor()
                     }
             }
             MouseArea{

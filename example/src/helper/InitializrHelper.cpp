@@ -1,16 +1,16 @@
-#include "InitalizrHelper.h"
+#include "InitializrHelper.h"
 
 #include <QDir>
 #include <QGuiApplication>
 
-InitalizrHelper::InitalizrHelper(QObject *parent) : QObject(parent)
+InitializrHelper::InitializrHelper(QObject *parent) : QObject(parent)
 {
 
 }
 
-InitalizrHelper::~InitalizrHelper() = default;
+InitializrHelper::~InitializrHelper() = default;
 
-bool InitalizrHelper::copyDir(const QDir& fromDir, const QDir& toDir, bool coverIfFileExists){
+bool InitializrHelper::copyDir(const QDir& fromDir, const QDir& toDir, bool coverIfFileExists){
     QDir _formDir = fromDir;
     QDir _toDir = toDir;
     if(!_toDir.exists())
@@ -44,7 +44,7 @@ bool InitalizrHelper::copyDir(const QDir& fromDir, const QDir& toDir, bool cover
 }
 
 template <typename...Args>
-void InitalizrHelper::templateToFile(const QString& source,const QString& dest,Args &&...args){
+void InitializrHelper::templateToFile(const QString& source,const QString& dest,Args &&...args){
     QFile file(source);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
@@ -67,12 +67,12 @@ void InitalizrHelper::templateToFile(const QString& source,const QString& dest,A
     }
 }
 
-void InitalizrHelper::copyFile(const QString& source,const QString& dest){
+void InitializrHelper::copyFile(const QString& source,const QString& dest){
     QFile::copy(source,dest);
     QFile::setPermissions(dest, QFile::WriteOwner | QFile::WriteUser | QFile::WriteGroup | QFile::WriteOther);
 }
 
-void InitalizrHelper::generate(const QString& name,const QString& path){
+void InitializrHelper::generate(const QString& name,const QString& path){
     if(name.isEmpty()){
         error(tr("The name cannot be empty"));
         return;

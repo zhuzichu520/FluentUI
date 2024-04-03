@@ -8,12 +8,12 @@ FluButton {
     property int hourFormat: FluTimePickerType.H
     property int isH: hourFormat === FluTimePickerType.H
     property var current
-    property string amText: "上午"
-    property string pmText: "下午"
-    property string hourText: "时"
-    property string minuteText: "分"
-    property string cancelText: "取消"
-    property string okText: "确定"
+    property string amText: qsTr("AM")
+    property string pmText: qsTr("PM")
+    property string hourText: qsTr("Hour")
+    property string minuteText: qsTr("Minute")
+    property string cancelText: qsTr("Cancel")
+    property string okText: qsTr("OK")
     signal accepted()
     id:control
     implicitHeight: 30

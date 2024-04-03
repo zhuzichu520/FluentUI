@@ -194,7 +194,6 @@
         <file>res/image/ic_crash.png</file>
         <file>qml/window/CrashWindow.qml</file>
         <file>qml/page/T_SplitLayout.qml</file>
-        <file>qml/window/FluentInitalizrWindow.qml</file>
         <file>res/template/CMakeLists.txt.in</file>
         <file>res/template/src/App.qml.in</file>
         <file>res/template/src/CMakeLists.txt.in</file>
@@ -209,5 +208,6 @@
         <file>qml/page/T_Sheet.qml</file>
         <file>qml/page/T_GroupBox.qml</file>
         <file>res/image/bg_scenic.jpg</file>
+        <file>qml/window/FluentInitializrWindow.qml</file>
     </qresource>
 </RCC>
