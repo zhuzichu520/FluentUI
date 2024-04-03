@@ -101,7 +101,7 @@ void FluTreeModel::checkRow(int row,bool checked){
         }
         itemData->_checked = checked;
     }
-    Q_EMIT layoutChanged();
+    Q_EMIT dataChanged(index(0,0),index(rowCount()-1,0));
     QList<FluTreeNode*> data;
     foreach (auto item, _dataSource) {
         if(!item->hasChildren()){
@@ -302,8 +302,7 @@ void FluTreeModel::dragAndDrop(int dragIndex,int dropIndex,bool isDropTopArea){
         destChildren->insert(targetIndex,dragItem);
     }
     changePersistentIndex(index(qMin(dragIndex,dropIndex),0),index(qMax(dragIndex,dropIndex),0));
-    Q_EMIT layoutChanged();
-
+    Q_EMIT dataChanged(index(0,0),index(rowCount()-1,0));
 }
 
 bool FluTreeModel::hitHasChildrenExpanded(int row){

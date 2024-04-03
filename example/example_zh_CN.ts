@@ -2470,14 +2470,6 @@ Some contents...</source>
     </message>
 </context>
 <context>
-    <name>T_TreeView2</name>
-    <message>
-        <location filename="qml/page/T_TreeView2.qml" line="10"/>
-        <source>TreeView2</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>T_Typography</name>
     <message>
         <location filename="qml/page/T_Typography.qml" line="10"/>
