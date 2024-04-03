@@ -119,8 +119,9 @@ QUrl FluTools::getUrlByFilePath(const QString& path){
     return QUrl::fromLocalFile(path);
 }
 
-QColor FluTools::colorAlpha(const QColor& color,qreal alpha){
-    return QColor(color.red(),color.green(),color.blue(),255*alpha);
+QColor FluTools::withOpacity(const QColor& color,qreal opacity){
+    int alpha = qRound(opacity * 255) & 0xff;
+    return QColor::fromRgba((alpha << 24) | (color.rgba() & 0xffffff));
 }
 
 QString FluTools::md5(QString text){

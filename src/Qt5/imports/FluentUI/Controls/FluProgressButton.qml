@@ -2,14 +2,13 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
-Button {
+FluButton {
     property real progress
-    property bool disabled: false
-    property string contentDescription: ""
     QtObject{
         id:d
         property bool checked: (rect_back.height === background.height) && (progress === 1)
     }
+    id: control
     property color normalColor: {
         if(d.checked){
             return FluTheme.primaryColor
@@ -32,59 +31,50 @@ Button {
         }
     }
     property color pressedColor: FluTheme.dark ? Qt.darker(normalColor,1.2) : Qt.lighter(normalColor,1.2)
-    Accessible.role: Accessible.Button
-    Accessible.name: control.text
-    Accessible.description: contentDescription
-    Accessible.onPressAction: control.clicked()
-    focusPolicy:Qt.TabFocus
-    id: control
-    enabled: !disabled
-    verticalPadding: 0
-    horizontalPadding:12
-    background: FluClip{
-        implicitWidth: 28
-        implicitHeight: 28
-        radius: [4,4,4,4]
-        Rectangle{
-            anchors.fill: parent
-            border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
-            border.width: d.checked ? 0 : 1
-            radius: 4
-            color:{
-                if(!enabled){
-                    return disableColor
-                }
-                if(d.checked){
-                    if(pressed){
-                        return pressedColor
-                    }
-                }
-                return hovered ? hoverColor :normalColor
+    background: FluControlBackground{
+        implicitWidth: 30
+        implicitHeight: 30
+        radius: 4
+        border.color: FluTheme.dark ? Qt.rgba(48/255,48/255,48/255,1) : Qt.rgba(206/255,206/255,206/255,1)
+        border.width: d.checked ? 0 : 1
+        color:{
+            if(!enabled){
+                return disableColor
             }
+            if(d.checked){
+                if(pressed){
+                    return pressedColor
+                }
+            }
+            return hovered ? hoverColor :normalColor
         }
-        Rectangle{
-            id:rect_back
-            width: parent.width  * control.progress
-            height: control.progress === 1 ? background.height : 3
-            visible: !d.checked
-            color: FluTheme.primaryColor
-            anchors.bottom: parent.bottom
-            Behavior on height{
-                enabled: control.progress !== 0
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: FluTheme.animationEnabled ? 167 : 0
-                    }
-                    NumberAnimation{
-                        duration: FluTheme.animationEnabled ? 167 : 0
-                        from: 3
-                        to: background.height
+        FluClip{
+            anchors.fill: parent
+            radius: [4,4,4,4]
+            Rectangle{
+                id:rect_back
+                width: parent.width  * control.progress
+                height: control.progress === 1 ? background.height : 3
+                visible: !d.checked
+                color: FluTheme.primaryColor
+                anchors.bottom: parent.bottom
+                Behavior on height{
+                    enabled: control.progress !== 0
+                    SequentialAnimation {
+                        PauseAnimation {
+                            duration: FluTheme.animationEnabled ? 167 : 0
+                        }
+                        NumberAnimation{
+                            duration: FluTheme.animationEnabled ? 167 : 0
+                            from: 3
+                            to: background.height
+                        }
                     }
                 }
-            }
-            Behavior on width{
-                NumberAnimation{
-                    duration: 167
+                Behavior on width{
+                    NumberAnimation{
+                        duration: 167
+                    }
                 }
             }
         }

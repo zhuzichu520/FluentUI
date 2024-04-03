@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtQml/qqml.h>
+
 #include "FluAccentColor.h"
 #include "stdafx.h"
 #include "singleton.h"
@@ -50,7 +51,6 @@ class FluColors : public QObject
     QML_SINGLETON
 private:
     explicit FluColors(QObject *parent = nullptr);
-    QColor withOpacity(QColor color,qreal opacity);
 public:
     SINGLETON(FluColors)
     Q_INVOKABLE FluAccentColor* createAccentColor(QColor primaryColor);

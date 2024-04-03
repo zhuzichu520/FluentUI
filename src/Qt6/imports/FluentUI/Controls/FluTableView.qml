@@ -16,7 +16,7 @@ Rectangle {
     property bool horizonalHeaderVisible: true
     property bool verticalHeaderVisible: true
     property color selectedBorderColor: FluTheme.primaryColor
-    property color selectedColor: FluTools.colorAlpha(FluTheme.primaryColor,0.3)
+    property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {

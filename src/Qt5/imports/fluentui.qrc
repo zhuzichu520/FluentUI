@@ -109,5 +109,6 @@
         <file>FluentUI/Controls/FluFrame.qml</file>
         <file>FluentUI/Controls/FluSheet.qml</file>
         <file>FluentUI/Controls/FluGroupBox.qml</file>
+        <file>FluentUI/Controls/FluControlBackground.qml</file>
     </qresource>
 </RCC>

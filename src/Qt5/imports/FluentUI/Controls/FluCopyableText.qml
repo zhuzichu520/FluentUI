@@ -17,7 +17,7 @@ TextEdit {
     selectByMouse: true
     selectedTextColor: color
     bottomPadding: 0
-    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.5)
+    selectionColor: FluTools.withOpacity(FluTheme.primaryColor,0.5)
     font:FluTextStyle.Body
     onSelectedTextChanged: {
         control.forceActiveFocus()

@@ -25,7 +25,7 @@ TextArea{
     leftPadding: padding+4
     renderType: FluTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     selectedTextColor: color
-    selectionColor: FluTools.colorAlpha(FluTheme.primaryColor,0.5)
+    selectionColor: FluTools.withOpacity(FluTheme.primaryColor,0.5)
     placeholderTextColor: {
         if(!enabled){
             return placeholderDisableColor

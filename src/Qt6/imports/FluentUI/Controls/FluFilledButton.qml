@@ -30,36 +30,25 @@ Button {
     font:FluTextStyle.Body
     verticalPadding: 0
     horizontalPadding:12
-    background: Rectangle{
-        implicitWidth: 28
-        implicitHeight: 28
+    background: FluControlBackground{
+        implicitWidth: 30
+        implicitHeight: 30
         radius: 4
+        bottomMargin: enabled ? 2 : 0
+        border.width: enabled ? 1 : 0
+        border.color: enabled ? Qt.darker(control.normalColor,1.2) : disableColor
+        color:{
+            if(!enabled){
+                return disableColor
+            }
+            if(pressed){
+                return pressedColor
+            }
+            return hovered ? hoverColor :normalColor
+        }
         FluFocusRectangle{
             visible: control.visualFocus
             radius:4
-        }
-        gradient: Gradient {
-            GradientStop { position: 0.33; color: control.enabled ? control.normalColor : Qt.rgba(0,0,0,0) }
-            GradientStop { position: 1.0; color: control.enabled ? Qt.darker(control.normalColor,1.3) : Qt.rgba(0,0,0,0) }
-        }
-        Rectangle{
-            radius: parent.radius
-            anchors{
-                fill: parent
-                topMargin: control.enabled ? 0 : 0
-                leftMargin: control.enabled ? 1 : 0
-                rightMargin: control.enabled ? 1 : 0
-                bottomMargin: control.enabled ? 2 : 0
-            }
-            color:{
-                if(!enabled){
-                    return disableColor
-                }
-                if(pressed){
-                    return pressedColor
-                }
-                return hovered ? hoverColor :normalColor
-            }
         }
     }
     contentItem: FluText {

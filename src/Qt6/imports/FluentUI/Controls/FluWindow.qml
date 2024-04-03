@@ -42,9 +42,9 @@ Window {
     property bool useSystemAppBar
     property color resizeBorderColor: {
         if(window.active){
-            return FluTheme.dark ? "#333333" : "#6E6E6E"
+            return FluTheme.dark ? Qt.rgba(51/255,51/255,51/255,1) : Qt.rgba(110/255,110/255,110/255,1)
         }
-        return FluTheme.dark ? "#3D3D3E" : "#A7A7A7"
+        return FluTheme.dark ? Qt.rgba(61/255,61/255,61/255,1) : Qt.rgba(167/255,167/255,167/255,1)
     }
     property int resizeBorderWidth: 1
     property var closeListener: function(event){

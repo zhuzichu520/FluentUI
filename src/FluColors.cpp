@@ -1,4 +1,5 @@
 #include "FluColors.h"
+#include "FluTools.h"
 
 FluColors::FluColors(QObject *parent):QObject{parent}{
     Transparent(QColor(0, 0, 0, 0));
@@ -111,17 +112,12 @@ FluColors::FluColors(QObject *parent):QObject{parent}{
 
 FluAccentColor* FluColors::createAccentColor(QColor primaryColor){
     FluAccentColor *accentColor = new FluAccentColor(this);
-    accentColor->darkest(withOpacity(primaryColor,0.7));
-    accentColor->darker(withOpacity(primaryColor,0.8));
-    accentColor->dark(withOpacity(primaryColor,0.9));
+    accentColor->darkest(FluTools::getInstance()->withOpacity(primaryColor,0.7));
+    accentColor->darker(FluTools::getInstance()->withOpacity(primaryColor,0.8));
+    accentColor->dark(FluTools::getInstance()->withOpacity(primaryColor,0.9));
     accentColor->normal(primaryColor);
-    accentColor->light(withOpacity(primaryColor,0.9));
-    accentColor->lighter(withOpacity(primaryColor,0.8));
-    accentColor->lightest(withOpacity(primaryColor,0.7));
+    accentColor->light(FluTools::getInstance()->withOpacity(primaryColor,0.9));
+    accentColor->lighter(FluTools::getInstance()->withOpacity(primaryColor,0.8));
+    accentColor->lightest(FluTools::getInstance()->withOpacity(primaryColor,0.7));
     return accentColor;
-}
-
-QColor FluColors::withOpacity(QColor color,qreal opacity){
-    int alpha = qRound(opacity * 255) & 0xff;
-    return QColor::fromRgba((alpha << 24) | (color.rgba() & 0xffffff));
 }

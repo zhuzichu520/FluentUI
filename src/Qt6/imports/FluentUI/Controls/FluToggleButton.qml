@@ -24,7 +24,7 @@ Button {
         if(checked){
             return FluTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
         }else{
-            return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(244/255,244/255,244/255,1)
+            return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(251/255,251/255,251/255,1)
         }
     }
     property var clickListener : function(){
@@ -41,46 +41,56 @@ Button {
     verticalPadding: 0
     horizontalPadding:12
     onClicked: clickListener()
-    background: Rectangle{
-        implicitWidth: 28
-        implicitHeight: 28
+    background: FluControlBackground{
+        implicitWidth: 30
+        implicitHeight: 30
         radius: 4
         FluFocusRectangle{
             visible: control.activeFocus
             radius:4
         }
-        gradient: Gradient {
-            GradientStop { position: 0.33; color: control.enabled ? control.normalColor : Qt.rgba(0,0,0,0) }
-            GradientStop { position: 1.0; color: control.enabled ? Qt.darker(control.normalColor,1.3) : Qt.rgba(0,0,0,0) }
-        }
-        Rectangle{
-            radius: parent.radius
-            anchors{
-                fill: parent
-                topMargin: checked && enabled ? 0 : 0
-                leftMargin: checked && enabled ? 1 : 0
-                rightMargin: checked && enabled ? 1 : 0
-                bottomMargin: checked && enabled ? 2 : 0
+        color:{
+            if(!enabled){
+                return disableColor
             }
-            color:{
-                if(!enabled){
-                    return disableColor
+            if(checked){
+                if(pressed){
+                    return pressedColor
                 }
-                if(checked){
-                    if(pressed){
-                        return pressedColor
-                    }
-                }
-                return hovered ? hoverColor :normalColor
+            }
+            return hovered ? hoverColor :normalColor
+        }
+        bottomMargin: {
+            if(checked){
+                return enabled ? 2 : 0
+            }else{
+                return 1
             }
         }
-        Rectangle{
-            color:"#00000000"
-            anchors.fill: parent
-            border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
-            border.width: checked ? 0 : 1
-            radius: parent.radius
+        border.width: {
+            if(checked){
+                return enabled ? 1 : 0
+            }else{
+                return 1
+            }
         }
+        shadow: {
+            if(checked){
+                return true
+            }else{
+                return enabled
+            }
+        }
+        border.color: {
+            if(checked){
+                return enabled ? Qt.darker(control.normalColor,1.2) : disableColor
+            }else{
+                return FluTheme.dark ? Qt.rgba(48/255,48/255,48/255,1) : Qt.rgba(206/255,206/255,206/255,1)
+            }
+        }
+
+
+
     }
     contentItem: FluText {
         text: control.text

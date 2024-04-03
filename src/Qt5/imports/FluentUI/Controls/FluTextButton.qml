@@ -28,8 +28,8 @@ Button {
     enabled: !disabled
     font:FluTextStyle.Body
     background: Rectangle{
-        implicitWidth: 28
-        implicitHeight: 28
+        implicitWidth: 30
+        implicitHeight: 30
         radius: 4
         color: {
             if(!enabled){
