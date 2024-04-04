@@ -26,7 +26,8 @@ Item{
         radius: control.radius
         gradient: Gradient {
             GradientStop { position: 0.0; color: d.startColor }
-            GradientStop { position: 0.88; color: d.startColor }
+            GradientStop { position: 1 - 3/control.height; color: d.startColor }
+            GradientStop { position: 1 - 2/control.height; color: d.startColor }
             GradientStop { position: 1.0; color: d.endColor}
         }
     }
@@ -39,6 +40,12 @@ Item{
             bottomMargin: control.bottomMargin
             leftMargin: control.leftMargin
             rightMargin: control.rightMargin
+        }
+        Behavior on anchors.bottomMargin {
+            NumberAnimation{
+                easing.type: Easing.OutCubic
+                duration: 167
+            }
         }
         radius: control.radius
         color: control.color
