@@ -21,7 +21,6 @@ FluControlBackground{
     gradient: Gradient {
         GradientStop { position: 0.0; color: d.startColor }
         GradientStop { position: 1 - d.offsetSize/control.height; color: d.startColor }
-        GradientStop { position: 1 - 1/control.height; color: d.endColor }
         GradientStop { position: 1.0; color: d.endColor }
     }
     bottomMargin: inputItem && inputItem.activeFocus ? 2 : 1
