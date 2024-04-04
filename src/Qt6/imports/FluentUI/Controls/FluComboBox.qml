@@ -63,10 +63,10 @@ T.ComboBox {
         selectByMouse: true
         verticalAlignment: Text.AlignVCenter
         background: FluTextBoxBackground{
-            border.width: 0
+            border.width: 1
             bottomMargin: {
                 if(!control.editable){
-                    return 0
+                    return 1
                 }
                 return contentItem && contentItem.activeFocus ? 2 : 1
             }
