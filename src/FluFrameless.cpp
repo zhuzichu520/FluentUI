@@ -58,6 +58,11 @@ void FluFrameless::componentComplete(){
     }
     _current = window()->winId();
     window()->setFlags(( window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+    if(QQuickWindow::sceneGraphBackend() == "software"){
+        window()->setFlag(Qt::FramelessWindowHint,false);
+    }
+#endif
     if(!_fixSize){
         window()->setFlag(Qt::WindowMaximizeButtonHint);
     }
