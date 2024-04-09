@@ -22,6 +22,24 @@ Module {
         Property { name: "lightest"; type: "QColor" }
     }
     Component {
+        name: "FluApp"
+        prototype: "QObject"
+        exports: ["FluentUI/FluApp 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "useSystemAppBar"; type: "bool" }
+        Property { name: "windowIcon"; type: "string" }
+        Property { name: "locale"; type: "QLocale" }
+        Method {
+            name: "init"
+            Parameter { name: "target"; type: "QObject"; isPointer: true }
+            Parameter { name: "locale"; type: "QLocale" }
+        }
+        Method {
+            name: "init"
+            Parameter { name: "target"; type: "QObject"; isPointer: true }
+        }
+    }
+    Component {
         name: "FluCalendarViewType"
         exports: ["FluentUI/FluCalendarViewType 1.0"]
         isCreatable: false
@@ -48,6 +66,50 @@ Module {
             name: "verify"
             type: "bool"
             Parameter { name: "code"; type: "string" }
+        }
+    }
+    Component {
+        name: "FluColors"
+        prototype: "QObject"
+        exports: ["FluentUI/FluColors 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "Transparent"; type: "QColor" }
+        Property { name: "Black"; type: "QColor" }
+        Property { name: "White"; type: "QColor" }
+        Property { name: "Grey10"; type: "QColor" }
+        Property { name: "Grey20"; type: "QColor" }
+        Property { name: "Grey30"; type: "QColor" }
+        Property { name: "Grey40"; type: "QColor" }
+        Property { name: "Grey50"; type: "QColor" }
+        Property { name: "Grey60"; type: "QColor" }
+        Property { name: "Grey70"; type: "QColor" }
+        Property { name: "Grey80"; type: "QColor" }
+        Property { name: "Grey90"; type: "QColor" }
+        Property { name: "Grey100"; type: "QColor" }
+        Property { name: "Grey110"; type: "QColor" }
+        Property { name: "Grey120"; type: "QColor" }
+        Property { name: "Grey130"; type: "QColor" }
+        Property { name: "Grey140"; type: "QColor" }
+        Property { name: "Grey150"; type: "QColor" }
+        Property { name: "Grey160"; type: "QColor" }
+        Property { name: "Grey170"; type: "QColor" }
+        Property { name: "Grey180"; type: "QColor" }
+        Property { name: "Grey190"; type: "QColor" }
+        Property { name: "Grey200"; type: "QColor" }
+        Property { name: "Grey210"; type: "QColor" }
+        Property { name: "Grey220"; type: "QColor" }
+        Property { name: "Yellow"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "Orange"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "Red"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "Magenta"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "Purple"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "Blue"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "Teal"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "Green"; type: "FluAccentColor"; isPointer: true }
+        Method {
+            name: "createAccentColor"
+            type: "FluAccentColor*"
+            Parameter { name: "primaryColor"; type: "QColor" }
         }
     }
     Component {
@@ -227,6 +289,49 @@ Module {
         }
     }
     Component {
+        name: "FluTextStyle"
+        prototype: "QObject"
+        exports: ["FluentUI/FluTextStyle 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "family"; type: "string" }
+        Property { name: "Caption"; type: "QFont" }
+        Property { name: "Body"; type: "QFont" }
+        Property { name: "BodyStrong"; type: "QFont" }
+        Property { name: "Subtitle"; type: "QFont" }
+        Property { name: "Title"; type: "QFont" }
+        Property { name: "TitleLarge"; type: "QFont" }
+        Property { name: "Display"; type: "QFont" }
+    }
+    Component {
+        name: "FluTheme"
+        prototype: "QObject"
+        exports: ["FluentUI/FluTheme 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "dark"; type: "bool"; isReadonly: true }
+        Property { name: "accentColor"; type: "FluAccentColor"; isPointer: true }
+        Property { name: "primaryColor"; type: "QColor" }
+        Property { name: "backgroundColor"; type: "QColor" }
+        Property { name: "dividerColor"; type: "QColor" }
+        Property { name: "windowBackgroundColor"; type: "QColor" }
+        Property { name: "windowActiveBackgroundColor"; type: "QColor" }
+        Property { name: "fontPrimaryColor"; type: "QColor" }
+        Property { name: "fontSecondaryColor"; type: "QColor" }
+        Property { name: "fontTertiaryColor"; type: "QColor" }
+        Property { name: "itemNormalColor"; type: "QColor" }
+        Property { name: "itemHoverColor"; type: "QColor" }
+        Property { name: "itemPressColor"; type: "QColor" }
+        Property { name: "itemCheckColor"; type: "QColor" }
+        Property { name: "darkMode"; type: "int" }
+        Property { name: "nativeText"; type: "bool" }
+        Property { name: "animationEnabled"; type: "bool" }
+        Method {
+            name: "awesomeList"
+            type: "QJsonArray"
+            Parameter { name: "keyword"; type: "string" }
+        }
+        Method { name: "awesomeList"; type: "QJsonArray" }
+    }
+    Component {
         name: "FluThemeType"
         exports: ["FluentUI/FluThemeType 1.0"]
         isCreatable: false
@@ -268,12 +373,122 @@ Module {
         }
     }
     Component {
+        name: "FluTools"
+        prototype: "QObject"
+        exports: ["FluentUI/FluTools 1.0"]
+        exportMetaObjectRevisions: [0]
+        Method { name: "qtMajor"; type: "int" }
+        Method { name: "qtMinor"; type: "int" }
+        Method { name: "isMacos"; type: "bool" }
+        Method { name: "isLinux"; type: "bool" }
+        Method { name: "isWin"; type: "bool" }
+        Method {
+            name: "clipText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method { name: "uuid"; type: "string" }
+        Method {
+            name: "readFile"
+            type: "string"
+            Parameter { name: "fileName"; type: "string" }
+        }
+        Method {
+            name: "setQuitOnLastWindowClosed"
+            Parameter { name: "val"; type: "bool" }
+        }
+        Method {
+            name: "setOverrideCursor"
+            Parameter { name: "shape"; type: "Qt::CursorShape" }
+        }
+        Method { name: "restoreOverrideCursor" }
+        Method {
+            name: "html2PlantText"
+            type: "string"
+            Parameter { name: "html"; type: "string" }
+        }
+        Method {
+            name: "toLocalPath"
+            type: "string"
+            Parameter { name: "url"; type: "QUrl" }
+        }
+        Method {
+            name: "deleteLater"
+            Parameter { name: "p"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "getFileNameByUrl"
+            type: "string"
+            Parameter { name: "url"; type: "QUrl" }
+        }
+        Method { name: "getVirtualGeometry"; type: "QRect" }
+        Method { name: "getApplicationDirPath"; type: "string" }
+        Method {
+            name: "getUrlByFilePath"
+            type: "QUrl"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "withOpacity"
+            type: "QColor"
+            Parameter { type: "QColor" }
+            Parameter { name: "alpha"; type: "double" }
+        }
+        Method {
+            name: "md5"
+            type: "string"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "sha256"
+            type: "string"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "toBase64"
+            type: "string"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "fromBase64"
+            type: "string"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "removeDir"
+            type: "bool"
+            Parameter { name: "dirPath"; type: "string" }
+        }
+        Method {
+            name: "removeFile"
+            type: "bool"
+            Parameter { name: "filePath"; type: "string" }
+        }
+        Method {
+            name: "showFileInFolder"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method { name: "isSoftware"; type: "bool" }
+        Method { name: "currentTimestamp"; type: "qlonglong" }
+        Method { name: "cursorPos"; type: "QPoint" }
+        Method { name: "windowIcon"; type: "QIcon" }
+        Method { name: "cursorScreenIndex"; type: "int" }
+        Method { name: "windowBuildNumber"; type: "int" }
+        Method { name: "isWindows11OrGreater"; type: "bool" }
+        Method { name: "isWindows10OrGreater"; type: "bool" }
+        Method {
+            name: "desktopAvailableGeometry"
+            type: "QRect"
+            Parameter { name: "window"; type: "QQuickWindow"; isPointer: true }
+        }
+    }
+    Component {
         name: "FluTreeModel"
         prototype: "QAbstractItemModel"
         exports: ["FluentUI/FluTreeModel 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "dataSourceSize"; type: "int" }
         Property { name: "selectionModel"; type: "QList<FluTreeNode*>" }
+        Property { name: "columnSource"; type: "QList<QVariantMap>" }
         Method {
             name: "removeRows"
             Parameter { name: "row"; type: "int" }
@@ -304,12 +519,6 @@ Module {
         Method {
             name: "expand"
             Parameter { name: "row"; type: "int" }
-        }
-        Method {
-            name: "dragAndDrop"
-            Parameter { name: "dragIndex"; type: "int" }
-            Parameter { name: "dropIndex"; type: "int" }
-            Parameter { name: "isDropTopArea"; type: "bool" }
         }
         Method {
             name: "getNode"
@@ -2242,7 +2451,7 @@ Module {
         }
         Property {
             name: "layoutMacosButtons"
-            type: "FluLoader_QMLTYPE_13"
+            type: "FluLoader_QMLTYPE_12"
             isReadonly: true
             isPointer: true
         }
@@ -2932,15 +3141,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_137"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_137"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_172"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_172"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_38"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_38"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_42"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_42"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }

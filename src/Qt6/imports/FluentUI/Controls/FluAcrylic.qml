@@ -10,8 +10,7 @@ Item {
     property real noiseOpacity: 0.02
     property alias target: effect_source.sourceItem
     property int blurRadius: 32
-    property rect targetRect: Qt.rect(control.x, control.y, control.width,
-                                      control.height)
+    property rect targetRect: Qt.rect(control.x, control.y, control.width,control.height)
     ShaderEffectSource {
         id: effect_source
         anchors.fill: parent

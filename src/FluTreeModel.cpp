@@ -24,13 +24,15 @@ int FluTreeModel::rowCount(const QModelIndex &parent) const {
 };
 
 int FluTreeModel::columnCount(const QModelIndex &parent) const {
-    return 1;;
+    return this->_columnSource.size();
 };
 
 QVariant FluTreeModel::data(const QModelIndex &index, int role) const {
     switch (role) {
-    case Qt::DisplayRole:
-        return  QVariant::fromValue(_rows.at(index.row()));
+    case TreeModelRoles::RowModel:
+        return QVariant::fromValue(_rows.at(index.row()));
+    case TreeModelRoles::ColumnModel:
+        return QVariant::fromValue(_columnSource.at(index.column()));
     default:
         break;
     }
@@ -38,7 +40,10 @@ QVariant FluTreeModel::data(const QModelIndex &index, int role) const {
 };
 
 QHash<int, QByteArray> FluTreeModel::roleNames() const {
-    return { {Qt::DisplayRole, "dataModel"} };
+    return {
+        {TreeModelRoles::RowModel, "rowModel"},
+        {TreeModelRoles::ColumnModel, "columnModel"}
+    };
 };
 
 void FluTreeModel::setData(QList<FluTreeNode*> data){
@@ -74,6 +79,11 @@ void FluTreeModel::insertRows(int row,QList<FluTreeNode*> data){
 
 QObject* FluTreeModel::getRow(int row){
     return _rows.at(row);
+}
+
+void FluTreeModel::setRow(int row,QVariantMap data){
+    _rows.at(row)->_data = data;
+    Q_EMIT dataChanged(index(row,0),index(row,columnCount()-1));
 }
 
 void FluTreeModel::checkRow(int row,bool checked){
@@ -125,10 +135,9 @@ void FluTreeModel::setDataSource(QList<QMap<QString,QVariant>> data){
         auto item = data.at(data.count()-1);
         data.pop_back();
         FluTreeNode* node = new FluTreeNode(this);
-        node->_title = item.value("title").toString();
-        node->_key = item.value("key").toString();
         node->_depth = item.value("__depth").toInt();
         node->_parent = item.value("__parent").value<FluTreeNode*>();
+        node->_data = item;
         node->_isExpanded = true;
         if(node->_parent){
             node->_parent->_children.append(node);
@@ -199,110 +208,6 @@ void FluTreeModel::expand(int row){
         }
     }
     insertRows(row+1,insertData);
-}
-
-void FluTreeModel::dragAndDrop(int dragIndex,int dropIndex,bool isDropTopArea){
-    if(dropIndex>_rows.count() || dropIndex<0){
-        return;
-    }
-    auto dragItem = _rows[dragIndex];
-    auto dropItem = _rows[dropIndex];
-    int targetIndex;
-    if(dropIndex > dragIndex){
-        if(isDropTopArea){
-            targetIndex = dropIndex;
-        }else{
-            targetIndex = dropIndex+1;
-        }
-    }else{
-        if(isDropTopArea){
-            targetIndex = dropIndex;
-        }else{
-            targetIndex = dropIndex+1;
-        }
-    }
-    if (!beginMoveRows(QModelIndex(), dragIndex, dragIndex, QModelIndex(), targetIndex)) {
-        return;
-    }
-    if(dropIndex > dragIndex){
-        if(isDropTopArea){
-            targetIndex = dropIndex-1;
-        }else{
-            targetIndex = dropIndex;
-        }
-    }else{
-        if(isDropTopArea){
-            targetIndex = dropIndex;
-        }else{
-            targetIndex = dropIndex+1;
-        }
-    }
-    _rows.move(dragIndex,targetIndex);
-    endMoveRows();
-
-    Q_EMIT layoutAboutToBeChanged();
-    if(dragItem->_parent == dropItem->_parent){
-        QList<FluTreeNode*>* children = &(dragItem->_parent->_children);
-        int srcIndex = children->indexOf(dragItem);
-        int destIndex = children->indexOf(dropItem);
-        if(dropIndex > dragIndex){
-            if(isDropTopArea){
-                targetIndex = destIndex-1;
-            }else{
-                targetIndex = destIndex;
-            }
-        }else{
-            if(isDropTopArea){
-                targetIndex = destIndex;
-            }else{
-                targetIndex = destIndex+1;
-            }
-        }
-        children->move(srcIndex,targetIndex);
-    }else{
-        QList<FluTreeNode*>* srcChildren = &(dragItem->_parent->_children);
-        QList<FluTreeNode*>* destChildren = &(dropItem->_parent->_children);
-        int srcIndex = srcChildren->indexOf(dragItem);
-        int destIndex = destChildren->indexOf(dropItem);
-        dragItem->_depth = dropItem->_depth;
-        dragItem->_parent = dropItem->_parent;
-        if(dragItem->hasChildren()){
-            QList<FluTreeNode*> stack = dragItem->_children;
-            foreach (auto node, stack) {
-                node->_depth = dragItem->_depth+1;
-            }
-            std::reverse(stack.begin(), stack.end());
-            while (stack.count() > 0) {
-                auto item = stack.at(stack.count()-1);
-                stack.pop_back();
-                QList<FluTreeNode*> children = item->_children;
-                if(!children.isEmpty()){
-                    std::reverse(children.begin(), children.end());
-                    foreach (auto c, children) {
-                        c->_depth = item->_depth+1;
-                        stack.append(c);
-                    }
-                }
-            }
-        }
-        srcChildren->removeAt(srcIndex);
-        if(dropIndex > dragIndex){
-            if(isDropTopArea){
-                targetIndex = destIndex;
-            }else{
-                targetIndex = destIndex + 1;
-            }
-        }else{
-            if(isDropTopArea){
-                targetIndex = destIndex;
-            }else{
-                targetIndex = destIndex + 1;
-            }
-        }
-        destChildren->insert(targetIndex,dragItem);
-    }
-    changePersistentIndex(index(qMin(dragIndex,dropIndex),0),index(qMax(dragIndex,dropIndex),0));
-    Q_EMIT dataChanged(index(0,0),index(rowCount()-1,0));
 }
 
 bool FluTreeModel::hitHasChildrenExpanded(int row){

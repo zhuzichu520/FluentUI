@@ -90,7 +90,7 @@ Rectangle {
                 if(!readOnly){
                     editTextChaged(text_box.text)
                 }
-                tableView.closeEditor()
+                control.closeEditor()
             }
         }
     }
@@ -119,7 +119,7 @@ Rectangle {
                         if(!readOnly){
                             editTextChaged(text_box.text)
                         }
-                        tableView.closeEditor()
+                        control.closeEditor()
                     }
                 }
             }
@@ -258,7 +258,7 @@ Rectangle {
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
                     onPressed:{
-                        closeEditor()
+                        control.closeEditor()
                     }
                     onCanceled: {
                     }
@@ -275,7 +275,7 @@ Rectangle {
                     onClicked:
                         (event)=>{
                             d.current = rowObject
-                            closeEditor()
+                            control.closeEditor()
                             event.accepted = true
                         }
                 }
@@ -381,6 +381,7 @@ Rectangle {
             clip: true
             onRowsChanged: {
                 control.closeEditor()
+                table_view.flick(0,1)
             }
             delegate: com_table_delegate
             FluLoader{

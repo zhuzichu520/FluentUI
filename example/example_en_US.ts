@@ -475,46 +475,51 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="430"/>
-        <source>QRCode</source>
+        <source>CodeEditor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="436"/>
-        <source>Tour</source>
+        <source>QRCode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="442"/>
-        <source>Timeline</source>
+        <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="448"/>
-        <source>Captcha</source>
+        <source>Timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="454"/>
+        <source>Captcha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="461"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="467"/>
         <source>Remote Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="475"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="481"/>
         <source>Hot Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="481"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
         <source>3D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2376,13 +2381,23 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="44"/>
-        <source>Total %1 data, %2 data currently displayed</source>
+        <location filename="qml/page/T_TreeView.qml" line="230"/>
+        <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="48"/>
-        <source>A total of %1 data items are selected</source>
+        <location filename="qml/page/T_TreeView.qml" line="238"/>
+        <source>Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="242"/>
+        <source>Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="234"/>
+        <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

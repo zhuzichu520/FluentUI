@@ -475,46 +475,51 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="430"/>
+        <source>CodeEditor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
         <source>QRCode</source>
         <translation type="unfinished">二维码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
         <source>Tour</source>
         <translation type="unfinished">游览</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
         <source>Timeline</source>
         <translation type="unfinished">时间轴</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
         <source>Captcha</source>
         <translation type="unfinished">验证码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
         <source>Network</source>
         <translation type="unfinished">网络</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="461"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="467"/>
         <source>Remote Loader</source>
         <translation type="unfinished">远程加载</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="475"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="481"/>
         <source>Hot Loader</source>
         <translation type="unfinished">热加载</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="481"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
         <source>3D</source>
         <translation type="unfinished">3D</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
         <source>Test Crash</source>
         <translation type="unfinished">测试崩溃</translation>
     </message>
@@ -2459,14 +2464,32 @@ Some contents...</source>
         <translation type="unfinished">树</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="44"/>
         <source>Total %1 data, %2 data currently displayed</source>
-        <translation type="unfinished">共计%1条数据，当前显示的%2条数据</translation>
+        <translation type="obsolete">共计%1条数据，当前显示的%2条数据</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="48"/>
         <source>A total of %1 data items are selected</source>
-        <translation type="unfinished">共计选中%1条数据</translation>
+        <translation type="obsolete">共计选中%1条数据</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="230"/>
+        <source>Title</source>
+        <translation type="unfinished">标题</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="242"/>
+        <source>Address</source>
+        <translation type="unfinished">地址</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="238"/>
+        <source>Avatar</source>
+        <translation type="unfinished">头像</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="234"/>
+        <source>Name</source>
+        <translation type="unfinished">名称</translation>
     </message>
 </context>
 <context>
