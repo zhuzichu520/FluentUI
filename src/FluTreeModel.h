@@ -19,10 +19,14 @@ Q_OBJECT
 public:
     explicit FluTreeNode(QObject *parent = nullptr);
 
-    Q_INVOKABLE int depth() const { return _depth; };
-    Q_INVOKABLE bool isExpanded() const { return _isExpanded; };
-    Q_INVOKABLE QVariantMap data() const { return _data; };
-    Q_INVOKABLE bool hasChildren() const { return !_children.isEmpty(); };
+    [[nodiscard]] Q_INVOKABLE int depth() const { return _depth; };
+
+    [[nodiscard]] Q_INVOKABLE bool isExpanded() const { return _isExpanded; };
+
+    [[nodiscard]] Q_INVOKABLE QVariantMap data() const { return _data; };
+
+    [[nodiscard]] Q_INVOKABLE bool hasChildren() const { return !_children.isEmpty(); };
+
     Q_INVOKABLE bool hasNextNodeByIndex(int index) {
         FluTreeNode *p = this;
         for (int i = 0; i <= _depth - index - 1; i++) {
@@ -34,7 +38,7 @@ public:
         return true;
     }
 
-    Q_INVOKABLE bool checked() const {
+    [[nodiscard]] Q_INVOKABLE bool checked() const {
         if (!hasChildren()) {
             return _checked;
         }
@@ -46,6 +50,7 @@ public:
         }
         return true;
     };
+    
     Q_INVOKABLE bool hideLineFooter() {
         if (_parent) {
             auto childIndex = _parent->_children.indexOf(this);
@@ -60,7 +65,7 @@ public:
         return false;
     };
 
-    bool isShown() const {
+    [[nodiscard]] bool isShown() const {
         auto p = _parent;
         while (p) {
             if (!p->_isExpanded) {
@@ -96,17 +101,17 @@ public:
 
     explicit FluTreeModel(QObject *parent = nullptr);
 
-    int rowCount(const QModelIndex &parent = {}) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = {}) const override;
 
-    int columnCount(const QModelIndex &parent = {}) const override;
+    [[nodiscard]] int columnCount(const QModelIndex &parent = {}) const override;
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    QHash<int, QByteArray> roleNames() const override;
+    [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
-    QModelIndex parent(const QModelIndex &child) const override;
+    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = {}) const override;
+    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = {}) const override;
 
     Q_INVOKABLE void removeRows(int row, int count);
 

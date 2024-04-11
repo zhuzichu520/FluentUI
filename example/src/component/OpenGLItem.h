@@ -12,11 +12,11 @@ Q_OBJECT
 public:
     explicit OpenGLItem(QQuickItem *parent = nullptr);
 
-    QQuickFramebufferObject::Renderer *createRenderer() const override;
+    [[nodiscard]] QQuickFramebufferObject::Renderer *createRenderer() const override;
 
     void timerEvent(QTimerEvent *) override;
 
-    qreal t() const { return m_t; }
+    [[nodiscard]] qreal t() const { return m_t; }
 
     void setT(qreal t);
 
