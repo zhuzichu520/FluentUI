@@ -1,6 +1,4 @@
 #pragma once
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "NotImplementedFunctions"
 
 #include <QQuickItem>
 #include <QQuickPaintedItem>
@@ -31,5 +29,3 @@ private:
     QPoint _center;
     QSharedPointer<QQuickItemGrabResult> _grabResult;
 };
-
-#pragma clang diagnostic pop

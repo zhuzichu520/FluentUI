@@ -1,6 +1,4 @@
 #pragma once
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "NotImplementedFunctions"
 
 #include <QObject>
 #include <QFileSystemWatcher>
@@ -21,5 +19,3 @@ private:
 private:
     QFileSystemWatcher _watcher;
 };
-
-#pragma clang diagnostic pop

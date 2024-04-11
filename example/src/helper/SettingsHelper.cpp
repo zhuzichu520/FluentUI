@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
-
 #include "SettingsHelper.h"
 
 #include <QDataStream>
@@ -31,5 +28,3 @@ void SettingsHelper::init(char *argv[]) {
     const QString iniFilePath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/" + iniFileName;
     m_settings.reset(new QSettings(iniFilePath, QSettings::IniFormat));
 }
-
-#pragma clang diagnostic pop

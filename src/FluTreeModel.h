@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
-#pragma ide diagnostic ignored "google-default-arguments"
 #pragma once
 
 #include <QObject>
@@ -22,10 +19,10 @@ Q_OBJECT
 public:
     explicit FluTreeNode(QObject *parent = nullptr);
 
-    Q_INVOKABLE [[nodiscard]] int depth() const { return _depth; };
-    Q_INVOKABLE [[nodiscard]] bool isExpanded() const { return _isExpanded; };
-    Q_INVOKABLE [[nodiscard]] QVariantMap data() const { return _data; };
-    Q_INVOKABLE [[nodiscard]] bool hasChildren() const { return !_children.isEmpty(); };
+    Q_INVOKABLE int depth() const { return _depth; };
+    Q_INVOKABLE bool isExpanded() const { return _isExpanded; };
+    Q_INVOKABLE QVariantMap data() const { return _data; };
+    Q_INVOKABLE bool hasChildren() const { return !_children.isEmpty(); };
     Q_INVOKABLE bool hasNextNodeByIndex(int index) {
         FluTreeNode *p = this;
         for (int i = 0; i <= _depth - index - 1; i++) {
@@ -37,7 +34,7 @@ public:
         return true;
     }
 
-    Q_INVOKABLE [[nodiscard]] bool checked() const {
+    Q_INVOKABLE bool checked() const {
         if (!hasChildren()) {
             return _checked;
         }
@@ -63,7 +60,7 @@ public:
         return false;
     };
 
-    [[nodiscard]] bool isShown() const {
+    bool isShown() const {
         auto p = _parent;
         while (p) {
             if (!p->_isExpanded) {
@@ -99,17 +96,17 @@ public:
 
     explicit FluTreeModel(QObject *parent = nullptr);
 
-    [[nodiscard]] int rowCount(const QModelIndex &parent = {}) const override;
+    int rowCount(const QModelIndex &parent = {}) const override;
 
-    [[nodiscard]] int columnCount(const QModelIndex &parent = {}) const override;
+    int columnCount(const QModelIndex &parent = {}) const override;
 
-    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
+    QHash<int, QByteArray> roleNames() const override;
 
-    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
+    QModelIndex parent(const QModelIndex &child) const override;
 
-    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = {}) const override;
+    QModelIndex index(int row, int column, const QModelIndex &parent = {}) const override;
 
     Q_INVOKABLE void removeRows(int row, int count);
 
@@ -144,5 +141,3 @@ private:
     QList<FluTreeNode *> _dataSource;
     FluTreeNode *_root = nullptr;
 };
-
-#pragma clang diagnostic pop

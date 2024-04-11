@@ -1,7 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
-#pragma ide diagnostic ignored "google-default-arguments"
-
 #include "FluTreeModel.h"
 
 #include <QMetaEnum>
@@ -276,5 +272,3 @@ void FluTreeModel::allCollapse() {
     _rows = _root->_children;
     endResetModel();
 }
-
-#pragma clang diagnostic pop

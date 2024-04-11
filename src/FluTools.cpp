@@ -1,7 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
-#pragma ide diagnostic ignored "readability-convert-member-functions-to-static"
-
 #include "FluTools.h"
 
 #include <QGuiApplication>
@@ -248,5 +244,3 @@ bool FluTools::isWindows10OrGreater() {
 QRect FluTools::desktopAvailableGeometry(QQuickWindow *window) {
     return window->screen()->availableGeometry();
 }
-
-#pragma clang diagnostic pop

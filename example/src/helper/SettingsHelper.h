@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma once
 
 #include <QtCore/qobject.h>
@@ -43,4 +41,3 @@ private:
 private:
     QScopedPointer<QSettings> m_settings;
 };
-#pragma clang diagnostic pop

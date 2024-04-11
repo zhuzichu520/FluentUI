@@ -1,6 +1,4 @@
 #pragma once
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "NotImplementedFunctions"
 
 #include <QObject>
 #include <QtQml/qqml.h>
@@ -206,13 +204,13 @@ SINGLETON(Network)
     void handleDownload(NetworkParams *params, NetworkCallable *result);
 
 private:
-    static void sendRequest(QNetworkAccessManager *manager, QNetworkRequest request, NetworkParams *params, QNetworkReply *&reply, bool isFirst, const QPointer<NetworkCallable>& callable);
+    static void sendRequest(QNetworkAccessManager *manager, QNetworkRequest request, NetworkParams *params, QNetworkReply *&reply, bool isFirst, const QPointer<NetworkCallable> &callable);
 
     static void addQueryParam(QUrl *url, const QMap<QString, QVariant> &params);
 
     static void addHeaders(QNetworkRequest *request, const QMap<QString, QVariant> &headers);
 
-    void saveResponse(const QString& key, const QString& response);
+    void saveResponse(const QString &key, const QString &response);
 
     QString readCache(const QString &key);
 
@@ -222,14 +220,12 @@ private:
 
     static QString headerList2String(const QList<QNetworkReply::RawHeaderPair> &data);
 
-    static void printRequestStartLog(const QNetworkRequest& request, NetworkParams *params);
+    static void printRequestStartLog(const QNetworkRequest &request, NetworkParams *params);
 
-    static void printRequestEndLog(const QNetworkRequest& request, NetworkParams *params, QNetworkReply *&reply, const QString &response);
+    static void printRequestEndLog(const QNetworkRequest &request, NetworkParams *params, QNetworkReply *&reply, const QString &response);
 
     static QString map2String(const QMap<QString, QVariant> &map);
 
 public:
     QJSValue _interceptor;
 };
-
-#pragma clang diagnostic pop

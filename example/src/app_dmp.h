@@ -1,6 +1,4 @@
 #pragma once
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "misc-misplaced-const"
 
 #include <Windows.h>
 #include <DbgHelp.h>
@@ -79,5 +77,3 @@ LONG WINAPI MyUnhandledExceptionFilter(EXCEPTION_POINTERS *exp) {
     QProcess::startDetached(QGuiApplication::applicationFilePath(), arguments);
     return EXCEPTION_EXECUTE_HANDLER;
 }
-
-#pragma clang diagnostic pop

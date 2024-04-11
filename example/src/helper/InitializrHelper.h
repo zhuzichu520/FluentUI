@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "NotImplementedFunctions"
 #pragma once
 
 #include <QObject>
@@ -30,5 +28,3 @@ SINGLETON(InitializrHelper)
 
     Q_SIGNAL void success(const QString &path);
 };
-
-#pragma clang diagnostic pop

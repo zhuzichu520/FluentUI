@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma once
 
 #include <QObject>
@@ -95,5 +93,3 @@ SINGLETON(FluTools)
 
     Q_INVOKABLE QRect desktopAvailableGeometry(QQuickWindow *window);
 };
-
-#pragma clang diagnostic pop

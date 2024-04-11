@@ -1,6 +1,4 @@
 #pragma once
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "NotImplementedFunctions"
 
 #include <QtQuick/QQuickItem>
 #include <QOpenGLFunctions>
@@ -14,11 +12,11 @@ Q_OBJECT
 public:
     explicit OpenGLItem(QQuickItem *parent = nullptr);
 
-    [[nodiscard]] QQuickFramebufferObject::Renderer *createRenderer() const override;
+    QQuickFramebufferObject::Renderer *createRenderer() const override;
 
     void timerEvent(QTimerEvent *) override;
 
-    [[nodiscard]] qreal t() const { return m_t; }
+    qreal t() const { return m_t; }
 
     void setT(qreal t);
 
@@ -29,5 +27,3 @@ signals:
 private:
     qreal m_t{};
 };
-
-#pragma clang diagnostic pop

@@ -1,7 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedParameter"
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
-
 #include "Network.h"
 
 #include <QUrlQuery>
@@ -666,5 +662,3 @@ NetworkParams *Network::deleteJsonArray(const QString &url) {
 void Network::setInterceptor(QJSValue interceptor) {
     this->_interceptor = std::move(interceptor);
 }
-
-#pragma clang diagnostic pop
