@@ -144,8 +144,7 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     )
 else()
     #加快qrc编译
-    set(QRC
-        RESOURCES Qt6/imports/FluentUI/Font/Font-Awesome-6-Free-Solid.ttf_FILE Qt5/imports/fluentui.qrc)
+    set(QRC_FILE Qt5/imports/fluentui.qrc)
     qt_add_big_resources(QRC_RESOURCES ${QRC_FILE})
     list(APPEND QRC_RESOURCES ${QRC_FILE})
     set_property(SOURCE ${QRC_FILE} PROPERTY SKIP_AUTORCC ON)
