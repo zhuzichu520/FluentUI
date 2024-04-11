@@ -427,9 +427,9 @@ FluObject{
         title: qsTr("Other")
         icon: FluentIcons.Shop
         FluPaneItem{
-            title: qsTr("CodeEditor")
+            title: qsTr("OpenGL")
             menuDelegate: paneItemMenu
-            url: "qrc:/example/qml/page/T_CodeEditor.qml"
+            url: "qrc:/example/qml/page/T_OpenGL.qml"
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{

@@ -2,18 +2,12 @@
 
 #include "FluentUI.h"
 
-FluentUIPlugin::FluentUIPlugin()
-{
+FluentUIPlugin::FluentUIPlugin() = default;
 
-}
-
-void FluentUIPlugin::registerTypes(const char *uri)
-{
+void FluentUIPlugin::registerTypes(const char *uri) {
     FluentUI::getInstance()->registerTypes(uri);
 }
 
-void FluentUIPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    Q_UNUSED(uri)
-    FluentUI::getInstance()->initializeEngine(engine,uri);
+void FluentUIPlugin::initializeEngine(QQmlEngine *engine, const char *uri) {
+    FluentUI::getInstance()->initializeEngine(engine, uri);
 }

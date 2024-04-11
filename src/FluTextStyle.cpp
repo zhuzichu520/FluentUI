@@ -1,6 +1,6 @@
 #include "FluTextStyle.h"
 
-FluTextStyle::FluTextStyle(QObject *parent):QObject{parent}{
+FluTextStyle::FluTextStyle(QObject *parent) : QObject{parent} {
     _family = QFont().defaultFamily();
 #ifdef Q_OS_WIN
     _family = "微软雅黑";

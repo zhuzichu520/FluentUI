@@ -1,5 +1,4 @@
-#ifndef FLUAPP_H
-#define FLUAPP_H
+#pragma once
 
 #include <QObject>
 #include <QWindow>
@@ -15,24 +14,28 @@
 /**
  * @brief The FluApp class
  */
-class FluApp : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY_AUTO(bool,useSystemAppBar);
-    Q_PROPERTY_AUTO(QString,windowIcon);
-    Q_PROPERTY_AUTO(QLocale,locale);
+class FluApp : public QObject {
+Q_OBJECT
+
+Q_PROPERTY_AUTO(bool, useSystemAppBar)
+Q_PROPERTY_AUTO(QString, windowIcon)
+Q_PROPERTY_AUTO(QLocale, locale)
     QML_NAMED_ELEMENT(FluApp)
     QML_SINGLETON
+
 private:
     explicit FluApp(QObject *parent = nullptr);
-    ~FluApp();
-public:
-    SINGLETON(FluApp)
-    static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
-    Q_INVOKABLE void init(QObject *target,QLocale locale = QLocale::system());
-private:
-    QQmlEngine *_engine;
-    QTranslator* _translator = nullptr;
-};
 
-#endif // FLUAPP_H
+    ~FluApp() override;
+
+public:
+SINGLETON(FluApp)
+
+    static FluApp *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
+
+    Q_INVOKABLE void init(QObject *target, QLocale locale = QLocale::system());
+
+private:
+    QQmlEngine *_engine{};
+    QTranslator *_translator = nullptr;
+};

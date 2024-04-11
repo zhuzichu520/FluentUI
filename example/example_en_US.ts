@@ -87,22 +87,22 @@
 <context>
     <name>InitializrHelper</name>
     <message>
-        <location filename="src/helper/InitializrHelper.cpp" line="77"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="69"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/helper/InitializrHelper.cpp" line="81"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="73"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/helper/InitializrHelper.cpp" line="86"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="78"/>
         <source>The path does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/helper/InitializrHelper.cpp" line="92"/>
+        <location filename="src/helper/InitializrHelper.cpp" line="84"/>
         <source>%1 folder already exists</source>
         <translation type="unfinished"></translation>
     </message>
@@ -475,7 +475,7 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="430"/>
-        <source>CodeEditor</source>
+        <source>OpenGL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -551,11 +551,6 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="307"/>
-        <source>Dark Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="qml/window/MainWindow.qml" line="83"/>
         <location filename="qml/window/MainWindow.qml" line="91"/>
         <source>Quit</source>
@@ -615,6 +610,11 @@
     <message>
         <location filename="qml/window/MainWindow.qml" line="303"/>
         <source>Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/window/MainWindow.qml" line="307"/>
+        <source>Dark Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1623,6 +1623,14 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_Network.qml" line="13"/>
         <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_OpenGL</name>
+    <message>
+        <location filename="qml/page/T_OpenGL.qml" line="11"/>
+        <source>OpenGL</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

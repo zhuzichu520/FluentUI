@@ -209,5 +209,7 @@
         <file>qml/page/T_GroupBox.qml</file>
         <file>res/image/bg_scenic.jpg</file>
         <file>qml/window/FluentInitializrWindow.qml</file>
+        <file>qml/page/T_OpenGL.qml</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

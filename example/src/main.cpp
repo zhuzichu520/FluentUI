@@ -14,6 +14,7 @@
 #include "src/component/CircularReveal.h"
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
+#include "src/component/OpenGLItem.h"
 #include "src/helper/SettingsHelper.h"
 #include "src/helper/InitializrHelper.h"
 #include "src/helper/TranslateHelper.h"
@@ -75,6 +76,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<FpsItem>(uri, major, minor, "FpsItem");
     qmlRegisterType<NetworkCallable>(uri,major,minor,"NetworkCallable");
     qmlRegisterType<NetworkParams>(uri,major,minor,"NetworkParams");
+    qmlRegisterType<OpenGLItem>(uri,major,minor,"OpenGLItem");
+    qmlRegisterUncreatableMetaObject(NetworkType::staticMetaObject, uri, major, minor, "NetworkType", "Access to enums & flags only");
+
     QQmlApplicationEngine engine;
     TranslateHelper::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());

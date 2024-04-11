@@ -11,8 +11,11 @@
 #include <QSettings>
 #include <QRegularExpression>
 #include "Version.h"
+
 #ifdef WIN32
+
 #include <process.h>
+
 #else
 #include <unistd.h>
 #endif
@@ -26,7 +29,7 @@
 #endif
 
 static QString g_app = {};
-static QString g_file_path= {};
+static QString g_file_path = {};
 static bool g_logError = false;
 
 static std::unique_ptr<QFile> g_logFile = nullptr;
@@ -35,15 +38,14 @@ static std::unique_ptr<QTextStream> g_logStream = nullptr;
 static int g_logLevel = 4;
 
 std::map<QtMsgType, int> logLevelMap = {
-    {QtFatalMsg,0},
-    {QtCriticalMsg,1},
-    {QtWarningMsg,2},
-    {QtInfoMsg,3},
-    {QtDebugMsg,4}
+        {QtFatalMsg,    0},
+        {QtCriticalMsg, 1},
+        {QtWarningMsg,  2},
+        {QtInfoMsg,     3},
+        {QtDebugMsg,    4}
 };
 
-QString Log::prettyProductInfoWrapper()
-{
+QString Log::prettyProductInfoWrapper() {
     auto productName = QSysInfo::prettyProductName();
 #if QT_VERSION < QT_VERSION_CHECK(6, 5, 0)
 #if defined(Q_OS_MACOS)
@@ -70,20 +72,17 @@ QString Log::prettyProductInfoWrapper()
 #endif
 #endif
 #if defined(Q_OS_WIN)
-    QSettings regKey {QString::fromUtf8("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), QSettings::NativeFormat};
+    QSettings regKey{QString::fromUtf8(R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion)"), QSettings::NativeFormat};
     if (regKey.contains(QString::fromUtf8("CurrentBuildNumber"))) {
         auto buildNumber = regKey.value(QString::fromUtf8("CurrentBuildNumber")).toInt();
         if (buildNumber > 0) {
             if (buildNumber < 9200) {
                 productName = QString::fromUtf8("Windows 7 build %1").arg(buildNumber);
-            }
-            else if (buildNumber < 10240) {
+            } else if (buildNumber < 10240) {
                 productName = QString::fromUtf8("Windows 8 build %1").arg(buildNumber);
-            }
-            else if (buildNumber < 22000) {
+            } else if (buildNumber < 22000) {
                 productName = QString::fromUtf8("Windows 10 build %1").arg(buildNumber);
-            }
-            else {
+            } else {
                 productName = QString::fromUtf8("Windows 11 build %1").arg(buildNumber);
             }
         }
@@ -92,56 +91,55 @@ QString Log::prettyProductInfoWrapper()
     return productName;
 }
 
-static inline void messageHandler(const QtMsgType type, const QMessageLogContext &context, const QString &message)
-{
-    if(message == "Could not get the INetworkConnection instance for the adapter GUID."){
+static inline void messageHandler(const QtMsgType type, const QMessageLogContext &context, const QString &message) {
+    if (message == "Could not get the INetworkConnection instance for the adapter GUID.") {
         return;
     }
-    if(logLevelMap[type]>g_logLevel){
+    if (logLevelMap[type] > g_logLevel) {
         return;
     }
     if (!message.isEmpty()) {
         QString levelName;
         switch (type) {
-        case QtDebugMsg:
-            levelName = QStringLiteral("Debug");
-            break;
-        case QtInfoMsg:
-            levelName = QStringLiteral("Info");
-            break;
-        case QtWarningMsg:
-            levelName = QStringLiteral("Warning");
-            break;
-        case QtCriticalMsg:
-            levelName = QStringLiteral("Critical");
-            break;
-        case QtFatalMsg:
-            levelName = QStringLiteral("Fatal");
-            break;
+            case QtDebugMsg:
+                levelName = QStringLiteral("Debug");
+                break;
+            case QtInfoMsg:
+                levelName = QStringLiteral("Info");
+                break;
+            case QtWarningMsg:
+                levelName = QStringLiteral("Warning");
+                break;
+            case QtCriticalMsg:
+                levelName = QStringLiteral("Critical");
+                break;
+            case QtFatalMsg:
+                levelName = QStringLiteral("Fatal");
+                break;
         }
         QString fileAndLineLogStr;
-        if(context.file){
+        if (context.file) {
             std::string strFileTmp = context.file;
-            const char* ptr = strrchr(strFileTmp.c_str(), '/');
+            const char *ptr = strrchr(strFileTmp.c_str(), '/');
             if (nullptr != ptr) {
                 char fn[512] = {0};
                 sprintf(fn, "%s", ptr + 1);
                 strFileTmp = fn;
             }
-            const char* ptrTmp = strrchr(strFileTmp.c_str(), '\\');
+            const char *ptrTmp = strrchr(strFileTmp.c_str(), '\\');
             if (nullptr != ptrTmp) {
                 char fn[512] = {0};
                 sprintf(fn, "%s", ptrTmp + 1);
                 strFileTmp = fn;
             }
-            fileAndLineLogStr = QString::fromStdString("[%1:%2]").arg(QString::fromStdString(strFileTmp),QString::number(context.line));
+            fileAndLineLogStr = QString::fromStdString("[%1:%2]").arg(QString::fromStdString(strFileTmp), QString::number(context.line));
         }
         const QString finalMessage = QString::fromStdString("%1[%2]%3[%4]:%5").arg(
-            QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss.zzz"),
-            levelName,
-            fileAndLineLogStr,
-            QString::number(reinterpret_cast<quintptr>(QThread::currentThreadId())),
-            message);
+                QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss.zzz"),
+                levelName,
+                fileAndLineLogStr,
+                QString::number(reinterpret_cast<quintptr>(QThread::currentThreadId())),
+                message);
         if ((type == QtInfoMsg) || (type == QtDebugMsg)) {
             std::cout << qPrintable(finalMessage) << std::endl;
         } else {
@@ -168,8 +166,7 @@ static inline void messageHandler(const QtMsgType type, const QMessageLogContext
     }
 }
 
-void Log::setup(char *argv[],const QString &app,int level)
-{
+void Log::setup(char *argv[], const QString &app, int level) {
     Q_ASSERT(!app.isEmpty());
     if (app.isEmpty()) {
         return;
@@ -182,30 +179,30 @@ void Log::setup(char *argv[],const QString &app,int level)
     QString applicationPath = QString::fromStdString(argv[0]);
     once = true;
     g_app = app;
-    const QString logFileName = QString("%1_%2.log").arg(g_app,QDateTime::currentDateTime().toString("yyyyMMdd"));
-    const QString logDirPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)+"/log";
+    const QString logFileName = QString("%1_%2.log").arg(g_app, QDateTime::currentDateTime().toString("yyyyMMdd"));
+    const QString logDirPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/log";
     const QDir logDir(logDirPath);
-    if(!logDir.exists()){
+    if (!logDir.exists()) {
         logDir.mkpath(logDirPath);
     }
     g_file_path = logDir.filePath(logFileName);
     qInstallMessageHandler(messageHandler);
-    qInfo()<<"===================================================";
-    qInfo()<<"[AppName]"<<g_app;
-    qInfo()<<"[AppVersion]"<<APPLICATION_VERSION;
-    qInfo()<<"[AppPath]"<<applicationPath;
-    qInfo()<<"[QtVersion]"<<QT_VERSION_STR;
+    qInfo() << "===================================================";
+    qInfo() << "[AppName]" << g_app;
+    qInfo() << "[AppVersion]" << APPLICATION_VERSION;
+    qInfo() << "[AppPath]" << applicationPath;
+    qInfo() << "[QtVersion]" << QT_VERSION_STR;
 #ifdef WIN32
-    qInfo()<<"[ProcessId]"<<QString::number(_getpid());
+    qInfo() << "[ProcessId]" << QString::number(_getpid());
 #else
     qInfo()<<"[ProcessId]"<<QString::number(getpid());
 #endif
-    qInfo()<<"[GitHashCode]"<<COMMIT_HASH;
-    qInfo()<<"[DeviceInfo]";
-    qInfo()<<"  [DeviceId]"<<QSysInfo::machineUniqueId();
-    qInfo()<<"  [Manufacturer]"<<prettyProductInfoWrapper();
-    qInfo()<<"  [CPU_ABI]"<<QSysInfo::currentCpuArchitecture();
-    qInfo()<<"[LOG_LEVEL]"<<g_logLevel;
-    qInfo()<<"[LOG_PATH]"<<g_file_path;
-    qInfo()<<"===================================================";
+    qInfo() << "[GitHashCode]" << COMMIT_HASH;
+    qInfo() << "[DeviceInfo]";
+    qInfo() << "  [DeviceId]" << QSysInfo::machineUniqueId();
+    qInfo() << "  [Manufacturer]" << prettyProductInfoWrapper();
+    qInfo() << "  [CPU_ABI]" << QSysInfo::currentCpuArchitecture();
+    qInfo() << "[LOG_LEVEL]" << g_logLevel;
+    qInfo() << "[LOG_PATH]" << g_file_path;
+    qInfo() << "===================================================";
 }
