@@ -3,6 +3,7 @@
 #include <QGuiApplication>
 #include <QPalette>
 #include "Def.h"
+#include "FluentIconDef.h"
 #include "FluColors.h"
 
 bool systemDark() {
@@ -54,7 +55,7 @@ bool FluTheme::eventFilter(QObject *, QEvent *event) {
 
 [[maybe_unused]] QJsonArray FluTheme::awesomeList(const QString &keyword) {
     QJsonArray arr;
-    QMetaEnum enumType = Fluent_Awesome::staticMetaObject.enumerator(Fluent_Awesome::staticMetaObject.indexOfEnumerator("Fluent_AwesomeType"));
+    QMetaEnum enumType = Fluent_Icons::staticMetaObject.enumerator(Fluent_Icons::staticMetaObject.indexOfEnumerator("Fluent_IconType"));
     for (int i = 0; i <= enumType.keyCount() - 1; ++i) {
         QString name = enumType.key(i);
         int icon = enumType.value(i);

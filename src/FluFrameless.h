@@ -33,17 +33,17 @@ public:
 
     [[maybe_unused]] bool nativeEventFilter(const QByteArray &eventType, void *message, QT_NATIVE_EVENT_RESULT_TYPE *result) override;
 
-    Q_INVOKABLE [[maybe_unused]] void showFullScreen();
+    [[maybe_unused]] Q_INVOKABLE void showFullScreen();
 
     Q_INVOKABLE void showMaximized();
 
-    Q_INVOKABLE [[maybe_unused]] void showMinimized();
+    [[maybe_unused]] Q_INVOKABLE void showMinimized();
 
     Q_INVOKABLE void showNormal();
 
     Q_INVOKABLE void setHitTestVisible(QQuickItem *);
 
-    Q_INVOKABLE [[maybe_unused]] void onDestruction();
+    [[maybe_unused]] Q_INVOKABLE void onDestruction();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

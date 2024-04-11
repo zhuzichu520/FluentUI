@@ -171,10 +171,5 @@ if (CMAKE_BUILD_TYPE MATCHES "Release")
                 SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
-
-        target_sources(Script-DeployRelease
-                PRIVATE
-                src/component/OpenGLItem.h src/component/OpenGLItem.cpp
-        )
     endif ()
 endif ()

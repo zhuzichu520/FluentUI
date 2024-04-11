@@ -87,21 +87,29 @@
 <context>
     <name>InitializrHelper</name>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="69"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="69"/>
         <location filename="src/helper/InitializrHelper.cpp" line="69"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished">名称不能为空</translation>
     </message>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="73"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="73"/>
         <location filename="src/helper/InitializrHelper.cpp" line="73"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished">创建路径不能为空</translation>
     </message>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="78"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="78"/>
         <location filename="src/helper/InitializrHelper.cpp" line="78"/>
         <source>The path does not exist</source>
         <translation type="unfinished">路径不存在</translation>
     </message>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="84"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="84"/>
         <location filename="src/helper/InitializrHelper.cpp" line="84"/>
         <source>%1 folder already exists</source>
         <translation type="unfinished">%1 文件夹已经存在</translation>
@@ -425,7 +433,7 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="367"/>
-        <source>Awesome</source>
+        <source>Icons</source>
         <translation type="unfinished">图标</translation>
     </message>
     <message>
@@ -781,24 +789,20 @@ Updated content:
 <context>
     <name>T_Awesome</name>
     <message>
-        <location filename="qml/page/T_Awesome.qml" line="9"/>
         <source>Awesome</source>
-        <translation type="unfinished">图标</translation>
+        <translation type="obsolete">图标</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Awesome.qml" line="13"/>
         <source>Please enter a keyword</source>
-        <translation type="unfinished">请输入关键字</translation>
+        <translation type="obsolete">请输入关键字</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Awesome.qml" line="20"/>
         <source>Search</source>
-        <translation type="unfinished">搜索</translation>
+        <translation type="obsolete">搜索</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Awesome.qml" line="55"/>
         <source>You Copied </source>
-        <translation type="unfinished">您复制</translation>
+        <translation type="obsolete">您复制</translation>
     </message>
 </context>
 <context>
@@ -1415,6 +1419,29 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_Home.qml" line="33"/>
         <source>FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.</source>
         <translation type="unfinished">FluentUI 脚手架是一个快速创建项目工具，可帮助您创建和自定义具有各种选项的 Fluent UI 项目</translation>
+    </message>
+</context>
+<context>
+    <name>T_Icons</name>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="9"/>
+        <source>Icons</source>
+        <translation type="unfinished">图标</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="13"/>
+        <source>Please enter a keyword</source>
+        <translation type="unfinished">请输入关键字</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="20"/>
+        <source>Search</source>
+        <translation type="unfinished">搜索</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="60"/>
+        <source>You Copied </source>
+        <translation type="unfinished">您复制</translation>
     </message>
 </context>
 <context>

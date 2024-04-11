@@ -22,7 +22,7 @@ public:
 
     Q_INVOKABLE void refresh();
 
-    Q_INVOKABLE [[maybe_unused]] bool verify(const QString &code);
+    [[maybe_unused]] Q_INVOKABLE bool verify(const QString &code);
 
 private:
     QString _code;

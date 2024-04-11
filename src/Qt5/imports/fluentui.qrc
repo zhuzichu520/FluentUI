@@ -2,7 +2,6 @@
     <qresource prefix="/qt/qml">
         <file>FluentUI/JS/Chart.js</file>
         <file>FluentUI/Image/noise.png</file>
-        <file>FluentUI/Font/Segoe_Fluent_Icons.ttf</file>
         <file>FluentUI/Controls/FluAcrylic.qml</file>
         <file>FluentUI/Controls/FluAppBar.qml</file>
         <file>FluentUI/Controls/FluAutoSuggestBox.qml</file>
@@ -110,5 +109,6 @@
         <file>FluentUI/Controls/FluSheet.qml</file>
         <file>FluentUI/Controls/FluGroupBox.qml</file>
         <file>FluentUI/Controls/FluControlBackground.qml</file>
+        <file>FluentUI/Font/FluentIcons.ttf</file>
     </qresource>
 </RCC>

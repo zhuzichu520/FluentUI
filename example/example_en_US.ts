@@ -87,21 +87,29 @@
 <context>
     <name>InitializrHelper</name>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="69"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="69"/>
         <location filename="src/helper/InitializrHelper.cpp" line="69"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="73"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="73"/>
         <location filename="src/helper/InitializrHelper.cpp" line="73"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="78"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="78"/>
         <location filename="src/helper/InitializrHelper.cpp" line="78"/>
         <source>The path does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="84"/>
+        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="84"/>
         <location filename="src/helper/InitializrHelper.cpp" line="84"/>
         <source>%1 folder already exists</source>
         <translation type="unfinished"></translation>
@@ -425,7 +433,7 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="367"/>
-        <source>Awesome</source>
+        <source>Icons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -771,29 +779,6 @@ Updated content:
     <message>
         <location filename="qml/page/T_Acrylic.qml" line="10"/>
         <source>Acrylic</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>T_Awesome</name>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="9"/>
-        <source>Awesome</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="13"/>
-        <source>Please enter a keyword</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="20"/>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="55"/>
-        <source>You Copied </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1383,6 +1368,29 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_Home.qml" line="33"/>
         <source>FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_Icons</name>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="9"/>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="13"/>
+        <source>Please enter a keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="20"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Icons.qml" line="60"/>
+        <source>You Copied </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

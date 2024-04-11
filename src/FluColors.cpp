@@ -111,12 +111,12 @@ FluColors::FluColors(QObject *parent) : QObject{parent} {
 
 [[maybe_unused]] FluAccentColor *FluColors::createAccentColor(QColor primaryColor) {
     auto accentColor = new FluAccentColor(this);
-    accentColor->darkest(FluTools::getInstance()->withOpacity(primaryColor, 0.7));
-    accentColor->darker(FluTools::getInstance()->withOpacity(primaryColor, 0.8));
-    accentColor->dark(FluTools::getInstance()->withOpacity(primaryColor, 0.9));
     accentColor->normal(primaryColor);
+    accentColor->dark(FluTools::getInstance()->withOpacity(primaryColor, 0.9));
     accentColor->light(FluTools::getInstance()->withOpacity(primaryColor, 0.9));
-    accentColor->lighter(FluTools::getInstance()->withOpacity(primaryColor, 0.8));
-    accentColor->lightest(FluTools::getInstance()->withOpacity(primaryColor, 0.7));
+    accentColor->darker(FluTools::getInstance()->withOpacity(accentColor->dark(), 0.8));
+    accentColor->lighter(FluTools::getInstance()->withOpacity(accentColor->light(), 0.8));
+    accentColor->darkest(FluTools::getInstance()->withOpacity(accentColor->darker(), 0.7));
+    accentColor->lightest(FluTools::getInstance()->withOpacity(accentColor->lighter(), 0.7));
     return accentColor;
 }

@@ -2,6 +2,7 @@
 
 #include <QGuiApplication>
 #include "Def.h"
+#include "FluentIconDef.h"
 #include "FluApp.h"
 #include "FluColors.h"
 #include "FluTheme.h"
@@ -131,7 +132,7 @@ void FluentUI::registerTypes(const char *uri) const {
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRouter.qml"), uri, major, minor, "FluRouter");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEventBus.qml"), uri, major, minor, "FluEventBus");
 
-    qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject, uri, major, minor, "FluentIcons", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(Fluent_Icons::staticMetaObject, uri, major, minor, "FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject, uri, major, minor, "FluThemeType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluPageType::staticMetaObject, uri, major, minor, "FluPageType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluWindowType::staticMetaObject, uri, major, minor, "FluWindowType", "Access to enums & flags only");

@@ -14,5 +14,5 @@ private:
 public:
 SINGLETON(AppInfo)
 
-    Q_INVOKABLE [[maybe_unused]] void testCrash();
+    [[maybe_unused]] Q_INVOKABLE void testCrash();
 };

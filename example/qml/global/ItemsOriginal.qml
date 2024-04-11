@@ -364,9 +364,9 @@ FluObject{
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{
-            title: qsTr("Awesome")
+            title: qsTr("Icons")
             menuDelegate: paneItemMenu
-            url: "qrc:/example/qml/page/T_Awesome.qml"
+            url: "qrc:/example/qml/page/T_Icons.qml"
             onTap: { navigationView.push(url) }
         }
     }

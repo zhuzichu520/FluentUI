@@ -45,7 +45,7 @@ private:
 public:
 SINGLETON(FluTheme)
 
-    Q_INVOKABLE [[maybe_unused]] static QJsonArray awesomeList(const QString &keyword = "");
+    [[maybe_unused]] Q_INVOKABLE static QJsonArray awesomeList(const QString &keyword = "");
 
     Q_SIGNAL void darkChanged();
 

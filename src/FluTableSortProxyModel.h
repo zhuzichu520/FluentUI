@@ -19,15 +19,15 @@ public:
 
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override;
 
-    Q_INVOKABLE [[maybe_unused]] QVariant getRow(int rowIndex);
+    [[maybe_unused]] Q_INVOKABLE QVariant getRow(int rowIndex);
 
-    Q_INVOKABLE [[maybe_unused]] void setRow(int rowIndex, const QVariant &val);
+    [[maybe_unused]] Q_INVOKABLE void setRow(int rowIndex, const QVariant &val);
 
-    Q_INVOKABLE [[maybe_unused]] void removeRow(int rowIndex, int rows);
+    [[maybe_unused]] Q_INVOKABLE void removeRow(int rowIndex, int rows);
 
-    Q_INVOKABLE [[maybe_unused]] [[maybe_unused]] void setComparator(const QJSValue &comparator);
+    [[maybe_unused]] Q_INVOKABLE void setComparator(const QJSValue &comparator);
 
-    Q_INVOKABLE [[maybe_unused]] void setFilter(const QJSValue &filter);
+    [[maybe_unused]] Q_INVOKABLE void setFilter(const QJSValue &filter);
 
 private:
     QJSValue _filter;

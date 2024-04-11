@@ -127,7 +127,6 @@
         <file>qml/global/ItemsOriginal.qml</file>
         <file>qml/global/qmldir</file>
         <file>qml/page/T_Acrylic.qml</file>
-        <file>qml/page/T_Awesome.qml</file>
         <file>qml/page/T_Badge.qml</file>
         <file>qml/page/T_BreadcrumbBar.qml</file>
         <file>qml/page/T_Buttons.qml</file>
@@ -210,6 +209,7 @@
         <file>res/image/bg_scenic.jpg</file>
         <file>qml/window/FluentInitializrWindow.qml</file>
         <file>qml/page/T_OpenGL.qml</file>
+        <file>qml/page/T_Icons.qml</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
