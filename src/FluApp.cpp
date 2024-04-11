@@ -8,6 +8,7 @@
 #include <QFontDatabase>
 #include <QClipboard>
 #include <QTranslator>
+#include <utility>
 
 FluApp::FluApp(QObject *parent) : QObject{parent} {
     _useSystemAppBar = false;
@@ -16,10 +17,10 @@ FluApp::FluApp(QObject *parent) : QObject{parent} {
 FluApp::~FluApp() = default;
 
 void FluApp::init(QObject *target, QLocale locale) {
-    _locale = locale;
+    _locale = std::move(locale);
     _engine = qmlEngine(target);
     _translator = new QTranslator(this);
-    qApp->installTranslator(_translator);
+    QGuiApplication::installTranslator(_translator);
     const QStringList uiLanguages = _locale.uiLanguages();
     for (const QString &name: uiLanguages) {
         const QString baseName = "fluentui_" + QLocale(name).name();

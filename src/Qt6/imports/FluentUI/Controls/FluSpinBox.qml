@@ -22,6 +22,7 @@ T.SpinBox {
         bottom: Math.min(control.from, control.to)
         top: Math.max(control.from, control.to)
     }
+    font: FluTextStyle.Body
 
     contentItem: TextInput {
         property color normalColor: FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)

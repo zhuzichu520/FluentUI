@@ -87,29 +87,21 @@
 <context>
     <name>InitializrHelper</name>
     <message>
-        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="69"/>
-        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="69"/>
         <location filename="src/helper/InitializrHelper.cpp" line="69"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="73"/>
-        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="73"/>
         <location filename="src/helper/InitializrHelper.cpp" line="73"/>
         <source>The creation path cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="78"/>
-        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="78"/>
         <location filename="src/helper/InitializrHelper.cpp" line="78"/>
         <source>The path does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="bin/Debug/source/helper/InitializrHelper.cpp" line="84"/>
-        <location filename="bin/Release/source/helper/InitializrHelper.cpp" line="84"/>
         <location filename="src/helper/InitializrHelper.cpp" line="84"/>
         <source>%1 folder already exists</source>
         <translation type="unfinished"></translation>

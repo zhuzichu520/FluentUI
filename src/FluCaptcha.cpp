@@ -11,6 +11,9 @@ int generaNumber(int number) {
 FluCaptcha::FluCaptcha(QQuickItem *parent) : QQuickPaintedItem(parent) {
     _ignoreCase = false;
     QFont fontStyle;
+#ifdef Q_OS_WIN
+    fontStyle.setFamily("微软雅黑");
+#endif
     fontStyle.setPixelSize(28);
     fontStyle.setBold(true);
     font(fontStyle);

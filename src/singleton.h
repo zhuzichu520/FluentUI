@@ -21,4 +21,4 @@ private:                                        \
     public:                                     \
     static Class* getInstance() {               \
         return Singleton<Class>::getInstance(); \
-}
+}                                               \
