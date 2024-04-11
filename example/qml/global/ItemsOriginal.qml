@@ -1,4 +1,4 @@
-pragma Singleton
+﻿pragma Singleton
 
 import QtQuick 2.15
 import FluentUI 1.0
@@ -364,9 +364,15 @@ FluObject{
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{
-            title: qsTr("Awesome")
+            title: qsTr("SegoeIcon")
             menuDelegate: paneItemMenu
-            url: "qrc:/example/qml/page/T_Awesome.qml"
+            url: "qrc:/example/qml/page/T_SegoeIcon.qml"
+            onTap: { navigationView.push(url) }
+        }
+        FluPaneItem{
+            title: qsTr("FontAwesome")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_FontAwesome.qml"
             onTap: { navigationView.push(url) }
         }
     }

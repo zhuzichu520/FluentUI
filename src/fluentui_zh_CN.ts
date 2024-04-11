@@ -212,31 +212,37 @@
     <name>FluTimePicker</name>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="11"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTimePicker.qml" line="11"/>
         <source>AM</source>
         <translation type="unfinished">上午</translation>
     </message>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="12"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTimePicker.qml" line="12"/>
         <source>PM</source>
         <translation type="unfinished">下午</translation>
     </message>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="13"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTimePicker.qml" line="13"/>
         <source>Hour</source>
         <translation type="unfinished">时</translation>
     </message>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="14"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTimePicker.qml" line="14"/>
         <source>Minute</source>
         <translation type="unfinished">分</translation>
     </message>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="15"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTimePicker.qml" line="15"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTimePicker.qml" line="16"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTimePicker.qml" line="16"/>
         <source>OK</source>
         <translation type="unfinished">确定</translation>
     </message>
@@ -265,8 +271,8 @@
 <context>
     <name>FluWindow</name>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="285"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="284"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="288"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="287"/>
         <source>Loading...</source>
         <translation type="unfinished">加载中...</translation>
     </message>

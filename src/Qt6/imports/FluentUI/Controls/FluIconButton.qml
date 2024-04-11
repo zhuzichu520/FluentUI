@@ -1,4 +1,4 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
@@ -39,6 +39,7 @@ Button {
         }
     }
     property color textColor: FluTheme.fontPrimaryColor
+    property bool isFontAwesome: false
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: contentDescription
@@ -63,6 +64,7 @@ Button {
         id:com_icon
         FluIcon {
             id:text_icon
+            isFontAwesome: control.isFontAwesome
             font.pixelSize: iconSize
             iconSize: control.iconSize
             horizontalAlignment: Text.AlignHCenter

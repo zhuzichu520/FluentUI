@@ -425,96 +425,101 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="367"/>
-        <source>Awesome</source>
+        <source>SegoeIcon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="375"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="373"/>
+        <source>FontAwesome</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="381"/>
         <source>Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="378"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="384"/>
         <source>Bar Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="384"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
         <source>Line Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
         <source>Pie Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
         <source>Polar Area Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
         <source>Bubble Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
         <source>Scatter Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="420"/>
         <source>Radar Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="427"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="433"/>
         <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="430"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
         <source>QRCode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
         <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
         <source>Timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
         <source>Captcha</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="461"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="467"/>
         <source>Remote Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="475"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="481"/>
         <source>Hot Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="481"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
         <source>3D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -766,29 +771,6 @@ Updated content:
     <message>
         <location filename="qml/page/T_Acrylic.qml" line="10"/>
         <source>Acrylic</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>T_Awesome</name>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="9"/>
-        <source>Awesome</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="13"/>
-        <source>Please enter a keyword</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="20"/>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_Awesome.qml" line="55"/>
-        <source>You Copied </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1323,6 +1305,41 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
 </context>
 <context>
+    <name>T_FontAwesome</name>
+    <message>
+        <location filename="qml/page/T_FontAwesome.qml" line="9"/>
+        <source>FontAwesome</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_FontAwesome.qml" line="13"/>
+        <source>Please enter a keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_FontAwesome.qml" line="20"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_FontAwesome.qml" line="56"/>
+        <source>You Copied </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_FontAwesome.qml" line="74"/>
+        <source>Usage Tip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_FontAwesome.qml" line="74"/>
+        <source>You must set the attribute: 
+`isFontAwesome` to `true`
+ in order to use FontAwesome icons.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>T_GroupBox</name>
     <message>
         <location filename="qml/page/T_GroupBox.qml" line="10"/>
@@ -1777,6 +1794,29 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/chart/T_ScatterChart.qml" line="10"/>
         <source>Scatter Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_SegoeIcon</name>
+    <message>
+        <location filename="qml/page/T_SegoeIcon.qml" line="9"/>
+        <source>SegoeIcon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SegoeIcon.qml" line="13"/>
+        <source>Please enter a keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SegoeIcon.qml" line="20"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SegoeIcon.qml" line="55"/>
+        <source>You Copied </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

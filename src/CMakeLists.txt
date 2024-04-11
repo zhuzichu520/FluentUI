@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+﻿cmake_minimum_required(VERSION 3.20)
 
 if (FLUENTUI_BUILD_STATIC_LIB AND (QT_VERSION VERSION_GREATER_EQUAL "6.2"))
     project(fluentui VERSION 1.0)
@@ -144,7 +144,8 @@ if(QT_VERSION VERSION_GREATER_EQUAL "6.2")
     )
 else()
     #加快qrc编译
-    set(QRC_FILE Qt5/imports/fluentui.qrc)
+    set(QRC
+        RESOURCES Qt6/imports/FluentUI/Font/Font-Awesome-6-Free-Solid.ttf_FILE Qt5/imports/fluentui.qrc)
     qt_add_big_resources(QRC_RESOURCES ${QRC_FILE})
     list(APPEND QRC_RESOURCES ${QRC_FILE})
     set_property(SOURCE ${QRC_FILE} PROPERTY SKIP_AUTORCC ON)

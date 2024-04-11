@@ -110,5 +110,6 @@
         <file>FluentUI/Controls/FluSheet.qml</file>
         <file>FluentUI/Controls/FluGroupBox.qml</file>
         <file>FluentUI/Controls/FluControlBackground.qml</file>
+        <file>FluentUI/Font/Font-Awesome-6-Free-Solid.ttf</file>
     </qresource>
 </RCC>

@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
@@ -6,7 +6,7 @@ import FluentUI 1.0
 
 FluContentPage {
 
-    title: qsTr("Awesome")
+    title: qsTr("FontAwesome")
 
     FluTextBox{
         id:text_box
@@ -24,7 +24,7 @@ FluContentPage {
             leftMargin: 14
         }
         onClicked: {
-            grid_view.model = FluTheme.awesomeList(text_box.text)
+            grid_view.model = FluTheme.fontAwesomeList(text_box.text)
         }
     }
     GridView{
@@ -33,7 +33,7 @@ FluContentPage {
         cellHeight: 80
         clip: true
         boundsBehavior: GridView.StopAtBounds
-        model:FluTheme.awesomeList()
+        model:FluTheme.fontAwesomeList()
         ScrollBar.vertical: FluScrollBar {}
         anchors{
             topMargin: 10
@@ -47,10 +47,11 @@ FluContentPage {
             height: 80
             FluIconButton{
                 id:item_icon
+                isFontAwesome: true
                 iconSource:modelData.icon
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    var text  ="FluentIcons."+modelData.name;
+                    var text  ="FluentFAIcons."+modelData.name;
                     FluTools.clipText(text)
                     showSuccess(qsTr("You Copied ")+text)
                 }
@@ -68,4 +69,9 @@ FluContentPage {
             }
         }
     }
+
+    Component.onCompleted: {
+        showInfo(qsTr("Usage Tip"),0,qsTr("You must set the attribute: \n`isFontAwesome` to `true`\n in order to use FontAwesome icons."));
+    }
 }
+
