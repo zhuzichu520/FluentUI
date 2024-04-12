@@ -76,10 +76,11 @@ FluButton {
         }
         contentItem: Item{
             clip: true
-            FluFrame{
+            Rectangle{
                 id:container
                 width: 300
                 height: 360
+                color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
                 ColumnLayout  {
                     anchors.fill: parent
                     spacing: 0

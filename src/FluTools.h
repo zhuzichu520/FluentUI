@@ -92,4 +92,8 @@ SINGLETON(FluTools)
     Q_INVOKABLE bool isWindows10OrGreater();
 
     Q_INVOKABLE QRect desktopAvailableGeometry(QQuickWindow *window);
+
+    Q_INVOKABLE QString getWallpaperFilePath();
+
+    Q_INVOKABLE QColor imageMainColor(const QImage& image, double bright = 1);
 };

@@ -16,6 +16,14 @@
 #include <QDateTime>
 #include <QSettings>
 
+#ifdef Q_OS_WIN
+#pragma comment (lib, "user32.lib")
+
+#include <windows.h>
+#include <windowsx.h>
+
+#endif
+
 FluTools::FluTools(QObject *parent) : QObject{parent} {
 
 }
@@ -243,4 +251,33 @@ bool FluTools::isWindows10OrGreater() {
 
 QRect FluTools::desktopAvailableGeometry(QQuickWindow *window) {
     return window->screen()->availableGeometry();
+}
+
+QString FluTools::getWallpaperFilePath() {
+#if defined(Q_OS_WIN)
+    wchar_t path[MAX_PATH] = {};
+    if (::SystemParametersInfoW(SPI_GETDESKWALLPAPER, MAX_PATH, path, FALSE) == FALSE) {
+        return {};
+    }
+    return QString::fromWCharArray(path);
+#endif
+    return {};
+}
+
+QColor FluTools::imageMainColor(const QImage& image, double bright) {
+    int step = 20;
+    int t = 0;
+    int r = 0, g = 0, b = 0;
+    for (int i = 0; i < image.width(); i += step) {
+        for (int j = 0; j < image.height(); j += step) {
+            if (image.valid(i, j)) {
+                t++;
+                QColor c = image.pixel(i, j);
+                r += c.red();
+                b += c.blue();
+                g += c.green();
+            }
+        }
+    }
+    return QColor(int(bright * r / t) > 255 ? 255 : int(bright * r / t), int(bright * g / t) > 255 ? 255 : int(bright * g / t), int(bright * b / t) > 255 ? 255 : int(bright * b / t));
 }

@@ -2190,6 +2190,11 @@ Some contents...</source>
         <source>Open Animation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="123"/>
+        <source>Open Blur Window</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_TimePicker</name>

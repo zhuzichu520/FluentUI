@@ -2,9 +2,11 @@
 
 #include <QGuiApplication>
 #include <QPalette>
+#include <QImage>
 #include "Def.h"
 #include "FluentIconDef.h"
 #include "FluColors.h"
+#include "FluTools.h"
 
 bool systemDark() {
     QPalette palette = QGuiApplication::palette();
@@ -18,13 +20,20 @@ FluTheme::FluTheme(QObject *parent) : QObject{parent} {
     _nativeText = false;
     _animationEnabled = true;
     _systemDark = systemDark();
+    _desktopImagePath = "";
+    _blurBehindWindowEnabled = false;
     QGuiApplication::instance()->installEventFilter(this);
+    refreshColors();
+    updateDesktopImage();
     connect(this, &FluTheme::darkModeChanged, this, [=] {
         Q_EMIT darkChanged();
     });
     connect(this, &FluTheme::darkChanged, this, [=] { refreshColors(); });
     connect(this, &FluTheme::accentColorChanged, this, [=] { refreshColors(); });
-    refreshColors();
+    connect(&_watcher, &QFileSystemWatcher::fileChanged, this, [=](const QString &path){
+        Q_EMIT desktopImagePathChanged();
+    });
+    startTimer(500);
 }
 
 void FluTheme::refreshColors() {
@@ -38,6 +47,8 @@ void FluTheme::refreshColors() {
     fontSecondaryColor(isDark ? QColor(222, 222, 222, 255) : QColor(102, 102, 102, 255));
     fontTertiaryColor(isDark ? QColor(200, 200, 200, 255) : QColor(153, 153, 153, 255));
     itemNormalColor(isDark ? QColor(255, 255, 255, 0) : QColor(0, 0, 0, 0));
+    frameColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12)) : QColor(0, 0, 0, qRound(255 * 0.09)));
+    frameActiveColor(isDark ? QColor(32, 32, 32, qRound(255 * 0.8)) : QColor(255, 255, 255, qRound(255 * 0.6)));
     itemHoverColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.06)) : QColor(0, 0, 0, qRound(255 * 0.03)));
     itemPressColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.09)) : QColor(0, 0, 0, qRound(255 * 0.06)));
     itemCheckColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12)) : QColor(0, 0, 0, qRound(255 * 0.09)));
@@ -77,4 +88,20 @@ bool FluTheme::dark() const {
     } else {
         return false;
     }
+}
+
+void FluTheme::updateDesktopImage(){
+    auto path = FluTools::getInstance()->getWallpaperFilePath();
+    if(_desktopImagePath != path){
+        if(!_desktopImagePath.isEmpty()){
+            _watcher.removePath(_desktopImagePath);
+        }
+        desktopImagePath(path);
+        _watcher.addPath(path);
+    }
+}
+
+void FluTheme::timerEvent(QTimerEvent *event)
+{
+    updateDesktopImage();
 }
