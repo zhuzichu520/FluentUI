@@ -260,7 +260,7 @@ QString FluTools::getWallpaperFilePath() {
         return {};
     }
     return QString::fromWCharArray(path);
-#elif defined(Q_OS_WIN)
+#elif defined(Q_OS_LINUX)
     auto type = QSysInfo::productType();
     if (type == "uos") {
         QProcess process;
