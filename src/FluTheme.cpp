@@ -33,7 +33,7 @@ FluTheme::FluTheme(QObject *parent) : QObject{parent} {
     connect(&_watcher, &QFileSystemWatcher::fileChanged, this, [=](const QString &path){
         Q_EMIT desktopImagePathChanged();
     });
-    startTimer(500);
+    startTimer(1000);
 }
 
 void FluTheme::refreshColors() {

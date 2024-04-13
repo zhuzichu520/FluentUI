@@ -260,11 +260,33 @@ QString FluTools::getWallpaperFilePath() {
         return {};
     }
     return QString::fromWCharArray(path);
-#endif
+#elif defined(Q_OS_WIN)
+    auto type = QSysInfo::productType();
+    if (type == "uos") {
+        QProcess process;
+        QStringList args;
+        args << "--session";
+        args << "--type=method_call";
+        args << "--print-reply";
+        args << "--dest=com.deepin.wm";
+        args << "/com/deepin/wm";
+        args << "com.deepin.wm.GetCurrentWorkspaceBackgroundForMonitor";
+        args << QString("string:'%1'").arg(currentTimestamp());
+        process.start("dbus-send", args);
+        process.waitForFinished();
+        QByteArray result = process.readAllStandardOutput().trimmed();
+        int startIndex = result.indexOf("file:///");
+        if (startIndex != -1) {
+            auto path = result.mid(startIndex + 7, result.length() - startIndex - 8);
+            return path;
+        }
+    }
+#else
     return {};
+#endif
 }
 
-QColor FluTools::imageMainColor(const QImage& image, double bright) {
+QColor FluTools::imageMainColor(const QImage &image, double bright) {
     int step = 20;
     int t = 0;
     int r = 0, g = 0, b = 0;
