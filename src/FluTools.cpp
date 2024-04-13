@@ -281,6 +281,18 @@ QString FluTools::getWallpaperFilePath() {
             return path;
         }
     }
+#elif defined(Q_OS_MACOS)
+    QProcess process;
+    QStringList args;
+    args << "-e";
+    args << R"(tell application "Finder" to get POSIX path of (desktop picture as alias))";
+    process.start("osascript", args);
+    process.waitForFinished();
+    QByteArray result = process.readAllStandardOutput().trimmed();
+    if(result.isEmpty()){
+        return "/System/Library/CoreServices/DefaultDesktop.heic";
+    }
+    return result;
 #else
     return {};
 #endif

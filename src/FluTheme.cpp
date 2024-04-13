@@ -3,6 +3,7 @@
 #include <QGuiApplication>
 #include <QPalette>
 #include <QImage>
+#include <QThreadPool>
 #include "Def.h"
 #include "FluentIconDef.h"
 #include "FluColors.h"
@@ -91,14 +92,18 @@ bool FluTheme::dark() const {
 }
 
 void FluTheme::updateDesktopImage(){
-    auto path = FluTools::getInstance()->getWallpaperFilePath();
-    if(_desktopImagePath != path){
-        if(!_desktopImagePath.isEmpty()){
-            _watcher.removePath(_desktopImagePath);
+    QThreadPool::globalInstance()->start([=]() {
+        _mutex.lock();
+        auto path = FluTools::getInstance()->getWallpaperFilePath();
+        if(_desktopImagePath != path){
+            if(!_desktopImagePath.isEmpty()){
+                _watcher.removePath(_desktopImagePath);
+            }
+            desktopImagePath(path);
+            _watcher.addPath(path);
         }
-        desktopImagePath(path);
-        _watcher.addPath(path);
-    }
+        _mutex.unlock();
+    });
 }
 
 void FluTheme::timerEvent(QTimerEvent *event)

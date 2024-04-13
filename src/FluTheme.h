@@ -8,6 +8,7 @@
 #include <QColor>
 #include <QTimer>
 #include <QFileSystemWatcher>
+#include <QMutex>
 #include "FluAccentColor.h"
 #include "stdafx.h"
 #include "singleton.h"
@@ -70,6 +71,7 @@ SINGLETON(FluTheme)
 private:
     bool _systemDark;
     QFileSystemWatcher _watcher;
+    QMutex _mutex;
 };
 
 #endif // FLUTHEME_H
