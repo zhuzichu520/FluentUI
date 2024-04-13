@@ -55,7 +55,7 @@ protected:
 
     void timerEvent(QTimerEvent *event) override;
 
-    void updateDesktopImage();
+    void checkUpdateDesktopImage();
 
 public:
 SINGLETON(FluTheme)

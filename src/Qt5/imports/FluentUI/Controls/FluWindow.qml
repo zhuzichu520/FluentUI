@@ -118,6 +118,8 @@ Window {
                 id:img_back
                 visible: false
                 cache: false
+                fillMode: Image.PreserveAspectCrop
+                asynchronous: true
                 Component.onCompleted: {
                     var geometry = FluTools.desktopAvailableGeometry(window)
                     width = geometry.width

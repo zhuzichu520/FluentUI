@@ -25,7 +25,7 @@ FluTheme::FluTheme(QObject *parent) : QObject{parent} {
     _blurBehindWindowEnabled = false;
     QGuiApplication::instance()->installEventFilter(this);
     refreshColors();
-    updateDesktopImage();
+    checkUpdateDesktopImage();
     connect(this, &FluTheme::darkModeChanged, this, [=] {
         Q_EMIT darkChanged();
     });
@@ -49,7 +49,7 @@ void FluTheme::refreshColors() {
     fontTertiaryColor(isDark ? QColor(200, 200, 200, 255) : QColor(153, 153, 153, 255));
     itemNormalColor(isDark ? QColor(255, 255, 255, 0) : QColor(0, 0, 0, 0));
     frameColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12)) : QColor(0, 0, 0, qRound(255 * 0.09)));
-    frameActiveColor(isDark ? QColor(32, 32, 32, qRound(255 * 0.8)) : QColor(255, 255, 255, qRound(255 * 0.6)));
+    frameActiveColor(isDark ? QColor(48, 48, 48, qRound(255 * 0.8)) : QColor(255, 255, 255, qRound(255 * 0.6)));
     itemHoverColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.06)) : QColor(0, 0, 0, qRound(255 * 0.03)));
     itemPressColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.09)) : QColor(0, 0, 0, qRound(255 * 0.06)));
     itemCheckColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12)) : QColor(0, 0, 0, qRound(255 * 0.09)));
@@ -91,7 +91,7 @@ bool FluTheme::dark() const {
     }
 }
 
-void FluTheme::updateDesktopImage(){
+void FluTheme::checkUpdateDesktopImage(){
     QThreadPool::globalInstance()->start([=]() {
         _mutex.lock();
         auto path = FluTools::getInstance()->getWallpaperFilePath();
@@ -108,5 +108,7 @@ void FluTheme::updateDesktopImage(){
 
 void FluTheme::timerEvent(QTimerEvent *event)
 {
-    updateDesktopImage();
+    if(_blurBehindWindowEnabled){
+        checkUpdateDesktopImage();
+    }
 }
