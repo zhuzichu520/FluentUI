@@ -25,7 +25,6 @@ FluTheme::FluTheme(QObject *parent) : QObject{parent} {
     _blurBehindWindowEnabled = false;
     QGuiApplication::instance()->installEventFilter(this);
     refreshColors();
-    checkUpdateDesktopImage();
     connect(this, &FluTheme::darkModeChanged, this, [=] {
         Q_EMIT darkChanged();
     });

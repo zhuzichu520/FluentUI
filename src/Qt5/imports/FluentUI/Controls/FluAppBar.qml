@@ -14,7 +14,7 @@ Rectangle{
     property string closeText : qsTr("Close")
     property string stayTopText : qsTr("Sticky on Top")
     property string stayTopCancelText : qsTr("Sticky on Top cancelled")
-    property color textColor: FluTheme.dark ? "#FFFFFF" : "#000000"
+    property color textColor: FluTheme.fontPrimaryColor
     property color minimizeNormalColor: FluTheme.itemNormalColor
     property color minimizeHoverColor: FluTheme.itemHoverColor
     property color minimizePressColor: FluTheme.itemPressColor
@@ -22,7 +22,7 @@ Rectangle{
     property color maximizeHoverColor: FluTheme.itemHoverColor
     property color maximizePressColor: FluTheme.itemPressColor
     property color closeNormalColor: Qt.rgba(0,0,0,0)
-    property color closeHoverColor:  Qt.rgba(251/255,115/255,115/255,1)
+    property color closeHoverColor: Qt.rgba(251/255,115/255,115/255,1)
     property color closePressColor: Qt.rgba(251/255,115/255,115/255,0.8)
     property bool showDark: false
     property bool showClose: true
