@@ -28,8 +28,8 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
 
 #添加国际化脚本
-find_program(QT_LUPDATE NAMES lupdate)
-find_program(QT_LRELEASE NAMES lrelease)
+find_program(QT_LUPDATE NAMES lupdate lupdate-qt6)
+find_program(QT_LRELEASE NAMES lrelease lrelease-qt6)
 file(GLOB TS_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.ts)
 add_custom_target(Script-UpdateTranslations
     COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
