@@ -80,6 +80,7 @@ FluButton {
                 id:container
                 width: 300
                 height: 360
+                radius: 4
                 color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
                 ColumnLayout  {
                     anchors.fill: parent
@@ -613,7 +614,7 @@ FluButton {
         }
         background: Item{
             FluShadow{
-                radius: 5
+                radius: 4
             }
         }
         function showPopup() {
