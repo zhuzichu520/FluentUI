@@ -89,7 +89,6 @@ public:
 class FluTreeModel : public QAbstractItemModel {
 Q_OBJECT
 Q_PROPERTY_AUTO(int, dataSourceSize)
-Q_PROPERTY_AUTO(QList<FluTreeNode *>, selectionModel)
 Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
     QML_NAMED_ELEMENT(FluTreeModel)
     QML_ADDED_IN_MINOR_VERSION(1)
@@ -140,6 +139,8 @@ public:
     Q_INVOKABLE void allExpand();
 
     Q_INVOKABLE void allCollapse();
+
+    Q_INVOKABLE QVariant selectionModel();
 
 private:
     QList<FluTreeNode *> _rows;

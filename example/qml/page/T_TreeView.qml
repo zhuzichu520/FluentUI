@@ -28,7 +28,7 @@ FluContentPage {
         }
         const dig = (path = '0', level = 5) => {
             const list = [];
-            for (let i = 0; i < 5; i += 1) {
+            for (let i = 0; i < 4; i += 1) {
                 const key = `${path}-${i}`;
                 const treeNode = {
                     title: key,
@@ -148,7 +148,8 @@ FluContentPage {
                 text: "print selection model"
                 onClicked: {
                     var printData = []
-                    var data = tree_view.selectionModel
+                    var data = tree_view.selectionModel();
+                    console.debug(data.length)
                     for(var i = 0; i <= data.length-1 ; i++){
                         const newObj = Object.assign({}, data[i].data);
                         delete newObj["__parent"];

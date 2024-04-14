@@ -113,15 +113,7 @@ void FluTreeModel::checkRow(int row, bool checked) {
         itemData->_checked = checked;
     }
     Q_EMIT dataChanged(index(0, 0), index(rowCount() - 1, 0));
-    QList<FluTreeNode *> data;
-            foreach (auto item, _dataSource) {
-            if (!item->hasChildren()) {
-                if (item->_checked) {
-                    data.append(item);
-                }
-            }
-        }
-    selectionModel(data);
+
 }
 
 void FluTreeModel::setDataSource(QList<QMap<QString, QVariant>> data) {
@@ -271,4 +263,14 @@ void FluTreeModel::allCollapse() {
     }
     _rows = _root->_children;
     endResetModel();
+}
+
+QVariant FluTreeModel::selectionModel(){
+    QList<FluTreeNode *> data;
+    foreach (auto item, _dataSource) {
+        if (item->checked()) {
+            data.append(item);
+        }
+    }
+    return QVariant::fromValue(data);
 }

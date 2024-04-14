@@ -12,7 +12,6 @@ Rectangle {
     property int cellHeight: 30
     property int depthPadding: 15
     property bool checkable: false
-    property alias selectionModel: tree_model.selectionModel
     property color lineColor: FluTheme.dividerColor
     property color borderColor: FluTheme.dark ? Qt.rgba(37/255,37/255,37/255,1) : Qt.rgba(228/255,228/255,228/255,1)
     property color selectedBorderColor: FluTheme.primaryColor
@@ -738,5 +737,8 @@ Rectangle {
     function closeEditor(){
         d.editPosition = undefined
         d.editDelegate = undefined
+    }
+    function selectionModel(){
+        return tree_model.selectionModel()
     }
 }
