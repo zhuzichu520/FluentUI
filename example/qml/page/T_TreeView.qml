@@ -10,7 +10,6 @@ FluContentPage {
     title: qsTr("TreeView")
 
 
-
     function treeData(){
         const names = ["孙悟空", "猪八戒", "沙和尚", "唐僧","白骨夫人","金角大王","熊山君","黄风怪","银角大王"]
         function getRandomName(){
@@ -47,67 +46,6 @@ FluContentPage {
         };
         return dig();
     }
-
-    //    Row{
-    //        id: layout_column
-    //        spacing: 12
-    //        width: 340
-    //        anchors{
-    //            top:parent.top
-    //            left: parent.left
-    //            leftMargin: 10
-    //            bottom:parent.bottom
-    //            bottomMargin: 20
-    //        }
-    //        RowLayout{
-    //            spacing: 10
-    //            FluText{
-    //                text: "cellHeight:"
-    //                Layout.alignment: Qt.AlignVCenter
-    //            }
-    //            FluSlider{
-    //                id: slider_cell_height
-    //                value: 30
-    //                from: 30
-    //                to:100
-    //            }
-    //        }
-    //        RowLayout{
-    //            spacing: 10
-    //            FluText{
-    //                text: "depthPadding:"
-    //                Layout.alignment: Qt.AlignVCenter
-    //            }
-    //            FluSlider{
-    //                id: slider_depth_padding
-    //                value: 15
-    //                from: 15
-    //                to:100
-    //            }
-    //        }
-    //        FluToggleSwitch{
-    //            id: switch_showline
-    //            text:"showLine"
-    //            checked: false
-    //        }
-    //        FluToggleSwitch{
-    //            id: switch_checkable
-    //            text:"checkable"
-    //            checked: false
-    //        }
-    //        FluButton{
-    //            text: "all expand"
-    //            onClicked: {
-    //                tree_view.allExpand()
-    //            }
-    //        }
-    //        FluButton{
-    //            text: "all collapse"
-    //            onClicked: {
-    //                tree_view.allCollapse()
-    //            }
-    //        }
-    //    }
 
     Component{
         id:com_avatar
@@ -206,7 +144,20 @@ FluContentPage {
                     }
                 }
             }
-
+            FluButton{
+                text: "print selection model"
+                onClicked: {
+                    var printData = []
+                    var data = tree_view.selectionModel
+                    for(var i = 0; i <= data.length-1 ; i++){
+                        const newObj = Object.assign({}, data[i].data);
+                        delete newObj["__parent"];
+                        delete newObj["children"];
+                        printData.push(newObj)
+                    }
+                    console.debug(JSON.stringify(printData))
+                }
+            }
         }
     }
 
@@ -225,6 +176,9 @@ FluContentPage {
             showLine: switch_showline.checked
             checkable:switch_checkable.checked
             depthPadding: slider_depth_padding.value
+            onCurrentChanged: {
+                showInfo(current.data.title)
+            }
             columnSource:[
                 {
                     title: qsTr("Title"),

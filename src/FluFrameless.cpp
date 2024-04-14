@@ -161,19 +161,12 @@ void FluFrameless::componentComplete() {
         if (!isCompositionEnabled()) {
             offsetSize = 0;
         }
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         if (!isMaximum) {
             clientRect->top = originalTop + offsetSize;
             clientRect->bottom = originalBottom;
             clientRect->left = originalLeft;
             clientRect->right = originalRight;
         }
-#else
-        clientRect->top = originalTop + offsetSize;
-        clientRect->bottom = originalBottom;
-        clientRect->left = originalLeft;
-        clientRect->right = originalRight;
-#endif
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;

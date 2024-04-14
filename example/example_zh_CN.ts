@@ -2504,22 +2504,22 @@ Some contents...</source>
         <translation type="obsolete">共计选中%1条数据</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="230"/>
+        <location filename="qml/page/T_TreeView.qml" line="184"/>
         <source>Title</source>
         <translation type="unfinished">标题</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="242"/>
+        <location filename="qml/page/T_TreeView.qml" line="196"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="238"/>
+        <location filename="qml/page/T_TreeView.qml" line="192"/>
         <source>Avatar</source>
         <translation type="unfinished">头像</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="234"/>
+        <location filename="qml/page/T_TreeView.qml" line="188"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>

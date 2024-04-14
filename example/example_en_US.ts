@@ -2394,23 +2394,23 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="230"/>
+        <location filename="qml/page/T_TreeView.qml" line="184"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="238"/>
+        <location filename="qml/page/T_TreeView.qml" line="188"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="192"/>
         <source>Avatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="242"/>
+        <location filename="qml/page/T_TreeView.qml" line="196"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_TreeView.qml" line="234"/>
-        <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
