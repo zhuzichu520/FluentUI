@@ -161,11 +161,11 @@ void FluFrameless::componentComplete() {
         if (!isCompositionEnabled()) {
             offsetSize = 0;
         }
-        if (!isMaximum) {
+        if (!isMaximum || QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)) {
             clientRect->top = originalTop + offsetSize;
-            clientRect->bottom = originalBottom;
-            clientRect->left = originalLeft;
-            clientRect->right = originalRight;
+            clientRect->bottom = originalBottom - offsetSize;
+            clientRect->left = originalLeft + offsetSize;
+            clientRect->right = originalRight - offsetSize;
         }
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
@@ -243,6 +243,12 @@ void FluFrameless::componentComplete() {
         return true;
     } else if (uMsg == WM_GETMINMAXINFO) {
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
+#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
+        minmaxInfo->ptMaxPosition.x = 0;
+        minmaxInfo->ptMaxPosition.y = 0;
+        minmaxInfo->ptMaxSize.x = 0;
+        minmaxInfo->ptMaxSize.y = 0;
+#else
         auto pixelRatio = window()->devicePixelRatio();
         auto geometry = window()->screen()->availableGeometry();
         RECT rect;
@@ -251,6 +257,7 @@ void FluFrameless::componentComplete() {
         minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
         minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio) + offsetXY.x() * 2;
         minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio) + offsetXY.y() * 2;
+#endif
         return false;
     } else if (uMsg == WM_NCRBUTTONDOWN) {
         if (wParam == HTCAPTION) {
