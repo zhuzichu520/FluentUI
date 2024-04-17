@@ -67,6 +67,8 @@ void FluFrameless::componentComplete() {
     if (_disabled) {
         return;
     }
+    int w = window()->width();
+    int h = window()->height();
     _current = window()->winId();
     window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -107,6 +109,12 @@ void FluFrameless::componentComplete() {
         ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
     });
 #endif
+    h = h + _appbar->height();
+    if(_fixSize){
+        window()->setMaximumSize(QSize(w,h));
+        window()->setMinimumSize(QSize(w,h));
+    }
+    window()->resize(QSize(w,h));
     connect(this, &FluFrameless::topmostChanged, this, [this] {
         _setWindowTopmost(topmost());
     });

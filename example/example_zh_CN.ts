@@ -551,104 +551,104 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="307"/>
+        <location filename="qml/window/MainWindow.qml" line="311"/>
         <source>Dark Mode</source>
         <translation type="unfinished">夜间模式</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="83"/>
-        <location filename="qml/window/MainWindow.qml" line="91"/>
+        <location filename="qml/window/MainWindow.qml" line="87"/>
+        <location filename="qml/window/MainWindow.qml" line="95"/>
         <source>Quit</source>
         <translation type="unfinished">退出</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="84"/>
+        <location filename="qml/window/MainWindow.qml" line="88"/>
         <source>Are you sure you want to exit the program?</source>
         <translation type="unfinished">您确定要退出程序吗</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="85"/>
+        <location filename="qml/window/MainWindow.qml" line="89"/>
         <source>Minimize</source>
         <translation type="unfinished">最小化</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="88"/>
+        <location filename="qml/window/MainWindow.qml" line="92"/>
         <source>Friendly Reminder</source>
         <translation type="unfinished">友情提示</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="88"/>
+        <location filename="qml/window/MainWindow.qml" line="92"/>
         <source>FluentUI is hidden from the tray, click on the tray to activate the window again</source>
         <translation type="unfinished">FluentUI 在托盘中处于隐藏状态，单击托盘以再次激活窗口</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="92"/>
-        <location filename="qml/window/MainWindow.qml" line="336"/>
+        <location filename="qml/window/MainWindow.qml" line="96"/>
+        <location filename="qml/window/MainWindow.qml" line="340"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="103"/>
+        <location filename="qml/window/MainWindow.qml" line="107"/>
         <source>Open in Separate Window</source>
         <translation type="unfinished">在独立窗口中打开</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="200"/>
+        <location filename="qml/window/MainWindow.qml" line="204"/>
         <source>Click Time</source>
         <translation type="unfinished">点击次数</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="210"/>
+        <location filename="qml/window/MainWindow.qml" line="214"/>
         <source>Search</source>
         <translation type="unfinished">搜索</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="301"/>
+        <location filename="qml/window/MainWindow.qml" line="305"/>
         <source>Finish</source>
         <translation type="unfinished">完成</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="302"/>
+        <location filename="qml/window/MainWindow.qml" line="306"/>
         <source>Next</source>
         <translation type="unfinished">下一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="303"/>
+        <location filename="qml/window/MainWindow.qml" line="307"/>
         <source>Previous</source>
         <translation type="unfinished">上一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="307"/>
+        <location filename="qml/window/MainWindow.qml" line="311"/>
         <source>Here you can switch to night mode.</source>
         <translation type="unfinished">在这里，您可以切换到夜间模式。</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="309"/>
+        <location filename="qml/window/MainWindow.qml" line="313"/>
         <source>Hide Easter eggs</source>
         <translation type="unfinished">隐藏彩蛋</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="309"/>
+        <location filename="qml/window/MainWindow.qml" line="313"/>
         <source>Try a few more clicks!!</source>
         <translation type="unfinished">再试几下！！</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="333"/>
+        <location filename="qml/window/MainWindow.qml" line="337"/>
         <source>Upgrade Tips</source>
         <translation type="unfinished">升级提示</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="334"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source>FluentUI is currently up to date </source>
         <translation type="unfinished">FluentUI 目前最新版本 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="334"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source> -- The current app version</source>
         <translation type="unfinished"> -- 当前应用版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="334"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source> 
 Now go and download the new version？
 
@@ -661,17 +661,17 @@ Updated content:
 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="341"/>
         <source>OK</source>
         <translation type="unfinished">确定</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="364"/>
+        <location filename="qml/window/MainWindow.qml" line="368"/>
         <source>The current version is already the latest</source>
         <translation type="unfinished">当前版本已经是最新版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="371"/>
+        <location filename="qml/window/MainWindow.qml" line="375"/>
         <source>The network is abnormal</source>
         <translation type="unfinished">网络异常</translation>
     </message>
@@ -1393,22 +1393,22 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
 <context>
     <name>T_Home</name>
     <message>
-        <location filename="qml/page/T_Home.qml" line="23"/>
+        <location filename="qml/page/T_Home.qml" line="19"/>
         <source>FluentUI GitHub</source>
         <translation type="unfinished">FluentUI GitHub</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="24"/>
+        <location filename="qml/page/T_Home.qml" line="20"/>
         <source>The latest FluentUI controls and styles for your applications.</source>
         <translation type="unfinished">最新的 FluentUI 控件和样式</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="32"/>
+        <location filename="qml/page/T_Home.qml" line="28"/>
         <source>FluentUI Initializr</source>
         <translation type="unfinished">FluentUI脚手架</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="33"/>
+        <location filename="qml/page/T_Home.qml" line="29"/>
         <source>FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.</source>
         <translation type="unfinished">FluentUI 脚手架是一个快速创建项目工具，可帮助您创建和自定义具有各种选项的 Fluent UI 项目</translation>
     </message>

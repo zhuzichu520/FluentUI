@@ -15,7 +15,7 @@ FluWindow {
     title: "FluentUI"
     width: 1000
     height: 680
-    minimumWidth: 520
+    minimumWidth: 1000
     minimumHeight: 200
     launchMode: FluWindowType.SingleTask
     fitsAppBarWindows: true
@@ -26,6 +26,10 @@ FluWindow {
         darkClickListener:(button)=>handleDarkChanged(button)
         closeClickListener: ()=>{dialog_close.open()}
         z:7
+    }
+
+    FluentInitializrWindow{
+        id:fluent_Initializr
     }
 
     FluEvent{
