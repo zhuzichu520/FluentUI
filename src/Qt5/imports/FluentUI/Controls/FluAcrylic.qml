@@ -8,7 +8,7 @@ Item {
     property real tintOpacity: 0.65
     property real luminosity: 0.01
     property real noiseOpacity: 0.02
-    property var target
+    property alias target : effect_source.sourceItem
     property int blurRadius: 32
     property rect targetRect: Qt.rect(control.x, control.y, control.width,control.height)
     ShaderEffectSource {
@@ -16,7 +16,6 @@ Item {
         anchors.fill: parent
         visible: false
         sourceRect: control.targetRect
-        sourceItem: control.target
     }
     FastBlur {
         id: fast_blur

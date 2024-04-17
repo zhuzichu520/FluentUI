@@ -8,6 +8,7 @@
 #include <QQmlEngine>
 #include <QTranslator>
 #include <QQuickWindow>
+#include <QJsonArray>
 #include "stdafx.h"
 #include "singleton.h"
 
@@ -34,6 +35,8 @@ SINGLETON(FluApp)
     static FluApp *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
 
     Q_INVOKABLE void init(QObject *target, QLocale locale = QLocale::system());
+
+    [[maybe_unused]] Q_INVOKABLE static QJsonArray iconDatas(const QString &keyword = "");
 
 private:
     QQmlEngine *_engine{};

@@ -60,8 +60,6 @@ protected:
 public:
 SINGLETON(FluTheme)
 
-    [[maybe_unused]] Q_INVOKABLE static QJsonArray awesomeList(const QString &keyword = "");
-
     Q_SIGNAL void darkChanged();
 
     static FluTheme *create(QQmlEngine *, QJSEngine *) { return getInstance(); }

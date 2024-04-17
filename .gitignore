@@ -36,10 +36,8 @@ bin
 build
 cmake-build-*
 .idea
-
+package
 example/Version.h
-
-action-cli
 dist
 
 *.qm

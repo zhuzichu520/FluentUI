@@ -69,7 +69,7 @@ if (WIN32)
     )
     configure_file(
             ${CMAKE_SOURCE_DIR}/.cmake/InstallerScript.iss.in
-            ${CMAKE_SOURCE_DIR}/action-cli/InstallerScript.iss
+            ${CMAKE_SOURCE_DIR}/package/InstallerScript.iss
     )
 endif ()
 

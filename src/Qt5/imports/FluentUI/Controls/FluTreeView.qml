@@ -18,21 +18,28 @@ Rectangle {
     property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
     readonly property alias current: d.current
     id:control
-    color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+    color: {
+        if(Window.active){
+            return FluTheme.frameActiveColor
+        }
+        return FluTheme.frameColor
+    }
     onDataSourceChanged: {
         tree_model.setDataSource(dataSource)
     }
     onColumnSourceChanged: {
-        var columns= []
-        var headerRow = {}
-        columnSource.forEach(function(item){
-            var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',control);
-            column.display = item.dataIndex
-            columns.push(column)
-            headerRow[item.dataIndex] = item.title
-        })
-        header_column_model.columns = columns
-        header_column_model.rows = [headerRow]
+        if(columnSource.length !== 0){
+            var columns= []
+            var headerRow = {}
+            columnSource.forEach(function(item){
+                var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',control);
+                column.display = item.dataIndex
+                columns.push(column)
+                headerRow[item.dataIndex] = item.title
+            })
+            header_column_model.columns = columns
+            header_column_model.rows = [headerRow]
+        }
     }
     FluTreeModel{
         id:tree_model

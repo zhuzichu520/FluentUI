@@ -47,8 +47,8 @@ void FluTheme::refreshColors() {
     fontSecondaryColor(isDark ? QColor(222, 222, 222, 255) : QColor(102, 102, 102, 255));
     fontTertiaryColor(isDark ? QColor(200, 200, 200, 255) : QColor(153, 153, 153, 255));
     itemNormalColor(isDark ? QColor(255, 255, 255, 0) : QColor(0, 0, 0, 0));
-    frameColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12)) : QColor(0, 0, 0, qRound(255 * 0.09)));
-    frameActiveColor(isDark ? QColor(48, 48, 48, qRound(255 * 0.8)) : QColor(255, 255, 255, qRound(255 * 0.6)));
+    frameColor(isDark ? QColor(56, 56, 56, qRound(255 * 0.8)) : QColor(233, 233, 233, qRound(255 * 0.8)));
+    frameActiveColor(isDark ? QColor(48, 48, 48, qRound(255 * 0.8)) : QColor(255, 255, 255, qRound(255 * 0.8)));
     itemHoverColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.06)) : QColor(0, 0, 0, qRound(255 * 0.03)));
     itemPressColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.09)) : QColor(0, 0, 0, qRound(255 * 0.06)));
     itemCheckColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12)) : QColor(0, 0, 0, qRound(255 * 0.09)));
@@ -62,22 +62,6 @@ bool FluTheme::eventFilter(QObject *, QEvent *event) {
         return true;
     }
     return false;
-}
-
-[[maybe_unused]] QJsonArray FluTheme::awesomeList(const QString &keyword) {
-    QJsonArray arr;
-    QMetaEnum enumType = Fluent_Icons::staticMetaObject.enumerator(Fluent_Icons::staticMetaObject.indexOfEnumerator("Fluent_IconType"));
-    for (int i = 0; i <= enumType.keyCount() - 1; ++i) {
-        QString name = enumType.key(i);
-        int icon = enumType.value(i);
-        if (keyword.isEmpty() || name.contains(keyword)) {
-            QJsonObject obj;
-            obj.insert("name", name);
-            obj.insert("icon", icon);
-            arr.append(obj);
-        }
-    }
-    return arr;
 }
 
 bool FluTheme::dark() const {

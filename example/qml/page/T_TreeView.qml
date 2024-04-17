@@ -162,7 +162,8 @@ FluContentPage {
         }
     }
 
-    FluFrame{
+    FluTreeView{
+        id:tree_view
         anchors{
             left: parent.left
             top: layout_controls.bottom
@@ -170,39 +171,35 @@ FluContentPage {
             bottom: parent.bottom
             right: parent.right
         }
-        FluTreeView{
-            id:tree_view
-            anchors.fill: parent
-            cellHeight: slider_cell_height.value
-            showLine: switch_showline.checked
-            checkable:switch_checkable.checked
-            depthPadding: slider_depth_padding.value
-            onCurrentChanged: {
-                showInfo(current.data.title)
-            }
-            columnSource:[
-                {
-                    title: qsTr("Title"),
-                    dataIndex: 'title',
-                    width: 300
-                },{
-                    title: qsTr("Name"),
-                    dataIndex: 'name',
-                    width: 100
-                },{
-                    title: qsTr("Avatar"),
-                    dataIndex: 'avatar',
-                    width: 100
-                },{
-                    title: qsTr("Address"),
-                    dataIndex: 'address',
-                    width: 200
-                },
-            ]
-            Component.onCompleted: {
-                var data = treeData()
-                dataSource = data
-            }
+        cellHeight: slider_cell_height.value
+        showLine: switch_showline.checked
+        checkable:switch_checkable.checked
+        depthPadding: slider_depth_padding.value
+        onCurrentChanged: {
+            showInfo(current.data.title)
+        }
+        columnSource:[
+            {
+                title: qsTr("Title"),
+                dataIndex: 'title',
+                width: 300
+            },{
+                title: qsTr("Name"),
+                dataIndex: 'name',
+                width: 100
+            },{
+                title: qsTr("Avatar"),
+                dataIndex: 'avatar',
+                width: 100
+            },{
+                title: qsTr("Address"),
+                dataIndex: 'address',
+                width: 200
+            },
+        ]
+        Component.onCompleted: {
+            var data = treeData()
+            dataSource = data
         }
     }
 }
