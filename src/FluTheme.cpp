@@ -5,7 +5,6 @@
 #include <QImage>
 #include <QThreadPool>
 #include "Def.h"
-#include "FluentIconDef.h"
 #include "FluColors.h"
 #include "FluTools.h"
 
