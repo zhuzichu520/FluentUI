@@ -1089,46 +1089,6 @@ Updated content:
         <source>Click to Select a Color - &gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="22"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="23"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="24"/>
-        <source>Color Picker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="25"/>
-        <source>Edit Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="26"/>
-        <source>Red</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="27"/>
-        <source>Green</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="28"/>
-        <source>Blue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="29"/>
-        <source>Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>T_ComboBox</name>

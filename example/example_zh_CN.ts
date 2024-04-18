@@ -1113,44 +1113,36 @@ Updated content:
         <translation type="unfinished">点击选中颜色 - &gt;</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="22"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation type="obsolete">取消</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="23"/>
         <source>OK</source>
-        <translation type="unfinished">确定</translation>
+        <translation type="obsolete">确定</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="24"/>
         <source>Color Picker</source>
-        <translation type="unfinished">颜色选择器</translation>
+        <translation type="obsolete">颜色选择器</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="25"/>
         <source>Edit Color</source>
-        <translation type="unfinished">编辑颜色</translation>
+        <translation type="obsolete">编辑颜色</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="26"/>
         <source>Red</source>
-        <translation type="unfinished">红色</translation>
+        <translation type="obsolete">红色</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="27"/>
         <source>Green</source>
-        <translation type="unfinished">绿色</translation>
+        <translation type="obsolete">绿色</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="28"/>
         <source>Blue</source>
-        <translation type="unfinished">蓝色</translation>
+        <translation type="obsolete">蓝色</translation>
     </message>
     <message>
-        <location filename="qml/page/T_ColorPicker.qml" line="29"/>
         <source>Opacity</source>
-        <translation type="unfinished">透明度</translation>
+        <translation type="obsolete">透明度</translation>
     </message>
 </context>
 <context>

@@ -13,16 +13,15 @@ Button{
     property color current : Qt.rgba(1,1,1,1)
     signal accepted()
     property int colorHandleRadius: 8
-    property string cancelText: "取消"
-    property string okText: "确定"
-    property string titleText: "颜色选择器"
-    property string editText: "编辑颜色"
-    property string redText: "红色"
-    property string greenText: "绿色"
-    property string blueText: "蓝色"
-    property string opacityText: "透明度"
-    background:
-        Rectangle{
+    property string cancelText: qsTr("Cancel")
+    property string okText: qsTr("OK")
+    property string titleText: qsTr("Color Picker")
+    property string editText: qsTr("Edit Color")
+    property string redText: qsTr("Red")
+    property string greenText: qsTr("Green")
+    property string blueText: qsTr("Blue")
+    property string opacityText: qsTr("Opacity")
+    background: Rectangle{
         id:layout_color
         radius: 5
         color:"#00000000"
