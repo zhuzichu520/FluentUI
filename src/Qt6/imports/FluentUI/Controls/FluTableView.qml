@@ -778,9 +778,9 @@ Rectangle {
             timer_vertical_force_layout.restart()
         }
         Connections{
-            target: table_model
-            function onRowCountChanged(){
-                header_row_model.rows = Array.from({length: table_model.rows.length}, (_, i) => ({rowIndex:i+1}))
+            target: table_view
+            function onRowsChanged(){
+                header_row_model.rows = Array.from({length: table_view.rows}, (_, i) => ({rowIndex:i+1}))
             }
         }
         Timer{
