@@ -34,6 +34,7 @@ FluLauncher {
         FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
         FluTheme.darkMode = SettingsHelper.getDarkMode()
         FluTheme.animationEnabled = true
+        FluTheme.blurBehindWindowEnabled = true
         FluRouter.routes = {
             "/":"qrc:/example/qml/window/MainWindow.qml",
             "/about":"qrc:/example/qml/window/AboutWindow.qml",

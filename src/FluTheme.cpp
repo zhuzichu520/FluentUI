@@ -32,6 +32,7 @@ FluTheme::FluTheme(QObject *parent) : QObject{parent} {
     connect(&_watcher, &QFileSystemWatcher::fileChanged, this, [=](const QString &path){
         Q_EMIT desktopImagePathChanged();
     });
+    connect(this, &FluTheme::blurBehindWindowEnabledChanged, this, [=] {checkUpdateDesktopImage();});
     startTimer(1000);
 }
 
@@ -74,6 +75,9 @@ bool FluTheme::dark() const {
 }
 
 void FluTheme::checkUpdateDesktopImage(){
+    if(!_blurBehindWindowEnabled){
+        return;
+    }
     QThreadPool::globalInstance()->start([=]() {
         _mutex.lock();
         auto path = FluTools::getInstance()->getWallpaperFilePath();
@@ -90,7 +94,5 @@ void FluTheme::checkUpdateDesktopImage(){
 
 void FluTheme::timerEvent(QTimerEvent *event)
 {
-    if(_blurBehindWindowEnabled){
-        checkUpdateDesktopImage();
-    }
+    checkUpdateDesktopImage();
 }

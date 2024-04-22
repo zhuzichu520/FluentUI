@@ -7,11 +7,11 @@ Item{
     id:control
     default property alias content: container.data
     property int statusMode: FluStatusLayoutType.Loading
-    property string loadingText:"正在加载..."
-    property string emptyText: "空空如也"
-    property string errorText: "页面出错了.."
-    property string errorButtonText: "重新加载"
-    property color color: FluTheme.dark ? Window.active ?  Qt.rgba(38/255,44/255,54/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+    property string loadingText: qsTr("Loading...")
+    property string emptyText: qsTr("Empty")
+    property string errorText: qsTr("Error")
+    property string errorButtonText: qsTr("Reload")
+    property color color: Qt.rgba(0,0,0,0)
     signal errorClicked
     property Component loadingItem : com_loading
     property Component emptyItem : com_empty

@@ -1930,26 +1930,6 @@ Some contents...</source>
         <source>StatusLayout</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="63"/>
-        <source>Loading...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="64"/>
-        <source>Empty</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="65"/>
-        <source>The page went wrong...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="66"/>
-        <source>Reload</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>T_TabView</name>

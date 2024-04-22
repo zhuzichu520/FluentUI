@@ -97,5 +97,5 @@ void InitializrHelper::copyFile(const QString &source, const QString &dest) {
     copyFile(":/example/res/template/src/qml.qrc.in", projectDir.filePath("src/qml.qrc"));
     copyFile(":/example/res/template/src/logo.ico.in", projectDir.filePath("src/logo.ico"));
     copyFile(":/example/res/template/src/README.md.in", projectDir.filePath("src/README.md"));
-    return this->success(projectPath);
+    return this->success(projectPath+"/CMakeLists.txt");
 }

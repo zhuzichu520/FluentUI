@@ -233,6 +233,33 @@
     </message>
 </context>
 <context>
+    <name>FluStatusLayout</name>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluStatusLayout.qml" line="11"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluStatusLayout.qml" line="10"/>
+        <source>Loading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluStatusLayout.qml" line="12"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluStatusLayout.qml" line="11"/>
+        <source>Empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluStatusLayout.qml" line="13"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluStatusLayout.qml" line="12"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Qt5/imports/FluentUI/Controls/FluStatusLayout.qml" line="14"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluStatusLayout.qml" line="13"/>
+        <source>Reload</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FluTextBoxMenu</name>
     <message>
         <location filename="Qt5/imports/FluentUI/Controls/FluTextBoxMenu.qml" line="6"/>

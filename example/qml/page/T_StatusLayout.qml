@@ -60,12 +60,8 @@ FluScrollablePage{
         FluStatusLayout{
             id:status_view
             anchors.fill: parent
-            loadingText: qsTr("Loading...")
-            emptyText: qsTr("Empty")
-            errorText: qsTr("The page went wrong...")
-            errorButtonText: qsTr("Reload")
             onErrorClicked:{
-                showError("Click Reload")
+                status_view.statusMode = FluStatusLayoutType.Loading
             }
             Rectangle {
                 anchors.fill: parent

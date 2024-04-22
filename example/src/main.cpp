@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("FluentUI");
-    QGuiApplication::setApplicationDisplayName("FluentUI Exmaple");
+    QGuiApplication::setApplicationDisplayName("FluentUI Example");
     QGuiApplication::setApplicationVersion(APPLICATION_VERSION);
     QGuiApplication::setQuitOnLastWindowClosed(false);
     SettingsHelper::getInstance()->init(argv);

@@ -2053,24 +2053,20 @@ Some contents...</source>
         <translation type="unfinished">状态布局</translation>
     </message>
     <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="63"/>
         <source>Loading...</source>
-        <translation type="unfinished">正在加载...</translation>
+        <translation type="obsolete">正在加载...</translation>
     </message>
     <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="64"/>
         <source>Empty</source>
-        <translation type="unfinished">空空如也</translation>
+        <translation type="obsolete">空空如也</translation>
     </message>
     <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="65"/>
         <source>The page went wrong...</source>
-        <translation type="unfinished">页面出错了...</translation>
+        <translation type="obsolete">页面出错了...</translation>
     </message>
     <message>
-        <location filename="qml/page/T_StatusLayout.qml" line="66"/>
         <source>Reload</source>
-        <translation type="unfinished">重新加载</translation>
+        <translation type="obsolete">重新加载</translation>
     </message>
 </context>
 <context>
