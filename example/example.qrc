@@ -180,7 +180,6 @@
         <file>qml/window/PageWindow.qml</file>
         <file>qml/page/T_StaggeredLayout.qml</file>
         <file>qml/page/T_Clip.qml</file>
-        <file>qml/page/T_3D.qml</file>
         <file>qml/page/T_Network.qml</file>
         <file>qml/page/T_ShortcutPicker.qml</file>
         <file>qml/chart/T_BarChart.qml</file>

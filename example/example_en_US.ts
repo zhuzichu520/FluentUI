@@ -515,11 +515,6 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="487"/>
-        <source>3D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>

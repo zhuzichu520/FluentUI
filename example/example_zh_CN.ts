@@ -514,12 +514,11 @@
         <translation type="unfinished">热加载</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
         <source>3D</source>
-        <translation type="unfinished">3D</translation>
+        <translation type="obsolete">3D</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
         <source>Test Crash</source>
         <translation type="unfinished">测试崩溃</translation>
     </message>
