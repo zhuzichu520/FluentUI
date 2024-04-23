@@ -20,16 +20,20 @@ FluButton {
         }
         iconColor:control.textColor
     }
+    Item{
+        id: d
+        property var window: Window.window
+    }
     onClicked: {
         if(menu.count !==0){
             var pos = control.mapToItem(null, 0, 0)
             var containerHeight = menu.count*36
-            if(window.height>pos.y+control.height+containerHeight){
+            if(d.window.height>pos.y+control.height+containerHeight){
                 menu.y = control.height
             }else if(pos.y>containerHeight){
                 menu.y = -containerHeight
             }else{
-                menu.y = window.height-(pos.y+containerHeight)
+                menu.y = d.window.height-(pos.y+containerHeight)
             }
             menu.open()
         }
