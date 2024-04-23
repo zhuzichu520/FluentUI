@@ -73,5 +73,6 @@ private:
     int _edges = 0;
     int _margins = 8;
     quint64 _clickTimer = 0;
+    bool _isWindows11OrGreater = false;
     QList<QPointer<QQuickItem>> _hitTestList;
 };

@@ -330,6 +330,12 @@ Window {
     function showMaximized(){
         frameless.showMaximized()
     }
+    function showMinimized(){
+        frameless.showMinimized()
+    }
+    function showNormal(){
+        frameless.showNormal()
+    }
     function showLoading(text = "",cancel = true){
         if(text===""){
             text = qsTr("Loading...")

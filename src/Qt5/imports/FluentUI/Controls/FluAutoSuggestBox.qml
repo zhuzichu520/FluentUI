@@ -59,12 +59,8 @@ FluTextBox{
                 duration: FluTheme.animationEnabled ? 83 : 0
             }
         }
-        contentItem: FluRectangle{
-            radius: [4,4,4,4]
-            FluShadow{
-                radius: 4
-            }
-            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+        contentItem: FluClip{
+            radius: [5,5,5,5]
             ListView{
                 id:list_view
                 anchors.fill: parent
@@ -97,10 +93,13 @@ FluTextBox{
                             radius:4
                         }
                         color:  {
-                            if(hovered){
-                                return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                            if(pressed){
+                                return FluTheme.itemPressColor
                             }
-                            return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
+                            if(hovered){
+                                return FluTheme.itemHoverColor
+                            }
+                            return FluTheme.itemNormalColor
                         }
                     }
                     contentItem: FluText{
@@ -112,22 +111,28 @@ FluTextBox{
                 }
             }
         }
-        background: Item{
-            id:container
+        background:Rectangle{
+            id: rect_background
             implicitWidth: control.width
             implicitHeight: 38*Math.min(Math.max(list_view.count,1),8)
+            radius: 5
+            color: FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(1,1,1,1)
+            border.color: FluTheme.dark ? Qt.rgba(26/255,26/255,26/255,1) : Qt.rgba(191/255,191/255,191/255,1)
+            FluShadow{
+                radius: 5
+            }
         }
     }
     onTextChanged: {
         d.loadData()
         if(d.flagVisible){
             var pos = control.mapToItem(null, 0, 0)
-            if(d.window.height>pos.y+control.height+container.implicitHeight){
+            if(d.window.height>pos.y+control.height+rect_background.implicitHeight){
                 control_popup.y = control.height
-            } else if(pos.y>container.implicitHeight){
-                control_popup.y = -container.implicitHeight
+            } else if(pos.y>rect_background.implicitHeight){
+                control_popup.y = -rect_background.implicitHeight
             } else {
-                control_popup.y = d.window.height-(pos.y+container.implicitHeight)
+                control_popup.y = d.window.height-(pos.y+rect_background.implicitHeight) - 1
             }
             control_popup.visible = true
         }

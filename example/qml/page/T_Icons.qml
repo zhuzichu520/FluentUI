@@ -24,7 +24,7 @@ FluContentPage {
             leftMargin: 14
         }
         onClicked: {
-            grid_view.model = FluTheme.awesomeList(text_box.text)
+            grid_view.model = FluApp.iconDatas(text_box.text)
         }
     }
     GridView{

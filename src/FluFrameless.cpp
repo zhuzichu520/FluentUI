@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <QDateTime>
+#include "FluTools.h"
 
 #ifdef Q_OS_WIN
 #pragma comment (lib, "user32.lib")
@@ -12,6 +13,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <dwmapi.h>
+
 
 static inline QByteArray qtNativeEventType() {
     static const auto result = "windows_generic_MSG";
@@ -55,6 +57,7 @@ FluFrameless::FluFrameless(QQuickItem *parent) : QQuickItem{parent} {
     _closeButton = nullptr;
     _topmost = false;
     _disabled = false;
+    _isWindows11OrGreater = FluTools::getInstance()->isWindows11OrGreater();
 }
 
 FluFrameless::~FluFrameless() = default;
@@ -110,11 +113,11 @@ void FluFrameless::componentComplete() {
     });
 #endif
     h = h + _appbar->height();
-    if(_fixSize){
-        window()->setMaximumSize(QSize(w,h));
-        window()->setMinimumSize(QSize(w,h));
+    if (_fixSize) {
+        window()->setMaximumSize(QSize(w, h));
+        window()->setMinimumSize(QSize(w, h));
     }
-    window()->resize(QSize(w,h));
+    window()->resize(QSize(w, h));
     connect(this, &FluFrameless::topmostChanged, this, [this] {
         _setWindowTopmost(topmost());
     });
@@ -160,7 +163,10 @@ void FluFrameless::componentComplete() {
         }
         int offsetSize;
         bool isMaximum = ::IsZoomed(hwnd);
-        offsetXY = QPoint(abs(clientRect->left - originalLeft), abs(clientRect->top - originalTop));
+        auto _offsetXY = QPoint(abs(clientRect->left - originalLeft), abs(clientRect->top - originalTop));
+        if (_offsetXY.x() != 0) {
+            offsetXY = _offsetXY;
+        }
         if (isMaximum || _isFullScreen()) {
             offsetSize = 0;
         } else {
@@ -179,15 +185,17 @@ void FluFrameless::componentComplete() {
         *result = WVR_REDRAW;
         return true;
     } else if (uMsg == WM_NCHITTEST) {
-        if (_hitMaximizeButton()) {
-            if (*result == HTNOWHERE) {
-                *result = HTZOOM;
+        if (_isWindows11OrGreater) {
+            if (_hitMaximizeButton()) {
+                if (*result == HTNOWHERE) {
+                    *result = HTZOOM;
+                }
+                _setMaximizeHovered(true);
+                return true;
             }
-            _setMaximizeHovered(true);
-            return true;
+            _setMaximizeHovered(false);
+            _setMaximizePressed(false);
         }
-        _setMaximizeHovered(false);
-        _setMaximizePressed(false);
         *result = 0;
         POINT nativeGlobalPos{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
         POINT nativeLocalPos = nativeGlobalPos;
@@ -229,14 +237,14 @@ void FluFrameless::componentComplete() {
         }
         *result = HTCLIENT;
         return true;
-    } else if (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN) {
+    } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_maximizeButton, &event);
             _setMaximizePressed(true);
             return true;
         }
-    } else if (uMsg == WM_NCLBUTTONUP || uMsg == WM_NCRBUTTONUP) {
+    } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONUP || uMsg == WM_NCRBUTTONUP)) {
         if (_hitMaximizeButton()) {
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonRelease, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             QGuiApplication::sendEvent(_maximizeButton, &event);
@@ -251,11 +259,12 @@ void FluFrameless::componentComplete() {
         return true;
     } else if (uMsg == WM_GETMINMAXINFO) {
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
-#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         minmaxInfo->ptMaxPosition.x = 0;
         minmaxInfo->ptMaxPosition.y = 0;
         minmaxInfo->ptMaxSize.x = 0;
         minmaxInfo->ptMaxSize.y = 0;
+        return false;
 #else
         auto pixelRatio = window()->devicePixelRatio();
         auto geometry = window()->screen()->availableGeometry();
@@ -265,8 +274,8 @@ void FluFrameless::componentComplete() {
         minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
         minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio) + offsetXY.x() * 2;
         minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio) + offsetXY.y() * 2;
+        return true;
 #endif
-        return false;
     } else if (uMsg == WM_NCRBUTTONDOWN) {
         if (wParam == HTCAPTION) {
             _showSystemMenu(QCursor::pos());
@@ -281,9 +290,11 @@ void FluFrameless::componentComplete() {
     } else if (uMsg == WM_SYSCOMMAND) {
         if (wParam == SC_MINIMIZE) {
             if (window()->transientParent()) {
-                window()->transientParent()->showMinimized();
+                HWND hwnd = reinterpret_cast<HWND>(window()->transientParent()->winId());
+                ::ShowWindow(hwnd, 2);
             } else {
-                window()->showMinimized();
+                HWND hwnd = reinterpret_cast<HWND>(window()->winId());
+                ::ShowWindow(hwnd, 2);
             }
             return true;
         }
@@ -395,16 +406,21 @@ void FluFrameless::showMaximized() {
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     ::ShowWindow(hwnd, 3);
 #else
-    window()->showMaximized();
+    window()->setVisibility(QQuickWindow::Maximized);
 #endif
 }
 
 [[maybe_unused]] void FluFrameless::showMinimized() {
-    window()->showMinimized();
+#ifdef Q_OS_WIN
+    HWND hwnd = reinterpret_cast<HWND>(window()->winId());
+    ::ShowWindow(hwnd, 2);
+#else
+    window()->setVisibility(QQuickWindow::Minimized);
+#endif
 }
 
 void FluFrameless::showNormal() {
-    window()->showNormal();
+    window()->setVisibility(QQuickWindow::Windowed);
 }
 
 void FluFrameless::setHitTestVisible(QQuickItem *val) {
