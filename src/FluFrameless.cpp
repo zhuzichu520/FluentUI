@@ -270,6 +270,8 @@ void FluFrameless::componentComplete() {
         auto geometry = window()->screen()->availableGeometry();
         RECT rect;
         SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
+        minmaxInfo->ptMinTrackSize.x = window()->minimumWidth() * pixelRatio + offsetXY.x();
+        minmaxInfo->ptMinTrackSize.y = window()->minimumHeight() * pixelRatio + offsetXY.y() + _appbar->height() * pixelRatio;
         minmaxInfo->ptMaxPosition.x = rect.left - offsetXY.x();
         minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
         minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio) + offsetXY.x() * 2;
@@ -428,7 +430,6 @@ void FluFrameless::setHitTestVisible(QQuickItem *val) {
         _hitTestList.append(val);
     }
 }
-
 
 void FluFrameless::_setWindowTopmost(bool topmost) {
 #ifdef Q_OS_WIN
