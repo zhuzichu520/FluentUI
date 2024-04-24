@@ -1,5 +1,4 @@
-#ifndef FLUTEXTSTYLE_H
-#define FLUTEXTSTYLE_H
+#pragma once
 
 #include <QObject>
 #include <QtQml/qqml.h>
@@ -10,25 +9,25 @@
 /**
  * @brief The FluTextStyle class
  */
-class FluTextStyle : public QObject
-{
-    Q_OBJECT
+class FluTextStyle : public QObject {
+Q_OBJECT
 public:
-    Q_PROPERTY_AUTO(QString,family)
-    Q_PROPERTY_AUTO(QFont,Caption);
-    Q_PROPERTY_AUTO(QFont,Body);
-    Q_PROPERTY_AUTO(QFont,BodyStrong);
-    Q_PROPERTY_AUTO(QFont,Subtitle);
-    Q_PROPERTY_AUTO(QFont,Title);
-    Q_PROPERTY_AUTO(QFont,TitleLarge);
-    Q_PROPERTY_AUTO(QFont,Display);
+Q_PROPERTY_AUTO(QString, family)
+Q_PROPERTY_AUTO(QFont, Caption);
+Q_PROPERTY_AUTO(QFont, Body);
+Q_PROPERTY_AUTO(QFont, BodyStrong);
+Q_PROPERTY_AUTO(QFont, Subtitle);
+Q_PROPERTY_AUTO(QFont, Title);
+Q_PROPERTY_AUTO(QFont, TitleLarge);
+Q_PROPERTY_AUTO(QFont, Display);
     QML_NAMED_ELEMENT(FluTextStyle)
     QML_SINGLETON
+
 private:
     explicit FluTextStyle(QObject *parent = nullptr);
-public:
-    SINGLETON(FluTextStyle)
-    static FluTextStyle *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
-};
 
-#endif // FLUTEXTSTYLE_H
+public:
+SINGLETON(FluTextStyle)
+
+    static FluTextStyle *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
+};

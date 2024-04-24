@@ -57,12 +57,12 @@ Item {
                     Layout.alignment: Qt.AlignVCenter
                     color: {
                         if(item_mouse.pressed){
-                            return FluTheme.dark ? Qt.rgba(150/255,150/255,150/235,1) : Qt.rgba(134/255,134/255,134/235,1)
+                            return FluTheme.dark ? Qt.rgba(150/255,150/255,150/255,1) : Qt.rgba(134/255,134/255,134/255,1)
                         }
                         if(item_mouse.containsMouse){
-                            return FluTheme.dark ? Qt.rgba(204/255,204/255,204/235,1) : Qt.rgba(92/255,92/255,92/235,1)
+                            return FluTheme.dark ? Qt.rgba(204/255,204/255,204/255,1) : Qt.rgba(92/255,92/255,92/255,1)
                         }
-                        return FluTheme.dark ? Qt.rgba(255/255,255/255,255/235,1) :  Qt.rgba(26/255,26/255,26/235,1)
+                        return FluTheme.dark ? Qt.rgba(255/255,255/255,255/255,1) :  Qt.rgba(26/255,26/255,26/255,1)
                     }
                     MouseArea{
                         id:item_mouse

@@ -1,5 +1,4 @@
-#ifndef TRANSLATEHELPER_H
-#define TRANSLATEHELPER_H
+#pragma once
 
 #include <QObject>
 #include <QtQml/qqml.h>
@@ -7,20 +6,21 @@
 #include "src/singleton.h"
 #include "src/stdafx.h"
 
-class TranslateHelper : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY_AUTO(QString,current)
-    Q_PROPERTY_READONLY_AUTO(QStringList,languages)
+class TranslateHelper : public QObject {
+Q_OBJECT
+Q_PROPERTY_AUTO(QString, current)
+Q_PROPERTY_READONLY_AUTO(QStringList, languages)
 private:
-    explicit TranslateHelper(QObject* parent = nullptr);
-public:
-    SINGLETON(TranslateHelper)
-    ~TranslateHelper() override;
-    void init(QQmlEngine* engine);
-private:
-    QQmlEngine* _engine = nullptr;
-    QTranslator* _translator = nullptr;
-};
+    [[maybe_unused]] explicit TranslateHelper(QObject *parent = nullptr);
 
-#endif // TRANSLATEHELPER_H
+public:
+SINGLETON(TranslateHelper)
+
+    ~TranslateHelper() override;
+
+    void init(QQmlEngine *engine);
+
+private:
+    QQmlEngine *_engine = nullptr;
+    QTranslator *_translator = nullptr;
+};

@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
 
-
 FluButton {
     property bool showYear: true
     property var current
@@ -96,8 +95,6 @@ FluButton {
     Menu{
         id:popup
         modal: true
-        width: container.width
-        height: container.height
         Overlay.modal: Item {}
         enter: Transition {
             reversible: true
@@ -116,227 +113,220 @@ FluButton {
                 duration: FluTheme.animationEnabled ? 83 : 0
             }
         }
-        background:Item{
+        background:Rectangle{
+            radius: 5
+            color: FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(1,1,1,1)
+            border.color: FluTheme.dark ? Qt.rgba(26/255,26/255,26/255,1) : Qt.rgba(191/255,191/255,191/255,1)
             FluShadow{
-                radius: 4
+                radius: 5
             }
         }
         contentItem: Item{
-            clip: true
-            Rectangle{
-                id:container
-                radius: 4
-                width: 300
-                height: 340
-                color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
-                MouseArea{
-                    anchors.fill: parent
-                }
-                FluShadow{
-                    radius: 4
-                }
-                RowLayout{
-                    id:layout_content
-                    spacing: 0
-                    width: parent.width
-                    height: 300
-                    Component{
-                        id:list_delegate
-                        Item{
-                            height:38
-                            width:getListView().width
-                            function getListView(){
-                                if(type === 0)
-                                    return list_view_1
-                                if(type === 1)
-                                    return list_view_2
-                                if(type === 2)
-                                    return list_view_3
+            id:container
+            implicitHeight: 340
+            implicitWidth: 300
+            MouseArea{
+                anchors.fill: parent
+            }
+            RowLayout{
+                id:layout_content
+                spacing: 0
+                width: parent.width
+                height: 280
+                Component{
+                    id:list_delegate
+                    Item{
+                        height: 38
+                        width: getListView().width
+                        function getListView(){
+                            if(type === 0)
+                                return list_view_1
+                            if(type === 1)
+                                return list_view_2
+                            if(type === 2)
+                                return list_view_3
+                        }
+                        Rectangle{
+                            anchors.fill: parent
+                            anchors.topMargin: 2
+                            anchors.bottomMargin: 2
+                            anchors.leftMargin: 5
+                            anchors.rightMargin: 5
+                            color: {
+                                if(getListView().currentIndex === position){
+                                    return  item_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor,1.1): FluTheme.primaryColor
+                                }
+                                if(item_mouse.containsMouse){
+                                    return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
+                                }
+                                return Qt.rgba(0,0,0,0)
                             }
-                            Rectangle{
+                            radius: 3
+                            MouseArea{
+                                id:item_mouse
                                 anchors.fill: parent
-                                anchors.topMargin: 2
-                                anchors.bottomMargin: 2
-                                anchors.leftMargin: 5
-                                anchors.rightMargin: 5
-                                color:  {
+                                hoverEnabled: true
+                                onClicked: {
+                                    getListView().currentIndex = position
+                                    if(type === 0){
+                                        text_year.text = model
+                                        list_view_2.model = generateMonthArray(1,12)
+                                        text_month.text = list_view_2.model[list_view_2.currentIndex]
+
+                                        list_view_3.model = generateMonthDaysArray(list_view_1.model[list_view_1.currentIndex],list_view_2.model[list_view_2.currentIndex])
+                                        text_day.text = list_view_3.model[list_view_3.currentIndex]
+                                    }
+                                    if(type === 1){
+                                        text_month.text = model
+                                        list_view_3.model = generateMonthDaysArray(list_view_1.model[list_view_1.currentIndex],list_view_2.model[list_view_2.currentIndex])
+                                        text_day.text = list_view_3.model[list_view_3.currentIndex]
+
+                                    }
+                                    if(type === 2){
+                                        text_day.text = model
+                                    }
+                                }
+                            }
+                            FluText{
+                                text:model
+                                color: {
                                     if(getListView().currentIndex === position){
-                                        return  item_mouse.containsMouse ? Qt.lighter(FluTheme.primaryColor,1.1): FluTheme.primaryColor
-                                    }
-                                    if(item_mouse.containsMouse){
-                                        return FluTheme.dark ? Qt.rgba(63/255,60/255,61/255,1) : Qt.rgba(237/255,237/255,242/255,1)
-                                    }
-                                    return FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(0,0,0,0)
-                                }
-                                radius: 3
-                                MouseArea{
-                                    id:item_mouse
-                                    anchors.fill: parent
-                                    hoverEnabled: true
-                                    onClicked: {
-                                        getListView().currentIndex = position
-                                        if(type === 0){
-                                            text_year.text = model
-                                            list_view_2.model = generateMonthArray(1,12)
-                                            text_month.text = list_view_2.model[list_view_2.currentIndex]
-
-                                            list_view_3.model = generateMonthDaysArray(list_view_1.model[list_view_1.currentIndex],list_view_2.model[list_view_2.currentIndex])
-                                            text_day.text = list_view_3.model[list_view_3.currentIndex]
-                                        }
-                                        if(type === 1){
-                                            text_month.text = model
-                                            list_view_3.model = generateMonthDaysArray(list_view_1.model[list_view_1.currentIndex],list_view_2.model[list_view_2.currentIndex])
-                                            text_day.text = list_view_3.model[list_view_3.currentIndex]
-
-                                        }
-                                        if(type === 2){
-                                            text_day.text = model
-                                        }
-                                    }
-                                }
-                                FluText{
-                                    text:model
-                                    color: {
-                                        if(getListView().currentIndex === position){
-                                            if(FluTheme.dark){
-                                                return Qt.rgba(0,0,0,1)
-                                            }else{
-                                                return Qt.rgba(1,1,1,1)
-                                            }
+                                        if(FluTheme.dark){
+                                            return Qt.rgba(0,0,0,1)
                                         }else{
-                                            return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
+                                            return Qt.rgba(1,1,1,1)
                                         }
+                                    }else{
+                                        return FluTheme.dark ? "#FFFFFF" : "#1A1A1A"
                                     }
-                                    anchors.centerIn: parent
                                 }
+                                anchors.centerIn: parent
                             }
                         }
                     }
-                    ListView{
-                        id:list_view_1
-                        width: 100
-                        height: parent.height
-                        boundsBehavior:Flickable.StopAtBounds
-                        ScrollBar.vertical: FluScrollBar {}
-                        model: generateYearArray(1924,2048)
-                        clip: true
-                        preferredHighlightBegin: 0
-                        preferredHighlightEnd: 0
-                        highlightMoveDuration: 0
-                        visible: showYear
-                        delegate: FluLoader{
-                            property var model: modelData
-                            property int type:0
-                            property int position:index
-                            sourceComponent: list_delegate
-                        }
-                    }
-                    Rectangle{
-                        width: 1
-                        height: parent.height
-                        color: control.dividerColor
-                    }
-                    ListView{
-                        id:list_view_2
-                        width: showYear ? 100 : 150
-                        height: parent.height
-                        clip: true
-                        ScrollBar.vertical: FluScrollBar {}
-                        preferredHighlightBegin: 0
-                        preferredHighlightEnd: 0
-                        highlightMoveDuration: 0
-                        boundsBehavior:Flickable.StopAtBounds
-                        delegate: FluLoader{
-                            property var model: modelData
-                            property int type:1
-                            property int position:index
-                            sourceComponent: list_delegate
-                        }
-                    }
-                    Rectangle{
-                        width: 1
-                        height: parent.height
-                        color: control.dividerColor
-                    }
-                    ListView{
-                        id:list_view_3
-                        width:  showYear ? 100 : 150
-                        height: parent.height
-                        clip: true
-                        preferredHighlightBegin: 0
-                        preferredHighlightEnd: 0
-                        highlightMoveDuration: 0
-                        ScrollBar.vertical: FluScrollBar {}
-                        Layout.alignment: Qt.AlignVCenter
-                        boundsBehavior:Flickable.StopAtBounds
-                        delegate: FluLoader{
-                            property var model: modelData
-                            property int type:2
-                            property int position:index
-                            sourceComponent: list_delegate
-                        }
+                }
+                ListView{
+                    id:list_view_1
+                    Layout.preferredWidth: 100
+                    Layout.preferredHeight: parent.height - 2
+                    Layout.alignment: Qt.AlignVCenter
+                    boundsBehavior:Flickable.StopAtBounds
+                    ScrollBar.vertical: FluScrollBar {}
+                    model: generateYearArray(1924,2048)
+                    clip: true
+                    preferredHighlightBegin: 0
+                    preferredHighlightEnd: 0
+                    highlightMoveDuration: 0
+                    visible: showYear
+                    delegate: FluLoader{
+                        property var model: modelData
+                        property int type:0
+                        property int position:index
+                        sourceComponent: list_delegate
                     }
                 }
                 Rectangle{
-                    width: parent.width
-                    height: 1
-                    anchors.top: layout_content.bottom
+                    Layout.preferredWidth: 1
+                    Layout.preferredHeight: parent.height
+                    color: control.dividerColor
+                    visible: showYear
+                }
+                ListView{
+                    id:list_view_2
+                    Layout.preferredWidth: showYear ? 99 : 150
+                    Layout.preferredHeight: parent.height - 2
+                    Layout.alignment: Qt.AlignVCenter
+                    clip: true
+                    ScrollBar.vertical: FluScrollBar {}
+                    preferredHighlightBegin: 0
+                    preferredHighlightEnd: 0
+                    highlightMoveDuration: 0
+                    boundsBehavior:Flickable.StopAtBounds
+                    delegate: FluLoader{
+                        property var model: modelData
+                        property int type:1
+                        property int position:index
+                        sourceComponent: list_delegate
+                    }
+                }
+                Rectangle{
+                    Layout.preferredWidth: 1
+                    Layout.preferredHeight: parent.height
                     color: control.dividerColor
                 }
-                Rectangle{
-                    id:layout_actions
-                    height: 40
-                    radius: 5
-                    color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+                ListView{
+                    id:list_view_3
+                    Layout.preferredWidth: showYear ? 99 : 150
+                    Layout.preferredHeight: parent.height - 2
+                    Layout.alignment: Qt.AlignVCenter
+                    clip: true
+                    preferredHighlightBegin: 0
+                    preferredHighlightEnd: 0
+                    highlightMoveDuration: 0
+                    ScrollBar.vertical: FluScrollBar {}
+                    boundsBehavior:Flickable.StopAtBounds
+                    delegate: FluLoader{
+                        property var model: modelData
+                        property int type:2
+                        property int position:index
+                        sourceComponent: list_delegate
+                    }
+                }
+            }
+            Rectangle{
+                id:layout_actions
+                height: 60
+                color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+                border.color: FluTheme.dark ? Qt.rgba(26/255,26/255,26/255,1) : Qt.rgba(191/255,191/255,191/255,1)
+                radius: 5
+                anchors{
+                    bottom:parent.bottom
+                    left: parent.left
+                    right: parent.right
+                }
+                Item {
+                    id:divider
+                    width: 1
+                    height: parent.height
+                    anchors.centerIn: parent
+                }
+                FluButton{
                     anchors{
-                        bottom:parent.bottom
                         left: parent.left
+                        leftMargin: 20
+                        rightMargin: 10
+                        right: divider.left
+                        verticalCenter: parent.verticalCenter
+                    }
+                    text: control.cancelText
+                    onClicked: {
+                        popup.close()
+                    }
+                }
+                FluFilledButton{
+                    anchors{
                         right: parent.right
+                        left: divider.right
+                        rightMargin: 20
+                        leftMargin: 10
+                        verticalCenter: parent.verticalCenter
                     }
-                    Item {
-                        id:divider
-                        width: 1
-                        height: parent.height
-                        anchors.centerIn: parent
-                    }
-                    FluButton{
-                        anchors{
-                            left: parent.left
-                            leftMargin: 20
-                            rightMargin: 10
-                            right: divider.left
-                            verticalCenter: parent.verticalCenter
-                        }
-                        text: control.cancelText
-                        onClicked: {
-                            popup.close()
-                        }
-                    }
-                    FluFilledButton{
-                        anchors{
-                            right: parent.right
-                            left: divider.right
-                            rightMargin: 20
-                            leftMargin: 10
-                            verticalCenter: parent.verticalCenter
-                        }
-                        text: control.okText
-                        onClicked: {
-                            d.changeFlag = false
-                            popup.close()
-                            const year = text_year.text
-                            const month = text_month.text
-                            const day = text_day.text
-                            const date = new Date()
-                            date.setFullYear(parseInt(year));
-                            date.setMonth(parseInt(month) - 1);
-                            date.setDate(parseInt(day));
-                            date.setHours(0);
-                            date.setMinutes(0);
-                            date.setSeconds(0);
-                            current = date
-                            control.accepted()
-                        }
+                    text: control.okText
+                    onClicked: {
+                        d.changeFlag = false
+                        popup.close()
+                        const year = text_year.text
+                        const month = text_month.text
+                        const day = text_day.text
+                        const date = new Date()
+                        date.setFullYear(parseInt(year));
+                        date.setMonth(parseInt(month) - 1);
+                        date.setDate(parseInt(day));
+                        date.setHours(0);
+                        date.setMinutes(0);
+                        date.setSeconds(0);
+                        current = date
+                        control.accepted()
                     }
                 }
             }
@@ -361,7 +351,7 @@ FluButton {
             text_day.text = day
             var pos = control.mapToItem(null, 0, 0)
             if(d.window.height>pos.y+control.height+container.height){
-                popup.y = control.height
+                popup.y = control.height-1
             } else if(pos.y>container.height){
                 popup.y = -container.height
             } else {

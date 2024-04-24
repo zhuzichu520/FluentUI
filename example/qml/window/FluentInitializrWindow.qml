@@ -20,7 +20,7 @@ FluWindowDialog {
                     showError(message)
                 }
                 function onSuccess(path){
-                    FluTools.showFileInFolder(path+"/CMakeLists.txt")
+                    FluTools.showFileInFolder(path)
                     window.close()
                 }
             }

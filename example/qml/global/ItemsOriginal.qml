@@ -364,9 +364,9 @@ FluObject{
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{
-            title: qsTr("Awesome")
+            title: qsTr("Icons")
             menuDelegate: paneItemMenu
-            url: "qrc:/example/qml/page/T_Awesome.qml"
+            url: "qrc:/example/qml/page/T_Icons.qml"
             onTap: { navigationView.push(url) }
         }
     }
@@ -427,6 +427,12 @@ FluObject{
         title: qsTr("Other")
         icon: FluentIcons.Shop
         FluPaneItem{
+            title: qsTr("OpenGL")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_OpenGL.qml"
+            onTap: { navigationView.push(url) }
+        }
+        FluPaneItem{
             title: qsTr("QRCode")
             menuDelegate: paneItemMenu
             url: "qrc:/example/qml/page/T_QRCode.qml"
@@ -476,12 +482,6 @@ FluObject{
             onTapListener: function(){
                 FluRouter.navigate("/hotload")
             }
-        }
-        FluPaneItem{
-            title: qsTr("3D")
-            menuDelegate: paneItemMenu
-            url: "qrc:/example/qml/page/T_3D.qml"
-            onTap: { navigationView.push(url) }
         }
         FluPaneItem{
             title: qsTr("Test Crash")

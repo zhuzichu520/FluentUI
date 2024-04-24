@@ -8,8 +8,13 @@ import FluentUI 1.0
 T.GroupBox {
     id: control
     property int borderWidth : 1
-    property color borderColor : FluTheme.dark ? Window.active ? Qt.rgba(55/255,55/255,55/255,1):Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(226/255,229/255,234/255,1)
-    property color color: FluTheme.dark ? Window.active ?  Qt.rgba(38/255,44/255,54/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+    property color borderColor : FluTheme.dividerColor
+    property color color: {
+        if(Window.active){
+            return FluTheme.frameActiveColor
+        }
+        return FluTheme.frameColor
+    }
     property int radius: 4
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding,

@@ -23,16 +23,27 @@ FluControlBackground{
         GradientStop { position: 1 - d.offsetSize/control.height; color: d.startColor }
         GradientStop { position: 1.0; color: d.endColor }
     }
-    bottomMargin: inputItem && inputItem.activeFocus ? 2 : 1
+    bottomMargin: 1
     QtObject{
         id:d
-        property int offsetSize  : inputItem && inputItem.activeFocus ? 2 : 3
-        property color startColor: FluTheme.dark ? Qt.rgba(66/255,66/255,66/255,1) : Qt.rgba(232/255,232/255,232/255,1)
+        property int offsetSize :  3
+        property color startColor : FluTheme.dark ? Qt.rgba(66/255,66/255,66/255,1) : Qt.rgba(232/255,232/255,232/255,1)
         property color endColor: {
             if(!control.enabled){
                 return d.startColor
             }
-            return inputItem && inputItem.activeFocus ? FluTheme.primaryColor : FluTheme.dark ? Qt.rgba(123/255,123/255,123/255,1) : Qt.rgba(132/255,132/255,132/255,1)
+            return  FluTheme.dark ? Qt.rgba(123/255,123/255,123/255,1) : Qt.rgba(132/255,132/255,132/255,1)
+        }
+    }
+    FluClip{
+        anchors.fill: parent
+        radius: [control.radius,control.radius,control.radius,control.radius]
+        visible: inputItem && inputItem.activeFocus
+        Rectangle{
+            width: parent.width
+            height: 2
+            anchors.bottom: parent.bottom
+            color: FluTheme.primaryColor
         }
     }
 }

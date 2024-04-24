@@ -109,8 +109,55 @@ Window {
     }
     Component{
         id:com_background
-        Rectangle{
-            color: window.backgroundColor
+        Item{
+            Rectangle{
+                anchors.fill: parent
+                color: window.backgroundColor
+            }
+            Image{
+                id:img_back
+                visible: false
+                cache: false
+                fillMode: Image.PreserveAspectCrop
+                asynchronous: true
+                Component.onCompleted: {
+                    var geometry = FluTools.desktopAvailableGeometry(window)
+                    width = geometry.width
+                    height =  geometry.height
+                    sourceSize = Qt.size(width,height)
+                    source = FluTools.getUrlByFilePath(FluTheme.desktopImagePath)
+                }
+                Connections{
+                    target: FluTheme
+                    function onDesktopImagePathChanged(){
+                        timer_update_image.restart()
+                    }
+                    function onBlurBehindWindowEnabledChanged(){
+                        if(FluTheme.blurBehindWindowEnabled){
+                            img_back.source = FluTools.getUrlByFilePath(FluTheme.desktopImagePath)
+                        }else{
+                            img_back.source = ""
+                        }
+                    }
+                }
+                Timer{
+                    id:timer_update_image
+                    interval: 500
+                    onTriggered: {
+                        img_back.source = ""
+                        img_back.source = FluTools.getUrlByFilePath(FluTheme.desktopImagePath)
+                    }
+                }
+            }
+            FluAcrylic{
+                anchors.fill: parent
+                target: img_back
+                tintOpacity: FluTheme.dark ? 0.80 : 0.75
+                blurRadius: 64
+                visible: window.active && FluTheme.blurBehindWindowEnabled
+                tintColor: FluTheme.dark ? Qt.rgba(0, 0, 0, 1)  : Qt.rgba(1, 1, 1, 1)
+                targetRect: Qt.rect(window.x,window.y,window.width,window.height)
+            }
         }
     }
     Component{
@@ -282,6 +329,12 @@ Window {
     }
     function showMaximized(){
         frameless.showMaximized()
+    }
+    function showMinimized(){
+        frameless.showMinimized()
+    }
+    function showNormal(){
+        frameless.showNormal()
     }
     function showLoading(text = "",cancel = true){
         if(text===""){

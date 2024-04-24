@@ -17,6 +17,11 @@ T.Frame {
         id:d
         radius: 4
         border.color: FluTheme.dividerColor
-        color: FluTheme.dark ? Window.active ?  Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+        color: {
+            if(Window.active){
+                return FluTheme.frameActiveColor
+            }
+            return FluTheme.frameColor
+        }
     }
 }

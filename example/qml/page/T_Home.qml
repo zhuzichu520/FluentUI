@@ -12,10 +12,6 @@ FluScrollablePage{
     animationEnabled: false
     header: Item{}
 
-    FluentInitializrWindow{
-        id:fluent_Initializr
-    }
-
     ListModel{
         id: model_header
         ListElement{

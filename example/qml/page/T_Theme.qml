@@ -13,7 +13,7 @@ FluScrollablePage{
 
     FluFrame{
         Layout.fillWidth: true
-        Layout.preferredHeight: 340
+        Layout.preferredHeight: 408
         padding: 10
 
         ColumnLayout{
@@ -117,6 +117,17 @@ FluScrollablePage{
                 checked: FluTheme.animationEnabled
                 onClicked: {
                     FluTheme.animationEnabled = !FluTheme.animationEnabled
+                }
+            }
+            FluText{
+                text: qsTr("Open Blur Window")
+                Layout.topMargin: 20
+            }
+            FluToggleSwitch{
+                Layout.topMargin: 5
+                checked: FluTheme.blurBehindWindowEnabled
+                onClicked: {
+                    FluTheme.blurBehindWindowEnabled = !FluTheme.blurBehindWindowEnabled
                 }
             }
         }

@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import Qt.labs.qmlmodels 1.0
@@ -17,7 +18,12 @@ Rectangle {
     property color selectedBorderColor: FluTheme.primaryColor
     property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
     id:control
-    color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+    color: {
+        if(Window.active){
+            return FluTheme.frameActiveColor
+        }
+        return FluTheme.frameColor
+    }
     onColumnSourceChanged: {
         if(columnSource.length!==0){
             var columns= []
@@ -90,7 +96,7 @@ Rectangle {
                 if(!readOnly){
                     editTextChaged(text_box.text)
                 }
-                tableView.closeEditor()
+                control.closeEditor()
             }
         }
     }
@@ -119,7 +125,7 @@ Rectangle {
                         if(!readOnly){
                             editTextChaged(text_box.text)
                         }
-                        tableView.closeEditor()
+                        control.closeEditor()
                     }
                 }
             }
@@ -258,7 +264,7 @@ Rectangle {
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
                     onPressed:{
-                        closeEditor()
+                        control.closeEditor()
                     }
                     onCanceled: {
                     }
@@ -275,7 +281,7 @@ Rectangle {
                     onClicked:
                         (event)=>{
                             d.current = rowObject
-                            closeEditor()
+                            control.closeEditor()
                             event.accepted = true
                         }
                 }
@@ -381,6 +387,7 @@ Rectangle {
             clip: true
             onRowsChanged: {
                 control.closeEditor()
+                table_view.flick(0,1)
             }
             delegate: com_table_delegate
             FluLoader{
@@ -771,9 +778,9 @@ Rectangle {
             timer_vertical_force_layout.restart()
         }
         Connections{
-            target: table_model
-            function onRowCountChanged(){
-                header_row_model.rows = Array.from({length: table_model.rows.length}, (_, i) => ({rowIndex:i+1}))
+            target: table_view
+            function onRowsChanged(){
+                header_row_model.rows = Array.from({length: table_view.rows}, (_, i) => ({rowIndex:i+1}))
             }
         }
         Timer{

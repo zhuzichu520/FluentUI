@@ -78,14 +78,14 @@ jobs:
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: zhuzichu520/inno-setup-action@v1.0.1
         with:
-          filepath: ./action-cli/InstallerScript.iss
+          filepath: ./package/InstallerScript.iss
           
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./action-cli/installer.exe
+          file: ./package/installer.exe
           asset_name: ${{ env.fileName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.exe
           tag: ${{ github.ref }}
           overwrite: true

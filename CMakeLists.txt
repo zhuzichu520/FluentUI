@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.20)
 
 project(FluentUI VERSION 1.0)
 
-if(MSVC)
+if (MSVC)
     #让Release也生成pdb文件
     set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
-endif()
+endif ()
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/.cmake/)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/.cmake/)
 
 include(GetGitRevisionDescription)
 
@@ -22,8 +22,8 @@ add_subdirectory(src)
 
 #Release也支持日志打印代码位置
 target_compile_definitions(fluentuiplugin
-    PRIVATE
-    QT_MESSAGELOGCONTEXT
+        PRIVATE
+        QT_MESSAGELOGCONTEXT
 )
 
 if (FLUENTUI_BUILD_EXAMPLES)

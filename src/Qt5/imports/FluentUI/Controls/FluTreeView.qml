@@ -5,283 +5,193 @@ import QtQuick.Controls 2.15
 import Qt.labs.qmlmodels 1.0
 import FluentUI 1.0
 
-Item {
-    property int currentIndex : -1
+Rectangle {
     property var dataSource
+    property var columnSource : []
     property bool showLine: true
-    property bool draggable: false
     property int cellHeight: 30
-    property int depthPadding: 30
+    property int depthPadding: 15
     property bool checkable: false
-    property color lineColor: FluTheme.dark ? Qt.rgba(111/255,111/255,111/255,1) : Qt.rgba(217/255,217/255,217/255,1)
+    property color lineColor: FluTheme.dividerColor
+    property color borderColor: FluTheme.dark ? Qt.rgba(37/255,37/255,37/255,1) : Qt.rgba(228/255,228/255,228/255,1)
+    property color selectedBorderColor: FluTheme.primaryColor
+    property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
+    readonly property alias current: d.current
     id:control
-    QtObject {
-        id:d
-        property int dy
-        property var current
-        property int dropIndex: -1
-        property bool isDropTopArea: false
-        property int dragIndex: -1
-        property color hitColor: FluTheme.primaryColor
+    color: {
+        if(Window.active){
+            return FluTheme.frameActiveColor
+        }
+        return FluTheme.frameColor
     }
     onDataSourceChanged: {
         tree_model.setDataSource(dataSource)
     }
+    onColumnSourceChanged: {
+        if(columnSource.length !== 0){
+            var columns= []
+            var headerRow = {}
+            columnSource.forEach(function(item){
+                var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',control);
+                column.display = item.dataIndex
+                columns.push(column)
+                headerRow[item.dataIndex] = item.title
+            })
+            header_column_model.columns = columns
+            header_column_model.rows = [headerRow]
+        }
+    }
     FluTreeModel{
         id:tree_model
+        columnSource: control.columnSource
     }
-    ListView{
-        id:table_view
-        ScrollBar.horizontal: FluScrollBar{}
-        ScrollBar.vertical: FluScrollBar{}
-        boundsBehavior: Flickable.StopAtBounds
-        model: tree_model
-        anchors.fill: parent
-        clip: true
-        flickableDirection: Flickable.HorizontalAndVerticalFlick
-        contentWidth: contentItem.childrenRect.width
-        reuseItems: true
-        removeDisplaced : Transition{
-            ParallelAnimation{
-                NumberAnimation {
-                    properties: "y"
-                    duration: 167
-                    from: d.dy + table_view.height
-                    easing.type: Easing.OutCubic
-                }
-                NumberAnimation {
-                    properties: "opacity"
-                    duration: 83
-                    from: 0
-                    to: 1
-                }
-            }
+    onDepthPaddingChanged: {
+        table_view.forceLayout()
+    }
+    onCellHeightChanged: {
+        table_view.forceLayout()
+    }
+    onCheckableChanged: {
+        delay_force_layout.restart()
+    }
+    Timer{
+        id:delay_force_layout
+        interval: 30
+        onTriggered: {
+            table_view.forceLayout()
         }
-        move: Transition {
-            NumberAnimation { property: "y"; duration: 200 }
-        }
-        add: Transition{
-            ParallelAnimation{
-                NumberAnimation {
-                    properties: "y"
-                    duration: 167
-                    from: d.dy - control.cellHeight
-                    easing.type: Easing.OutCubic
-                }
-                NumberAnimation {
-                    properties: "opacity"
-                    duration: 83
-                    from: 0
-                    to: 1
-                }
+    }
+    QtObject {
+        id:d
+        property var current
+        property int defaultItemWidth: 100
+        property int rowHoverIndex: -1
+        property var editDelegate
+        property var editPosition
+        function getEditDelegate(column){
+            var obj = control.columnSource[column].editDelegate
+            if(obj){
+                return obj
             }
-        }
-        delegate: Item {
-            id:item_control
-            implicitWidth: item_loader_container.width
-            implicitHeight: item_loader_container.height
-            ListView.onReused: {
-                item_loader_container.item.reused()
+            if(control.columnSource[column].editMultiline === true){
+                return com_edit_multiline
             }
-            ListView.onPooled: {
-                item_loader_container.item.pooled()
-            }
-            FluLoader{
-                property var itemControl: item_control
-                property var itemModel: dataModel
-                property int rowIndex: index
-                property bool isItemLoader: true
-                id:item_loader_container
-                sourceComponent: com_item_container
-            }
-        }
-        FluLoader{
-            id:loader_container
-            property var itemControl
-            property var itemModel
-            property bool isItemLoader: false
+            return com_edit
         }
     }
     Component{
-        id:com_item_container
+        id:com_edit
+        FluTextBox{
+            id:text_box
+            text: String(display)
+            readOnly: true === control.columnSource[column].readOnly
+            Component.onCompleted: {
+                forceActiveFocus()
+                selectAll()
+            }
+            onCommit: {
+                if(!readOnly){
+                    editTextChaged(text_box.text)
+                }
+                control.closeEditor()
+            }
+        }
+    }
+    Component{
+        id:com_edit_multiline
         Item{
-            signal reused
-            signal pooled
-            onReused: {
-
-            }
-            onPooled: {
-            }
-            property bool isCurrent: d.current === itemModel
-            id:item_container
-            width: {
-                var w = 46 + item_loader_cell.width + control.depthPadding*itemModel.depth
-                if(control.width>w){
-                    return control.width
-                }
-                return w
-            }
-            height: control.cellHeight
-            implicitWidth: width
-            implicitHeight: height
-            function toggle(){
-                var pos = FluTools.cursorPos()
-                var viewPos = table_view.mapToGlobal(0,0)
-                d.dy = table_view.contentY + pos.y-viewPos.y
-                if(itemModel.isExpanded){
-                    tree_model.collapse(rowIndex)
-                }else{
-                    tree_model.expand(rowIndex)
+            anchors.fill: parent
+            Flickable{
+                id:item_scroll
+                clip: true
+                anchors.fill: parent
+                ScrollBar.vertical: multiline_text_srcoll_bar
+                boundsBehavior: Flickable.StopAtBounds
+                TextArea.flickable: FluMultilineTextBox {
+                    id:text_box
+                    text: String(display)
+                    readOnly: true === control.columnSource[column].readOnly
+                    verticalAlignment: TextInput.AlignVCenter
+                    isCtrlEnterForNewline: true
+                    Component.onCompleted: {
+                        forceActiveFocus()
+                        selectAll()
+                    }
+                    rightPadding: 34
+                    onCommit: {
+                        if(!readOnly){
+                            editTextChaged(text_box.text)
+                        }
+                        control.closeEditor()
+                    }
                 }
             }
-            Rectangle{
-                width: 3
-                height: 18
-                radius: 1.5
-                color: FluTheme.primaryColor
-                visible: isCurrent
+            FluIconButton{
+                iconSource:FluentIcons.ChromeClose
+                iconSize: 10
+                width: 20
+                height: 20
+                padding: 0
+                verticalPadding: 0
+                horizontalPadding: 0
+                visible: {
+                    if(text_box.readOnly)
+                        return false
+                    return text_box.text !== ""
+                }
                 anchors{
-                    left: parent.left
-                    leftMargin: 6
                     verticalCenter: parent.verticalCenter
+                    right: parent.right
+                    rightMargin: 15
                 }
+                onClicked:{
+                    text_box.text = ""
+                }
+            }
+            FluScrollBar{
+                id:multiline_text_srcoll_bar
+                anchors{
+                    right: parent.right
+                    rightMargin: 5
+                    top: parent.top
+                    bottom: parent.bottom
+                    topMargin: 3
+                    bottomMargin: 3
+                }
+            }
+        }
+    }
+    Component{
+        id:com_column
+        Item{
+            id:item_container
+            clip: true
+            function toggle(){
+                if(rowModel.isExpanded){
+                    tree_model.collapse(row)
+                }else{
+                    tree_model.expand(row)
+                }
+                delay_force_layout.restart()
             }
             MouseArea{
                 id:item_mouse
                 property point clickPos: Qt.point(0,0)
                 anchors.fill: parent
-                drag.target:control.draggable ? loader_container : undefined
-                hoverEnabled: true
-                drag.onActiveChanged: {
-                    if(drag.active){
-                        if(itemModel.isExpanded && itemModel.hasChildren()){
-                            tree_model.collapse(rowIndex)
-                        }
-                        d.dragIndex = rowIndex
-                        loader_container.sourceComponent = com_item_container
-                    }
-                }
-                onPressed:
-                    (mouse)=>{
-                        clickPos = Qt.point(mouse.x,mouse.y)
-                        loader_container.itemControl = itemControl
-                        loader_container.itemModel = itemModel
-                        var cellPosition = item_container.mapToItem(table_view, 0, 0)
-                        loader_container.width = item_container.width
-                        loader_container.height = item_container.height
-                        loader_container.x = 0
-                        loader_container.y = cellPosition.y
-                    }
                 onClicked: {
-                    d.current = itemModel
+                    d.current = rowModel
                 }
                 onDoubleClicked: {
-                    if(itemModel.hasChildren()){
+                    if(rowModel.hasChildren()){
                         item_container.toggle()
-                    }
-                }
-                onPositionChanged:
-                    (mouse)=> {
-                        if(!drag.active){
-                            return
-                        }
-                        var cellPosition = item_container.mapToItem(table_view, 0, 0)
-                        if(mouse.y+cellPosition.y<0 || mouse.y+cellPosition.y>table_view.height){
-                            d.dropIndex = -1
-                            return
-                        }
-                        if((mouse.x-table_view.contentX)>table_view.width || (mouse.x-table_view.contentX)<0){
-                            d.dropIndex = -1
-                            return
-                        }
-                        var pos = FluTools.cursorPos()
-                        var viewPos = table_view.mapToGlobal(0,0)
-                        var y = table_view.contentY + pos.y-viewPos.y
-                        var index = Math.floor(y/control.cellHeight)
-                        if(index<0 || index>table_view.count-1){
-                            d.dropIndex = -1
-                            return
-                        }
-                        if(tree_model.hitHasChildrenExpanded(index) && y>index*control.cellHeight+control.cellHeight/2){
-                            d.dropIndex = index + 1
-                            d.isDropTopArea = true
-                        }else{
-                            d.dropIndex = index
-                            if(y>index*control.cellHeight+control.cellHeight/2){
-                                d.isDropTopArea = false
-                            }else{
-                                d.isDropTopArea = true
-                            }
-                        }
-                    }
-                onCanceled: {
-                    loader_container.sourceComponent = undefined
-                    loader_container.x = 0
-                    loader_container.y = 0
-                    d.dropIndex = -1
-                    d.dragIndex = -1
-                }
-                onReleased: {
-                    loader_container.sourceComponent = undefined
-                    if(d.dropIndex !== -1){
-                        tree_model.dragAndDrop(d.dragIndex,d.dropIndex,d.isDropTopArea)
-                    }
-                    d.dropIndex = -1
-                    d.dragIndex = -1
-                    loader_container.x = 0
-                    loader_container.y = 0
-                }
-            }
-            Drag.active: item_mouse.drag.active
-            Rectangle{
-                id:item_line_drop_tip
-                anchors{
-                    left: layout_row.left
-                    leftMargin: 26
-                    right: parent.right
-                    rightMargin: 10
-                    bottom: parent.bottom
-                    bottomMargin: -1.5
-                    top: undefined
-                }
-                states: [
-                    State {
-                        when:d.isDropTopArea
-                        AnchorChanges {
-                            target: item_line_drop_tip
-                            anchors.top: item_container.top
-                            anchors.bottom: undefined
-                        }
-                        PropertyChanges {
-                            target: item_line_drop_tip
-                            anchors.topMargin: -1.5
-                        }
-                    }
-                ]
-                height: 3
-                radius: 1.5
-                color: d.hitColor
-                visible: d.dropIndex === rowIndex
-                Rectangle{
-                    width: 10
-                    height: 10
-                    radius: 5
-                    border.width: 3
-                    border.color: d.hitColor
-                    color: FluTheme.dark ? FluColors.Black : FluColors.White
-                    anchors{
-                        top: parent.top
-                        left: parent.left
-                        topMargin: -3
-                        leftMargin: -5
                     }
                 }
             }
             FluRectangle{
                 width: 1
                 color: control.lineColor
-                visible: control.showLine  && isItemLoader && itemModel.depth !== 0 && !itemModel.hasChildren()
-                height: itemModel.hideLineFooter() ? parent.height/2 : parent.height
+                visible: control.showLine && rowModel.depth !== 0 && !rowModel.hasChildren()
+                height: rowModel.hideLineFooter() ? parent.height/2 : parent.height
                 anchors{
                     top: parent.top
                     left: item_line_h.left
@@ -291,7 +201,7 @@ Item {
                 id:item_line_h
                 height: 1
                 color: control.lineColor
-                visible: control.showLine && isItemLoader  && itemModel.depth !== 0 && !itemModel.hasChildren()
+                visible: control.showLine && rowModel.depth !== 0 && !rowModel.hasChildren()
                 width: depthPadding - 10
                 anchors{
                     right: layout_row.left
@@ -300,12 +210,12 @@ Item {
                 }
             }
             Repeater{
-                model: Math.max(itemModel.depth-1,0)
+                model: Math.max(rowModel.depth-1,0)
                 delegate: FluRectangle{
                     required property int index
                     width: 1
                     color: control.lineColor
-                    visible: control.showLine && isItemLoader && itemModel.depth !== 0 && itemModel.hasNextNodeByIndex(index)
+                    visible: control.showLine && rowModel.depth !== 0 && rowModel.hasNextNodeByIndex(index)
                     anchors{
                         top:parent.top
                         bottom: parent.bottom
@@ -314,57 +224,34 @@ Item {
                     }
                 }
             }
-            Rectangle{
-                anchors.fill: parent
-                radius: 4
-                anchors.leftMargin: 6
-                anchors.rightMargin: 6
-                border.color: d.hitColor
-                border.width: d.dragIndex === rowIndex ? 1 : 0
-                color: {
-                    if(isCurrent){
-                        return FluTheme.itemCheckColor
-                    }
-                    if(item_mouse.containsMouse || item_check_box.hovered){
-                        return FluTheme.itemHoverColor
-                    }
-                    if(item_loader_expand.item && item_loader_expand.item.hovered){
-                        return FluTheme.itemHoverColor
-                    }
-                    return FluTheme.itemNormalColor
-                }
-            }
             RowLayout{
                 id:layout_row
                 height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
+                anchors.fill: parent
                 spacing: 0
-                anchors.leftMargin: 14 + control.depthPadding*itemModel.depth
+                anchors.leftMargin: 14 + control.depthPadding*rowModel.depth
                 Component{
                     id:com_icon_btn
                     FluIconButton{
-                        opacity: itemModel.hasChildren()
+                        opacity: rowModel.hasChildren()
                         onClicked: {
                             item_container.toggle()
                         }
                         contentItem:FluIcon{
-                            rotation: itemModel.isExpanded?0:-90
+                            rotation: rowModel.isExpanded?0:-90
                             iconSource:FluentIcons.ChevronDown
                             iconSize: 16
                             anchors.centerIn: parent
                         }
                     }
                 }
-
                 FluLoader{
                     id:item_loader_expand
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 20
-                    sourceComponent: itemModel.hasChildren() ? com_icon_btn : undefined
+                    sourceComponent: rowModel.hasChildren() ? com_icon_btn : undefined
                     Layout.alignment: Qt.AlignVCenter
                 }
-
                 FluCheckBox{
                     id:item_check_box
                     Layout.preferredWidth: 18
@@ -372,39 +259,453 @@ Item {
                     Layout.leftMargin: 5
                     horizontalPadding:0
                     verticalPadding: 0
-                    checked: itemModel.checked
+                    checked: rowModel.checked
                     animationEnabled:false
                     visible: control.checkable
                     padding: 0
                     clickListener: function(){
-                        tree_model.checkRow(rowIndex,!itemModel.checked)
+                        tree_model.checkRow(row,!rowModel.checked)
                     }
                     Layout.alignment: Qt.AlignVCenter
                 }
-                FluLoader{
-                    property var dataModel: itemModel
-                    property var itemMouse: item_mouse
-                    id:item_loader_cell
-                    Layout.leftMargin: 10
-                    Layout.preferredWidth: {
-                        if(item){
-                            return item.width
-                        }
-                        return 0
-                    }
+                Item{
                     Layout.fillHeight: true
-                    sourceComponent:com_item_text
+                    Layout.fillWidth: true
+                    Layout.leftMargin: 6
+                    FluText {
+                        id:item_text
+                        text: String(display)
+                        elide: Text.ElideRight
+                        verticalAlignment: Text.AlignVCenter
+                        anchors.fill: parent
+                        MouseArea{
+                            acceptedButtons: Qt.NoButton
+                            id: hover_handler
+                            hoverEnabled: true
+                            anchors.fill: parent
+                        }
+                        FluTooltip{
+                            text: item_text.text
+                            delay: 500
+                            visible: item_text.contentWidth < item_text.implicitWidth &&  hover_handler.containsMouse
+                        }
+                    }
                 }
+
             }
         }
     }
+    Component{
+        id:com_other
+        FluText {
+            id:item_text
+            text: String(display)
+            elide: Text.ElideRight
+            wrapMode: Text.WrapAnywhere
+            anchors{
+                fill: parent
+                leftMargin: 11
+                rightMargin: 11
+                topMargin: 6
+                bottomMargin: 6
+            }
+            verticalAlignment: Text.AlignVCenter
+            MouseArea{
+                acceptedButtons: Qt.NoButton
+                id: hover_handler
+                hoverEnabled: true
+                anchors.fill: parent
+            }
+            FluTooltip{
+                text: item_text.text
+                delay: 500
+                visible: item_text.contentWidth < item_text.implicitWidth && item_text.contentHeight < item_text.implicitHeight &&  hover_handler.containsMouse
+            }
+        }
+    }
+    TableView{
+        id:table_view
+        ScrollBar.horizontal: FluScrollBar{}
+        ScrollBar.vertical: FluScrollBar{}
+        boundsBehavior: Flickable.StopAtBounds
+        model: tree_model
+        anchors{
+            top: header_horizontal.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        clip: true
+        columnWidthProvider: function(column) {
+            var columnObject = control.columnSource[column]
+            var width = columnObject.width
+            if(width){
+                return width
+            }
+            var minimumWidth = columnObject.minimumWidth
+            if(minimumWidth){
+                return minimumWidth
+            }
+            return d.defaultItemWidth
+        }
+        rowHeightProvider: function(row) {
+            return control.cellHeight
+        }
+        delegate: MouseArea{
+            property var rowObject : rowModel.data
+            property alias isRowSelected: item_table_loader.isRowSelected
+            property var display: rowModel.data[columnModel.dataIndex]
+            property bool isObject: typeof(item_table.display) == "object"
+            property bool editVisible: {
+                if(rowObject && d.editPosition && d.editPosition._key === rowObject._key && d.editPosition.column === column){
+                    return true
+                }
+                return false
+            }
+            implicitHeight: 30
+            implicitWidth: 30
+            id: item_table
+            hoverEnabled: true
+            onEntered: {
+                d.rowHoverIndex = row
+            }
+            onWidthChanged: {
+                if(editVisible){
+                    updateEditPosition()
+                }
+            }
+            onHeightChanged: {
+                if(editVisible){
+                    updateEditPosition()
+                }
+            }
+            onXChanged: {
+                if(editVisible){
+                    updateEditPosition()
+                }
+            }
+            onYChanged: {
+                if(editVisible){
+                    updateEditPosition()
+                }
+            }
+            function updateEditPosition(){
+                var obj = {}
+                obj._key = rowObject._key
+                obj.column = column
+                obj.row = row
+                obj.x = item_table.x
+                obj.y = item_table.y + 1
+                obj.width = item_table.width
+                obj.height = item_table.height - 2
+                d.editPosition = obj
+            }
+            onDoubleClicked:{
+                if(typeof(display) == "object"){
+                    return
+                }
+                d.editDelegate = d.getEditDelegate(column)
+                updateEditPosition()
+                loader_edit.display = display
+            }
+            onClicked:
+                (event)=>{
+                    d.current = rowModel
+                    event.accepted = true
+                }
+            Rectangle{
+                anchors.fill: parent
+                color:{
+                    if(item_table.isRowSelected){
+                        return control.selectedColor
+                    }
+                    if(d.rowHoverIndex === row || item_table.isRowSelected){
+                        return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
+                    }
+                    return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
+                }
+                Item{
+                    anchors.fill: parent
+                    visible: item_table.isRowSelected
+                    Rectangle{
+                        width: 1
+                        height: parent.height
+                        anchors.left: parent.left
+                        color: control.selectedBorderColor
+                        visible: column === 0
+                    }
+                    Rectangle{
+                        width: 1
+                        height: parent.height
+                        anchors.right: parent.right
+                        color: control.selectedBorderColor
+                        visible: column === control.columnSource.length-1
+                    }
+                    Rectangle{
+                        width: parent.width
+                        height: 1
+                        anchors.top: parent.top
+                        color: control.selectedBorderColor
+                    }
+                    Rectangle{
+                        width: parent.width
+                        height: 1
+                        anchors.bottom: parent.bottom
+                        color: control.selectedBorderColor
+                    }
+                }
+            }
+            FluLoader{
+                anchors.fill: parent
+                id:item_table_loader
+                property var rowModel : model.rowModel
+                property var columnModel : model.columnModel
+                property int row : model.row
+                property int column: model.column
+                property var display: item_table.display
+                property bool isRowSelected: d.current === rowModel
+                property var options: {
+                    if(isObject){
+                        return display.options
+                    }
+                    return {}
+                }
+                sourceComponent: {
+                    if(column === 0)
+                        return com_column
+                    if(item_table.isObject){
+                        return item_table.display.comId
+                    }
+                    return com_other
+                }
+            }
+        }
+        FluLoader{
+            id:loader_edit
+            property var tableView: control
+            property var display
+            property int column: {
+                if(d.editPosition){
+                    return d.editPosition.column
+                }
+                return 0
+            }
+            property int row: {
+                if(d.editPosition){
+                    return d.editPosition.row
+                }
+                return 0
+            }
+            signal editTextChaged(string text)
+            sourceComponent: d.editPosition ? d.editDelegate : undefined
+            onEditTextChaged:
+                (text)=>{
+                    const obj = tree_model.getRow(row).data
+                    obj[control.columnSource[column].dataIndex] = text
+                    tree_model.setRow(row,obj)
+                }
+            width: {
+                if(d.editPosition){
+                    return d.editPosition.width
+                }
+                return 0
+            }
+            height: {
+                if(d.editPosition){
+                    return d.editPosition.height
+                }
+                return 0
+            }
+            x:{
+                if(d.editPosition){
+                    return d.editPosition.x
+                }
+                return 0
+            }
+            y:{
+                if(d.editPosition){
+                    return d.editPosition.y
+                }
+                return 0
+            }
+            z:999
+        }
+    }
+    TableModel{
+        id:header_column_model
+        TableModelColumn {}
+    }
+    Component{
+        id:com_column_text
+        FluText {
+            id: column_text
+            text: modelData
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+    Component{
+        id:com_column_header_delegate
+        Rectangle{
+            id:column_item_control
+            readonly property real cellPadding: 8
+            property bool canceled: false
+            property int columnIndex: column
+            property var columnObject : control.columnSource[column]
+            implicitWidth: {
+                return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
+            }
+            implicitHeight: Math.max(36, (item_column_loader.item&&item_column_loader.item.implicitHeight) + (cellPadding * 2))
+            color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
+            Rectangle{
+                border.color: control.borderColor
+                width: parent.width
+                height: 1
+                anchors.top: parent.top
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: parent.width
+                height: 1
+                anchors.bottom: parent.bottom
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: 1
+                height: parent.height
+                anchors.left: parent.left
+                color:"#00000000"
+            }
+            Rectangle{
+                border.color: control.borderColor
+                width: 1
+                height: parent.height
+                anchors.right: parent.right
+                color:"#00000000"
+                visible: column === table_view.columns - 1
+            }
+            MouseArea{
+                id:column_item_control_mouse
+                anchors.fill: parent
+                anchors.rightMargin: 6
+                hoverEnabled: true
+                onCanceled: {
+                    column_item_control.canceled = true
+                }
+                onContainsMouseChanged: {
+                    if(!containsMouse){
+                        column_item_control.canceled = false
+                    }
+                }
+                onClicked:
+                    (event)=>{
+
+                    }
+            }
+            FluLoader{
+                id:item_column_loader
+                property var itemModel: model
+                property var modelData: model.display
+                property var tableView: table_view
+                property var options:{
+                    if(typeof(modelData) == "object"){
+                        return modelData.options
+                    }
+                    return {}
+                }
+                property int column: column_item_control.columnIndex
+                width: parent.width
+                height: parent.height
+                sourceComponent: {
+                    if(typeof(modelData) == "object"){
+                        return modelData.comId
+                    }
+                    return com_column_text
+                }
+            }
+            MouseArea{
+                property point clickPos: "0,0"
+                height: parent.height
+                width: 6
+                anchors.right: parent.right
+                acceptedButtons: Qt.LeftButton
+                hoverEnabled: true
+                visible: !(columnObject.width === columnObject.minimumWidth && columnObject.width === columnObject.maximumWidth && columnObject.width)
+                cursorShape: Qt.SplitHCursor
+                preventStealing: true
+                onPressed :
+                    (mouse)=>{
+                        FluTools.setOverrideCursor(Qt.SplitHCursor)
+                        clickPos = Qt.point(mouse.x, mouse.y)
+                    }
+                onReleased:{
+                    FluTools.restoreOverrideCursor()
+                }
+                onCanceled: {
+                    FluTools.restoreOverrideCursor()
+                }
+                onPositionChanged:
+                    (mouse)=>{
+                        if(!pressed){
+                            return
+                        }
+                        var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
+                        var minimumWidth = columnObject.minimumWidth
+                        var maximumWidth = columnObject.maximumWidth
+                        var w = columnObject.width
+                        if(!w){
+                            w = d.defaultItemWidth
+                        }
+                        if(!minimumWidth){
+                            minimumWidth = d.defaultItemWidth
+                        }
+                        if(!maximumWidth){
+                            maximumWidth = 65535
+                        }
+                        columnObject.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
+                        table_view.forceLayout()
+                    }
+            }
+        }
+    }
+
+    TableView {
+        id: header_horizontal
+        model: header_column_model
+        anchors{
+            left: table_view.left
+            right: table_view.right
+            top: parent.top
+        }
+        height: Math.max(1, contentHeight)
+        boundsBehavior: Flickable.StopAtBounds
+        clip: true
+        syncDirection: Qt.Horizontal
+        columnWidthProvider: table_view.columnWidthProvider
+        syncView: table_view.rows === 0 ? null : table_view
+        onContentXChanged:{
+            timer_horizontal_force_layout.restart()
+        }
+        Timer{
+            id:timer_horizontal_force_layout
+            interval: 50
+            onTriggered: {
+                header_horizontal.forceLayout()
+            }
+        }
+        delegate: com_column_header_delegate
+    }
+
     Component{
         id:com_item_text
         Item{
             width: item_text.width
             FluText {
                 id:item_text
-                text: dataModel.title
+                text: model.title
                 rightPadding: 14
                 anchors.centerIn: parent
                 color:{
@@ -416,14 +717,11 @@ Item {
             }
         }
     }
-    function selectionModel(){
-        return tree_model.selectionModel
-    }
     function count(){
         return tree_model.dataSourceSize
     }
     function visibleCount(){
-        return table_view.count
+        return table_view.rows
     }
     function collapse(rowIndex){
         tree_model.collapse(rowIndex)
@@ -436,5 +734,18 @@ Item {
     }
     function allCollapse(){
         tree_model.allCollapse()
+    }
+    function customItem(comId,options={}){
+        var o = {}
+        o.comId = comId
+        o.options = options
+        return o
+    }
+    function closeEditor(){
+        d.editPosition = undefined
+        d.editDelegate = undefined
+    }
+    function selectionModel(){
+        return tree_model.selectionModel()
     }
 }

@@ -27,7 +27,12 @@ Item {
         height: 45
         radius: 4
         border.color: FluTheme.dividerColor
-        color: FluTheme.dark ? Window.active ?  Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+        color: {
+            if(Window.active){
+                return FluTheme.frameActiveColor
+            }
+            return FluTheme.frameColor
+        }
         MouseArea{
             id:control_mouse
             anchors.fill: parent
@@ -84,12 +89,18 @@ Item {
         height: contentHeight+container.anchors.topMargin
         width: parent.width
         z:-999
+        clip: true
         Rectangle{
             id:container
             anchors.fill: parent
             radius: 4
             clip: true
-            color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
+            color: {
+                if(Window.active){
+                    return FluTheme.frameActiveColor
+                }
+                return FluTheme.frameColor
+            }
             border.color: FluTheme.dividerColor
             anchors.topMargin: -contentHeight
             states: [

@@ -6,13 +6,13 @@ import FluentUI 1.0
 
 FluContentPage {
 
-    title: qsTr("Awesome")
+    title: qsTr("Icons")
 
     FluTextBox{
-        id:text_box
+        id: text_box
         placeholderText: qsTr("Please enter a keyword")
         anchors{
-            top:parent.top
+            top: parent.top
         }
     }
 
@@ -24,47 +24,49 @@ FluContentPage {
             leftMargin: 14
         }
         onClicked: {
-            grid_view.model = FluTheme.awesomeList(text_box.text)
+            grid_view.model = FluApp.iconDatas(text_box.text)
         }
     }
     GridView{
-        id:grid_view
-        cellWidth: 80
-        cellHeight: 80
+        id: grid_view
+        cellWidth: 110
+        cellHeight: 110
         clip: true
         boundsBehavior: GridView.StopAtBounds
-        model:FluTheme.awesomeList()
+        model: FluApp.iconDatas()
         ScrollBar.vertical: FluScrollBar {}
         anchors{
             topMargin: 10
-            top:text_box.bottom
+            top: text_box.bottom
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
         delegate: Item {
-            width: 68
-            height: 80
+            width: 100
+            height: 100
             FluIconButton{
                 id:item_icon
-                iconSource:modelData.icon
-                anchors.horizontalCenter: parent.horizontalCenter
+                iconSource: modelData.icon
+                iconSize: 30
+                padding: 0
+                verticalPadding: 0
+                horizontalPadding: 0
+                bottomPadding: 30
+                anchors.fill: parent
                 onClicked: {
                     var text  ="FluentIcons."+modelData.name;
                     FluTools.clipText(text)
                     showSuccess(qsTr("You Copied ")+text)
                 }
-            }
-            FluText {
-                id:item_name
-                font.pixelSize: 10
-                font.family: FluTextStyle.family
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: item_icon.bottom
-                width:parent.width
-                wrapMode: Text.WrapAnywhere
-                text: modelData.name
-                horizontalAlignment: Text.AlignHCenter
+                FluText{
+                    width: parent.width
+                    horizontalAlignment: Qt.AlignHCenter
+                    wrapMode: Text.WrapAnywhere
+                    text: modelData.name
+                    anchors.top: parent.top
+                    anchors.topMargin: 60
+                }
             }
         }
     }
