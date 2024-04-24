@@ -56,7 +56,9 @@ QtObject {
             var launchMode = win.launchMode
             if(launchMode === 1){
                 win.argument = argument
-                win.show()
+                if(!win.visible){
+                    win.visible = true
+                }
                 win.raise()
                 win.requestActivate()
                 return
