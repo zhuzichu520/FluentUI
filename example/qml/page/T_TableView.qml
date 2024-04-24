@@ -283,6 +283,7 @@ FluContentPage{
     Component{
         id:com_auto_suggestbox
         FluAutoSuggestBox {
+            id: textbox
             anchors.fill: parent
             focus: true
             Component.onCompleted: {
@@ -291,10 +292,10 @@ FluContentPage{
                     return {title: item};
                 });
                 items = result
-                text= String(display)
+                textbox.text= String(display)
             }
             onCommit: {
-                editTextChaged(text)
+                editTextChaged(textbox.text)
                 tableView.closeEditor()
             }
         }
