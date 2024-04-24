@@ -47,7 +47,7 @@ void FluTheme::refreshColors() {
     fontSecondaryColor(isDark ? QColor(222, 222, 222, 255) : QColor(102, 102, 102, 255));
     fontTertiaryColor(isDark ? QColor(200, 200, 200, 255) : QColor(153, 153, 153, 255));
     itemNormalColor(isDark ? QColor(255, 255, 255, 0) : QColor(0, 0, 0, 0));
-    frameColor(isDark ? QColor(56, 56, 56, qRound(255 * 0.8)) : QColor(233, 233, 233, qRound(255 * 0.8)));
+    frameColor(isDark ? QColor(56, 56, 56, qRound(255 * 0.8)) : QColor(243, 243, 243, qRound(255 * 0.8)));
     frameActiveColor(isDark ? QColor(48, 48, 48, qRound(255 * 0.8)) : QColor(255, 255, 255, qRound(255 * 0.8)));
     itemHoverColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.06)) : QColor(0, 0, 0, qRound(255 * 0.03)));
     itemPressColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.09)) : QColor(0, 0, 0, qRound(255 * 0.06)));
