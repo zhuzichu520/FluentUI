@@ -1,5 +1,4 @@
-#ifndef FLUTHEME_H
-#define FLUTHEME_H
+#pragma once
 
 #include <QObject>
 #include <QtQml/qqml.h>
@@ -18,7 +17,7 @@
  */
 class FluTheme : public QObject {
 Q_OBJECT
-Q_PROPERTY(bool dark READ dark NOTIFY darkChanged)
+    Q_PROPERTY(bool dark READ dark NOTIFY darkChanged)
 Q_PROPERTY_AUTO_P(FluAccentColor*, accentColor);
 Q_PROPERTY_AUTO(QColor, primaryColor);
 Q_PROPERTY_AUTO(QColor, backgroundColor);
@@ -49,8 +48,6 @@ private:
 
     void refreshColors();
 
-    void updateBackgroundMainColor();
-
 protected:
 
     void timerEvent(QTimerEvent *event) override;
@@ -71,5 +68,3 @@ private:
     QFileSystemWatcher _watcher;
     QMutex _mutex;
 };
-
-#endif // FLUTHEME_H

@@ -109,7 +109,7 @@ FluColors::FluColors(QObject *parent) : QObject{parent} {
     _Green = green;
 }
 
-[[maybe_unused]] FluAccentColor *FluColors::createAccentColor(const QColor& primaryColor) {
+[[maybe_unused]] FluAccentColor *FluColors::createAccentColor(const QColor &primaryColor) {
     auto accentColor = new FluAccentColor(this);
     accentColor->normal(primaryColor);
     accentColor->dark(FluTools::getInstance()->withOpacity(primaryColor, 0.9));

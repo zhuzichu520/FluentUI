@@ -112,7 +112,7 @@ void FluFrameless::componentComplete() {
         ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
     });
 #endif
-    h = h + _appbar->height();
+    h = qRound(h + _appbar->height());
     if (_fixSize) {
         window()->setMaximumSize(QSize(w, h));
         window()->setMinimumSize(QSize(w, h));
@@ -146,7 +146,7 @@ void FluFrameless::componentComplete() {
         auto *wp = reinterpret_cast<WINDOWPOS *>(lParam);
         if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0) {
             wp->flags |= SWP_NOCOPYBITS;
-            *result = ::DefWindowProcW(hwnd, uMsg, wParam, lParam);
+            *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(::DefWindowProcW(hwnd, uMsg, wParam, lParam));
             return true;
         }
         return false;
@@ -158,7 +158,7 @@ void FluFrameless::componentComplete() {
         const LONG originalBottom = clientRect->bottom;
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
-            *result = hitTestResult;
+            *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
             return true;
         }
         int offsetSize;
@@ -175,12 +175,19 @@ void FluFrameless::componentComplete() {
         if (!isCompositionEnabled()) {
             offsetSize = 0;
         }
-        if (!isMaximum || QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        clientRect->top = originalTop + offsetSize;
+        clientRect->bottom = originalBottom - offsetSize;
+        clientRect->left = originalLeft + offsetSize;
+        clientRect->right = originalRight - offsetSize;
+#else
+        if (!isMaximum) {
             clientRect->top = originalTop + offsetSize;
             clientRect->bottom = originalBottom - offsetSize;
             clientRect->left = originalLeft + offsetSize;
             clientRect->right = originalRight - offsetSize;
         }
+#endif
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;
@@ -255,7 +262,7 @@ void FluFrameless::componentComplete() {
         *result = FALSE;
         return true;
     } else if (uMsg == WM_NCACTIVATE) {
-        *result = ::DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1);
+        *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(::DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1));
         return true;
     } else if (uMsg == WM_GETMINMAXINFO) {
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
@@ -270,9 +277,9 @@ void FluFrameless::componentComplete() {
         auto geometry = window()->screen()->availableGeometry();
         RECT rect;
         SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
-        if(!_fixSize){
-            minmaxInfo->ptMinTrackSize.x = window()->minimumWidth() * pixelRatio + offsetXY.x();
-            minmaxInfo->ptMinTrackSize.y = window()->minimumHeight() * pixelRatio + offsetXY.y() + _appbar->height() * pixelRatio;
+        if (!_fixSize) {
+            minmaxInfo->ptMinTrackSize.x = qRound(window()->minimumWidth() * pixelRatio + offsetXY.x());
+            minmaxInfo->ptMinTrackSize.y = qRound(window()->minimumHeight() * pixelRatio + offsetXY.y() + _appbar->height() * pixelRatio);
         }
         minmaxInfo->ptMaxPosition.x = rect.left - offsetXY.x();
         minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
@@ -294,11 +301,11 @@ void FluFrameless::componentComplete() {
     } else if (uMsg == WM_SYSCOMMAND) {
         if (wParam == SC_MINIMIZE) {
             if (window()->transientParent()) {
-                HWND hwnd = reinterpret_cast<HWND>(window()->transientParent()->winId());
-                ::ShowWindow(hwnd, 2);
+                auto _hwnd = reinterpret_cast<HWND>(window()->transientParent()->winId());
+                ::ShowWindow(_hwnd, 2);
             } else {
-                HWND hwnd = reinterpret_cast<HWND>(window()->winId());
-                ::ShowWindow(hwnd, 2);
+                auto _hwnd = reinterpret_cast<HWND>(window()->winId());
+                ::ShowWindow(_hwnd, 2);
             }
             return true;
         }

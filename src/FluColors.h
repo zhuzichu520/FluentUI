@@ -55,7 +55,7 @@ private:
 public:
 SINGLETON(FluColors)
 
-    [[maybe_unused]] Q_INVOKABLE FluAccentColor *createAccentColor(const QColor& primaryColor);
+    [[maybe_unused]] Q_INVOKABLE FluAccentColor *createAccentColor(const QColor &primaryColor);
 
     static FluColors *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
 };

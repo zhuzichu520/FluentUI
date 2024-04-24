@@ -15,7 +15,7 @@ public:
 
     void paint(QPainter *painter) override;
 
-    Q_INVOKABLE [[maybe_unused]] void start(int w, int h, const QPoint &center, int radius);
+    [[maybe_unused]] Q_INVOKABLE void start(int w, int h, const QPoint &center, int radius);
 
     Q_SIGNAL void imageChanged();
 

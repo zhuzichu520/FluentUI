@@ -29,10 +29,10 @@ FluTheme::FluTheme(QObject *parent) : QObject{parent} {
     });
     connect(this, &FluTheme::darkChanged, this, [=] { refreshColors(); });
     connect(this, &FluTheme::accentColorChanged, this, [=] { refreshColors(); });
-    connect(&_watcher, &QFileSystemWatcher::fileChanged, this, [=](const QString &path){
+    connect(&_watcher, &QFileSystemWatcher::fileChanged, this, [=](const QString &path) {
         Q_EMIT desktopImagePathChanged();
     });
-    connect(this, &FluTheme::blurBehindWindowEnabledChanged, this, [=] {checkUpdateDesktopImage();});
+    connect(this, &FluTheme::blurBehindWindowEnabledChanged, this, [=] { checkUpdateDesktopImage(); });
     startTimer(1000);
 }
 
@@ -74,15 +74,15 @@ bool FluTheme::dark() const {
     }
 }
 
-void FluTheme::checkUpdateDesktopImage(){
-    if(!_blurBehindWindowEnabled){
+void FluTheme::checkUpdateDesktopImage() {
+    if (!_blurBehindWindowEnabled) {
         return;
     }
     QThreadPool::globalInstance()->start([=]() {
         _mutex.lock();
         auto path = FluTools::getInstance()->getWallpaperFilePath();
-        if(_desktopImagePath != path){
-            if(!_desktopImagePath.isEmpty()){
+        if (_desktopImagePath != path) {
+            if (!_desktopImagePath.isEmpty()) {
                 _watcher.removePath(_desktopImagePath);
             }
             desktopImagePath(path);
@@ -92,7 +92,6 @@ void FluTheme::checkUpdateDesktopImage(){
     });
 }
 
-void FluTheme::timerEvent(QTimerEvent *event)
-{
+void FluTheme::timerEvent(QTimerEvent *event) {
     checkUpdateDesktopImage();
 }
