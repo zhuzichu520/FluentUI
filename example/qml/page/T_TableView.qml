@@ -281,6 +281,26 @@ FluContentPage{
     }
 
     Component{
+        id:com_auto_suggestbox
+        FluAutoSuggestBox {
+            anchors.fill: parent
+            focus: true
+            Component.onCompleted: {
+                var data = ["傲来国界花果山水帘洞","傲来国界坎源山脏水洞","大唐国界黑风山黑风洞","大唐国界黄风岭黄风洞","大唐国界骷髅山白骨洞","宝象国界碗子山波月洞","宝象国界平顶山莲花洞","宝象国界压龙山压龙洞","乌鸡国界号山枯松涧火云洞","乌鸡国界衡阳峪黑水河河神府"]
+                var result = data.map(function(item) {
+                    return {title: item};
+                });
+                items = result
+                text= String(display)
+            }
+            onCommit: {
+                editTextChaged(text)
+                tableView.closeEditor()
+            }
+        }
+    }
+
+    Component{
         id:com_avatar
         Item{
             FluClip{
@@ -490,6 +510,7 @@ FluContentPage{
             {
                 title: qsTr("Address"),
                 dataIndex: 'address',
+                editDelegate: com_auto_suggestbox,
                 width:200,
                 minimumWidth:100,
                 maximumWidth:250

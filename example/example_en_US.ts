@@ -1968,7 +1968,7 @@ Some contents...</source>
     </message>
     <message>
         <location filename="qml/page/T_TableView.qml" line="177"/>
-        <location filename="qml/page/T_TableView.qml" line="478"/>
+        <location filename="qml/page/T_TableView.qml" line="498"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1988,57 +1988,57 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="337"/>
+        <location filename="qml/page/T_TableView.qml" line="357"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="412"/>
+        <location filename="qml/page/T_TableView.qml" line="432"/>
         <source>Clear All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="473"/>
+        <location filename="qml/page/T_TableView.qml" line="493"/>
         <source>Avatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="491"/>
+        <location filename="qml/page/T_TableView.qml" line="511"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="498"/>
+        <location filename="qml/page/T_TableView.qml" line="519"/>
         <source>Nickname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="505"/>
+        <location filename="qml/page/T_TableView.qml" line="526"/>
         <source>Long String</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="513"/>
+        <location filename="qml/page/T_TableView.qml" line="534"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="532"/>
+        <location filename="qml/page/T_TableView.qml" line="553"/>
         <source>&lt;Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="533"/>
+        <location filename="qml/page/T_TableView.qml" line="554"/>
         <source>Next&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="419"/>
+        <location filename="qml/page/T_TableView.qml" line="439"/>
         <source>Delete Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="443"/>
+        <location filename="qml/page/T_TableView.qml" line="463"/>
         <source>Add a row of Data</source>
         <translation type="unfinished"></translation>
     </message>

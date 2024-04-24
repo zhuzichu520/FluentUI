@@ -141,7 +141,6 @@ void FluFrameless::componentComplete() {
     const auto uMsg = msg->message;
     const auto wParam = msg->wParam;
     const auto lParam = msg->lParam;
-    static QPoint offsetXY;
     if (uMsg == WM_WINDOWPOSCHANGING) {
         auto *wp = reinterpret_cast<WINDOWPOS *>(lParam);
         if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0) {
@@ -163,10 +162,6 @@ void FluFrameless::componentComplete() {
         }
         int offsetSize;
         bool isMaximum = ::IsZoomed(hwnd);
-        auto _offsetXY = QPoint(abs(clientRect->left - originalLeft), abs(clientRect->top - originalTop));
-        if (_offsetXY.x() != 0) {
-            offsetXY = _offsetXY;
-        }
         if (isMaximum || _isFullScreen()) {
             offsetSize = 0;
         } else {
@@ -175,19 +170,10 @@ void FluFrameless::componentComplete() {
         if (!isCompositionEnabled()) {
             offsetSize = 0;
         }
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         clientRect->top = originalTop + offsetSize;
         clientRect->bottom = originalBottom - offsetSize;
         clientRect->left = originalLeft + offsetSize;
         clientRect->right = originalRight - offsetSize;
-#else
-        if (!isMaximum) {
-            clientRect->top = originalTop + offsetSize;
-            clientRect->bottom = originalBottom - offsetSize;
-            clientRect->left = originalLeft + offsetSize;
-            clientRect->right = originalRight - offsetSize;
-        }
-#endif
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;
@@ -266,27 +252,15 @@ void FluFrameless::componentComplete() {
         return true;
     } else if (uMsg == WM_GETMINMAXINFO) {
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-        minmaxInfo->ptMaxPosition.x = 0;
-        minmaxInfo->ptMaxPosition.y = 0;
-        minmaxInfo->ptMaxSize.x = 0;
-        minmaxInfo->ptMaxSize.y = 0;
-        return false;
-#else
         auto pixelRatio = window()->devicePixelRatio();
         auto geometry = window()->screen()->availableGeometry();
         RECT rect;
         SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
-        if (!_fixSize) {
-            minmaxInfo->ptMinTrackSize.x = qRound(window()->minimumWidth() * pixelRatio + offsetXY.x());
-            minmaxInfo->ptMinTrackSize.y = qRound(window()->minimumHeight() * pixelRatio + offsetXY.y() + _appbar->height() * pixelRatio);
-        }
-        minmaxInfo->ptMaxPosition.x = rect.left - offsetXY.x();
-        minmaxInfo->ptMaxPosition.y = rect.top - offsetXY.x();
-        minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio) + offsetXY.x() * 2;
-        minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio) + offsetXY.y() * 2;
-        return true;
-#endif
+        minmaxInfo->ptMaxPosition.x = rect.left;
+        minmaxInfo->ptMaxPosition.y = rect.top;
+        minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio);
+        minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio);
+        return false;
     } else if (uMsg == WM_NCRBUTTONDOWN) {
         if (wParam == HTCAPTION) {
             _showSystemMenu(QCursor::pos());

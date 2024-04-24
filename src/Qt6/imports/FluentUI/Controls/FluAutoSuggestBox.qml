@@ -6,6 +6,7 @@ FluTextBox{
     property var items:[]
     property string emptyText: qsTr("No results found")
     property int autoSuggestBoxReplacement: FluentIcons.Search
+    property string textRole: "title"
     property var filter: function(item){
         if(item.title.indexOf(control.text)!==-1){
             return true
@@ -24,7 +25,7 @@ FluTextBox{
         function handleClick(modelData){
             control_popup.visible = false
             control.itemClicked(modelData)
-            control.updateText(modelData.title)
+            control.updateText(modelData[textRole])
         }
         function loadData(){
             var result = []
@@ -47,7 +48,6 @@ FluTextBox{
     }
     Popup{
         id:control_popup
-        y:control.height
         focus: false
         padding: 0
         enter: Transition {
@@ -61,7 +61,7 @@ FluTextBox{
         contentItem: FluClip{
             radius: [5,5,5,5]
             ListView{
-                id:list_view
+                id: list_view
                 anchors.fill: parent
                 clip: true
                 boundsBehavior: ListView.StopAtBounds
@@ -71,7 +71,7 @@ FluTextBox{
                     height: visible ? 38 : 0
                     visible: list_view.count === 0
                     FluText{
-                        text:emptyText
+                        text: emptyText
                         anchors{
                             verticalCenter: parent.verticalCenter
                             left: parent.left
@@ -80,10 +80,10 @@ FluTextBox{
                     }
                 }
                 delegate:FluControl{
-                    id:item_control
+                    id: item_control
                     height: 38
                     width: control.width
-                    onClicked:{
+                    onClicked: {
                         d.handleClick(modelData)
                     }
                     background: Rectangle{
@@ -102,7 +102,7 @@ FluTextBox{
                         }
                     }
                     contentItem: FluText{
-                        text:modelData.title
+                        text: modelData[textRole]
                         leftPadding: 10
                         rightPadding: 10
                         verticalAlignment : Qt.AlignVCenter
@@ -127,7 +127,7 @@ FluTextBox{
         if(d.flagVisible){
             var pos = control.mapToItem(null, 0, 0)
             if(d.window.height>pos.y+control.height+rect_background.implicitHeight){
-                control_popup.y = control.height
+                control_popup.y = Qt.binding(function(){return control.height})
             } else if(pos.y>rect_background.implicitHeight){
                 control_popup.y = -rect_background.implicitHeight
             } else {

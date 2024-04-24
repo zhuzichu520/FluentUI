@@ -196,6 +196,11 @@ Rectangle {
         id:com_table_delegate
         MouseArea{
             id:item_table_mouse
+            TableView.onPooled: {
+                if(d.editPosition && d.editPosition.row === row && d.editPosition.column === column){
+                    control.closeEditor()
+                }
+            }
             property var rowObject : control.getRow(row)
             property var itemModel: model
             property bool editVisible: {
@@ -274,9 +279,9 @@ Rectangle {
                         if(typeof(display) == "object"){
                             return
                         }
+                        loader_edit.display = display
                         d.editDelegate = d.getEditDelegate(column)
                         updateEditPosition()
-                        loader_edit.display = display
                     }
                     onClicked:
                         (event)=>{
