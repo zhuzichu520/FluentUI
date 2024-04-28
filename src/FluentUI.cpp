@@ -15,6 +15,7 @@
 #include "FluQrCodeItem.h"
 #include "FluTableSortProxyModel.h"
 #include "FluFrameless.h"
+#include "FluTableModel.h"
 
 void FluentUI::registerTypes(QQmlEngine *engine) {
     initializeEngine(engine, _uri);
@@ -32,6 +33,7 @@ void FluentUI::registerTypes(const char *uri) const {
     qmlRegisterType<FluWatermark>(uri, major, minor, "FluWatermark");
     qmlRegisterType<FluAccentColor>(uri, major, minor, "FluAccentColor");
     qmlRegisterType<FluTreeModel>(uri, major, minor, "FluTreeModel");
+    qmlRegisterType<FluTableModel>(uri, major, minor, "FluTableModel");
     qmlRegisterType<FluRectangle>(uri, major, minor, "FluRectangle");
     qmlRegisterType<FluFrameless>(uri, major, minor, "FluFrameless");
     qmlRegisterType<FluTableSortProxyModel>(uri, major, minor, "FluTableSortProxyModel");

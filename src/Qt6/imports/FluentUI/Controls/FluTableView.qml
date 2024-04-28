@@ -10,7 +10,7 @@ Rectangle {
     readonly property alias columns: table_view.columns
     readonly property alias current: d.current
     readonly property alias sourceModel: table_model
-    property var columnSource
+    property var columnSource: []
     property var dataSource
     property color borderColor: FluTheme.dark ? Qt.rgba(37/255,37/255,37/255,1) : Qt.rgba(228/255,228/255,228/255,1)
     property bool horizonalHeaderVisible: true
@@ -27,17 +27,13 @@ Rectangle {
     onColumnSourceChanged: {
         if(columnSource.length!==0){
             var columns= []
-            var columnsData = []
             var headerRow = {}
             columnSource.forEach(function(item){
                 var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',table_model);
                 column.display = item.dataIndex
-                columnsData.push(item)
                 columns.push(column)
                 headerRow[item.dataIndex] = item.title
             })
-            d.columns_data = columnsData
-            table_model.columns = columns
             header_column_model.columns = columns
             header_column_model.rows = [headerRow]
         }
@@ -48,15 +44,14 @@ Rectangle {
         property int rowHoverIndex: -1
         property int defaultItemWidth: 100
         property int defaultItemHeight: 42
-        property var columns_data: []
         property var editDelegate
         property var editPosition
         function getEditDelegate(column){
-            var obj =d.columns_data[column].editDelegate
+            var obj =control.columnSource[column].editDelegate
             if(obj){
                 return obj
             }
-            if(d.columns_data[column].editMultiline === true){
+            if(control.columnSource[column].editMultiline === true){
                 return com_edit_multiline
             }
             return com_edit
@@ -66,13 +61,13 @@ Rectangle {
         table_model.clear()
         table_model.rows = dataSource
     }
-    TableModel {
+    FluTableModel {
         id:table_model
-        TableModelColumn {}
+        columnSource: control.columnSource
     }
     TableModel{
         id:header_column_model
-        TableModelColumn {}
+        TableModelColumn { display : "title"}
     }
     TableModel{
         id:header_row_model
@@ -87,7 +82,7 @@ Rectangle {
         FluTextBox{
             id:text_box
             text: String(display)
-            readOnly: true === d.columns_data[column].readOnly
+            readOnly: true === control.columnSource[column].readOnly
             Component.onCompleted: {
                 forceActiveFocus()
                 selectAll()
@@ -113,7 +108,7 @@ Rectangle {
                 TextArea.flickable: FluMultilineTextBox {
                     id:text_box
                     text: String(display)
-                    readOnly: true === d.columns_data[column].readOnly
+                    readOnly: true === control.columnSource[column].readOnly
                     verticalAlignment: TextInput.AlignVCenter
                     isCtrlEnterForNewline: true
                     Component.onCompleted: {
@@ -196,15 +191,21 @@ Rectangle {
         id:com_table_delegate
         MouseArea{
             id:item_table_mouse
+            property bool isRowSelected: {
+                if(rowModel === null)
+                    return false
+                if(d.current){
+                    return rowModel._key === d.current._key
+                }
+                return false
+            }
             TableView.onPooled: {
                 if(d.editPosition && d.editPosition.row === row && d.editPosition.column === column){
                     control.closeEditor()
                 }
             }
-            property var rowObject : control.getRow(row)
-            property var itemModel: model
             property bool editVisible: {
-                if(rowObject && d.editPosition && d.editPosition._key === rowObject._key && d.editPosition.column === column){
+                if(d.editPosition && d.editPosition._key === rowModel._key && d.editPosition.column === column){
                     return true
                 }
                 return false
@@ -235,7 +236,7 @@ Rectangle {
             }
             function updateEditPosition(){
                 var obj = {}
-                obj._key = rowObject._key
+                obj._key = rowModel._key
                 obj.column = column
                 obj.row = row
                 obj.x = item_table_mouse.x
@@ -245,22 +246,12 @@ Rectangle {
                 d.editPosition = obj
             }
             Rectangle{
-                id:item_table
                 anchors.fill: parent
-                property point position: Qt.point(column,row)
-                property bool isRowSelected: {
-                    if(rowObject === null)
-                        return false
-                    if(d.current){
-                        return rowObject._key === d.current._key
-                    }
-                    return false
-                }
                 color:{
-                    if(item_table.isRowSelected){
+                    if(item_table_mouse.isRowSelected){
                         return control.selectedColor
                     }
-                    if(d.rowHoverIndex === row || item_table.isRowSelected){
+                    if(d.rowHoverIndex === row || item_table_mouse.isRowSelected){
                         return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
                     }
                     return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
@@ -279,22 +270,24 @@ Rectangle {
                         if(typeof(display) == "object"){
                             return
                         }
-                        loader_edit.display = display
+                        loader_edit.display = item_table_loader.display
                         d.editDelegate = d.getEditDelegate(column)
                         updateEditPosition()
                     }
                     onClicked:
                         (event)=>{
-                            d.current = rowObject
+                            d.current = rowModel
                             control.closeEditor()
                             event.accepted = true
                         }
                 }
                 FluLoader{
-                    property var model: itemModel
-                    property var display: itemModel.display
-                    property int row: item_table.position.y
-                    property int column: item_table.position.x
+                    id: item_table_loader
+                    property var display: rowModel[columnModel.dataIndex]
+                    property var rowModel : model.rowModel
+                    property var columnModel : model.columnModel
+                    property int row : model.row
+                    property int column: model.column
                     property bool isObject: typeof(display) == "object"
                     property var options: {
                         if(isObject){
@@ -312,7 +305,7 @@ Rectangle {
                 }
                 Item{
                     anchors.fill: parent
-                    visible: item_table.isRowSelected
+                    visible: item_table_mouse.isRowSelected
                     Rectangle{
                         width: 1
                         height: parent.height
@@ -365,7 +358,7 @@ Rectangle {
             ScrollBar.horizontal:scroll_bar_h
             ScrollBar.vertical:scroll_bar_v
             columnWidthProvider: function(column) {
-                var columnObject = d.columns_data[column]
+                var columnObject = control.columnSource[column]
                 var width = columnObject.width
                 if(width){
                     return width
@@ -416,7 +409,7 @@ Rectangle {
                 onEditTextChaged:
                     (text)=>{
                         var obj = control.getRow(row)
-                        obj[d.columns_data[column].dataIndex] = text
+                        obj[control.columnSource[column].dataIndex] = text
                         control.setRow(row,obj)
                     }
                 width: {
@@ -454,7 +447,7 @@ Rectangle {
             readonly property real cellPadding: 8
             property bool canceled: false
             property int columnIndex: column
-            readonly property var columnObject : d.columns_data[column]
+            readonly property var columnObject : control.columnSource[column]
             implicitWidth: {
                 return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
             }

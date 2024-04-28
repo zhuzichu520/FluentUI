@@ -86,12 +86,11 @@ public:
     FluTreeNode *_parent = nullptr;
 };
 
-class FluTreeModel : public QAbstractItemModel {
+class FluTreeModel : public QAbstractTableModel {
 Q_OBJECT
 Q_PROPERTY_AUTO(int, dataSourceSize)
 Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
     QML_NAMED_ELEMENT(FluTreeModel)
-    QML_ADDED_IN_MINOR_VERSION(1)
 public:
     enum TreeModelRoles {
         RowModel = 0x0101,

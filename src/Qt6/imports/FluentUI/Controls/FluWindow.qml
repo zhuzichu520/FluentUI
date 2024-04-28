@@ -59,6 +59,7 @@ Window {
     signal lazyLoad()
     property var _windowRegister
     property string _route
+    property bool _hideShadow: false
     id:window
     color:"transparent"
     Component.onCompleted: {

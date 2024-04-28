@@ -36,7 +36,7 @@ static inline bool isCompositionEnabled() {
 }
 
 static inline void setShadow(HWND hwnd){
-    const MARGINS shadow = { 1, 1, 1, 1 };
+    const MARGINS shadow = { 1, 0, 0, 0 };
     typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
     HMODULE module = LoadLibraryW(L"dwmapi.dll");
     if (module)
@@ -122,7 +122,9 @@ void FluFrameless::componentComplete() {
         ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
         ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
     });
-    setShadow(hwnd);
+    if(!window()->property("_hideShadow").toBool()){
+        setShadow(hwnd);
+    }
 #endif
     h = qRound(h + _appbar->height());
     if (_fixSize) {
