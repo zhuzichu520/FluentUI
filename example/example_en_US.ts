@@ -1968,7 +1968,7 @@ Some contents...</source>
     </message>
     <message>
         <location filename="qml/page/T_TableView.qml" line="177"/>
-        <location filename="qml/page/T_TableView.qml" line="499"/>
+        <location filename="qml/page/T_TableView.qml" line="513"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1998,37 +1998,47 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="494"/>
+        <location filename="qml/page/T_TableView.qml" line="470"/>
+        <source>Insert a Row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TableView.qml" line="478"/>
+        <source>Focus not acquired: Please click any item in the form as the target for insertion!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TableView.qml" line="508"/>
         <source>Avatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="512"/>
+        <location filename="qml/page/T_TableView.qml" line="526"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="520"/>
+        <location filename="qml/page/T_TableView.qml" line="534"/>
         <source>Nickname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="527"/>
+        <location filename="qml/page/T_TableView.qml" line="541"/>
         <source>Long String</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="535"/>
+        <location filename="qml/page/T_TableView.qml" line="549"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="554"/>
+        <location filename="qml/page/T_TableView.qml" line="568"/>
         <source>&lt;Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="555"/>
+        <location filename="qml/page/T_TableView.qml" line="569"/>
         <source>Next&gt;</source>
         <translation type="unfinished"></translation>
     </message>

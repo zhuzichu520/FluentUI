@@ -13,7 +13,7 @@ FluContentPage{
 
     property var dataSource : []
     property int sortType: 0
-    property bool seletedAll: true
+    property bool selectedAll: true
     property string nameKeyword: ""
 
     onNameKeywordChanged: {
@@ -32,11 +32,11 @@ FluContentPage{
     onCheckBoxChanged: {
         for(var i =0;i< table_view.rows ;i++){
             if(false === table_view.getRow(i).checkbox.options.checked){
-                root.seletedAll = false
+                root.selectedAll = false
                 return
             }
         }
-        root.seletedAll = true
+        root.selectedAll = true
     }
 
     onSortTypeChanged: {
@@ -238,12 +238,12 @@ FluContentPage{
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluCheckBox{
-                    checked: true === root.seletedAll
+                    checked: true === root.selectedAll
                     animationEnabled: false
                     Layout.alignment: Qt.AlignVCenter
                     clickListener: function(){
-                        root.seletedAll = !root.seletedAll
-                        var checked = root.seletedAll
+                        root.selectedAll = !root.selectedAll
+                        var checked = root.selectedAll
                         itemModel.display = table_view.customItem(com_column_checbox,{"checked":checked})
                         for(var i =0;i< table_view.rows ;i++){
                             var rowData = table_view.getRow(i)
@@ -466,6 +466,20 @@ FluContentPage{
                     table_view.appendRow(genTestObject())
                 }
             }
+            FluButton{
+                text: qsTr("Insert a Row")
+                onClicked: {
+                    if(typeof table_view.current !== 'undefined'){
+                        var newLine = genTestObject()
+                        var currentLine = dataSource.findIndex(obj => obj._key === table_view.current._key)
+                        root.dataSource.splice(currentLine, 0, newLine);
+                        table_view.dataSource = root.dataSource
+                    }else{
+                        showWarning(qsTr("Focus not acquired: Please click any item in the form as the target for insertion!"))
+                    }
+
+                }
+            }
 
         }
     }
@@ -588,7 +602,7 @@ FluContentPage{
             return avatars[randomIndex];
         }
         return {
-            checkbox: table_view.customItem(com_checbox,{checked:root.seletedAll}),
+            checkbox: table_view.customItem(com_checbox,{checked:root.selectedAll}),
             avatar:table_view.customItem(com_avatar,{avatar:getAvatar()}),
             name: getRandomName(),
             age:getRandomAge(),
@@ -601,7 +615,7 @@ FluContentPage{
         }
     }
     function loadData(page,count){
-        root.seletedAll = true
+        root.selectedAll = true
         const dataSource = []
         for(var i=0;i<count;i++){
             dataSource.push(genTestObject())
