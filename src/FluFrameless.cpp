@@ -35,16 +35,14 @@ static inline bool isCompositionEnabled() {
     return false;
 }
 
-static inline void setShadow(HWND hwnd){
-    const MARGINS shadow = { 1, 0, 0, 0 };
-    typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
+static inline void setShadow(HWND hwnd) {
+    const MARGINS shadow = {1, 0, 0, 0};
+    typedef HRESULT (WINAPI *DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
     HMODULE module = LoadLibraryW(L"dwmapi.dll");
-    if (module)
-    {
+    if (module) {
         DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
-        dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-        if (dwm_extendframe_into_client_area_)
-        {
+        dwm_extendframe_into_client_area_ = reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+        if (dwm_extendframe_into_client_area_) {
             dwm_extendframe_into_client_area_(hwnd, &shadow);
         }
     }
@@ -108,21 +106,21 @@ void FluFrameless::componentComplete() {
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if (_fixSize) {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style  | WS_CAPTION);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_CAPTION);
         for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
             connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
                 SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
             });
         }
     } else {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX  | WS_CAPTION);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_CAPTION);
     }
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
     connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
         ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
         ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
     });
-    if(!window()->property("_hideShadow").toBool()){
+    if (!window()->property("_hideShadow").toBool()) {
         setShadow(hwnd);
     }
 #endif
@@ -175,12 +173,12 @@ void FluFrameless::componentComplete() {
             *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
             return true;
         }
-        if (!isMaximum){
+        if (!isMaximum) {
             clientRect->top = originalTop;
             clientRect->bottom = originalBottom;
             clientRect->left = originalLeft;
             clientRect->right = originalRight;
-        } else{
+        } else {
             clientRect->top = 0;
         }
         _setMaximizeHovered(false);
@@ -240,13 +238,13 @@ void FluFrameless::componentComplete() {
         *result = HTCLIENT;
         return true;
     } else if (uMsg == WM_NCPAINT) {
-        if(isCompositionEnabled()){
+        if (isCompositionEnabled()) {
             return false;
         }
         *result = FALSE;
         return true;
     } else if (uMsg == WM_NCACTIVATE) {
-        if(isCompositionEnabled()){
+        if (isCompositionEnabled()) {
             return false;
         }
         *result = TRUE;
@@ -362,27 +360,27 @@ void FluFrameless::_setMaximizeHovered(bool val) {
 
 void FluFrameless::_updateCursor(int edges) {
     switch (edges) {
-    case 0:
-        window()->setCursor(Qt::ArrowCursor);
-        break;
-    case Qt::LeftEdge:
-    case Qt::RightEdge:
-        window()->setCursor(Qt::SizeHorCursor);
-        break;
-    case Qt::TopEdge:
-    case Qt::BottomEdge:
-        window()->setCursor(Qt::SizeVerCursor);
-        break;
-    case Qt::LeftEdge | Qt::TopEdge:
-    case Qt::RightEdge | Qt::BottomEdge:
-        window()->setCursor(Qt::SizeFDiagCursor);
-        break;
-    case Qt::RightEdge | Qt::TopEdge:
-    case Qt::LeftEdge | Qt::BottomEdge:
-        window()->setCursor(Qt::SizeBDiagCursor);
-        break;
-    default:
-        break;
+        case 0:
+            window()->setCursor(Qt::ArrowCursor);
+            break;
+        case Qt::LeftEdge:
+        case Qt::RightEdge:
+            window()->setCursor(Qt::SizeHorCursor);
+            break;
+        case Qt::TopEdge:
+        case Qt::BottomEdge:
+            window()->setCursor(Qt::SizeVerCursor);
+            break;
+        case Qt::LeftEdge | Qt::TopEdge:
+        case Qt::RightEdge | Qt::BottomEdge:
+            window()->setCursor(Qt::SizeFDiagCursor);
+            break;
+        case Qt::RightEdge | Qt::TopEdge:
+        case Qt::LeftEdge | Qt::BottomEdge:
+            window()->setCursor(Qt::SizeBDiagCursor);
+            break;
+        default:
+            break;
     }
 }
 

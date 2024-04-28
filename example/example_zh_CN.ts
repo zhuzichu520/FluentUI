@@ -2110,7 +2110,7 @@ Some contents...</source>
     </message>
     <message>
         <location filename="qml/page/T_TableView.qml" line="177"/>
-        <location filename="qml/page/T_TableView.qml" line="509"/>
+        <location filename="qml/page/T_TableView.qml" line="510"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
@@ -2130,67 +2130,67 @@ Some contents...</source>
         <translation type="unfinished">全选</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="358"/>
+        <location filename="qml/page/T_TableView.qml" line="359"/>
         <source>Age</source>
         <translation type="unfinished">年龄</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="433"/>
+        <location filename="qml/page/T_TableView.qml" line="434"/>
         <source>Clear All</source>
         <translation type="unfinished">清除所有</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="469"/>
+        <location filename="qml/page/T_TableView.qml" line="470"/>
         <source>Insert a Row</source>
         <translation type="unfinished">插入一行</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="476"/>
+        <location filename="qml/page/T_TableView.qml" line="477"/>
         <source>Focus not acquired: Please click any item in the form as the target for insertion!</source>
         <translation type="unfinished">焦点未获取：请点击表格中的任意一项，作为插入的靶点！</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="504"/>
+        <location filename="qml/page/T_TableView.qml" line="505"/>
         <source>Avatar</source>
         <translation type="unfinished">头像</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="522"/>
+        <location filename="qml/page/T_TableView.qml" line="523"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="530"/>
+        <location filename="qml/page/T_TableView.qml" line="531"/>
         <source>Nickname</source>
         <translation type="unfinished">昵称</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="537"/>
+        <location filename="qml/page/T_TableView.qml" line="538"/>
         <source>Long String</source>
         <translation type="unfinished">长字符串</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="545"/>
+        <location filename="qml/page/T_TableView.qml" line="546"/>
         <source>Options</source>
         <translation type="unfinished">操作</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="564"/>
+        <location filename="qml/page/T_TableView.qml" line="565"/>
         <source>&lt;Previous</source>
         <translation type="unfinished">&lt;上一页</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="565"/>
+        <location filename="qml/page/T_TableView.qml" line="566"/>
         <source>Next&gt;</source>
         <translation type="unfinished">下一页&gt;</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="440"/>
+        <location filename="qml/page/T_TableView.qml" line="441"/>
         <source>Delete Selection</source>
         <translation type="unfinished">删除选中</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="463"/>
+        <location filename="qml/page/T_TableView.qml" line="464"/>
         <source>Add a row of Data</source>
         <translation type="unfinished">添加一行数据</translation>
     </message>

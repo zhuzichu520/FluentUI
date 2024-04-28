@@ -9,7 +9,9 @@ Rectangle {
     readonly property alias rows: table_view.rows
     readonly property alias columns: table_view.columns
     readonly property alias current: d.current
-    readonly property alias sourceModel: table_model
+    property var sourceModel:FluTableModel {
+        columnSource: control.columnSource
+    }
     property var columnSource: []
     property var dataSource
     property color borderColor: FluTheme.dark ? Qt.rgba(37/255,37/255,37/255,1) : Qt.rgba(228/255,228/255,228/255,1)
@@ -29,7 +31,7 @@ Rectangle {
             var columns= []
             var headerRow = {}
             columnSource.forEach(function(item){
-                var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',table_model);
+                var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',sourceModel);
                 column.display = item.dataIndex
                 columns.push(column)
                 headerRow[item.dataIndex] = item.title
@@ -58,12 +60,8 @@ Rectangle {
         }
     }
     onDataSourceChanged: {
-        table_model.clear()
-        table_model.rows = dataSource
-    }
-    FluTableModel {
-        id:table_model
-        columnSource: control.columnSource
+        sourceModel.clear()
+        sourceModel.rows = dataSource
     }
     TableModel{
         id:header_column_model
@@ -75,7 +73,7 @@ Rectangle {
     }
     FluTableSortProxyModel{
         id:table_sort_model
-        model: table_model
+        model: control.sourceModel
     }
     Component{
         id:com_edit
@@ -191,6 +189,7 @@ Rectangle {
         id:com_table_delegate
         MouseArea{
             id:item_table_mouse
+            property var _model: model
             property bool isRowSelected: {
                 if(rowModel === null)
                     return false
@@ -283,6 +282,7 @@ Rectangle {
                 }
                 FluLoader{
                     id: item_table_loader
+                    property var model: item_table_mouse._model
                     property var display: rowModel[columnModel.dataIndex]
                     property var rowModel : model.rowModel
                     property var columnModel : model.columnModel
@@ -446,7 +446,7 @@ Rectangle {
             id:column_item_control
             readonly property real cellPadding: 8
             property bool canceled: false
-            property int columnIndex: column
+            property var _model: model
             readonly property var columnObject : control.columnSource[column]
             implicitWidth: {
                 return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
@@ -503,22 +503,23 @@ Rectangle {
             }
             FluLoader{
                 id:item_column_loader
-                property var itemModel: model
-                property var modelData: model.display
+                property var model: column_item_control._model
+                property var display: model.display
                 property var tableView: table_view
-                property var tableModel: table_model
+                property var sourceModel: control.sourceModel
+                 property bool isObject: typeof(display) == "object"
                 property var options:{
-                    if(typeof(modelData) == "object"){
-                        return modelData.options
+                    if(isObject){
+                        return display.options
                     }
                     return {}
                 }
-                property int column: column_item_control.columnIndex
+                property int column: model.column
                 width: parent.width
                 height: parent.height
                 sourceComponent: {
-                    if(typeof(modelData) == "object"){
-                        return modelData.comId
+                    if(isObject){
+                        return display.comId
                     }
                     return com_column_text
                 }
@@ -686,7 +687,7 @@ Rectangle {
         id:com_column_text
         FluText {
             id: column_text
-            text: modelData
+            text: String(display)
             anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -835,7 +836,7 @@ Rectangle {
     function sort(callback=undefined){
         if(callback){
             table_sort_model.setComparator(function(left,right){
-                return callback(table_model.getRow(left),table_model.getRow(right))
+                return callback(sourceModel.getRow(left),sourceModel.getRow(right))
             })
         }else{
             table_sort_model.setComparator(undefined)
@@ -844,7 +845,7 @@ Rectangle {
     function filter(callback=undefined){
         if(callback){
             table_sort_model.setFilter(function(index){
-                return callback(table_model.getRow(index))
+                return callback(sourceModel.getRow(index))
             })
         }else{
             table_sort_model.setFilter(undefined)
@@ -868,7 +869,7 @@ Rectangle {
     }
     function insertRow(rowIndex,obj){
         if(rowIndex>=0 && rowIndex<table_view.rows){
-            table_view.model.insertRow(rowIndex,obj)
+            sourceModel.insertRow(rowIndex,obj)
         }
     }
     function currentIndex(){
@@ -876,8 +877,8 @@ Rectangle {
         if(!d.current){
             return index
         }
-        for (var i = 0; i <= table_model.rowCount-1; i++) {
-            var sourceItem = table_model.getRow(i);
+        for (var i = 0; i <= sourceModel.rowCount-1; i++) {
+            var sourceItem = sourceModel.getRow(i);
             if(sourceItem._key === d.current._key){
                 index = i
                 break
@@ -886,6 +887,6 @@ Rectangle {
         return index
     }
     function appendRow(obj){
-        table_model.appendRow(obj)
+        sourceModel.appendRow(obj)
     }
 }

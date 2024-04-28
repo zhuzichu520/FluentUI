@@ -50,7 +50,7 @@ public:
         }
         return true;
     };
-    
+
     Q_INVOKABLE bool hideLineFooter() {
         if (_parent) {
             auto childIndex = _parent->_children.indexOf(this);

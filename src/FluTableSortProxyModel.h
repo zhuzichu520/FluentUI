@@ -8,7 +8,7 @@
 
 class FluTableSortProxyModel : public QSortFilterProxyModel {
 Q_OBJECT
-Q_PROPERTY_AUTO_P(QAbstractTableModel*, model)
+Q_PROPERTY_AUTO_P(QVariant, model)
     QML_NAMED_ELEMENT(FluTableSortProxyModel)
 public:
     explicit FluTableSortProxyModel(QSortFilterProxyModel *parent = nullptr);

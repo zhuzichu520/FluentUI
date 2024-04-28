@@ -95,5 +95,5 @@ SINGLETON(FluTools)
 
     Q_INVOKABLE QString getWallpaperFilePath();
 
-    Q_INVOKABLE QColor imageMainColor(const QImage& image, double bright = 1);
+    Q_INVOKABLE QColor imageMainColor(const QImage &image, double bright = 1);
 };

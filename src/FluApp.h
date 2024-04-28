@@ -36,7 +36,7 @@ SINGLETON(FluApp)
 
     Q_INVOKABLE void init(QObject *target, QLocale locale = QLocale::system());
 
-    [[maybe_unused]] Q_INVOKABLE static QJsonArray iconDatas(const QString &keyword = "");
+    [[maybe_unused]] Q_INVOKABLE static QJsonArray iconData(const QString &keyword = "");
 
 private:
     QQmlEngine *_engine{};

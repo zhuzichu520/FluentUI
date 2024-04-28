@@ -1,6 +1,5 @@
 #include "FluApp.h"
 
-#include <QQmlEngine>
 #include <QGuiApplication>
 #include <QQuickItem>
 #include <QTimer>
@@ -32,7 +31,7 @@ void FluApp::init(QObject *target, QLocale locale) {
     }
 }
 
-[[maybe_unused]] QJsonArray FluApp::iconDatas(const QString &keyword) {
+[[maybe_unused]] QJsonArray FluApp::iconData(const QString &keyword) {
     QJsonArray arr;
     QMetaEnum enumType = Fluent_Icons::staticMetaObject.enumerator(Fluent_Icons::staticMetaObject.indexOfEnumerator("Fluent_IconType"));
     for (int i = 0; i <= enumType.keyCount() - 1; ++i) {

@@ -244,7 +244,7 @@ FluContentPage{
                     clickListener: function(){
                         root.selectedAll = !root.selectedAll
                         var checked = root.selectedAll
-                        itemModel.display = table_view.customItem(com_column_checbox,{"checked":checked})
+                        model.display = table_view.customItem(com_column_checbox,{"checked":checked})
                         for(var i =0;i< table_view.rows ;i++){
                             var rowData = table_view.getRow(i)
                             rowData.checkbox = table_view.customItem(com_checbox,{"checked":checked})
@@ -293,6 +293,7 @@ FluContentPage{
                 });
                 items = result
                 textbox.text= String(display)
+                selectAll()
             }
             onCommit: {
                 editTextChaged(textbox.text)

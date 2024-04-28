@@ -264,12 +264,12 @@ void FluTreeModel::allCollapse() {
     endResetModel();
 }
 
-QVariant FluTreeModel::selectionModel(){
+QVariant FluTreeModel::selectionModel() {
     QList<FluTreeNode *> data;
-    foreach (auto item, _dataSource) {
-        if (item->checked()) {
-            data.append(item);
+            foreach (auto item, _dataSource) {
+            if (item->checked()) {
+                data.append(item);
+            }
         }
-    }
     return QVariant::fromValue(data);
 }
