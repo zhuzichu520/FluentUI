@@ -253,7 +253,7 @@ Rectangle {
                     if(d.rowHoverIndex === row || item_table_mouse.isRowSelected){
                         return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
                     }
-                    return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
+                    return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.03) : Qt.rgba(0,0,0,0.03))
                 }
                 MouseArea{
                     anchors.fill: parent

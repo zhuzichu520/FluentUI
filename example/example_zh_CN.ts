@@ -1378,6 +1378,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_GroupBox.qml" line="24"/>
         <source>RadioButton Group</source>
+        <oldsource>RadioButton Group111111111111111111111111</oldsource>
         <translation type="unfinished">单选框分组</translation>
     </message>
 </context>
@@ -1417,12 +1418,11 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished">请输入关键字</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Icons.qml" line="20"/>
         <source>Search</source>
-        <translation type="unfinished">搜索</translation>
+        <translation type="obsolete">搜索</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Icons.qml" line="60"/>
+        <location filename="qml/page/T_Icons.qml" line="51"/>
         <source>You Copied </source>
         <translation type="unfinished">您复制</translation>
     </message>
@@ -2345,12 +2345,12 @@ Some contents...</source>
         <translation type="unfinished">时间轴</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Timeline.qml" line="115"/>
+        <location filename="qml/page/T_Timeline.qml" line="114"/>
         <source>Append</source>
         <translation type="unfinished">追加</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Timeline.qml" line="121"/>
+        <location filename="qml/page/T_Timeline.qml" line="120"/>
         <source>clear</source>
         <translation type="unfinished">清空</translation>
     </message>
