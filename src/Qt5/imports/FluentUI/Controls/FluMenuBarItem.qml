@@ -48,9 +48,6 @@ T.MenuBarItem {
         radius: 3
         color: {
             if(control.highlighted){
-                return FluTheme.itemCheckColor
-            }
-            if(control.hovered){
                 return FluTheme.itemHoverColor
             }
             return FluTheme.itemNormalColor

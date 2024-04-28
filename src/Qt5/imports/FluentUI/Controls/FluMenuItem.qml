@@ -99,9 +99,9 @@ T.MenuItem {
             anchors.fill: parent
             anchors.margins: 3
             radius: 4
-            color:{
+            color: {
                 if(control.highlighted){
-                    return FluTheme.itemCheckColor
+                    return FluTheme.itemHoverColor
                 }
                 return FluTheme.itemNormalColor
             }
