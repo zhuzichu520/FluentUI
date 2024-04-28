@@ -267,7 +267,7 @@ Rectangle {
                     onReleased: {
                     }
                     onDoubleClicked:{
-                        if(typeof(display) == "object"){
+                        if(item_table_loader.isObject){
                             return
                         }
                         loader_edit.display = item_table_loader.display

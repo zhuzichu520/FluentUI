@@ -468,19 +468,15 @@ FluContentPage{
             FluButton{
                 text: qsTr("Insert a Row")
                 onClicked: {
-                    if(typeof table_view.current !== 'undefined'){
-                        var index = table_view.currentIndex()
-                        if(index !== -1){
-                            var testObj = genTestObject()
-                             table_view.insertRow(index,testObj)
-                        }
+                    var index = table_view.currentIndex()
+                    if(index !== -1){
+                        var testObj = genTestObject()
+                        table_view.insertRow(index,testObj)
                     }else{
                         showWarning(qsTr("Focus not acquired: Please click any item in the form as the target for insertion!"))
                     }
-
                 }
             }
-
         }
     }
 
