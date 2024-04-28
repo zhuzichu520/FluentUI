@@ -279,13 +279,7 @@ Window {
         id:loader_border
         anchors.fill: parent
         sourceComponent: {
-            if(window.useSystemAppBar){
-                return undefined
-            }
-            if(FluTools.isWindows10OrGreater()){
-                return undefined
-            }
-            if(window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
+            if(window.useSystemAppBar || FluTools.isWin() || window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
                 return undefined
             }
             return com_border

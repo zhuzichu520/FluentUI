@@ -73,12 +73,7 @@ void FluFrameless::componentComplete() {
     int w = window()->width();
     int h = window()->height();
     _current = window()->winId();
-    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (QQuickWindow::sceneGraphBackend() == "software") {
-        window()->setFlag(Qt::FramelessWindowHint, false);
-    }
-#endif
+    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     if (!_fixSize) {
         window()->setFlag(Qt::WindowMaximizeButtonHint);
     }
@@ -97,14 +92,14 @@ void FluFrameless::componentComplete() {
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if (_fixSize) {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style  | WS_CAPTION);
         for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
             connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
                 SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
             });
         }
     } else {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX  | WS_CAPTION);
     }
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
     connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
@@ -151,29 +146,22 @@ void FluFrameless::componentComplete() {
         return false;
     } else if (uMsg == WM_NCCALCSIZE) {
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
-        const LONG originalTop = clientRect->top;
-        const LONG originalLeft = clientRect->left;
-        const LONG originalRight = clientRect->right;
-        const LONG originalBottom = clientRect->bottom;
-        const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
-        if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
-            *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
-            return true;
-        }
-        int offsetSize;
         bool isMaximum = ::IsZoomed(hwnd);
-        if (isMaximum || _isFullScreen()) {
-            offsetSize = 0;
-        } else {
-            offsetSize = 1;
+        if (!isMaximum){
+            if (clientRect->top != 0)
+            {
+                clientRect->top -= 1;
+                clientRect->bottom -= 1;
+            }
+        } else{
+            const LONG originalTop = clientRect->top;
+            const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
+            if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
+                *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
+                return true;
+            }
+            clientRect->top = originalTop-originalTop;
         }
-        if (!isCompositionEnabled()) {
-            offsetSize = 0;
-        }
-        clientRect->top = originalTop + offsetSize;
-        clientRect->bottom = originalBottom - offsetSize;
-        clientRect->left = originalLeft + offsetSize;
-        clientRect->right = originalRight - offsetSize;
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;
@@ -230,6 +218,18 @@ void FluFrameless::componentComplete() {
         }
         *result = HTCLIENT;
         return true;
+    } else if (uMsg == WM_NCPAINT) {
+        if(isCompositionEnabled()){
+            return false;
+        }
+        *result = FALSE;
+        return true;
+    } else if (uMsg == WM_NCACTIVATE) {
+        if(isCompositionEnabled()){
+            return false;
+        }
+        *result = TRUE;
+        return true;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
@@ -244,23 +244,8 @@ void FluFrameless::componentComplete() {
             _setMaximizePressed(false);
             return true;
         }
-    } else if (uMsg == WM_NCPAINT) {
-        *result = FALSE;
+    } else if (uMsg == WM_ERASEBKGND) {
         return true;
-    } else if (uMsg == WM_NCACTIVATE) {
-        *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(::DefWindowProcW(hwnd, WM_NCACTIVATE, wParam, -1));
-        return true;
-    } else if (uMsg == WM_GETMINMAXINFO) {
-        auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
-        auto pixelRatio = window()->devicePixelRatio();
-        auto geometry = window()->screen()->availableGeometry();
-        RECT rect;
-        SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
-        minmaxInfo->ptMaxPosition.x = rect.left;
-        minmaxInfo->ptMaxPosition.y = rect.top;
-        minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio);
-        minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio);
-        return false;
     } else if (uMsg == WM_NCRBUTTONDOWN) {
         if (wParam == HTCAPTION) {
             _showSystemMenu(QCursor::pos());
@@ -358,27 +343,27 @@ void FluFrameless::_setMaximizeHovered(bool val) {
 
 void FluFrameless::_updateCursor(int edges) {
     switch (edges) {
-        case 0:
-            window()->setCursor(Qt::ArrowCursor);
-            break;
-        case Qt::LeftEdge:
-        case Qt::RightEdge:
-            window()->setCursor(Qt::SizeHorCursor);
-            break;
-        case Qt::TopEdge:
-        case Qt::BottomEdge:
-            window()->setCursor(Qt::SizeVerCursor);
-            break;
-        case Qt::LeftEdge | Qt::TopEdge:
-        case Qt::RightEdge | Qt::BottomEdge:
-            window()->setCursor(Qt::SizeFDiagCursor);
-            break;
-        case Qt::RightEdge | Qt::TopEdge:
-        case Qt::LeftEdge | Qt::BottomEdge:
-            window()->setCursor(Qt::SizeBDiagCursor);
-            break;
-        default:
-            break;
+    case 0:
+        window()->setCursor(Qt::ArrowCursor);
+        break;
+    case Qt::LeftEdge:
+    case Qt::RightEdge:
+        window()->setCursor(Qt::SizeHorCursor);
+        break;
+    case Qt::TopEdge:
+    case Qt::BottomEdge:
+        window()->setCursor(Qt::SizeVerCursor);
+        break;
+    case Qt::LeftEdge | Qt::TopEdge:
+    case Qt::RightEdge | Qt::BottomEdge:
+        window()->setCursor(Qt::SizeFDiagCursor);
+        break;
+    case Qt::RightEdge | Qt::TopEdge:
+    case Qt::LeftEdge | Qt::BottomEdge:
+        window()->setCursor(Qt::SizeBDiagCursor);
+        break;
+    default:
+        break;
     }
 }
 
