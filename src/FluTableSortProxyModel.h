@@ -23,6 +23,8 @@ public:
 
     [[maybe_unused]] Q_INVOKABLE void setRow(int rowIndex, const QVariant &val);
 
+    [[maybe_unused]] Q_INVOKABLE void insertRow(int rowIndex, const QVariant &val);
+
     [[maybe_unused]] Q_INVOKABLE void removeRow(int rowIndex, int rows);
 
     [[maybe_unused]] Q_INVOKABLE void setComparator(const QJSValue &comparator);

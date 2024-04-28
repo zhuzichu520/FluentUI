@@ -141,7 +141,7 @@ Window {
                 }
                 Timer{
                     id:timer_update_image
-                    interval: 500
+                    interval: 150
                     onTriggered: {
                         img_back.source = ""
                         img_back.source = FluTools.getUrlByFilePath(FluTheme.desktopImagePath)

@@ -442,15 +442,15 @@ FluContentPage{
                     var data = []
                     var rows = []
                     for (var i = 0; i < table_view.rows; i++) {
-                        var item = table_view.getRow(i);
+                        var item = table_view.getRow(i)
                         rows.push(item)
                         if (!item.checkbox.options.checked) {
                             data.push(item);
                         }
                     }
-                    var sourceModel = table_view.sourceModel;
+                    var sourceModel = table_view.sourceModel
                     for (i = 0; i < sourceModel.rowCount; i++) {
-                        var sourceItem = sourceModel.getRow(i);
+                        var sourceItem = sourceModel.getRow(i)
                         const foundItem = rows.find(item=> item._key === sourceItem._key)
                         if (!foundItem) {
                             data.push(sourceItem);
@@ -459,7 +459,6 @@ FluContentPage{
                     table_view.dataSource = data
                 }
             }
-
             FluButton{
                 text: qsTr("Add a row of Data")
                 onClicked: {
@@ -470,10 +469,11 @@ FluContentPage{
                 text: qsTr("Insert a Row")
                 onClicked: {
                     if(typeof table_view.current !== 'undefined'){
-                        var newLine = genTestObject()
-                        var currentLine = dataSource.findIndex(obj => obj._key === table_view.current._key)
-                        root.dataSource.splice(currentLine, 0, newLine);
-                        table_view.dataSource = root.dataSource
+                        var index = table_view.currentIndex()
+                        if(index !== -1){
+                            var testObj = genTestObject()
+                             table_view.insertRow(index,testObj)
+                        }
                     }else{
                         showWarning(qsTr("Focus not acquired: Please click any item in the form as the target for insertion!"))
                     }

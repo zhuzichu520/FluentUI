@@ -2140,7 +2140,7 @@ Some contents...</source>
         <translation type="unfinished">清除所有</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="470"/>
+        <location filename="qml/page/T_TableView.qml" line="469"/>
         <source>Insert a Row</source>
         <translation type="unfinished">插入一行</translation>
     </message>
@@ -2190,7 +2190,7 @@ Some contents...</source>
         <translation type="unfinished">删除选中</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="464"/>
+        <location filename="qml/page/T_TableView.qml" line="463"/>
         <source>Add a row of Data</source>
         <translation type="unfinished">添加一行数据</translation>
     </message>

@@ -35,6 +35,22 @@ static inline bool isCompositionEnabled() {
     return false;
 }
 
+static inline void setShadow(HWND hwnd){
+    const MARGINS shadow = { 1, 1, 1, 1 };
+    typedef HRESULT (WINAPI* DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
+    HMODULE module = LoadLibraryW(L"dwmapi.dll");
+    if (module)
+    {
+        DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
+        dwm_extendframe_into_client_area_= reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+        if (dwm_extendframe_into_client_area_)
+        {
+            dwm_extendframe_into_client_area_(hwnd, &shadow);
+        }
+    }
+}
+
+
 #endif
 
 bool containsCursorToItem(QQuickItem *item) {
@@ -106,6 +122,7 @@ void FluFrameless::componentComplete() {
         ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
         ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
     });
+    setShadow(hwnd);
 #endif
     h = qRound(h + _appbar->height());
     if (_fixSize) {
@@ -147,20 +164,22 @@ void FluFrameless::componentComplete() {
     } else if (uMsg == WM_NCCALCSIZE) {
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         bool isMaximum = ::IsZoomed(hwnd);
+        const LONG originalTop = clientRect->top;
+        const LONG originalLeft = clientRect->left;
+        const LONG originalBottom = clientRect->bottom;
+        const LONG originalRight = clientRect->right;
+        const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
+        if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
+            *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
+            return true;
+        }
         if (!isMaximum){
-            if (clientRect->top != 0)
-            {
-                clientRect->top -= 1;
-                clientRect->bottom -= 1;
-            }
+            clientRect->top = originalTop;
+            clientRect->bottom = originalBottom;
+            clientRect->left = originalLeft;
+            clientRect->right = originalRight;
         } else{
-            const LONG originalTop = clientRect->top;
-            const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
-            if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
-                *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
-                return true;
-            }
-            clientRect->top = originalTop-originalTop;
+            clientRect->top = 0;
         }
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
@@ -244,8 +263,6 @@ void FluFrameless::componentComplete() {
             _setMaximizePressed(false);
             return true;
         }
-    } else if (uMsg == WM_ERASEBKGND) {
-        return true;
     } else if (uMsg == WM_NCRBUTTONDOWN) {
         if (wParam == HTCAPTION) {
             _showSystemMenu(QCursor::pos());

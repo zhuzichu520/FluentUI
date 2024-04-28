@@ -873,6 +873,25 @@ Rectangle {
             table_view.model.removeRow(rowIndex,rows)
         }
     }
+    function insertRow(rowIndex,obj){
+        if(rowIndex>=0 && rowIndex<table_view.rows){
+            table_view.model.insertRow(rowIndex,obj)
+        }
+    }
+    function currentIndex(){
+        var index = -1
+        if(!d.current){
+            return index
+        }
+        for (var i = 0; i <= table_model.rowCount-1; i++) {
+            var sourceItem = table_model.getRow(i);
+            if(sourceItem._key === d.current._key){
+                index = i
+                break
+            }
+        }
+        return index
+    }
     function appendRow(obj){
         table_model.appendRow(obj)
     }

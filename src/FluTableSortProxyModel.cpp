@@ -67,6 +67,10 @@ bool FluTableSortProxyModel::lessThan(const QModelIndex &source_left, const QMod
     QMetaObject::invokeMethod(_model, "setRow", Q_ARG(int, mapToSource(index(rowIndex, 0)).row()), Q_ARG(QVariant, val));
 }
 
+[[maybe_unused]] void FluTableSortProxyModel::insertRow(int rowIndex, const QVariant &val) {
+    QMetaObject::invokeMethod(_model, "insertRow", Q_ARG(int, mapToSource(index(rowIndex, 0)).row()), Q_ARG(QVariant, val));
+}
+
 [[maybe_unused]] void FluTableSortProxyModel::removeRow(int rowIndex, int rows) {
     QMetaObject::invokeMethod(_model, "removeRow", Q_ARG(int, mapToSource(index(rowIndex, 0)).row()), Q_ARG(int, rows));
 }
