@@ -499,12 +499,15 @@ FluContentPage{
                 dataIndex: 'checkbox',
                 width:100,
                 minimumWidth:100,
-                maximumWidth:100
+                maximumWidth:300
             },
             {
                 title: table_view.customItem(com_column_update_title,{title:qsTr("Avatar")}),
                 dataIndex: 'avatar',
-                width:100
+                width:100,
+                minimumWidth:100,
+                maximumWidth:100,
+                frozen:true
             },
             {
                 title: table_view.customItem(com_column_filter_name,{title:qsTr("Name")}),
@@ -547,7 +550,8 @@ FluContentPage{
                 dataIndex: 'action',
                 width:160,
                 minimumWidth:160,
-                maximumWidth:160
+                maximumWidth:160,
+                frozen:true
             }
         ]
     }

@@ -1964,7 +1964,7 @@ Some contents...</source>
     </message>
     <message>
         <location filename="qml/page/T_TableView.qml" line="177"/>
-        <location filename="qml/page/T_TableView.qml" line="510"/>
+        <location filename="qml/page/T_TableView.qml" line="513"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2019,32 +2019,32 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="523"/>
+        <location filename="qml/page/T_TableView.qml" line="526"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="531"/>
+        <location filename="qml/page/T_TableView.qml" line="534"/>
         <source>Nickname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="538"/>
+        <location filename="qml/page/T_TableView.qml" line="541"/>
         <source>Long String</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="546"/>
+        <location filename="qml/page/T_TableView.qml" line="549"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="565"/>
+        <location filename="qml/page/T_TableView.qml" line="569"/>
         <source>&lt;Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="566"/>
+        <location filename="qml/page/T_TableView.qml" line="570"/>
         <source>Next&gt;</source>
         <translation type="unfinished"></translation>
     </message>

@@ -30,12 +30,20 @@ Rectangle {
         if(columnSource.length!==0){
             var columns= []
             var headerRow = {}
-            columnSource.forEach(function(item){
+            var offsetX = 0
+            for(var i=0;i<=columnSource.length-1;i++){
+                var item = columnSource[i]
+                var w = item.width
+                if(!w){
+                    w = d.defaultItemWidth
+                }
+                item.x = offsetX
+                offsetX = offsetX + w
                 var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',sourceModel);
                 column.display = item.dataIndex
                 columns.push(column)
                 headerRow[item.dataIndex] = item.title
-            })
+            }
             header_column_model.columns = columns
             header_column_model.rows = [headerRow]
         }
@@ -48,6 +56,7 @@ Rectangle {
         property int defaultItemHeight: 42
         property var editDelegate
         property var editPosition
+        signal tableItemLayout(int column)
         function getEditDelegate(column){
             var obj =control.columnSource[column].editDelegate
             if(obj){
@@ -189,6 +198,7 @@ Rectangle {
         id:com_table_delegate
         MouseArea{
             id:item_table_mouse
+            implicitWidth: TableView.view.width
             property var _model: model
             property bool isRowSelected: {
                 if(rowModel === null)
@@ -198,16 +208,16 @@ Rectangle {
                 }
                 return false
             }
-            TableView.onPooled: {
-                if(d.editPosition && d.editPosition.row === row && d.editPosition.column === column){
-                    control.closeEditor()
-                }
-            }
             property bool editVisible: {
                 if(d.editPosition && d.editPosition._key === rowModel._key && d.editPosition.column === column){
                     return true
                 }
                 return false
+            }
+            TableView.onPooled: {
+                if(d.editPosition && d.editPosition.row === row && d.editPosition.column === column){
+                    control.closeEditor()
+                }
             }
             hoverEnabled: true
             onEntered: {
@@ -217,21 +227,25 @@ Rectangle {
                 if(editVisible){
                     updateEditPosition()
                 }
+                item_table_mouse.updateTableItem()
             }
             onHeightChanged: {
                 if(editVisible){
                     updateEditPosition()
                 }
+                item_table_mouse.updateTableItem()
             }
             onXChanged: {
                 if(editVisible){
                     updateEditPosition()
                 }
+                item_table_mouse.updateTableItem()
             }
             onYChanged: {
                 if(editVisible){
                     updateEditPosition()
                 }
+                item_table_mouse.updateTableItem()
             }
             function updateEditPosition(){
                 var obj = {}
@@ -243,6 +257,12 @@ Rectangle {
                 obj.width = item_table_mouse.width
                 obj.height = item_table_mouse.height - 2
                 d.editPosition = obj
+            }
+            function updateTableItem(){
+                var columnModel = control.columnSource[column]
+                columnModel.x = item_table_mouse.x
+                columnModel.y = item_table_mouse.y
+                d.tableItemLayout(column)
             }
             Rectangle{
                 anchors.fill: parent
@@ -271,7 +291,7 @@ Rectangle {
                         }
                         loader_edit.display = item_table_loader.display
                         d.editDelegate = d.getEditDelegate(column)
-                        updateEditPosition()
+                        item_table_mouse.updateEditPosition()
                     }
                     onClicked:
                         (event)=>{
@@ -358,24 +378,24 @@ Rectangle {
             ScrollBar.horizontal:scroll_bar_h
             ScrollBar.vertical:scroll_bar_v
             columnWidthProvider: function(column) {
-                var columnObject = control.columnSource[column]
-                var width = columnObject.width
+                var columnModel = control.columnSource[column]
+                var width = columnModel.width
                 if(width){
                     return width
                 }
-                var minimumWidth = columnObject.minimumWidth
+                var minimumWidth = columnModel.minimumWidth
                 if(minimumWidth){
                     return minimumWidth
                 }
                 return d.defaultItemWidth
             }
             rowHeightProvider: function(row) {
-                var rowObject = control.getRow(row)
-                var height = rowObject.height
+                var rowModel = control.getRow(row)
+                var height = rowModel.height
                 if(height){
                     return height
                 }
-                var minimumHeight = rowObject._minimumHeight
+                var minimumHeight = rowModel._minimumHeight
                 if(minimumHeight){
                     return minimumHeight
                 }
@@ -440,6 +460,7 @@ Rectangle {
             }
         }
     }
+
     Component{
         id:com_column_header_delegate
         Rectangle{
@@ -447,7 +468,7 @@ Rectangle {
             readonly property real cellPadding: 8
             property bool canceled: false
             property var _model: model
-            readonly property var columnObject : control.columnSource[column]
+            readonly property var columnModel : control.columnSource[column]
             implicitWidth: {
                 return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
             }
@@ -507,7 +528,7 @@ Rectangle {
                 property var display: model.display
                 property var tableView: table_view
                 property var sourceModel: control.sourceModel
-                 property bool isObject: typeof(display) == "object"
+                property bool isObject: typeof(display) == "object"
                 property var options:{
                     if(isObject){
                         return display.options
@@ -531,7 +552,7 @@ Rectangle {
                 anchors.right: parent.right
                 acceptedButtons: Qt.LeftButton
                 hoverEnabled: true
-                visible: !(columnObject.width === columnObject.minimumWidth && columnObject.width === columnObject.maximumWidth && columnObject.width)
+                visible: !(columnModel.width === columnModel.minimumWidth && columnModel.width === columnModel.maximumWidth && columnModel.width)
                 cursorShape: Qt.SplitHCursor
                 preventStealing: true
                 onPressed :
@@ -551,9 +572,9 @@ Rectangle {
                             return
                         }
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
-                        var minimumWidth = columnObject.minimumWidth
-                        var maximumWidth = columnObject.maximumWidth
-                        var w = columnObject.width
+                        var minimumWidth = columnModel.minimumWidth
+                        var maximumWidth = columnModel.maximumWidth
+                        var w = columnModel.width
                         if(!w){
                             w = d.defaultItemWidth
                         }
@@ -563,7 +584,7 @@ Rectangle {
                         if(!maximumWidth){
                             maximumWidth = 65535
                         }
-                        columnObject.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
+                        columnModel.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
                         table_view.forceLayout()
                         header_horizontal.forceLayout()
                     }
@@ -576,7 +597,7 @@ Rectangle {
             id:item_control
             readonly property real cellPadding: 8
             property bool canceled: false
-            property var rowObject: control.getRow(row)
+            property var rowModel: control.getRow(row)
             implicitWidth: Math.max(30, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
             color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
@@ -642,9 +663,9 @@ Rectangle {
                 cursorShape: Qt.SplitVCursor
                 preventStealing: true
                 visible: {
-                    if(rowObject === null)
+                    if(rowModel === null)
                         return false
-                    return !(rowObject.height === rowObject._minimumHeight && rowObject.height === rowObject._maximumHeight && rowObject.height)
+                    return !(rowModel.height === rowModel._minimumHeight && rowModel.height === rowModel._maximumHeight && rowModel.height)
                 }
                 onPressed :
                     (mouse)=>{
@@ -662,11 +683,11 @@ Rectangle {
                         if(!pressed){
                             return
                         }
-                        var rowObject = control.getRow(row)
+                        var rowModel = control.getRow(row)
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
-                        var minimumHeight = rowObject._minimumHeight
-                        var maximumHeight = rowObject._maximumHeight
-                        var h = rowObject.height
+                        var minimumHeight = rowModel._minimumHeight
+                        var maximumHeight = rowModel._maximumHeight
+                        var h = rowModel.height
                         if(!h){
                             h = d.defaultItemHeight
                         }
@@ -676,8 +697,8 @@ Rectangle {
                         if(!maximumHeight){
                             maximumHeight = 65535
                         }
-                        rowObject.height = Math.min(Math.max(minimumHeight, h + delta.y),maximumHeight)
-                        control.setRow(row,rowObject)
+                        rowModel.height = Math.min(Math.max(minimumHeight, h + delta.y),maximumHeight)
+                        control.setRow(row,rowModel)
                         table_view.forceLayout()
                     }
             }
@@ -790,6 +811,78 @@ Rectangle {
             }
         }
     }
+
+    Item{
+        anchors{
+            left: header_vertical.right
+            top: parent.top
+            bottom: parent.bottom
+        }
+
+        Component{
+            id: com_table_frozen
+            Item{
+                id: item_layout_frozen
+                property var sourceModel:FluTableModel {
+                    columnSource: columnModel
+                    rows: control.sourceModel.rows
+                }
+                TableView{
+                    clip: true
+                    anchors{
+                        fill: parent
+                        topMargin: header_horizontal.height
+                    }
+                    model: control.sourceModel
+                    delegate: com_table_delegate
+                    syncDirection: Qt.Vertical
+                    syncView: table_view
+                }
+            }
+        }
+
+        Repeater{
+            model: control.columnSource
+            delegate: FluLoader{
+                id: item_layout_frozen
+                readonly property var columnModel : control.columnSource[model.index]
+                readonly property int index : model.index
+                width: table_view.columnWidthProvider(index)
+                Connections{
+                    target: d
+                    function onTableItemLayout(column){
+                        if(column === index){
+                            item_layout_frozen.updateLayout()
+                        }
+                    }
+                }
+                Connections{
+                    target: table_view
+                    function onContentXChanged(){
+                        item_layout_frozen.updateLayout()
+                    }
+                }
+                function updateLayout(){
+                    width = table_view.columnWidthProvider(index)
+                    x = Qt.binding(function(){ return Math.min(Math.max(columnModel.x - table_view.contentX,0),table_view.width-item_layout_frozen.width) })
+                }
+                Component.onCompleted: {
+                    updateLayout()
+                }
+                height: control.height
+                visible: {
+                    if(modelData.frozen){
+                        return true
+                    }
+                    return false
+                }
+                sourceComponent: visible ? com_table_frozen : undefined
+            }
+        }
+    }
+
+
+
     FluScrollBar {
         id: scroll_bar_h
         anchors{
