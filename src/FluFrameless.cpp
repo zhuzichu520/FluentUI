@@ -87,7 +87,7 @@ void FluFrameless::componentComplete() {
     int w = window()->width();
     int h = window()->height();
     _current = window()->winId();
-    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
     if (!_fixSize) {
         window()->setFlag(Qt::WindowMaximizeButtonHint);
     }
@@ -106,14 +106,14 @@ void FluFrameless::componentComplete() {
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if (_fixSize) {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_CAPTION);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
         for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
             connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
                 SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
             });
         }
     } else {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_CAPTION);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
     }
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
     connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
@@ -153,6 +153,7 @@ void FluFrameless::componentComplete() {
     const auto uMsg = msg->message;
     const auto wParam = msg->wParam;
     const auto lParam = msg->lParam;
+    static int offsetXY;
     if (uMsg == WM_WINDOWPOSCHANGING) {
         auto *wp = reinterpret_cast<WINDOWPOS *>(lParam);
         if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0) {
@@ -173,13 +174,19 @@ void FluFrameless::componentComplete() {
             *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
             return true;
         }
+        if(clientRect->left - originalLeft != 0){
+            offsetXY = clientRect->left - originalLeft;
+        }
         if (!isMaximum) {
             clientRect->top = originalTop;
             clientRect->bottom = originalBottom;
             clientRect->left = originalLeft;
             clientRect->right = originalRight;
         } else {
-            clientRect->top = 0;
+            clientRect->top = originalTop+offsetXY;
+            clientRect->bottom = originalBottom-offsetXY;
+            clientRect->left = originalLeft+offsetXY;
+            clientRect->right = originalRight-offsetXY;
         }
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
