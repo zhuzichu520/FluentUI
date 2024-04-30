@@ -11,6 +11,7 @@ T.ComboBox {
     property color normalColor: FluTheme.dark ? Qt.rgba(62/255,62/255,62/255,1) : Qt.rgba(254/255,254/255,254/255,1)
     property color hoverColor: FluTheme.dark ? Qt.rgba(68/255,68/255,68/255,1) : Qt.rgba(251/255,251/255,251/255,1)
     property color disableColor: FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
+    property alias textBox: text_field
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -39,6 +40,7 @@ T.ComboBox {
         opacity: enabled ? 1 : 0.3
     }
     contentItem: T.TextField {
+        id: text_field
         property bool disabled: !control.editable
         leftPadding: !control.mirrored ? 10 : control.editable && activeFocus ? 3 : 1
         rightPadding: control.mirrored ? 10 : control.editable && activeFocus ? 3 : 1

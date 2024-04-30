@@ -301,7 +301,6 @@ Window {
         info_bar.showError(text,duration,moremsg)
     }
     function moveWindowToDesktopCenter(){
-        screen = Qt.application.screens[FluTools.cursorScreenIndex()]
         var availableGeometry = FluTools.desktopAvailableGeometry(window)
         window.setGeometry((availableGeometry.width-window.width)/2+Screen.virtualX,(availableGeometry.height-window.height)/2+Screen.virtualY,window.width,window.height)
     }

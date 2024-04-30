@@ -171,7 +171,7 @@ T.ScrollBar {
             ,Transition {
                 to: "show"
                 SequentialAnimation {
-                    PauseAnimation { duration: 450 }
+                    PauseAnimation { duration: 150 }
                     NumberAnimation {
                         target: rect_bar
                         properties: vertical ? "width"  : "height"

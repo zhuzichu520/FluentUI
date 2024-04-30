@@ -244,7 +244,9 @@ FluContentPage{
                     clickListener: function(){
                         root.selectedAll = !root.selectedAll
                         var checked = root.selectedAll
-                        model.display = table_view.customItem(com_column_checbox,{"checked":checked})
+                        var columnModel = model.display
+                        columnModel.title = table_view.customItem(com_column_checbox,{"checked":checked})
+                        model.display = columnModel
                         for(var i =0;i< table_view.rows ;i++){
                             var rowData = table_view.getRow(i)
                             rowData.checkbox = table_view.customItem(com_checbox,{"checked":checked})
@@ -271,7 +273,9 @@ FluContentPage{
             }
             Component.onCompleted: {
                 currentIndex=["100","300","500","1000"].findIndex((element) => element === display)
-                selectAll()
+                console.debug(textBox)
+                textBox.forceActiveFocus()
+                textBox.selectAll()
             }
             onCommit: {
                 editTextChaged(editText)
@@ -287,12 +291,14 @@ FluContentPage{
             anchors.fill: parent
             focus: true
             Component.onCompleted: {
+                console.debug("333333")
                 var data = ["傲来国界花果山水帘洞","傲来国界坎源山脏水洞","大唐国界黑风山黑风洞","大唐国界黄风岭黄风洞","大唐国界骷髅山白骨洞","宝象国界碗子山波月洞","宝象国界平顶山莲花洞","宝象国界压龙山压龙洞","乌鸡国界号山枯松涧火云洞","乌鸡国界衡阳峪黑水河河神府"]
                 var result = data.map(function(item) {
                     return {title: item};
                 });
                 items = result
                 textbox.text= String(display)
+                forceActiveFocus()
                 selectAll()
             }
             onCommit: {
@@ -345,7 +351,9 @@ FluContentPage{
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     custom_update_dialog.showDialog(options.title,function(text){
-                        itemModel.display = table_view.customItem(com_column_update_title,{"title":text})
+                        var columnModel = model.display
+                        columnModel.title = table_view.customItem(com_column_update_title,{"title":text})
+                        model.display = columnModel
                     })
                 }
             }
@@ -499,20 +507,19 @@ FluContentPage{
                 dataIndex: 'checkbox',
                 width:100,
                 minimumWidth:100,
-                maximumWidth:300
-            },
-            {
-                title: table_view.customItem(com_column_update_title,{title:qsTr("Avatar")}),
-                dataIndex: 'avatar',
-                width:100,
-                minimumWidth:100,
-                maximumWidth:100,
-                frozen:true
+                maximumWidth:300,
+                frozen: true
             },
             {
                 title: table_view.customItem(com_column_filter_name,{title:qsTr("Name")}),
                 dataIndex: 'name',
                 readOnly:true
+            },
+            {
+                title: table_view.customItem(com_column_update_title,{title:qsTr("Avatar")}),
+                dataIndex: 'avatar',
+                width:100,
+                frozen:true
             },
             {
                 title: table_view.customItem(com_column_sort_age,{sort:0}),
