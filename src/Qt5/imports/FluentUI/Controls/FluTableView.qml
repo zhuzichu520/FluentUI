@@ -853,6 +853,7 @@ Rectangle {
                     }
                     return FluTheme.dark ? Qt.rgba(56/255,56/255,56/255,1) :Qt.rgba(243/255,243/255,243/255,1)
                 }
+                visible: table_view.rows !== 0
                 Rectangle{
                     z:99
                     anchors.fill: parent
