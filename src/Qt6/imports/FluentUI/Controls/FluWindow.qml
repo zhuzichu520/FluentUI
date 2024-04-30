@@ -60,8 +60,8 @@ Window {
     property var _windowRegister
     property string _route
     property bool _hideShadow: false
-    id:window
-    color:"transparent"
+    id: window
+    color: FluTools.isSoftware() ? window.backgroundColor : "transparent"
     Component.onCompleted: {
         FluRouter.addWindow(window)
         useSystemAppBar = FluApp.useSystemAppBar

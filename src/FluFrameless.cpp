@@ -162,8 +162,8 @@ void FluFrameless::componentComplete() {
         }
         return false;
     } else if (uMsg == WM_NCCALCSIZE) {
-        const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         bool isMaximum = ::IsZoomed(hwnd);
+        const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
         const LONG originalLeft = clientRect->left;
         const LONG originalBottom = clientRect->bottom;
@@ -186,6 +186,9 @@ void FluFrameless::componentComplete() {
             clientRect->bottom = originalBottom - offsetXY;
             clientRect->left = originalLeft + offsetXY;
             clientRect->right = originalRight - offsetXY;
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
+            qWarning("This issue is Qt's own bug, which currently only exists in 6.5.3 and 6.6.0, and has been fixed in later versions");
+#endif
         }
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
