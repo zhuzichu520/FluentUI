@@ -7,13 +7,13 @@
 #include "FluTools.h"
 
 #ifdef Q_OS_WIN
+
 #pragma comment (lib, "user32.lib")
 #pragma comment (lib, "dwmapi.lib")
 
 #include <windows.h>
 #include <windowsx.h>
 #include <dwmapi.h>
-
 
 static inline QByteArray qtNativeEventType() {
     static const auto result = "windows_generic_MSG";
@@ -47,7 +47,6 @@ static inline void setShadow(HWND hwnd) {
         }
     }
 }
-
 
 #endif
 
@@ -174,7 +173,7 @@ void FluFrameless::componentComplete() {
             *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
             return true;
         }
-        if(clientRect->left - originalLeft != 0){
+        if (clientRect->left - originalLeft != 0) {
             offsetXY = clientRect->left - originalLeft;
         }
         if (!isMaximum) {
@@ -183,10 +182,10 @@ void FluFrameless::componentComplete() {
             clientRect->left = originalLeft;
             clientRect->right = originalRight;
         } else {
-            clientRect->top = originalTop+offsetXY;
-            clientRect->bottom = originalBottom-offsetXY;
-            clientRect->left = originalLeft+offsetXY;
-            clientRect->right = originalRight-offsetXY;
+            clientRect->top = originalTop + offsetXY;
+            clientRect->bottom = originalBottom - offsetXY;
+            clientRect->left = originalLeft + offsetXY;
+            clientRect->right = originalRight - offsetXY;
         }
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
