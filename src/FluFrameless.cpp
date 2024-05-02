@@ -105,14 +105,22 @@ void FluFrameless::componentComplete() {
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if (_fixSize) {
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);;
+#else
         ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+#endif
         for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
             connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
                 SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
             });
         }
     } else {
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
+#else
         ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+#endif
     }
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
     connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
@@ -162,7 +170,6 @@ void FluFrameless::componentComplete() {
         }
         return false;
     } else if (uMsg == WM_NCCALCSIZE) {
-        bool isMaximum = ::IsZoomed(hwnd);
         const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
         const LONG originalLeft = clientRect->left;
@@ -176,6 +183,13 @@ void FluFrameless::componentComplete() {
         if (clientRect->left - originalLeft != 0) {
             offsetXY = clientRect->left - originalLeft;
         }
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
+        clientRect->top = originalTop;
+        clientRect->bottom = originalBottom;
+        clientRect->left = originalLeft;
+        clientRect->right = originalRight;
+#else
+        bool isMaximum = ::IsZoomed(hwnd);
         if (!isMaximum) {
             clientRect->top = originalTop;
             clientRect->bottom = originalBottom;
@@ -186,10 +200,8 @@ void FluFrameless::componentComplete() {
             clientRect->bottom = originalBottom - offsetXY;
             clientRect->left = originalLeft + offsetXY;
             clientRect->right = originalRight - offsetXY;
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
-            qWarning("This issue is Qt's own bug, which currently only exists in 6.5.3 and 6.6.0, and has been fixed in later versions");
-#endif
         }
+#endif
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;
@@ -258,6 +270,17 @@ void FluFrameless::componentComplete() {
         }
         *result = TRUE;
         return true;
+    } else if (uMsg == WM_GETMINMAXINFO) {
+        auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
+        auto pixelRatio = window()->devicePixelRatio();
+        auto geometry = window()->screen()->availableGeometry();
+        RECT rect;
+        SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
+        minmaxInfo->ptMaxPosition.x = rect.left;
+        minmaxInfo->ptMaxPosition.y = rect.top;
+        minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio);
+        minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio);
+        return false;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
