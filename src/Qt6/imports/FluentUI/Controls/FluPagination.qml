@@ -1,7 +1,7 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import FluentUI 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import FluentUI
 
 Item {
     signal requestPage(int page, int count)
@@ -37,7 +37,6 @@ Item {
         }
         Row {
             spacing: 5
-
             FluToggleButton {
                 property int pageNumber: 1
                 visible: control.pageCount > 0
@@ -97,7 +96,6 @@ Item {
             sourceComponent: footer
         }
     }
-
     function calcNewPage(page) {
         if (!page)
             return
@@ -107,5 +105,4 @@ Item {
         control.pageCurrent = page_num
         control.requestPage(page_num, control.__itemPerPage)
     }
-
 }

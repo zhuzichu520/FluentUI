@@ -54,9 +54,9 @@ bool containsCursorToItem(QQuickItem *item) {
     if (!item || !item->isVisible()) {
         return false;
     }
-    auto point = QCursor::pos();
-    auto rect = QRectF(item->mapToGlobal(QPoint(0, 0)), item->size());
-    if (point.x() > rect.x() && point.x() < (rect.x() + rect.width()) && point.y() > rect.y() && point.y() < (rect.y() + rect.height())) {
+    auto point = item->window()->mapFromGlobal(QCursor::pos());
+    auto rect = QRectF(item->mapToItem(item->window()->contentItem(), QPointF(0, 0)), item->size());
+    if (rect.contains(point)) {
         return true;
     }
     return false;
@@ -297,7 +297,9 @@ void FluFrameless::componentComplete() {
         }
     } else if (uMsg == WM_NCRBUTTONDOWN) {
         if (wParam == HTCAPTION) {
-            _showSystemMenu(QCursor::pos());
+            auto pos = window()->position();
+            auto offset = window()->mapFromGlobal(QCursor::pos());
+            _showSystemMenu(QPoint(pos.x() + offset.x(), pos.y() + offset.y()));
         }
     } else if (uMsg == WM_KEYDOWN || uMsg == WM_SYSKEYDOWN) {
         const bool altPressed = ((wParam == VK_MENU) || (::GetKeyState(VK_MENU) < 0));
@@ -335,6 +337,15 @@ bool FluFrameless::_isFullScreen() {
 
 void FluFrameless::_showSystemMenu(QPoint point) {
 #ifdef Q_OS_WIN
+    QScreen *screen = window()->screen();
+    if (!screen) {
+        screen = QGuiApplication::primaryScreen();
+    }
+    if (!screen) {
+        return;
+    }
+    const QPoint origin = screen->geometry().topLeft();
+    auto nativePos = QPointF(QPointF(point - origin) * window()->devicePixelRatio()).toPoint() + origin;
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_SYSMENU);
@@ -353,8 +364,8 @@ void FluFrameless::_showSystemMenu(QPoint point) {
         ::EnableMenuItem(hMenu, SC_SIZE, MFS_DISABLED);
         ::EnableMenuItem(hMenu, SC_MAXIMIZE, MFS_DISABLED);
     }
-    const int result = ::TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), qRound(point.x() * window()->devicePixelRatio()),
-                                        qRound(point.y() * window()->devicePixelRatio()), 0, hwnd, nullptr);
+    const int result = ::TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), nativePos.x(),
+                                        nativePos.y(), 0, hwnd, nullptr);
     if (result != FALSE) {
         ::PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
     }
