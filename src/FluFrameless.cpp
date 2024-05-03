@@ -169,8 +169,8 @@ void FluFrameless::componentComplete() {
             return true;
         }
         return false;
-    } else if (uMsg == WM_NCCALCSIZE) {
-        const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
+    } else if (uMsg == WM_NCCALCSIZE && wParam == TRUE) {
+        const auto clientRect = &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0];
         const LONG originalTop = clientRect->top;
         const LONG originalLeft = clientRect->left;
         const LONG originalBottom = clientRect->bottom;
