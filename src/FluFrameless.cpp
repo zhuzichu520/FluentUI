@@ -271,6 +271,7 @@ void FluFrameless::componentComplete() {
         *result = TRUE;
         return true;
     } else if (uMsg == WM_GETMINMAXINFO) {
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
         auto pixelRatio = window()->devicePixelRatio();
         auto geometry = window()->screen()->availableGeometry();
@@ -280,6 +281,7 @@ void FluFrameless::componentComplete() {
         minmaxInfo->ptMaxPosition.y = rect.top;
         minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio);
         minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio);
+#endif
         return false;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
