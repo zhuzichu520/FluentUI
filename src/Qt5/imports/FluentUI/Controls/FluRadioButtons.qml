@@ -3,30 +3,76 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 
-ColumnLayout {
-    default property alias buttons: control.data
-    property int currentIndex : -1
+Item{
     id:control
-    onCurrentIndexChanged: {
-        for(var i = 0;i<buttons.length;i++){
-            buttons[i].checked = false
-        }
-        var button = buttons[currentIndex]
-        if(button){
-            button.checked = true
+    default property list<QtObject> buttons
+    property int currentIndex : -1
+    property int spacing: 8
+    property int orientation: Qt.Vertical
+    QtObject{
+        id: d
+        function updateChecked(){
+            if(buttons.length === 0){
+                return
+            }
+            for(var i = 0;i<buttons.length;i++){
+                buttons[i].checked = false
+            }
+            buttons[currentIndex].checked = true
         }
     }
-    Component.onCompleted: {
-        for(var i = 0;i<buttons.length;i++){
-            buttons[i].clickListener = function(){
-                for(var i = 0;i<buttons.length;i++){
-                    var button = buttons[i]
-                    if(this === button){
-                        currentIndex = i
+    implicitWidth: childrenRect.width
+    implicitHeight: childrenRect.height
+    onCurrentIndexChanged: {
+        d.updateChecked()
+    }
+    Component{
+        id:com_vertical
+        ColumnLayout {
+            data: control.buttons
+            spacing: control.spacing
+            Component.onCompleted: {
+                for(var i = 0;i<control.buttons.length;i++){
+                    control.buttons[i].clickListener = function(){
+                        for(var i = 0;i<control.buttons.length;i++){
+                            var button = control.buttons[i]
+                            if(this === button){
+                                control.currentIndex = i
+                            }
+                        }
                     }
                 }
+                if(control.currentIndex < 0){
+                    control.currentIndex = 0
+                }
+                d.updateChecked()
             }
         }
-        currentIndex = 0
+    }
+    Component{
+        id:com_horizontal
+        RowLayout {
+            data: buttons
+            spacing: control.spacing
+            Component.onCompleted: {
+                for(var i = 0;i<control.buttons.length;i++){
+                    control.buttons[i].clickListener = function(){
+                        for(var i = 0;i<control.buttons.length;i++){
+                            var button = control.buttons[i]
+                            if(this === button){
+                                control.currentIndex = i
+                            }
+                        }
+                    }
+                }
+                if(control.currentIndex < 0){
+                    control.currentIndex = 0
+                }
+                d.updateChecked()
+            }
+        }
+    }
+    FluLoader{
+        sourceComponent: control.orientation === Qt.Vertical ? com_vertical : com_horizontal
     }
 }

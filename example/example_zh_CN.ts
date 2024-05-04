@@ -1808,22 +1808,30 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_RadioButton.qml" line="38"/>
-        <location filename="qml/page/T_RadioButton.qml" line="80"/>
+        <location filename="qml/page/T_RadioButton.qml" line="81"/>
+        <location filename="qml/page/T_RadioButton.qml" line="134"/>
+        <location filename="qml/page/T_RadioButton.qml" line="187"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="63"/>
+        <location filename="qml/page/T_RadioButton.qml" line="64"/>
+        <location filename="qml/page/T_RadioButton.qml" line="117"/>
+        <location filename="qml/page/T_RadioButton.qml" line="170"/>
         <source>Radio Button_1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="67"/>
+        <location filename="qml/page/T_RadioButton.qml" line="68"/>
+        <location filename="qml/page/T_RadioButton.qml" line="121"/>
+        <location filename="qml/page/T_RadioButton.qml" line="174"/>
         <source>Radio Button_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="71"/>
+        <location filename="qml/page/T_RadioButton.qml" line="72"/>
+        <location filename="qml/page/T_RadioButton.qml" line="125"/>
+        <location filename="qml/page/T_RadioButton.qml" line="178"/>
         <source>Radio Button_3</source>
         <translation type="unfinished"></translation>
     </message>
