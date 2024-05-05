@@ -17,6 +17,7 @@ Rectangle {
     property color selectedBorderColor: FluTheme.primaryColor
     property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
     readonly property alias current: d.current
+    property alias view: table_view
     id:control
     color: {
         if(Window.active){
