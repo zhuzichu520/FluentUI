@@ -180,5 +180,15 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         Qt${QT_VERSION_MAJOR}::Qml
 )
 
+if (${QT_VERSION_MAJOR} LESS_EQUAL 6)
+    find_program(QML_PLUGIN_DUMP NAMES qmlplugindump)
+    add_custom_target(Script-Generate-QmlTypes
+            COMMAND ${QML_PLUGIN_DUMP} -nonrelocatable  FluentUI 1.0 ${CMAKE_CURRENT_BINARY_DIR} > ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
+            COMMENT "Generate qmltypes........."
+            SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endif()
+    
 #安装
 install(DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)

@@ -148,6 +148,12 @@ void FluentUI::registerTypes(const char *uri) const {
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject, uri, major, minor, "FluTimelineType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluSheetType::staticMetaObject, uri, major, minor, "FluSheetType", "Access to enums & flags only");
 
+//    qmlRegisterSingletonInstance(uri, major, minor, "FluApp", FluApp::getInstance());
+//    qmlRegisterSingletonInstance(uri, major, minor, "FluColors", FluColors::getInstance());
+//    qmlRegisterSingletonInstance(uri, major, minor, "FluTheme", FluTheme::getInstance());
+//    qmlRegisterSingletonInstance(uri, major, minor, "FluTools", FluTools::getInstance());
+//    qmlRegisterSingletonInstance(uri, major, minor, "FluTextStyle", FluTextStyle::getInstance());
+
     qmlRegisterModule(uri, major, minor);
 #endif
 }
