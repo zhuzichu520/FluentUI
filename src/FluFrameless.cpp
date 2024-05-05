@@ -259,17 +259,27 @@ void FluFrameless::componentComplete() {
         *result = HTCLIENT;
         return true;
     } else if (uMsg == WM_NCPAINT) {
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
+        *result = FALSE;
+        return true;
+#else
         if (isCompositionEnabled()) {
             return false;
         }
         *result = FALSE;
         return true;
+#endif
     } else if (uMsg == WM_NCACTIVATE) {
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
+        *result = TRUE;
+        return true;
+#else
         if (isCompositionEnabled()) {
             return false;
         }
         *result = TRUE;
         return true;
+#endif
     } else if (uMsg == WM_GETMINMAXINFO) {
 #if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);

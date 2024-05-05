@@ -180,7 +180,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         Qt${QT_VERSION_MAJOR}::Qml
 )
 
-if (${QT_VERSION_MAJOR} LESS_EQUAL 6)
+if ((${QT_VERSION_MAJOR} LESS_EQUAL 6) AND (CMAKE_BUILD_TYPE MATCHES "Release"))
     find_program(QML_PLUGIN_DUMP NAMES qmlplugindump)
     add_custom_target(Script-Generate-QmlTypes
             COMMAND ${QML_PLUGIN_DUMP} -nonrelocatable  FluentUI 1.0 ${CMAKE_CURRENT_BINARY_DIR} > ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
