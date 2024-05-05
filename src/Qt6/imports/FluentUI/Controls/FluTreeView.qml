@@ -28,20 +28,25 @@ Rectangle {
         tree_model.setDataSource(dataSource)
     }
     onColumnSourceChanged: {
-        var columns= []
-        var headerRow = {}
-        columnSource.forEach(function(item){
-            var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',control);
-            column.display = item.dataIndex
-            columns.push(column)
-            headerRow[item.dataIndex] = item.title
-        })
-        header_column_model.columns = columns
-        header_column_model.rows = [headerRow]
+        if(columnSource.length !== 0){
+            var columns= []
+            var headerRow = {}
+            columnSource.forEach(function(item){
+                var column = Qt.createQmlObject('import Qt.labs.qmlmodels 1.0;TableModelColumn{}',control);
+                column.display = item.dataIndex
+                columns.push(column)
+                headerRow[item.dataIndex] = item.title
+            })
+            header_column_model.columns = columns
+            header_column_model.rows = [headerRow]
+        }
     }
     FluTreeModel{
         id:tree_model
         columnSource: control.columnSource
+    }
+    Component.onDestruction: {
+        table_view.contentY = 0
     }
     onDepthPaddingChanged: {
         table_view.forceLayout()

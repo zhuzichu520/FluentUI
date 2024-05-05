@@ -45,6 +45,9 @@ Rectangle {
         id:tree_model
         columnSource: control.columnSource
     }
+    Component.onDestruction: {
+        table_view.contentY = 0
+    }
     onDepthPaddingChanged: {
         table_view.forceLayout()
     }

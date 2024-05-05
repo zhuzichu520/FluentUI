@@ -19,6 +19,7 @@ Rectangle {
     property bool verticalHeaderVisible: true
     property color selectedBorderColor: FluTheme.primaryColor
     property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
+    property alias view: table_view
     id:control
     color: {
         if(Window.active){
@@ -46,6 +47,9 @@ Rectangle {
             header_column_model.columns = columns
             header_column_model.rows = [headerRow]
         }
+    }
+    Component.onDestruction: {
+        table_view.contentY = 0
     }
     QtObject{
         id:d
@@ -896,6 +900,7 @@ Rectangle {
                         item_table_frozen_header.contentX = columnModel.width * _index
                         item_table_frozen.contentX = columnModel.width * _index
                     }
+
                 }
             }
         }
