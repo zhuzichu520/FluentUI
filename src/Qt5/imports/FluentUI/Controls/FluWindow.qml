@@ -122,11 +122,20 @@ Window {
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
                 Component.onCompleted: {
-                    var geometry = FluTools.desktopAvailableGeometry(window)
-                    width = geometry.width
-                    height =  geometry.height
-                    sourceSize = Qt.size(width,height)
+                    img_back.updateLayout()
                     source = FluTools.getUrlByFilePath(FluTheme.desktopImagePath)
+                }
+                Connections{
+                    target: window
+                    function onScreenChanged(){
+                        img_back.updateLayout()
+                    }
+                }
+                function updateLayout(){
+                    var geometry = FluTools.desktopAvailableGeometry(window)
+                    img_back.width = geometry.width
+                    img_back.height =  geometry.height
+                    img_back.sourceSize = Qt.size(img_back.width,img_back.height)
                 }
                 Connections{
                     target: FluTheme
@@ -157,7 +166,7 @@ Window {
                 blurRadius: 64
                 visible: window.active && FluTheme.blurBehindWindowEnabled
                 tintColor: FluTheme.dark ? Qt.rgba(0, 0, 0, 1)  : Qt.rgba(1, 1, 1, 1)
-                targetRect: Qt.rect(window.x,window.y,window.width,window.height)
+                targetRect: Qt.rect(window.x-window.screen.virtualX,window.y-window.screen.virtualY,window.width,window.height)
             }
         }
     }
