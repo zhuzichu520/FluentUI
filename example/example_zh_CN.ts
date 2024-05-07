@@ -1500,7 +1500,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
 <context>
     <name>T_LineChart</name>
     <message>
-        <location filename="qml/chart/T_LineChart.qml" line="10"/>
+        <location filename="qml/chart/T_LineChart.qml" line="11"/>
         <source>Line Chart</source>
         <translation type="unfinished">线型图</translation>
     </message>

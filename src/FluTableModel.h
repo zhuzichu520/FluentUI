@@ -8,7 +8,6 @@
 
 class FluTableModel : public QAbstractTableModel {
 Q_OBJECT
-Q_PROPERTY_AUTO(int, dataSourceSize)
 Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
 Q_PROPERTY_AUTO(QList<QVariantMap>, rows)
     Q_PROPERTY(int rowCount READ rowCount CONSTANT)

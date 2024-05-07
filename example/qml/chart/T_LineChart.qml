@@ -7,7 +7,9 @@ import "../component"
 
 FluScrollablePage{
 
+    id: root
     title: qsTr("Line Chart")
+    property var data : []
 
     FluFrame{
         Layout.preferredWidth: 500
@@ -15,13 +17,14 @@ FluScrollablePage{
         padding: 10
         Layout.topMargin: 20
         FluChart{
+            id: chart
             anchors.fill: parent
             chartType: 'line'
             chartData: { return {
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                     datasets: [{
                             label: 'My First Dataset',
-                            data: [65, 59, 80, 81, 56, 55, 40],
+                            data: root.data,
                             fill: false,
                             borderColor: 'rgb(75, 192, 192)',
                             tension: 0.1
@@ -40,6 +43,21 @@ FluScrollablePage{
                     }
                 }
             }
+        }
+        Timer{
+            id: timer
+            interval: 300
+            repeat: true
+            onTriggered: {
+                root.data.push(Math.random()*100)
+                if(root.data.length>7){
+                    root.data.shift()
+                }
+                chart.animateToNewData()
+            }
+        }
+        Component.onCompleted: {
+            timer.restart()
         }
     }
 }
