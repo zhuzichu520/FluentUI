@@ -19,7 +19,9 @@ Item{
             for(var i = 0;i<buttons.length;i++){
                 buttons[i].checked = false
             }
-            buttons[currentIndex].checked = true
+            if(currentIndex>=0 && currentIndex<buttons.length){
+                buttons[currentIndex].checked = true
+            }
         }
     }
     implicitWidth: childrenRect.width
@@ -43,9 +45,6 @@ Item{
                         }
                     }
                 }
-                if(control.currentIndex < 0){
-                    control.currentIndex = 0
-                }
                 d.updateChecked()
             }
         }
@@ -53,7 +52,7 @@ Item{
     Component{
         id:com_horizontal
         RowLayout {
-            data: buttons
+            data: control.buttons
             spacing: control.spacing
             Component.onCompleted: {
                 for(var i = 0;i<control.buttons.length;i++){
@@ -65,9 +64,6 @@ Item{
                             }
                         }
                     }
-                }
-                if(control.currentIndex < 0){
-                    control.currentIndex = 0
                 }
                 d.updateChecked()
             }

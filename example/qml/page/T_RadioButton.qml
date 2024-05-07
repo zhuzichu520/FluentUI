@@ -164,7 +164,7 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-            currentIndex: 1
+            currentIndex: -1
             FluCheckBox{
                 disabled: radio_button_switch4.checked
                 text: qsTr("Radio Button_1")
