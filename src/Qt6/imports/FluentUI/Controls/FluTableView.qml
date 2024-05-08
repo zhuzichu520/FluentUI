@@ -955,6 +955,16 @@ Rectangle {
                     return false
                 }
                 sourceComponent: visible ? com_table_frozen : undefined
+                onStatusChanged: {
+                    if(status === Loader.Ready){
+                        sourceComponent = Qt.binding(function(){
+                            if(modelData.frozen){
+                                return com_table_frozen
+                            }
+                            return undefined
+                        })
+                    }
+                }
             }
         }
     }
