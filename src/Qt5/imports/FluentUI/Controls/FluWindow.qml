@@ -295,16 +295,19 @@ Window {
         loader_loading.sourceComponent = undefined
     }
     function showSuccess(text,duration,moremsg){
-        info_bar.showSuccess(text,duration,moremsg)
+        return info_bar.showSuccess(text,duration,moremsg)
     }
     function showInfo(text,duration,moremsg){
-        info_bar.showInfo(text,duration,moremsg)
+        return info_bar.showInfo(text,duration,moremsg)
     }
     function showWarning(text,duration,moremsg){
-        info_bar.showWarning(text,duration,moremsg)
+        return info_bar.showWarning(text,duration,moremsg)
     }
     function showError(text,duration,moremsg){
-        info_bar.showError(text,duration,moremsg)
+        return info_bar.showError(text,duration,moremsg)
+    }
+    function clearAllInfo(){
+        return info_bar.clearAllInfo()
     }
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]
