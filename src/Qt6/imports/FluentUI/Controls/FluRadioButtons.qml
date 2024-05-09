@@ -7,6 +7,8 @@ import FluentUI
 ColumnLayout {
     default property alias buttons: control.data
     property int currentIndex : -1
+    property bool disabled: false
+    property bool manuallyDisabled: false
     id:control
     onCurrentIndexChanged: {
         for(var i = 0;i<buttons.length;i++){
@@ -16,6 +18,12 @@ ColumnLayout {
         if(button){
             button.checked = true
         }
+    }
+    onDisabledChanged: {
+        refreshButtonStatus()
+    }
+    onManuallyDisabledChanged: {
+        refreshButtonStatus()
     }
     Component.onCompleted: {
         for(var i = 0;i<buttons.length;i++){
@@ -28,6 +36,12 @@ ColumnLayout {
                 }
             }
         }
-        currentIndex = 0
+        refreshButtonStatus()
+    }
+
+    function refreshButtonStatus() {
+        for(var i = 0;i<buttons.length;i++){
+            if(!manuallyDisabled) buttons[i].enabled = !disabled
+        }
     }
 }
