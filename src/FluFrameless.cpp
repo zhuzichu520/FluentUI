@@ -160,7 +160,6 @@ void FluFrameless::componentComplete() {
     const auto uMsg = msg->message;
     const auto wParam = msg->wParam;
     const auto lParam = msg->lParam;
-    static int offsetXY;
     if (uMsg == WM_WINDOWPOSCHANGING) {
         auto *wp = reinterpret_cast<WINDOWPOS *>(lParam);
         if (wp != nullptr && (wp->flags & SWP_NOSIZE) == 0) {
@@ -180,9 +179,6 @@ void FluFrameless::componentComplete() {
             *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
             return true;
         }
-        if (clientRect->left - originalLeft != 0) {
-            offsetXY = clientRect->left - originalLeft;
-        }
 #if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         clientRect->top = originalTop;
         clientRect->bottom = originalBottom;
@@ -190,16 +186,19 @@ void FluFrameless::componentComplete() {
         clientRect->right = originalRight;
 #else
         bool isMaximum = ::IsZoomed(hwnd);
-        if (!isMaximum) {
+        if (isMaximum) {
+            auto geometry = window()->screen()->geometry();
+            auto offsetX = qAbs(geometry.left()-originalLeft);
+            auto offsetY = qAbs(geometry.top()-originalTop);
+            clientRect->top = originalTop + offsetY;
+            clientRect->bottom = originalBottom - offsetY;
+            clientRect->left = originalLeft + offsetX;
+            clientRect->right = originalRight - offsetX;
+        } else {
             clientRect->top = originalTop;
             clientRect->bottom = originalBottom;
             clientRect->left = originalLeft;
             clientRect->right = originalRight;
-        } else {
-            clientRect->top = originalTop + offsetXY;
-            clientRect->bottom = originalBottom - offsetXY;
-            clientRect->left = originalLeft + offsetXY;
-            clientRect->right = originalRight - offsetXY;
         }
 #endif
         _setMaximizeHovered(false);
@@ -359,8 +358,6 @@ void FluFrameless::_showSystemMenu(QPoint point) {
     const QPoint origin = screen->geometry().topLeft();
     auto nativePos = QPointF(QPointF(point - origin) * window()->devicePixelRatio()).toPoint() + origin;
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
-    DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-    ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_SYSMENU);
     auto hMenu = ::GetSystemMenu(hwnd, FALSE);
     if (_isMaximized() || _isFullScreen()) {
         ::EnableMenuItem(hMenu, SC_MOVE, MFS_DISABLED);
@@ -381,7 +378,6 @@ void FluFrameless::_showSystemMenu(QPoint point) {
     if (result != FALSE) {
         ::PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
     }
-    ::SetWindowLongPtr(hwnd, GWL_STYLE, style & ~WS_SYSMENU);
 #endif
 }
 
@@ -406,11 +402,15 @@ bool FluFrameless::_hitMaximizeButton() {
 }
 
 void FluFrameless::_setMaximizePressed(bool val) {
-    _maximizeButton->setProperty("down", val);
+    if(_maximizeButton){
+        _maximizeButton->setProperty("down", val);
+    }
 }
 
 void FluFrameless::_setMaximizeHovered(bool val) {
-    _maximizeButton->setProperty("hover", val);
+    if(_maximizeButton){
+        _maximizeButton->setProperty("hover", val);
+    }
 }
 
 void FluFrameless::_updateCursor(int edges) {

@@ -905,7 +905,9 @@ Rectangle {
             }
         }
         Repeater{
-            model: control.columnSource
+            Component.onCompleted: {
+                model = control.columnSource
+            }
             delegate: FluLoader{
                 id: item_layout_frozen
                 readonly property int _index : model.index
