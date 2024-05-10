@@ -20,6 +20,30 @@ Rectangle {
     property color selectedBorderColor: FluTheme.primaryColor
     property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
     property alias view: table_view
+    property var columnWidthProvider: function(column) {
+        var columnModel = control.columnSource[column]
+        var width = columnModel.width
+        if(width){
+            return width
+        }
+        var minimumWidth = columnModel.minimumWidth
+        if(minimumWidth){
+            return minimumWidth
+        }
+        return d.defaultItemWidth
+    }
+    property var rowHeightProvider: function(row) {
+        var rowModel = control.getRow(row)
+        var height = rowModel.height
+        if(height){
+            return height
+        }
+        var minimumHeight = rowModel._minimumHeight
+        if(minimumHeight){
+            return minimumHeight
+        }
+        return d.defaultItemHeight
+    }
     id:control
     color: {
         if(Window.active){
@@ -438,30 +462,8 @@ Rectangle {
             anchors.fill: parent
             ScrollBar.horizontal:scroll_bar_h
             ScrollBar.vertical:scroll_bar_v
-            columnWidthProvider: function(column) {
-                var columnModel = control.columnSource[column]
-                var width = columnModel.width
-                if(width){
-                    return width
-                }
-                var minimumWidth = columnModel.minimumWidth
-                if(minimumWidth){
-                    return minimumWidth
-                }
-                return d.defaultItemWidth
-            }
-            rowHeightProvider: function(row) {
-                var rowModel = control.getRow(row)
-                var height = rowModel.height
-                if(height){
-                    return height
-                }
-                var minimumHeight = rowModel._minimumHeight
-                if(minimumHeight){
-                    return minimumHeight
-                }
-                return d.defaultItemHeight
-            }
+            columnWidthProvider: control.columnWidthProvider
+            rowHeightProvider: control.rowHeightProvider
             model: table_sort_model
             clip: true
             onRowsChanged: {
