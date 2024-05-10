@@ -9,6 +9,8 @@ Item{
     property int currentIndex : -1
     property int spacing: 8
     property int orientation: Qt.Vertical
+    property bool disabled: false
+    property bool manuallyDisabled: false
     QtObject{
         id: d
         function updateChecked(){
@@ -22,11 +24,22 @@ Item{
                 buttons[currentIndex].checked = true
             }
         }
+        function refreshButtonStatus() {
+            for(var i = 0;i<buttons.length;i++){
+                if(!manuallyDisabled) buttons[i].enabled = !disabled
+            }
+        }
     }
     implicitWidth: childrenRect.width
     implicitHeight: childrenRect.height
     onCurrentIndexChanged: {
         d.updateChecked()
+    }
+    onDisabledChanged: {
+        d.refreshButtonStatus()
+    }
+    onManuallyDisabledChanged: {
+        d.refreshButtonStatus()
     }
     Component{
         id:com_vertical
@@ -45,6 +58,7 @@ Item{
                     }
                 }
                 d.updateChecked()
+                d.refreshButtonStatus()
             }
         }
     }
@@ -65,6 +79,7 @@ Item{
                     }
                 }
                 d.updateChecked()
+                d.refreshButtonStatus()
             }
         }
     }

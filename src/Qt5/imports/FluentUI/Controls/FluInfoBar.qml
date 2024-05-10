@@ -18,22 +18,23 @@ FluObject {
             if(screenLayout){
                 var last = screenLayout.getLastloader();
                 if(last.type === type && last.text === text && moremsg === last.moremsg){
-                    last.restart();
-                    return;
+                    last.duration = duration
+                    if (duration > 0) last.restart();
+                    return last;
                 }
             }
             initScreenLayout();
-            contentComponent.createObject(screenLayout,{
-                                              type:type,
-                                              text:text,
-                                              duration:duration,
-                                              moremsg:moremsg,
-                                          });
+            return contentComponent.createObject(screenLayout,{
+                                                    type:type,
+                                                    text:text,
+                                                    duration:duration,
+                                                    moremsg:moremsg,
+                                                });
         }
         function createCustom(itemcomponent,duration){
             initScreenLayout();
             if(itemcomponent){
-                contentComponent.createObject(screenLayout,{itemcomponent:itemcomponent,duration:duration});
+                return contentComponent.createObject(screenLayout,{itemcomponent:itemcomponent,duration:duration});
             }
         }
         function initScreenLayout(){
@@ -85,7 +86,9 @@ FluObject {
                 }
                 Timer {
                     id:delayTimer
-                    interval: duration; running: duration > 0; repeat: duration > 0
+                    interval: duration; 
+                    running: duration > 0; 
+                    repeat: duration > 0
                     onTriggered: content.close();
                 }
                 FluLoader{
@@ -235,18 +238,26 @@ FluObject {
         }
     }
     function showSuccess(text,duration=1000,moremsg){
-        mcontrol.create(mcontrol.const_success,text,duration,moremsg ? moremsg : "");
+        return mcontrol.create(mcontrol.const_success,text,duration,moremsg ? moremsg : "");
     }
     function showInfo(text,duration=1000,moremsg){
-        mcontrol.create(mcontrol.const_info,text,duration,moremsg ? moremsg : "");
+        return mcontrol.create(mcontrol.const_info,text,duration,moremsg ? moremsg : "");
     }
     function showWarning(text,duration=1000,moremsg){
-        mcontrol.create(mcontrol.const_warning,text,duration,moremsg ? moremsg : "");
+        return mcontrol.create(mcontrol.const_warning,text,duration,moremsg ? moremsg : "");
     }
     function showError(text,duration=1000,moremsg){
-        mcontrol.create(mcontrol.const_error,text,duration,moremsg ? moremsg : "");
+        return mcontrol.create(mcontrol.const_error,text,duration,moremsg ? moremsg : "");
     }
     function showCustom(itemcomponent,duration=1000){
-        mcontrol.createCustom(itemcomponent,duration);
+        return mcontrol.createCustom(itemcomponent,duration);
+    }
+    function clearAllInfo(){
+        if(mcontrol.screenLayout != null) {
+            mcontrol.screenLayout.destroy()
+            mcontrol.screenLayout = null
+        }
+
+        return true
     }
 }

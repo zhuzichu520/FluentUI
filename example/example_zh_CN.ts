@@ -1359,19 +1359,19 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_GroupBox.qml" line="17"/>
-        <location filename="qml/page/T_GroupBox.qml" line="27"/>
+        <location filename="qml/page/T_GroupBox.qml" line="35"/>
         <source>E-mail</source>
         <translation type="unfinished">邮箱</translation>
     </message>
     <message>
         <location filename="qml/page/T_GroupBox.qml" line="18"/>
-        <location filename="qml/page/T_GroupBox.qml" line="28"/>
+        <location filename="qml/page/T_GroupBox.qml" line="36"/>
         <source>Calendar</source>
         <translation type="unfinished">日历</translation>
     </message>
     <message>
         <location filename="qml/page/T_GroupBox.qml" line="19"/>
-        <location filename="qml/page/T_GroupBox.qml" line="29"/>
+        <location filename="qml/page/T_GroupBox.qml" line="37"/>
         <source>Contacts</source>
         <translation type="unfinished">联系人</translation>
     </message>
@@ -1380,6 +1380,11 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <source>RadioButton Group</source>
         <oldsource>RadioButton Group111111111111111111111111</oldsource>
         <translation type="unfinished">单选框分组</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_GroupBox.qml" line="46"/>
+        <source>Disabled</source>
+        <translation type="unfinished">禁用</translation>
     </message>
 </context>
 <context>
@@ -1452,45 +1457,76 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished">信息栏</translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="23"/>
+        <location filename="qml/page/T_InfoBar.qml" line="27"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="25"/>
-        <location filename="qml/page/T_InfoBar.qml" line="49"/>
+        <location filename="qml/page/T_InfoBar.qml" line="29"/>
+        <location filename="qml/page/T_InfoBar.qml" line="53"/>
         <source>This is an InfoBar in the Info Style</source>
         <translation type="unfinished">这是一个Info样式的信息栏</translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="29"/>
+        <location filename="qml/page/T_InfoBar.qml" line="33"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="31"/>
+        <location filename="qml/page/T_InfoBar.qml" line="35"/>
         <source>This is an InfoBar in the Warning Style</source>
         <translation type="unfinished">这是一个Warning样式的信息栏</translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="37"/>
+        <location filename="qml/page/T_InfoBar.qml" line="41"/>
         <source>This is an InfoBar in the Error Style</source>
         <translation type="unfinished">这是一个Error样式的信息栏</translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="43"/>
+        <location filename="qml/page/T_InfoBar.qml" line="47"/>
         <source>This is an InfoBar in the Success Style</source>
         <translation type="unfinished">这是一个Success样式的信息栏</translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="47"/>
+        <location filename="qml/page/T_InfoBar.qml" line="51"/>
         <source>InfoBar that needs to be turned off manually</source>
         <translation type="unfinished">需要手动关闭的信息栏</translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="49"/>
+        <location filename="qml/page/T_InfoBar.qml" line="53"/>
         <source>Manual shutdown is supported</source>
         <translation type="unfinished">支持手动关闭</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="59"/>
+        <source>Manually close the info message box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="64"/>
+        <location filename="qml/page/T_InfoBar.qml" line="74"/>
+        <location filename="qml/page/T_InfoBar.qml" line="84"/>
+        <source>close &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="64"/>
+        <location filename="qml/page/T_InfoBar.qml" line="74"/>
+        <location filename="qml/page/T_InfoBar.qml" line="84"/>
+        <source>show &apos;%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="70"/>
+        <location filename="qml/page/T_InfoBar.qml" line="80"/>
+        <location filename="qml/page/T_InfoBar.qml" line="90"/>
+        <source>This is an &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="94"/>
+        <source>clear all info</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Loading...</source>
@@ -1808,30 +1844,30 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_RadioButton.qml" line="38"/>
-        <location filename="qml/page/T_RadioButton.qml" line="81"/>
-        <location filename="qml/page/T_RadioButton.qml" line="134"/>
-        <location filename="qml/page/T_RadioButton.qml" line="187"/>
+        <location filename="qml/page/T_RadioButton.qml" line="79"/>
+        <location filename="qml/page/T_RadioButton.qml" line="130"/>
+        <location filename="qml/page/T_RadioButton.qml" line="181"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
     <message>
         <location filename="qml/page/T_RadioButton.qml" line="64"/>
-        <location filename="qml/page/T_RadioButton.qml" line="117"/>
-        <location filename="qml/page/T_RadioButton.qml" line="170"/>
+        <location filename="qml/page/T_RadioButton.qml" line="115"/>
+        <location filename="qml/page/T_RadioButton.qml" line="166"/>
         <source>Radio Button_1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="68"/>
-        <location filename="qml/page/T_RadioButton.qml" line="121"/>
-        <location filename="qml/page/T_RadioButton.qml" line="174"/>
+        <location filename="qml/page/T_RadioButton.qml" line="67"/>
+        <location filename="qml/page/T_RadioButton.qml" line="118"/>
+        <location filename="qml/page/T_RadioButton.qml" line="169"/>
         <source>Radio Button_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="72"/>
-        <location filename="qml/page/T_RadioButton.qml" line="125"/>
-        <location filename="qml/page/T_RadioButton.qml" line="178"/>
+        <location filename="qml/page/T_RadioButton.qml" line="70"/>
+        <location filename="qml/page/T_RadioButton.qml" line="121"/>
+        <location filename="qml/page/T_RadioButton.qml" line="172"/>
         <source>Radio Button_3</source>
         <translation type="unfinished"></translation>
     </message>

@@ -53,6 +53,7 @@ FluScrollablePage{
         Layout.topMargin: 20
         FluRadioButtons{
             spacing: 8
+            disabled: radio_button_switch2.checked
             anchors.verticalCenter: parent.verticalCenter
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -60,15 +61,12 @@ FluScrollablePage{
             }
             currentIndex: 1
             FluRadioButton{
-                disabled: radio_button_switch2.checked
                 text: qsTr("Radio Button_1")
             }
             FluRadioButton{
-                disabled: radio_button_switch2.checked
                 text: qsTr("Radio Button_2")
             }
             FluRadioButton{
-                disabled: radio_button_switch2.checked
                 text: qsTr("Radio Button_3")
             }
         }
@@ -110,18 +108,16 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
+            disabled: radio_button_switch3.checked
             orientation: Qt.Horizontal
             currentIndex: 1
             FluRadioButton{
-                disabled: radio_button_switch3.checked
                 text: qsTr("Radio Button_1")
             }
             FluRadioButton{
-                disabled: radio_button_switch3.checked
                 text: qsTr("Radio Button_2")
             }
             FluRadioButton{
-                disabled: radio_button_switch3.checked
                 text: qsTr("Radio Button_3")
             }
         }
@@ -164,17 +160,15 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
+            disabled: radio_button_switch4.checked
             currentIndex: -1
             FluCheckBox{
-                disabled: radio_button_switch4.checked
                 text: qsTr("Radio Button_1")
             }
             FluCheckBox{
-                disabled: radio_button_switch4.checked
                 text: qsTr("Radio Button_2")
             }
             FluCheckBox{
-                disabled: radio_button_switch4.checked
                 text: qsTr("Radio Button_3")
             }
         }
