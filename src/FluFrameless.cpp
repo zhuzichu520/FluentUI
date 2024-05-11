@@ -375,7 +375,7 @@ void FluFrameless::_showSystemMenu(QPoint point) {
     }
     const int result = ::TrackPopupMenu(hMenu, (TPM_RETURNCMD | (QGuiApplication::isRightToLeft() ? TPM_RIGHTALIGN : TPM_LEFTALIGN)), nativePos.x(),
                                         nativePos.y(), 0, hwnd, nullptr);
-    if (result != FALSE) {
+    if (result) {
         ::PostMessageW(hwnd, WM_SYSCOMMAND, result, 0);
     }
 #endif

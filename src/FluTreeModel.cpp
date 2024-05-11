@@ -9,16 +9,6 @@ FluTreeModel::FluTreeModel(QObject *parent) : QAbstractTableModel{parent} {
     _dataSourceSize = 0;
 }
 
-QModelIndex FluTreeModel::parent(const QModelIndex &child) const {
-    return {};
-}
-
-QModelIndex FluTreeModel::index(int row, int column, const QModelIndex &parent) const {
-    if (!hasIndex(row, column, parent) || parent.isValid())
-        return {};
-    return createIndex(row, column);
-}
-
 int FluTreeModel::rowCount(const QModelIndex &parent) const {
     return _rows.count();
 }

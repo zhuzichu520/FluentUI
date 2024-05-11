@@ -107,10 +107,6 @@ public:
 
     [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
-    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
-
-    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = {}) const override;
-
     Q_INVOKABLE void removeRows(int row, int count);
 
     Q_INVOKABLE void insertRows(int row, const QList<FluTreeNode *> &data);

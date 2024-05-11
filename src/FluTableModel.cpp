@@ -31,16 +31,6 @@ QHash<int, QByteArray> FluTableModel::roleNames() const {
     };
 }
 
-QModelIndex FluTableModel::parent(const QModelIndex &child) const {
-    return {};
-}
-
-QModelIndex FluTableModel::index(int row, int column, const QModelIndex &parent) const {
-    if (!hasIndex(row, column, parent) || parent.isValid())
-        return {};
-    return createIndex(row, column);
-}
-
 void FluTableModel::clear() {
     beginResetModel();
     this->_rows.clear();
