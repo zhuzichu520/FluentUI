@@ -446,7 +446,7 @@ Rectangle {
     }
 
     onWidthChanged:{
-         table_view.forceLayout()
+        table_view.forceLayout()
     }
 
     MouseArea{
@@ -483,7 +483,7 @@ Rectangle {
     }
 
     Component{
-        id:com_column_header_delegate
+        id: com_column_header_delegate
         Rectangle{
             id: column_item_control
             property var currentTableView : TableView.view
@@ -516,13 +516,13 @@ Rectangle {
                 if(column_item_control.isHeaderHorizontal){
                     return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
                 }
-                return TableView.view.width
+                return Math.max(TableView.view.width,Number.MIN_VALUE)
             }
             implicitHeight: {
                 if(column_item_control.isHeaderHorizontal){
                     return Math.max(36, (item_column_loader.item&&item_column_loader.item.implicitHeight) + (cellPadding * 2))
                 }
-                return TableView.view.height
+                return Math.max(TableView.view.height,Number.MIN_VALUE)
             }
             color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             Rectangle{
@@ -924,12 +924,16 @@ Rectangle {
                         bottom: item_table_frozen.top
                     }
                     delegate: com_column_header_delegate
+                    Component.onCompleted: {
+                        item_table_frozen_header.forceLayout()
+                    }
                 }
                 Connections{
-                    target: control
+                    target: table_view
                     function onWidthChanged() {
                         item_table_frozen_header.forceLayout()
                     }
+
                 }
             }
         }
@@ -941,6 +945,12 @@ Rectangle {
                 id: item_layout_frozen
                 readonly property int _index : model.index
                 readonly property var columnModel : control.columnSource[_index]
+                readonly property bool isHide:{
+                    if(columnModel.frozen){
+                        return false
+                    }
+                    return true
+                }
                 Connections{
                     target: d
                     function onTableItemLayout(column){
@@ -979,13 +989,8 @@ Rectangle {
                     updateLayout()
                 }
                 height: control.height
-                visible: {
-                    if(item_layout_frozen.columnModel.frozen){
-                        return true
-                    }
-                    return false
-                }
-                sourceComponent: visible ? com_table_frozen : undefined
+                visible: !item_layout_frozen.isHide
+                sourceComponent: item_layout_frozen.isHide ? undefined : com_table_frozen
             }
         }
     }
