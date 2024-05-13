@@ -11,6 +11,13 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
 #配置通用编译
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if (QT_VERSION VERSION_GREATER_EQUAL "6.3")
+    qt_standard_project_setup()
+else ()
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+    set(CMAKE_INCLUDE_CURRENT_DIR ON)
+endif ()
 
 #设置版本号
 add_definitions(-DFLUENTUI_VERSION=1,7,5,0)
@@ -33,14 +40,6 @@ cmake_path(SET QT_SDK_DIR NORMALIZE ${QT_SDK_DIR})
 set(FLUENTUI_QML_PLUGIN_DIRECTORY "" CACHE PATH "Path to FluentUI plugin")
 if (NOT FLUENTUI_QML_PLUGIN_DIRECTORY)
     set(FLUENTUI_QML_PLUGIN_DIRECTORY ${QT_SDK_DIR}/qml/FluentUI)
-endif ()
-
-if (QT_VERSION VERSION_GREATER_EQUAL "6.3")
-    qt_standard_project_setup()
-else ()
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTORCC ON)
-    set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif ()
 
 #国际化

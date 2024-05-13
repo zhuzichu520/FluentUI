@@ -131,10 +131,14 @@ void FluFrameless::componentComplete() {
         setShadow(hwnd);
     }
 #endif
-    h = qRound(h + _appbar->height());
+    auto appBarHeight = _appbar->height();
+    h = qRound(h + appBarHeight);
     if (_fixSize) {
         window()->setMaximumSize(QSize(w, h));
         window()->setMinimumSize(QSize(w, h));
+    }else{
+        window()->setMinimumHeight(window()->minimumHeight()+appBarHeight);
+        window()->setMaximumHeight(window()->maximumHeight()+appBarHeight);
     }
     window()->resize(QSize(w, h));
     connect(this, &FluFrameless::topmostChanged, this, [this] {

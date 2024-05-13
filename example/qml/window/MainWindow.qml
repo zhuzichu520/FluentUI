@@ -14,9 +14,9 @@ FluWindow {
     id:window
     title: "FluentUI"
     width: 1000
-    height: 680
-    minimumWidth: 800
-    minimumHeight: 200
+    height: 668
+    minimumWidth: 668
+    minimumHeight: 320
     launchMode: FluWindowType.SingleTask
     fitsAppBarWindows: true
     appBar: FluAppBar {

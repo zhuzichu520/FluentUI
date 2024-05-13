@@ -499,8 +499,8 @@ Rectangle {
             }
             readonly property bool isHeaderHorizontal: TableView.view == header_horizontal
             readonly property bool isHide: {
-                if(isHeaderHorizontal && columnModel.frozen){
-                    return true
+                if(isHeaderHorizontal){
+                    return false
                 }
                 if(!isHeaderHorizontal){
                     if(currentTableView.dataIndex !== columnModel.dataIndex)
