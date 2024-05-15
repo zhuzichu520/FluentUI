@@ -31,14 +31,15 @@ Module {
         Property { name: "useSystemAppBar"; type: "bool" }
         Property { name: "windowIcon"; type: "string" }
         Property { name: "locale"; type: "QLocale" }
+        Property { name: "launcher"; type: "QObject"; isPointer: true }
         Method {
             name: "init"
-            Parameter { name: "target"; type: "QObject"; isPointer: true }
+            Parameter { name: "launcher"; type: "QObject"; isPointer: true }
             Parameter { name: "locale"; type: "QLocale" }
         }
         Method {
             name: "init"
-            Parameter { name: "target"; type: "QObject"; isPointer: true }
+            Parameter { name: "launcher"; type: "QObject"; isPointer: true }
         }
         Method {
             name: "iconData"
@@ -160,6 +161,16 @@ Module {
         Method { name: "onDestruction" }
     }
     Component {
+        name: "FluHotkey"
+        prototype: "QObject"
+        exports: ["FluentUI/FluHotkey 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "sequence"; type: "string" }
+        Property { name: "name"; type: "string" }
+        Property { name: "isRegistered"; type: "bool"; isReadonly: true }
+        Signal { name: "activated" }
+    }
+    Component {
         name: "FluNavigationViewType"
         exports: ["FluentUI/FluNavigationViewType 1.0"]
         isCreatable: false
@@ -273,7 +284,6 @@ Module {
         prototype: "QAbstractTableModel"
         exports: ["FluentUI/FluTableModel 1.0"]
         exportMetaObjectRevisions: [0]
-        Property { name: "dataSourceSize"; type: "int" }
         Property { name: "columnSource"; type: "QList<QVariantMap>" }
         Property { name: "rows"; type: "QList<QVariantMap>" }
         Property { name: "rowCount"; type: "int"; isReadonly: true }
@@ -2497,37 +2507,37 @@ Module {
         Property { name: "darkClickListener"; type: "QVariant" }
         Property {
             name: "buttonStayTop"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMinimize"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMaximize"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonClose"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonDark"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "layoutMacosButtons"
-            type: "FluLoader_QMLTYPE_13"
+            type: "FluLoader_QMLTYPE_16"
             isReadonly: true
             isPointer: true
         }
@@ -3100,6 +3110,7 @@ Module {
             Parameter { name: "itemcomponent"; type: "QVariant" }
             Parameter { name: "duration"; type: "QVariant" }
         }
+        Method { name: "clearAllInfo"; type: "QVariant" }
         Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
@@ -3219,15 +3230,15 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_173"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_173"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_164"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_164"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_49"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_49"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_36"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_36"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -3235,13 +3246,13 @@ Module {
         Property { name: "hideNavAppBar"; type: "bool" }
         Property {
             name: "buttonMenu"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonBack"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_18"
             isReadonly: true
             isPointer: true
         }
@@ -3539,6 +3550,8 @@ Module {
         Property { name: "currentIndex"; type: "int" }
         Property { name: "spacing"; type: "int" }
         Property { name: "orientation"; type: "int" }
+        Property { name: "disabled"; type: "bool" }
+        Property { name: "manuallyDisabled"; type: "bool" }
     }
     Component {
         prototype: "QQuickRangeSlider"
@@ -3693,6 +3706,9 @@ Module {
         Property { name: "positiveText"; type: "string" }
         Property { name: "neutralText"; type: "string" }
         Property { name: "negativeText"; type: "string" }
+        Property { name: "registered"; type: "bool" }
+        Property { name: "errorColor"; type: "QColor" }
+        Property { name: "syncHotkey"; type: "FluHotkey"; isPointer: true }
         Signal { name: "accepted" }
         Property { name: "iconSize"; type: "int" }
         Property { name: "iconSource"; type: "int" }
@@ -3826,9 +3842,12 @@ Module {
         Property { name: "verticalHeaderVisible"; type: "bool" }
         Property { name: "selectedBorderColor"; type: "QColor" }
         Property { name: "selectedColor"; type: "QColor" }
+        Property { name: "columnWidthProvider"; type: "QVariant" }
+        Property { name: "rowHeightProvider"; type: "QVariant" }
         Property { name: "rows"; type: "int"; isReadonly: true }
         Property { name: "columns"; type: "int"; isReadonly: true }
         Property { name: "current"; type: "QVariant"; isReadonly: true }
+        Property { name: "view"; type: "QQuickTableView"; isReadonly: true; isPointer: true }
         Method { name: "closeEditor"; type: "QVariant" }
         Method { name: "resetPosition"; type: "QVariant" }
         Method {
@@ -4081,6 +4100,7 @@ Module {
         Property { name: "selectedBorderColor"; type: "QColor" }
         Property { name: "selectedColor"; type: "QColor" }
         Property { name: "current"; type: "QVariant"; isReadonly: true }
+        Property { name: "view"; type: "QQuickTableView"; isReadonly: true; isPointer: true }
         Method { name: "count"; type: "QVariant" }
         Method { name: "visibleCount"; type: "QVariant" }
         Method {
@@ -4172,6 +4192,7 @@ Module {
             Parameter { name: "duration"; type: "QVariant" }
             Parameter { name: "moremsg"; type: "QVariant" }
         }
+        Method { name: "clearAllInfo"; type: "QVariant" }
         Method { name: "moveWindowToDesktopCenter"; type: "QVariant" }
         Method { name: "fixWindowSize"; type: "QVariant" }
         Method {
@@ -4274,6 +4295,7 @@ Module {
             Parameter { name: "duration"; type: "QVariant" }
             Parameter { name: "moremsg"; type: "QVariant" }
         }
+        Method { name: "clearAllInfo"; type: "QVariant" }
         Method { name: "moveWindowToDesktopCenter"; type: "QVariant" }
         Method { name: "fixWindowSize"; type: "QVariant" }
         Method {

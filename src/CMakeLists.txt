@@ -61,8 +61,27 @@ file(COPY ${QM_FILE_PATHS} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/Qt${QT_VERSI
 file(GLOB_RECURSE CPP_FILES *.cpp *.h *.cxx)
 foreach (filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    message(${filename})
     list(APPEND sources_files ${filename})
 endforeach (filepath)
+
+list(REMOVE_ITEM sources_files qhotkey/qhotkey_mac.cpp qhotkey/qhotkey_win.cpp qhotkey/qhotkey_x11.cpp)
+
+if (WIN32)
+    list(APPEND sources_files qhotkey/qhotkey_win.cpp)
+elseif (APPLE)
+    list(APPEND sources_files qhotkey/qhotkey_mac.cpp)
+elseif (UNIX)
+    list(APPEND sources_files qhotkey/qhotkey_x11.cpp)
+endif()
+
+if (WIN32)
+    set(FLUENTUI_VERSION_RC_PATH ${CMAKE_CURRENT_BINARY_DIR}/version_${PROJECT_NAME}.rc)
+    configure_file(
+            ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/version_dll.rc.in
+            ${FLUENTUI_VERSION_RC_PATH}
+    )
+endif ()
 
 if (QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #删除fluentuiplugin.cpp与fluentuiplugin.h，这些只要Qt5使用，Qt6不需要

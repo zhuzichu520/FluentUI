@@ -2,6 +2,54 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>App</name>
+    <message>
+        <location filename="qml/App.qml" line="61"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="68"/>
+        <source>Test1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="75"/>
+        <source>Test2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="82"/>
+        <source>Test3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="89"/>
+        <source>Test4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="96"/>
+        <source>Test5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="103"/>
+        <source>Test6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="110"/>
+        <source>Test7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="117"/>
+        <source>Test8</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CodeExpander</name>
     <message>
         <location filename="qml/component/CodeExpander.qml" line="11"/>
@@ -68,6 +116,14 @@
     <message>
         <location filename="qml/window/FluentInitializrWindow.qml" line="101"/>
         <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HotkeyWindow</name>
+    <message>
+        <location filename="qml/window/HotkeyWindow.qml" line="11"/>
+        <source>Hotkey</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

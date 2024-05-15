@@ -10,7 +10,30 @@ FluIconButton {
     property string positiveText: qsTr("Save")
     property string neutralText: qsTr("Cancel")
     property string negativeText: qsTr("Reset")
+    property bool registered: true
+    property color errorColor: Qt.rgba(250/255,85/255,85/255,1)
+    property FluHotkey syncHotkey: undefined
     signal accepted()
+    padding: 0
+    verticalPadding: 0
+    horizontalPadding: 0
+    onSyncHotkeyChanged: {
+        current = syncHotkey.sequence.split("+")
+        control.registered = syncHotkey.isRegistered
+        control.registered = Qt.binding(function(){
+            return syncHotkey.isRegistered
+        })
+    }
+    text: ""
+    color: {
+        if(!enabled){
+            return disableColor
+        }
+        if(pressed){
+            return pressedColor
+        }
+        return hovered ? hoverColor : normalColor
+    }
     QtObject{
         id: d
         function keyToString(key_code,shift = true)
@@ -112,15 +135,80 @@ FluIconButton {
             return "";
         }
     }
-    background: Rectangle{
-        border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
-        border.width: 1
+    background: Item{
         implicitHeight: 42
-        implicitWidth: layout_row.width+28
-        radius: control.radius
-        color:control.color
-        FluFocusRectangle{
-            visible: control.activeFocus
+        implicitWidth: 42
+    }
+    contentItem: Item{
+        implicitWidth: childrenRect.width
+        implicitHeight: layout_row.height
+
+        FluText{
+            id: text_title
+            text: control.text
+            visible: control.text !== ""
+            rightPadding: 8
+            anchors{
+                verticalCenter: layout_rect.verticalCenter
+            }
+        }
+
+        Rectangle{
+            id: layout_rect
+            border.color: FluTheme.dark ? "#505050" : "#DFDFDF"
+            border.width: 1
+            radius: control.radius
+            color: control.color
+            height: control.height
+            width: layout_row.width
+            anchors{
+                left: text_title.right
+            }
+            FluFocusRectangle{
+                visible: control.activeFocus
+            }
+            Row{
+                id:layout_row
+                spacing: 5
+                anchors.centerIn: parent
+                Item{
+                    width: 8
+                    height: 1
+                }
+                Repeater{
+                    model: control.current
+                    delegate: Loader{
+                        property var keyText: modelData
+                        sourceComponent: com_item_key
+                    }
+                }
+                Item{
+                    width: 3
+                    height: 1
+                }
+                FluIcon{
+                    iconSource: FluentIcons.EditMirrored
+                    iconSize: 13
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                    }
+                }
+                Item{
+                    width: 8
+                    height: 1
+                }
+            }
+        }
+        FluText{
+            id: text_error
+            text: qsTr("Conflict")
+            color: control.errorColor
+            visible: !control.registered
+            anchors{
+                verticalCenter: layout_rect.verticalCenter
+                left: layout_rect.right
+                leftMargin: 4
+            }
         }
     }
     Component{
@@ -136,29 +224,6 @@ FluIconButton {
                 color: FluTheme.dark ? Qt.rgba(0,0,0,1)  : Qt.rgba(1,1,1,1)
                 text: keyText
                 anchors.centerIn: parent
-            }
-        }
-    }
-    Row{
-        id:layout_row
-        spacing: 5
-        anchors.centerIn: parent
-        Repeater{
-            model: control.current
-            delegate: Loader{
-                property var keyText: modelData
-                sourceComponent: com_item_key
-            }
-        }
-        Item{
-            width: 3
-            height: 1
-        }
-        FluIcon{
-            iconSource: FluentIcons.EditMirrored
-            iconSize: 13
-            anchors{
-                verticalCenter: parent.verticalCenter
             }
         }
     }
@@ -179,6 +244,9 @@ FluIconButton {
         onPositiveClicked: {
             control.current = content_dialog.keysModel
             control.accepted()
+            if(control.syncHotkey){
+                control.syncHotkey.sequence = control.current.join("+")
+            }
         }
         onNegativeClickListener: function(){
             content_dialog.keysModel = control.current

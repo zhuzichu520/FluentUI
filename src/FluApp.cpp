@@ -16,9 +16,10 @@ FluApp::FluApp(QObject *parent) : QObject{parent} {
 
 FluApp::~FluApp() = default;
 
-void FluApp::init(QObject *target, QLocale locale) {
+void FluApp::init(QObject *launcher, QLocale locale) {
+    this->launcher(launcher);
     _locale = std::move(locale);
-    _engine = qmlEngine(target);
+    _engine = qmlEngine(launcher);
     _translator = new QTranslator(this);
     QGuiApplication::installTranslator(_translator);
     const QStringList uiLanguages = _locale.uiLanguages();

@@ -2,6 +2,54 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>App</name>
+    <message>
+        <location filename="qml/App.qml" line="61"/>
+        <source>Quit</source>
+        <translation type="unfinished">退出</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="68"/>
+        <source>Test1</source>
+        <translation type="unfinished">测试1</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="75"/>
+        <source>Test2</source>
+        <translation type="unfinished">测试2</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="82"/>
+        <source>Test3</source>
+        <translation type="unfinished">测试3</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="89"/>
+        <source>Test4</source>
+        <translation type="unfinished">测试4</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="96"/>
+        <source>Test5</source>
+        <translation type="unfinished">测试5</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="103"/>
+        <source>Test6</source>
+        <translation type="unfinished">测试6</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="110"/>
+        <source>Test7</source>
+        <translation type="unfinished">测试7</translation>
+    </message>
+    <message>
+        <location filename="qml/App.qml" line="117"/>
+        <source>Test8</source>
+        <translation type="unfinished">测试8</translation>
+    </message>
+</context>
+<context>
     <name>CodeExpander</name>
     <message>
         <location filename="qml/component/CodeExpander.qml" line="11"/>
@@ -69,6 +117,14 @@
         <location filename="qml/window/FluentInitializrWindow.qml" line="101"/>
         <source>Create</source>
         <translation type="unfinished">创建</translation>
+    </message>
+</context>
+<context>
+    <name>HotkeyWindow</name>
+    <message>
+        <location filename="qml/window/HotkeyWindow.qml" line="11"/>
+        <source>Hotkey</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2042,6 +2098,10 @@ Some contents...</source>
         <location filename="qml/page/T_ShortcutPicker.qml" line="10"/>
         <source>ShortcutPicker</source>
         <translation type="unfinished">快捷键选择器</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation type="obsolete">退出</translation>
     </message>
     <message>
         <source>Activate the Shortcut</source>

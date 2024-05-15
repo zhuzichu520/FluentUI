@@ -16,6 +16,7 @@
 #include "FluTableSortProxyModel.h"
 #include "FluFrameless.h"
 #include "FluTableModel.h"
+#include "FluHotkey.h"
 
 void FluentUI::registerTypes(QQmlEngine *engine) {
     initializeEngine(engine, _uri);
@@ -36,6 +37,7 @@ void FluentUI::registerTypes(const char *uri) const {
     qmlRegisterType<FluTableModel>(uri, major, minor, "FluTableModel");
     qmlRegisterType<FluRectangle>(uri, major, minor, "FluRectangle");
     qmlRegisterType<FluFrameless>(uri, major, minor, "FluFrameless");
+    qmlRegisterType<FluHotkey>(uri, major, minor, "FluHotkey");
     qmlRegisterType<FluTableSortProxyModel>(uri, major, minor, "FluTableSortProxyModel");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluAcrylic.qml"), uri, major, minor, "FluAcrylic");
