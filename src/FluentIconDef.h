@@ -3,9 +3,9 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 
-namespace Fluent_Icons {
+namespace FluentIcons {
     Q_NAMESPACE
-    enum class Fluent_IconType {
+    enum class Type {
         GlobalNavButton = 0xe700,
         Wifi = 0xe701,
         Bluetooth = 0xe702,
@@ -1411,7 +1411,7 @@ namespace Fluent_Icons {
         ClickedOutLoudSolidBold = 0xf8b3
     };
 
-    Q_ENUM_NS(Fluent_IconType)
+    Q_ENUM_NS(Type)
 
     QML_NAMED_ELEMENT(FluentIcons)
 }

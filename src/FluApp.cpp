@@ -34,7 +34,7 @@ void FluApp::init(QObject *launcher, QLocale locale) {
 
 [[maybe_unused]] QJsonArray FluApp::iconData(const QString &keyword) {
     QJsonArray arr;
-    QMetaEnum enumType = Fluent_Icons::staticMetaObject.enumerator(Fluent_Icons::staticMetaObject.indexOfEnumerator("Fluent_IconType"));
+    QMetaEnum enumType = FluentIcons::staticMetaObject.enumerator(FluentIcons::staticMetaObject.indexOfEnumerator("Type"));
     for (int i = 0; i <= enumType.keyCount() - 1; ++i) {
         QString name = enumType.key(i);
         int icon = enumType.value(i);
