@@ -353,4 +353,7 @@ Window {
     function setHitTestVisible(val){
         frameless.setHitTestVisible(val)
     }
+    function deleteLater(){
+        FluTools.deleteLater(window)
+    }
 }

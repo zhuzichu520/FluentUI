@@ -11,7 +11,6 @@ FluContentPage{
     title: qsTr("TableView")
     signal checkBoxChanged
 
-    property var dataSource : []
     property int sortType: 0
     property bool selectedAll: true
     property string nameKeyword: ""
@@ -621,7 +620,6 @@ FluContentPage{
         for(var i=0;i<count;i++){
             dataSource.push(genTestObject())
         }
-        root.dataSource = dataSource
-        table_view.dataSource = root.dataSource
+        table_view.dataSource = dataSource
     }
 }

@@ -150,20 +150,35 @@ void FluentUI::registerTypes(const char *uri) const {
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject, uri, major, minor, "FluTimelineType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluSheetType::staticMetaObject, uri, major, minor, "FluSheetType", "Access to enums & flags only");
 
+    qmlRegisterSingletonType(uri, major, minor, "FluApp", [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QJSValue {
+        Q_UNUSED(engine)
+        return scriptEngine->newQObject(FluApp::getInstance());
+    });
+    qmlRegisterSingletonType(uri, major, minor, "FluColors", [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QJSValue {
+        Q_UNUSED(engine)
+        return scriptEngine->newQObject(FluColors::getInstance());
+    });
+    qmlRegisterSingletonType(uri, major, minor, "FluTheme", [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QJSValue {
+        Q_UNUSED(engine)
+        return scriptEngine->newQObject(FluTheme::getInstance());
+    });
+    qmlRegisterSingletonType(uri, major, minor, "FluTools", [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QJSValue {
+        Q_UNUSED(engine)
+        return scriptEngine->newQObject(FluTools::getInstance());
+    });
+    qmlRegisterSingletonType(uri, major, minor, "FluTextStyle", [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QJSValue {
+        Q_UNUSED(engine)
+        return scriptEngine->newQObject(FluTextStyle::getInstance());
+    });
 //    qmlRegisterSingletonInstance(uri, major, minor, "FluApp", FluApp::getInstance());
 //    qmlRegisterSingletonInstance(uri, major, minor, "FluColors", FluColors::getInstance());
 //    qmlRegisterSingletonInstance(uri, major, minor, "FluTheme", FluTheme::getInstance());
 //    qmlRegisterSingletonInstance(uri, major, minor, "FluTools", FluTools::getInstance());
 //    qmlRegisterSingletonInstance(uri, major, minor, "FluTextStyle", FluTextStyle::getInstance());
-
     qmlRegisterModule(uri, major, minor);
 #endif
 }
 
 void FluentUI::initializeEngine(QQmlEngine *engine, [[maybe_unused]] const char *uri) {
-    engine->rootContext()->setContextProperty("FluApp", FluApp::getInstance());
-    engine->rootContext()->setContextProperty("FluColors", FluColors::getInstance());
-    engine->rootContext()->setContextProperty("FluTheme", FluTheme::getInstance());
-    engine->rootContext()->setContextProperty("FluTools", FluTools::getInstance());
-    engine->rootContext()->setContextProperty("FluTextStyle", FluTextStyle::getInstance());
+    Q_UNUSED(engine)
 }

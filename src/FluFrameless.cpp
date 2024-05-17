@@ -136,9 +136,9 @@ void FluFrameless::componentComplete() {
     if (_fixSize) {
         window()->setMaximumSize(QSize(w, h));
         window()->setMinimumSize(QSize(w, h));
-    }else{
-        window()->setMinimumHeight(window()->minimumHeight()+appBarHeight);
-        window()->setMaximumHeight(window()->maximumHeight()+appBarHeight);
+    } else {
+        window()->setMinimumHeight(window()->minimumHeight() + appBarHeight);
+        window()->setMaximumHeight(window()->maximumHeight() + appBarHeight);
     }
     window()->resize(QSize(w, h));
     connect(this, &FluFrameless::topmostChanged, this, [this] {
@@ -192,8 +192,8 @@ void FluFrameless::componentComplete() {
         bool isMaximum = ::IsZoomed(hwnd);
         if (isMaximum) {
             auto geometry = window()->screen()->geometry();
-            auto offsetX = qAbs(geometry.left()-originalLeft);
-            auto offsetY = qAbs(geometry.top()-originalTop);
+            auto offsetX = qAbs(geometry.left() - originalLeft);
+            auto offsetY = qAbs(geometry.top() - originalTop);
             clientRect->top = originalTop + offsetY;
             clientRect->bottom = originalBottom - offsetY;
             clientRect->left = originalLeft + offsetX;
@@ -273,16 +273,8 @@ void FluFrameless::componentComplete() {
         return true;
 #endif
     } else if (uMsg == WM_NCACTIVATE) {
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         *result = TRUE;
         return true;
-#else
-        if (isCompositionEnabled()) {
-            return false;
-        }
-        *result = TRUE;
-        return true;
-#endif
     } else if (uMsg == WM_GETMINMAXINFO) {
 #if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
@@ -406,13 +398,13 @@ bool FluFrameless::_hitMaximizeButton() {
 }
 
 void FluFrameless::_setMaximizePressed(bool val) {
-    if(_maximizeButton){
+    if (_maximizeButton) {
         _maximizeButton->setProperty("down", val);
     }
 }
 
 void FluFrameless::_setMaximizeHovered(bool val) {
-    if(_maximizeButton){
+    if (_maximizeButton) {
         _maximizeButton->setProperty("hover", val);
     }
 }
