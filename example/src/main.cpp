@@ -19,18 +19,18 @@
 #include "src/helper/InitializrHelper.h"
 #include "src/helper/TranslateHelper.h"
 #include "src/helper/Network.h"
-
 #ifdef FLUENTUI_BUILD_STATIC_LIB
-#if (QT_VERSION > QT_VERSION_CHECK(6, 2, 0))
-Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+#define Q_IMPORT_QML_PLUGIN(PLUGIN) \
+Q_IMPORT_PLUGIN(PLUGIN)
+extern void qml_static_register_types_FluentUI();
 #endif
-#include <FluentUI.h>
+Q_IMPORT_QML_PLUGIN(FluentUIPlugin)
 #endif
 
 #ifdef WIN32
 #include "app_dmp.h"
 #endif
-
 int main(int argc, char *argv[])
 {
     const char *uri = "example";
@@ -78,17 +78,18 @@ int main(int argc, char *argv[])
     qmlRegisterType<NetworkParams>(uri,major,minor,"NetworkParams");
     qmlRegisterType<OpenGLItem>(uri,major,minor,"OpenGLItem");
     qmlRegisterUncreatableMetaObject(NetworkType::staticMetaObject, uri, major, minor, "NetworkType", "Access to enums & flags only");
-
     QQmlApplicationEngine engine;
+#ifdef FLUENTUI_BUILD_STATIC_LIB
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    qml_static_register_types_FluentUI();
+#endif
+#endif
     TranslateHelper::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
     engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
     engine.rootContext()->setContextProperty("InitializrHelper",InitializrHelper::getInstance());
     engine.rootContext()->setContextProperty("TranslateHelper",TranslateHelper::getInstance());
     engine.rootContext()->setContextProperty("Network",Network::getInstance());
-#ifdef FLUENTUI_BUILD_STATIC_LIB
-    FluentUI::getInstance()->registerTypes(&engine);
-#endif
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {

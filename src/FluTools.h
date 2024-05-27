@@ -11,18 +11,22 @@
  * @brief The FluTools class
  */
 class FluTools : public QObject {
-Q_OBJECT
+    Q_OBJECT
     QML_NAMED_ELEMENT(FluTools)
     QML_SINGLETON
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
+public:
+#else
 private:
+#endif
     explicit FluTools(QObject *parent = nullptr);
 
 public:
-SINGLETON(FluTools)
-
+    SINGLETON(FluTools)
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 2, 0))
     static FluTools *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
-
+#endif
     Q_INVOKABLE int qtMajor();
 
     Q_INVOKABLE int qtMinor();

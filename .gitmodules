@@ -1,0 +1,3 @@
+[submodule "3rdparty/Qt5QMLPlugin"]
+	path = 3rdparty/Qt5QMLPlugin
+	url = https://github.com/mentalfl0w/Qt5QMLPlugin.git

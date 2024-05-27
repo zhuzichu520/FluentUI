@@ -83,16 +83,13 @@ list(APPEND sources_files ${QRC_RESOURCES})
 if (WIN32)
     list(APPEND sources_files ${EXAMPLE_VERSION_RC_PATH})
 endif ()
-if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(${PROJECT_NAME}
-            MANUAL_FINALIZATION
-            ${sources_files}
-    )
-else ()
-    add_executable(${PROJECT_NAME}
-            ${sources_files}
-    )
-endif ()
+
+if (${QT_VERSION_MAJOR} LESS 6)
+    include(Qt5QMLPlugin)
+endif()
+qt_add_executable(${PROJECT_NAME}
+        ${sources_files}
+)
 add_dependencies(${PROJECT_NAME} Script-UpdateTranslations)
 
 #复制程序运行所需要的动态库
@@ -147,7 +144,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt${QT_VERSION_MAJOR}::Network
         fluentuiplugin
 )
-
 #添加部署脚本
 if (CMAKE_BUILD_TYPE MATCHES "Release")
     if (APPLE)

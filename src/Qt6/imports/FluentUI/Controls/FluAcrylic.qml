@@ -34,7 +34,7 @@ Item {
     }
     Image {
         anchors.fill: parent
-        source: "qrc:/qt/qml/FluentUI/Image/noise.png"
+        source: "qrc:/qt-project.org/imports/FluentUI/Image/noise.png"
         fillMode: Image.Tile
         opacity: control.noiseOpacity
     }
