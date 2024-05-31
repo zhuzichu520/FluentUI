@@ -315,9 +315,6 @@ Window {
             window.minimumHeight = window.height
         }
     }
-    function registerForWindowResult(path){
-        return FluApp.createWindowRegister(window,path)
-    }
     function setResult(data){
         if(_windowRegister){
             _windowRegister.setResult(data)
