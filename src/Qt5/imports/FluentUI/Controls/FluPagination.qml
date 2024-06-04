@@ -38,7 +38,6 @@ Item {
         }
         Row {
             spacing: 5
-
             FluToggleButton {
                 property int pageNumber: 1
                 visible: control.pageCount > 0
@@ -98,7 +97,6 @@ Item {
             sourceComponent: footer
         }
     }
-
     function calcNewPage(page) {
         if (!page)
             return
@@ -108,5 +106,4 @@ Item {
         control.pageCurrent = page_num
         control.requestPage(page_num, control.__itemPerPage)
     }
-
 }

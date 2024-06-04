@@ -11,12 +11,26 @@ FluScrollablePage{
 
     FluFrame{
         Layout.fillWidth: true
-        Layout.preferredHeight: 100
-        padding: 10
-        FluShortcutPicker{
+        Layout.preferredHeight: childrenRect.height
+        ColumnLayout{
             anchors.verticalCenter: parent.verticalCenter
+            Item{
+                Layout.preferredHeight: 15
+            }
+            Repeater{
+                model: FluApp.launcher.hotkeys.children
+                delegate: FluShortcutPicker{
+                    text: model.name
+                    syncHotkey: FluApp.launcher.hotkeys.children[index]
+                    Layout.leftMargin: 15
+                }
+            }
+            Item{
+                Layout.preferredHeight: 15
+            }
         }
     }
+
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -6
@@ -26,5 +40,3 @@ FluScrollablePage{
     }
 
 }
-
-

@@ -1,23 +1,12 @@
 #include "FluTreeModel.h"
 
 #include <QMetaEnum>
-#include <utility>
 
 FluTreeNode::FluTreeNode(QObject *parent) : QObject{parent} {
 }
 
-FluTreeModel::FluTreeModel(QObject *parent) : QAbstractItemModel{parent} {
+FluTreeModel::FluTreeModel(QObject *parent) : QAbstractTableModel{parent} {
     _dataSourceSize = 0;
-}
-
-QModelIndex FluTreeModel::parent(const QModelIndex &child) const {
-    return {};
-}
-
-QModelIndex FluTreeModel::index(int row, int column, const QModelIndex &parent) const {
-    if (!hasIndex(row, column, parent) || parent.isValid())
-        return {};
-    return createIndex(row, column, _rows.at(row));
 }
 
 int FluTreeModel::rowCount(const QModelIndex &parent) const {
@@ -265,12 +254,12 @@ void FluTreeModel::allCollapse() {
     endResetModel();
 }
 
-QVariant FluTreeModel::selectionModel(){
+QVariant FluTreeModel::selectionModel() {
     QList<FluTreeNode *> data;
-    foreach (auto item, _dataSource) {
-        if (item->checked()) {
-            data.append(item);
+            foreach (auto item, _dataSource) {
+            if (item->checked()) {
+                data.append(item);
+            }
         }
-    }
     return QVariant::fromValue(data);
 }

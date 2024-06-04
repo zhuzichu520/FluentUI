@@ -11,6 +11,13 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
 #配置通用编译
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if (QT_VERSION VERSION_GREATER_EQUAL "6.3")
+    qt_standard_project_setup()
+else ()
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+    set(CMAKE_INCLUDE_CURRENT_DIR ON)
+endif ()
 
 #设置版本号
 add_definitions(-DFLUENTUI_VERSION=1,7,5,0)
@@ -35,14 +42,6 @@ if (NOT FLUENTUI_QML_PLUGIN_DIRECTORY)
     set(FLUENTUI_QML_PLUGIN_DIRECTORY ${QT_SDK_DIR}/qml/FluentUI)
 endif ()
 
-if (QT_VERSION VERSION_GREATER_EQUAL "6.3")
-    qt_standard_project_setup()
-else ()
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTORCC ON)
-    set(CMAKE_INCLUDE_CURRENT_DIR ON)
-endif ()
-
 #国际化
 find_program(QT_LUPDATE NAMES lupdate)
 find_program(QT_LRELEASE NAMES lrelease)
@@ -62,8 +61,27 @@ file(COPY ${QM_FILE_PATHS} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/Qt${QT_VERSI
 file(GLOB_RECURSE CPP_FILES *.cpp *.h *.cxx)
 foreach (filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    message(${filename})
     list(APPEND sources_files ${filename})
 endforeach (filepath)
+
+list(REMOVE_ITEM sources_files qhotkey/qhotkey_mac.cpp qhotkey/qhotkey_win.cpp qhotkey/qhotkey_x11.cpp)
+
+if (WIN32)
+    list(APPEND sources_files qhotkey/qhotkey_win.cpp)
+elseif (APPLE)
+    list(APPEND sources_files qhotkey/qhotkey_mac.cpp)
+elseif (UNIX)
+    list(APPEND sources_files qhotkey/qhotkey_x11.cpp)
+endif()
+
+if (WIN32)
+    set(FLUENTUI_VERSION_RC_PATH ${CMAKE_CURRENT_BINARY_DIR}/version_${PROJECT_NAME}.rc)
+    configure_file(
+            ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/version_dll.rc.in
+            ${FLUENTUI_VERSION_RC_PATH}
+    )
+endif ()
 
 if (QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #删除fluentuiplugin.cpp与fluentuiplugin.h，这些只要Qt5使用，Qt6不需要
@@ -179,6 +197,34 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         Qt${QT_VERSION_MAJOR}::Quick
         Qt${QT_VERSION_MAJOR}::Qml
 )
+if(APPLE)
+    find_library(CARBON_LIBRARY Carbon)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${CARBON_LIBRARY})
+elseif(WIN32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE user32)
+elseif(UNIX)
+    if(QT_VERSION_MAJOR STREQUAL "6")
+        if(QT_VERSION VERSION_LESS "6.2.0")
+            message(FATAL_ERROR "Qt 6.2.0 or greater is required when using Qt6")
+        endif()
+    else()
+        if(QT_VERSION_MAJOR LESS "6")
+            find_package(Qt5 REQUIRED COMPONENTS X11Extras)
+            target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::X11Extras)
+        endif()
+    endif()
+    target_link_libraries(${PROJECT_NAME} PRIVATE X11)
+endif()
 
+if ((${QT_VERSION_MAJOR} LESS_EQUAL 6) AND (CMAKE_BUILD_TYPE MATCHES "Release"))
+    find_program(QML_PLUGIN_DUMP NAMES qmlplugindump)
+    add_custom_target(Script-Generate-QmlTypes
+            COMMAND ${QML_PLUGIN_DUMP} -nonrelocatable  FluentUI 1.0 ${CMAKE_CURRENT_BINARY_DIR} > ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
+            COMMENT "Generate qmltypes........."
+            SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endif()
+    
 #安装
 install(DIRECTORY ${FLUENTUI_QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)

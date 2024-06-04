@@ -60,8 +60,9 @@ Window {
     signal lazyLoad()
     property var _windowRegister
     property string _route
-    id:window
-    color:"transparent"
+    property bool _hideShadow: false
+    id: window
+    color: FluTools.isSoftware() ? window.backgroundColor : "transparent"
     Component.onCompleted: {
         FluRouter.addWindow(window)
         useSystemAppBar = FluApp.useSystemAppBar
@@ -121,11 +122,20 @@ Window {
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
                 Component.onCompleted: {
-                    var geometry = FluTools.desktopAvailableGeometry(window)
-                    width = geometry.width
-                    height =  geometry.height
-                    sourceSize = Qt.size(width,height)
+                    img_back.updateLayout()
                     source = FluTools.getUrlByFilePath(FluTheme.desktopImagePath)
+                }
+                Connections{
+                    target: window
+                    function onScreenChanged(){
+                        img_back.updateLayout()
+                    }
+                }
+                function updateLayout(){
+                    var geometry = FluTools.desktopAvailableGeometry(window)
+                    img_back.width = geometry.width
+                    img_back.height =  geometry.height
+                    img_back.sourceSize = Qt.size(img_back.width,img_back.height)
                 }
                 Connections{
                     target: FluTheme
@@ -142,7 +152,7 @@ Window {
                 }
                 Timer{
                     id:timer_update_image
-                    interval: 500
+                    interval: 150
                     onTriggered: {
                         img_back.source = ""
                         img_back.source = FluTools.getUrlByFilePath(FluTheme.desktopImagePath)
@@ -156,7 +166,7 @@ Window {
                 blurRadius: 64
                 visible: window.active && FluTheme.blurBehindWindowEnabled
                 tintColor: FluTheme.dark ? Qt.rgba(0, 0, 0, 1)  : Qt.rgba(1, 1, 1, 1)
-                targetRect: Qt.rect(window.x,window.y,window.width,window.height)
+                targetRect: Qt.rect(window.x-window.screen.virtualX,window.y-window.screen.virtualY,window.width,window.height)
             }
         }
     }
@@ -304,7 +314,6 @@ Window {
         return info_bar.clearAllInfo()
     }
     function moveWindowToDesktopCenter(){
-        screen = Qt.application.screens[FluTools.cursorScreenIndex()]
         var availableGeometry = FluTools.desktopAvailableGeometry(window)
         window.setGeometry((availableGeometry.width-window.width)/2+Screen.virtualX,(availableGeometry.height-window.height)/2+Screen.virtualY,window.width,window.height)
     }
@@ -343,5 +352,8 @@ Window {
     }
     function setHitTestVisible(val){
         frameless.setHitTestVisible(val)
+    }
+    function deleteLater(){
+        FluTools.deleteLater(window)
     }
 }

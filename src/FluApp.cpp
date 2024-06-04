@@ -1,6 +1,5 @@
 #include "FluApp.h"
 
-#include <QQmlEngine>
 #include <QGuiApplication>
 #include <QQuickItem>
 #include <QTimer>
@@ -17,9 +16,10 @@ FluApp::FluApp(QObject *parent) : QObject{parent} {
 
 FluApp::~FluApp() = default;
 
-void FluApp::init(QObject *target, QLocale locale) {
+void FluApp::init(QObject *launcher, QLocale locale) {
+    this->launcher(launcher);
     _locale = std::move(locale);
-    _engine = qmlEngine(target);
+    _engine = qmlEngine(launcher);
     _translator = new QTranslator(this);
     QGuiApplication::installTranslator(_translator);
     const QStringList uiLanguages = _locale.uiLanguages();
@@ -32,9 +32,9 @@ void FluApp::init(QObject *target, QLocale locale) {
     }
 }
 
-[[maybe_unused]] QJsonArray FluApp::iconDatas(const QString &keyword) {
+[[maybe_unused]] QJsonArray FluApp::iconData(const QString &keyword) {
     QJsonArray arr;
-    QMetaEnum enumType = Fluent_Icons::staticMetaObject.enumerator(Fluent_Icons::staticMetaObject.indexOfEnumerator("Fluent_IconType"));
+    QMetaEnum enumType = FluentIcons::staticMetaObject.enumerator(FluentIcons::staticMetaObject.indexOfEnumerator("Type"));
     for (int i = 0; i <= enumType.keyCount() - 1; ++i) {
         QString name = enumType.key(i);
         int icon = enumType.value(i);

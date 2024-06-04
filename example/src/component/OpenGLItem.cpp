@@ -2,6 +2,7 @@
 
 #include <QOpenGLFramebufferObjectFormat>
 #include <QOpenGLShaderProgram>
+#include <QQuickWindow>
 
 class FBORenderer : public QQuickFramebufferObject::Renderer, protected QOpenGLFunctions {
 public:
@@ -47,6 +48,7 @@ QOpenGLFramebufferObject *FBORenderer::createFramebufferObject(const QSize &size
 }
 
 void FBORenderer::render() {
+    auto pixelRatio = item->window()->devicePixelRatio();
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -61,7 +63,7 @@ void FBORenderer::render() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     program.setAttributeArray(0, GL_FLOAT, values, 2);
     program.setUniformValue("t", (float) item->t());
-    glViewport(0, 0, qRound(item->width()), qRound(item->height()));
+    glViewport(0, 0, qRound(item->width()*pixelRatio), qRound(item->height()*pixelRatio));
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);

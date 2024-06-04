@@ -39,7 +39,7 @@ T.Menu {
                      : false
         clip: true
         currentIndex: control.currentIndex
-        ScrollIndicator.vertical: ScrollIndicator {}
+        ScrollBar.vertical: FluScrollBar{}
     }
     background: Rectangle {
         implicitWidth: 150

@@ -1121,7 +1121,8 @@ Item {
         }
         padding: 0
         focus: true
-        contentItem: Item{
+        contentItem: FluClip{
+            radius: [5,5,5,5]
             ListView{
                 id:list_view
                 anchors.fill: parent
@@ -1146,7 +1147,6 @@ Item {
                             visible: item_button.activeFocus
                             radius:4
                         }
-
                         FluLoader{
                             id:item_dot_loader
                             anchors{
@@ -1161,7 +1161,6 @@ Item {
                                 return undefined
                             }
                         }
-
                     }
                     contentItem: FluText{
                         text:modelData.title
@@ -1188,13 +1187,13 @@ Item {
                 }
             }
         }
-        background: FluRectangle{
+        background: Rectangle{
             implicitWidth: 180
-            radius: [4,4,4,4]
-            FluShadow{
-                radius: 4
-            }
-            color: FluTheme.dark ? Qt.rgba(51/255,48/255,48/255,1) : Qt.rgba(248/255,250/255,253/255,1)
+            color:FluTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(252/255,252/255,252/255,1)
+            border.color: FluTheme.dark ? Qt.rgba(26/255,26/255,26/255,1) : Qt.rgba(191/255,191/255,191/255,1)
+            border.width: 1
+            radius: 5
+            FluShadow{}
         }
         function showPopup(pos,height,model){
             background.implicitHeight = height

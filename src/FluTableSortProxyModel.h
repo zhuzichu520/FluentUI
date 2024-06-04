@@ -8,7 +8,7 @@
 
 class FluTableSortProxyModel : public QSortFilterProxyModel {
 Q_OBJECT
-Q_PROPERTY_AUTO_P(QAbstractTableModel*, model)
+Q_PROPERTY_AUTO_P(QVariant, model)
     QML_NAMED_ELEMENT(FluTableSortProxyModel)
 public:
     explicit FluTableSortProxyModel(QSortFilterProxyModel *parent = nullptr);
@@ -22,6 +22,8 @@ public:
     [[maybe_unused]] Q_INVOKABLE QVariant getRow(int rowIndex);
 
     [[maybe_unused]] Q_INVOKABLE void setRow(int rowIndex, const QVariant &val);
+
+    [[maybe_unused]] Q_INVOKABLE void insertRow(int rowIndex, const QVariant &val);
 
     [[maybe_unused]] Q_INVOKABLE void removeRow(int rowIndex, int rows);
 

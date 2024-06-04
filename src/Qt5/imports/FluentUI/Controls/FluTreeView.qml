@@ -17,6 +17,7 @@ Rectangle {
     property color selectedBorderColor: FluTheme.primaryColor
     property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
     readonly property alias current: d.current
+    property alias view: table_view
     id:control
     color: {
         if(Window.active){
@@ -44,6 +45,9 @@ Rectangle {
     FluTreeModel{
         id:tree_model
         columnSource: control.columnSource
+    }
+    Component.onDestruction: {
+        table_view.contentY = 0
     }
     onDepthPaddingChanged: {
         table_view.forceLayout()

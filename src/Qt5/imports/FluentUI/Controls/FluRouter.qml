@@ -10,19 +10,19 @@ QtObject {
             windows.push(window)
         }
     }
-    function removeWindow(window) {
-        if(!window.transientParent){
-            var index = windows.indexOf(window)
+    function removeWindow(win) {
+        if(!win.transientParent){
+            var index = windows.indexOf(win)
             if (index !== -1) {
                 windows.splice(index, 1)
-                FluTools.deleteLater(window)
+                win.deleteLater()
             }
         }
     }
     function exit(retCode){
         for(var i =0 ;i< windows.length; i++){
-            var item = windows[i]
-            FluTools.deleteLater(item)
+            var win = windows[i]
+            win.deleteLater()
         }
         windows = []
         Qt.exit(retCode)

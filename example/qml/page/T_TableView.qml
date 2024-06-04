@@ -11,7 +11,6 @@ FluContentPage{
     title: qsTr("TableView")
     signal checkBoxChanged
 
-    property var dataSource : []
     property int sortType: 0
     property bool selectedAll: true
     property string nameKeyword: ""
@@ -244,7 +243,9 @@ FluContentPage{
                     clickListener: function(){
                         root.selectedAll = !root.selectedAll
                         var checked = root.selectedAll
-                        itemModel.display = table_view.customItem(com_column_checbox,{"checked":checked})
+                        var columnModel = model.display
+                        columnModel.title = table_view.customItem(com_column_checbox,{"checked":checked})
+                        model.display = columnModel
                         for(var i =0;i< table_view.rows ;i++){
                             var rowData = table_view.getRow(i)
                             rowData.checkbox = table_view.customItem(com_checbox,{"checked":checked})
@@ -271,7 +272,8 @@ FluContentPage{
             }
             Component.onCompleted: {
                 currentIndex=["100","300","500","1000"].findIndex((element) => element === display)
-                selectAll()
+                textBox.forceActiveFocus()
+                textBox.selectAll()
             }
             onCommit: {
                 editTextChaged(editText)
@@ -293,6 +295,8 @@ FluContentPage{
                 });
                 items = result
                 textbox.text= String(display)
+                forceActiveFocus()
+                selectAll()
             }
             onCommit: {
                 editTextChaged(textbox.text)
@@ -344,7 +348,9 @@ FluContentPage{
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     custom_update_dialog.showDialog(options.title,function(text){
-                        itemModel.display = table_view.customItem(com_column_update_title,{"title":text})
+                        var columnModel = model.display
+                        columnModel.title = table_view.customItem(com_column_update_title,{"title":text})
+                        model.display = columnModel
                     })
                 }
             }
@@ -442,15 +448,15 @@ FluContentPage{
                     var data = []
                     var rows = []
                     for (var i = 0; i < table_view.rows; i++) {
-                        var item = table_view.getRow(i);
+                        var item = table_view.getRow(i)
                         rows.push(item)
                         if (!item.checkbox.options.checked) {
                             data.push(item);
                         }
                     }
-                    var sourceModel = table_view.sourceModel;
+                    var sourceModel = table_view.sourceModel
                     for (i = 0; i < sourceModel.rowCount; i++) {
-                        var sourceItem = sourceModel.getRow(i);
+                        var sourceItem = sourceModel.getRow(i)
                         const foundItem = rows.find(item=> item._key === sourceItem._key)
                         if (!foundItem) {
                             data.push(sourceItem);
@@ -459,7 +465,6 @@ FluContentPage{
                     table_view.dataSource = data
                 }
             }
-
             FluButton{
                 text: qsTr("Add a row of Data")
                 onClicked: {
@@ -469,18 +474,15 @@ FluContentPage{
             FluButton{
                 text: qsTr("Insert a Row")
                 onClicked: {
-                    if(typeof table_view.current !== 'undefined'){
-                        var newLine = genTestObject()
-                        var currentLine = dataSource.findIndex(obj => obj._key === table_view.current._key)
-                        root.dataSource.splice(currentLine, 0, newLine);
-                        table_view.dataSource = root.dataSource
+                    var index = table_view.currentIndex()
+                    if(index !== -1){
+                        var testObj = genTestObject()
+                        table_view.insertRow(index,testObj)
                     }else{
                         showWarning(qsTr("Focus not acquired: Please click any item in the form as the target for insertion!"))
                     }
-
                 }
             }
-
         }
     }
 
@@ -500,19 +502,18 @@ FluContentPage{
             {
                 title: table_view.customItem(com_column_checbox,{checked:true}),
                 dataIndex: 'checkbox',
-                width:100,
-                minimumWidth:100,
-                maximumWidth:100
-            },
-            {
-                title: table_view.customItem(com_column_update_title,{title:qsTr("Avatar")}),
-                dataIndex: 'avatar',
-                width:100
+                frozen: true
             },
             {
                 title: table_view.customItem(com_column_filter_name,{title:qsTr("Name")}),
                 dataIndex: 'name',
                 readOnly:true
+            },
+            {
+                title: table_view.customItem(com_column_update_title,{title:qsTr("Avatar")}),
+                dataIndex: 'avatar',
+                width:100,
+                frozen:true
             },
             {
                 title: table_view.customItem(com_column_sort_age,{sort:0}),
@@ -549,8 +550,7 @@ FluContentPage{
                 title: qsTr("Options"),
                 dataIndex: 'action',
                 width:160,
-                minimumWidth:160,
-                maximumWidth:160
+                frozen:true
             }
         ]
     }
@@ -620,7 +620,6 @@ FluContentPage{
         for(var i=0;i<count;i++){
             dataSource.push(genTestObject())
         }
-        root.dataSource = dataSource
-        table_view.dataSource = root.dataSource
+        table_view.dataSource = dataSource
     }
 }

@@ -50,7 +50,7 @@ public:
         }
         return true;
     };
-    
+
     Q_INVOKABLE bool hideLineFooter() {
         if (_parent) {
             auto childIndex = _parent->_children.indexOf(this);
@@ -86,12 +86,11 @@ public:
     FluTreeNode *_parent = nullptr;
 };
 
-class FluTreeModel : public QAbstractItemModel {
+class FluTreeModel : public QAbstractTableModel {
 Q_OBJECT
 Q_PROPERTY_AUTO(int, dataSourceSize)
 Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
     QML_NAMED_ELEMENT(FluTreeModel)
-    QML_ADDED_IN_MINOR_VERSION(1)
 public:
     enum TreeModelRoles {
         RowModel = 0x0101,
@@ -107,10 +106,6 @@ public:
     [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
-
-    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
-
-    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = {}) const override;
 
     Q_INVOKABLE void removeRows(int row, int count);
 

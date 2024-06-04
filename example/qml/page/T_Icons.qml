@@ -14,17 +14,8 @@ FluContentPage {
         anchors{
             top: parent.top
         }
-    }
-
-    FluFilledButton{
-        text: qsTr("Search")
-        anchors{
-            left: text_box.right
-            verticalCenter: text_box.verticalCenter
-            leftMargin: 14
-        }
-        onClicked: {
-            grid_view.model = FluApp.iconDatas(text_box.text)
+        onTextChanged: {
+            grid_view.model = FluApp.iconData(text_box.text)
         }
     }
     GridView{
@@ -33,7 +24,7 @@ FluContentPage {
         cellHeight: 110
         clip: true
         boundsBehavior: GridView.StopAtBounds
-        model: FluApp.iconDatas()
+        model: FluApp.iconData()
         ScrollBar.vertical: FluScrollBar {}
         anchors{
             topMargin: 10

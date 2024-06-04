@@ -44,7 +44,6 @@ FluScrollablePage{
             wrapMode: Text.WrapAnywhere
             horizontalAlignment: isRight ? Qt.AlignRight : Qt.AlignLeft
             text: modelData.text
-            font.bold: true
             linkColor: FluTheme.dark ? FluColors.Teal.lighter : FluColors.Teal.dark
             onLinkActivated:
                 (link)=> {
