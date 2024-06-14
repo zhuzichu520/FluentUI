@@ -43,12 +43,12 @@ Rectangle{
     property alias layoutStandardbuttons: layout_standard_buttons
     property var maxClickListener : function(){
         if(FluTools.isMacos()){
-            if (d.win.visibility === Window.FullScreen)
+            if (d.win.visibility === Window.FullScreen || d.win.visibility === Window.Maximized)
                 d.win.showNormal()
             else
                 d.win.showFullScreen()
         }else{
-            if (d.win.visibility === Window.Maximized)
+            if (d.win.visibility === Window.Maximized || d.win.visibility === Window.FullScreen)
                 d.win.showNormal()
             else
                 d.win.showMaximized()
@@ -93,7 +93,7 @@ Rectangle{
             }
             return false
         }
-        property bool isRestore: win && Window.Maximized === win.visibility
+        property bool isRestore: win && (Window.Maximized === win.visibility || Window.FullScreen === win.visibility)
         property bool resizable: win && !(win.height === win.maximumHeight && win.height === win.minimumHeight && win.width === win.maximumWidth && win.width === win.minimumWidth)
         function containsPointToItem(point,item){
             var pos = item.mapToGlobal(0,0)
