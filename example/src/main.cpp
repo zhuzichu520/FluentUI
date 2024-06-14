@@ -59,9 +59,6 @@ int main(int argc, char *argv[])
     QGuiApplication::setQuitOnLastWindowClosed(false);
     SettingsHelper::getInstance()->init(argv);
     Log::setup(argv,uri);
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
-    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
-#endif
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
