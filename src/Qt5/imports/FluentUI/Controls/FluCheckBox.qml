@@ -94,13 +94,6 @@ Button {
                 }
                 return normalColor
             }
-            Behavior on color {
-                enabled: control.animationEnabled
-                ColorAnimation{
-                    duration: 83
-                }
-            }
-
             FluIcon {
                 anchors.centerIn: parent
                 iconSource: FluentIcons.CheckboxIndeterminate
@@ -114,7 +107,6 @@ Button {
                     }
                 }
             }
-
             FluIcon {
                 anchors.centerIn: parent
                 iconSource: FluentIcons.AcceptMedium
