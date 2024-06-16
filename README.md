@@ -1,23 +1,21 @@
 <div align=center>
-  <img width=64 src="doc/preview/fluent_design.svg">
-</div>
+<img width=64 src="doc/preview/fluent_design.svg">
 
-<h1 align="center">
-  QML FluentUI 
-</h1>
-<p align="center">
-  A fluent design component library for Qt QML， You need Pyside6 <a href="https://github.com/zhuzichu520/PySide6-FluentUI-QML">PySide6-FluentUI-QML</a>。
-</p>
+# QML FluentUI
+
+A Fluent Design component library for Qt QML, You need PySide6 [PySide6-FluentUI-QML](https://github.com/zhuzichu520/PySide6-FluentUI-QML).
+
+</div>
 
 ![win-badge] ![ubuntu-badge] ![macos-badge] ![release-badge] ![download-badge] ![download-latest]
 
-<p align="center">
-English | <a href="README_zh_CN.md">简体中文</a>
-</p>
 <div align=center>
-  <img src="doc/preview/demo_large.png">
-</div>
 
+English | [简体中文](README_zh_CN.md)
+
+<img src="doc/preview/demo_large.png">
+
+</div>
 
 [win-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AWindows "WindowsAction"
 [win-badge]: https://github.com/zhuzichu520/FluentUI/workflows/Windows/badge.svg  "Windows"
@@ -30,7 +28,6 @@ English | <a href="README_zh_CN.md">简体中文</a>
 [download-link]: https://github.com/zhuzichu520/FluentUI/releases/latest "Download status"
 [download-badge]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/total.svg "Download status"
 [download-latest]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/latest/total.svg "latest status"
-
 
 <p align=center>
 This is a beautiful FluentUI component library based on Qt QML. Currently the main branch supports Qt 6. If you want to use it in Qt 5, checkout the Qt 5 branch.
@@ -50,17 +47,17 @@ Use [Qt Online Installers](https://download.qt.io/archive/online_installers/) to
 
 + run `example` program.
 
-or 
+or
 
 + Clone the repository.
 
-```SHELL
+```bash
 git clone --recursive https://github.com/zhuzichu520/FluentUI.git
 ```
 
 + Build
 
-```
+```bash
 git clone --recursive https://github.com/zhuzichu520/FluentUI.git
 cd FluentUI
 mkdir build
@@ -79,37 +76,34 @@ cmake --build . --config Release --target all --parallel
 
 + Great! Now you are ready to write your first QML FluentUI program! Check the documentations for more details.
 
-
 ## 📑 Documentations
 
 (Work in progress...🚀)
 
 ## Supported components
 
-|Catalog|Detail|Notes / Demos|
-|:----:|:----:|:----:|
-|FluApp|The initial entry of the program|Router supported(SPA)|
-|FluWindow|Frameless Window|*This only works on windows|
-|FluAppBar|Title bar on top of the window|Drag, minimize, maximize and close are supported.|
-|FluText|Common text||
-|FluButton|Common button|![btn](doc/preview/demo_standardbtn.png) |
-|FluFilledButton|Filled button|![filledbtn](doc/preview/demo_filledbtn.png)|
-|FluTextButton|Text button|![textbtn](doc/preview/demo_textbtn.png)|
-|FluToggleButton|Toggle buttons|![togglebtn](doc/preview/demo_toggle_btn.png)|
-|FluIcon|Common icon|![icons](doc/preview/demo_icon.png)|
-|FluRadioButton|radio button|![radiobtn](doc/preview/demo_radiobtn.png)|
-|FluTextBox|Single-line input box|![textbox](doc/preview/demo_textbox.png)|
-|FluMultiLineTextBox|Multi-lines input area|![textarea](doc/preview/demo_multiline_textbox.png)|
-|FluToggleSwitch|toggle switch|![toggleswitch](doc/preview/demo_toggle_switch.png)|
-
+|       Catalog       |              Detail              |                    Notes / Demos                    |
+| :-----------------: | :------------------------------: | :-------------------------------------------------: |
+|       FluApp        | The initial entry of the program |                Router supported(SPA)                |
+|      FluWindow      |         Frameless Window         |             *This only works on windows             |
+|      FluAppBar      |  Title bar on top of the window  |  Drag, minimize, maximize and close are supported.  |
+|       FluText       |           Common text            |                                                     |
+|      FluButton      |          Common button           |      ![btn](doc/preview/demo_standardbtn.png)       |
+|   FluFilledButton   |          Filled button           |    ![filledbtn](doc/preview/demo_filledbtn.png)     |
+|    FluTextButton    |           Text button            |      ![textbtn](doc/preview/demo_textbtn.png)       |
+|   FluToggleButton   |          Toggle buttons          |    ![togglebtn](doc/preview/demo_toggle_btn.png)    |
+|       FluIcon       |           Common icon            |         ![icons](doc/preview/demo_icon.png)         |
+|   FluRadioButton    |           radio button           |     ![radiobtn](doc/preview/demo_radiobtn.png)      |
+|     FluTextBox      |      Single-line input box       |      ![textbox](doc/preview/demo_textbox.png)       |
+| FluMultiLineTextBox |      Multi-lines input area      | ![textarea](doc/preview/demo_multiline_textbox.png) |
+|   FluToggleSwitch   |          toggle switch           | ![toggleswitch](doc/preview/demo_toggle_switch.png) |
 
 View more [`here`](doc/md/all_components.md)!
 
-
 ## Reference
+
 + [**Windows design**: Design guidelines and toolkits of Microsoft.](https://learn.microsoft.com/en-us/windows/apps/design/)
 + [**Microsoft/WinUI-Gallery**: Microsoft's demo](https://github.com/microsoft/WinUI-Gallery)
-
 
 ## License
 
@@ -120,4 +114,5 @@ This FluentUI library currently licensed under [MIT License](./License)
 [![Star History Chart](https://api.star-history.com/svg?repos=zhuzichu520/FluentUI&type=Date)](https://star-history.com/#zhuzichu520/FluentUI&Date)
 
 ## ⚡ Visitor count
-![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
+
+![Visitor count](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)

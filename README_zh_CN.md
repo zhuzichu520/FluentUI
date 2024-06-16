@@ -1,99 +1,118 @@
-# FluentUI
+<div align=center>
+<img width=64 src="doc/preview/fluent_design.svg">
 
-## 简介
+# QML FluentUI
 
-这是一个漂亮的Fluent组件库，使用QML插件开发的。main分支是Qt6.4.3，<a href="https://github.com/zhuzichu520/FluentUI/wiki/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8" target="_blank">如何使用？</a>。如果需要qt5的请切换至qt5分支，<a href="https://github.com/zhuzichu520/FluentUI/wiki/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%EF%BC%881.2.7%E4%BB%A5%E5%8F%8A%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%EF%BC%89" target="_blank">如何使用？</a>
+一个 Qt QML 的 Fluent Design 组件库，需要 PySide6 [PySide6-FluentUI-QML](https://github.com/zhuzichu520/PySide6-FluentUI-QML)。
 
-## 编译状态
-| [Windows][win-link]| [Ubuntu][ubuntu-link]|[MacOS][macos-link]|
-|---------------|---------------|-----------------|
-| ![win-badge]  | ![ubuntu-badge]      | ![macos-badge] |
+</div>
+
+![win-badge] ![ubuntu-badge] ![macos-badge] ![release-badge] ![download-badge] ![download-latest]
+
+<div align=center>
+
+[English](README.md) | 简体中文
+
+<img src="doc/preview/demo_large.png">
+
+</div>
 
 [win-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AWindows "WindowsAction"
 [win-badge]: https://github.com/zhuzichu520/FluentUI/workflows/Windows/badge.svg  "Windows"
-
 [ubuntu-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AUbuntu "UbuntuAction"
 [ubuntu-badge]: https://github.com/zhuzichu520/FluentUI/workflows/Ubuntu/badge.svg "Ubuntu"
-
 [macos-link]: https://github.com/zhuzichu520/FluentUI/actions?query=workflow%3AMacOS "MacOSAction"
 [macos-badge]: https://github.com/zhuzichu520/FluentUI/workflows/MacOS/badge.svg "MacOS"
-
-## 发布
-
-|[已发布][release-link]|[下载][download-link]|下载次数|
-|:--:|:--:|:--:|
-|![release-badge] |![download-badge]|![download-latest]|
-
 [release-link]: https://github.com/zhuzichu520/FluentUI/releases "Release status"
 [release-badge]: https://img.shields.io/github/release/zhuzichu520/FluentUI.svg?style=flat-square "Release status"
 [download-link]: https://github.com/zhuzichu520/FluentUI/releases/latest "Download status"
 [download-badge]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/total.svg "Download status"
 [download-latest]: https://img.shields.io/github/downloads/zhuzichu520/FluentUI/latest/total.svg "latest status"
 
+<p align=center>
+这是一个基于 Qt QML 的漂亮 FluentUI 组件库。目前主分支支持 Qt 6。如果您想在 Qt 5 中使用它，请切换至 Qt 5 分支。
+</p>
+
+## 必要条件
+
++ Qt Core、Qt Quick、Qt QML、Qt ShaderTool、Qt 5 Compatibility Module.（**重要**）
++ Qt LinguistTool（可选，用于翻译）
++ Qt Svg（可选，但对于 Qt 5 来说必不可少）
+
+在使用库之前使用 [Qt 在线安装程序](https://download.qt.io/archive/online_installers/) 获取模块（**推荐**），或先编译模块。
+
+## ⚽ 快速开始
+
++ 下载 [预编译版本](https://github.com/zhuzichu520/FluentUI/releases)。（请注意您的平台和编译器）。
+
++ 运行 `example` 程序。
+
+或者
+
++ 克隆此仓库
+
+```bash
+git clone --recursive https://github.com/zhuzichu520/FluentUI.git
+```
+
++ 构建
+
+```bash
+git clone --recursive https://github.com/zhuzichu520/FluentUI.git
+cd FluentUI
+mkdir build
+cd build
+cmake -DCMAKE_PREFIX_PATH=<YOUR_QT_SDK_DIR_PATH> -DCMAKE_BUILD_TYPE=Release -GNinja <仓库路径>
+cmake --build . --config Release --target all --parallel
+```
+
++ 使用 IDE（`Qt Creator` 或者 `CLion`）打开项目。（仅支持 **CMake**）。
+
+<div align=center>
+  <img src="doc/preview/qt_creator_project.png">
+</div>
+
++ 编译项目。然后尝试执行 `example` 演示程序。
+
++ 太好了！现在您可以编写第一个 QML FluentUI 程序了！查看文档了解更多详情。
+
+## 📑 文档
+
+(正在进行中...🚀)
+
 ## 支持的组件
 
-|目录|说明|备注|
-|----|----|----|
-|FluApp|初始化入口|支持路由跳转|
-|FluWindow|无边框窗口|解决windows拖动闪烁问题|
-|FluAppBar|窗口顶部标题栏|支持拖动窗口，最小化、最大化、关闭窗口|
-|FluText|Text文本||
-|FluButton|按钮||
-|FluFilledButton|实心按钮||
-|FluIconButton|图标按钮||
-|FluTextButton|文本按钮||
-|FluIcon|图标||
-|FluRadioButton|单选按钮||
-|FluTextBox|单行输入框||
-|FluMultiLineTextBox|多行输入框||
-|FluToggleSwitch|开关按钮||
-|FluSlider|拖动条||
-|FluInfoBar|提示Toast||
-|FluContentDialog|对话框||
-|FluProgressBar|条形进度条||
-|FluProgressRing|圆形进度条||
-|FluRectangle|矩形|支持部分圆角、clip|
-|FluMenu|菜单框||
-|FluTooltip|tooltip提示框||
-|FluTreeView|树控件||
-|FluTheme|主题设置|支持主题颜色切换，夜间模式|
-|FluCarousel|轮播图组件|支持无限轮播|
-|FluTimePicker|时间选择器||
-|FluDatePicker|日期选择器||
-|FluMenu|菜单Popup||
-|FluNavigationView|响应式导航布局||
-|FluScrollbar|滚动条||
-|FluToggleButton|开关按钮||
-|FluPagination|分页组件||
-|FluTableView|表格组件||
-|FluMediaPlayer|播放器||
-|FluFlipView|FlipView||
+|        目录         |       详情       |                    备注 / Demos                     |
+| :-----------------: | :--------------: | :-------------------------------------------------: |
+|       FluApp        |   程序初始入口   |                   支持路由（SPA）                   |
+|      FluWindow      |     无框窗口     |                  *仅适用于 Windows                  |
+|      FluAppBar      | 窗口顶部的标题栏 |          支持拖动、最小化、最大化和关闭。           |
+|       FluText       |     通用文本     |                                                     |
+|      FluButton      |     通用按钮     |      ![btn](doc/preview/demo_standardbtn.png)       |
+|   FluFilledButton   |   Filled 按钮    |    ![filledbtn](doc/preview/demo_filledbtn.png)     |
+|    FluTextButton    |     文本按钮     |      ![textbtn](doc/preview/demo_textbtn.png)       |
+|   FluToggleButton   |     切换按钮     |    ![togglebtn](doc/preview/demo_toggle_btn.png)    |
+|       FluIcon       |     通用图标     |         ![icons](doc/preview/demo_icon.png)         |
+|   FluRadioButton    |      单选框      |     ![radiobtn](doc/preview/demo_radiobtn.png)      |
+|     FluTextBox      |    单行输入框    |      ![textbox](doc/preview/demo_textbox.png)       |
+| FluMultiLineTextBox |    多行输入框    | ![textarea](doc/preview/demo_multiline_textbox.png) |
+|   FluToggleSwitch   |       开关       | ![toggleswitch](doc/preview/demo_toggle_switch.png) |
 
-# 部分效果预览
+在 [`这里`](doc/md/all_components.md) 查看更多！
 
-## 首页
+## 参考
 
-![](doc/preview/home.png)
++ [**Windows 设计**：Microsoft 的设计指南和工具包。](https://learn.microsoft.com/zh-CN/windows/apps/design/)
++ [**Microsoft/WinUI-Gallery**: Microsoft's demo](https://github.com/microsoft/WinUI-Gallery)
 
-## 各种Button按钮
+## 许可
 
-![](doc/preview/buttons.png)
+本 FluentUI 库目前采用 [MIT License](./License) 许可。
 
-## 主题颜色切换、夜间模式
+## 星标历史
 
-![](doc/preview/theme.png)
+[![星标历史图表](https://api.star-history.com/svg?repos=zhuzichu520/FluentUI&type=Date)](https://star-history.com/#zhuzichu520/FluentUI&Date)
 
-## TableView表格组件
+## ⚡ 游客数量
 
-![](doc/preview/tableview.png)
-
-## FluTreeView树组件
-
-![](doc/preview/treeview.png)
-
-## 轮播图组件
-
-![](doc/preview/carousel.png)
-
-### ⚡ Visitor count
-![](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
+![游客数量](https://profile-counter.glitch.me/zhuzichu520-FluentUI/count.svg)
