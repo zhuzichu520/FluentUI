@@ -50,7 +50,7 @@ void FluentUI::registerTypes(const char *uri) const {
 
     qmlRegisterUncreatableType<QmlQCustomPlot::Axis>(uri, major, minor, "Axis", "");
     qmlRegisterUncreatableType<QmlQCustomPlot::Ticker>(uri, major, minor, "Ticker", "");
-    qmlRegisterUncreatableType<QmlQCustomPlot::Grid>(uri, major, minor, "Grid", "");
+    qmlRegisterUncreatableType<QmlQCustomPlot::Grid>(uri, major, minor, "PlotGrid", "");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluAcrylic.qml"), uri, major, minor, "FluAcrylic");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluAppBar.qml"), uri, major, minor, "FluAppBar");

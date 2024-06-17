@@ -15,7 +15,7 @@ class Grid : public QObject
 {
     Q_OBJECT
     Q_ENUMS(LineType)
-    QML_ELEMENT
+    QML_NAMED_ELEMENT(PlotGrid)
     QML_UNCREATABLE("")
 public:
     enum LineType
