@@ -17,6 +17,11 @@
 #include "FluFrameless.h"
 #include "FluTableModel.h"
 #include "FluHotkey.h"
+#include "qmlcustomplot/TimePlot.h"
+#include "qmlcustomplot/baseplot.h"
+#include "qmlcustomplot/axis.h"
+#include "qmlcustomplot/ticker.h"
+#include "qmlcustomplot/grid.h"
 
 void FluentUI::registerTypes(QQmlEngine *engine) {
     initializeEngine(engine, _uri);
@@ -39,6 +44,13 @@ void FluentUI::registerTypes(const char *uri) const {
     qmlRegisterType<FluFrameless>(uri, major, minor, "FluFrameless");
     qmlRegisterType<FluHotkey>(uri, major, minor, "FluHotkey");
     qmlRegisterType<FluTableSortProxyModel>(uri, major, minor, "FluTableSortProxyModel");
+
+    qmlRegisterType<QmlQCustomPlot::TimePlot>(uri, major, minor, "TimePlot");
+    qmlRegisterType<QmlQCustomPlot::BasePlot>(uri, major, minor, "BasePlot");
+
+    qmlRegisterUncreatableType<QmlQCustomPlot::Axis>(uri, major, minor, "Axis", "");
+    qmlRegisterUncreatableType<QmlQCustomPlot::Ticker>(uri, major, minor, "Ticker", "");
+    qmlRegisterUncreatableType<QmlQCustomPlot::Grid>(uri, major, minor, "Grid", "");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluAcrylic.qml"), uri, major, minor, "FluAcrylic");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluAppBar.qml"), uri, major, minor, "FluAppBar");

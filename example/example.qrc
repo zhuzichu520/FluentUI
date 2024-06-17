@@ -210,6 +210,7 @@
         <file>qml/page/T_OpenGL.qml</file>
         <file>qml/page/T_Icons.qml</file>
         <file>qml/window/HotkeyWindow.qml</file>
+        <file>qml/page/T_CustomPlot.qml</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

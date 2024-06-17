@@ -536,41 +536,46 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="436"/>
-        <source>QRCode</source>
+        <source>QCustomPlot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="442"/>
-        <source>Tour</source>
+        <source>QRCode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="448"/>
-        <source>Timeline</source>
+        <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="454"/>
-        <source>Captcha</source>
+        <source>Timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="460"/>
+        <source>Captcha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="467"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="473"/>
         <source>Remote Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="481"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
         <source>Hot Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1146,6 +1151,14 @@ Updated content:
     <message>
         <location filename="qml/page/T_ComboBox.qml" line="10"/>
         <source>ComboBox</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_CustomPlot</name>
+    <message>
+        <location filename="qml/page/T_CustomPlot.qml" line="10"/>
+        <source>QCustomPlot</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

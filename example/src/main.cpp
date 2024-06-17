@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDir>
@@ -51,25 +51,25 @@ int main(int argc, char *argv[])
     //fix bug UOSv20 v-sync does not work
     qputenv("QSG_RENDER_LOOP","basic");
 #endif
-    QGuiApplication::setOrganizationName("ZhuZiChu");
-    QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
-    QGuiApplication::setApplicationName("FluentUI");
-    QGuiApplication::setApplicationDisplayName("FluentUI Example");
-    QGuiApplication::setApplicationVersion(APPLICATION_VERSION);
-    QGuiApplication::setQuitOnLastWindowClosed(false);
+    QApplication::setOrganizationName("ZhuZiChu");
+    QApplication::setOrganizationDomain("https://zhuzichu520.github.io");
+    QApplication::setApplicationName("FluentUI");
+    QApplication::setApplicationDisplayName("FluentUI Example");
+    QApplication::setApplicationVersion(APPLICATION_VERSION);
+    QApplication::setQuitOnLastWindowClosed(false);
     SettingsHelper::getInstance()->init(argv);
     Log::setup(argv,uri);
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 #endif
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+    QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
 #endif
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     //@uri example
     qmlRegisterType<CircularReveal>(uri, major, minor, "CircularReveal");
     qmlRegisterType<FileWatcher>(uri, major, minor, "FileWatcher");
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
     engine.load(url);
-    const int exec = QGuiApplication::exec();
+    const int exec = QApplication::exec();
     if (exec == 931) {
         QProcess::startDetached(qApp->applicationFilePath(), qApp->arguments());
     }
