@@ -72,7 +72,7 @@ Window {
         initArgument(argument)
         if(window.autoVisible){
             if(window.autoMaximize){
-                window.showMaximized()
+                window.visibility = Window.Maximized
             }else{
                 window.show()
             }
