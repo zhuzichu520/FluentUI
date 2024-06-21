@@ -105,22 +105,14 @@ void FluFrameless::componentComplete() {
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if (_fixSize) {
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);;
-#else
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
-#endif
         for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
             connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
                 SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
             });
         }
     } else {
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
-#else
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
-#endif
     }
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
     connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
@@ -173,38 +165,20 @@ void FluFrameless::componentComplete() {
         }
         return false;
     } else if (uMsg == WM_NCCALCSIZE && wParam == TRUE) {
-        const auto clientRect = &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0];
+        const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         const LONG originalTop = clientRect->top;
         const LONG originalLeft = clientRect->left;
-        const LONG originalBottom = clientRect->bottom;
         const LONG originalRight = clientRect->right;
+        const LONG originalBottom = clientRect->bottom;
         const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
         if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
-            *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(hitTestResult);
+            *result = hitTestResult;
             return true;
         }
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         clientRect->top = originalTop;
         clientRect->bottom = originalBottom;
         clientRect->left = originalLeft;
         clientRect->right = originalRight;
-#else
-        bool isMaximum = ::IsZoomed(hwnd);
-        if (isMaximum) {
-            auto geometry = window()->screen()->geometry();
-            auto offsetX = qAbs(geometry.left() - originalLeft);
-            auto offsetY = qAbs(geometry.top() - originalTop);
-            clientRect->top = originalTop + offsetY;
-            clientRect->bottom = originalBottom - offsetY;
-            clientRect->left = originalLeft + offsetX;
-            clientRect->right = originalRight - offsetX;
-        } else {
-            clientRect->top = originalTop;
-            clientRect->bottom = originalBottom;
-            clientRect->left = originalLeft;
-            clientRect->right = originalRight;
-        }
-#endif
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;
@@ -262,21 +236,12 @@ void FluFrameless::componentComplete() {
         *result = HTCLIENT;
         return true;
     } else if (uMsg == WM_NCPAINT) {
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         *result = FALSE;
         return true;
-#else
-        if (isCompositionEnabled()) {
-            return false;
-        }
-        *result = FALSE;
-        return true;
-#endif
     } else if (uMsg == WM_NCACTIVATE) {
         *result = TRUE;
         return true;
     } else if (uMsg == WM_GETMINMAXINFO) {
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3) || QT_VERSION == QT_VERSION_CHECK(6, 6, 0))
         auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
         auto pixelRatio = window()->devicePixelRatio();
         auto geometry = window()->screen()->availableGeometry();
@@ -286,7 +251,6 @@ void FluFrameless::componentComplete() {
         minmaxInfo->ptMaxPosition.y = rect.top;
         minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio);
         minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio);
-#endif
         return false;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
