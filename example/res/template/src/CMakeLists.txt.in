@@ -32,13 +32,9 @@ add_custom_target(Script-UpdateTranslations
     SOURCES ${TS_FILE_PATHS}
 )
 
-qt_add_big_resources(QRC_RESOURCES qml.qrc)
-list(APPEND QRC_RESOURCES qml.qrc)
-set_property(SOURCE qml.qrc PROPERTY SKIP_AUTORCC ON)
-
 set(PROJECT_SOURCES
     main.cpp
-    ${QRC_RESOURCES}
+    qml.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

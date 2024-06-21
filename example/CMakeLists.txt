@@ -73,11 +73,7 @@ if (WIN32)
     )
 endif ()
 
-#加快qrc编译
-qt_add_big_resources(QRC_RESOURCES ${PROJECT_NAME}.qrc)
-list(APPEND QRC_RESOURCES ${PROJECT_NAME}.qrc)
-set_property(SOURCE ${PROJECT_NAME}.qrc PROPERTY SKIP_AUTORCC ON)
-list(APPEND sources_files ${QRC_RESOURCES})
+list(APPEND sources_files ${PROJECT_NAME}.qrc)
 
 #添加可执行文件
 if (WIN32)
