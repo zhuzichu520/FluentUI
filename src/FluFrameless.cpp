@@ -86,7 +86,7 @@ void FluFrameless::componentComplete() {
     int w = window()->width();
     int h = window()->height();
     _current = window()->winId();
-    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::FramelessWindowHint);
+    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     if (!_fixSize) {
         window()->setFlag(Qt::WindowMaximizeButtonHint);
     }
@@ -102,6 +102,9 @@ void FluFrameless::componentComplete() {
         setHitTestVisible(_closeButton);
     }
 #ifdef Q_OS_WIN
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
+    qWarning()<<"Qt's own frameless bug, currently only exist in 6.5.3, please use other versions";
+#endif
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if (_fixSize) {
@@ -175,10 +178,21 @@ void FluFrameless::componentComplete() {
             *result = hitTestResult;
             return true;
         }
-        clientRect->top = originalTop;
-        clientRect->bottom = originalBottom;
-        clientRect->left = originalLeft;
-        clientRect->right = originalRight;
+        bool isMaximum = ::IsZoomed(hwnd);
+        if (isMaximum) {
+            auto geometry = window()->screen()->geometry();
+            auto offsetX = qAbs(geometry.left() - originalLeft);
+            auto offsetY = qAbs(geometry.top() - originalTop);
+            clientRect->top = originalTop + offsetY;
+            clientRect->bottom = originalBottom - offsetY;
+            clientRect->left = originalLeft + offsetX;
+            clientRect->right = originalRight - offsetX;
+        } else {
+            clientRect->top = originalTop;
+            clientRect->bottom = originalBottom;
+            clientRect->left = originalLeft;
+            clientRect->right = originalRight;
+        }
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
         return true;
@@ -241,17 +255,6 @@ void FluFrameless::componentComplete() {
     } else if (uMsg == WM_NCACTIVATE) {
         *result = TRUE;
         return true;
-    } else if (uMsg == WM_GETMINMAXINFO) {
-        auto *minmaxInfo = reinterpret_cast<MINMAXINFO *>(lParam);
-        auto pixelRatio = window()->devicePixelRatio();
-        auto geometry = window()->screen()->availableGeometry();
-        RECT rect;
-        SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
-        minmaxInfo->ptMaxPosition.x = rect.left;
-        minmaxInfo->ptMaxPosition.y = rect.top;
-        minmaxInfo->ptMaxSize.x = qRound(geometry.width() * pixelRatio);
-        minmaxInfo->ptMaxSize.y = qRound(geometry.height() * pixelRatio);
-        return false;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
             QMouseEvent event = QMouseEvent(QEvent::MouseButtonPress, QPoint(), QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
