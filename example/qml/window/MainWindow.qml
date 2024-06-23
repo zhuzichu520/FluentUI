@@ -20,7 +20,6 @@ FluWindow {
     launchMode: FluWindowType.SingleTask
     fitsAppBarWindows: true
     appBar: FluAppBar {
-        width: window.width
         height: 30
         showDark: true
         darkClickListener:(button)=>handleDarkChanged(button)

@@ -16,7 +16,6 @@ Window {
     property Item appBar: FluAppBar {
         title: window.title
         height: 30
-        width: window.width
         showDark: window.showDark
         showClose: window.showClose
         showMinimize: window.showMinimize
@@ -41,6 +40,7 @@ Window {
     property bool autoCenter: true
     property bool autoDestroy: true
     property bool useSystemAppBar
+    property int __margins: 0
     property color resizeBorderColor: {
         if(window.active){
             return FluTheme.dark ? Qt.rgba(51/255,51/255,51/255,1) : Qt.rgba(110/255,110/255,110/255,1)
@@ -174,6 +174,11 @@ Window {
         id:com_app_bar
         Item{
             data: window.appBar
+            Component.onCompleted: {
+                window.appBar.width = Qt.binding(function(){
+                    return this.parent.width
+                })
+            }
         }
     }
     Component{
@@ -246,53 +251,59 @@ Window {
             border.color: window.resizeBorderColor
         }
     }
-    FluLoader{
-        anchors.fill: parent
-        sourceComponent: background
-    }
-    FluLoader{
-        id:loader_app_bar
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: {
-            if(window.useSystemAppBar){
-                return 0
-            }
-            return window.fitsAppBarWindows ? 0 : window.appBar.height
-        }
-        sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
-    }
     Item{
-        id:layout_content
-        anchors{
-            top: loader_app_bar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
+        id: layout_container
+        anchors.fill: parent
+        anchors.margins: window.__margins
+        FluLoader{
+            anchors.fill: parent
+            sourceComponent: background
         }
-        clip: true
-    }
-    FluLoader{
-        property string loadingText
-        property bool cancel: false
-        id:loader_loading
-        anchors.fill: parent
-    }
-    FluInfoBar{
-        id:info_bar
-        root: window
-    }
-    FluLoader{
-        id:loader_border
-        anchors.fill: parent
-        sourceComponent: {
-            if(window.useSystemAppBar || FluTools.isWin() || window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
-                return undefined
+        FluLoader{
+            id:loader_app_bar
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
             }
-            return com_border
+            height: {
+                if(window.useSystemAppBar){
+                    return 0
+                }
+                return window.fitsAppBarWindows ? 0 : window.appBar.height
+            }
+            sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
+        }
+        Item{
+            id:layout_content
+            anchors{
+                top: loader_app_bar.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            clip: true
+        }
+        FluLoader{
+            property string loadingText
+            property bool cancel: false
+            id:loader_loading
+            anchors.fill: parent
+        }
+        FluInfoBar{
+            id:info_bar
+            root: layout_container
+        }
+
+        FluLoader{
+            id:loader_border
+            anchors.fill: parent
+            sourceComponent: {
+                if(window.useSystemAppBar || FluTools.isWin() || window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
+                    return undefined
+                }
+                return com_border
+            }
         }
     }
     function hideLoading(){
@@ -324,9 +335,6 @@ Window {
             window.minimumWidth = window.width
             window.minimumHeight = window.height
         }
-    }
-    function registerForWindowResult(path){
-        return FluApp.createWindowRegister(window,path)
     }
     function setResult(data){
         if(_windowRegister){

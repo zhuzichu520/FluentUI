@@ -108,14 +108,14 @@ void FluFrameless::componentComplete() {
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
     if (_fixSize) {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME);;
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);;
         for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
             connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
                 SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
             });
         }
     } else {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME);
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
     }
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
     connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
@@ -168,30 +168,11 @@ void FluFrameless::componentComplete() {
         }
         return false;
     } else if (uMsg == WM_NCCALCSIZE && wParam == TRUE) {
-        const auto clientRect = ((wParam == FALSE) ? reinterpret_cast<LPRECT>(lParam) : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
-        const LONG originalTop = clientRect->top;
-        const LONG originalLeft = clientRect->left;
-        const LONG originalRight = clientRect->right;
-        const LONG originalBottom = clientRect->bottom;
-        const LRESULT hitTestResult = ::DefWindowProcW(hwnd, WM_NCCALCSIZE, wParam, lParam);
-        if ((hitTestResult != HTERROR) && (hitTestResult != HTNOWHERE)) {
-            *result = hitTestResult;
-            return true;
-        }
         bool isMaximum = ::IsZoomed(hwnd);
         if (isMaximum) {
-            auto geometry = window()->screen()->geometry();
-            auto offsetX = qAbs(geometry.left() - originalLeft);
-            auto offsetY = qAbs(geometry.top() - originalTop);
-            clientRect->top = originalTop + offsetY;
-            clientRect->bottom = originalBottom - offsetY;
-            clientRect->left = originalLeft + offsetX;
-            clientRect->right = originalRight - offsetX;
-        } else {
-            clientRect->top = originalTop;
-            clientRect->bottom = originalBottom;
-            clientRect->left = originalLeft;
-            clientRect->right = originalRight;
+            window()->setProperty("__margins",7);
+        }else{
+            window()->setProperty("__margins",0);
         }
         _setMaximizeHovered(false);
         *result = WVR_REDRAW;
@@ -251,7 +232,7 @@ void FluFrameless::componentComplete() {
         return true;
     } else if (uMsg == WM_NCPAINT) {
         *result = FALSE;
-        return true;
+        return false;
     } else if (uMsg == WM_NCACTIVATE) {
         *result = TRUE;
         return true;
