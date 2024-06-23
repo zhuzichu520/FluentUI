@@ -275,7 +275,7 @@ Window {
             sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
         }
         Item{
-            id:layout_content
+            id: layout_content
             anchors{
                 top: loader_app_bar.bottom
                 left: parent.left
@@ -294,7 +294,6 @@ Window {
             id:info_bar
             root: layout_container
         }
-
         FluLoader{
             id:loader_border
             anchors.fill: parent
@@ -363,5 +362,8 @@ Window {
     }
     function deleteLater(){
         FluTools.deleteLater(window)
+    }
+    function containerItem(){
+        return layout_container
     }
 }

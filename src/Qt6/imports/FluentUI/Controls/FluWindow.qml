@@ -363,4 +363,7 @@ Window {
     function deleteLater(){
         FluTools.deleteLater(window)
     }
+    function containerItem(){
+        return layout_container
+    }
 }
