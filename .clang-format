@@ -1,0 +1,130 @@
+# References:
+#   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+#   https://code.qt.io/cgit/qt/qt5.git/tree/_clang-format
+
+BasedOnStyle: LLVM
+
+Standard: c++17
+
+# 指针和引用的对齐方式。
+# 可能的值有：
+# PAS_Left (在配置中： Left) 指针左对齐。
+# PAS_Right (在配置中： Right) 指针右对齐。
+# PAS_Middle (在配置中： Middle) 指针中间对齐。
+PointerAlignment: Right
+
+# public/protected/private 等访问修饰符偏移量
+AccessModifierOffset: -4
+
+# 缩进长度
+IndentWidth: 4
+
+# 连续空行的最大数
+MaxEmptyLinesToKeep: 999
+
+# 在OC中的@property后面添加一个空格。例如：使用“@property (readonly)”而不是“@property(readonly)”
+ObjCSpaceAfterProperty: true
+
+# OC块中所拍的字符数
+ObjCBlockIndentWidth: 4
+
+# 取决于值, 语句“int f() { return 0; }”可以被放到一个单行。
+# 可能的值有：
+# SFS_None (在配置中： None) 从不合并方法或函数到单独的一行。
+# SFS_Empty (在配置中： Empty) 仅合并空的函数。
+# SFS_Inline (在配置中： Inline) 仅合并类中定义的方法或函数. 意味着 “empty”.
+# SFS_All (在配置中： All) 合并所有的方法适应单行.
+AllowShortFunctionsOnASingleLine: None
+
+# 如果为真（true）, 语句“if (a) return;” 能被放到单行。
+AllowShortIfStatementsOnASingleLine: false
+
+# 如果为真（true）, 对齐注释。
+AlignTrailingComments: true
+
+# 如果为真,对齐连续的宏定义
+AlignConsecutiveMacros: true
+
+# 如果为真（true）,将会在“[”之后和“]”之前插入空格。
+SpacesInSquareBrackets: false
+
+# 如果为真（true）, 将会在“(”之后和“)”之前插入空格。
+SpacesInParentheses : false
+
+# 如果为真（true）, 校准连续的声明。
+# 这将会校准连续多行的声明的名字。这将会导致像下面这样的格式：
+# int         aaaa = 12;
+# float       b = 23;
+# std::string ccc = 23;
+AlignConsecutiveDeclarations: false
+
+# 如果为真（true），连续调整多行
+# 这将会调整连续行中的分配操作符。这将会导致像下面这样的格式：
+# int aaaa = 12;
+# int b    = 23;
+# int ccc  = 23;
+AlignConsecutiveAssignments: false
+
+# 如果为假（false），移除分配操作符（=）前空格。
+SpaceBeforeAssignmentOperators: true
+
+# 如果为真（true）, 将会在字面量容器中插入空格(例如 OC和Javascript的数组和字典字面量)。
+SpacesInContainerLiterals: false
+
+# 缩进case标签
+IndentCaseLabels: true
+
+# 如果表达式中包含函数调用，并且函数调用因为表达式太长被放到了下一行，是否缩进
+IndentWrappedFunctionNames: true
+
+# 如果为真（true）, 保持块的起始空行。
+# true:                                  false:
+# if (foo) {                     vs.     if (foo) {
+#                                          bar();
+#   bar();                               }
+# }
+KeepEmptyLinesAtTheStartOfBlocks: true
+
+# 允许所有参数都被放在下一行
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# 使用C风格强制类型转换后，是否在中间添加一个空格
+SpaceAfterCStyleCast: true
+
+# 在模板定义后换行
+AlwaysBreakTemplateDeclarations: Yes
+
+# Tab长度
+TabWidth: 4
+
+# 是否使用Tab
+UseTab: Never
+
+# 在括号后对齐参数
+# someLongFunction(argument1,
+#                  argument2);
+AlignAfterOpenBracket: Align
+
+# 名字空间内部缩进
+NamespaceIndentation: All
+
+# 一行最长列数
+ColumnLimit: 100
+
+# 按层次缩进宏定义
+IndentPPDirectives: AfterHash
+
+# 预处理语句缩进为 2
+PPIndentWidth: 2
+
+# 数组元素对齐
+AlignArrayOfStructures: Left
+
+# 不对头文件排序
+SortIncludes: Never
+
+FixNamespaceComments: false
+
+StatementMacros: ['__qas_attr__', '__qas_exclude__', '__qas_include__']
+
+ForEachMacros: [ foreach, Q_FOREACH, BOOST_FOREACH, forever, Q_FOREVER, QBENCHMARK, QBENCHMARK_ONCE ]

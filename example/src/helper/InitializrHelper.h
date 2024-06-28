@@ -22,7 +22,7 @@ SINGLETON(InitializrHelper)
 
     ~InitializrHelper() override;
 
-    [[maybe_unused]] Q_INVOKABLE void generate(const QString &name, const QString &path);
+    Q_INVOKABLE [[maybe_unused]] void generate(const QString &name, const QString &path);
 
     Q_SIGNAL void error(const QString &message);
 
