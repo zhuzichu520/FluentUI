@@ -11,7 +11,7 @@
  * @brief The FluTools class
  */
 class FluTools : public QObject {
-Q_OBJECT
+    Q_OBJECT
     QML_NAMED_ELEMENT(FluTools)
     QML_SINGLETON
 
@@ -19,9 +19,11 @@ private:
     explicit FluTools(QObject *parent = nullptr);
 
 public:
-SINGLETON(FluTools)
+    SINGLETON(FluTools)
 
-    static FluTools *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
+    static FluTools *create(QQmlEngine *, QJSEngine *) {
+        return getInstance();
+    }
 
     Q_INVOKABLE int qtMajor();
 

@@ -2,13 +2,14 @@
 
 #include <QJSValueList>
 
-FluTableSortProxyModel::FluTableSortProxyModel(QSortFilterProxyModel *parent) : QSortFilterProxyModel{parent} {
-    connect(this, &FluTableSortProxyModel::modelChanged, this, [=] {
-        setSourceModel(this->model().value<QAbstractTableModel *>());
-    });
+FluTableSortProxyModel::FluTableSortProxyModel(QSortFilterProxyModel *parent)
+    : QSortFilterProxyModel{parent} {
+    connect(this, &FluTableSortProxyModel::modelChanged, this,
+            [=] { setSourceModel(this->model().value<QAbstractTableModel *>()); });
 }
 
-bool FluTableSortProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const {
+bool FluTableSortProxyModel::filterAcceptsRow(int source_row,
+                                              const QModelIndex &source_parent) const {
     QJSValue filter = _filter;
     if (filter.isUndefined()) {
         return true;
@@ -18,11 +19,13 @@ bool FluTableSortProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
     return filter.call(data).toBool();
 }
 
-bool FluTableSortProxyModel::filterAcceptsColumn(int source_column, const QModelIndex &source_parent) const {
+bool FluTableSortProxyModel::filterAcceptsColumn(int source_column,
+                                                 const QModelIndex &source_parent) const {
     return true;
 }
 
-bool FluTableSortProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const {
+bool FluTableSortProxyModel::lessThan(const QModelIndex &source_left,
+                                      const QModelIndex &source_right) const {
     QJSValue comparator = _comparator;
     if (comparator.isUndefined()) {
         return true;
@@ -58,18 +61,25 @@ bool FluTableSortProxyModel::lessThan(const QModelIndex &source_left, const QMod
 
 [[maybe_unused]] QVariant FluTableSortProxyModel::getRow(int rowIndex) {
     QVariant result;
-    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "getRow", Q_RETURN_ARG(QVariant, result), Q_ARG(int, mapToSource(index(rowIndex, 0)).row()));
+    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "getRow",
+                              Q_RETURN_ARG(QVariant, result),
+                              Q_ARG(int, mapToSource(index(rowIndex, 0)).row()));
     return result;
 }
 
 [[maybe_unused]] void FluTableSortProxyModel::setRow(int rowIndex, const QVariant &val) {
-    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "setRow", Q_ARG(int, mapToSource(index(rowIndex, 0)).row()), Q_ARG(QVariant, val));
+    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "setRow",
+                              Q_ARG(int, mapToSource(index(rowIndex, 0)).row()),
+                              Q_ARG(QVariant, val));
 }
 
 [[maybe_unused]] void FluTableSortProxyModel::insertRow(int rowIndex, const QVariant &val) {
-    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "insertRow", Q_ARG(int, mapToSource(index(rowIndex, 0)).row()), Q_ARG(QVariant, val));
+    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "insertRow",
+                              Q_ARG(int, mapToSource(index(rowIndex, 0)).row()),
+                              Q_ARG(QVariant, val));
 }
 
 [[maybe_unused]] void FluTableSortProxyModel::removeRow(int rowIndex, int rows) {
-    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "removeRow", Q_ARG(int, mapToSource(index(rowIndex, 0)).row()), Q_ARG(int, rows));
+    QMetaObject::invokeMethod(_model.value<QAbstractTableModel *>(), "removeRow",
+                              Q_ARG(int, mapToSource(index(rowIndex, 0)).row()), Q_ARG(int, rows));
 }

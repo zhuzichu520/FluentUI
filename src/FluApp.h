@@ -16,12 +16,11 @@
  * @brief The FluApp class
  */
 class FluApp : public QObject {
-Q_OBJECT
-
-Q_PROPERTY_AUTO(bool, useSystemAppBar)
-Q_PROPERTY_AUTO(QString, windowIcon)
-Q_PROPERTY_AUTO(QLocale, locale)
-Q_PROPERTY_AUTO_P(QObject*,launcher)
+    Q_OBJECT
+    Q_PROPERTY_AUTO(bool, useSystemAppBar)
+    Q_PROPERTY_AUTO(QString, windowIcon)
+    Q_PROPERTY_AUTO(QLocale, locale)
+    Q_PROPERTY_AUTO_P(QObject *, launcher)
     QML_NAMED_ELEMENT(FluApp)
     QML_SINGLETON
 
@@ -31,9 +30,11 @@ private:
     ~FluApp() override;
 
 public:
-SINGLETON(FluApp)
+    SINGLETON(FluApp)
 
-    static FluApp *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
+    static FluApp *create(QQmlEngine *, QJSEngine *) {
+        return getInstance();
+    }
 
     Q_INVOKABLE void init(QObject *launcher, QLocale locale = QLocale::system());
 

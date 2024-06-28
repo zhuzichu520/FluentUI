@@ -7,17 +7,15 @@
 #include "src/stdafx.h"
 
 class TranslateHelper : public QObject {
-Q_OBJECT
-Q_PROPERTY_AUTO(QString, current)
-Q_PROPERTY_READONLY_AUTO(QStringList, languages)
+    Q_OBJECT
+    Q_PROPERTY_AUTO(QString, current)
+    Q_PROPERTY_READONLY_AUTO(QStringList, languages)
 private:
     [[maybe_unused]] explicit TranslateHelper(QObject *parent = nullptr);
 
 public:
-SINGLETON(TranslateHelper)
-
+    SINGLETON(TranslateHelper)
     ~TranslateHelper() override;
-
     void init(QQmlEngine *engine);
 
 private:

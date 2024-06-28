@@ -31,8 +31,8 @@ QVariant FluTreeModel::data(const QModelIndex &index, int role) const {
 
 QHash<int, QByteArray> FluTreeModel::roleNames() const {
     return {
-            {TreeModelRoles::RowModel,    "rowModel"},
-            {TreeModelRoles::ColumnModel, "columnModel"}
+        {TreeModelRoles::RowModel,    "rowModel"   },
+        {TreeModelRoles::ColumnModel, "columnModel"}
     };
 }
 
@@ -90,9 +90,9 @@ void FluTreeModel::checkRow(int row, bool checked) {
             QList<FluTreeNode *> children = item->_children;
             if (!children.isEmpty()) {
                 std::reverse(children.begin(), children.end());
-                        foreach (auto c, children) {
-                        stack.append(c);
-                    }
+                foreach (auto c, children) {
+                    stack.append(c);
+                }
             }
         }
     } else {
@@ -102,7 +102,6 @@ void FluTreeModel::checkRow(int row, bool checked) {
         itemData->_checked = checked;
     }
     Q_EMIT dataChanged(index(0, 0), index(rowCount() - 1, 0));
-
 }
 
 void FluTreeModel::setDataSource(QList<QMap<QString, QVariant>> data) {
@@ -184,9 +183,9 @@ void FluTreeModel::expand(int row) {
         QList<FluTreeNode *> children = item->_children;
         if (!children.isEmpty()) {
             std::reverse(children.begin(), children.end());
-                    foreach (auto c, children) {
-                    stack.append(c);
-                }
+            foreach (auto c, children) {
+                stack.append(c);
+            }
         }
     }
     insertRows(row + 1, insertData);
@@ -223,9 +222,9 @@ void FluTreeModel::allExpand() {
         QList<FluTreeNode *> children = item->_children;
         if (!children.isEmpty()) {
             std::reverse(children.begin(), children.end());
-                    foreach (auto c, children) {
-                    stack.append(c);
-                }
+            foreach (auto c, children) {
+                stack.append(c);
+            }
         }
     }
     _rows = data;
@@ -245,9 +244,9 @@ void FluTreeModel::allCollapse() {
         QList<FluTreeNode *> children = item->_children;
         if (!children.isEmpty()) {
             std::reverse(children.begin(), children.end());
-                    foreach (auto c, children) {
-                    stack.append(c);
-                }
+            foreach (auto c, children) {
+                stack.append(c);
+            }
         }
     }
     _rows = _root->_children;
@@ -256,10 +255,10 @@ void FluTreeModel::allCollapse() {
 
 QVariant FluTreeModel::selectionModel() {
     QList<FluTreeNode *> data;
-            foreach (auto item, _dataSource) {
-            if (item->checked()) {
-                data.append(item);
-            }
+    foreach (auto item, _dataSource) {
+        if (item->checked()) {
+            data.append(item);
         }
+    }
     return QVariant::fromValue(data);
 }

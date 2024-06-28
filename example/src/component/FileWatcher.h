@@ -6,11 +6,10 @@
 #include "src/stdafx.h"
 
 class FileWatcher : public QObject {
-Q_OBJECT
-Q_PROPERTY_AUTO(QString, path);
+    Q_OBJECT
+    Q_PROPERTY_AUTO(QString, path)
 public:
     explicit FileWatcher(QObject *parent = nullptr);
-
     Q_SIGNAL void fileChanged();
 
 private:

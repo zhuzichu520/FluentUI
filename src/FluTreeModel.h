@@ -7,11 +7,12 @@
 #include <QtQml/qqml.h>
 #include "stdafx.h"
 
+
 /**
  * @brief The FluTreeNode class
  */
 class FluTreeNode : public QObject {
-Q_OBJECT
+    Q_OBJECT
     Q_PROPERTY(QVariantMap data READ data CONSTANT)
     Q_PROPERTY(int depth READ depth CONSTANT)
     Q_PROPERTY(bool isExpanded READ isExpanded CONSTANT)
@@ -19,13 +20,21 @@ Q_OBJECT
 public:
     explicit FluTreeNode(QObject *parent = nullptr);
 
-    [[nodiscard]] Q_INVOKABLE int depth() const { return _depth; };
+    [[nodiscard]] Q_INVOKABLE int depth() const {
+        return _depth;
+    };
 
-    [[nodiscard]] Q_INVOKABLE bool isExpanded() const { return _isExpanded; };
+    [[nodiscard]] Q_INVOKABLE bool isExpanded() const {
+        return _isExpanded;
+    };
 
-    [[nodiscard]] Q_INVOKABLE QVariantMap data() const { return _data; };
+    [[nodiscard]] Q_INVOKABLE QVariantMap data() const {
+        return _data;
+    };
 
-    [[nodiscard]] Q_INVOKABLE bool hasChildren() const { return !_children.isEmpty(); };
+    [[nodiscard]] Q_INVOKABLE bool hasChildren() const {
+        return !_children.isEmpty();
+    };
 
     Q_INVOKABLE bool hasNextNodeByIndex(int index) {
         FluTreeNode *p = this;
@@ -87,15 +96,12 @@ public:
 };
 
 class FluTreeModel : public QAbstractTableModel {
-Q_OBJECT
-Q_PROPERTY_AUTO(int, dataSourceSize)
-Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
+    Q_OBJECT
+    Q_PROPERTY_AUTO(int, dataSourceSize)
+    Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
     QML_NAMED_ELEMENT(FluTreeModel)
 public:
-    enum TreeModelRoles {
-        RowModel = 0x0101,
-        ColumnModel = 0x0102
-    };
+    enum TreeModelRoles { RowModel = 0x0101, ColumnModel = 0x0102 };
 
     explicit FluTreeModel(QObject *parent = nullptr);
 
@@ -103,7 +109,8 @@ public:
 
     [[nodiscard]] int columnCount(const QModelIndex &parent = {}) const override;
 
-    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index,
+                                int role = Qt::DisplayRole) const override;
 
     [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 

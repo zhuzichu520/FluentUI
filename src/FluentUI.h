@@ -8,10 +8,10 @@
  * @brief The FluentUI class
  */
 class FluentUI : public QObject {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-SINGLETON(FluentUI)
+    SINGLETON(FluentUI)
 
     Q_DECL_EXPORT void registerTypes(QQmlEngine *engine);
 

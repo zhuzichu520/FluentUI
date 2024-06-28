@@ -1,12 +1,12 @@
 #include "FluTableModel.h"
 
 FluTableModel::FluTableModel(QObject *parent) : QAbstractTableModel{parent} {
-
 }
 
 int FluTableModel::rowCount(const QModelIndex &parent) const {
     return _rows.count();
 }
+
 
 int FluTableModel::columnCount(const QModelIndex &parent) const {
     return this->_columnSource.size();
@@ -26,8 +26,8 @@ QVariant FluTableModel::data(const QModelIndex &index, int role) const {
 
 QHash<int, QByteArray> FluTableModel::roleNames() const {
     return {
-            {FluTableModel::RowModel,    "rowModel"},
-            {FluTableModel::ColumnModel, "columnModel"}
+        {FluTableModel::RowModel,    "rowModel"   },
+        {FluTableModel::ColumnModel, "columnModel"}
     };
 }
 

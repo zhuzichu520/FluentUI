@@ -17,15 +17,14 @@
 #include <QSettings>
 
 #ifdef Q_OS_WIN
-#pragma comment (lib, "user32.lib")
+#  pragma comment(lib, "user32.lib")
 
-#include <windows.h>
-#include <windowsx.h>
+#  include <windows.h>
+#  include <windowsx.h>
 
 #endif
 
 FluTools::FluTools(QObject *parent) : QObject{parent} {
-
 }
 
 void FluTools::clipText(const QString &text) {
@@ -164,11 +163,12 @@ void FluTools::showFileInFolder(const QString &path) {
 #if defined(Q_OS_LINUX)
     QFileInfo fileInfo(path);
     auto process = "xdg-open";
-    auto arguments = { fileInfo.absoluteDir().absolutePath() };
+    auto arguments = {fileInfo.absoluteDir().absolutePath()};
     QProcess::startDetached(process, arguments);
 #endif
 #if defined(Q_OS_MACOS)
-    QProcess::execute("/usr/bin/osascript", {"-e", "tell application \"Finder\" to reveal POSIX file \"" + path + "\""});
+    QProcess::execute("/usr/bin/osascript",
+                      {"-e", "tell application \"Finder\" to reveal POSIX file \"" + path + "\""});
     QProcess::execute("/usr/bin/osascript", {"-e", "tell application \"Finder\" to activate"});
 #endif
 }
@@ -206,7 +206,9 @@ int FluTools::cursorScreenIndex() {
 
 int FluTools::windowBuildNumber() {
 #if defined(Q_OS_WIN)
-    QSettings regKey{QString::fromUtf8(R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion)"), QSettings::NativeFormat};
+    QSettings regKey{
+        QString::fromUtf8(R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion)"),
+        QSettings::NativeFormat};
     if (regKey.contains(QString::fromUtf8("CurrentBuildNumber"))) {
         auto buildNumber = regKey.value(QString::fromUtf8("CurrentBuildNumber")).toInt();
         return buildNumber;
@@ -289,7 +291,7 @@ QString FluTools::getWallpaperFilePath() {
     process.start("osascript", args);
     process.waitForFinished();
     QByteArray result = process.readAllStandardOutput().trimmed();
-    if(result.isEmpty()){
+    if (result.isEmpty()) {
         return "/System/Library/CoreServices/DefaultDesktop.heic";
     }
     return result;
@@ -313,5 +315,7 @@ QColor FluTools::imageMainColor(const QImage &image, double bright) {
             }
         }
     }
-    return QColor(int(bright * r / t) > 255 ? 255 : int(bright * r / t), int(bright * g / t) > 255 ? 255 : int(bright * g / t), int(bright * b / t) > 255 ? 255 : int(bright * b / t));
+    return QColor(int(bright * r / t) > 255 ? 255 : int(bright * r / t),
+                  int(bright * g / t) > 255 ? 255 : int(bright * g / t),
+                  int(bright * b / t) > 255 ? 255 : int(bright * b / t));
 }

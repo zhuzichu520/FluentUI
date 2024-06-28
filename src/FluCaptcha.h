@@ -9,10 +9,10 @@
  * @brief The FluCaptcha class
  */
 class FluCaptcha : public QQuickPaintedItem {
-Q_OBJECT
+    Q_OBJECT
 
-Q_PROPERTY_AUTO(QFont, font);
-Q_PROPERTY_AUTO(bool, ignoreCase);
+    Q_PROPERTY_AUTO(QFont, font)
+    Q_PROPERTY_AUTO(bool, ignoreCase)
     QML_NAMED_ELEMENT(FluCaptcha)
 
 public:

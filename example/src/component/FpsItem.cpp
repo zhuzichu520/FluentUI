@@ -12,7 +12,9 @@ FpsItem::FpsItem() {
     });
     connect(this, &QQuickItem::windowChanged, this, [this] {
         if (window()) {
-            connect(window(), &QQuickWindow::afterRendering, this, [this] { _frameCount++; }, Qt::DirectConnection);
+            connect(
+                window(), &QQuickWindow::afterRendering, this, [this] { _frameCount++; },
+                Qt::DirectConnection);
         }
     });
     timer->start(1000);

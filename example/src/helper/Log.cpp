@@ -13,11 +13,9 @@
 #include "Version.h"
 
 #ifdef WIN32
-
-#include <process.h>
-
+#  include <process.h>
 #else
-#include <unistd.h>
+#  include <unistd.h>
 #endif
 
 #ifndef QT_ENDL
@@ -38,19 +36,20 @@ static std::unique_ptr<QTextStream> g_logStream = nullptr;
 static int g_logLevel = 4;
 
 std::map<QtMsgType, int> logLevelMap = {
-        {QtFatalMsg,    0},
-        {QtCriticalMsg, 1},
-        {QtWarningMsg,  2},
-        {QtInfoMsg,     3},
-        {QtDebugMsg,    4}
+    {QtFatalMsg,    0},
+    {QtCriticalMsg, 1},
+    {QtWarningMsg,  2},
+    {QtInfoMsg,     3},
+    {QtDebugMsg,    4}
 };
 
 QString Log::prettyProductInfoWrapper() {
     auto productName = QSysInfo::prettyProductName();
 #if QT_VERSION < QT_VERSION_CHECK(6, 5, 0)
-#if defined(Q_OS_MACOS)
-    auto macosVersionFile = QString::fromUtf8("/System/Library/CoreServices/.SystemVersionPlatform.plist");
-    auto fi = QFileInfo (macosVersionFile);
+#  if defined(Q_OS_MACOS)
+    auto macosVersionFile =
+        QString::fromUtf8("/System/Library/CoreServices/.SystemVersionPlatform.plist");
+    auto fi = QFileInfo(macosVersionFile);
     if (fi.exists() && fi.isReadable()) {
         auto plistFile = QFile(macosVersionFile);
         plistFile.open(QIODevice::ReadOnly);
@@ -69,10 +68,12 @@ QString Log::prettyProductInfoWrapper() {
             }
         }
     }
-#endif
+#  endif
 #endif
 #if defined(Q_OS_WIN)
-    QSettings regKey{QString::fromUtf8(R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion)"), QSettings::NativeFormat};
+    QSettings regKey{
+        QString::fromUtf8(R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion)"),
+        QSettings::NativeFormat};
     if (regKey.contains(QString::fromUtf8("CurrentBuildNumber"))) {
         auto buildNumber = regKey.value(QString::fromUtf8("CurrentBuildNumber")).toInt();
         if (buildNumber > 0) {
@@ -91,7 +92,8 @@ QString Log::prettyProductInfoWrapper() {
     return productName;
 }
 
-static inline void messageHandler(const QtMsgType type, const QMessageLogContext &context, const QString &message) {
+static inline void messageHandler(const QtMsgType type, const QMessageLogContext &context,
+                                  const QString &message) {
     if (message == "Could not get the INetworkConnection instance for the adapter GUID.") {
         return;
     }
@@ -132,14 +134,15 @@ static inline void messageHandler(const QtMsgType type, const QMessageLogContext
                 sprintf(fn, "%s", ptrTmp + 1);
                 strFileTmp = fn;
             }
-            fileAndLineLogStr = QString::fromStdString("[%1:%2]").arg(QString::fromStdString(strFileTmp), QString::number(context.line));
+            fileAndLineLogStr = QString::fromStdString("[%1:%2]").arg(
+                QString::fromStdString(strFileTmp), QString::number(context.line));
         }
-        const QString finalMessage = QString::fromStdString("%1[%2]%3[%4]:%5").arg(
-                QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss.zzz"),
-                levelName,
-                fileAndLineLogStr,
-                QString::number(reinterpret_cast<quintptr>(QThread::currentThreadId())),
-                message);
+        const QString finalMessage =
+            QString::fromStdString("%1[%2]%3[%4]:%5")
+                .arg(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss.zzz"), levelName,
+                     fileAndLineLogStr,
+                     QString::number(reinterpret_cast<quintptr>(QThread::currentThreadId())),
+                     message);
         if ((type == QtInfoMsg) || (type == QtDebugMsg)) {
             std::cout << qPrintable(finalMessage) << std::endl;
         } else {
@@ -151,7 +154,8 @@ static inline void messageHandler(const QtMsgType type, const QMessageLogContext
         if (!g_logFile) {
             g_logFile = std::make_unique<QFile>(g_file_path);
             if (!g_logFile->open(QFile::WriteOnly | QFile::Text | QFile::Append)) {
-                std::cerr << "Can't open file to write: " << qPrintable(g_logFile->errorString()) << std::endl;
+                std::cerr << "Can't open file to write: " << qPrintable(g_logFile->errorString())
+                          << std::endl;
                 g_logFile.reset();
                 g_logError = true;
                 return;
@@ -179,8 +183,10 @@ void Log::setup(char *argv[], const QString &app, int level) {
     QString applicationPath = QString::fromStdString(argv[0]);
     once = true;
     g_app = app;
-    const QString logFileName = QString("%1_%2.log").arg(g_app, QDateTime::currentDateTime().toString("yyyyMMdd"));
-    const QString logDirPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/log";
+    const QString logFileName =
+        QString("%1_%2.log").arg(g_app, QDateTime::currentDateTime().toString("yyyyMMdd"));
+    const QString logDirPath =
+        QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/log";
     const QDir logDir(logDirPath);
     if (!logDir.exists()) {
         logDir.mkpath(logDirPath);
@@ -195,7 +201,7 @@ void Log::setup(char *argv[], const QString &app, int level) {
 #ifdef WIN32
     qInfo() << "[ProcessId]" << QString::number(_getpid());
 #else
-    qInfo()<<"[ProcessId]"<<QString::number(getpid());
+    qInfo() << "[ProcessId]" << QString::number(getpid());
 #endif
     qInfo() << "[GitHashCode]" << COMMIT_HASH;
     qInfo() << "[DeviceInfo]";

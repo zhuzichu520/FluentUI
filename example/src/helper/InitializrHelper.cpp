@@ -4,10 +4,10 @@
 #include <QGuiApplication>
 
 [[maybe_unused]] InitializrHelper::InitializrHelper(QObject *parent) : QObject(parent) {
-
 }
 
 InitializrHelper::~InitializrHelper() = default;
+
 
 bool InitializrHelper::copyDir(const QDir &fromDir, const QDir &toDir, bool coverIfFileExists) {
     const QDir &_formDir = fromDir;
@@ -17,25 +17,25 @@ bool InitializrHelper::copyDir(const QDir &fromDir, const QDir &toDir, bool cove
             return false;
     }
     QFileInfoList fileInfoList = _formDir.entryInfoList();
-            foreach(QFileInfo fileInfo, fileInfoList) {
-            if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")
-                continue;
-            if (fileInfo.isDir()) {
-                if (!copyDir(fileInfo.filePath(), _toDir.filePath(fileInfo.fileName()), true))
-                    return false;
-            } else {
-                if (coverIfFileExists && _toDir.exists(fileInfo.fileName())) {
-                    _toDir.remove(fileInfo.fileName());
-                }
-                if (!QFile::copy(fileInfo.filePath(), _toDir.filePath(fileInfo.fileName()))) {
-                    return false;
-                }
+    foreach (QFileInfo fileInfo, fileInfoList) {
+        if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")
+            continue;
+        if (fileInfo.isDir()) {
+            if (!copyDir(fileInfo.filePath(), _toDir.filePath(fileInfo.fileName()), true))
+                return false;
+        } else {
+            if (coverIfFileExists && _toDir.exists(fileInfo.fileName())) {
+                _toDir.remove(fileInfo.fileName());
+            }
+            if (!QFile::copy(fileInfo.filePath(), _toDir.filePath(fileInfo.fileName()))) {
+                return false;
             }
         }
+    }
     return true;
 }
 
-template<typename...Args>
+template <typename... Args>
 void InitializrHelper::templateToFile(const QString &source, const QString &dest, Args &&...args) {
     QFile file(source);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -61,7 +61,8 @@ void InitializrHelper::templateToFile(const QString &source, const QString &dest
 
 void InitializrHelper::copyFile(const QString &source, const QString &dest) {
     QFile::copy(source, dest);
-    QFile::setPermissions(dest, QFile::WriteOwner | QFile::WriteUser | QFile::WriteGroup | QFile::WriteOther);
+    QFile::setPermissions(dest, QFile::WriteOwner | QFile::WriteUser | QFile::WriteGroup |
+                                    QFile::WriteOther);
 }
 
 [[maybe_unused]] void InitializrHelper::generate(const QString &name, const QString &path) {
@@ -87,15 +88,21 @@ void InitializrHelper::copyFile(const QString &source, const QString &dest) {
     projectDir.mkpath(projectPath);
     QDir fluentDir(projectDir.filePath("FluentUI"));
     copyDir(QDir(QGuiApplication::applicationDirPath() + "/source"), fluentDir);
-    templateToFile(":/example/res/template/CMakeLists.txt.in", projectDir.filePath("CMakeLists.txt"), name);
-    templateToFile(":/example/res/template/src/CMakeLists.txt.in", projectDir.filePath("src/CMakeLists.txt"), name);
-    templateToFile(":/example/res/template/src/main.cpp.in", projectDir.filePath("src/main.cpp"), name);
-    templateToFile(":/example/res/template/src/main.qml.in", projectDir.filePath("src/main.qml"), name);
-    templateToFile(":/example/res/template/src/en_US.ts.in", projectDir.filePath("src/" + name + "_en_US.ts"), name);
-    templateToFile(":/example/res/template/src/zh_CN.ts.in", projectDir.filePath("src/" + name + "_zh_CN.ts"), name);
+    templateToFile(":/example/res/template/CMakeLists.txt.in",
+                   projectDir.filePath("CMakeLists.txt"), name);
+    templateToFile(":/example/res/template/src/CMakeLists.txt.in",
+                   projectDir.filePath("src/CMakeLists.txt"), name);
+    templateToFile(":/example/res/template/src/main.cpp.in", projectDir.filePath("src/main.cpp"),
+                   name);
+    templateToFile(":/example/res/template/src/main.qml.in", projectDir.filePath("src/main.qml"),
+                   name);
+    templateToFile(":/example/res/template/src/en_US.ts.in",
+                   projectDir.filePath("src/" + name + "_en_US.ts"), name);
+    templateToFile(":/example/res/template/src/zh_CN.ts.in",
+                   projectDir.filePath("src/" + name + "_zh_CN.ts"), name);
     copyFile(":/example/res/template/src/App.qml.in", projectDir.filePath("src/App.qml"));
     copyFile(":/example/res/template/src/qml.qrc.in", projectDir.filePath("src/qml.qrc"));
     copyFile(":/example/res/template/src/logo.ico.in", projectDir.filePath("src/logo.ico"));
     copyFile(":/example/res/template/src/README.md.in", projectDir.filePath("src/README.md"));
-    return this->success(projectPath+"/CMakeLists.txt");
+    return this->success(projectPath + "/CMakeLists.txt");
 }

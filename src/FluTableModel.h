@@ -7,16 +7,14 @@
 #include "stdafx.h"
 
 class FluTableModel : public QAbstractTableModel {
-Q_OBJECT
-Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
-Q_PROPERTY_AUTO(QList<QVariantMap>, rows)
+    Q_OBJECT
+    Q_PROPERTY_AUTO(QList<QVariantMap>, columnSource)
+    Q_PROPERTY_AUTO(QList<QVariantMap>, rows)
     Q_PROPERTY(int rowCount READ rowCount CONSTANT)
     QML_NAMED_ELEMENT(FluTableModel)
 public:
-    enum TableModelRoles {
-        RowModel = 0x0101,
-        ColumnModel = 0x0102
-    };
+    enum TableModelRoles { RowModel = 0x0101, ColumnModel = 0x0102 };
+
 
     explicit FluTableModel(QObject *parent = nullptr);
 
@@ -24,7 +22,8 @@ public:
 
     [[nodiscard]] int columnCount(const QModelIndex &parent = {}) const override;
 
-    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index,
+                                int role = Qt::DisplayRole) const override;
 
     [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
@@ -39,7 +38,6 @@ public:
     Q_INVOKABLE void removeRow(int rowIndex, int rows = 1);
 
     Q_INVOKABLE void appendRow(QVariant row);
-
 };
 
 

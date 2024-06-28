@@ -24,15 +24,13 @@ FluTheme::FluTheme(QObject *parent) : QObject{parent} {
     _blurBehindWindowEnabled = false;
     QGuiApplication::instance()->installEventFilter(this);
     refreshColors();
-    connect(this, &FluTheme::darkModeChanged, this, [=] {
-        Q_EMIT darkChanged();
-    });
+    connect(this, &FluTheme::darkModeChanged, this, [=] { Q_EMIT darkChanged(); });
     connect(this, &FluTheme::darkChanged, this, [=] { refreshColors(); });
     connect(this, &FluTheme::accentColorChanged, this, [=] { refreshColors(); });
-    connect(&_watcher, &QFileSystemWatcher::fileChanged, this, [=](const QString &path) {
-        Q_EMIT desktopImagePathChanged();
-    });
-    connect(this, &FluTheme::blurBehindWindowEnabledChanged, this, [=] { checkUpdateDesktopImage(); });
+    connect(&_watcher, &QFileSystemWatcher::fileChanged, this,
+            [=](const QString &path) { Q_EMIT desktopImagePathChanged(); });
+    connect(this, &FluTheme::blurBehindWindowEnabledChanged, this,
+            [=] { checkUpdateDesktopImage(); });
     startTimer(1000);
 }
 
@@ -47,11 +45,16 @@ void FluTheme::refreshColors() {
     fontSecondaryColor(isDark ? QColor(222, 222, 222, 255) : QColor(102, 102, 102, 255));
     fontTertiaryColor(isDark ? QColor(200, 200, 200, 255) : QColor(153, 153, 153, 255));
     itemNormalColor(isDark ? QColor(255, 255, 255, 0) : QColor(0, 0, 0, 0));
-    frameColor(isDark ? QColor(56, 56, 56, qRound(255 * 0.8)) : QColor(243, 243, 243, qRound(255 * 0.8)));
-    frameActiveColor(isDark ? QColor(48, 48, 48, qRound(255 * 0.8)) : QColor(255, 255, 255, qRound(255 * 0.8)));
-    itemHoverColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.06)) : QColor(0, 0, 0, qRound(255 * 0.03)));
-    itemPressColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.09)) : QColor(0, 0, 0, qRound(255 * 0.06)));
-    itemCheckColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12)) : QColor(0, 0, 0, qRound(255 * 0.09)));
+    frameColor(isDark ? QColor(56, 56, 56, qRound(255 * 0.8))
+                      : QColor(243, 243, 243, qRound(255 * 0.8)));
+    frameActiveColor(isDark ? QColor(48, 48, 48, qRound(255 * 0.8))
+                            : QColor(255, 255, 255, qRound(255 * 0.8)));
+    itemHoverColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.06))
+                          : QColor(0, 0, 0, qRound(255 * 0.03)));
+    itemPressColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.09))
+                          : QColor(0, 0, 0, qRound(255 * 0.06)));
+    itemCheckColor(isDark ? QColor(255, 255, 255, qRound(255 * 0.12))
+                          : QColor(0, 0, 0, qRound(255 * 0.09)));
 }
 
 bool FluTheme::eventFilter(QObject *, QEvent *event) {

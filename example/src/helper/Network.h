@@ -28,7 +28,7 @@ namespace NetworkType {
  * @brief The NetworkCallable class
  */
 class NetworkCallable : public QObject {
-Q_OBJECT
+    Q_OBJECT
     QML_NAMED_ELEMENT(NetworkCallable)
 public:
     explicit NetworkCallable(QObject *parent = nullptr);
@@ -52,7 +52,7 @@ public:
  * @brief The FluDownloadParam class
  */
 class FluDownloadParam : public QObject {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit FluDownloadParam(QObject *parent = nullptr);
 
@@ -67,24 +67,11 @@ public:
  * @brief The NetworkParams class
  */
 class NetworkParams : public QObject {
-Q_OBJECT
+    Q_OBJECT
     QML_NAMED_ELEMENT(NetworkParams)
 public:
-    enum Method {
-        METHOD_GET,
-        METHOD_HEAD,
-        METHOD_POST,
-        METHOD_PUT,
-        METHOD_PATCH,
-        METHOD_DELETE
-    };
-    enum Type {
-        TYPE_NONE,
-        TYPE_FORM,
-        TYPE_JSON,
-        TYPE_JSONARRAY,
-        TYPE_BODY
-    };
+    enum Method { METHOD_GET, METHOD_HEAD, METHOD_POST, METHOD_PUT, METHOD_PATCH, METHOD_DELETE };
+    enum Type { TYPE_NONE, TYPE_FORM, TYPE_JSON, TYPE_JSONARRAY, TYPE_BODY };
 
     explicit NetworkParams(QObject *parent = nullptr);
 
@@ -145,11 +132,11 @@ public:
  * @brief The Network class
  */
 class Network : public QObject {
-Q_OBJECT
-Q_PROPERTY_AUTO(int, timeout)
-Q_PROPERTY_AUTO(int, retry)
-Q_PROPERTY_AUTO(QString, cacheDir)
-Q_PROPERTY_AUTO(bool, openLog)
+    Q_OBJECT
+    Q_PROPERTY_AUTO(int, timeout)
+    Q_PROPERTY_AUTO(int, retry)
+    Q_PROPERTY_AUTO(QString, cacheDir)
+    Q_PROPERTY_AUTO(bool, openLog)
     QML_NAMED_ELEMENT(Network)
     QML_SINGLETON
 
@@ -157,9 +144,11 @@ private:
     explicit Network(QObject *parent = nullptr);
 
 public:
-SINGLETON(Network)
+    SINGLETON(Network)
 
-    static Network *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine) { return getInstance(); }
+    static Network *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine) {
+        return getInstance();
+    }
 
     Q_INVOKABLE NetworkParams *get(const QString &url);
 
@@ -204,7 +193,9 @@ SINGLETON(Network)
     void handleDownload(NetworkParams *params, NetworkCallable *result);
 
 private:
-    static void sendRequest(QNetworkAccessManager *manager, QNetworkRequest request, NetworkParams *params, QNetworkReply *&reply, bool isFirst, const QPointer<NetworkCallable> &callable);
+    static void sendRequest(QNetworkAccessManager *manager, QNetworkRequest request,
+                            NetworkParams *params, QNetworkReply *&reply, bool isFirst,
+                            const QPointer<NetworkCallable> &callable);
 
     static void addQueryParam(QUrl *url, const QMap<QString, QVariant> &params);
 
@@ -222,7 +213,8 @@ private:
 
     static void printRequestStartLog(const QNetworkRequest &request, NetworkParams *params);
 
-    static void printRequestEndLog(const QNetworkRequest &request, NetworkParams *params, QNetworkReply *&reply, const QString &response);
+    static void printRequestEndLog(const QNetworkRequest &request, NetworkParams *params,
+                                   QNetworkReply *&reply, const QString &response);
 
     static QString map2String(const QMap<QString, QVariant> &map);
 

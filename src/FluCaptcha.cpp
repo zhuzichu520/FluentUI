@@ -40,7 +40,8 @@ void FluCaptcha::paint(QPainter *painter) {
     for (int i = 0; i < 4; i++) {
         pen = QPen(QColor(generaNumber(255), generaNumber(255), generaNumber(255)));
         painter->setPen(pen);
-        painter->drawText(15 + 35 * i, 10 + generaNumber(15), 30, 40, Qt::AlignCenter, QString(_code[i]));
+        painter->drawText(15 + 35 * i, 10 + generaNumber(15), 30, 40, Qt::AlignCenter,
+                          QString(_code[i]));
     }
     painter->restore();
 }

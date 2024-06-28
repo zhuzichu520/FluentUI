@@ -17,6 +17,7 @@ FluWatermark::FluWatermark(QQuickItem *parent) : QQuickPaintedItem(parent) {
     connect(this, &FluWatermark::textSizeChanged, this, [=] { update(); });
 }
 
+
 void FluWatermark::paint(QPainter *painter) {
     QFont font;
     font.setFamily(FluTextStyle::getInstance()->family());
@@ -37,7 +38,8 @@ void FluWatermark::paint(QPainter *painter) {
             painter->save();
             painter->translate(centerX, centerY);
             painter->rotate(_rotate);
-            painter->drawText(QRectF(-fontWidth / 2.0, -fontHeight / 2.0, fontWidth, fontHeight), _text);
+            painter->drawText(QRectF(-fontWidth / 2.0, -fontHeight / 2.0, fontWidth, fontHeight),
+                              _text);
             painter->restore();
         }
     }
