@@ -79,12 +79,12 @@ TextArea{
         function popup(){
             sourceComponent = menu
         }
-        onLoaded: {
-            item.open()
-        }
     }
     Component{
         id:menu
+        Component.onCompleted: {
+            popup()
+        }
         FluTextBoxMenu{
             inputItem: control
             onClosed: {

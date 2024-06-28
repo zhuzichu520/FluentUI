@@ -72,11 +72,25 @@ TextArea{
             if(control.readOnly && control.text === ""){
                 return
             }
-            menu.popup()
+            menu_loader.popup()
         }
     }
-    FluTextBoxMenu{
+    FluLoader{
+        id: menu_loader
+        function popup(){
+            sourceComponent = menu
+        }
+    }
+    Component{
         id:menu
-        inputItem: control
+        Component.onCompleted: {
+            popup()
+        }
+        FluTextBoxMenu{
+            inputItem: control
+            onClosed: {
+                menu_loader.sourceComponent = undefined
+            }
+        }
     }
 }

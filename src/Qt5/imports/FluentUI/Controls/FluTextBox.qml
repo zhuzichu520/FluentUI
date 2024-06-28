@@ -116,14 +116,14 @@ TextField{
         function popup(){
             sourceComponent = menu
         }
-        onLoaded: {
-            item.open()
-        }
     }
     Component{
         id:menu
         FluTextBoxMenu{
             inputItem: control
+            Component.onCompleted: {
+                popup()
+            }
             onClosed: {
                 menu_loader.sourceComponent = undefined
             }

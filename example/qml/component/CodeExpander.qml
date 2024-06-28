@@ -16,7 +16,7 @@ FluExpander{
         id:content
         width:parent.width
         text:highlightQmlCode(code)
-        textFormat: FluMultilineTextBox.RichText
+        textFormat: FluCopyableText.RichText
         padding: 10
         topPadding: 10
         leftPadding: 10
