@@ -26,10 +26,24 @@ TextEdit {
         anchors.fill: parent
         cursorShape: Qt.IBeamCursor
         acceptedButtons: Qt.RightButton
-        onClicked: control.echoMode !== TextInput.Password && menu.popup()
+        onClicked: control.echoMode !== TextInput.Password && menu_loader.popup()
     }
-    FluTextBoxMenu{
+    FluLoader{
+        id: menu_loader
+        function popup(){
+            sourceComponent = menu
+        }
+        onLoaded: {
+            item.open()
+        }
+    }
+    Component{
         id:menu
-        inputItem: control
+        FluTextBoxMenu{
+            inputItem: control
+            onClosed: {
+                menu_loader.sourceComponent = undefined
+            }
+        }
     }
 }

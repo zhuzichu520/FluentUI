@@ -232,7 +232,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Qt6/imports/FluentUI/Controls/FluShortcutPicker.qml" line="205"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluShortcutPicker.qml" line="204"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluShortcutPicker.qml" line="204"/>
         <source>Conflict</source>
         <translation type="unfinished"></translation>
     </message>
@@ -354,8 +355,8 @@
 <context>
     <name>FluWindow</name>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="347"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="346"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluWindow.qml" line="354"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluWindow.qml" line="354"/>
         <source>Loading...</source>
         <translation type="unfinished"></translation>
     </message>

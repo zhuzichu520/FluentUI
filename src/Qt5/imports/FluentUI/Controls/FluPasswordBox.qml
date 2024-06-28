@@ -65,8 +65,4 @@ TextField{
             rightMargin: 5
         }
     }
-    FluTextBoxMenu{
-        id:menu
-        inputItem: control
-    }
 }
