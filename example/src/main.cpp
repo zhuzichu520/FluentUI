@@ -1,25 +1,26 @@
+#include <QtQml/qqmlextensionplugin.h>
+
 #include <QApplication>
+#include <QDir>
+#include <QLoggingCategory>
+#include <QNetworkProxy>
+#include <QProcess>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QDir>
 #include <QQuickWindow>
-#include <QNetworkProxy>
 #include <QSslConfiguration>
-#include <QProcess>
-#include <QtQml/qqmlextensionplugin.h>
-#include <QLoggingCategory>
-#include "Version.h"
+
 #include "AppInfo.h"
+#include "Version.h"
 #include "helper/Log.h"
 #include "src/component/CircularReveal.h"
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
 #include "src/component/OpenGLItem.h"
-#include "src/helper/SettingsHelper.h"
 #include "src/helper/InitializrHelper.h"
-#include "src/helper/TranslateHelper.h"
 #include "src/helper/Network.h"
-
+#include "src/helper/SettingsHelper.h"
+#include "src/helper/TranslateHelper.h"
 
 #ifdef FLUENTUI_BUILD_STATIC_LIB
 #  if (QT_VERSION > QT_VERSION_CHECK(6, 2, 0))
