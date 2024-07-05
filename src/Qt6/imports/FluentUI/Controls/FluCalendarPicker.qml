@@ -448,6 +448,7 @@ FluButton {
                                 delegate: Label {
                                     text: model.shortName
                                     font: dayOfWeekRow.font
+                                    color: FluTheme.fontPrimaryColor
                                     horizontalAlignment: Text.AlignHCenter
                                     verticalAlignment: Text.AlignVCenter
                                 }
