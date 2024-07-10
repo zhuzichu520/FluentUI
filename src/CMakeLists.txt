@@ -184,6 +184,8 @@ target_compile_definitions(${PROJECT_NAME}
 #去掉mingw生成的动态库libxxx前缀lib，不去掉前缀会导致 module "FluentUI" plugin "fluentuiplugin" not found
 if (MINGW)
     set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+    #解决编译器报 too many sections的问题
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wa,-mbig-obj)
 endif ()
 
 #MSVC Debug 添加后缀d，与Qt插件风格保持一致
