@@ -175,6 +175,11 @@
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/global/ItemsFooter.qml" line="34"/>
+        <source>FluentUI Pro</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ItemsOriginal</name>
@@ -1373,22 +1378,32 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
 <context>
     <name>T_Home</name>
     <message>
-        <location filename="qml/page/T_Home.qml" line="19"/>
+        <location filename="qml/page/T_Home.qml" line="28"/>
         <source>FluentUI GitHub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="20"/>
+        <location filename="qml/page/T_Home.qml" line="29"/>
         <source>The latest FluentUI controls and styles for your applications.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="28"/>
+        <location filename="qml/page/T_Home.qml" line="19"/>
+        <source>FluentUI Pro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Home.qml" line="20"/>
+        <source>The latest FluentUI Pro controls and styles for your applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Home.qml" line="37"/>
         <source>FluentUI Initializr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Home.qml" line="29"/>
+        <location filename="qml/page/T_Home.qml" line="38"/>
         <source>FluentUI Initializr is a Tool that helps you create and customize Fluent UI projects with various options.</source>
         <translation type="unfinished"></translation>
     </message>

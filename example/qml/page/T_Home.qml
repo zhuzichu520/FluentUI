@@ -15,6 +15,15 @@ FluScrollablePage{
     ListModel{
         id: model_header
         ListElement{
+            icon: "qrc:/example/res/image/logo_pro.png"
+            title: qsTr("FluentUI Pro")
+            desc: qsTr("The latest FluentUI Pro controls and styles for your applications.")
+            url: "https://github.com/zhuzichu520/FluentUI-Pro-Installer"
+            clicked: function(model){
+                Qt.openUrlExternally(model.url)
+            }
+        }
+        ListElement{
             icon: "qrc:/example/res/image/ic_home_github.png"
             title: qsTr("FluentUI GitHub")
             desc: qsTr("The latest FluentUI controls and styles for your applications.")

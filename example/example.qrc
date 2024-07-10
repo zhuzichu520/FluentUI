@@ -211,6 +211,8 @@
         <file>qml/page/T_Icons.qml</file>
         <file>qml/window/HotkeyWindow.qml</file>
         <file>qml/page/T_CustomPlot.qml</file>
+        <file>res/image/logo_pro.png</file>
+        <file>qml/page/T_FluentPro.qml</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
