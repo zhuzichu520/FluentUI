@@ -20,7 +20,7 @@ else ()
 endif ()
 
 #设置版本号
-add_definitions(-DFLUENTUI_VERSION=1,7,5,0)
+add_definitions(-DFLUENTUI_VERSION=1,7,7,0)
 
 if (FLUENTUI_BUILD_STATIC_LIB)
     add_definitions(-DFLUENTUI_BUILD_STATIC_LIB)
