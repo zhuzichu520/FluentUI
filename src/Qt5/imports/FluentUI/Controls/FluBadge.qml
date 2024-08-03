@@ -73,7 +73,7 @@ Rectangle{
         text:{
             if(count<100)
                 return count
-            return count+"+"
+            return "100+"
         }
     }
 }
