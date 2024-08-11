@@ -315,12 +315,7 @@ FluContentPage{
                 radius: [20,20,20,20]
                 Image{
                     anchors.fill: parent
-                    source: {
-                        if(options && options.avatar){
-                            return options.avatar
-                        }
-                        return ""
-                    }
+                    source: options && options.avatar ? options.avatar : ""
                     sourceSize: Qt.size(80,80)
                 }
             }
