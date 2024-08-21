@@ -89,6 +89,11 @@ struct WINDOWCOMPOSITIONATTRIBDATA {
 };
 using PWINDOWCOMPOSITIONATTRIBDATA = WINDOWCOMPOSITIONATTRIBDATA *;
 
+typedef HRESULT (WINAPI *DwmSetWindowAttributeFunc)(HWND hwnd, DWORD dwAttribute, LPCVOID pvAttribute, DWORD cbAttribute);
+typedef HRESULT (WINAPI *DwmExtendFrameIntoClientAreaFunc)(HWND hwnd, const MARGINS *pMarInset);
+typedef HRESULT (WINAPI *DwmIsCompositionEnabledFunc)(BOOL *pfEnabled);
+typedef HRESULT (WINAPI *DwmEnableBlurBehindWindowFunc)(HWND hWnd, const DWM_BLURBEHIND *pBlurBehind);
+typedef BOOL (WINAPI *SetWindowCompositionAttributeFunc)(HWND hwnd, const WINDOWCOMPOSITIONATTRIBDATA *);
 
 #endif
 

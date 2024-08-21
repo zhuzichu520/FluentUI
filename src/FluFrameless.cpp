@@ -9,6 +9,12 @@
 
 #ifdef Q_OS_WIN
 
+static DwmSetWindowAttributeFunc pDwmSetWindowAttribute = nullptr;
+static DwmExtendFrameIntoClientAreaFunc pDwmExtendFrameIntoClientArea = nullptr;
+static DwmIsCompositionEnabledFunc pDwmIsCompositionEnabled = nullptr;
+static DwmEnableBlurBehindWindowFunc pDwmEnableBlurBehindWindow = nullptr;
+static SetWindowCompositionAttributeFunc pSetWindowCompositionAttribute = nullptr;
+
 static RTL_OSVERSIONINFOW GetRealOSVersionImpl() {
     HMODULE hMod = ::GetModuleHandleW(L"ntdll.dll");
     using RtlGetVersionPtr = NTSTATUS(WINAPI *)(PRTL_OSVERSIONINFOW);
@@ -79,14 +85,12 @@ static inline QByteArray qtNativeEventType() {
 }
 
 static inline bool isCompositionEnabled() {
-    typedef HRESULT (WINAPI *DwmIsCompositionEnabledPtr)(BOOL *pfEnabled);
     HMODULE module = ::LoadLibraryW(L"dwmapi.dll");
     if (module) {
         BOOL composition_enabled = false;
-        DwmIsCompositionEnabledPtr dwm_is_composition_enabled;
-        dwm_is_composition_enabled = reinterpret_cast<DwmIsCompositionEnabledPtr>(::GetProcAddress(module, "DwmIsCompositionEnabled"));
-        if (dwm_is_composition_enabled) {
-            dwm_is_composition_enabled(&composition_enabled);
+        pDwmIsCompositionEnabled = reinterpret_cast<DwmIsCompositionEnabledFunc>(::GetProcAddress(module, "DwmIsCompositionEnabled"));
+        if (pDwmIsCompositionEnabled) {
+            pDwmIsCompositionEnabled(&composition_enabled);
         }
         return composition_enabled;
     }
@@ -95,45 +99,59 @@ static inline bool isCompositionEnabled() {
 
 static inline void setShadow(HWND hwnd) {
     const MARGINS shadow = {1, 0, 0, 0};
-    typedef HRESULT (WINAPI *DwmExtendFrameIntoClientAreaPtr)(HWND hWnd, const MARGINS *pMarInset);
     HMODULE module = LoadLibraryW(L"dwmapi.dll");
     if (module) {
-        DwmExtendFrameIntoClientAreaPtr dwm_extendframe_into_client_area_;
-        dwm_extendframe_into_client_area_ = reinterpret_cast<DwmExtendFrameIntoClientAreaPtr>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-        if (dwm_extendframe_into_client_area_) {
-            dwm_extendframe_into_client_area_(hwnd, &shadow);
+        pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+        if (pDwmExtendFrameIntoClientArea) {
+            pDwmExtendFrameIntoClientArea(hwnd, &shadow);
         }
     }
 }
 
 static inline bool setWindowDarkMode(HWND hwnd, const BOOL enable) {
-    return bool(DwmSetWindowAttribute(hwnd, 20, &enable, sizeof(BOOL)));
+    if (!pDwmSetWindowAttribute) {
+        HMODULE module = LoadLibraryW(L"dwmapi.dll");
+        if (module) {
+            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
+                GetProcAddress(module, "DwmSetWindowAttribute"));
+        }
+        if (!pDwmSetWindowAttribute) {
+            return false;
+        }
+    }
+    return bool(pDwmSetWindowAttribute(hwnd, 20, &enable, sizeof(BOOL)));
 }
 
 static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &enable) {
     static constexpr const MARGINS extendedMargins = {-1, -1, -1, -1};
+    HMODULE module = LoadLibraryW(L"dwmapi.dll");
+    if (module) {
+        pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(
+            GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+        if (!pDwmExtendFrameIntoClientArea) {
+            return false;
+        }
+    }
     if (key == QStringLiteral("mica")) {
         if (!isWin11OrGreater()) {
             return false;
         }
         if (enable) {
-            DwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
+            pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
             if (isWin1122H2OrGreater()) {
                 const DWORD backdropType = _DWMSBT_MAINWINDOW;
-                DwmSetWindowAttribute(hwnd, 38, &backdropType,
-                                      sizeof(backdropType));
+                pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
             } else {
                 const BOOL enable = TRUE;
-                DwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
+                pDwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
             }
         } else {
             if (isWin1122H2OrGreater()) {
                 const DWORD backdropType = _DWMSBT_AUTO;
-                DwmSetWindowAttribute(hwnd, 38, &backdropType,
-                                      sizeof(backdropType));
+                pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
             } else {
                 const BOOL enable = FALSE;
-                DwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
+                pDwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
             }
         }
         BOOL isDark = FluTheme::getInstance()->dark();
@@ -146,14 +164,12 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
             return false;
         }
         if (enable) {
-            DwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
+            pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
             const DWORD backdropType = _DWMSBT_TABBEDWINDOW;
-            DwmSetWindowAttribute(hwnd, 38, &backdropType,
-                                  sizeof(backdropType));
+            pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
         } else {
             const DWORD backdropType = _DWMSBT_AUTO;
-            DwmSetWindowAttribute(hwnd, 38, &backdropType,
-                                  sizeof(backdropType));
+            pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
         }
         BOOL isDark = FluTheme::getInstance()->dark();
         setWindowDarkMode(hwnd, isDark);
@@ -166,15 +182,12 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         }
         if (enable) {
             MARGINS margins{-1, -1, -1, -1};
-            DwmExtendFrameIntoClientArea(hwnd, &margins);
-            DWORD system_backdrop_type =
-                _DWMSBT_TRANSIENTWINDOW;
-            DwmSetWindowAttribute(hwnd, 38,
-                                  &system_backdrop_type, sizeof(DWORD));
+            pDwmExtendFrameIntoClientArea(hwnd, &margins);
+            DWORD system_backdrop_type = _DWMSBT_TRANSIENTWINDOW;
+            pDwmSetWindowAttribute(hwnd, 38, &system_backdrop_type, sizeof(DWORD));
         } else {
             const DWORD backdropType = _DWMSBT_AUTO;
-            DwmSetWindowAttribute(hwnd, 38, &backdropType,
-                                  sizeof(backdropType));
+            pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
         }
         BOOL isDark = FluTheme::getInstance()->dark();
         setWindowDarkMode(hwnd, isDark);
@@ -187,14 +200,11 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         }
         BOOL isDark = FluTheme::getInstance()->dark();
         setWindowDarkMode(hwnd, isDark && enable);
-        typedef HRESULT(WINAPI * SetWindowCompositionAttributePtr)(HWND,
-                                                                   PWINDOWCOMPOSITIONATTRIBDATA);
-        SetWindowCompositionAttributePtr SetWindowCompositionAttribute;
-        if (isWin8OrGreater()) {
+        if (isWin8OrGreater() && !pSetWindowCompositionAttribute) {
             HMODULE module = LoadLibraryW(L"user32.dll");
-            SetWindowCompositionAttribute = reinterpret_cast<SetWindowCompositionAttributePtr>(
+            pSetWindowCompositionAttribute = reinterpret_cast<SetWindowCompositionAttributeFunc>(
                 GetProcAddress(module, "SetWindowCompositionAttribute"));
-            if (!SetWindowCompositionAttribute) {
+            if (!pSetWindowCompositionAttribute) {
                 return false;
             }
         }
@@ -207,12 +217,21 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 wcad.Attrib = WCA_ACCENT_POLICY;
                 wcad.pvData = &policy;
                 wcad.cbData = sizeof(policy);
-                SetWindowCompositionAttribute(hwnd, &wcad);
+                pSetWindowCompositionAttribute(hwnd, &wcad);
             } else {
                 DWM_BLURBEHIND bb{};
                 bb.fEnable = TRUE;
                 bb.dwFlags = DWM_BB_ENABLE;
-                DwmEnableBlurBehindWindow(hwnd, &bb);
+                if (!pDwmEnableBlurBehindWindow) {
+                    HMODULE module = LoadLibraryW(L"user32.dll");
+                    pDwmEnableBlurBehindWindow =
+                        reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
+                            GetProcAddress(module, "DwmEnableBlurBehindWindowFunc"));
+                    if (!pDwmEnableBlurBehindWindow) {
+                        return false;
+                    }
+                }
+                pDwmEnableBlurBehindWindow(hwnd, &bb);
             }
         } else {
             if (isWin8OrGreater()) {
@@ -223,12 +242,21 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 wcad.Attrib = WCA_ACCENT_POLICY;
                 wcad.pvData = &policy;
                 wcad.cbData = sizeof(policy);
-                SetWindowCompositionAttribute(hwnd, &wcad);
+                pSetWindowCompositionAttribute(hwnd, &wcad);
             } else {
                 DWM_BLURBEHIND bb{};
                 bb.fEnable = FALSE;
                 bb.dwFlags = DWM_BB_ENABLE;
-                DwmEnableBlurBehindWindow(hwnd, &bb);
+                if (!pDwmEnableBlurBehindWindow) {
+                    HMODULE module = LoadLibraryW(L"user32.dll");
+                    pDwmEnableBlurBehindWindow =
+                        reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
+                            GetProcAddress(module, "DwmEnableBlurBehindWindowFunc"));
+                    if (!pDwmEnableBlurBehindWindow) {
+                        return false;
+                    }
+                }
+                pDwmEnableBlurBehindWindow(hwnd, &bb);
             }
         }
         return true;
