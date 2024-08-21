@@ -616,7 +616,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="310"/>
+        <location filename="qml/window/MainWindow.qml" line="308"/>
         <source>Dark Mode</source>
         <translation type="unfinished">夜间模式</translation>
     </message>
@@ -648,7 +648,7 @@
     </message>
     <message>
         <location filename="qml/window/MainWindow.qml" line="95"/>
-        <location filename="qml/window/MainWindow.qml" line="339"/>
+        <location filename="qml/window/MainWindow.qml" line="337"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
@@ -668,52 +668,52 @@
         <translation type="unfinished">搜索</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="304"/>
+        <location filename="qml/window/MainWindow.qml" line="302"/>
         <source>Finish</source>
         <translation type="unfinished">完成</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="305"/>
+        <location filename="qml/window/MainWindow.qml" line="303"/>
         <source>Next</source>
         <translation type="unfinished">下一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="306"/>
+        <location filename="qml/window/MainWindow.qml" line="304"/>
         <source>Previous</source>
         <translation type="unfinished">上一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="310"/>
+        <location filename="qml/window/MainWindow.qml" line="308"/>
         <source>Here you can switch to night mode.</source>
         <translation type="unfinished">在这里，您可以切换到夜间模式。</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="312"/>
+        <location filename="qml/window/MainWindow.qml" line="310"/>
         <source>Hide Easter eggs</source>
         <translation type="unfinished">隐藏彩蛋</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="312"/>
+        <location filename="qml/window/MainWindow.qml" line="310"/>
         <source>Try a few more clicks!!</source>
         <translation type="unfinished">再试几下！！</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="336"/>
+        <location filename="qml/window/MainWindow.qml" line="334"/>
         <source>Upgrade Tips</source>
         <translation type="unfinished">升级提示</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="335"/>
         <source>FluentUI is currently up to date </source>
         <translation type="unfinished">FluentUI 目前最新版本 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="335"/>
         <source> -- The current app version</source>
         <translation type="unfinished"> -- 当前应用版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="335"/>
         <source> 
 Now go and download the new version？
 
@@ -726,17 +726,17 @@ Updated content:
 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="340"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source>OK</source>
         <translation type="unfinished">确定</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="367"/>
+        <location filename="qml/window/MainWindow.qml" line="365"/>
         <source>The current version is already the latest</source>
         <translation type="unfinished">当前版本已经是最新版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="374"/>
+        <location filename="qml/window/MainWindow.qml" line="372"/>
         <source>The network is abnormal</source>
         <translation type="unfinished">网络异常</translation>
     </message>
@@ -2445,6 +2445,26 @@ Some contents...</source>
         <location filename="qml/page/T_Theme.qml" line="123"/>
         <source>Open Blur Window</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="136"/>
+        <source>window tintOpacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="153"/>
+        <source>window blurRadius</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="169"/>
+        <source>window effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="178"/>
+        <source></source>
+        <translation></translation>
     </message>
 </context>
 <context>

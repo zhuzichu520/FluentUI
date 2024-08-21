@@ -13,7 +13,7 @@ FluScrollablePage{
 
     FluFrame{
         Layout.fillWidth: true
-        Layout.preferredHeight: 408
+        Layout.fillHeight: true
         padding: 10
 
         ColumnLayout{
@@ -124,10 +124,67 @@ FluScrollablePage{
                 Layout.topMargin: 20
             }
             FluToggleSwitch{
+                id: toggle_blur
                 Layout.topMargin: 5
                 checked: FluTheme.blurBehindWindowEnabled
                 onClicked: {
                     FluTheme.blurBehindWindowEnabled = !FluTheme.blurBehindWindowEnabled
+                }
+            }
+            FluText{
+                visible: FluTheme.blurBehindWindowEnabled || window.effect === "dwm-blur"
+                text: qsTr("window tintOpacity")
+                Layout.topMargin: 20
+            }
+            FluSlider{
+                visible: FluTheme.blurBehindWindowEnabled || window.effect === "dwm-blur"
+                Layout.topMargin: 5
+                to:1
+                stepSize:0.1
+                onValueChanged: {
+                    window.tintOpacity = value
+                }
+                Component.onCompleted: {
+                    value = window.tintOpacity
+                }
+            }
+            FluText{
+                visible: FluTheme.blurBehindWindowEnabled
+                text: qsTr("window blurRadius")
+                Layout.topMargin: 20
+            }
+            FluSlider{
+                visible: FluTheme.blurBehindWindowEnabled
+                Layout.topMargin: 5
+                to:100
+                stepSize:1
+                onValueChanged: {
+                    window.blurRadius = value
+                }
+                Component.onCompleted: {
+                    value = window.blurRadius
+                }
+            }
+            FluText{
+                text: qsTr("window effect")
+                Layout.topMargin: 20
+            }
+            Row{
+                spacing: 10
+                Repeater{
+                    model: window.availableEffects
+                    delegate: FluRadioButton{
+                        checked: window.effect === modelData
+                        text: qsTr(`${modelData}`)
+                        clickListener:function(){
+                            window.effect = modelData
+                            if(window.effective){
+                                FluTheme.blurBehindWindowEnabled = false
+                                toggle_blur.checked = Qt.binding( function() {return FluTheme.blurBehindWindowEnabled})
+                            }
+                        }
+                    }
+
                 }
             }
         }

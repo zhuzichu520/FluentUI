@@ -150,6 +150,9 @@ Module {
         Property { name: "topmost"; type: "bool" }
         Property { name: "disabled"; type: "bool" }
         Property { name: "fixSize"; type: "bool" }
+        Property { name: "effect"; type: "string" }
+        Property { name: "effective"; type: "bool" }
+        Property {name: "availableEffects"; type: "QVariant"}
         Method { name: "showFullScreen" }
         Method { name: "showMaximized" }
         Method { name: "showMinimized" }
@@ -396,6 +399,7 @@ Module {
         Property { name: "nativeText"; type: "bool" }
         Property { name: "animationEnabled"; type: "bool" }
         Property { name: "blurBehindWindowEnabled"; type: "bool" }
+        Property { name: "micaBackgroundColor"; type: "QColor" }
     }
     Component {
         name: "FluThemeType"
@@ -4150,6 +4154,12 @@ Module {
         Property { name: "autoVisible"; type: "bool" }
         Property { name: "autoCenter"; type: "bool" }
         Property { name: "autoDestroy"; type: "bool" }
+
+        Property { name: "effect"; type: "string" }
+        Property { name: "effective"; type: "bool" }
+        Property { name: "blurRadius"; type: "int" }
+        Property { name: "tintOpacity"; type: "QVariant" }
+
         Property { name: "useSystemAppBar"; type: "bool" }
         Property { name: "resizeBorderColor"; type: "QColor" }
         Property { name: "resizeBorderWidth"; type: "int" }

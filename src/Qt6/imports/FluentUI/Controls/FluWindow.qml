@@ -12,6 +12,11 @@ Window {
     property bool fixSize: false
     property Component loadingItem: com_loading
     property bool fitsAppBarWindows: false
+    property var tintOpacity: FluTheme.dark ? 0.80 : 0.75
+    property int blurRadius: 60
+    property alias effect: frameless.effect
+    readonly property alias effective: frameless.effective
+    readonly property var availableEffects: frameless.availableEffects
     property Item appBar: FluAppBar {
         title: window.title
         height: 30
@@ -23,6 +28,15 @@ Window {
         icon: window.windowIcon
     }
     property color backgroundColor: {
+        if(frameless.effective && active){
+            var backcolor
+            if(frameless.effect==="dwm-blur"){
+                backcolor = FluTools.withOpacity(FluTheme.windowActiveBackgroundColor, window.tintOpacity)
+            }else{
+                backcolor =  "transparent"
+            }
+            return backcolor
+        }
         if(active){
             return FluTheme.windowActiveBackgroundColor
         }
@@ -106,6 +120,11 @@ Window {
         Component.onDestruction: {
             frameless.onDestruction()
         }
+        onEffectiveChanged: {
+            if(effective){
+                FluTheme.blurBehindWindowEnabled = false
+            }
+        }
     }
     Component{
         id:com_background
@@ -161,8 +180,8 @@ Window {
             FluAcrylic{
                 anchors.fill: parent
                 target: img_back
-                tintOpacity: FluTheme.dark ? 0.80 : 0.75
-                blurRadius: 64
+                tintOpacity: window.tintOpacity
+                blurRadius: window.blurRadius
                 visible: window.active && FluTheme.blurBehindWindowEnabled
                 tintColor: FluTheme.dark ? Qt.rgba(0, 0, 0, 1)  : Qt.rgba(1, 1, 1, 1)
                 targetRect: Qt.rect(window.x-window.screen.virtualX,window.y-window.screen.virtualY,window.width,window.height)
@@ -274,7 +293,7 @@ Window {
             sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
         }
         Item{
-            id:layout_content
+            id: layout_content
             anchors{
                 top: loader_app_bar.bottom
                 left: parent.left
@@ -293,7 +312,6 @@ Window {
             id:info_bar
             root: layout_container
         }
-
         FluLoader{
             id:loader_border
             anchors.fill: parent

@@ -236,6 +236,7 @@ FluWindow {
             id: reveal
             target: window.containerItem()
             anchors.fill: parent
+            darkToLight: FluTheme.dark
             onAnimationFinished:{
                 //动画结束后释放资源
                 loader_reveal.sourceComponent = undefined
@@ -256,17 +257,14 @@ FluWindow {
     }
 
     function handleDarkChanged(button){
-        if(!FluTheme.animationEnabled || window.fitsAppBarWindows === false){
+        if(FluTools.isMacos() || !FluTheme.animationEnabled){
             changeDark()
         }else{
-            if(loader_reveal.sourceComponent){
-                return
-            }
             loader_reveal.sourceComponent = com_reveal
             var target = window.containerItem()
             var pos = button.mapToItem(target,0,0)
-            var mouseX = pos.x
-            var mouseY = pos.y
+            var mouseX = pos.x + button.width / 2
+            var mouseY = pos.y + button.height / 2
             var radius = Math.max(distance(mouseX,mouseY,0,0),distance(mouseX,mouseY,target.width,0),distance(mouseX,mouseY,0,target.height),distance(mouseX,mouseY,target.width,target.height))
             var reveal = loader_reveal.item
             reveal.start(reveal.width*Screen.devicePixelRatio,reveal.height*Screen.devicePixelRatio,Qt.point(mouseX,mouseY),radius)
