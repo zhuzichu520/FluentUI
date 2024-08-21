@@ -2279,6 +2279,11 @@ Some contents...</source>
         <source>window effect</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="178"/>
+        <source></source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>T_TimePicker</name>

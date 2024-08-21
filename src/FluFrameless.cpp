@@ -107,8 +107,7 @@ static inline void setShadow(HWND hwnd) {
 }
 
 static inline bool setWindowDarkMode(HWND hwnd, const BOOL enable) {
-    return bool(DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE::DWMWA_USE_IMMERSIVE_DARK_MODE,
-                                      &enable, sizeof(BOOL)));
+    return bool(DwmSetWindowAttribute(hwnd, 20, &enable, sizeof(BOOL)));
 }
 
 static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &enable) {
@@ -120,8 +119,8 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         if (enable) {
             DwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
             if (isWin1122H2OrGreater()) {
-                const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_MAINWINDOW;
-                DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+                const DWORD backdropType = _DWMSBT_MAINWINDOW;
+                DwmSetWindowAttribute(hwnd, 38, &backdropType,
                                       sizeof(backdropType));
             } else {
                 const BOOL enable = TRUE;
@@ -129,8 +128,8 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
             }
         } else {
             if (isWin1122H2OrGreater()) {
-                const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_AUTO;
-                DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+                const DWORD backdropType = _DWMSBT_AUTO;
+                DwmSetWindowAttribute(hwnd, 38, &backdropType,
                                       sizeof(backdropType));
             } else {
                 const BOOL enable = FALSE;
@@ -148,12 +147,12 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         }
         if (enable) {
             DwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
-            const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_TABBEDWINDOW;
-            DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+            const DWORD backdropType = _DWMSBT_TABBEDWINDOW;
+            DwmSetWindowAttribute(hwnd, 38, &backdropType,
                                   sizeof(backdropType));
         } else {
-            const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_AUTO;
-            DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+            const DWORD backdropType = _DWMSBT_AUTO;
+            DwmSetWindowAttribute(hwnd, 38, &backdropType,
                                   sizeof(backdropType));
         }
         BOOL isDark = FluTheme::getInstance()->dark();
@@ -168,13 +167,13 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         if (enable) {
             MARGINS margins{-1, -1, -1, -1};
             DwmExtendFrameIntoClientArea(hwnd, &margins);
-            DWM_SYSTEMBACKDROP_TYPE system_backdrop_type =
-                DWM_SYSTEMBACKDROP_TYPE::DWMSBT_TRANSIENTWINDOW;
-            DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE::DWMWA_SYSTEMBACKDROP_TYPE,
-                                  &system_backdrop_type, sizeof(DWM_SYSTEMBACKDROP_TYPE));
+            DWORD system_backdrop_type =
+                _DWMSBT_TRANSIENTWINDOW;
+            DwmSetWindowAttribute(hwnd, 38,
+                                  &system_backdrop_type, sizeof(DWORD));
         } else {
-            const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_AUTO;
-            DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+            const DWORD backdropType = _DWMSBT_AUTO;
+            DwmSetWindowAttribute(hwnd, 38, &backdropType,
                                   sizeof(backdropType));
         }
         BOOL isDark = FluTheme::getInstance()->dark();

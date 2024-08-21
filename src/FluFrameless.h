@@ -14,7 +14,17 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <dwmapi.h>
-
+enum _DWM_SYSTEMBACKDROP_TYPE {
+    _DWMSBT_AUTO, // [Default] Let DWM automatically decide the system-drawn backdrop for this
+    // window.
+    _DWMSBT_NONE, // [Disable] Do not draw any system backdrop.
+    _DWMSBT_MAINWINDOW,      // [Mica] Draw the backdrop material effect corresponding to a
+    // long-lived window.
+    _DWMSBT_TRANSIENTWINDOW, // [Acrylic] Draw the backdrop material effect corresponding to a
+    // transient window.
+    _DWMSBT_TABBEDWINDOW,    // [Mica Alt] Draw the backdrop material effect corresponding to a
+    // window with a tabbed title bar.
+};
 enum WINDOWCOMPOSITIONATTRIB {
     WCA_UNDEFINED = 0,
     WCA_NCRENDERING_ENABLED = 1,
