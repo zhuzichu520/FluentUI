@@ -1,4 +1,5 @@
 #include "FluFrameless.h"
+#include "FluTheme.h"
 
 #include <QQuickWindow>
 #include <QGuiApplication>
@@ -8,12 +9,69 @@
 
 #ifdef Q_OS_WIN
 
-#pragma comment (lib, "user32.lib")
-#pragma comment (lib, "dwmapi.lib")
+static RTL_OSVERSIONINFOW GetRealOSVersionImpl() {
+    HMODULE hMod = ::GetModuleHandleW(L"ntdll.dll");
+    using RtlGetVersionPtr = NTSTATUS(WINAPI *)(PRTL_OSVERSIONINFOW);
+    auto pRtlGetVersion =
+        reinterpret_cast<RtlGetVersionPtr>(::GetProcAddress(hMod, "RtlGetVersion"));
+    RTL_OSVERSIONINFOW rovi{};
+    rovi.dwOSVersionInfoSize = sizeof(rovi);
+    pRtlGetVersion(&rovi);
+    return rovi;
+}
 
-#include <windows.h>
-#include <windowsx.h>
-#include <dwmapi.h>
+RTL_OSVERSIONINFOW GetRealOSVersion() {
+    static const auto result = GetRealOSVersionImpl();
+    return result;
+}
+
+static inline bool isWin8OrGreater() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return (rovi.dwMajorVersion > 6) || (rovi.dwMajorVersion == 6 && rovi.dwMinorVersion >= 2);
+}
+
+static inline bool isWin8Point1OrGreater() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return (rovi.dwMajorVersion > 6) || (rovi.dwMajorVersion == 6 && rovi.dwMinorVersion >= 3);
+}
+
+static inline bool isWin10OrGreater() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return (rovi.dwMajorVersion > 10) || (rovi.dwMajorVersion == 10 && rovi.dwMinorVersion >= 0);
+}
+
+static inline bool isWin101809OrGreater() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return (rovi.dwMajorVersion > 10) ||
+           (rovi.dwMajorVersion == 10 && rovi.dwMinorVersion >= 0 && rovi.dwBuildNumber >= 17763);
+}
+
+static inline bool isWin101903OrGreater() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return (rovi.dwMajorVersion > 10) ||
+           (rovi.dwMajorVersion == 10 && rovi.dwMinorVersion >= 0 && rovi.dwBuildNumber >= 18362);
+}
+
+static inline bool isWin11OrGreater() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return (rovi.dwMajorVersion > 10) ||
+           (rovi.dwMajorVersion == 10 && rovi.dwMinorVersion >= 0 && rovi.dwBuildNumber >= 22000);
+}
+
+static inline bool isWin1122H2OrGreater() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return (rovi.dwMajorVersion > 10) ||
+           (rovi.dwMajorVersion == 10 && rovi.dwMinorVersion >= 0 && rovi.dwBuildNumber >= 22621);
+}
+
+static inline bool isWin10Only() {
+    return isWin10OrGreater() && !isWin11OrGreater();
+}
+
+static inline bool isWin7Only() {
+    RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
+    return rovi.dwMajorVersion = 7;
+}
 
 static inline QByteArray qtNativeEventType() {
     static const auto result = "windows_generic_MSG";
@@ -48,6 +106,138 @@ static inline void setShadow(HWND hwnd) {
     }
 }
 
+static inline bool setWindowDarkMode(HWND hwnd, const BOOL enable) {
+    return bool(DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE::DWMWA_USE_IMMERSIVE_DARK_MODE,
+                                      &enable, sizeof(BOOL)));
+}
+
+static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &enable) {
+    static constexpr const MARGINS extendedMargins = {-1, -1, -1, -1};
+    if (key == QStringLiteral("mica")) {
+        if (!isWin11OrGreater()) {
+            return false;
+        }
+        if (enable) {
+            DwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
+            if (isWin1122H2OrGreater()) {
+                const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_MAINWINDOW;
+                DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+                                      sizeof(backdropType));
+            } else {
+                const BOOL enable = TRUE;
+                DwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
+            }
+        } else {
+            if (isWin1122H2OrGreater()) {
+                const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_AUTO;
+                DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+                                      sizeof(backdropType));
+            } else {
+                const BOOL enable = FALSE;
+                DwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
+            }
+        }
+        BOOL isDark = FluTheme::getInstance()->dark();
+        setWindowDarkMode(hwnd, isDark);
+        return true;
+    }
+
+    if (key == QStringLiteral("mica-alt")) {
+        if (!isWin1122H2OrGreater()) {
+            return false;
+        }
+        if (enable) {
+            DwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
+            const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_TABBEDWINDOW;
+            DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+                                  sizeof(backdropType));
+        } else {
+            const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_AUTO;
+            DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+                                  sizeof(backdropType));
+        }
+        BOOL isDark = FluTheme::getInstance()->dark();
+        setWindowDarkMode(hwnd, isDark);
+        return true;
+    }
+
+    if (key == QStringLiteral("acrylic")) {
+        if (!isWin11OrGreater()) {
+            return false;
+        }
+        if (enable) {
+            MARGINS margins{-1, -1, -1, -1};
+            DwmExtendFrameIntoClientArea(hwnd, &margins);
+            DWM_SYSTEMBACKDROP_TYPE system_backdrop_type =
+                DWM_SYSTEMBACKDROP_TYPE::DWMSBT_TRANSIENTWINDOW;
+            DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE::DWMWA_SYSTEMBACKDROP_TYPE,
+                                  &system_backdrop_type, sizeof(DWM_SYSTEMBACKDROP_TYPE));
+        } else {
+            const DWM_SYSTEMBACKDROP_TYPE backdropType = DWMSBT_AUTO;
+            DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &backdropType,
+                                  sizeof(backdropType));
+        }
+        BOOL isDark = FluTheme::getInstance()->dark();
+        setWindowDarkMode(hwnd, isDark);
+        return true;
+    }
+
+    if (key == QStringLiteral("dwm-blur")) {
+        if (isWin7Only() && !isCompositionEnabled()) {
+            return false;
+        }
+        BOOL isDark = FluTheme::getInstance()->dark();
+        setWindowDarkMode(hwnd, isDark && enable);
+        typedef HRESULT(WINAPI * SetWindowCompositionAttributePtr)(HWND,
+                                                                   PWINDOWCOMPOSITIONATTRIBDATA);
+        SetWindowCompositionAttributePtr SetWindowCompositionAttribute;
+        if (isWin8OrGreater()) {
+            HMODULE module = LoadLibraryW(L"user32.dll");
+            SetWindowCompositionAttribute = reinterpret_cast<SetWindowCompositionAttributePtr>(
+                GetProcAddress(module, "SetWindowCompositionAttribute"));
+            if (!SetWindowCompositionAttribute) {
+                return false;
+            }
+        }
+        if (enable) {
+            if (isWin8OrGreater()) {
+                ACCENT_POLICY policy{};
+                policy.dwAccentState = ACCENT_ENABLE_BLURBEHIND;
+                policy.dwAccentFlags = ACCENT_NONE;
+                WINDOWCOMPOSITIONATTRIBDATA wcad{};
+                wcad.Attrib = WCA_ACCENT_POLICY;
+                wcad.pvData = &policy;
+                wcad.cbData = sizeof(policy);
+                SetWindowCompositionAttribute(hwnd, &wcad);
+            } else {
+                DWM_BLURBEHIND bb{};
+                bb.fEnable = TRUE;
+                bb.dwFlags = DWM_BB_ENABLE;
+                DwmEnableBlurBehindWindow(hwnd, &bb);
+            }
+        } else {
+            if (isWin8OrGreater()) {
+                ACCENT_POLICY policy{};
+                policy.dwAccentState = ACCENT_DISABLED;
+                policy.dwAccentFlags = ACCENT_NONE;
+                WINDOWCOMPOSITIONATTRIBDATA wcad{};
+                wcad.Attrib = WCA_ACCENT_POLICY;
+                wcad.pvData = &policy;
+                wcad.cbData = sizeof(policy);
+                SetWindowCompositionAttribute(hwnd, &wcad);
+            } else {
+                DWM_BLURBEHIND bb{};
+                bb.fEnable = FALSE;
+                bb.dwFlags = DWM_BB_ENABLE;
+                DwmEnableBlurBehindWindow(hwnd, &bb);
+            }
+        }
+        return true;
+    }
+
+    return false;
+}
+
 #endif
 
 bool containsCursorToItem(QQuickItem *item) {
@@ -70,6 +260,7 @@ FluFrameless::FluFrameless(QQuickItem *parent) : QQuickItem{parent} {
     _closeButton = nullptr;
     _topmost = false;
     _disabled = false;
+    _effect = "normal";
     _isWindows11OrGreater = FluTools::getInstance()->isWindows11OrGreater();
 }
 
@@ -107,6 +298,9 @@ void FluFrameless::componentComplete() {
 #endif
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+#  if (QT_VERSION == QT_VERSION_CHECK(6, 7, 2))
+    style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
+#  endif
     if (_fixSize) {
         ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);;
         for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
@@ -125,6 +319,42 @@ void FluFrameless::componentComplete() {
     if (!window()->property("_hideShadow").toBool()) {
         setShadow(hwnd);
     }
+    if (isWin11OrGreater()) {
+        availableEffects({"mica", "mica-alt", "acrylic", "dwm-blur", "normal"});
+    } else if (isWin7Only()) {
+        availableEffects({"dwm-blur","normal"});
+    }
+    if (!_effect.isEmpty()) {
+        effective(setWindowEffect(hwnd, _effect, true));
+        if (effective()) {
+            _currentEffect = effect();
+        }
+    }
+    connect(this, &FluFrameless::effectChanged, this, [hwnd, this] {
+        if (effect() == _currentEffect) {
+            return;
+        }
+        if (effective()) {
+            setWindowEffect(hwnd, _currentEffect, false);
+        }
+        effective(setWindowEffect(hwnd, effect(), true));
+        if (effective()) {
+            _currentEffect = effect();
+        } else {
+            _effect = "normal";
+            _currentEffect = "normal";
+        }
+    });
+    connect(FluTheme::getInstance(), &FluTheme::blurBehindWindowEnabledChanged, this, [this] {
+        if (FluTheme::getInstance()->blurBehindWindowEnabled()) {
+            effect("normal");
+        }
+    });
+    connect(FluTheme::getInstance(), &FluTheme::darkChanged, this, [hwnd, this] {
+        if (effective() && !_currentEffect.isEmpty() && _currentEffect != "normal") {
+            setWindowDarkMode(hwnd, FluTheme::getInstance()->dark());
+        }
+    });
 #endif
     auto appBarHeight = _appbar->height();
     h = qRound(h + appBarHeight);
@@ -234,6 +464,9 @@ void FluFrameless::componentComplete() {
         *result = FALSE;
         return false;
     } else if (uMsg == WM_NCACTIVATE) {
+        if (effective() || (!effect().isEmpty() && _currentEffect!="normal")) {
+            return false;
+        }
         *result = TRUE;
         return true;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
