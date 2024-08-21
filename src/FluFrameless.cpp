@@ -84,14 +84,57 @@ static inline QByteArray qtNativeEventType() {
     return result;
 }
 
-static inline bool isCompositionEnabled() {
-    HMODULE module = ::LoadLibraryW(L"dwmapi.dll");
+static inline bool initializeFunctionPointers() {
+    HMODULE module = LoadLibraryW(L"dwmapi.dll");
     if (module) {
-        BOOL composition_enabled = false;
-        pDwmIsCompositionEnabled = reinterpret_cast<DwmIsCompositionEnabledFunc>(::GetProcAddress(module, "DwmIsCompositionEnabled"));
-        if (pDwmIsCompositionEnabled) {
-            pDwmIsCompositionEnabled(&composition_enabled);
+        if (!pDwmSetWindowAttribute) {
+            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
+                GetProcAddress(module, "DwmSetWindowAttribute"));
+            if (!pDwmSetWindowAttribute) {
+                return false;
+            }
         }
+        if (!pDwmExtendFrameIntoClientArea) {
+            pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(
+                GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+            if (!pDwmExtendFrameIntoClientArea) {
+                return false;
+            }
+        }
+        if (!pDwmIsCompositionEnabled) {
+            pDwmIsCompositionEnabled = reinterpret_cast<DwmIsCompositionEnabledFunc>(
+                ::GetProcAddress(module, "DwmIsCompositionEnabled"));
+            if (!pDwmIsCompositionEnabled) {
+                return false;
+            }
+        }
+        if (!pDwmEnableBlurBehindWindow) {
+            pDwmEnableBlurBehindWindow =
+                reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
+                    GetProcAddress(module, "DwmEnableBlurBehindWindow"));
+            if (!pDwmEnableBlurBehindWindow) {
+                return false;
+            }
+        }
+        if (!pSetWindowCompositionAttribute) {
+            HMODULE user32 = LoadLibraryW(L"user32.dll");
+            if (!user32) {
+                return false;
+            }
+            pSetWindowCompositionAttribute = reinterpret_cast<SetWindowCompositionAttributeFunc>(
+                GetProcAddress(user32, "SetWindowCompositionAttribute"));
+            if (!pSetWindowCompositionAttribute) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+static inline bool isCompositionEnabled() {
+    if(initializeFunctionPointers()){
+        BOOL composition_enabled = false;
+        pDwmIsCompositionEnabled(&composition_enabled);
         return composition_enabled;
     }
     return false;
@@ -99,49 +142,23 @@ static inline bool isCompositionEnabled() {
 
 static inline void setShadow(HWND hwnd) {
     const MARGINS shadow = {1, 0, 0, 0};
-    HMODULE module = LoadLibraryW(L"dwmapi.dll");
-    if (module) {
-        pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-        if (pDwmExtendFrameIntoClientArea) {
-            pDwmExtendFrameIntoClientArea(hwnd, &shadow);
-        }
+    if (initializeFunctionPointers()) {
+        pDwmExtendFrameIntoClientArea(hwnd, &shadow);
     }
 }
 
 static inline bool setWindowDarkMode(HWND hwnd, const BOOL enable) {
-    if (!pDwmSetWindowAttribute) {
-        HMODULE module = LoadLibraryW(L"dwmapi.dll");
-        if (module) {
-            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
-                GetProcAddress(module, "DwmSetWindowAttribute"));
-        }
-        if (!pDwmSetWindowAttribute) {
-            return false;
-        }
+    if (!initializeFunctionPointers()) {
+        return false;
     }
     return bool(pDwmSetWindowAttribute(hwnd, 20, &enable, sizeof(BOOL)));
 }
 
 static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &enable) {
     static constexpr const MARGINS extendedMargins = {-1, -1, -1, -1};
-    HMODULE module = LoadLibraryW(L"dwmapi.dll");
-    if (module) {
-        pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(
-            GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-        if (!pDwmExtendFrameIntoClientArea) {
-            return false;
-        }
-    }
     if (key == QStringLiteral("mica")) {
-        if (!isWin11OrGreater()) {
+        if (!isWin11OrGreater() || !initializeFunctionPointers()) {
             return false;
-        }
-        if(module && !pDwmSetWindowAttribute){
-            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
-                GetProcAddress(module, "DwmSetWindowAttribute"));
-            if (!pDwmSetWindowAttribute) {
-                return false;
-            }
         }
         if (enable) {
             pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
@@ -167,15 +184,8 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
     }
 
     if (key == QStringLiteral("mica-alt")) {
-        if (!isWin1122H2OrGreater()) {
+        if (!isWin1122H2OrGreater() || !initializeFunctionPointers()) {
             return false;
-        }
-        if(module && !pDwmSetWindowAttribute){
-            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
-                GetProcAddress(module, "DwmSetWindowAttribute"));
-            if (!pDwmSetWindowAttribute) {
-                return false;
-            }
         }
         if (enable) {
             pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
@@ -191,19 +201,11 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
     }
 
     if (key == QStringLiteral("acrylic")) {
-        if (!isWin11OrGreater()) {
+        if (!isWin11OrGreater() || !initializeFunctionPointers()) {
             return false;
         }
-        if(module && !pDwmSetWindowAttribute){
-            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
-                GetProcAddress(module, "DwmSetWindowAttribute"));
-            if (!pDwmSetWindowAttribute) {
-                return false;
-            }
-        }
         if (enable) {
-            MARGINS margins{-1, -1, -1, -1};
-            pDwmExtendFrameIntoClientArea(hwnd, &margins);
+            pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
             DWORD system_backdrop_type = _DWMSBT_TRANSIENTWINDOW;
             pDwmSetWindowAttribute(hwnd, 38, &system_backdrop_type, sizeof(DWORD));
         } else {
@@ -216,19 +218,11 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
     }
 
     if (key == QStringLiteral("dwm-blur")) {
-        if (isWin7Only() && !isCompositionEnabled()) {
+        if ((isWin7Only() && !isCompositionEnabled()) || !initializeFunctionPointers()) {
             return false;
         }
         BOOL isDark = FluTheme::getInstance()->dark();
         setWindowDarkMode(hwnd, isDark && enable);
-        if (isWin8OrGreater() && !pSetWindowCompositionAttribute) {
-            HMODULE module = LoadLibraryW(L"user32.dll");
-            pSetWindowCompositionAttribute = reinterpret_cast<SetWindowCompositionAttributeFunc>(
-                GetProcAddress(module, "SetWindowCompositionAttribute"));
-            if (!pSetWindowCompositionAttribute) {
-                return false;
-            }
-        }
         if (enable) {
             if (isWin8OrGreater()) {
                 ACCENT_POLICY policy{};
@@ -243,15 +237,6 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 DWM_BLURBEHIND bb{};
                 bb.fEnable = TRUE;
                 bb.dwFlags = DWM_BB_ENABLE;
-                if (!pDwmEnableBlurBehindWindow) {
-                    HMODULE module = LoadLibraryW(L"user32.dll");
-                    pDwmEnableBlurBehindWindow =
-                        reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
-                            GetProcAddress(module, "DwmEnableBlurBehindWindowFunc"));
-                    if (!pDwmEnableBlurBehindWindow) {
-                        return false;
-                    }
-                }
                 pDwmEnableBlurBehindWindow(hwnd, &bb);
             }
         } else {
@@ -268,21 +253,11 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 DWM_BLURBEHIND bb{};
                 bb.fEnable = FALSE;
                 bb.dwFlags = DWM_BB_ENABLE;
-                if (!pDwmEnableBlurBehindWindow) {
-                    HMODULE module = LoadLibraryW(L"user32.dll");
-                    pDwmEnableBlurBehindWindow =
-                        reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
-                            GetProcAddress(module, "DwmEnableBlurBehindWindowFunc"));
-                    if (!pDwmEnableBlurBehindWindow) {
-                        return false;
-                    }
-                }
                 pDwmEnableBlurBehindWindow(hwnd, &bb);
             }
         }
         return true;
     }
-
     return false;
 }
 
