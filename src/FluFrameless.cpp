@@ -136,6 +136,13 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         if (!isWin11OrGreater()) {
             return false;
         }
+        if(module && !pDwmSetWindowAttribute){
+            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
+                GetProcAddress(module, "DwmSetWindowAttribute"));
+            if (!pDwmSetWindowAttribute) {
+                return false;
+            }
+        }
         if (enable) {
             pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
             if (isWin1122H2OrGreater()) {
@@ -163,6 +170,13 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         if (!isWin1122H2OrGreater()) {
             return false;
         }
+        if(module && !pDwmSetWindowAttribute){
+            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
+                GetProcAddress(module, "DwmSetWindowAttribute"));
+            if (!pDwmSetWindowAttribute) {
+                return false;
+            }
+        }
         if (enable) {
             pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
             const DWORD backdropType = _DWMSBT_TABBEDWINDOW;
@@ -179,6 +193,13 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
     if (key == QStringLiteral("acrylic")) {
         if (!isWin11OrGreater()) {
             return false;
+        }
+        if(module && !pDwmSetWindowAttribute){
+            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
+                GetProcAddress(module, "DwmSetWindowAttribute"));
+            if (!pDwmSetWindowAttribute) {
+                return false;
+            }
         }
         if (enable) {
             MARGINS margins{-1, -1, -1, -1};
