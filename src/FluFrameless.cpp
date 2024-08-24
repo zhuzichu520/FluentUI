@@ -295,8 +295,8 @@ FluFrameless::~FluFrameless() = default;
 }
 
 void FluFrameless::componentComplete() {
-    HWND hwnd = reinterpret_cast<HWND>(window()->winId());
 #ifdef Q_OS_WIN
+    HWND hwnd = reinterpret_cast<HWND>(window()->winId());
     if (isWin11OrGreater()) {
         availableEffects({"mica", "mica-alt", "acrylic", "dwm-blur", "normal"});
     } else if (isWin7Only()) {
