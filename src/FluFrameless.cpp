@@ -284,6 +284,7 @@ FluFrameless::FluFrameless(QQuickItem *parent) : QQuickItem{parent} {
     _topmost = false;
     _disabled = false;
     _effect = "normal";
+    _effective = false;
     _isWindows11OrGreater = FluTools::getInstance()->isWindows11OrGreater();
 }
 
@@ -294,58 +295,12 @@ FluFrameless::~FluFrameless() = default;
 }
 
 void FluFrameless::componentComplete() {
-    if (_disabled) {
-        return;
-    }
-    int w = window()->width();
-    int h = window()->height();
-    _current = window()->winId();
-    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
-    if (!_fixSize) {
-        window()->setFlag(Qt::WindowMaximizeButtonHint);
-    }
-    window()->installEventFilter(this);
-    QGuiApplication::instance()->installNativeEventFilter(this);
-    if (_maximizeButton) {
-        setHitTestVisible(_maximizeButton);
-    }
-    if (_minimizedButton) {
-        setHitTestVisible(_minimizedButton);
-    }
-    if (_closeButton) {
-        setHitTestVisible(_closeButton);
-    }
-#ifdef Q_OS_WIN
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
-    qWarning()<<"Qt's own frameless bug, currently only exist in 6.5.3, please use other versions";
-#endif
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
-    DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-#  if (QT_VERSION == QT_VERSION_CHECK(6, 7, 2))
-    style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
-#  endif
-    if (_fixSize) {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);;
-        for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
-            connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
-                SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
-            });
-        }
-    } else {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
-    }
-    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-    connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
-        ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
-        ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
-    });
-    if (!window()->property("_hideShadow").toBool()) {
-        setShadow(hwnd);
-    }
+#ifdef Q_OS_WIN
     if (isWin11OrGreater()) {
         availableEffects({"mica", "mica-alt", "acrylic", "dwm-blur", "normal"});
     } else if (isWin7Only()) {
-        availableEffects({"dwm-blur","normal"});
+        availableEffects({"dwm-blur", "normal"});
     }
     if (!_effect.isEmpty()) {
         effective(setWindowEffect(hwnd, _effect, true));
@@ -378,7 +333,64 @@ void FluFrameless::componentComplete() {
             setWindowDarkMode(hwnd, FluTheme::getInstance()->dark());
         }
     });
+    if (_disabled) {
+        return;
+    }
+#  if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
+    qWarning()
+        << "Qt's own frameless bug, currently only exist in 6.5.3, please use other versions";
+#  endif
+    DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+#  if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
+#  endif
+    if (_fixSize) {
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);
+        ;
+        for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
+            connect(
+                QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
+                    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
+                                 SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
+                });
+        }
+    } else {
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+    }
+    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
+                 SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+    connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
+        ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
+                       SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED |
+                           SWP_NOOWNERZORDER);
+        ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
+    });
+    if (!window()->property("_hideShadow").toBool()) {
+        setShadow(hwnd);
+    }
 #endif
+    if (_disabled) {
+        return;
+    }
+    int w = window()->width();
+    int h = window()->height();
+    _current = window()->winId();
+    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    if (!_fixSize) {
+        window()->setFlag(Qt::WindowMaximizeButtonHint);
+    }
+    window()->installEventFilter(this);
+    QGuiApplication::instance()->installNativeEventFilter(this);
+    if (_maximizeButton) {
+        setHitTestVisible(_maximizeButton);
+    }
+    if (_minimizedButton) {
+        setHitTestVisible(_minimizedButton);
+    }
+    if (_closeButton) {
+        setHitTestVisible(_closeButton);
+    }
+
     auto appBarHeight = _appbar->height();
     h = qRound(h + appBarHeight);
     if (_fixSize) {
@@ -393,6 +405,8 @@ void FluFrameless::componentComplete() {
         _setWindowTopmost(topmost());
     });
     _setWindowTopmost(topmost());
+            _setMaximizeHovered(false);
+            _setMaximizePressed(false);
 }
 
 [[maybe_unused]] bool FluFrameless::nativeEventFilter(const QByteArray &eventType, void *message, QT_NATIVE_EVENT_RESULT_TYPE *result) {
@@ -439,8 +453,6 @@ void FluFrameless::componentComplete() {
                 _setMaximizeHovered(true);
                 return true;
             }
-            _setMaximizeHovered(false);
-            _setMaximizePressed(false);
         }
         *result = 0;
         POINT nativeGlobalPos{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
