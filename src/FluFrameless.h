@@ -162,6 +162,7 @@ private:
 
     void _setMaximizeHovered(bool val);
 
+
 private:
     quint64 _current = 0;
     int _edges = 0;
