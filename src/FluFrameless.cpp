@@ -76,7 +76,7 @@ static inline bool isWin10Only() {
 
 static inline bool isWin7Only() {
     RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
-    return rovi.dwMajorVersion = 7;
+    return rovi.dwMajorVersion == 7;
 }
 
 static inline QByteArray qtNativeEventType() {
@@ -144,6 +144,9 @@ static inline void setShadow(HWND hwnd) {
     const MARGINS shadow = {1, 0, 0, 0};
     if (initializeFunctionPointers()) {
         pDwmExtendFrameIntoClientArea(hwnd, &shadow);
+    }
+    if(isWin7Only()){
+        SetClassLong(hwnd, GCL_STYLE, GetClassLong(hwnd, GCL_STYLE) | CS_DROPSHADOW);
     }
 }
 
@@ -284,6 +287,7 @@ FluFrameless::FluFrameless(QQuickItem *parent) : QQuickItem{parent} {
     _topmost = false;
     _disabled = false;
     _effect = "normal";
+    _effective = false;
     _isWindows11OrGreater = FluTools::getInstance()->isWindows11OrGreater();
 }
 
@@ -291,60 +295,16 @@ FluFrameless::~FluFrameless() = default;
 
 [[maybe_unused]] void FluFrameless::onDestruction() {
     QGuiApplication::instance()->removeNativeEventFilter(this);
+    disconnect(FluTheme::getInstance(), &FluTheme::darkChanged, this, nullptr);
+    disconnect(window(), &QQuickWindow::screenChanged, this, nullptr);
 }
 
 void FluFrameless::componentComplete() {
-    if (_disabled) {
-        return;
-    }
-    int w = window()->width();
-    int h = window()->height();
-    _current = window()->winId();
-    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
-    if (!_fixSize) {
-        window()->setFlag(Qt::WindowMaximizeButtonHint);
-    }
-    window()->installEventFilter(this);
-    QGuiApplication::instance()->installNativeEventFilter(this);
-    if (_maximizeButton) {
-        setHitTestVisible(_maximizeButton);
-    }
-    if (_minimizedButton) {
-        setHitTestVisible(_minimizedButton);
-    }
-    if (_closeButton) {
-        setHitTestVisible(_closeButton);
-    }
 #ifdef Q_OS_WIN
-#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
-    qWarning()<<"Qt's own frameless bug, currently only exist in 6.5.3, please use other versions";
-#endif
     HWND hwnd = reinterpret_cast<HWND>(window()->winId());
-    DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-#  if (QT_VERSION == QT_VERSION_CHECK(6, 7, 2))
-    style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
-#  endif
-    if (_fixSize) {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);;
-        for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
-            connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
-                SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
-            });
-        }
-    } else {
-        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
-    }
-    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-    connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
-        ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
-        ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
-    });
-    if (!window()->property("_hideShadow").toBool()) {
-        setShadow(hwnd);
-    }
     if (isWin11OrGreater()) {
         availableEffects({"mica", "mica-alt", "acrylic", "dwm-blur", "normal"});
-    } else if (isWin7Only()) {
+    } else {
         availableEffects({"dwm-blur","normal"});
     }
     if (!_effect.isEmpty()) {
@@ -378,6 +338,57 @@ void FluFrameless::componentComplete() {
             setWindowDarkMode(hwnd, FluTheme::getInstance()->dark());
         }
     });
+#endif
+    if (_disabled) {
+        return;
+    }
+    int w = window()->width();
+    int h = window()->height();
+    _current = window()->winId();
+    window()->setFlags((window()->flags()) | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    if (!_fixSize) {
+        window()->setFlag(Qt::WindowMaximizeButtonHint);
+    }
+    window()->installEventFilter(this);
+    QGuiApplication::instance()->installNativeEventFilter(this);
+    if (_maximizeButton) {
+        setHitTestVisible(_maximizeButton);
+    }
+    if (_minimizedButton) {
+        setHitTestVisible(_minimizedButton);
+    }
+    if (_closeButton) {
+        setHitTestVisible(_closeButton);
+    }
+#ifdef Q_OS_WIN
+#if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
+    qWarning()<<"Qt's own frameless bug, currently only exist in 6.5.3, please use other versions";
+#endif
+    if(!hwnd){
+        hwnd = reinterpret_cast<HWND>(window()->winId());
+    }
+    DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+#  if (QT_VERSION == QT_VERSION_CHECK(6, 7, 2))
+    style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
+#  endif
+    if (_fixSize) {
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_THICKFRAME | WS_CAPTION);;
+        for (int i = 0; i <= QGuiApplication::screens().count() - 1; ++i) {
+            connect(QGuiApplication::screens().at(i), &QScreen::logicalDotsPerInchChanged, this, [=] {
+                SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_FRAMECHANGED);
+            });
+        }
+    } else {
+        ::SetWindowLongPtr(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+    }
+    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+    connect(window(), &QQuickWindow::screenChanged, this, [hwnd] {
+        ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_NOOWNERZORDER);
+        ::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
+    });
+    if (!window()->property("_hideShadow").toBool()) {
+        setShadow(hwnd);
+    }
 #endif
     auto appBarHeight = _appbar->height();
     h = qRound(h + appBarHeight);

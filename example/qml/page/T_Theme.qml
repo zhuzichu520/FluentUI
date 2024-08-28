@@ -132,6 +132,28 @@ FluScrollablePage{
                 }
             }
             FluText{
+                text: qsTr("window effect")
+                Layout.topMargin: 20
+            }
+            Row{
+                spacing: 10
+                Repeater{
+                    model: window.availableEffects
+                    delegate: FluRadioButton{
+                        checked: window.effect === modelData
+                        text: qsTr(`${modelData}`)
+                        clickListener:function(){
+                            window.effect = modelData
+                            if(window.effective){
+                                FluTheme.blurBehindWindowEnabled = false
+                                toggle_blur.checked = Qt.binding( function() {return FluTheme.blurBehindWindowEnabled})
+                            }
+                        }
+                    }
+
+                }
+            }
+            FluText{
                 visible: FluTheme.blurBehindWindowEnabled || window.effect === "dwm-blur"
                 text: qsTr("window tintOpacity")
                 Layout.topMargin: 20
@@ -163,28 +185,6 @@ FluScrollablePage{
                 }
                 Component.onCompleted: {
                     value = window.blurRadius
-                }
-            }
-            FluText{
-                text: qsTr("window effect")
-                Layout.topMargin: 20
-            }
-            Row{
-                spacing: 10
-                Repeater{
-                    model: window.availableEffects
-                    delegate: FluRadioButton{
-                        checked: window.effect === modelData
-                        text: qsTr(`${modelData}`)
-                        clickListener:function(){
-                            window.effect = modelData
-                            if(window.effective){
-                                FluTheme.blurBehindWindowEnabled = false
-                                toggle_blur.checked = Qt.binding( function() {return FluTheme.blurBehindWindowEnabled})
-                            }
-                        }
-                    }
-
                 }
             }
         }
