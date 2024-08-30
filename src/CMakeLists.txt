@@ -227,7 +227,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 if ((${QT_VERSION_MAJOR} LESS_EQUAL 6) AND (CMAKE_BUILD_TYPE MATCHES "Release"))
     find_program(QML_PLUGIN_DUMP NAMES qmlplugindump)
     add_custom_target(Script-Generate-QmlTypes
-            COMMAND ${QML_PLUGIN_DUMP} -nonrelocatable  FluentUI 1.0 ${CMAKE_CURRENT_BINARY_DIR} > ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
+            COMMAND ${QML_PLUGIN_DUMP} -nonrelocatable -noinstantiate FluentUI 1.0 ${CMAKE_CURRENT_BINARY_DIR} > ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
             COMMENT "Generate qmltypes........."
             SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/FluentUI/plugins.qmltypes
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}

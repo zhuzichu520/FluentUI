@@ -498,10 +498,10 @@ void FluFrameless::componentComplete() {
         *result = FALSE;
         return false;
     } else if (uMsg == WM_NCACTIVATE) {
+        *result = TRUE;
         if (effective() || (!effect().isEmpty() && _currentEffect!="normal")) {
             return false;
         }
-        *result = TRUE;
         return true;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
