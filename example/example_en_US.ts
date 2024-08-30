@@ -2270,17 +2270,17 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Theme.qml" line="147"/>
+        <location filename="qml/page/T_Theme.qml" line="169"/>
         <source>window tintOpacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Theme.qml" line="164"/>
+        <location filename="qml/page/T_Theme.qml" line="186"/>
         <source>window blurRadius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Theme.qml" line="180"/>
+        <location filename="qml/page/T_Theme.qml" line="146"/>
         <source>window effect</source>
         <translation type="unfinished"></translation>
     </message>
