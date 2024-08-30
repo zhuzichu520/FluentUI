@@ -2261,21 +2261,26 @@ Some contents...</source>
     </message>
     <message>
         <location filename="qml/page/T_Theme.qml" line="123"/>
+        <source>Rounded Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="134"/>
         <source>Open Blur Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Theme.qml" line="158"/>
+        <location filename="qml/page/T_Theme.qml" line="147"/>
         <source>window tintOpacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Theme.qml" line="175"/>
+        <location filename="qml/page/T_Theme.qml" line="164"/>
         <source>window blurRadius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Theme.qml" line="135"/>
+        <location filename="qml/page/T_Theme.qml" line="180"/>
         <source>window effect</source>
         <translation type="unfinished"></translation>
     </message>

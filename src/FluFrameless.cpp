@@ -1,5 +1,4 @@
 #include "FluFrameless.h"
-#include "FluTheme.h"
 
 #include <QQuickWindow>
 #include <QGuiApplication>
@@ -181,8 +180,6 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 pDwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
             }
         }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark);
         return true;
     }
 
@@ -198,8 +195,6 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
             const DWORD backdropType = _DWMSBT_AUTO;
             pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
         }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark);
         return true;
     }
 
@@ -215,8 +210,6 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
             const DWORD backdropType = _DWMSBT_AUTO;
             pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
         }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark);
         return true;
     }
 
@@ -224,8 +217,6 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
         if ((isWin7Only() && !isCompositionEnabled()) || !initializeFunctionPointers()) {
             return false;
         }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark && enable);
         if (enable) {
             if (isWin8OrGreater()) {
                 ACCENT_POLICY policy{};
@@ -295,8 +286,6 @@ FluFrameless::~FluFrameless() = default;
 
 [[maybe_unused]] void FluFrameless::onDestruction() {
     QGuiApplication::instance()->removeNativeEventFilter(this);
-    disconnect(FluTheme::getInstance(), &FluTheme::darkChanged, this, nullptr);
-    disconnect(window(), &QQuickWindow::screenChanged, this, nullptr);
 }
 
 void FluFrameless::componentComplete() {
@@ -307,7 +296,7 @@ void FluFrameless::componentComplete() {
     } else {
         availableEffects({"dwm-blur","normal"});
     }
-    if (!_effect.isEmpty()) {
+    if (!_effect.isEmpty() && _useSystemEffect) {
         effective(setWindowEffect(hwnd, _effect, true));
         if (effective()) {
             _currentEffect = effect();
@@ -323,19 +312,21 @@ void FluFrameless::componentComplete() {
         effective(setWindowEffect(hwnd, effect(), true));
         if (effective()) {
             _currentEffect = effect();
+            _useSystemEffect = true;
         } else {
             _effect = "normal";
             _currentEffect = "normal";
+            _useSystemEffect = false;
         }
     });
-    connect(FluTheme::getInstance(), &FluTheme::blurBehindWindowEnabledChanged, this, [this] {
-        if (FluTheme::getInstance()->blurBehindWindowEnabled()) {
+    connect(this, &FluFrameless::useSystemEffectChanged, this, [this] {
+        if (!_useSystemEffect) {
             effect("normal");
         }
     });
-    connect(FluTheme::getInstance(), &FluTheme::darkChanged, this, [hwnd, this] {
+    connect(this, &FluFrameless::isDarkModeChanged, this, [hwnd, this] {
         if (effective() && !_currentEffect.isEmpty() && _currentEffect != "normal") {
-            setWindowDarkMode(hwnd, FluTheme::getInstance()->dark());
+            setWindowDarkMode(hwnd, _isDarkMode);
         }
     });
 #endif
@@ -626,27 +617,27 @@ void FluFrameless::_setMaximizeHovered(bool val) {
 
 void FluFrameless::_updateCursor(int edges) {
     switch (edges) {
-    case 0:
-        window()->setCursor(Qt::ArrowCursor);
-        break;
-    case Qt::LeftEdge:
-    case Qt::RightEdge:
-        window()->setCursor(Qt::SizeHorCursor);
-        break;
-    case Qt::TopEdge:
-    case Qt::BottomEdge:
-        window()->setCursor(Qt::SizeVerCursor);
-        break;
-    case Qt::LeftEdge | Qt::TopEdge:
-    case Qt::RightEdge | Qt::BottomEdge:
-        window()->setCursor(Qt::SizeFDiagCursor);
-        break;
-    case Qt::RightEdge | Qt::TopEdge:
-    case Qt::LeftEdge | Qt::BottomEdge:
-        window()->setCursor(Qt::SizeBDiagCursor);
-        break;
-    default:
-        break;
+        case 0:
+            window()->setCursor(Qt::ArrowCursor);
+            break;
+        case Qt::LeftEdge:
+        case Qt::RightEdge:
+            window()->setCursor(Qt::SizeHorCursor);
+            break;
+        case Qt::TopEdge:
+        case Qt::BottomEdge:
+            window()->setCursor(Qt::SizeVerCursor);
+            break;
+        case Qt::LeftEdge | Qt::TopEdge:
+        case Qt::RightEdge | Qt::BottomEdge:
+            window()->setCursor(Qt::SizeFDiagCursor);
+            break;
+        case Qt::RightEdge | Qt::TopEdge:
+        case Qt::LeftEdge | Qt::BottomEdge:
+            window()->setCursor(Qt::SizeBDiagCursor);
+            break;
+        default:
+            break;
     }
 }
 
@@ -698,72 +689,72 @@ void FluFrameless::_setWindowTopmost(bool topmost) {
 bool FluFrameless::eventFilter(QObject *obj, QEvent *ev) {
 #ifndef Q_OS_WIN
     switch (ev->type()) {
-    case QEvent::MouseButtonPress:
-        if(_edges!=0){
-            QMouseEvent *event = static_cast<QMouseEvent*>(ev);
-            if(event->button() == Qt::LeftButton){
-                _updateCursor(_edges);
-                window()->startSystemResize(Qt::Edges(_edges));
-            }
-        }else{
-            if(_hitAppBar()){
-                qint64 clickTimer = QDateTime::currentMSecsSinceEpoch();
-                qint64 offset =  clickTimer - this->_clickTimer;
-                this->_clickTimer = clickTimer;
-                if(offset<300){
-                    if(_isMaximized()){
-                        showNormal();
+        case QEvent::MouseButtonPress:
+            if(_edges!=0){
+                QMouseEvent *event = static_cast<QMouseEvent*>(ev);
+                if(event->button() == Qt::LeftButton){
+                    _updateCursor(_edges);
+                    window()->startSystemResize(Qt::Edges(_edges));
+                }
+            }else{
+                if(_hitAppBar()){
+                    qint64 clickTimer = QDateTime::currentMSecsSinceEpoch();
+                    qint64 offset =  clickTimer - this->_clickTimer;
+                    this->_clickTimer = clickTimer;
+                    if(offset<300){
+                        if(_isMaximized()){
+                            showNormal();
+                        }else{
+                            showMaximized();
+                        }
                     }else{
-                        showMaximized();
+                        window()->startSystemMove();
                     }
-                }else{
-                    window()->startSystemMove();
                 }
             }
-        }
-        break;
-    case QEvent::MouseButtonRelease:
-        _edges = 0;
-        break;
-    case QEvent::MouseMove: {
-        if(_isMaximized() || _isFullScreen()){
             break;
-        }
-        if(_fixSize){
+        case QEvent::MouseButtonRelease:
+            _edges = 0;
             break;
-        }
-        QMouseEvent *event = static_cast<QMouseEvent*>(ev);
-        QPoint p =
-#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
-            event->pos();
-#else
-            event->position().toPoint();
-#endif
-        if(p.x() >= _margins && p.x() <= (window()->width() - _margins) && p.y() >= _margins && p.y() <= (window()->height() - _margins)){
-            if(_edges != 0){
-                _edges = 0;
-                _updateCursor(_edges);
+        case QEvent::MouseMove: {
+            if(_isMaximized() || _isFullScreen()){
+                break;
             }
+            if(_fixSize){
+                break;
+            }
+            QMouseEvent *event = static_cast<QMouseEvent*>(ev);
+            QPoint p =
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+                event->pos();
+#else
+                event->position().toPoint();
+#endif
+            if(p.x() >= _margins && p.x() <= (window()->width() - _margins) && p.y() >= _margins && p.y() <= (window()->height() - _margins)){
+                if(_edges != 0){
+                    _edges = 0;
+                    _updateCursor(_edges);
+                }
+                break;
+            }
+            _edges = 0;
+            if ( p.x() < _margins ) {
+                _edges |= Qt::LeftEdge;
+            }
+            if ( p.x() > (window()->width() - _margins) ) {
+                _edges |= Qt::RightEdge;
+            }
+            if ( p.y() < _margins ) {
+                _edges |= Qt::TopEdge;
+            }
+            if ( p.y() > (window()->height() - _margins) ) {
+                _edges |= Qt::BottomEdge;
+            }
+            _updateCursor(_edges);
             break;
         }
-        _edges = 0;
-        if ( p.x() < _margins ) {
-            _edges |= Qt::LeftEdge;
-        }
-        if ( p.x() > (window()->width() - _margins) ) {
-            _edges |= Qt::RightEdge;
-        }
-        if ( p.y() < _margins ) {
-            _edges |= Qt::TopEdge;
-        }
-        if ( p.y() > (window()->height() - _margins) ) {
-            _edges |= Qt::BottomEdge;
-        }
-        _updateCursor(_edges);
-        break;
-    }
-    default:
-        break;
+        default:
+            break;
     }
 #endif
     return QObject::eventFilter(obj, ev);

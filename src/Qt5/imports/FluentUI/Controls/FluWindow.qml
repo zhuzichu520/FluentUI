@@ -114,6 +114,8 @@ Window {
         fixSize: window.fixSize
         topmost: window.stayTop
         disabled: FluApp.useSystemAppBar
+        isDarkMode: FluTheme.dark
+        useSystemEffect: !FluTheme.blurBehindWindowEnabled
         Component.onCompleted: {
             frameless.setHitTestVisible(appBar.layoutMacosButtons)
             frameless.setHitTestVisible(appBar.layoutStandardbuttons)

@@ -117,6 +117,8 @@ class FluFrameless : public QQuickItem, QAbstractNativeEventFilter {
     Q_PROPERTY_AUTO(QString, effect)
     Q_PROPERTY_READONLY_AUTO(bool, effective)
     Q_PROPERTY_READONLY_AUTO(QStringList, availableEffects)
+    Q_PROPERTY_AUTO(bool, isDarkMode)
+    Q_PROPERTY_AUTO(bool, useSystemEffect)
     QML_NAMED_ELEMENT(FluFrameless)
 public:
     explicit FluFrameless(QQuickItem *parent = nullptr);
@@ -161,6 +163,7 @@ private:
     void _setMaximizePressed(bool val);
 
     void _setMaximizeHovered(bool val);
+
 
 private:
     quint64 _current = 0;
