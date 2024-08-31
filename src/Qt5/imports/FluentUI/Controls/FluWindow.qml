@@ -17,7 +17,7 @@ Window {
     property int blurRadius: 60
     property alias effect: frameless.effect
     readonly property alias effective: frameless.effective
-    readonly property var availableEffects: frameless.availableEffects
+    readonly property alias availableEffects: frameless.availableEffects
     property Item appBar: FluAppBar {
         title: window.title
         height: 30

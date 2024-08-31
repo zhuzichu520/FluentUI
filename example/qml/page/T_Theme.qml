@@ -120,17 +120,6 @@ FluScrollablePage{
                 }
             }
             FluText{
-                text: qsTr("Rounded Window")
-                Layout.topMargin: 20
-            }
-            FluToggleSwitch{
-                Layout.topMargin: 5
-                checked: window.roundCornerEnable
-                onClicked: {
-                    window.roundCornerEnable = !window.roundCornerEnable
-                }
-            }
-            FluText{
                 text: qsTr("Open Blur Window")
                 Layout.topMargin: 20
             }
