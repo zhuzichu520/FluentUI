@@ -2266,11 +2266,6 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Theme.qml" line="123"/>
-        <source>Open Blur Window</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="qml/page/T_Theme.qml" line="158"/>
         <source>window tintOpacity</source>
         <translation type="unfinished"></translation>

@@ -2445,27 +2445,22 @@ Some contents...</source>
         <location filename="qml/page/T_Theme.qml" line="123"/>
         <source>Open Blur Window</source>
         <oldsource>Rounded Window</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/page/T_Theme.qml" line="123"/>
-        <source>Open Blur Window</source>
-        <translation type="unfinished"></translation>
+        <translation>亚克力背景</translation>
     </message>
     <message>
         <location filename="qml/page/T_Theme.qml" line="158"/>
         <source>window tintOpacity</source>
-        <translation type="unfinished"></translation>
+        <translation>背景透明度</translation>
     </message>
     <message>
         <location filename="qml/page/T_Theme.qml" line="175"/>
         <source>window blurRadius</source>
-        <translation type="unfinished"></translation>
+        <translation>背景模糊度</translation>
     </message>
     <message>
         <location filename="qml/page/T_Theme.qml" line="135"/>
         <source>window effect</source>
-        <translation type="unfinished"></translation>
+        <translation>窗口效果</translation>
     </message>
     <message>
         <location filename="qml/page/T_Theme.qml" line="178"/>
