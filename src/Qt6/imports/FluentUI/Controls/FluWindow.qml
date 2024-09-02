@@ -16,7 +16,7 @@ Window {
     property int blurRadius: 60
     property alias effect: frameless.effect
     readonly property alias effective: frameless.effective
-    readonly property var availableEffects: frameless.availableEffects
+    readonly property alias availableEffects: frameless.availableEffects
     property Item appBar: FluAppBar {
         title: window.title
         height: 30
@@ -113,6 +113,8 @@ Window {
         fixSize: window.fixSize
         topmost: window.stayTop
         disabled: FluApp.useSystemAppBar
+        isDarkMode: FluTheme.dark
+        useSystemEffect: !FluTheme.blurBehindWindowEnabled
         Component.onCompleted: {
             frameless.setHitTestVisible(appBar.layoutMacosButtons)
             frameless.setHitTestVisible(appBar.layoutStandardbuttons)
