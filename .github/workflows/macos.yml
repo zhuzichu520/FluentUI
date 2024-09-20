@@ -60,7 +60,7 @@ jobs:
           # 拷贝依赖
           sudo macdeployqt bin/Release/${targetName}.app -qmldir=. -dmg     
           
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}
           path: bin/release/${{ env.targetName }}.app
