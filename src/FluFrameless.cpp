@@ -1,5 +1,4 @@
 #include "FluFrameless.h"
-#include "FluTheme.h"
 
 #include <QQuickWindow>
 #include <QGuiApplication>
@@ -76,7 +75,7 @@ static inline bool isWin10Only() {
 
 static inline bool isWin7Only() {
     RTL_OSVERSIONINFOW rovi = GetRealOSVersion();
-    return rovi.dwMajorVersion = 7;
+    return rovi.dwMajorVersion == 7;
 }
 
 static inline QByteArray qtNativeEventType() {
@@ -84,14 +83,57 @@ static inline QByteArray qtNativeEventType() {
     return result;
 }
 
-static inline bool isCompositionEnabled() {
-    HMODULE module = ::LoadLibraryW(L"dwmapi.dll");
+static inline bool initializeFunctionPointers() {
+    HMODULE module = LoadLibraryW(L"dwmapi.dll");
     if (module) {
-        BOOL composition_enabled = false;
-        pDwmIsCompositionEnabled = reinterpret_cast<DwmIsCompositionEnabledFunc>(::GetProcAddress(module, "DwmIsCompositionEnabled"));
-        if (pDwmIsCompositionEnabled) {
-            pDwmIsCompositionEnabled(&composition_enabled);
+        if (!pDwmSetWindowAttribute) {
+            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
+                GetProcAddress(module, "DwmSetWindowAttribute"));
+            if (!pDwmSetWindowAttribute) {
+                return false;
+            }
         }
+        if (!pDwmExtendFrameIntoClientArea) {
+            pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(
+                GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
+            if (!pDwmExtendFrameIntoClientArea) {
+                return false;
+            }
+        }
+        if (!pDwmIsCompositionEnabled) {
+            pDwmIsCompositionEnabled = reinterpret_cast<DwmIsCompositionEnabledFunc>(
+                ::GetProcAddress(module, "DwmIsCompositionEnabled"));
+            if (!pDwmIsCompositionEnabled) {
+                return false;
+            }
+        }
+        if (!pDwmEnableBlurBehindWindow) {
+            pDwmEnableBlurBehindWindow =
+                reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
+                    GetProcAddress(module, "DwmEnableBlurBehindWindow"));
+            if (!pDwmEnableBlurBehindWindow) {
+                return false;
+            }
+        }
+        if (!pSetWindowCompositionAttribute) {
+            HMODULE user32 = LoadLibraryW(L"user32.dll");
+            if (!user32) {
+                return false;
+            }
+            pSetWindowCompositionAttribute = reinterpret_cast<SetWindowCompositionAttributeFunc>(
+                GetProcAddress(user32, "SetWindowCompositionAttribute"));
+            if (!pSetWindowCompositionAttribute) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+static inline bool isCompositionEnabled() {
+    if(initializeFunctionPointers()){
+        BOOL composition_enabled = false;
+        pDwmIsCompositionEnabled(&composition_enabled);
         return composition_enabled;
     }
     return false;
@@ -99,41 +141,25 @@ static inline bool isCompositionEnabled() {
 
 static inline void setShadow(HWND hwnd) {
     const MARGINS shadow = {1, 0, 0, 0};
-    HMODULE module = LoadLibraryW(L"dwmapi.dll");
-    if (module) {
-        pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-        if (pDwmExtendFrameIntoClientArea) {
-            pDwmExtendFrameIntoClientArea(hwnd, &shadow);
-        }
+    if (initializeFunctionPointers()) {
+        pDwmExtendFrameIntoClientArea(hwnd, &shadow);
+    }
+    if(isWin7Only()){
+        SetClassLong(hwnd, GCL_STYLE, GetClassLong(hwnd, GCL_STYLE) | CS_DROPSHADOW);
     }
 }
 
 static inline bool setWindowDarkMode(HWND hwnd, const BOOL enable) {
-    if (!pDwmSetWindowAttribute) {
-        HMODULE module = LoadLibraryW(L"dwmapi.dll");
-        if (module) {
-            pDwmSetWindowAttribute = reinterpret_cast<DwmSetWindowAttributeFunc>(
-                GetProcAddress(module, "DwmSetWindowAttribute"));
-        }
-        if (!pDwmSetWindowAttribute) {
-            return false;
-        }
+    if (!initializeFunctionPointers()) {
+        return false;
     }
     return bool(pDwmSetWindowAttribute(hwnd, 20, &enable, sizeof(BOOL)));
 }
 
 static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &enable) {
     static constexpr const MARGINS extendedMargins = {-1, -1, -1, -1};
-    HMODULE module = LoadLibraryW(L"dwmapi.dll");
-    if (module) {
-        pDwmExtendFrameIntoClientArea = reinterpret_cast<DwmExtendFrameIntoClientAreaFunc>(
-            GetProcAddress(module, "DwmExtendFrameIntoClientArea"));
-        if (!pDwmExtendFrameIntoClientArea) {
-            return false;
-        }
-    }
     if (key == QStringLiteral("mica")) {
-        if (!isWin11OrGreater()) {
+        if (!isWin11OrGreater() || !initializeFunctionPointers()) {
             return false;
         }
         if (enable) {
@@ -154,13 +180,11 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 pDwmSetWindowAttribute(hwnd, 1029, &enable, sizeof(enable));
             }
         }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark);
         return true;
     }
 
     if (key == QStringLiteral("mica-alt")) {
-        if (!isWin1122H2OrGreater()) {
+        if (!isWin1122H2OrGreater() || !initializeFunctionPointers()) {
             return false;
         }
         if (enable) {
@@ -171,42 +195,27 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
             const DWORD backdropType = _DWMSBT_AUTO;
             pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
         }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark);
         return true;
     }
 
     if (key == QStringLiteral("acrylic")) {
-        if (!isWin11OrGreater()) {
+        if (!isWin11OrGreater() || !initializeFunctionPointers()) {
             return false;
         }
         if (enable) {
-            MARGINS margins{-1, -1, -1, -1};
-            pDwmExtendFrameIntoClientArea(hwnd, &margins);
+            pDwmExtendFrameIntoClientArea(hwnd, &extendedMargins);
             DWORD system_backdrop_type = _DWMSBT_TRANSIENTWINDOW;
             pDwmSetWindowAttribute(hwnd, 38, &system_backdrop_type, sizeof(DWORD));
         } else {
             const DWORD backdropType = _DWMSBT_AUTO;
             pDwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
         }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark);
         return true;
     }
 
     if (key == QStringLiteral("dwm-blur")) {
-        if (isWin7Only() && !isCompositionEnabled()) {
+        if ((isWin7Only() && !isCompositionEnabled()) || !initializeFunctionPointers()) {
             return false;
-        }
-        BOOL isDark = FluTheme::getInstance()->dark();
-        setWindowDarkMode(hwnd, isDark && enable);
-        if (isWin8OrGreater() && !pSetWindowCompositionAttribute) {
-            HMODULE module = LoadLibraryW(L"user32.dll");
-            pSetWindowCompositionAttribute = reinterpret_cast<SetWindowCompositionAttributeFunc>(
-                GetProcAddress(module, "SetWindowCompositionAttribute"));
-            if (!pSetWindowCompositionAttribute) {
-                return false;
-            }
         }
         if (enable) {
             if (isWin8OrGreater()) {
@@ -222,15 +231,6 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 DWM_BLURBEHIND bb{};
                 bb.fEnable = TRUE;
                 bb.dwFlags = DWM_BB_ENABLE;
-                if (!pDwmEnableBlurBehindWindow) {
-                    HMODULE module = LoadLibraryW(L"user32.dll");
-                    pDwmEnableBlurBehindWindow =
-                        reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
-                            GetProcAddress(module, "DwmEnableBlurBehindWindowFunc"));
-                    if (!pDwmEnableBlurBehindWindow) {
-                        return false;
-                    }
-                }
                 pDwmEnableBlurBehindWindow(hwnd, &bb);
             }
         } else {
@@ -247,21 +247,11 @@ static inline bool setWindowEffect(HWND hwnd, const QString &key, const bool &en
                 DWM_BLURBEHIND bb{};
                 bb.fEnable = FALSE;
                 bb.dwFlags = DWM_BB_ENABLE;
-                if (!pDwmEnableBlurBehindWindow) {
-                    HMODULE module = LoadLibraryW(L"user32.dll");
-                    pDwmEnableBlurBehindWindow =
-                        reinterpret_cast<DwmEnableBlurBehindWindowFunc>(
-                            GetProcAddress(module, "DwmEnableBlurBehindWindowFunc"));
-                    if (!pDwmEnableBlurBehindWindow) {
-                        return false;
-                    }
-                }
                 pDwmEnableBlurBehindWindow(hwnd, &bb);
             }
         }
         return true;
     }
-
     return false;
 }
 
@@ -288,6 +278,7 @@ FluFrameless::FluFrameless(QQuickItem *parent) : QQuickItem{parent} {
     _topmost = false;
     _disabled = false;
     _effect = "normal";
+    _effective = false;
     _isWindows11OrGreater = FluTools::getInstance()->isWindows11OrGreater();
 }
 
@@ -298,6 +289,47 @@ FluFrameless::~FluFrameless() = default;
 }
 
 void FluFrameless::componentComplete() {
+#ifdef Q_OS_WIN
+    HWND hwnd = reinterpret_cast<HWND>(window()->winId());
+    if (isWin11OrGreater()) {
+        availableEffects({"mica", "mica-alt", "acrylic", "dwm-blur", "normal"});
+    } else {
+        availableEffects({"dwm-blur","normal"});
+    }
+    if (!_effect.isEmpty() && _useSystemEffect) {
+        effective(setWindowEffect(hwnd, _effect, true));
+        if (effective()) {
+            _currentEffect = effect();
+        }
+    }
+    connect(this, &FluFrameless::effectChanged, this, [hwnd, this] {
+        if (effect() == _currentEffect) {
+            return;
+        }
+        if (effective()) {
+            setWindowEffect(hwnd, _currentEffect, false);
+        }
+        effective(setWindowEffect(hwnd, effect(), true));
+        if (effective()) {
+            _currentEffect = effect();
+            _useSystemEffect = true;
+        } else {
+            _effect = "normal";
+            _currentEffect = "normal";
+            _useSystemEffect = false;
+        }
+    });
+    connect(this, &FluFrameless::useSystemEffectChanged, this, [this] {
+        if (!_useSystemEffect) {
+            effect("normal");
+        }
+    });
+    connect(this, &FluFrameless::isDarkModeChanged, this, [hwnd, this] {
+        if (effective() && !_currentEffect.isEmpty() && _currentEffect != "normal") {
+            setWindowDarkMode(hwnd, _isDarkMode);
+        }
+    });
+#endif
     if (_disabled) {
         return;
     }
@@ -323,7 +355,9 @@ void FluFrameless::componentComplete() {
 #if (QT_VERSION == QT_VERSION_CHECK(6, 5, 3))
     qWarning()<<"Qt's own frameless bug, currently only exist in 6.5.3, please use other versions";
 #endif
-    HWND hwnd = reinterpret_cast<HWND>(window()->winId());
+    if(!hwnd){
+        hwnd = reinterpret_cast<HWND>(window()->winId());
+    }
     DWORD style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 #  if (QT_VERSION == QT_VERSION_CHECK(6, 7, 2))
     style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
@@ -346,42 +380,6 @@ void FluFrameless::componentComplete() {
     if (!window()->property("_hideShadow").toBool()) {
         setShadow(hwnd);
     }
-    if (isWin11OrGreater()) {
-        availableEffects({"mica", "mica-alt", "acrylic", "dwm-blur", "normal"});
-    } else if (isWin7Only()) {
-        availableEffects({"dwm-blur","normal"});
-    }
-    if (!_effect.isEmpty()) {
-        effective(setWindowEffect(hwnd, _effect, true));
-        if (effective()) {
-            _currentEffect = effect();
-        }
-    }
-    connect(this, &FluFrameless::effectChanged, this, [hwnd, this] {
-        if (effect() == _currentEffect) {
-            return;
-        }
-        if (effective()) {
-            setWindowEffect(hwnd, _currentEffect, false);
-        }
-        effective(setWindowEffect(hwnd, effect(), true));
-        if (effective()) {
-            _currentEffect = effect();
-        } else {
-            _effect = "normal";
-            _currentEffect = "normal";
-        }
-    });
-    connect(FluTheme::getInstance(), &FluTheme::blurBehindWindowEnabledChanged, this, [this] {
-        if (FluTheme::getInstance()->blurBehindWindowEnabled()) {
-            effect("normal");
-        }
-    });
-    connect(FluTheme::getInstance(), &FluTheme::darkChanged, this, [hwnd, this] {
-        if (effective() && !_currentEffect.isEmpty() && _currentEffect != "normal") {
-            setWindowDarkMode(hwnd, FluTheme::getInstance()->dark());
-        }
-    });
 #endif
     auto appBarHeight = _appbar->height();
     h = qRound(h + appBarHeight);
@@ -491,10 +489,10 @@ void FluFrameless::componentComplete() {
         *result = FALSE;
         return false;
     } else if (uMsg == WM_NCACTIVATE) {
+        *result = TRUE;
         if (effective() || (!effect().isEmpty() && _currentEffect!="normal")) {
             return false;
         }
-        *result = TRUE;
         return true;
     } else if (_isWindows11OrGreater && (uMsg == WM_NCLBUTTONDBLCLK || uMsg == WM_NCLBUTTONDOWN)) {
         if (_hitMaximizeButton()) {
@@ -619,27 +617,27 @@ void FluFrameless::_setMaximizeHovered(bool val) {
 
 void FluFrameless::_updateCursor(int edges) {
     switch (edges) {
-    case 0:
-        window()->setCursor(Qt::ArrowCursor);
-        break;
-    case Qt::LeftEdge:
-    case Qt::RightEdge:
-        window()->setCursor(Qt::SizeHorCursor);
-        break;
-    case Qt::TopEdge:
-    case Qt::BottomEdge:
-        window()->setCursor(Qt::SizeVerCursor);
-        break;
-    case Qt::LeftEdge | Qt::TopEdge:
-    case Qt::RightEdge | Qt::BottomEdge:
-        window()->setCursor(Qt::SizeFDiagCursor);
-        break;
-    case Qt::RightEdge | Qt::TopEdge:
-    case Qt::LeftEdge | Qt::BottomEdge:
-        window()->setCursor(Qt::SizeBDiagCursor);
-        break;
-    default:
-        break;
+        case 0:
+            window()->setCursor(Qt::ArrowCursor);
+            break;
+        case Qt::LeftEdge:
+        case Qt::RightEdge:
+            window()->setCursor(Qt::SizeHorCursor);
+            break;
+        case Qt::TopEdge:
+        case Qt::BottomEdge:
+            window()->setCursor(Qt::SizeVerCursor);
+            break;
+        case Qt::LeftEdge | Qt::TopEdge:
+        case Qt::RightEdge | Qt::BottomEdge:
+            window()->setCursor(Qt::SizeFDiagCursor);
+            break;
+        case Qt::RightEdge | Qt::TopEdge:
+        case Qt::LeftEdge | Qt::BottomEdge:
+            window()->setCursor(Qt::SizeBDiagCursor);
+            break;
+        default:
+            break;
     }
 }
 
@@ -691,72 +689,72 @@ void FluFrameless::_setWindowTopmost(bool topmost) {
 bool FluFrameless::eventFilter(QObject *obj, QEvent *ev) {
 #ifndef Q_OS_WIN
     switch (ev->type()) {
-    case QEvent::MouseButtonPress:
-        if(_edges!=0){
-            QMouseEvent *event = static_cast<QMouseEvent*>(ev);
-            if(event->button() == Qt::LeftButton){
-                _updateCursor(_edges);
-                window()->startSystemResize(Qt::Edges(_edges));
-            }
-        }else{
-            if(_hitAppBar()){
-                qint64 clickTimer = QDateTime::currentMSecsSinceEpoch();
-                qint64 offset =  clickTimer - this->_clickTimer;
-                this->_clickTimer = clickTimer;
-                if(offset<300){
-                    if(_isMaximized()){
-                        showNormal();
+        case QEvent::MouseButtonPress:
+            if(_edges!=0){
+                QMouseEvent *event = static_cast<QMouseEvent*>(ev);
+                if(event->button() == Qt::LeftButton){
+                    _updateCursor(_edges);
+                    window()->startSystemResize(Qt::Edges(_edges));
+                }
+            }else{
+                if(_hitAppBar()){
+                    qint64 clickTimer = QDateTime::currentMSecsSinceEpoch();
+                    qint64 offset =  clickTimer - this->_clickTimer;
+                    this->_clickTimer = clickTimer;
+                    if(offset<300){
+                        if(_isMaximized()){
+                            showNormal();
+                        }else{
+                            showMaximized();
+                        }
                     }else{
-                        showMaximized();
+                        window()->startSystemMove();
                     }
-                }else{
-                    window()->startSystemMove();
                 }
             }
-        }
-        break;
-    case QEvent::MouseButtonRelease:
-        _edges = 0;
-        break;
-    case QEvent::MouseMove: {
-        if(_isMaximized() || _isFullScreen()){
             break;
-        }
-        if(_fixSize){
+        case QEvent::MouseButtonRelease:
+            _edges = 0;
             break;
-        }
-        QMouseEvent *event = static_cast<QMouseEvent*>(ev);
-        QPoint p =
-#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
-            event->pos();
-#else
-            event->position().toPoint();
-#endif
-        if(p.x() >= _margins && p.x() <= (window()->width() - _margins) && p.y() >= _margins && p.y() <= (window()->height() - _margins)){
-            if(_edges != 0){
-                _edges = 0;
-                _updateCursor(_edges);
+        case QEvent::MouseMove: {
+            if(_isMaximized() || _isFullScreen()){
+                break;
             }
+            if(_fixSize){
+                break;
+            }
+            QMouseEvent *event = static_cast<QMouseEvent*>(ev);
+            QPoint p =
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+                event->pos();
+#else
+                event->position().toPoint();
+#endif
+            if(p.x() >= _margins && p.x() <= (window()->width() - _margins) && p.y() >= _margins && p.y() <= (window()->height() - _margins)){
+                if(_edges != 0){
+                    _edges = 0;
+                    _updateCursor(_edges);
+                }
+                break;
+            }
+            _edges = 0;
+            if ( p.x() < _margins ) {
+                _edges |= Qt::LeftEdge;
+            }
+            if ( p.x() > (window()->width() - _margins) ) {
+                _edges |= Qt::RightEdge;
+            }
+            if ( p.y() < _margins ) {
+                _edges |= Qt::TopEdge;
+            }
+            if ( p.y() > (window()->height() - _margins) ) {
+                _edges |= Qt::BottomEdge;
+            }
+            _updateCursor(_edges);
             break;
         }
-        _edges = 0;
-        if ( p.x() < _margins ) {
-            _edges |= Qt::LeftEdge;
-        }
-        if ( p.x() > (window()->width() - _margins) ) {
-            _edges |= Qt::RightEdge;
-        }
-        if ( p.y() < _margins ) {
-            _edges |= Qt::TopEdge;
-        }
-        if ( p.y() > (window()->height() - _margins) ) {
-            _edges |= Qt::BottomEdge;
-        }
-        _updateCursor(_edges);
-        break;
-    }
-    default:
-        break;
+        default:
+            break;
     }
 #endif
     return QObject::eventFilter(obj, ev);
