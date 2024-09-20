@@ -72,11 +72,6 @@ install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(${PROJECT_NAME})
-    qt_finalize_executable(${PROJECT_NAME})
-endif()
-
 if (CMAKE_BUILD_TYPE MATCHES "Release")
     if (APPLE)
         find_program(QT_DEPLOY_QT NAMES macdeployqt)
