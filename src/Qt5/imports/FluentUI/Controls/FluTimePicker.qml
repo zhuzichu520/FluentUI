@@ -335,7 +335,7 @@ FluButton {
                             if (hours === "12") {
                                 hours24 = (period === control.amText) ? 0 : 12;
                             } else {
-                                hours24 = (period === control.pmText) ? hours24 : hours24 + 12;
+                                hours24 = (period === control.pmText) ? hours24 + 12 : hours24;
                             }
                         }
                         date.setHours(hours24);

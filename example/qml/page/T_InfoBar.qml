@@ -68,6 +68,7 @@ FluScrollablePage{
                             return
                         }
                         info1 = showInfo(qsTr("This is an '%1'").arg("info1"), 0)
+                        info1.close()
                     }
                 }
                 FluButton{

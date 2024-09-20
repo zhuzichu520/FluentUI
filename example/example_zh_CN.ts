@@ -1620,27 +1620,27 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="64"/>
-        <location filename="qml/page/T_InfoBar.qml" line="74"/>
-        <location filename="qml/page/T_InfoBar.qml" line="84"/>
+        <location filename="qml/page/T_InfoBar.qml" line="75"/>
+        <location filename="qml/page/T_InfoBar.qml" line="85"/>
         <source>close &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="64"/>
-        <location filename="qml/page/T_InfoBar.qml" line="74"/>
-        <location filename="qml/page/T_InfoBar.qml" line="84"/>
+        <location filename="qml/page/T_InfoBar.qml" line="75"/>
+        <location filename="qml/page/T_InfoBar.qml" line="85"/>
         <source>show &apos;%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="70"/>
-        <location filename="qml/page/T_InfoBar.qml" line="80"/>
-        <location filename="qml/page/T_InfoBar.qml" line="90"/>
+        <location filename="qml/page/T_InfoBar.qml" line="81"/>
+        <location filename="qml/page/T_InfoBar.qml" line="91"/>
         <source>This is an &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_InfoBar.qml" line="94"/>
+        <location filename="qml/page/T_InfoBar.qml" line="95"/>
         <source>clear all info</source>
         <translation type="unfinished"></translation>
     </message>
