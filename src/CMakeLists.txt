@@ -142,6 +142,8 @@ if (WIN32)
     )
 endif ()
 
+message("Building with Qt version: ${QT_VERSION}")
+
 if (QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #如果是Qt6.2版本以上，则使用qt_add_library，qt_add_qml_module函数添加资源文件
     if (FLUENTUI_BUILD_STATIC_LIB)
@@ -161,7 +163,12 @@ if (QT_VERSION VERSION_GREATER_EQUAL "6.2")
             RESOURCE_PREFIX "/qt/qml"
     )
 else ()
-    qt_add_resources(QRC_RESOURCES Qt5/imports/fluentui.qrc)
+    # This command was introduced in Qt 5.15. You can use qt5_add_resources in older versions of Qt.
+    if (QT_VERSION VERSION_LESS "5.15")
+        qt5_add_resources(QRC_RESOURCES Qt5/imports/fluentui.qrc)
+    else()
+        qt_add_resources(QRC_RESOURCES Qt5/imports/fluentui.qrc)
+    endif()
     #如果是Qt6.2版本以下，则使用add_qmlplugin函数添加资源文件，这是个自定义的函数，详情见.cmake/QmlPlugin.cmake
     include(QmlPlugin)
     add_qmlplugin(${PROJECT_NAME}
