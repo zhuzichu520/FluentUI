@@ -8,21 +8,21 @@
 
 #ifdef Q_OS_WIN
 
-#pragma comment (lib, "user32.lib")
-#pragma comment (lib, "dwmapi.lib")
+#  pragma comment(lib, "user32.lib")
+#  pragma comment(lib, "dwmapi.lib")
 
-#include <windows.h>
-#include <windowsx.h>
-#include <dwmapi.h>
+#  include <windows.h>
+#  include <windowsx.h>
+#  include <dwmapi.h>
 enum _DWM_SYSTEMBACKDROP_TYPE {
     _DWMSBT_AUTO, // [Default] Let DWM automatically decide the system-drawn backdrop for this
     // window.
-    _DWMSBT_NONE, // [Disable] Do not draw any system backdrop.
-    _DWMSBT_MAINWINDOW,      // [Mica] Draw the backdrop material effect corresponding to a
+    _DWMSBT_NONE,       // [Disable] Do not draw any system backdrop.
+    _DWMSBT_MAINWINDOW, // [Mica] Draw the backdrop material effect corresponding to a
     // long-lived window.
     _DWMSBT_TRANSIENTWINDOW, // [Acrylic] Draw the backdrop material effect corresponding to a
     // transient window.
-    _DWMSBT_TABBEDWINDOW,    // [Mica Alt] Draw the backdrop material effect corresponding to a
+    _DWMSBT_TABBEDWINDOW, // [Mica Alt] Draw the backdrop material effect corresponding to a
     // window with a tabbed title bar.
 };
 enum WINDOWCOMPOSITIONATTRIB {
@@ -89,11 +89,16 @@ struct WINDOWCOMPOSITIONATTRIBDATA {
 };
 using PWINDOWCOMPOSITIONATTRIBDATA = WINDOWCOMPOSITIONATTRIBDATA *;
 
-typedef HRESULT (WINAPI *DwmSetWindowAttributeFunc)(HWND hwnd, DWORD dwAttribute, LPCVOID pvAttribute, DWORD cbAttribute);
-typedef HRESULT (WINAPI *DwmExtendFrameIntoClientAreaFunc)(HWND hwnd, const MARGINS *pMarInset);
-typedef HRESULT (WINAPI *DwmIsCompositionEnabledFunc)(BOOL *pfEnabled);
-typedef HRESULT (WINAPI *DwmEnableBlurBehindWindowFunc)(HWND hWnd, const DWM_BLURBEHIND *pBlurBehind);
-typedef BOOL (WINAPI *SetWindowCompositionAttributeFunc)(HWND hwnd, const WINDOWCOMPOSITIONATTRIBDATA *);
+typedef HRESULT(WINAPI *DwmSetWindowAttributeFunc)(HWND hwnd, DWORD dwAttribute,
+                                                   LPCVOID pvAttribute, DWORD cbAttribute);
+typedef HRESULT(WINAPI *DwmExtendFrameIntoClientAreaFunc)(HWND hwnd, const MARGINS *pMarInset);
+typedef HRESULT(WINAPI *DwmIsCompositionEnabledFunc)(BOOL *pfEnabled);
+typedef HRESULT(WINAPI *DwmEnableBlurBehindWindowFunc)(HWND hWnd,
+                                                       const DWM_BLURBEHIND *pBlurBehind);
+typedef BOOL(WINAPI *SetWindowCompositionAttributeFunc)(HWND hwnd,
+                                                        const WINDOWCOMPOSITIONATTRIBDATA *);
+typedef UINT(WINAPI *GetDpiForWindowFunc)(HWND hWnd);
+typedef int(WINAPI *GetSystemMetricsForDpiFunc)(int nIndex, UINT dpi);
 
 #endif
 
