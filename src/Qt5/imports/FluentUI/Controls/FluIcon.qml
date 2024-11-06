@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
@@ -11,7 +11,8 @@ Text {
     font.pixelSize: iconSize
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
-    color: iconColor
+    color: enabled ? iconColor :  Qt.rgba(iconColor.r, iconColor.g, iconColor.b, iconColor.a * 0.5)
+
     text: (String.fromCharCode(iconSource).toString(16))
     opacity: iconSource>0
     FontLoader{

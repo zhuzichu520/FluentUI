@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
@@ -11,6 +11,7 @@ Image {
     property Component errorItem : com_error
     property Component loadingItem: com_loading
     id: control
+    opacity: enabled ? 1 : 0.5
     FluLoader{
         anchors.fill: parent
         sourceComponent: {

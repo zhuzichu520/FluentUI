@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
@@ -13,7 +13,7 @@ FluButton {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font: control.font
-            color: control.textColor
+            textColor: control.textColor
             anchors.verticalCenter: parent.verticalCenter
         }
         Item{
