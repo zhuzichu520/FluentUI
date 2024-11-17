@@ -175,7 +175,7 @@ Popup{
         FluText{
             id: text_desc
             font: FluTextStyle.Body
-            wrapMode: Text.WrapAnywhere
+            wrapMode: Text.WordWrap
             maximumLineCount: 4
             elide: Text.ElideRight
             text: {
