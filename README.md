@@ -1,3 +1,6 @@
+# ATTENTION! THIS REPO HAS BEEN DEPRECATED!
+# PLEASE USE THE BRAND NEW [FluentUI2](https://github.com/zhuzichu520/FluentUI2) INSTEAD!
+# THIS REPO IS NO LONGER MAINTAINED.
 <div align=center>
 <img width=64 src="doc/preview/fluent_design.svg">
 
