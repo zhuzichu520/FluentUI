@@ -41,13 +41,15 @@ ProgressBar{
             height: parent.height
             radius: d._radius
             color: control.color
-            PropertyAnimation on x {
-                id:animator_x
+            SequentialAnimation on x {
+                id: animator_x
                 running: control.indeterminate && control.visible
-                from: -rect_progress.width
-                to:control.width+rect_progress.width
                 loops: Animation.Infinite
-                duration: control.duration
+                PropertyAnimation {
+                    from: -rect_progress.width
+                    to: control.width + rect_progress.width
+                    duration: control.duration
+                }
             }
         }
     }

@@ -15,7 +15,9 @@ Canvas {
     function animateToNewData()
     {
         chartAnimationProgress = 0.1;
-        d.jsChart?.update();
+        if (d.jsChart) {
+            d.jsChart.update();
+        }
         chartAnimator.restart();
     }
     QtObject{
