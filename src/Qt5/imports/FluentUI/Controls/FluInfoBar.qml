@@ -190,13 +190,13 @@ FluObject {
                     spacing: 5
                     FluText{
                         text:_super.text
-                        wrapMode: Text.WrapAnywhere
+                        wrapMode: Text.WordWrap
                         width: Math.min(implicitWidth,mcontrol.maxWidth)
                     }
                     FluText{
                         text: _super.moremsg
                         visible: _super.moremsg
-                        wrapMode : Text.WrapAnywhere
+                        wrapMode : Text.WordWrap
                         textColor: FluColors.Grey120
                         width: Math.min(implicitWidth,mcontrol.maxWidth)
                     }
