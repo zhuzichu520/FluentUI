@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
@@ -11,17 +11,11 @@ Button {
     property color dividerColor: FluTheme.dark ? Qt.rgba(80/255,80/255,80/255,1) : Qt.rgba(233/255,233/255,233/255,1)
     property color textColor: {
         if(FluTheme.dark){
-            if(!enabled){
-                return Qt.rgba(131/255,131/255,131/255,1)
-            }
             if(pressed){
                 return Qt.rgba(162/255,162/255,162/255,1)
             }
             return Qt.rgba(1,1,1,1)
         }else{
-            if(!enabled){
-                return Qt.rgba(160/255,160/255,160/255,1)
-            }
             if(pressed){
                 return Qt.rgba(96/255,96/255,96/255,1)
             }
@@ -59,6 +53,6 @@ Button {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         font: control.font
-        color: control.textColor
+        textColor: control.textColor
     }
 }

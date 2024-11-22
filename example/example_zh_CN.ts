@@ -929,7 +929,7 @@ Updated content:
         <location filename="qml/page/T_Buttons.qml" line="199"/>
         <location filename="qml/page/T_Buttons.qml" line="320"/>
         <location filename="qml/page/T_Buttons.qml" line="368"/>
-        <location filename="qml/page/T_Buttons.qml" line="421"/>
+        <location filename="qml/page/T_Buttons.qml" line="422"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
@@ -1044,17 +1044,17 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Buttons.qml" line="404"/>
+        <location filename="qml/page/T_Buttons.qml" line="405"/>
         <source>Radio Button_1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Buttons.qml" line="408"/>
+        <location filename="qml/page/T_Buttons.qml" line="409"/>
         <source>Radio Button_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Buttons.qml" line="412"/>
+        <location filename="qml/page/T_Buttons.qml" line="413"/>
         <source>Radio Button_3</source>
         <translation type="unfinished"></translation>
     </message>

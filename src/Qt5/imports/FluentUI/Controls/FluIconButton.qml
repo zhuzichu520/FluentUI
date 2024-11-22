@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
@@ -26,14 +26,8 @@ Button {
     }
     property color iconColor: {
         if(FluTheme.dark){
-            if(!enabled){
-                return Qt.rgba(130/255,130/255,130/255,1)
-            }
             return Qt.rgba(1,1,1,1)
         }else{
-            if(!enabled){
-                return Qt.rgba(161/255,161/255,161/255,1)
-            }
             return Qt.rgba(0,0,0,1)
         }
     }
@@ -82,7 +76,7 @@ Button {
                 text:control.text
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
-                color: control.textColor
+                textColor: control.textColor
                 font: control.font
             }
         }
@@ -99,7 +93,7 @@ Button {
                 text:control.text
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 visible: display !== Button.IconOnly
-                color: control.textColor
+                textColor: control.textColor
                 font: control.font
             }
         }

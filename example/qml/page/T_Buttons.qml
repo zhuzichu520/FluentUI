@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
@@ -265,7 +265,7 @@ FluScrollablePage{
             }
             FluIconButton{
                 disabled: icon_button_switch.checked
-                iconDelegate: Image{ sourceSize: Qt.size(40,40) ; width: 20; height: 20; source: "qrc:/example/res/image/ic_home_github.png" }
+                iconDelegate: FluImage{ sourceSize: Qt.size(40,40) ; width: 20; height: 20; source: "qrc:/example/res/image/ic_home_github.png" }
                 onClicked:{
                     showSuccess(qsTr("Click IconButton"))
                 }
@@ -395,6 +395,7 @@ FluScrollablePage{
         Layout.topMargin: 20
         FluRadioButtons{
             spacing: 8
+            disabled: radio_button_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
