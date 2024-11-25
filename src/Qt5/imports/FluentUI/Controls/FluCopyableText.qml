@@ -3,7 +3,19 @@ import QtQuick.Controls 2.15
 import FluentUI 1.0
 
 TextEdit {
-    property color textColor: FluTheme.dark ? FluColors.White : FluColors.Grey220
+    property color textColor: {
+        if(FluTheme.dark){
+            if(!enabled){
+                return Qt.rgba(130/255,130/255,130/255,1)
+            }
+            return Qt.rgba(1,1,1,1)
+        }else{
+            if(!enabled){
+                return Qt.rgba(161/255,161/255,161/255,1)
+            }
+            return Qt.rgba(0,0,0,1)
+        }
+    }
     id:control
     color: textColor
     readOnly: true

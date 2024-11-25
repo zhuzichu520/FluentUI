@@ -18,7 +18,19 @@ Button {
     property color dotDisableColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(150/255,150/255,150/255,1)
     property real textSpacing: 6
     property bool textRight: true
-    property alias textColor: btn_text.textColor
+    property color textColor: {
+        if(FluTheme.dark){
+            if(!enabled){
+                return Qt.rgba(130/255,130/255,130/255,1)
+            }
+            return Qt.rgba(1,1,1,1)
+        }else{
+            if(!enabled){
+                return Qt.rgba(161/255,161/255,161/255,1)
+            }
+            return Qt.rgba(0,0,0,1)
+        }
+    }
     property var clickListener : function(){
         checked = !checked
     }
@@ -115,6 +127,7 @@ Button {
             text: control.text
             Layout.alignment: Qt.AlignVCenter
             visible: text !== ""
+            color: control.textColor
         }
     }
 }

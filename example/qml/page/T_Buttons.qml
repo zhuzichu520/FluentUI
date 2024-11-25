@@ -399,16 +399,14 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
+            disabled: radio_button_switch.checked
             FluRadioButton{
-                disabled:radio_button_switch.checked
                 text: qsTr("Radio Button_1")
             }
             FluRadioButton{
-                disabled:radio_button_switch.checked
                 text: qsTr("Radio Button_2")
             }
             FluRadioButton{
-                disabled:radio_button_switch.checked
                 text: qsTr("Radio Button_3")
             }
         }

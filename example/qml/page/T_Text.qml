@@ -15,10 +15,19 @@ FluScrollablePage{
         padding: 10
 
         FluCopyableText{
+            enabled: !toggle_switch.checked
             text: qsTr("This is a text that can be copied")
             anchors.verticalCenter: parent.verticalCenter
         }
 
+        FluToggleSwitch{
+            id: toggle_switch
+            anchors{
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+            text: qsTr("Disabled")
+        }
     }
     CodeExpander{
         Layout.fillWidth: true
