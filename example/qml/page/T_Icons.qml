@@ -18,6 +18,15 @@ FluContentPage {
             grid_view.model = FluApp.iconData(text_box.text)
         }
     }
+    FluToggleSwitch{
+        id: toggle_switch
+        anchors{
+            left: text_box.right
+            verticalCenter: text_box.verticalCenter
+            leftMargin: 10
+        }
+        text: qsTr("Disabled")
+    }
     GridView{
         id: grid_view
         cellWidth: 110
@@ -45,6 +54,7 @@ FluContentPage {
                 horizontalPadding: 0
                 bottomPadding: 30
                 anchors.fill: parent
+                disabled: toggle_switch.checked
                 onClicked: {
                     var text  ="FluentIcons."+modelData.name;
                     FluTools.clipText(text)
@@ -57,6 +67,7 @@ FluContentPage {
                     text: modelData.name
                     anchors.top: parent.top
                     anchors.topMargin: 60
+                    enabled: !toggle_switch.checked
                 }
             }
         }
