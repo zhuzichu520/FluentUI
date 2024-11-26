@@ -6,8 +6,9 @@ import FluentUI
 Page {
     default property alias content: d.children
     property alias currentIndex: nav_list.currentIndex
+    property color textHighlightColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
     property color textNormalColor: FluTheme.dark ? FluColors.Grey120 : FluColors.Grey120
-    property color textHoverColor: FluTheme.dark ? FluColors.Grey10 : FluColors.Black
+    property color textHoverColor: FluTheme.dark ? FluColors.Grey80 : FluColors.Grey150
     property int textSpacing: 10
     property int headerSpacing: 20
     property int headerHeight: 40
@@ -67,9 +68,13 @@ Page {
                     anchors.centerIn: parent
                     font: control.font
                     color: {
-                        if(item_button.hovered)
-                            return textHoverColor
-                        return textNormalColor
+                        if(nav_list.currentIndex === index) {
+                            return textHighlightColor;
+                        }
+                        if (item_button.hovered) {
+                            return textHoverColor;
+                        } 
+                        return textNormalColor;
                     }
                 }
             }

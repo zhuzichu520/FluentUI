@@ -12,7 +12,19 @@ Button {
     property color normalColor: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(1,1,1,1)
     property color hoverColor: checked ? FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(1,1,1,1) : FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(222/255,222/255,222/255,1)
     property color disableColor: checked ? FluTheme.dark ? Qt.rgba(159/255,159/255,159/255,1) : Qt.rgba(159/255,159/255,159/255,1)  : FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(222/255,222/255,222/255,1)
-    property alias textColor: btn_text.textColor
+    property color textColor: {
+        if(FluTheme.dark){
+            if(!enabled){
+                return Qt.rgba(130/255,130/255,130/255,1)
+            }
+            return Qt.rgba(1,1,1,1)
+        }else{
+            if(!enabled){
+                return Qt.rgba(161/255,161/255,161/255,1)
+            }
+            return Qt.rgba(0,0,0,1)
+        }
+    }
     property real size: 18
     property bool textRight: true
     property real textSpacing: 6
@@ -90,6 +102,7 @@ Button {
             Layout.alignment: Qt.AlignVCenter
             font: control.font
             visible: text !== ""
+            color: control.textColor
         }
     }
 }
