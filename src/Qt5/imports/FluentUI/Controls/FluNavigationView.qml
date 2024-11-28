@@ -1313,7 +1313,7 @@ Item {
             d.stackItems = d.stackItems.concat(nav_list.model[nav_list.currentIndex])
         }
         function noStackPush(){
-            if(loader_content.source.toString() === url){
+            if(loader_content.source.toString() === url && Object.keys(argument).length === 0){
                 return
             }
             loader_content.setSource(url,argument)
