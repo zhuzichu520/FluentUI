@@ -105,5 +105,147 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
 }'
     }
 
+    FluFrame {
+        Layout.fillWidth: true
+        padding: 10
+        Layout.topMargin: 20
+        Column {
+            spacing: 15
+            FluExpander {
+                headerHeight: 60
+                contentHeight: content_layout.implicitHeight
+                headerDelegate: Component {
+                    Item {
+                        RowLayout {
+                            anchors {
+                                verticalCenter: parent.verticalCenter
+                                left: parent.left
+                                leftMargin: 15
+                            }
+                            spacing: 15
+                            FluImage {
+                                width: 20
+                                height: 20
+                                sourceSize.width: 20
+                                sourceSize.height: 20
+                                source: "qrc:/example/res/image/favicon.ico"
+                            }
+                            ColumnLayout {
+                                spacing: 0
+                                FluText {
+                                    text: "FluentUI"
+                                }
+                                FluText {
+                                    text: "%1".arg(AppInfo.version)
+                                    textColor: FluTheme.fontSecondaryColor
+                                    font.pixelSize: 12
+                                }
+                            }
+                        }
+                        FluLoadingButton {
+                            id: btn_checkupdate
+                            anchors {
+                                verticalCenter: parent.verticalCenter
+                                right: parent.right
+                                rightMargin: 15
+                            }
+                            text: qsTr("Check for Updates")
+                            onClicked: {
+                                loading = true;
+                                FluEventBus.post("checkUpdate");
+                            }
+                        }
+                        FluEvent {
+                            name: "checkUpdateFinish"
+                            onTriggered: {
+                                btn_checkupdate.loading = false;
+                            }
+                        }
+                    }
+                }
+                content: ColumnLayout {
+                    id: content_layout
+                    spacing: 0
+                    RowLayout {
+                        Layout.topMargin: 15
+                        Layout.leftMargin: 15
+                        spacing: 0
+                        FluText {
+                            text: "GitHub: "
+                        }
+                        FluTextButton {
+                            text: "https://github.com/zhuzichu520/FluentUI"
+                            onClicked: {
+                                Qt.openUrlExternally(text);
+                            }
+                        }
+                    }
+                    RowLayout {
+                        Layout.bottomMargin: 15
+                        Layout.leftMargin: 15
+                        spacing: 0
+                        FluText {
+                            text: "bilibili: "
+                        }
+                        FluTextButton {
+                            text: "https://www.bilibili.com/video/BV1mg4y1M71w"
+                            onClicked: {
+                                Qt.openUrlExternally(text);
+                            }
+                        }
+                    }
+                }
+            }
 
+            FluExpander {
+                contentHeight: 100
+                headerHeight: 45
+                headerDelegate: Component {
+                    Item {
+                        FluToggleButton {
+                            anchors.centerIn: parent
+                            text: qsTr("This is a ToggleButton in the header")
+                        }
+                    }
+                }
+                content: Item {
+                    anchors.fill: parent
+                    FluButton {
+                        anchors.centerIn: parent
+                        text: qsTr("This is a StandardButton in the content")
+                        onClicked: {
+                            showInfo(qsTr("Click StandardButton"))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    CodeExpander {
+        Layout.fillWidth: true
+        Layout.topMargin: -6
+        code: 'FluExpander {
+    contentHeight: 100
+    headerHeight: 45
+    headerDelegate: Component {
+        Item {
+            FluToggleButton {
+                anchors.centerIn: parent
+                text: qsTr("This is a ToggleButton in the header")
+            }
+        }
+    }
+    content: Item {
+        anchors.fill: parent
+        FluButton {
+            anchors.centerIn: parent
+            text: qsTr("This is a StandardButton in the content")
+            onClicked: {
+                showInfo(qsTr("Click StandardButton"))
+            }
+        }
+    }
+}'
+    }
 }

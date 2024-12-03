@@ -5,6 +5,8 @@ import FluentUI 1.0
 
 Item {
     property string  headerText: ""
+    property int headerHeight : 45
+    property Component headerDelegate: com_header
     property bool expand: false
     property int contentHeight : 300
     default property alias content: container.data
@@ -21,10 +23,23 @@ Item {
         }
     }
     clip: true
+    Component {
+        id: com_header
+        Item {
+            FluText {
+                text: control.headerText
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: 15
+                }
+            }
+        }
+    }
     Rectangle{
         id:layout_header
         width: parent.width
-        height: 45
+        height: control.headerHeight
         radius: 4
         border.color: FluTheme.dividerColor
         color: {
@@ -41,15 +56,17 @@ Item {
                 d.toggle()
             }
         }
-        FluText{
-            text: headerText
-            anchors{
-                verticalCenter: parent.verticalCenter
+        FluLoader {
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
                 left: parent.left
-                leftMargin: 15
+                right: btn_toggle.left
             }
+            sourceComponent: control.headerDelegate
         }
         FluIconButton{
+            id: btn_toggle
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
