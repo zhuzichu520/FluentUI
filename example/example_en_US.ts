@@ -1314,6 +1314,26 @@ Since that moment, I have been tormented day and night by the fear that I might 
 My only desire is to be permitted to drive out the traitors and restore the Han. If I should let you down, punish my offense and report it to the spirit of the late Emperor. If those three advisors should fail in their duties, then they should be punished for their negligence.Your Majesty, consider your course of action carefully. Seek out good advice, and never forget the late Emperor. I depart now on a long expedition, and I will be forever grateful if you heed my advice. Blinded by my own tears, I know not what I write.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_Expander.qml" line="152"/>
+        <source>Check for Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Expander.qml" line="207"/>
+        <source>This is a ToggleButton in the header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Expander.qml" line="215"/>
+        <source>This is a StandardButton in the content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Expander.qml" line="217"/>
+        <source>Click StandardButton</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_FlipView</name>
