@@ -1,4 +1,4 @@
-#include "FluTreeModel.h"
+﻿#include "FluTreeModel.h"
 
 #include <QMetaEnum>
 
@@ -126,6 +126,7 @@ void FluTreeModel::setDataSource(QList<QMap<QString, QVariant>> data) {
             node->_parent = _root;
             _root->_children.append(node);
         }
+        node->_checked = item.value("checked").toBool();
         _dataSource.append(node);
         if (item.contains("children")) {
             QList<QVariant> children = item.value("children").toList();
