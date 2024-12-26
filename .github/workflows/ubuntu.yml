@@ -69,6 +69,11 @@ jobs:
       - name: Check if svg file exists
         run: if [ ! -f "${targetName}.svg" ]; then echo "File not found, creating..."; touch ${targetName}.svg; fi
 
+      - name: Copy translation files
+        run: |
+          mkdir -p bin/release/usr/bin/
+          cp -r bin/Release/i18n/ bin/release/usr/bin/i18n/
+
       - name: package
         run: |
           # make sure Qt plugin finds QML sources so it can deploy the imported files
