@@ -282,7 +282,22 @@ QString FluTools::getWallpaperFilePath() {
             auto path = result.mid(startIndex + 7, result.length() - startIndex - 8);
             return path;
         }
+    } else if (type == "ubuntu") {
+        QProcess process;
+        QStringList args;
+        args << "get";
+        args << "org.gnome.desktop.background";
+        args << "picture-uri";
+        process.start("gsettings", args);
+        process.waitForFinished();
+        QByteArray result = process.readAllStandardOutput().trimmed();
+        result = result.mid(1, result.length() - 2);
+        if (result.startsWith("file:///")) {
+            auto path = result.mid(7);
+            return path;
+        }
     }
+    return {};
 #elif defined(Q_OS_MACOS)
     QProcess process;
     QStringList args;
