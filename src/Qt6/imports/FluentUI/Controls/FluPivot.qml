@@ -32,21 +32,15 @@ Page {
         interactive: false
         orientation: ListView.Horizontal
         highlightMoveDuration: FluTheme.animationEnabled ? 167 : 0
+        highlightResizeDuration: FluTheme.animationEnabled ? 167 : 0
         highlight: Item{
             clip: true
             Rectangle{
                 height: 3
                 radius: 1.5
                 color: FluTheme.primaryColor
-                width: nav_list.currentItem ? nav_list.currentItem.width : 0
+                width: nav_list.currentItem.width
                 y:d.tabY
-                Behavior on width {
-                    enabled: FluTheme.animationEnabled
-                    NumberAnimation{
-                        duration: 167
-                        easing.type: Easing.OutCubic
-                    }
-                }
             }
         }
         delegate: Button{
