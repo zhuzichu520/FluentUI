@@ -47,6 +47,17 @@ Button{
         implicitWidth: 326
         implicitHeight: 560
         closePolicy: Popup.CloseOnEscape
+        onClosed: {
+            text_box_r.focus = false;
+            text_box_g.focus = false;
+            text_box_b.focus = false;
+            text_box_a.focus = false;
+            text_box_color.focus = false;
+        }
+        onOpened: {
+            layout_color_hue.updateColorText(current);
+            text_box_color.textEdited();
+        }
         Rectangle{
             id:layout_actions
             width: parent.width
@@ -148,7 +159,9 @@ Button{
                             if(color.a===1){
                                 colorString = "FF"+colorString
                             }
-                            text_box_color.text = colorString.toUpperCase()
+                            if (!text_box_color.activeFocus) {
+                                text_box_color.text = colorString.toUpperCase();
+                            }
                         }
                         property color blackColor: {
                             var c = whiteColor
@@ -279,6 +292,11 @@ Button{
                         preventStealing: true
                         function handleMouse(mouse) {
                             if (mouse.buttons & Qt.LeftButton) {
+                                text_box_r.focus = false;
+                                text_box_g.focus = false;
+                                text_box_b.focus = false;
+                                text_box_a.focus = false;
+                                text_box_color.focus = false;
                                 pickerCursor.x = Math.max(0,Math.min(mouse.x - colorHandleRadius,width-2*colorHandleRadius));
                                 pickerCursor.y = Math.max(0,Math.min(mouse.y - colorHandleRadius,height-2*colorHandleRadius));
                             }
@@ -369,6 +387,11 @@ Button{
                             preventStealing: true
                             function handleMouse(mouse) {
                                 if (mouse.buttons & Qt.LeftButton) {
+                                    text_box_r.focus = false;
+                                    text_box_g.focus = false;
+                                    text_box_b.focus = false;
+                                    text_box_a.focus = false;
+                                    text_box_color.focus = false;
                                     blackCursor.x = Math.max(0,Math.min(mouse.x - 6,width-2*6));
                                     blackCursor.y = 0
                                 }
@@ -438,6 +461,11 @@ Button{
                             preventStealing: true
                             function handleMouse(mouse) {
                                 if (mouse.buttons & Qt.LeftButton) {
+                                    text_box_r.focus = false;
+                                    text_box_g.focus = false;
+                                    text_box_b.focus = false;
+                                    text_box_a.focus = false;
+                                    text_box_color.focus = false;
                                     opacityCursor.x = Math.max(0,Math.min(mouse.x - 6,width-2*6));
                                     opacityCursor.y = 0
                                 }
@@ -472,7 +500,7 @@ Button{
                             id:text_box_color
                             width: 136
                             validator: RegularExpressionValidator {
-                                regularExpression: /^[0-9A-F]{8}$/
+                                regularExpression: /^[0-9A-Fa-f]{8}$/
                             }
                             anchors{
                                 right: parent.right
@@ -495,6 +523,11 @@ Button{
                                                 parseInt(colorString.substring(6, 8), 16) / 255,
                                                 parseInt(colorString.substring(0, 2), 16) / 255)
                                     layout_color_hue.colorValue = c
+                                    layout_color_hue.updateColorText(c);
+                                    text_box_r.textEdited();
+                                    text_box_g.textEdited();
+                                    text_box_b.textEdited();
+                                    text_box_a.textEdited();
                                 }
                             }
                         }
