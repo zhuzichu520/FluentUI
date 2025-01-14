@@ -24,8 +24,8 @@ else ()
 endif ()
 
 #导入Qt相关依赖包
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network Widgets)
 
 #添加国际化脚本
 find_program(QT_LUPDATE NAMES lupdate lupdate-qt6)
@@ -141,6 +141,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt${QT_VERSION_MAJOR}::Quick
         Qt${QT_VERSION_MAJOR}::Svg
         Qt${QT_VERSION_MAJOR}::Network
+	Qt${QT_VERSION_MAJOR}::Widgets
         fluentuiplugin
 )
 
