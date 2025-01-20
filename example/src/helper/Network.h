@@ -144,7 +144,7 @@ private:
     explicit Network(QObject *parent = nullptr);
 
 public:
-    SINGLETON(Network)
+    EXAMPLESINGLETON(Network)
 
     static Network *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine) {
         return getInstance();
