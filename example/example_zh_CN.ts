@@ -1641,7 +1641,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="59"/>
         <source>Manually close the info message box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">手动关闭信息栏</translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="64"/>
@@ -1667,7 +1667,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="95"/>
         <source>clear all info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">清除所有信息栏</translation>
     </message>
     <message>
         <source>Loading...</source>
