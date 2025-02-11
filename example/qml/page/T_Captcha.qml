@@ -45,7 +45,7 @@ FluScrollablePage{
             Layout.preferredWidth: 240
         }
         FluButton{
-            text:"verify"
+            text: qsTr("verify")
             onClicked: {
                 var success =  captcha.verify(text_box.text)
                 if(success){

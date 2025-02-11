@@ -1063,6 +1063,11 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_Captcha.qml" line="48"/>
+        <source>verify</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="qml/page/T_Captcha.qml" line="52"/>
         <source>The verification code is correct</source>
         <translation type="unfinished"></translation>
@@ -1817,6 +1822,31 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <source>QRCode</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="27"/>
+        <source>text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="41"/>
+        <source>color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="54"/>
+        <source>bgColor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="66"/>
+        <source>margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="80"/>
+        <source>size:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_RadarChart</name>
@@ -2387,6 +2417,27 @@ Some contents...</source>
         <source>clear</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="130"/>
+        <source>mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="137"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="144"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="135"/>
+        <location filename="qml/page/T_Timeline.qml" line="151"/>
+        <source>Alternate</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_ToggleSwitch</name>
@@ -2539,6 +2590,31 @@ Some contents...</source>
     <message>
         <location filename="qml/page/T_Typography.qml" line="10"/>
         <source>Typography</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="39"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="45"/>
+        <source>Subtitle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="51"/>
+        <source>Body Strong</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="57"/>
+        <source>Body</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="63"/>
+        <source>Caption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
