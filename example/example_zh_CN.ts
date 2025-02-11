@@ -124,7 +124,7 @@
     <message>
         <location filename="qml/window/HotkeyWindow.qml" line="11"/>
         <source>Hotkey</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">热键</translation>
     </message>
 </context>
 <context>
@@ -981,7 +981,7 @@ Updated content:
     <message>
         <location filename="qml/page/T_Buttons.qml" line="277"/>
         <source>IconOnly</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">仅图标</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="280"/>
@@ -991,7 +991,7 @@ Updated content:
     <message>
         <location filename="qml/page/T_Buttons.qml" line="287"/>
         <source>TextOnly</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">仅文字</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="290"/>
@@ -1001,7 +1001,7 @@ Updated content:
     <message>
         <location filename="qml/page/T_Buttons.qml" line="297"/>
         <source>TextBesideIcon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文字加图标</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="300"/>
@@ -1011,7 +1011,7 @@ Updated content:
     <message>
         <location filename="qml/page/T_Buttons.qml" line="307"/>
         <source>TextUnderIcon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文字位于图标下方</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="310"/>
@@ -1026,37 +1026,37 @@ Updated content:
     <message>
         <location filename="qml/page/T_Buttons.qml" line="347"/>
         <source>Menu_1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">菜单_1</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="350"/>
         <source>Menu_2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">菜单_2</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="353"/>
         <source>Menu_3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">菜单_3</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="356"/>
         <source>Menu_4</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">菜单_4</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="404"/>
         <source>Radio Button_1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="407"/>
         <source>Radio Button_2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="410"/>
         <source>Radio Button_3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">单选按钮_3</translation>
     </message>
 </context>
 <context>
@@ -1088,6 +1088,11 @@ Updated content:
         <location filename="qml/page/T_Captcha.qml" line="44"/>
         <source>Please enter a verification code</source>
         <translation type="unfinished">请输入验证码</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Captcha.qml" line="48"/>
+        <source>verify</source>
+        <translation type="unfinished">验证</translation>
     </message>
     <message>
         <location filename="qml/page/T_Captcha.qml" line="52"/>
@@ -1123,7 +1128,7 @@ Updated content:
     <message>
         <location filename="qml/page/T_CheckBox.qml" line="18"/>
         <source>A 2-state CheckBox</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">两状态复选框</translation>
     </message>
     <message>
         <location filename="qml/page/T_CheckBox.qml" line="32"/>
@@ -1144,12 +1149,12 @@ Updated content:
     <message>
         <location filename="qml/page/T_CheckBox.qml" line="64"/>
         <source>A 3-state CheckBox</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">三状态复选框</translation>
     </message>
     <message>
         <location filename="qml/page/T_CheckBox.qml" line="75"/>
         <source>Three State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">三状态</translation>
     </message>
 </context>
 <context>
@@ -1533,7 +1538,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_Home.qml" line="20"/>
         <source>The latest FluentUI Pro controls and styles for your applications.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最新的 FluentUI 控件和样式</translation>
     </message>
     <message>
         <location filename="qml/page/T_Home.qml" line="37"/>
@@ -1600,7 +1605,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="27"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">信息</translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="29"/>
@@ -1611,7 +1616,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="33"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">警告</translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="35"/>
@@ -1641,21 +1646,21 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="59"/>
         <source>Manually close the info message box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">手动关闭信息栏</translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="64"/>
         <location filename="qml/page/T_InfoBar.qml" line="75"/>
         <location filename="qml/page/T_InfoBar.qml" line="85"/>
         <source>close &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭 &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="64"/>
         <location filename="qml/page/T_InfoBar.qml" line="75"/>
         <location filename="qml/page/T_InfoBar.qml" line="85"/>
         <source>show &apos;%1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示 &apos;%1</translation>
     </message>
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="70"/>
@@ -1667,7 +1672,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_InfoBar.qml" line="95"/>
         <source>clear all info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">清除全部信息栏</translation>
     </message>
     <message>
         <source>Loading...</source>
@@ -1957,6 +1962,31 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <source>QRCode</source>
         <translation type="unfinished">二维码</translation>
     </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="27"/>
+        <source>text:</source>
+        <translation type="unfinished">文本：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="41"/>
+        <source>color:</source>
+        <translation type="unfinished">前景色：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="54"/>
+        <source>bgColor:</source>
+        <translation type="unfinished">背景色：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="66"/>
+        <source>margins:</source>
+        <translation type="unfinished">边距：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="80"/>
+        <source>size:</source>
+        <translation type="unfinished">尺寸：</translation>
+    </message>
 </context>
 <context>
     <name>T_RadarChart</name>
@@ -1996,21 +2026,21 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_RadioButton.qml" line="115"/>
         <location filename="qml/page/T_RadioButton.qml" line="166"/>
         <source>Radio Button_1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
         <location filename="qml/page/T_RadioButton.qml" line="67"/>
         <location filename="qml/page/T_RadioButton.qml" line="118"/>
         <location filename="qml/page/T_RadioButton.qml" line="169"/>
         <source>Radio Button_2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
         <location filename="qml/page/T_RadioButton.qml" line="70"/>
         <location filename="qml/page/T_RadioButton.qml" line="121"/>
         <location filename="qml/page/T_RadioButton.qml" line="172"/>
         <source>Radio Button_3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">单选按钮_3</translation>
     </message>
 </context>
 <context>
@@ -2569,6 +2599,27 @@ Some contents...</source>
         <source>clear</source>
         <translation type="unfinished">清空</translation>
     </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="130"/>
+        <source>mode:</source>
+        <translation type="unfinished">模式：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="137"/>
+        <source>Left</source>
+        <translation type="unfinished">左</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="144"/>
+        <source>Right</source>
+        <translation type="unfinished">右</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="135"/>
+        <location filename="qml/page/T_Timeline.qml" line="151"/>
+        <source>Alternate</source>
+        <translation type="unfinished">交替</translation>
+    </message>
 </context>
 <context>
     <name>T_ToggleSwitch</name>
@@ -2742,6 +2793,31 @@ Some contents...</source>
         <location filename="qml/page/T_Typography.qml" line="10"/>
         <source>Typography</source>
         <translation type="unfinished">字体</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="39"/>
+        <source>Title</source>
+        <translation type="unfinished">标题</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="45"/>
+        <source>Subtitle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="51"/>
+        <source>Body Strong</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="57"/>
+        <source>Body</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="63"/>
+        <source>Caption</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
