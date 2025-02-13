@@ -36,13 +36,13 @@ FluScrollablePage{
                 }
             }
             FluButton{
-                text:"Error"
+                text: qsTr("Error")
                 onClicked: {
                     showError(qsTr("This is an InfoBar in the Error Style"))
                 }
             }
             FluButton{
-                text:"Success"
+                text: qsTr("Success")
                 onClicked: {
                     showSuccess(qsTr("This is an InfoBar in the Success Style"))
                 }
@@ -61,34 +61,34 @@ FluScrollablePage{
             Row{
                 spacing: 5
                 FluButton{
-                    text: (info1 ? qsTr("close '%1'") : qsTr("show '%1")).arg("info1")
+                    text: (info1 ? qsTr("close '%1'") : qsTr("show '%1'")).arg(qsTr("info1"))
                     onClicked: {
                         if(info1) {
                             info1.close()
                             return
                         }
-                        info1 = showInfo(qsTr("This is an '%1'").arg("info1"), 0)
+                        info1 = showInfo(qsTr("This is an '%1'").arg(qsTr("info1")), 0)
                         info1.close()
                     }
                 }
                 FluButton{
-                    text: (info2 ? qsTr("close '%1'") : qsTr("show '%1")).arg("info2")
+                    text: (info2 ? qsTr("close '%1'") : qsTr("show '%1'")).arg(qsTr("info2"))
                     onClicked: {
                         if(info2) {
                             info2.close()
                             return
                         }
-                        info2 = showInfo(qsTr("This is an '%1'").arg("info2"), 0)
+                        info2 = showInfo(qsTr("This is an '%1'").arg(qsTr("info2")), 0)
                     }
                 }
                 FluButton{
-                    text: (info3 ? qsTr("close '%1'") : qsTr("show '%1")).arg("info3")
+                    text: (info3 ? qsTr("close '%1'") : qsTr("show '%1'")).arg(qsTr("info3"))
                     onClicked: {
                         if(info3) {
                             info3.close()
                             return
                         }
-                        info3 = showInfo(qsTr("This is an '%1'").arg("info3"), 0)
+                        info3 = showInfo(qsTr("This is an '%1'").arg(qsTr("info3")), 0)
                     }
                 }
                 FluButton{
@@ -100,7 +100,7 @@ FluScrollablePage{
             }
 
             FluButton{
-                text:"Loading"
+                text: qsTr("Loading")
                 onClicked: {
                     showLoading()
                 }

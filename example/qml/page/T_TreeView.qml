@@ -9,7 +9,6 @@ FluContentPage {
 
     title: qsTr("TreeView")
 
-
     function treeData(){
         const names = ["孙悟空", "猪八戒", "沙和尚", "唐僧","白骨夫人","金角大王","熊山君","黄风怪","银角大王"]
         function getRandomName(){
@@ -90,7 +89,7 @@ FluContentPage {
                 RowLayout{
                     spacing: 10
                     FluText{
-                        text: "cellHeight:"
+                        text: qsTr("cellHeight:")
                         Layout.alignment: Qt.AlignVCenter
                     }
                     FluSlider{
@@ -103,7 +102,7 @@ FluContentPage {
                 RowLayout{
                     spacing: 10
                     FluText{
-                        text: "depthPadding:"
+                        text: qsTr("depthPadding:")
                         Layout.alignment: Qt.AlignVCenter
                     }
                     FluSlider{
@@ -119,12 +118,12 @@ FluContentPage {
                 anchors.verticalCenter: parent.verticalCenter
                 FluToggleSwitch{
                     id: switch_showline
-                    text:"showLine"
+                    text: qsTr("showLine")
                     checked: false
                 }
                 FluToggleSwitch{
                     id: switch_checkable
-                    text:"checkable"
+                    text: qsTr("checkable")
                     checked: false
                 }
             }
@@ -132,20 +131,20 @@ FluContentPage {
                 spacing: 8
                 anchors.verticalCenter: parent.verticalCenter
                 FluButton{
-                    text: "all expand"
+                    text: qsTr("all expand")
                     onClicked: {
                         tree_view.allExpand()
                     }
                 }
                 FluButton{
-                    text: "all collapse"
+                    text: qsTr("all collapse")
                     onClicked: {
                         tree_view.allCollapse()
                     }
                 }
             }
             FluButton{
-                text: "print selection model"
+                text: qsTr("print selection model")
                 onClicked: {
                     var printData = []
                     var data = tree_view.selectionModel();

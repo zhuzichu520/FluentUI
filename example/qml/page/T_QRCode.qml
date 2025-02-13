@@ -24,7 +24,7 @@ FluScrollablePage{
         spacing: 10
         Layout.topMargin: 20
         FluText{
-            text:"text:"
+            text: qsTr("text:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluTextBox{
@@ -38,7 +38,7 @@ FluScrollablePage{
         spacing: 10
         Layout.topMargin: 10
         FluText{
-            text:"color:"
+            text: qsTr("color:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluColorPicker{
@@ -51,7 +51,7 @@ FluScrollablePage{
         spacing: 10
         Layout.topMargin: 10
         FluText{
-            text:"bgColor:"
+            text: qsTr("bgColor:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluColorPicker{
@@ -63,7 +63,7 @@ FluScrollablePage{
     RowLayout{
         spacing: 10
         FluText{
-            text:"margins:"
+            text: qsTr("margins:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluSlider{
@@ -77,7 +77,7 @@ FluScrollablePage{
     RowLayout{
         spacing: 10
         FluText{
-            text:"size:"
+            text: qsTr("size:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluSlider{

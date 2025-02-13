@@ -17,15 +17,15 @@ FluScrollablePage{
             spacing: 5
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text: "editable=false"
+                text: qsTr("editable=false")
                 x:10
             }
             FluComboBox {
                 model: ListModel {
                     id: model_1
-                    ListElement { text: "Banana" }
-                    ListElement { text: "Apple" }
-                    ListElement { text: "Coconut" }
+                    ListElement { text: qsTr("Banana") }
+                    ListElement { text: qsTr("Apple") }
+                    ListElement { text: qsTr("Coconut") }
                 }
             }
         }
@@ -40,16 +40,16 @@ FluScrollablePage{
             spacing: 5
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text: "disabled=true"
+                text: qsTr("disabled=true")
                 x:10
             }
             FluComboBox {
                 disabled: true
                 model: ListModel {
                     id: model_2
-                    ListElement { text: "Banana" }
-                    ListElement { text: "Apple" }
-                    ListElement { text: "Coconut" }
+                    ListElement { text: qsTr("Banana") }
+                    ListElement { text: qsTr("Apple") }
+                    ListElement { text: qsTr("Coconut") }
                 }
             }
         }
@@ -64,16 +64,16 @@ FluScrollablePage{
             spacing: 5
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text: "editable=true"
+                text: qsTr("editable=true")
                 x:5
             }
             FluComboBox {
                 editable: true
                 model: ListModel {
                     id: model_3
-                    ListElement { text: "Banana" }
-                    ListElement { text: "Apple" }
-                    ListElement { text: "Coconut" }
+                    ListElement { text: qsTr("Banana") }
+                    ListElement { text: qsTr("Apple") }
+                    ListElement { text: qsTr("Coconut") }
                 }
                 onAccepted: {
                     if (find(editText) === -1)
@@ -85,19 +85,21 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -6
-        code:'FluComboBox{
+        code:qsTr('FluComboBox{
     editable: true
     model: ListModel {
         id: model
-        ListElement { text: "Banana" }
-        ListElement { text: "Apple" }
-        ListElement { text: "Coconut" }
+        ListElement { text: "%1" }
+        ListElement { text: "%2" }
+        ListElement { text: "%3" }
     }
     onAccepted: {
         if (find(editText) === -1)
             model.append({text: editText})
     }
-}'
+}').arg(qsTr("Banana"))
+   .arg(qsTr("Apple"))
+   .arg(qsTr("Coconut"))
     }
 
 }

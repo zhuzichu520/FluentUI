@@ -12,7 +12,7 @@ FluScrollablePage{
     Component.onCompleted: {
         var items = []
         for(var i=0;i<10;i++){
-            items.push({title:"Item_"+(i+1)})
+            items.push({title: qsTr("Item_%1").arg(i+1)})
         }
         breadcrumb_1.items = items
         breadcrumb_2.items = items
@@ -51,7 +51,7 @@ FluScrollablePage{
                 onClicked:{
                     var items = []
                     for(var i=0;i<10;i++){
-                        items.push({title:"Item_"+(i+1)})
+                        items.push({title: qsTr("Item_")+(i+1)})
                     }
                      breadcrumb_2.items = items
                 }

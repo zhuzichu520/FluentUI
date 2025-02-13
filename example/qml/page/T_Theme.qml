@@ -154,12 +154,12 @@ FluScrollablePage{
                 }
             }
             FluText{
-                visible: FluTheme.blurBehindWindowEnabled || window.effect === "dwm-blur"
+                visible: FluTheme.blurBehindWindowEnabled || window.effect === qsTr("dwm-blur")
                 text: qsTr("window tintOpacity")
                 Layout.topMargin: 20
             }
             FluSlider{
-                visible: FluTheme.blurBehindWindowEnabled || window.effect === "dwm-blur"
+                visible: FluTheme.blurBehindWindowEnabled || window.effect === qsTr("dwm-blur")
                 Layout.topMargin: 5
                 to:1
                 stepSize:0.1

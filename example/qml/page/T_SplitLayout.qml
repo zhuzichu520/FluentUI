@@ -15,21 +15,21 @@ FluContentPage{
             top: parent.top
         }
         FluText{
-            text:"orientation:"
+            text: qsTr("orientation:")
         }
         FluDropDownButton{
             id:btn_orientation
             Layout.preferredWidth: 120
-            text:"Horizontal"
+            text: qsTr("Horizontal")
             FluMenuItem{
-                text:"Horizontal"
+                text: qsTr("Horizontal")
                 onClicked: {
                     btn_orientation.text = text
                     split_layout.orientation = Qt.Horizontal
                 }
             }
             FluMenuItem{
-                text:"Vertical"
+                text: qsTr("Vertical")
                 onClicked: {
                     btn_orientation.text = text
                     split_layout.orientation = Qt.Vertical
@@ -54,7 +54,7 @@ FluContentPage{
             SplitView.maximumWidth: 400
             SplitView.maximumHeight: 400
             FluText {
-                text: "Page 1"
+                text: qsTr("Page 1")
                 anchors.centerIn: parent
             }
         }
@@ -66,7 +66,7 @@ FluContentPage{
             SplitView.fillWidth: true
             SplitView.fillHeight: true
             FluText {
-                text: "Page 2"
+                text: qsTr("Page 2")
                 anchors.centerIn: parent
             }
         }
@@ -75,7 +75,7 @@ FluContentPage{
             implicitWidth: 200
             implicitHeight: 200
             FluText {
-                text: "Page 3"
+                text: qsTr("Page 3")
                 anchors.centerIn: parent
             }
         }
