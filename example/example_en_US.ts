@@ -831,7 +831,23 @@ Updated content:
     <name>T_Acrylic</name>
     <message>
         <location filename="qml/page/T_Acrylic.qml" line="10"/>
+        <location filename="qml/page/T_Acrylic.qml" line="72"/>
         <source>Acrylic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Acrylic.qml" line="15"/>
+        <source>tintColor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Acrylic.qml" line="25"/>
+        <source>tintOpacity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Acrylic.qml" line="36"/>
+        <source>blurRadius:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -864,8 +880,19 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_BreadcrumbBar.qml" line="15"/>
+        <source>Item_%1</source>
+        <oldsource>Item_&apos;%1&apos;</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="qml/page/T_BreadcrumbBar.qml" line="50"/>
         <source>Reset sample</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BreadcrumbBar.qml" line="54"/>
+        <source>Item_</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1063,6 +1090,11 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_Captcha.qml" line="48"/>
+        <source>verify</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="qml/page/T_Captcha.qml" line="52"/>
         <source>The verification code is correct</source>
         <translation type="unfinished"></translation>
@@ -1156,6 +1188,62 @@ Updated content:
     <message>
         <location filename="qml/page/T_ComboBox.qml" line="10"/>
         <source>ComboBox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ComboBox.qml" line="20"/>
+        <source>editable=false</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ComboBox.qml" line="26"/>
+        <location filename="qml/page/T_ComboBox.qml" line="50"/>
+        <location filename="qml/page/T_ComboBox.qml" line="74"/>
+        <location filename="qml/page/T_ComboBox.qml" line="100"/>
+        <source>Banana</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ComboBox.qml" line="27"/>
+        <location filename="qml/page/T_ComboBox.qml" line="51"/>
+        <location filename="qml/page/T_ComboBox.qml" line="75"/>
+        <location filename="qml/page/T_ComboBox.qml" line="101"/>
+        <source>Apple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ComboBox.qml" line="28"/>
+        <location filename="qml/page/T_ComboBox.qml" line="52"/>
+        <location filename="qml/page/T_ComboBox.qml" line="76"/>
+        <location filename="qml/page/T_ComboBox.qml" line="102"/>
+        <source>Coconut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ComboBox.qml" line="43"/>
+        <source>disabled=true</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ComboBox.qml" line="67"/>
+        <source>editable=true</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ComboBox.qml" line="88"/>
+        <source>FluComboBox{
+    editable: true
+    model: ListModel {
+        id: model
+        ListElement { text: &quot;%1&quot; }
+        ListElement { text: &quot;%2&quot; }
+        ListElement { text: &quot;%3&quot; }
+    }
+    onAccepted: {
+        if (find(editText) === -1)
+            model.append({text: editText})
+    }
+}</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1493,8 +1581,18 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_InfoBar.qml" line="39"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="qml/page/T_InfoBar.qml" line="41"/>
         <source>This is an InfoBar in the Error Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="45"/>
+        <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1528,7 +1626,7 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <location filename="qml/page/T_InfoBar.qml" line="64"/>
         <location filename="qml/page/T_InfoBar.qml" line="75"/>
         <location filename="qml/page/T_InfoBar.qml" line="85"/>
-        <source>show &apos;%1</source>
+        <source>show &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1539,8 +1637,31 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_InfoBar.qml" line="64"/>
+        <location filename="qml/page/T_InfoBar.qml" line="70"/>
+        <source>info1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="75"/>
+        <location filename="qml/page/T_InfoBar.qml" line="81"/>
+        <source>info2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="85"/>
+        <location filename="qml/page/T_InfoBar.qml" line="91"/>
+        <source>info3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="qml/page/T_InfoBar.qml" line="95"/>
         <source>clear all info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_InfoBar.qml" line="103"/>
+        <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1817,6 +1938,31 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <source>QRCode</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="27"/>
+        <source>text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="41"/>
+        <source>color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="54"/>
+        <source>bgColor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="66"/>
+        <source>margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_QRCode.qml" line="80"/>
+        <source>size:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_RadarChart</name>
@@ -2058,6 +2204,37 @@ Some contents...</source>
         <source>SplitLayout</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_SplitLayout.qml" line="18"/>
+        <source>orientation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SplitLayout.qml" line="23"/>
+        <location filename="qml/page/T_SplitLayout.qml" line="25"/>
+        <source>Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SplitLayout.qml" line="32"/>
+        <source>Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SplitLayout.qml" line="57"/>
+        <source>Page 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SplitLayout.qml" line="69"/>
+        <source>Page 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_SplitLayout.qml" line="78"/>
+        <source>Page 3</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_StaggeredLayout</name>
@@ -2074,6 +2251,27 @@ Some contents...</source>
         <source>StatusLayout</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_StatusLayout.qml" line="22"/>
+        <location filename="qml/page/T_StatusLayout.qml" line="24"/>
+        <source>Loading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_StatusLayout.qml" line="31"/>
+        <source>Empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_StatusLayout.qml" line="38"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_StatusLayout.qml" line="45"/>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_TabView</name>
@@ -2085,6 +2283,48 @@ Some contents...</source>
     <message>
         <location filename="qml/page/T_TabView.qml" line="23"/>
         <source>Document </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="39"/>
+        <source>Tab Width Behavior:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="45"/>
+        <location filename="qml/page/T_TabView.qml" line="47"/>
+        <source>Equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="54"/>
+        <source>SizeToContent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="61"/>
+        <source>Compact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="69"/>
+        <source>Tab Close Button Visibility:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="74"/>
+        <location filename="qml/page/T_TabView.qml" line="84"/>
+        <source>Always</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="77"/>
+        <source>Never</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TabView.qml" line="91"/>
+        <source>OnHover</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2296,6 +2536,12 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_Theme.qml" line="157"/>
+        <location filename="qml/page/T_Theme.qml" line="162"/>
+        <source>dwm-blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="qml/page/T_Theme.qml" line="158"/>
         <source>window tintOpacity</source>
         <translation type="unfinished"></translation>
@@ -2385,6 +2631,27 @@ Some contents...</source>
     <message>
         <location filename="qml/page/T_Timeline.qml" line="120"/>
         <source>clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="130"/>
+        <source>mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="137"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="144"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Timeline.qml" line="135"/>
+        <location filename="qml/page/T_Timeline.qml" line="151"/>
+        <source>Alternate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2514,22 +2781,57 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="183"/>
+        <location filename="qml/page/T_TreeView.qml" line="92"/>
+        <source>cellHeight:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="105"/>
+        <source>depthPadding:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="121"/>
+        <source>showLine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="126"/>
+        <source>checkable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="134"/>
+        <source>all expand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="140"/>
+        <source>all collapse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="147"/>
+        <source>print selection model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TreeView.qml" line="182"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="187"/>
+        <location filename="qml/page/T_TreeView.qml" line="186"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="191"/>
+        <location filename="qml/page/T_TreeView.qml" line="190"/>
         <source>Avatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TreeView.qml" line="195"/>
+        <location filename="qml/page/T_TreeView.qml" line="194"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2541,12 +2843,87 @@ Some contents...</source>
         <source>Typography</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="27"/>
+        <source>Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="33"/>
+        <source>Title Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="39"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="45"/>
+        <source>Subtitle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="51"/>
+        <source>Body Strong</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="57"/>
+        <source>Body</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Typography.qml" line="63"/>
+        <source>Caption</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_Watermark</name>
     <message>
         <location filename="qml/page/T_Watermark.qml" line="10"/>
         <source>Watermark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="25"/>
+        <source>text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="38"/>
+        <source>textSize:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="51"/>
+        <source>gapX:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="62"/>
+        <source>gapY:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="73"/>
+        <source>offsetX:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="84"/>
+        <source>offsetY:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="95"/>
+        <source>rotate:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Watermark.qml" line="108"/>
+        <source>textColor:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

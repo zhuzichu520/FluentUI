@@ -24,43 +24,43 @@ FluContentPage {
             transformOrigin: Item.TopLeft
             FluText{
                 id:text_Display
-                text:"Display"
+                text: qsTr("Display")
                 padding: 0
                 font: FluTextStyle.Display
             }
             FluText{
                 id:text_TitleLarge
-                text:"Title Large"
+                text: qsTr("Title Large")
                 padding: 0
                 font: FluTextStyle.TitleLarge
             }
             FluText{
                 id:text_Title
-                text:"Title"
+                text: qsTr("Title")
                 padding: 0
                 font: FluTextStyle.Title
             }
             FluText{
                 id:text_Subtitle
-                text:"Subtitle"
+                text:  qsTr("Subtitle")
                 padding: 0
                 font: FluTextStyle.Subtitle
             }
             FluText{
                 id:text_BodyStrong
-                text:"Body Strong"
+                text: qsTr("Body Strong")
                 padding: 0
                 font: FluTextStyle.BodyStrong
             }
             FluText{
                 id:text_Body
-                text:"Body"
+                text: qsTr("Body")
                 padding: 0
                 font: FluTextStyle.Body
             }
             FluText{
                 id:text_Caption
-                text:"Caption"
+                text: qsTr("Caption")
                 padding: 0
                 font: FluTextStyle.Caption
             }

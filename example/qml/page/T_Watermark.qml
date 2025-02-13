@@ -22,7 +22,7 @@ FluContentPage{
                 spacing: 10
                 Layout.topMargin: 14
                 FluText{
-                    text: "text:"
+                    text: qsTr("text:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluTextBox{
@@ -35,7 +35,7 @@ FluContentPage{
             RowLayout{
                 spacing: 10
                 FluText{
-                    text: "textSize:"
+                    text: qsTr("textSize:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluSlider{
@@ -48,7 +48,7 @@ FluContentPage{
             RowLayout{
                 spacing: 10
                 FluText{
-                    text: "gapX:"
+                    text: qsTr("gapX:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluSlider{
@@ -59,7 +59,7 @@ FluContentPage{
             RowLayout{
                 spacing: 10
                 FluText{
-                    text: "gapY:"
+                    text: qsTr("gapY:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluSlider{
@@ -70,7 +70,7 @@ FluContentPage{
             RowLayout{
                 spacing: 10
                 FluText{
-                    text: "offsetX:"
+                    text: qsTr("offsetX:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluSlider{
@@ -81,7 +81,7 @@ FluContentPage{
             RowLayout{
                 spacing: 10
                 FluText{
-                    text: "offsetY:"
+                    text: qsTr("offsetY:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluSlider{
@@ -92,7 +92,7 @@ FluContentPage{
             RowLayout{
                 spacing: 10
                 FluText{
-                    text: "rotate:"
+                    text: qsTr("rotate:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluSlider{
@@ -105,7 +105,7 @@ FluContentPage{
             RowLayout{
                 spacing: 10
                 FluText{
-                    text: "textColor:"
+                    text: qsTr("textColor:")
                     Layout.alignment: Qt.AlignVCenter
                 }
                 FluColorPicker{

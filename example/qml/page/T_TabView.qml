@@ -35,52 +35,58 @@ FluScrollablePage{
         padding: 10
         RowLayout{
             spacing: 14
+            FluCopyableText{
+                text: qsTr("Tab Width Behavior:")
+            }
             FluDropDownButton{
                 id:btn_tab_width_behavior
                 Layout.preferredWidth: 140
-                text:"Equal"
+                text:  qsTr("Equal")
                 FluMenuItem{
-                    text:"Equal"
+                    text: qsTr("Equal")
                     onClicked: {
                         btn_tab_width_behavior.text = text
                         tab_view.tabWidthBehavior = FluTabViewType.Equal
                     }
                 }
                 FluMenuItem{
-                    text:"SizeToContent"
+                    text: qsTr("SizeToContent")
                     onClicked: {
                         btn_tab_width_behavior.text = text
                         tab_view.tabWidthBehavior = FluTabViewType.SizeToContent
                     }
                 }
                 FluMenuItem{
-                    text:"Compact"
+                    text: qsTr("Compact")
                     onClicked: {
                         btn_tab_width_behavior.text = text
                         tab_view.tabWidthBehavior = FluTabViewType.Compact
                     }
                 }
             }
+            FluCopyableText{
+                text: qsTr("Tab Close Button Visibility:")
+            }
             FluDropDownButton{
                 id:btn_close_button_visibility
-                text:"Always"
+                text: qsTr("Always")
                 Layout.preferredWidth: 120
                 FluMenuItem{
-                    text:"Never"
+                    text: qsTr("Never")
                     onClicked: {
                         btn_close_button_visibility.text = text
                         tab_view.closeButtonVisibility = FluTabViewType.Never
                     }
                 }
                 FluMenuItem{
-                    text:"Always"
+                    text: qsTr("Always")
                     onClicked: {
                         btn_close_button_visibility.text = text
                         tab_view.closeButtonVisibility = FluTabViewType.Always
                     }
                 }
                 FluMenuItem{
-                    text:"OnHover"
+                    text: qsTr("OnHover")
                     onClicked: {
                         btn_close_button_visibility.text = text
                         tab_view.closeButtonVisibility = FluTabViewType.OnHover

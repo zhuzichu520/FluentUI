@@ -127,28 +127,28 @@ FluScrollablePage{
     RowLayout{
         Layout.topMargin: 10
         FluText{
-            text:"mode:"
+            text: qsTr("mode:")
         }
         FluDropDownButton{
             id: btn_mode
             Layout.preferredWidth: 100
-            text: "Alternate"
+            text:  qsTr("Alternate")
             FluMenuItem{
-                text: "Left"
+                text: qsTr("Left")
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Left
                 }
             }
             FluMenuItem{
-                text: "Right"
+                text: qsTr("Right")
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Right
                 }
             }
             FluMenuItem{
-                text: "Alternate"
+                text: qsTr("Alternate")
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Alternate

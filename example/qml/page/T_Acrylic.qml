@@ -12,7 +12,7 @@ FluScrollablePage{
     RowLayout{
         spacing: 10
         FluText{
-            text:"tintColor:"
+            text: qsTr("tintColor:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluColorPicker{
@@ -22,7 +22,7 @@ FluScrollablePage{
     RowLayout{
         spacing: 10
         FluText{
-            text:"tintOpacity:"
+            text: qsTr("tintOpacity:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluSlider{
@@ -33,7 +33,7 @@ FluScrollablePage{
     RowLayout{
         spacing: 10
         FluText{
-            text:"blurRadius:"
+            text: qsTr("blurRadius:")
             Layout.alignment: Qt.AlignVCenter
         }
         FluSlider{
@@ -69,7 +69,7 @@ FluScrollablePage{
                 y:(image.height-height)/2
                 FluText {
                     anchors.centerIn: parent
-                    text: "Acrylic"
+                    text: qsTr("Acrylic")
                     color: "#FFFFFF"
                     font: FluTextStyle.Subtitle
                 }

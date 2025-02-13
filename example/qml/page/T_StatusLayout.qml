@@ -19,30 +19,30 @@ FluScrollablePage{
             FluDropDownButton{
                 id:btn_status_mode
                 Layout.preferredWidth: 140
-                text:"Loading"
+                text: qsTr("Loading")
                 FluMenuItem{
-                    text:"Loading"
+                    text: qsTr("Loading")
                     onClicked: {
                         btn_status_mode.text = text
                         status_view.statusMode = FluStatusLayoutType.Loading
                     }
                 }
                 FluMenuItem{
-                    text:"Empty"
+                    text: qsTr("Empty")
                     onClicked: {
                         btn_status_mode.text = text
                         status_view.statusMode = FluStatusLayoutType.Empty
                     }
                 }
                 FluMenuItem{
-                    text:"Error"
+                    text: qsTr("Error")
                     onClicked: {
                         btn_status_mode.text = text
                         status_view.statusMode = FluStatusLayoutType.Error
                     }
                 }
                 FluMenuItem{
-                    text:"Success"
+                    text: qsTr("Success")
                     onClicked: {
                         btn_status_mode.text = text
                         status_view.statusMode = FluStatusLayoutType.Success
