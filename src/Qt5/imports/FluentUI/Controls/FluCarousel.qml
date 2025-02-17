@@ -95,7 +95,9 @@ Item {
                 currentIndex = 1
             }
             d.flagXChanged = false
-            timer_run.restart()
+            if(d.isAnimEnable){
+                timer_run.restart()
+            }
         }
         onMovementStarted: {
             d.flagXChanged = true
