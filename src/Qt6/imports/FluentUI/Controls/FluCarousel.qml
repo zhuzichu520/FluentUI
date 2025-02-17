@@ -24,7 +24,7 @@ Item {
     }
     QtObject{
         id:d
-        property bool flagXChanged: true
+        property bool flagXChanged: false
         property bool isAnimEnable: control.autoPlay && list_view.count>3
         function setData(data){
             if(!data){
@@ -88,14 +88,17 @@ Item {
             }
         }
         onMovementEnded:{
+            d.flagXChanged = false
+            list_view.highlightMoveDuration = 0
             currentIndex = list_view.contentX/list_view.width
             if(currentIndex === 0){
                 currentIndex = list_view.count-2
             }else if(currentIndex === list_view.count-1){
                 currentIndex = 1
             }
-            d.flagXChanged = false
-            timer_run.restart()
+            if(d.isAnimEnable){
+                timer_run.restart()
+            }
         }
         onMovementStarted: {
             d.flagXChanged = true
@@ -104,12 +107,12 @@ Item {
         onContentXChanged: {
             if(d.flagXChanged){
                 var maxX = Math.min(list_view.width*(currentIndex+1),list_view.count*list_view.width)
-                var minY = Math.max(0,(list_view.width*(currentIndex-1)))
+                var minX = Math.max(0,(list_view.width*(currentIndex-1)))
                 if(contentX>=maxX){
                     contentX = maxX
                 }
-                if(contentX<=minY){
-                    contentX = minY
+                if(contentX<=minX){
+                    contentX = minX
                 }
             }
         }
