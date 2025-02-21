@@ -4,22 +4,22 @@
  * @brief The Singleton class
  */
 template <typename T>
-class Singleton {
+class ExampleSingleton {
 public:
     static T *getInstance();
 };
 
 template <typename T>
-T *Singleton<T>::getInstance() {
+T *ExampleSingleton<T>::getInstance() {
     static T *instance = new T();
     return instance;
 }
 
-#define SINGLETON(Class)                                                                           \
+#define EXAMPLESINGLETON(Class)                                                                           \
 private:                                                                                           \
-    friend class Singleton<Class>;                                                                 \
+    friend class ExampleSingleton<Class>;                                                                 \
                                                                                                    \
 public:                                                                                            \
     static Class *getInstance() {                                                                  \
-        return Singleton<Class>::getInstance();                                                    \
+        return ExampleSingleton<Class>::getInstance();                                                    \
     }
