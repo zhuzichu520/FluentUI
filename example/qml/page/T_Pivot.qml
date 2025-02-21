@@ -49,26 +49,26 @@ FluScrollablePage{
         Layout.topMargin: -6
         code:'FluPivot{
     anchors.fill: parent
-    FluPivotItem:{
-        text: qsTr("All")
+    FluPivotItem {
+        title: qsTr("All")
         contentItem: FluText{
             text: qsTr("All emails go here.")
         }
     }
-    FluPivotItem:{
-        text: qsTr("Unread")
+    FluPivotItem {
+        title: qsTr("Unread")
         contentItem: FluText{
             text: qsTr("Unread emails go here.")
         }
     }
-    FluPivotItem:{
-        text: qsTr("Flagged")
+    FluPivotItem {
+        title: qsTr("Flagged")
         contentItem: FluText{
             text: qsTr("Flagged emails go here.")
         }
     }
-    FluPivotItem:{
-        text: qsTr("Urgent")
+    FluPivotItem {
+        title: qsTr("Urgent")
         contentItem: FluText{
             text: qsTr("Urgent emails go here.")
         }
