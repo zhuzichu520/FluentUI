@@ -969,8 +969,14 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="qml/page/T_Buttons.qml" line="222"/>
         <location filename="qml/page/T_Buttons.qml" line="238"/>
         <source>Loading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Buttons.qml" line="238"/>
+        <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2291,39 +2297,39 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="45"/>
-        <location filename="qml/page/T_TabView.qml" line="47"/>
+        <location filename="qml/page/T_TabView.qml" line="44"/>
+        <location filename="qml/page/T_TabView.qml" line="46"/>
         <source>Equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="54"/>
+        <location filename="qml/page/T_TabView.qml" line="53"/>
         <source>SizeToContent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="61"/>
+        <location filename="qml/page/T_TabView.qml" line="60"/>
         <source>Compact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="69"/>
+        <location filename="qml/page/T_TabView.qml" line="68"/>
         <source>Tab Close Button Visibility:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="74"/>
-        <location filename="qml/page/T_TabView.qml" line="84"/>
+        <location filename="qml/page/T_TabView.qml" line="72"/>
+        <location filename="qml/page/T_TabView.qml" line="82"/>
         <source>Always</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="77"/>
+        <location filename="qml/page/T_TabView.qml" line="75"/>
         <source>Never</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="91"/>
+        <location filename="qml/page/T_TabView.qml" line="89"/>
         <source>OnHover</source>
         <translation type="unfinished"></translation>
     </message>

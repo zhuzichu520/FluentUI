@@ -995,9 +995,15 @@ Updated content:
         <translation type="unfinished">加载按钮</translation>
     </message>
     <message>
+        <location filename="qml/page/T_Buttons.qml" line="222"/>
         <location filename="qml/page/T_Buttons.qml" line="238"/>
         <source>Loading</source>
         <translation type="unfinished">正在加载</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Buttons.qml" line="238"/>
+        <source>Normal</source>
+        <translation type="unfinished">开启加载</translation>
     </message>
     <message>
         <location filename="qml/page/T_Buttons.qml" line="270"/>
@@ -2480,39 +2486,39 @@ Some contents...</source>
         <translation type="unfinished">选项卡宽度：</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="45"/>
-        <location filename="qml/page/T_TabView.qml" line="47"/>
+        <location filename="qml/page/T_TabView.qml" line="44"/>
+        <location filename="qml/page/T_TabView.qml" line="46"/>
         <source>Equal</source>
         <translation type="unfinished">相同宽度</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="54"/>
+        <location filename="qml/page/T_TabView.qml" line="53"/>
         <source>SizeToContent</source>
         <translation type="unfinished">由内容</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="61"/>
+        <location filename="qml/page/T_TabView.qml" line="60"/>
         <source>Compact</source>
         <translation type="unfinished">紧凑</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="69"/>
+        <location filename="qml/page/T_TabView.qml" line="68"/>
         <source>Tab Close Button Visibility:</source>
         <translation type="unfinished">选项卡关闭按钮可见性：</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="74"/>
-        <location filename="qml/page/T_TabView.qml" line="84"/>
+        <location filename="qml/page/T_TabView.qml" line="72"/>
+        <location filename="qml/page/T_TabView.qml" line="82"/>
         <source>Always</source>
         <translation type="unfinished">可见</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="77"/>
+        <location filename="qml/page/T_TabView.qml" line="75"/>
         <source>Never</source>
         <translation type="unfinished">不可见</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TabView.qml" line="91"/>
+        <location filename="qml/page/T_TabView.qml" line="89"/>
         <source>OnHover</source>
         <translation type="unfinished">鼠标悬浮显示</translation>
     </message>
