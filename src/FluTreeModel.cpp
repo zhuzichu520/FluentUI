@@ -107,7 +107,7 @@ void FluTreeModel::checkRow(int row, bool checked) {
 void FluTreeModel::setDataSource(QList<QMap<QString, QVariant>> data) {
     _dataSource.clear();
     if (_root) {
-        delete _root;
+        _root->deleteLater();
         _root = nullptr;
     }
     _root = new FluTreeNode(this);
@@ -115,7 +115,7 @@ void FluTreeModel::setDataSource(QList<QMap<QString, QVariant>> data) {
     while (data.count() > 0) {
         auto item = data.at(data.count() - 1);
         data.pop_back();
-        auto *node = new FluTreeNode(this);
+        auto *node = new FluTreeNode(_root);
         node->_depth = item.value("__depth").toInt();
         node->_parent = item.value("__parent").value<FluTreeNode *>();
         node->_data = item;

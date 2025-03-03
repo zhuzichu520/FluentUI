@@ -474,6 +474,7 @@ Rectangle {
                     }
                     return {}
                 }
+                active: rowModel !== undefined && rowModel !== null
                 sourceComponent: {
                     if(column === 0)
                         return com_column
