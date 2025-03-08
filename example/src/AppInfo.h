@@ -13,6 +13,6 @@ class AppInfo : public QObject {
   explicit AppInfo(QObject *parent = nullptr);
 
  public:
-  SINGLETON(AppInfo)
+  EXAMPLESINGLETON(AppInfo)
   [[maybe_unused]] Q_INVOKABLE void testCrash();
 };

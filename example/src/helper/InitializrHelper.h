@@ -15,7 +15,7 @@ private:
     void templateToFile(const QString &source, const QString &dest, Args &&...args);
 
 public:
-    SINGLETON(InitializrHelper)
+    EXAMPLESINGLETON(InitializrHelper)
     ~InitializrHelper() override;
     [[maybe_unused]] Q_INVOKABLE void generate(const QString &name, const QString &path);
     Q_SIGNAL void error(const QString &message);

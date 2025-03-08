@@ -14,7 +14,7 @@ private:
     [[maybe_unused]] explicit TranslateHelper(QObject *parent = nullptr);
 
 public:
-    SINGLETON(TranslateHelper)
+    EXAMPLESINGLETON(TranslateHelper)
     ~TranslateHelper() override;
     void init(QQmlEngine *engine);
 
