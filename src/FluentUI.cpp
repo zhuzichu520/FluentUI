@@ -23,12 +23,14 @@
 #include "qmlcustomplot/ticker.h"
 #include "qmlcustomplot/grid.h"
 
+const char* FluentUI::_uri = "FluentUI";
+
 void FluentUI::registerTypes(QQmlEngine *engine) {
     initializeEngine(engine, _uri);
     registerTypes(_uri);
 }
 
-void FluentUI::registerTypes(const char *uri) const {
+void FluentUI::registerTypes(const char *uri) {
 #if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
     Q_INIT_RESOURCE(fluentui);
     int major = _major;

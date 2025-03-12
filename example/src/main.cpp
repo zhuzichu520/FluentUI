@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("TranslateHelper", TranslateHelper::getInstance());
     engine.rootContext()->setContextProperty("Network", Network::getInstance());
 #ifdef FLUENTUI_BUILD_STATIC_LIB
-    FluentUI::getInstance()->registerTypes(&engine);
+    FluentUI::registerTypes(&engine);
 #endif
     const QUrl url(QStringLiteral("qrc:/example/qml/App.qml"));
     QObject::connect(

@@ -145,7 +145,7 @@ endif ()
 if (QT_VERSION VERSION_GREATER_EQUAL "6.2")
     #如果是Qt6.2版本以上，则使用qt_add_library，qt_add_qml_module函数添加资源文件
     if (FLUENTUI_BUILD_STATIC_LIB)
-        set(FLUENTUI_QML_PLUGIN_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/FluentUI)
+        set(FLUENTUI_QML_PLUGIN_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/FluentUI)
     endif ()
     qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
     qt_add_qml_module(${PROJECT_NAME}

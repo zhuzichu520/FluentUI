@@ -2,25 +2,22 @@
 
 #include <QObject>
 #include <QQmlEngine>
-#include "singleton.h"
 
 /**
  * @brief The FluentUI class
  */
-class FluentUI : public QObject {
-    Q_OBJECT
+class FluentUI{
 
 public:
-    SINGLETON(FluentUI)
 
-    Q_DECL_EXPORT void registerTypes(QQmlEngine *engine);
+   static Q_DECL_EXPORT void registerTypes(QQmlEngine *engine);
 
-    void registerTypes(const char *uri) const;
+   static void registerTypes(const char *uri);
 
-    void initializeEngine(QQmlEngine *engine, [[maybe_unused]] const char *uri);
+   static void initializeEngine(QQmlEngine *engine, [[maybe_unused]] const char *uri);
 
 private:
-    const int _major = 1;
-    const int _minor = 0;
-    const char *_uri = "FluentUI";
+   static const int _major = 1;
+   static const int _minor = 0;
+   static const char *_uri;
 };
