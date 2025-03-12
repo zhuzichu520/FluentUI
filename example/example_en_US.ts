@@ -1123,6 +1123,11 @@ Updated content:
         <source>Carousel map, support infinite carousel, infinite swipe, and components implemented with ListView</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="203"/>
+        <source>Auto play</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>T_CheckBox</name>

@@ -1142,12 +1142,17 @@ Updated content:
     <message>
         <location filename="qml/page/T_Carousel.qml" line="10"/>
         <source>Carousel</source>
-        <translation type="unfinished">轮播图</translation>
+        <translation>轮播图</translation>
     </message>
     <message>
         <location filename="qml/page/T_Carousel.qml" line="36"/>
         <source>Carousel map, support infinite carousel, infinite swipe, and components implemented with ListView</source>
-        <translation type="unfinished">轮播图，支持无限轮播，无限滑动，用ListView实现的组件</translation>
+        <translation>轮播图，支持无限轮播，无限滑动，用ListView实现的组件</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="203"/>
+        <source>Auto play</source>
+        <translation>自动轮播</translation>
     </message>
 </context>
 <context>

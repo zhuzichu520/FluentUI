@@ -121,7 +121,6 @@ FluScrollablePage{
 
         }
     }
-
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -6
@@ -129,6 +128,90 @@ FluScrollablePage{
     id:carousel
     width: 400
     height: 300
+    delegate: Component{
+        Image {
+            anchors.fill: parent
+            source: model.url
+            asynchronous: true
+            fillMode:Image.PreserveAspectCrop
+        }
+    }
+    Component.onCompleted: {
+        carousel.model = [{url:"qrc:/example/res/image/banner_1.jpg"},{url:"qrc:/example/res/image/banner_2.jpg"},{url:"qrc:/example/res/image/banner_3.jpg"}]
+    }
+}'
+    }
+
+    FluFrame{
+        Layout.fillWidth: true
+        Layout.preferredHeight: 300 + topPadding + bottomPadding
+        padding: 10
+        Layout.topMargin: 10
+        RowLayout{
+            anchors.fill: parent
+            Item{
+                Layout.preferredWidth: 400
+                Layout.fillHeight: true
+                FluShadow{
+                    radius: 8
+                }
+                FluCarousel{
+                    anchors.fill: parent
+                    orientation: Qt.Vertical
+                    autoPlay: auto_play_switch.checked
+                    loopTime:1500
+                    indicatorGravity: Qt.AlignVCenter | Qt.AlignRight
+                    indicatorMarginTop:15
+                    delegate: Component{
+                        Item{
+                            anchors.fill: parent
+                            Image {
+                                anchors.fill: parent
+                                source: model.url
+                                asynchronous: true
+                                fillMode:Image.PreserveAspectCrop
+                            }
+                            Rectangle{
+                                height: 40
+                                width: parent.width
+                                anchors.bottom: parent.bottom
+                                color: "#33000000"
+                                FluText{
+                                    anchors.fill: parent
+                                    verticalAlignment: Qt.AlignVCenter
+                                    horizontalAlignment: Qt.AlignHCenter
+                                    text:model.title
+                                    color: FluColors.Grey10
+                                }
+                            }
+                        }
+                    }
+                    Layout.topMargin: 20
+                    Layout.leftMargin: 5
+                    Component.onCompleted: {
+                        var arr = []
+                        arr.push({url:"qrc:/example/res/image/banner_1.jpg",title:"共同应对全球性问题"})
+                        arr.push({url:"qrc:/example/res/image/banner_2.jpg",title:"三小只全程没互动"})
+                        arr.push({url:"qrc:/example/res/image/banner_3.jpg",title:"有效投资扩大 激发增长动能"})
+                        model = arr
+                    }
+                }
+            }
+            FluToggleSwitch{
+                id: auto_play_switch
+                Layout.alignment: Qt.AlignRight
+                text: qsTr("Auto play")
+            }
+        }
+    }
+    CodeExpander{
+        Layout.fillWidth: true
+        Layout.topMargin: -6
+        code:'FluCarousel{
+    id:carousel
+    width: 400
+    height: 300
+    orientation: Qt.Vertical
     delegate: Component{
         Image {
             anchors.fill: parent
