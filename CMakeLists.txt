@@ -13,7 +13,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/.cmake/)
 include(GetGitRevisionDescription)
 
 option(FLUENTUI_BUILD_EXAMPLES "Build FluentUI demo applications." ON)
-option(FLUENTUI_BUILD_STATIC_LIB "Build static library." ON)
+option(FLUENTUI_BUILD_STATIC_LIB "Build static library." OFF)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
