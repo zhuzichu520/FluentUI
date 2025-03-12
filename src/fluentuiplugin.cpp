@@ -5,9 +5,9 @@
 FluentUIPlugin::FluentUIPlugin() = default;
 
 void FluentUIPlugin::registerTypes(const char *uri) {
-    FluentUI::getInstance()->registerTypes(uri);
+    FluentUI::registerTypes(uri);
 }
 
 void FluentUIPlugin::initializeEngine(QQmlEngine *engine, const char *uri) {
-    FluentUI::getInstance()->initializeEngine(engine, uri);
+    FluentUI::initializeEngine(engine, uri);
 }
