@@ -266,30 +266,18 @@ Rectangle {
                 d.rowHoverIndex = row
             }
             onWidthChanged: {
-                if(editVisible){
-                    updateEditPosition()
-                }
-                if(isMainTable){
-                    updateTableItem()
-                }
+                updatePosition()
             }
             onHeightChanged: {
-                if(editVisible){
-                    updateEditPosition()
-                }
-                if(isMainTable){
-                    updateTableItem()
-                }
+                updatePosition()
             }
             onXChanged: {
-                if(editVisible){
-                    updateEditPosition()
-                }
-                if(isMainTable){
-                    updateTableItem()
-                }
+                updatePosition()
             }
             onYChanged: {
+                updatePosition()
+            }
+            function updatePosition(){
                 if(editVisible){
                     updateEditPosition()
                 }
@@ -310,9 +298,11 @@ Rectangle {
             }
             function updateTableItem(){
                 var columnModel = control.columnSource[column]
-                columnModel.x = item_table_mouse.x
-                columnModel.y = item_table_mouse.y
-                d.tableItemLayout(column)
+                if(columnModel.x !== item_table_mouse.x || columnModel.y !== item_table_mouse.y){
+                    columnModel.x = item_table_mouse.x
+                    columnModel.y = item_table_mouse.y
+                    d.tableItemLayout(column)
+                }
             }
             Rectangle{
                 anchors.fill: parent
@@ -352,6 +342,7 @@ Rectangle {
                 }
                 FluLoader{
                     id: item_table_loader
+                    property var tableView: control
                     property var model: item_table_mouse._model
                     property var display: rowModel[columnModel.dataIndex]
                     property var rowModel : model.rowModel
@@ -445,10 +436,6 @@ Rectangle {
         }
     }
 
-    onWidthChanged:{
-        table_view.forceLayout()
-    }
-
     MouseArea{
         id:layout_mouse_table
         hoverEnabled: true
@@ -479,6 +466,9 @@ Rectangle {
                 table_view.flick(0,1)
             }
             delegate: com_table_delegate
+            onWidthChanged: {
+                Qt.callLater(forceLayout)
+            }
         }
     }
 
@@ -955,18 +945,18 @@ Rectangle {
                     target: d
                     function onTableItemLayout(column){
                         if(item_layout_frozen._index === column){
-                            updateLayout()
+                            Qt.callLater(updateLayout)
                         }
                     }
                 }
                 Connections{
                     target: table_view
                     function onContentXChanged(){
-                        updateLayout()
+                        Qt.callLater(updateLayout)
                     }
                 }
                 function updateLayout(){
-                    width = table_view.columnWidthProvider(_index)
+                    width = Qt.binding(() => table_view.columnWidthProvider(_index))
                     x = Qt.binding(function(){
                         var minX = 0
                         var maxX = table_view.width-width
