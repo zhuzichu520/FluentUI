@@ -5,19 +5,15 @@ import FluentUI
 Rectangle{
     property bool isDot: false
     property bool showZero: false
-    property int count: 0
-    property bool topRight: false
+    property var count: 0
+    property int max: 99
+    property string position: "" // topLeft, topRight, bottomLeft, bottomRight
     id:control
     color:Qt.rgba(255/255,77/255,79/255,1)
     width: {
         if(isDot)
             return 10
-        if(count<10){
-            return 20
-        }else if(count<100){
-            return 30
-        }
-        return 40
+        return content_text.implicitWidth + 12
     }
     height: {
         if(isDot)
@@ -31,49 +27,74 @@ Rectangle{
     }
     border.width: 1
     border.color: Qt.rgba(1,1,1,1)
-    anchors{
+    anchors {
+        left: {
+            if(!parent){
+                return undefined
+            }
+            return (position === "topLeft" || position === "bottomLeft") ? parent.left : undefined
+        }
         right: {
-            if(parent && topRight)
-                return parent.right
-            return undefined
+            if(!parent){
+                return undefined
+            }
+            return (position === "topRight" || position === "bottomRight") ? parent.right : undefined
         }
         top: {
-            if(parent && topRight)
-                return parent.top
-            return undefined
+            if(!parent){
+                return undefined
+            }
+            return (position === "topLeft" || position === "topRight") ? parent.top : undefined
+        }
+        bottom: {
+            if(!parent){
+                return undefined
+            }
+            return (position === "bottomLeft" || position === "bottomRight") ? parent.bottom : undefined
+        }
+        leftMargin: {
+            if(!parent){
+                return 0
+            }
+            return (position === "topLeft" || position === "bottomLeft") ? (isDot ? -2.5 : -(width / 2)) : 0
         }
         rightMargin: {
-            if(parent && topRight){
-                if(isDot){
-                    return -2.5
-                }
-                return -(control.width/2)
+            if(!parent){
+                return 0
             }
-            return 0
+            return (position === "topRight" || position === "bottomRight") ? (isDot ? -2.5 : -(width / 2)) : 0
         }
         topMargin: {
-            if(parent && topRight){
-                if(isDot){
-                    return -2.5
-                }
-                return  -10
+            if(!parent){
+                return 0
             }
-            return 0
+            return (position === "topLeft" || position === "topRight") ? (isDot ? -2.5 : -10) : 0
+        }
+        bottomMargin: {
+            if(!parent){
+                return 0
+            }
+            return (position === "bottomLeft" || position === "bottomRight") ? (isDot ? -2.5 : -10) : 0
         }
     }
     visible: {
-        if(showZero)
-            return true
-        return count!==0
+        if(typeof(count) === "number"){
+            return showZero ? true : count !== 0
+        }
+        return true
     }
     FluText{
+        id: content_text
         anchors.centerIn: parent
         color: Qt.rgba(1,1,1,1)
         visible: !isDot
         text:{
-            if(count<100)
+            if(typeof(count) === "string"){
                 return count
-            return "100+"
+            }else if(typeof(count) === "number"){
+                return count <= max ? count.toString() : "%1+".arg(max.toString())
+            }
+            return ""
         }
     }
 }
