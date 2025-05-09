@@ -114,18 +114,26 @@ FluScrollablePage{
             placeholderText: qsTr("AutoSuggestBox")
             items: generateRandomNames(100)
             disabled: text_box_suggest_switch.checked
+            itemRows: 12
+            showSuggestWhenPressed: text_box_show_suggest_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
         }
-        FluToggleSwitch{
-            id:text_box_suggest_switch
+        RowLayout{
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text: qsTr("Disabled")
+            FluToggleSwitch{
+                id:text_box_show_suggest_switch
+                text: qsTr("Show suggest when pressed")
+            }
+            FluToggleSwitch{
+                id:text_box_suggest_switch
+                text: qsTr("Disabled")
+            }
         }
     }
     CodeExpander{
@@ -133,6 +141,9 @@ FluScrollablePage{
         Layout.topMargin: -6
         code:'FluAutoSuggestBox{
     placeholderText: qsTr("AutoSuggestBox")
+    itemRows: 12
+    itemHeight: 38
+    showSuggestWhenPressed: false
 }'
     }
 

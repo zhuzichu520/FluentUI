@@ -2676,8 +2676,8 @@ Some contents...</source>
         <location filename="qml/page/T_TextBox.qml" line="33"/>
         <location filename="qml/page/T_TextBox.qml" line="64"/>
         <location filename="qml/page/T_TextBox.qml" line="97"/>
-        <location filename="qml/page/T_TextBox.qml" line="128"/>
-        <location filename="qml/page/T_TextBox.qml" line="157"/>
+        <location filename="qml/page/T_TextBox.qml" line="135"/>
+        <location filename="qml/page/T_TextBox.qml" line="168"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
@@ -2695,6 +2695,11 @@ Some contents...</source>
         <location filename="qml/page/T_TextBox.qml" line="114"/>
         <source>AutoSuggestBox</source>
         <translation type="unfinished">自动建议框</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_TextBox.qml" line="131"/>
+        <source>Show suggest when pressed</source>
+        <translation>按下时显示建议</translation>
     </message>
 </context>
 <context>
