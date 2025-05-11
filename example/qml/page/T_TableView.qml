@@ -493,6 +493,7 @@ FluContentPage{
         onRowsChanged: {
             root.checkBoxChanged()
         }
+        startRowIndex: (gagination.pageCurrent - 1) * gagination.__itemPerPage + 1
         columnSource:[
             {
                 title: table_view.customItem(com_column_checbox,{checked:true}),

@@ -2368,7 +2368,7 @@ Some contents...</source>
     </message>
     <message>
         <location filename="qml/page/T_TableView.qml" line="176"/>
-        <location filename="qml/page/T_TableView.qml" line="503"/>
+        <location filename="qml/page/T_TableView.qml" line="504"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2418,37 +2418,37 @@ Some contents...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="508"/>
+        <location filename="qml/page/T_TableView.qml" line="509"/>
         <source>Avatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="522"/>
+        <location filename="qml/page/T_TableView.qml" line="523"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="530"/>
+        <location filename="qml/page/T_TableView.qml" line="531"/>
         <source>Nickname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="537"/>
+        <location filename="qml/page/T_TableView.qml" line="538"/>
         <source>Long String</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="545"/>
+        <location filename="qml/page/T_TableView.qml" line="546"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="563"/>
+        <location filename="qml/page/T_TableView.qml" line="564"/>
         <source>&lt;Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="564"/>
+        <location filename="qml/page/T_TableView.qml" line="565"/>
         <source>Next&gt;</source>
         <translation type="unfinished"></translation>
     </message>
