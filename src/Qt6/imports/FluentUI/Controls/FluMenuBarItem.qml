@@ -7,7 +7,7 @@ T.MenuBarItem {
     property bool disabled: false
     property color textColor: {
         if(FluTheme.dark){
-            if(disabled){
+            if(!enabled){
                 return Qt.rgba(131/255,131/255,131/255,1)
             }
             if(pressed){
@@ -15,7 +15,7 @@ T.MenuBarItem {
             }
             return Qt.rgba(1,1,1,1)
         }else{
-            if(disabled){
+            if(!enabled){
                 return Qt.rgba(160/255,160/255,160/255,1)
             }
             if(pressed){

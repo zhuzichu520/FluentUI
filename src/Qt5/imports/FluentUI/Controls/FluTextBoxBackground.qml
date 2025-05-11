@@ -6,7 +6,7 @@ FluControlBackground{
     property Item inputItem
     id:control
     color: {
-        if(inputItem && inputItem.disabled){
+        if(inputItem && !inputItem.enabled){
             return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
         }
         if(inputItem && inputItem.activeFocus){
