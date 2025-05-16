@@ -55,7 +55,7 @@ T.ComboBox {
         font:control.font
         readOnly: control.down
         color: {
-            if(control.disabled) {
+            if(!control.enabled) {
                 return FluTheme.dark ? Qt.rgba(131/255,131/255,131/255,1) : Qt.rgba(160/255,160/255,160/255,1)
             }
             return FluTheme.dark ?  Qt.rgba(255/255,255/255,255/255,1) : Qt.rgba(27/255,27/255,27/255,1)
@@ -97,7 +97,7 @@ T.ComboBox {
             anchors.margins: -2
         }
         color:{
-            if(disabled){
+            if(!enabled){
                 return disableColor
             }
             return hovered ? hoverColor :normalColor

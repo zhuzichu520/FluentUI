@@ -231,6 +231,8 @@ Module {
         exportMetaObjectRevisions: [0]
         Property { name: "color"; type: "QColor" }
         Property { name: "radius"; type: "QList<int>" }
+        Property { name: "borderWidth"; type: "double" }
+        Property { name: "borderColor"; type: "QColor" }
     }
     Component {
         name: "FluSheetType"
@@ -2776,7 +2778,7 @@ Module {
         }
         Property {
             name: "layoutMacosButtons"
-            type: "FluLoader_QMLTYPE_14"
+            type: "FluLoader_QMLTYPE_12"
             isReadonly: true
             isPointer: true
         }
@@ -2797,12 +2799,16 @@ Module {
         Property { name: "items"; type: "QVariant" }
         Property { name: "emptyText"; type: "string" }
         Property { name: "autoSuggestBoxReplacement"; type: "int" }
+        Property { name: "itemHeight"; type: "int" }
+        Property { name: "itemRows"; type: "int" }
+        Property { name: "showSuggestWhenPressed"; type: "bool" }
         Property { name: "textRole"; type: "string" }
         Property { name: "filter"; type: "QVariant" }
         Signal {
             name: "itemClicked"
             Parameter { name: "data"; type: "QVariant" }
         }
+        Method { name: "showSuggest"; type: "QVariant" }
         Method {
             name: "updateText"
             type: "QVariant"
@@ -2830,8 +2836,9 @@ Module {
         defaultProperty: "data"
         Property { name: "isDot"; type: "bool" }
         Property { name: "showZero"; type: "bool" }
-        Property { name: "count"; type: "int" }
-        Property { name: "topRight"; type: "bool" }
+        Property { name: "count"; type: "QVariant" }
+        Property { name: "max"; type: "int" }
+        Property { name: "position"; type: "string" }
     }
     Component {
         prototype: "QQuickItem"
@@ -3479,8 +3486,8 @@ Module {
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_47"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_47"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_49"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_49"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -4085,6 +4092,7 @@ Module {
         Property { name: "borderColor"; type: "QColor" }
         Property { name: "horizonalHeaderVisible"; type: "bool" }
         Property { name: "verticalHeaderVisible"; type: "bool" }
+        Property { name: "startRowIndex"; type: "int" }
         Property { name: "selectedBorderColor"; type: "QColor" }
         Property { name: "selectedColor"; type: "QColor" }
         Property { name: "columnWidthProvider"; type: "QVariant" }

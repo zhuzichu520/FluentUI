@@ -58,6 +58,22 @@ FluScrollablePage{
                     color:"#b4009e"
                     radius:[0,0,0,15]
                 }
+                FluRectangle{
+                    width: 50
+                    height: 50
+                    color:"#a8d5ba"
+                    radius:[15,15,15,15]
+                    borderWidth: 3
+                    borderColor: "#5b8a72"
+                }
+                FluRectangle{
+                    width: 50
+                    height: 50
+                    color:"#dbe2ef"
+                    radius:[15,0,0,0]
+                    borderWidth: 2
+                    borderColor: "#3f72af"
+                }
             }
         }
     }
@@ -66,6 +82,8 @@ FluScrollablePage{
         Layout.topMargin: -6
         code:'FluRectangle{
     radius: [25,25,25,25]
+    borderWidth: 2
+    borderColor: "#000000"
     width: 50
     height: 50
 }'

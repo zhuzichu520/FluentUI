@@ -17,6 +17,7 @@ Rectangle {
     property color borderColor: FluTheme.dark ? Qt.rgba(37/255,37/255,37/255,1) : Qt.rgba(228/255,228/255,228/255,1)
     property bool horizonalHeaderVisible: true
     property bool verticalHeaderVisible: true
+    property int startRowIndex: 1
     property color selectedBorderColor: FluTheme.primaryColor
     property color selectedColor: FluTools.withOpacity(FluTheme.primaryColor,0.3)
     property alias view: table_view
@@ -841,7 +842,13 @@ Rectangle {
         Connections{
             target: table_view
             function onRowsChanged(){
-                header_row_model.rows = Array.from({length: table_view.rows}, (_, i) => ({rowIndex:i+1}))
+                header_vertical.updateRowIndex()
+            }
+        }
+        Connections {
+            target: control
+            function onStartRowIndexChanged(){
+                header_vertical.updateRowIndex()
             }
         }
         Timer{
@@ -850,6 +857,9 @@ Rectangle {
             onTriggered: {
                 header_vertical.forceLayout()
             }
+        }
+        function updateRowIndex(){
+            header_row_model.rows = Array.from({length: table_view.rows}, (_, i) => ({rowIndex:i+control.startRowIndex}))
         }
     }
     Item{
