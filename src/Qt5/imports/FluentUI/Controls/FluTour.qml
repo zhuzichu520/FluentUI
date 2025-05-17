@@ -7,8 +7,10 @@ import FluentUI 1.0
 Popup{
     property var steps : []
     property int targetMargins: 5
+    property int targetRadius: 2
     property Component nextButton: com_next_button
     property Component prevButton: com_prev_button
+    property Component indicator: com_indicator
     property int index : 0
     property string finishText: qsTr("Finish")
     property string nextText: qsTr("Next")
@@ -22,11 +24,11 @@ Popup{
     contentItem: Item{}
     onVisibleChanged: {
         if(visible){
+            d.animationEnabled = false
             control.index = 0
+            d.updatePos()
+            d.animationEnabled = true
         }
-    }
-    onIndexChanged: {
-        canvas.requestPaint()
     }
     Component{
         id: com_next_button
@@ -50,10 +52,32 @@ Popup{
             }
         }
     }
+    Component{
+        id: com_indicator
+        Row{
+            spacing: 10
+            Repeater{
+                model: total
+                delegate: Rectangle{
+                    width: 8
+                    height: 8
+                    radius: 4
+                    scale: current === index ? 1.2 : 1
+                    color:{
+                        if(current === index){
+                            return FluTheme.primaryColor
+                        }
+                        return FluTheme.dark ? Qt.rgba(99/255,99/255,99/255,1) : Qt.rgba(214/255,214/255,214/255,1)
+                    }
+                }
+            }
+        }
+    }
     Item{
         id:d
         property var window: Window.window
         property point pos: Qt.point(0,0)
+        property bool animationEnabled: true
         property var step: steps[index]
         property var target: {
             if(steps[index]){
@@ -73,15 +97,22 @@ Popup{
             }
             return control.width
         }
+        function updatePos(){
+            if(d.target && d.window){
+                d.pos = d.target.mapToGlobal(0,0)
+                d.pos = Qt.point(d.pos.x-d.window.x,d.pos.y-d.window.y)
+            }
+        }
+        onTargetChanged: {
+            updatePos()
+        }
     }
     Connections{
         target: d.window
         function onWidthChanged(){
-            canvas.requestPaint()
             timer_delay.restart()
         }
         function onHeightChanged(){
-            canvas.requestPaint()
             timer_delay.restart()
         }
     }
@@ -89,39 +120,128 @@ Popup{
         id: timer_delay
         interval: 200
         onTriggered: {
-            canvas.requestPaint()
+            d.updatePos()
         }
     }
-    Canvas{
-        id: canvas
-        anchors.fill: parent
-        onPaint: {
-            d.pos = d.target.mapToGlobal(0,0)
-            d.pos = Qt.point(d.pos.x-d.window.x,d.pos.y-d.window.y)
-            var ctx = canvas.getContext("2d")
-            ctx.clearRect(0, 0, canvasSize.width, canvasSize.height)
-            ctx.save()
-            ctx.fillStyle = "#88000000"
-            ctx.fillRect(0, 0, canvasSize.width, canvasSize.height)
-            ctx.globalCompositeOperation = 'destination-out'
-            ctx.fillStyle = 'black'
-            var rect = Qt.rect(d.pos.x-control.targetMargins,d.pos.y-control.targetMargins, d.target.width+control.targetMargins*2, d.target.height+control.targetMargins*2)
-            drawRoundedRect(rect,2,ctx)
-            ctx.restore()
+    Item{
+        id: targetRect
+        x: d.pos.x - control.targetMargins
+        y: d.pos.y - control.targetMargins
+        width: d.target ? d.target.width + control.targetMargins * 2 : 0
+        height: d.target ? d.target.height + control.targetMargins * 2 : 0
+        Behavior on x {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
         }
-        function drawRoundedRect(rect, r, ctx) {
-            ctx.beginPath();
-            ctx.moveTo(rect.x + r, rect.y);
-            ctx.lineTo(rect.x + rect.width - r, rect.y);
-            ctx.arcTo(rect.x + rect.width, rect.y, rect.x + rect.width, rect.y + r, r);
-            ctx.lineTo(rect.x + rect.width, rect.y + rect.height - r);
-            ctx.arcTo(rect.x + rect.width, rect.y + rect.height, rect.x + rect.width - r, rect.y + rect.height, r);
-            ctx.lineTo(rect.x + r, rect.y + rect.height);
-            ctx.arcTo(rect.x, rect.y + rect.height, rect.x, rect.y + rect.height - r, r);
-            ctx.lineTo(rect.x, rect.y + r);
-            ctx.arcTo(rect.x, rect.y, rect.x + r, rect.y, r);
-            ctx.closePath();
-            ctx.fill()
+        Behavior on y {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
+        }
+        Behavior on width {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
+        }
+        Behavior on height {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
+        }
+    }
+    Shape {
+        anchors.fill: parent
+        layer.enabled: true
+        layer.samples: 4
+        layer.smooth: true
+        ShapePath {
+            fillColor: "#88000000"
+            strokeWidth: 0
+            strokeColor: "transparent"
+
+            // draw background
+            PathMove {
+                x: 0
+                y: 0
+            }
+            PathLine {
+                x: control.width
+                y: 0
+            }
+            PathLine {
+                x: control.width
+                y: control.height
+            }
+            PathLine {
+                x: 0
+                y: control.height
+            }
+            PathLine {
+                x: 0
+                y: 0
+            }
+
+            // draw highlight
+            PathMove {
+                x: targetRect.x + control.targetRadius
+                y: targetRect.y
+            }
+            PathLine {
+                x: targetRect.x + targetRect.width - control.targetRadius
+                y: targetRect.y
+            }
+            PathArc {
+                x: targetRect.x + targetRect.width
+                y: targetRect.y + control.targetRadius
+                radiusX: control.targetRadius
+                radiusY: control.targetRadius
+                useLargeArc: false
+                direction: PathArc.Clockwise
+            }
+
+            PathLine {
+                x: targetRect.x + targetRect.width
+                y: targetRect.y + targetRect.height - control.targetRadius
+            }
+            PathArc {
+                x: targetRect.x + targetRect.width - control.targetRadius
+                y: targetRect.y + targetRect.height
+                radiusX: control.targetRadius
+                radiusY: control.targetRadius
+                useLargeArc: false
+                direction: PathArc.Clockwise
+            }
+
+            PathLine {
+                x: targetRect.x + control.targetRadius
+                y: targetRect.y + targetRect.height
+            }
+            PathArc {
+                x: targetRect.x
+                y: targetRect.y + targetRect.height - control.targetRadius
+                radiusX: control.targetRadius
+                radiusY: control.targetRadius
+                useLargeArc: false
+                direction: PathArc.Clockwise
+            }
+
+            PathLine {
+                x: targetRect.x
+                y: targetRect.y + control.targetRadius
+            }
+            PathArc {
+                x: targetRect.x + control.targetRadius
+                y: targetRect.y
+                radiusX: control.targetRadius
+                radiusY: control.targetRadius
+                useLargeArc: false
+                direction: PathArc.Clockwise
+            }
         }
     }
     FluFrame{
@@ -151,6 +271,18 @@ Popup{
             return 0
         }
         border.width: 0
+        Behavior on x {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
+        }
+        Behavior on y {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
+        }
         FluShadow{
             radius: 5
         }
@@ -194,9 +326,20 @@ Popup{
             }
         }
         FluLoader{
+            readonly property int total: steps.length
+            readonly property int current: control.index
+            sourceComponent: control.indicator
+            anchors{
+                bottom: parent.bottom
+                left: parent.left
+                bottomMargin: 15
+                leftMargin: 15
+            }
+        }
+        FluLoader{
             id: loader_next
             property bool isEnd: control.index === steps.length-1
-            sourceComponent: com_next_button
+            sourceComponent: control.nextButton
             anchors{
                 top: text_desc.bottom
                 topMargin: 10
@@ -207,7 +350,7 @@ Popup{
         FluLoader{
             id: loader_prev
             visible: control.index !== 0
-            sourceComponent: com_prev_button
+            sourceComponent: control.prevButton
             anchors{
                 right: loader_next.left
                 top: loader_next.top
@@ -245,6 +388,18 @@ Popup{
                 return d.pos.y+(layout_panne.dir?-height:d.target.height)
             }
             return 0
+        }
+        Behavior on x {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
+        }
+        Behavior on y {
+            enabled: d.animationEnabled && FluTheme.animationEnabled
+            NumberAnimation {
+                duration: 167
+            }
         }
     }
 }

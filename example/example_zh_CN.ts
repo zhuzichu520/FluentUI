@@ -552,7 +552,7 @@
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="448"/>
         <source>Tour</source>
-        <translation type="unfinished">游览</translation>
+        <translation type="unfinished">漫游式引导</translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="454"/>
@@ -2938,56 +2938,67 @@ Some contents...</source>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="15"/>
+        <location filename="qml/page/T_Tour.qml" line="23"/>
         <source>Upload File</source>
         <translation type="unfinished">上传文件</translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="15"/>
+        <location filename="qml/page/T_Tour.qml" line="23"/>
         <source>Put your files here.</source>
         <translation type="unfinished">把你的文件放在这里</translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="16"/>
-        <location filename="qml/page/T_Tour.qml" line="52"/>
-        <location filename="qml/page/T_Tour.qml" line="54"/>
+        <location filename="qml/page/T_Tour.qml" line="24"/>
+        <location filename="qml/page/T_Tour.qml" line="74"/>
+        <location filename="qml/page/T_Tour.qml" line="76"/>
         <source>Save</source>
         <translation type="unfinished">保存</translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="16"/>
+        <location filename="qml/page/T_Tour.qml" line="24"/>
         <source>Save your changes.</source>
         <translation type="unfinished">保存更改</translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="17"/>
+        <location filename="qml/page/T_Tour.qml" line="25"/>
         <source>Other Actions</source>
         <translation type="unfinished">其他操作</translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="17"/>
+        <location filename="qml/page/T_Tour.qml" line="25"/>
         <source>Click to see other actions.</source>
         <translation type="unfinished">点击查看其他操作</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Tour.qml" line="31"/>
+        <location filename="qml/page/T_Tour.qml" line="46"/>
         <source>Begin Tour</source>
-        <translation type="unfinished">开始游览</translation>
+        <translation type="unfinished">开始导览</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Tour.qml" line="45"/>
-        <location filename="qml/page/T_Tour.qml" line="47"/>
+        <location filename="qml/page/T_Tour.qml" line="52"/>
+        <source>Begin Tour with custom indicator</source>
+        <translation type="unfinished">以自定义指示器开始导览</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Tour.qml" line="67"/>
+        <location filename="qml/page/T_Tour.qml" line="69"/>
         <source>Upload</source>
         <translation type="unfinished">上传</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Tour.qml" line="61"/>
+        <location filename="qml/page/T_Tour.qml" line="83"/>
         <source>More</source>
         <translation type="unfinished">更多</translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="10"/>
         <source>Tour</source>
-        <translation type="unfinished">游览</translation>
+        <translation type="unfinished">漫游式引导</translation>
     </message>
 </context>
 <context>

@@ -4328,8 +4328,10 @@ Module {
         defaultProperty: "contentData"
         Property { name: "steps"; type: "QVariant" }
         Property { name: "targetMargins"; type: "int" }
+        Property { name: "targetRadius"; type: "int" }
         Property { name: "nextButton"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prevButton"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "indicator"; type: "QQmlComponent"; isPointer: true }
         Property { name: "index"; type: "int" }
         Property { name: "finishText"; type: "string" }
         Property { name: "nextText"; type: "string" }
