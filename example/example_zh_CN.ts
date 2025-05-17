@@ -70,17 +70,17 @@
         <translation type="unfinished">友情提示</translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="50"/>
+        <location filename="qml/window/CrashWindow.qml" line="53"/>
         <source>We apologize for the inconvenience caused by an unexpected error</source>
         <translation type="unfinished">对于意外错误给您带来的不便，我们深表歉意</translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="62"/>
+        <location filename="qml/window/CrashWindow.qml" line="65"/>
         <source>Report Logs</source>
         <translation type="unfinished">上报日志</translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="72"/>
+        <location filename="qml/window/CrashWindow.qml" line="75"/>
         <source>Restart Program</source>
         <translation type="unfinished">重启程序</translation>
     </message>
