@@ -139,13 +139,13 @@ T.SpinBox {
         radius: 4
         border.width: 1
         border.color: {
-            if(contentItem.disabled){
+            if(!contentItem.enabled){
                 return FluTheme.dark ? Qt.rgba(73/255,73/255,73/255,1) : Qt.rgba(237/255,237/255,237/255,1)
             }
             return FluTheme.dark ? Qt.rgba(76/255,76/255,76/255,1) : Qt.rgba(240/255,240/255,240/255,1)
         }
         color: {
-            if(contentItem.disabled){
+            if(!contentItem.enabled){
                 return FluTheme.dark ? Qt.rgba(59/255,59/255,59/255,1) : Qt.rgba(252/255,252/255,252/255,1)
             }
             if(contentItem.activeFocus){

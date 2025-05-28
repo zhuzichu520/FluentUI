@@ -178,7 +178,12 @@ FluButton {
                                     }
                                     if(type === 1){
                                         text_month.text = model
+                                        let day = list_view_3.model[list_view_3.currentIndex]
                                         list_view_3.model = generateMonthDaysArray(list_view_1.model[list_view_1.currentIndex],list_view_2.model[list_view_2.currentIndex])
+                                        if(list_view_3.model.indexOf(day) === -1){
+                                            day = list_view_3.model[list_view_3.model.length - 1]
+                                        }
+                                        list_view_3.currentIndex = list_view_3.model.indexOf(day)
                                         text_day.text = list_view_3.model[list_view_3.currentIndex]
 
                                     }

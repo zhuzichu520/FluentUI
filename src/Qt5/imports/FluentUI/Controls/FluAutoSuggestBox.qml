@@ -7,9 +7,12 @@ FluTextBox{
     property var items:[]
     property string emptyText: qsTr("No results found")
     property int autoSuggestBoxReplacement: FluentIcons.Search
+    property int itemHeight: 38
+    property int itemRows: 8
+    property bool showSuggestWhenPressed: false
     property string textRole: "title"
     property var filter: function(item){
-        if(item.title.indexOf(control.text)!==-1){
+        if(item[textRole].indexOf(control.text)!==-1){
             return true
         }
         return false
@@ -29,17 +32,11 @@ FluTextBox{
             control.updateText(modelData[textRole])
         }
         function loadData(){
-            var result = []
             if(items==null){
-                list_view.model = result
+                list_view.model = []
                 return
             }
-            items.map(function(item){
-                if(control.filter(item)){
-                    result.push(item)
-                }
-            })
-            list_view.model = result
+            list_view.model = items.filter(item => control.filter(item))
         }
     }
     onActiveFocusChanged: {
@@ -69,7 +66,7 @@ FluTextBox{
                 ScrollBar.vertical: FluScrollBar {}
                 header: Item{
                     width: control.width
-                    height: visible ? 38 : 0
+                    height: visible ? control.itemHeight : 0
                     visible: list_view.count === 0
                     FluText{
                         text: emptyText
@@ -82,7 +79,7 @@ FluTextBox{
                 }
                 delegate:FluControl{
                     id: item_control
-                    height: 38
+                    height: control.itemHeight
                     width: control.width
                     onClicked: {
                         d.handleClick(modelData)
@@ -114,7 +111,7 @@ FluTextBox{
         background:Rectangle{
             id: rect_background
             implicitWidth: control.width
-            implicitHeight: 38*Math.min(Math.max(list_view.count,1),8)
+            implicitHeight: control.itemHeight*Math.min(Math.max(list_view.count,1),control.itemRows)
             radius: 5
             color: FluTheme.dark ? Qt.rgba(43/255,43/255,43/255,1) : Qt.rgba(1,1,1,1)
             border.color: FluTheme.dark ? Qt.rgba(26/255,26/255,26/255,1) : Qt.rgba(191/255,191/255,191/255,1)
@@ -124,6 +121,14 @@ FluTextBox{
         }
     }
     onTextChanged: {
+        control.showSuggest()
+    }
+    onPressed: {
+        if(control.showSuggestWhenPressed){
+            control.showSuggest()
+        }
+    }
+    function showSuggest(){
         d.loadData()
         if(d.flagVisible){
             var pos = control.mapToItem(null, 0, 0)
