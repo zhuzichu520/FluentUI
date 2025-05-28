@@ -69,6 +69,8 @@ FluWindow {
                     window.show()
                     window.raise()
                     window.requestActivate()
+                }else if(reason === SystemTrayIcon.Context){
+                    system_tray.menu.open()
                 }
             }
     }

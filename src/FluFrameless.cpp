@@ -442,6 +442,9 @@ void FluFrameless::componentComplete() {
     window()->setFlag(Qt::FramelessWindowHint, true);
     window()->setProperty("__borderWidth", 1);
 #endif
+#ifdef Q_OS_WIN
+    window()->setFlag(Qt::CustomizeWindowHint, true);
+#endif
     window()->installEventFilter(this);
     QGuiApplication::instance()->installNativeEventFilter(this);
     if (_maximizeButton) {
