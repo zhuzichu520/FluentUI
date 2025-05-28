@@ -17,20 +17,42 @@ FluScrollablePage{
             {title:qsTr("Other Actions"),description: qsTr("Click to see other actions."),target:()=>btn_more}
         ]
     }
+    FluTour{
+        id:tour_custom_indicator
+        steps:[
+            {title:qsTr("Upload File"),description: qsTr("Put your files here."),target:()=>btn_upload},
+            {title:qsTr("Save"),description: qsTr("Save your changes."),target:()=>btn_save},
+            {title:qsTr("Other Actions"),description: qsTr("Click to see other actions."),target:()=>btn_more}
+        ]
+        indicator: Component{
+            FluText {
+                text: "%1 / %2".arg(current + 1).arg(total)
+            }
+        }
+    }
 
     FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 130
         padding: 10
 
-        FluFilledButton{
+        Row{
             anchors{
                 top: parent.top
                 topMargin: 14
             }
-            text: qsTr("Begin Tour")
-            onClicked: {
-                tour.open()
+            spacing: 20
+            FluFilledButton{
+                text: qsTr("Begin Tour")
+                onClicked: {
+                    tour.open()
+                }
+            }
+            FluFilledButton{
+                text: qsTr("Begin Tour with custom indicator")
+                onClicked: {
+                    tour_custom_indicator.open()
+                }
             }
         }
 

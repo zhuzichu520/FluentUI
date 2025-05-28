@@ -19,6 +19,9 @@ FluWindow {
     Component.onCompleted: {
         window.stayTop = true
     }
+    Component.onDestruction: {
+        FluRouter.exit()
+    }
 
     onInitArgument:
         (argument)=>{

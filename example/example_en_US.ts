@@ -70,17 +70,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="50"/>
+        <location filename="qml/window/CrashWindow.qml" line="53"/>
         <source>We apologize for the inconvenience caused by an unexpected error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="62"/>
+        <location filename="qml/window/CrashWindow.qml" line="65"/>
         <source>Report Logs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/window/CrashWindow.qml" line="72"/>
+        <location filename="qml/window/CrashWindow.qml" line="75"/>
         <source>Restart Program</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2737,49 +2737,60 @@ Some contents...</source>
     <name>T_Tour</name>
     <message>
         <location filename="qml/page/T_Tour.qml" line="15"/>
+        <location filename="qml/page/T_Tour.qml" line="23"/>
         <source>Upload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="15"/>
+        <location filename="qml/page/T_Tour.qml" line="23"/>
         <source>Put your files here.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="16"/>
-        <location filename="qml/page/T_Tour.qml" line="52"/>
-        <location filename="qml/page/T_Tour.qml" line="54"/>
+        <location filename="qml/page/T_Tour.qml" line="24"/>
+        <location filename="qml/page/T_Tour.qml" line="74"/>
+        <location filename="qml/page/T_Tour.qml" line="76"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="16"/>
+        <location filename="qml/page/T_Tour.qml" line="24"/>
         <source>Save your changes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="17"/>
+        <location filename="qml/page/T_Tour.qml" line="25"/>
         <source>Other Actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/page/T_Tour.qml" line="17"/>
+        <location filename="qml/page/T_Tour.qml" line="25"/>
         <source>Click to see other actions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Tour.qml" line="31"/>
+        <location filename="qml/page/T_Tour.qml" line="46"/>
         <source>Begin Tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Tour.qml" line="45"/>
-        <location filename="qml/page/T_Tour.qml" line="47"/>
+        <location filename="qml/page/T_Tour.qml" line="52"/>
+        <source>Begin Tour with custom indicator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Tour.qml" line="67"/>
+        <location filename="qml/page/T_Tour.qml" line="69"/>
         <source>Upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Tour.qml" line="61"/>
+        <location filename="qml/page/T_Tour.qml" line="83"/>
         <source>More</source>
         <translation type="unfinished"></translation>
     </message>

@@ -233,6 +233,8 @@ Module {
         Property { name: "radius"; type: "QList<int>" }
         Property { name: "borderWidth"; type: "double" }
         Property { name: "borderColor"; type: "QColor" }
+        Property { name: "borderStyle"; type: "Qt::PenStyle" }
+        Property { name: "dashPattern"; type: "QVector<qreal>" }
     }
     Component {
         name: "FluSheetType"
@@ -4328,8 +4330,10 @@ Module {
         defaultProperty: "contentData"
         Property { name: "steps"; type: "QVariant" }
         Property { name: "targetMargins"; type: "int" }
+        Property { name: "targetRadius"; type: "int" }
         Property { name: "nextButton"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prevButton"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "indicator"; type: "QQmlComponent"; isPointer: true }
         Property { name: "index"; type: "int" }
         Property { name: "finishText"; type: "string" }
         Property { name: "nextText"; type: "string" }

@@ -6,10 +6,14 @@ FluRectangle::FluRectangle(QQuickItem *parent) : QQuickPaintedItem(parent) {
     radius({0, 0, 0, 0});
     borderWidth(0);
     borderColor(Qt::black);
+    borderStyle(Qt::SolidLine);
+    dashPattern({});
     connect(this, &FluRectangle::colorChanged, this, [=] { update(); });
     connect(this, &FluRectangle::radiusChanged, this, [=] { update(); });
     connect(this, &FluRectangle::borderWidthChanged, this, [=] { update(); });
     connect(this, &FluRectangle::borderColorChanged, this, [=] { update(); });
+    connect(this, &FluRectangle::borderStyleChanged, this, [=] { update(); });
+    connect(this, &FluRectangle::dashPatternChanged, this, [=] { update(); });
 }
 
 bool FluRectangle::borderValid() const {
@@ -21,8 +25,8 @@ void FluRectangle::paint(QPainter *painter) {
     painter->setRenderHint(QPainter::Antialiasing);
 
     QRectF rect = boundingRect();
-    bool valid = borderValid();
-    if (valid) {
+    bool drawBorder = borderValid();
+    if (drawBorder) {
         // 绘制边框时画笔的宽度从路径向两侧扩充
         // 因此实际绘制的矩形应向内侧收缩边框宽度的一半，避免边框裁剪导致不完整
         qreal halfBorderWidth = _borderWidth / 2.0;
@@ -54,8 +58,12 @@ void FluRectangle::paint(QPainter *painter) {
     painter->fillPath(path, _color);
 
     // 绘制边框
-    if (valid) {
-        painter->strokePath(path, QPen(_borderColor, _borderWidth));
+    if (drawBorder) {
+        QPen pen(_borderColor, _borderWidth, _borderStyle);
+        if (_borderStyle == Qt::DashLine || _borderStyle == Qt::CustomDashLine) {
+            pen.setDashPattern(_dashPattern);
+        }
+        painter->strokePath(path, pen);
     }
 
     painter->restore();
