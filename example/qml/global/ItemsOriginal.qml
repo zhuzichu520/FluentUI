@@ -216,6 +216,12 @@ FluObject{
             url: "qrc:/example/qml/page/T_Watermark.qml"
             onTap: { navigationView.push(url) }
         }
+        FluPaneItem{
+            title: qsTr("BubbleBox")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_BubbleBox.qml"
+            onTap: { navigationView.push(url) }
+        }
     }
 
     FluPaneItemExpander{

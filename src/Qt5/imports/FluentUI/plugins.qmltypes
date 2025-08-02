@@ -2750,37 +2750,37 @@ Module {
         Property { name: "darkClickListener"; type: "QVariant" }
         Property {
             name: "buttonStayTop"
-            type: "FluIconButton_QMLTYPE_19"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMinimize"
-            type: "FluIconButton_QMLTYPE_19"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMaximize"
-            type: "FluIconButton_QMLTYPE_19"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonClose"
-            type: "FluIconButton_QMLTYPE_19"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonDark"
-            type: "FluIconButton_QMLTYPE_19"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "layoutMacosButtons"
-            type: "FluLoader_QMLTYPE_12"
+            type: "FluLoader_QMLTYPE_19"
             isReadonly: true
             isPointer: true
         }
@@ -2864,6 +2864,25 @@ Module {
             Parameter { name: "count"; type: "QVariant" }
         }
         Method { name: "count"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickRectangle"
+        name: "FluentUI/FluBubbleBox 1.0"
+        exports: ["FluentUI/FluBubbleBox 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "attachTarget"; type: "QQuickItem"; isPointer: true }
+        Property { name: "attachDirection"; type: "string" }
+        Property { name: "attachMargin"; type: "double" }
+        Property { name: "targetAlignRatio"; type: "double" }
+        Property { name: "targetX"; type: "QVariant" }
+        Property { name: "targetY"; type: "QVariant" }
+        Property { name: "triangleOffsetRatio"; type: "double" }
+        Property { name: "triangleDirection"; type: "string"; isReadonly: true }
+        Property { name: "triangleItem"; type: "QQuickShape"; isReadonly: true; isPointer: true }
+        Property { name: "triangleWidth"; type: "double" }
+        Property { name: "triangleHeight"; type: "double" }
     }
     Component {
         prototype: "QQuickButton"
@@ -3481,8 +3500,8 @@ Module {
         defaultProperty: "data"
         Property { name: "logo"; type: "QUrl" }
         Property { name: "title"; type: "string" }
-        Property { name: "items"; type: "FluObject_QMLTYPE_182"; isPointer: true }
-        Property { name: "footerItems"; type: "FluObject_QMLTYPE_182"; isPointer: true }
+        Property { name: "items"; type: "FluObject_QMLTYPE_184"; isPointer: true }
+        Property { name: "footerItems"; type: "FluObject_QMLTYPE_184"; isPointer: true }
         Property { name: "displayMode"; type: "int" }
         Property { name: "autoSuggestBox"; type: "QQmlComponent"; isPointer: true }
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
@@ -3497,13 +3516,13 @@ Module {
         Property { name: "hideNavAppBar"; type: "bool" }
         Property {
             name: "buttonMenu"
-            type: "FluIconButton_QMLTYPE_19"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonBack"
-            type: "FluIconButton_QMLTYPE_19"
+            type: "FluIconButton_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
