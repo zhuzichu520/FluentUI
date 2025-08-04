@@ -349,233 +349,238 @@
         <translation type="unfinished">水印</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="222"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="220"/>
+        <source>BubbleBox</source>
+        <translation type="unfinished">气泡框</translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="228"/>
         <source>Layout</source>
         <translation type="unfinished">布局</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="225"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="231"/>
         <source>StaggeredLayout</source>
         <translation type="unfinished">瀑布流布局</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="231"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="237"/>
         <source>SplitLayout</source>
         <translation type="unfinished">拆分布局</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="237"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="243"/>
         <source>StatusLayout</source>
         <translation type="unfinished">状态布局</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="245"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="251"/>
         <source>Popus</source>
         <translation type="unfinished">弹窗</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="248"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="254"/>
         <source>Dialog</source>
         <translation type="unfinished">弹窗</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="255"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="261"/>
         <source>ComboBox</source>
         <translation type="unfinished">组合框</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="269"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="275"/>
         <source>Tooltip</source>
         <translation type="unfinished">工具提示</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="275"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="281"/>
         <source>Menu</source>
         <translation type="unfinished">菜单</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="281"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="287"/>
         <source>Sheet</source>
         <translation type="unfinished">抽屉</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="289"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="295"/>
         <source>Navigation</source>
         <translation type="unfinished">导航</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="292"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="298"/>
         <source>Pivot</source>
         <translation type="unfinished">轴转</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="294"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="300"/>
         <source>Presents information from different sources in a tabbed view.</source>
         <translation type="unfinished">在选项卡式视图中显示来自不同源的信息。</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="299"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="305"/>
         <source>BreadcrumbBar</source>
         <translation type="unfinished">面包屑</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="305"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="311"/>
         <source>TabView</source>
         <translation type="unfinished">选项卡</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="307"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="313"/>
         <source>A control that displays a collection of tabs thatcan be used to display several documents.</source>
         <translation type="unfinished">一个控件，用于显示可用于显示多个文档的选项卡集合。</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="312"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="318"/>
         <source>TreeView</source>
         <translation type="unfinished">树</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="318"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="324"/>
         <source>TableView</source>
         <oldsource>TreeView2</oldsource>
         <translation type="unfinished">表格</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="320"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="326"/>
         <source>The TableView control provides a flexible way to display a collection of data in rows and columns</source>
         <translation type="unfinished">TableView 控件提供了一种以行和列形式显示数据集合的灵活方法</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="325"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="331"/>
         <source>Pagination</source>
         <translation type="unfinished">分页</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="331"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="337"/>
         <source>MultiWindow</source>
         <translation type="unfinished">多窗口</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="337"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="343"/>
         <source>FlipView</source>
         <translation type="unfinished">翻转视图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="339"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="345"/>
         <source>Presents a collection of items that the user canflip through, one item at a time.</source>
         <translation type="unfinished">显示用户可以翻阅的项集合，一次翻阅一个项。</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="346"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="352"/>
         <source>Theming</source>
         <translation type="unfinished">主题</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="349"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="355"/>
         <source>Acrylic</source>
         <translation type="unfinished">亚克力</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="355"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="361"/>
         <source>Theme</source>
         <translation type="unfinished">主题</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="361"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="367"/>
         <source>Typography</source>
         <translation type="unfinished">字体</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="367"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="373"/>
         <source>Icons</source>
         <translation type="unfinished">图标</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="375"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="381"/>
         <source>Chart</source>
         <translation type="unfinished">图表</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="378"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="384"/>
         <source>Bar Chart</source>
         <translation type="unfinished">条形图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="384"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
         <source>Line Chart</source>
         <translation type="unfinished">线型图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
         <source>Pie Chart</source>
         <translation type="unfinished">饼图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
         <source>Polar Area Chart</source>
         <translation type="unfinished">极坐标区域图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
         <source>Bubble Chart</source>
         <translation type="unfinished">气泡图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
         <source>Scatter Chart</source>
         <translation type="unfinished">散点图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="420"/>
         <source>Radar Chart</source>
         <translation type="unfinished">雷达图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="427"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="433"/>
         <source>Other</source>
         <translation type="unfinished">其他</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="430"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
         <source>OpenGL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
         <source>QCustomPlot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
         <source>QRCode</source>
         <translation type="unfinished">二维码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
         <source>Tour</source>
         <translation type="unfinished">漫游式引导</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
         <source>Timeline</source>
         <translation type="unfinished">时间轴</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
         <source>Captcha</source>
         <translation type="unfinished">验证码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
         <source>Network</source>
         <translation type="unfinished">网络</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="473"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="479"/>
         <source>Remote Loader</source>
         <translation type="unfinished">远程加载</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="487"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
         <source>Hot Loader</source>
         <translation type="unfinished">热加载</translation>
     </message>
@@ -584,7 +589,7 @@
         <translation type="obsolete">3D</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="499"/>
         <source>Test Crash</source>
         <translation type="unfinished">测试崩溃</translation>
     </message>
@@ -920,6 +925,55 @@ Updated content:
         <location filename="qml/page/T_BreadcrumbBar.qml" line="54"/>
         <source>Item_</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_BubbleBox</name>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="10"/>
+        <location filename="qml/page/T_BubbleBox.qml" line="97"/>
+        <source>BubbleBox</source>
+        <translation type="unfinished">气泡框</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="23"/>
+        <source>bubblebox offset:</source>
+        <translation type="unfinished">气泡框偏移：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="35"/>
+        <source>traingle offset:</source>
+        <translation type="unfinished">三角形偏移：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="47"/>
+        <source>direction:</source>
+        <translation type="unfinished">方向：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="55"/>
+        <source>top</source>
+        <translation type="unfinished">上</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="59"/>
+        <source>right</source>
+        <translation type="unfinished">右</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="63"/>
+        <source>bottom</source>
+        <translation type="unfinished">下</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="67"/>
+        <source>left</source>
+        <translation type="unfinished">左</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_BubbleBox.qml" line="83"/>
+        <source>Standard Button</source>
+        <translation type="unfinished">标准按钮</translation>
     </message>
 </context>
 <context>

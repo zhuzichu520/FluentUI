@@ -110,5 +110,6 @@
         <file>FluentUI/Controls/FluGroupBox.qml</file>
         <file>FluentUI/Controls/FluControlBackground.qml</file>
         <file>FluentUI/Font/FluentIcons.ttf</file>
+        <file>FluentUI/Controls/FluBubbleBox.qml</file>
     </qresource>
 </RCC>

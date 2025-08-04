@@ -37,12 +37,43 @@ FluTextBox{
                 return
             }
             list_view.model = items.filter(item => control.filter(item))
+            list_view.currentIndex = -1
+        }
+        function navigateList(step) {
+            if (list_view.count < 1) {
+                return
+            }
+            let newIndex = list_view.currentIndex + step
+            if (newIndex >= list_view.count) {
+                newIndex = 0
+            } else if (newIndex < 0) {
+                newIndex = list_view.count - 1
+            }
+            list_view.currentIndex = newIndex
+            list_view.positionViewAtIndex(newIndex, ListView.Contain)
+        }
+        function handleEnterReturn() {
+            if (list_view.count > 0 && list_view.currentIndex !== -1) {
+                d.handleClick(list_view.model[list_view.currentIndex])
+            }
         }
     }
     onActiveFocusChanged: {
         if(!activeFocus){
             control_popup.visible = false
         }
+    }
+    Keys.onDownPressed: {
+        d.navigateList(1)
+    }
+    Keys.onUpPressed: {
+        d.navigateList(-1)
+    }
+    Keys.onEnterPressed: {
+        d.handleEnterReturn()
+    }
+    Keys.onReturnPressed: {
+        d.handleEnterReturn()
     }
     Popup{
         id:control_popup
@@ -76,6 +107,9 @@ FluTextBox{
                             leftMargin: 10
                         }
                     }
+                }
+                highlight: Rectangle {
+                    color: FluTheme.itemHoverColor
                 }
                 delegate:FluControl{
                     id: item_control
