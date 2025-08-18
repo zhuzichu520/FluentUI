@@ -150,6 +150,7 @@ void FluentUI::registerTypes(const char *uri) {
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluBubbleBox.qml"), uri, major, minor, "FluBubbleBox");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRouter.qml"), uri, major, minor, "FluRouter");
     qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluEventBus.qml"), uri, major, minor, "FluEventBus");
+    qmlRegisterSingletonType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluPinyin.qml"), uri, major, minor, "FluPinyin");
 
     qmlRegisterUncreatableMetaObject(FluentIcons::staticMetaObject, uri, major, minor, "FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject, uri, major, minor, "FluThemeType", "Access to enums & flags only");

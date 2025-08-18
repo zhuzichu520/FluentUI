@@ -566,26 +566,31 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="466"/>
-        <source>Captcha</source>
+        <source>Pinyin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="472"/>
+        <source>Captcha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="479"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="485"/>
         <source>Remote Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="499"/>
         <source>Hot Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="499"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="505"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1929,6 +1934,24 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/chart/T_PieChart.qml" line="10"/>
         <source>Pie Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_Pinyin</name>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="10"/>
+        <source>Pinyin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="32"/>
+        <source>[pinyin-pro document](https://pinyin-pro.cn/guide/compare.html)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="74"/>
+        <source>Input Chinese or Pinyin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

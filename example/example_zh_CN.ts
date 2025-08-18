@@ -566,21 +566,26 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="466"/>
+        <source>Pinyin</source>
+        <translation type="unfinished">拼音</translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
         <source>Captcha</source>
         <translation type="unfinished">验证码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
         <source>Network</source>
         <translation type="unfinished">网络</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="479"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="485"/>
         <source>Remote Loader</source>
         <translation type="unfinished">远程加载</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="493"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="499"/>
         <source>Hot Loader</source>
         <translation type="unfinished">热加载</translation>
     </message>
@@ -589,7 +594,7 @@
         <translation type="obsolete">3D</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="499"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="505"/>
         <source>Test Crash</source>
         <translation type="unfinished">测试崩溃</translation>
     </message>
@@ -2080,6 +2085,24 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <source>Pie Chart</source>
         <oldsource>Doughnut and Pie Chart</oldsource>
         <translation type="unfinished">饼图</translation>
+    </message>
+</context>
+<context>
+    <name>T_Pinyin</name>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="10"/>
+        <source>Pinyin</source>
+        <translation type="unfinished">拼音</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="32"/>
+        <source>[pinyin-pro document](https://pinyin-pro.cn/guide/compare.html)</source>
+        <translation type="unfinished">[pinyin-pro文档](https://pinyin-pro.cn/guide/compare.html)</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="74"/>
+        <source>Input Chinese or Pinyin</source>
+        <translation type="unfinished">输入汉字或拼音</translation>
     </message>
 </context>
 <context>
