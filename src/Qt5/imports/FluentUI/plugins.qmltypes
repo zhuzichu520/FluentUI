@@ -2750,37 +2750,37 @@ Module {
         Property { name: "darkClickListener"; type: "QVariant" }
         Property {
             name: "buttonStayTop"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMinimize"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonMaximize"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonClose"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonDark"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "layoutMacosButtons"
-            type: "FluLoader_QMLTYPE_13"
+            type: "FluLoader_QMLTYPE_14"
             isReadonly: true
             isPointer: true
         }
@@ -3507,8 +3507,8 @@ Module {
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_45"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_45"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_41"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_41"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }
@@ -3516,13 +3516,13 @@ Module {
         Property { name: "hideNavAppBar"; type: "bool" }
         Property {
             name: "buttonMenu"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "buttonBack"
-            type: "FluIconButton_QMLTYPE_20"
+            type: "FluIconButton_QMLTYPE_21"
             isReadonly: true
             isPointer: true
         }
@@ -3710,10 +3710,10 @@ Module {
         isSingleton: true
         Property { name: "children"; type: "QObject"; isList: true; isReadonly: true }
         Property { name: "context"; type: "QVariant"; isReadonly: true }
-        Property { name: "patternValue"; type: "int" }
         Property { name: "patternBuildMode"; type: "string" }
-        Property { name: "outputFormat"; type: "QVariant"; isReadonly: true }
+        Property { name: "patternValue"; type: "int" }
         Property { name: "patternBuildInterval"; type: "int" }
+        Property { name: "outputFormat"; type: "QVariant"; isReadonly: true }
         Property { name: "isPatternBuilt"; type: "bool"; isReadonly: true }
         Method {
             name: "buildPattern"
@@ -3772,6 +3772,26 @@ Module {
             type: "QVariant"
             Parameter { name: "word"; type: "QVariant" }
             Parameter { name: "options"; type: "QVariant" }
+        }
+        Method {
+            name: "createCache"
+            type: "QVariant"
+            Parameter { name: "data"; type: "QVariant" }
+            Parameter { name: "options"; type: "QVariant" }
+            Parameter { name: "buildCache"; type: "QVariant" }
+        }
+        Method {
+            name: "rebuildCache"
+            type: "QVariant"
+            Parameter { name: "cache"; type: "QVariant" }
+            Parameter { name: "data"; type: "QVariant" }
+            Parameter { name: "asyncArg"; type: "QVariant" }
+        }
+        Method {
+            name: "findMatches"
+            type: "QVariant"
+            Parameter { name: "cache"; type: "QVariant" }
+            Parameter { name: "pinyin"; type: "QVariant" }
         }
     }
     Component {

@@ -120,7 +120,7 @@ FluScrollablePage {
         title: "segment"
         ColumnLayout {
             FluText {
-                text: 'FluPinyin.segment("小明硕士毕业于中国科学院计算所，后在日本京都大学深造") --> \n%1'.arg(JSON.stringify(FluPinyin.segment("小明硕士毕业于中国科学院计算所，后在日本京都大学深造"), null, 2))
+                text: 'FluPinyin.segment("小明硕士毕业于中国科学院计算所") --> \n%1'.arg(JSON.stringify(FluPinyin.segment("小明硕士毕业于中国科学院计算所，后在日本京都大学深造"), null, 2))
             }
         }
     }
