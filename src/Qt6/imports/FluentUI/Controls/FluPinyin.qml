@@ -6,24 +6,25 @@ import "./../JS/PinyinPro.mjs" as Pinyin
 QtObject {
     property list<QtObject> children
     readonly property var context: Pinyin
-    property string patternBuildMode: "size" // size, group
-    property int patternValue: 500 // In "size" mode, number of patterns per build; in "group" mode, number of groups to divide patterns into
-    property int patternBuildInterval: 1500
     readonly property alias isPatternBuilt: d.isPatternBuilt
     readonly property var outputFormat: Pinyin.OutputFormat
-    function buildPattern(buildAllAtOnce = true) {
-        const builder = context.getPatternsNormalBuilder(patternValue,
-                                                         patternBuildMode)
+    function buildDefaultPatterns(buildArg) {
+        const arg = Object.assign({
+                                      "buildAllAtOnce": true,
+                                      "sizePerBuild": 500,
+                                      "interval": 1500
+                                  }, buildArg || {})
+        const builder = context.getPatternsNormalBuilder(arg.sizePerBuild)
         if (!builder || d.isPatternBuilt || (d.patternTimer && d.patternTimer.running)) {
             return
         }
-        if (buildAllAtOnce) {
+        if (arg.buildAllAtOnce) {
             while (!builder.next().done) {
 
             }
             d.isPatternBuilt = true
         } else {
-            d.patternTimer = d.stepRunner(builder, () => d.isPatternBuilt = true, patternBuildInterval)
+            d.patternTimer = d.generatorExecutor(builder, () => d.isPatternBuilt = true, arg.interval)
         }
     }
     function addDict(dict, options) {
@@ -60,12 +61,12 @@ QtObject {
         cache.data = data
         const arg = Object.assign({
                                       "async": true,
-                                      "chunkSize": 50,
+                                      "sizePerBuild": 50,
                                       "interval": 500,
                                       "triggeredOnStart": true
                                   }, asyncArg || {})
         if (arg.async) {
-            const timer = d.stepRunner(cache.buildGenerator(arg.chunkSize, true, arg.interval, arg.triggeredOnStart))
+            const timer = d.generatorExecutor(cache.buildGenerator(arg.chunkSize, true, arg.interval, arg.triggeredOnStart))
             if (cache.data.length > arg.chunkSize) {
                 cache.generatorDeleter = timer.destroy
             }
@@ -81,7 +82,7 @@ QtObject {
             id: d
             property Timer patternTimer: null
             property bool isPatternBuilt: false
-            function stepRunner(generator, doneCallback, interval = 500, triggeredOnStart = true) {
+            function generatorExecutor(generator, doneCallback, interval = 500, triggeredOnStart = true) {
                 const timer = Qt.createQmlObject("import QtQuick 2.15; Timer {}", Qt.application)
                 timer.interval = interval
                 timer.triggered.connect(function () {

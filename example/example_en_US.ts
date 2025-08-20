@@ -1945,13 +1945,24 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Pinyin.qml" line="32"/>
+        <location filename="qml/page/T_Pinyin.qml" line="47"/>
         <source>[pinyin-pro document](https://pinyin-pro.cn/guide/compare.html)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_Pinyin.qml" line="74"/>
+        <location filename="qml/page/T_Pinyin.qml" line="89"/>
+        <location filename="qml/page/T_Pinyin.qml" line="151"/>
         <source>Input Chinese or Pinyin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="170"/>
+        <source>Matching time: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="175"/>
+        <source>Matching with cache</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

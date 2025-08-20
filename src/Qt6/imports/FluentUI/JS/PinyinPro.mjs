@@ -8,8 +8,10 @@
  * Modifications Copyright (c) 2025 Polaris-Night
  * 
  * Changes:
- * - Refactored AC-Tree construction pattern by introducing PatternsNormalBuilder
+ * - Refactored AC-Tree construction pattern by introducing PatternsBuilder
  *   to enable delayed/asynchronous building with improved performance control
+ * - Added PinyinCache class to enable caching of pinyin data with asynchronous
+ *   chunked building capability for better performance with large datasets
  * 
  * This modified work is also licensed under the MIT License.
  */
@@ -23936,38 +23938,54 @@ class AC {
     }
 }
 const acTree = new AC();
-// 常规匹配
-class PatternsNormalBuilder {
-    constructor() {
-        this.buildArg = {
-            value: 500,
-            mode: "size", /* "size" | "group" */
+class PatternsBuilder {
+    constructor(patterns) {
+        this.patterns = patterns;
+        this.sizePerBuild = 500;
+        this.callbacks = {
+            progress: () => { },
+            finished: () => { }
         };
-        this.finishedCallback = () => { };
-        this.builder = null;
+        this.progress = {
+            total: patterns.length,
+            built: 0,
+            percent: 0
+        };
         this.builder = (function* (ctx) {
-            const patterns = Pattern5.concat(Pattern4, Pattern3, Pattern2, PatternNumberDict, PatternSurname);
-            let chunkSize = ctx.buildArg.value;
-            if (ctx.buildArg.mode === "group") {
-                chunkSize = Math.ceil(patterns.length / ctx.buildArg.value);
-            }
-            for (let i = 0, len = patterns.length; i < len; i += chunkSize) {
-                acTree.build(patterns.slice(i, i + chunkSize));
+            ctx.progress.total = ctx.patterns.length;
+            for (let i = 0, len = ctx.patterns.length; i < len; i += ctx.sizePerBuild) {
+                acTree.build(ctx.patterns.slice(i, i + ctx.sizePerBuild));
+                ctx.progress.built = Math.min(i + ctx.sizePerBuild, len);
+                ctx.progress.percent = Math.floor((ctx.progress.built / ctx.progress.total) * 100);
+                ctx.callbacks.progress(ctx.progress);
                 yield;
             }
-            ctx.finishedCallback();
+            ctx.callbacks.finished();
         })(this);
     }
-    getBuilder(value, mode, finishedCallback) {
-        this.buildArg.value = value;
-        this.buildArg.mode = mode;
-        this.finishedCallback = finishedCallback;
+    getBuilder(sizePerBuild, progressCallback, finishedCallback) {
+        this.sizePerBuild = sizePerBuild;
+        if (typeof progressCallback === 'function') {
+            this.callbacks.progress = progressCallback;
+        }
+        if (typeof finishedCallback === 'function') {
+            this.callbacks.finished = finishedCallback;
+        }
         return this.builder;
     }
+    getProgress() {
+        return this.progress;
+    }
 }
-let patternsNormalBuilder = new PatternsNormalBuilder();
-export function getPatternsNormalBuilder(value, mode) {
-    return patternsNormalBuilder ? patternsNormalBuilder.getBuilder(value, mode, () => patternsNormalBuilder = null) : null;
+// 常规匹配
+let patternsNormalBuilder = new PatternsBuilder(Pattern5.concat(Pattern4, Pattern3, Pattern2, PatternNumberDict, PatternSurname));
+export function getPatternsNormalBuilder(sizePerBuild, progressCallback, finishedCallback) {
+    return patternsNormalBuilder ? patternsNormalBuilder.getBuilder(sizePerBuild, progressCallback, () => {
+        patternsNormalBuilder = null;
+        if (typeof finishedCallback === 'function') {
+            finishedCallback();
+        }
+    }) : null;
 }
 
 let customDict = {};
@@ -24041,7 +24059,7 @@ function clearCustomDict(dict) {
     }
 }
 
-const getSingleWordPinyin = (char) => {
+function getSingleWordPinyin(char) {
     const pinyin = DICT1.get(char);
     // 若查到, 则返回第一个拼音; 若未查到, 返回原字符
     return pinyin ? pinyin.split(" ")[0] : char;
@@ -24097,7 +24115,7 @@ const getPinyin = (word, list, surname, segmentit) => {
     }
     return { list, matches };
 };
-const getPinyinWithoutTone = (pinyin) => {
+function getPinyinWithoutTone(pinyin) {
     return pinyin
         .replace(/(ā|á|ǎ|à)/g, "a")
         .replace(/(ō|ó|ǒ|ò)/g, "o")
@@ -24189,7 +24207,7 @@ const getFinalParts = (pinyin) => {
     }
     return { head, body, tail };
 };
-const getNumOfTone = (pinyin) => {
+function getNumOfTone(pinyin) {
     const reg_tone1 = /(ā|ō|ē|ī|ū|ǖ|n̄|m̄|ê̄)/;
     const reg_tone2 = /(á|ó|é|í|ú|ǘ|ń|ḿ|ế)/;
     const reg_tone3 = /(ǎ|ǒ|ě|ǐ|ǔ|ǚ|ň|m̌|ê̌)/;
@@ -24616,7 +24634,7 @@ const getMatchLength = (pinyin1, pinyin2) => {
     }
     return length;
 };
-const matchAny = (text, pinyin$1, options) => {
+function matchAny(text, pinyin$1, options) {
     let result = [];
     const words = splitString(text);
     const ignoreSpace = options.space === "ignore";
@@ -24671,7 +24689,7 @@ const matchAny = (text, pinyin$1, options) => {
     }
     return result.length ? result : null;
 };
-const matchAboveStart = (text, pinyin$1, options) => {
+function matchAboveStart(text, pinyin$1, options) {
     const words = splitString(text);
     // 二维数组 dp[i][j]，i 表示遍历到的 text 索引+1, j 表示遍历到的 pinyin 的索引+1
     const dp = Array(words.length + 1);
@@ -24919,7 +24937,7 @@ function polyphonic(text, options = DEFAULT_OPTIONS$1) {
     return result;
 }
 // 获取每个字多音字的数组
-const getPolyphonicList = (text) => {
+function getPolyphonicList(text) {
     return splitString(text).map((char) => {
         const customPolyphonicDict = getCustomPolyphonicDict();
         const pinyin = customPolyphonicDict.get(char) || DICT1.get(char) || char;
@@ -24932,7 +24950,7 @@ const getPolyphonicList = (text) => {
     });
 };
 // 将多音字每个读音都单独切为一个数组项
-const getSplittedPolyphonicList = (list) => {
+function getSplittedPolyphonicList(list) {
     return list.map((item) => {
         return item.isZh
             ? item.result.split(" ").map((pinyin) => ({
@@ -24945,7 +24963,7 @@ const getSplittedPolyphonicList = (list) => {
     });
 };
 // type 属性处理
-const handleType = (list, options) => {
+function handleType(list, options) {
     if (options.type === "array") {
         return Array.from(new Set(list.map((item) => item.result)));
     }
@@ -25201,13 +25219,22 @@ class PinyinCache {
         this.setOptions(options);
         this.isBuilt = false;
         this.generatorDeleter = null;
+        this.callbacks = {
+            progress: () => { },
+            finished: () => { }
+        };
+        this.progress = {
+            total: data.length,
+            built: 0,
+            percent: 0
+        };
     }
     // 构建拼音缓存
     build(force = false) {
         if (this.isBuilt && !force) {
             return;
         }
-        this.cache.clear();
+        this.clear()
         if (this.data.length === 0) {
             return;
         }
@@ -25251,7 +25278,7 @@ class PinyinCache {
         this.isBuilt = true;
     }
     // 异步分块构建拼音缓存
-    *buildGenerator(chunkSize = 50, force = false) {
+    *buildGenerator(sizePerBuild = 50, force = false) {
         if (this.isBuilt && !force) {
             return;
         }
@@ -25299,7 +25326,7 @@ class PinyinCache {
                     processedCount += 1;
                 }
             }
-            if (processedCount >= chunkSize) {
+            if (processedCount >= sizePerBuild) {
                 yield;
                 processedCount = 0;
             }
@@ -25529,7 +25556,7 @@ function findMatches(cache, pinyin) {
         return false;
     })
 }
-function createCache(data, options, build = true) {
+function createCache(data, options, build) {
     const cache = new PinyinCache(data || [], options);
     if (build) {
         cache.build();

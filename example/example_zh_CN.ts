@@ -2095,14 +2095,25 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished">拼音</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Pinyin.qml" line="32"/>
+        <location filename="qml/page/T_Pinyin.qml" line="47"/>
         <source>[pinyin-pro document](https://pinyin-pro.cn/guide/compare.html)</source>
         <translation type="unfinished">[pinyin-pro文档](https://pinyin-pro.cn/guide/compare.html)</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Pinyin.qml" line="74"/>
+        <location filename="qml/page/T_Pinyin.qml" line="89"/>
+        <location filename="qml/page/T_Pinyin.qml" line="151"/>
         <source>Input Chinese or Pinyin</source>
         <translation type="unfinished">输入汉字或拼音</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="170"/>
+        <source>Matching time: %1</source>
+        <translation type="unfinished">匹配耗时: %1</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Pinyin.qml" line="175"/>
+        <source>Matching with cache</source>
+        <translation type="unfinished">带缓存匹配</translation>
     </message>
 </context>
 <context>
