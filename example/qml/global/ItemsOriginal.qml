@@ -463,6 +463,12 @@ FluObject{
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{
+            title: qsTr("Pinyin")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_Pinyin.qml"
+            onTap: { navigationView.push(url) }
+        }
+        FluPaneItem{
             title: qsTr("Captcha")
             menuDelegate: paneItemMenu
             url: "qrc:/example/qml/page/T_Captcha.qml"

@@ -99,5 +99,6 @@ FluWindow 1.0 Controls/FluWindow.qml
 FluWindowDialog 1.0 Controls/FluWindowDialog.qml
 FluWindowResultLauncher 1.0 Controls/FluWindowResultLauncher.qml
 FluBubbleBox 1.0 Controls/FluBubbleBox.qml
+FluPinyin 1.0 Controls/FluPinyin.qml
 
 plugin fluentuiplugin

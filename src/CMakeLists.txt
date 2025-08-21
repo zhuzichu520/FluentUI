@@ -104,7 +104,7 @@ if (QT_VERSION VERSION_GREATER_EQUAL "6.2")
     endforeach (filepath)
 
     #遍历所有资源文件
-    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.js *.qm)
+    file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.js *.mjs *.qm)
     foreach (filepath ${RES_PATHS})
         if (${filepath} MATCHES "Qt${QT_VERSION_MAJOR}/")
             string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
