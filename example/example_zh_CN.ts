@@ -626,7 +626,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="310"/>
+        <location filename="qml/window/MainWindow.qml" line="311"/>
         <source>Dark Mode</source>
         <translation type="unfinished">夜间模式</translation>
     </message>
@@ -658,7 +658,7 @@
     </message>
     <message>
         <location filename="qml/window/MainWindow.qml" line="97"/>
-        <location filename="qml/window/MainWindow.qml" line="339"/>
+        <location filename="qml/window/MainWindow.qml" line="340"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
@@ -678,52 +678,52 @@
         <translation type="unfinished">搜索</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="304"/>
+        <location filename="qml/window/MainWindow.qml" line="305"/>
         <source>Finish</source>
         <translation type="unfinished">完成</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="305"/>
+        <location filename="qml/window/MainWindow.qml" line="306"/>
         <source>Next</source>
         <translation type="unfinished">下一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="306"/>
+        <location filename="qml/window/MainWindow.qml" line="307"/>
         <source>Previous</source>
         <translation type="unfinished">上一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="310"/>
+        <location filename="qml/window/MainWindow.qml" line="311"/>
         <source>Here you can switch to night mode.</source>
         <translation type="unfinished">在这里，您可以切换到夜间模式。</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="312"/>
+        <location filename="qml/window/MainWindow.qml" line="313"/>
         <source>Hide Easter eggs</source>
         <translation type="unfinished">隐藏彩蛋</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="312"/>
+        <location filename="qml/window/MainWindow.qml" line="313"/>
         <source>Try a few more clicks!!</source>
         <translation type="unfinished">再试几下！！</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="336"/>
+        <location filename="qml/window/MainWindow.qml" line="337"/>
         <source>Upgrade Tips</source>
         <translation type="unfinished">升级提示</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source>FluentUI is currently up to date </source>
         <translation type="unfinished">FluentUI 目前最新版本 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source> -- The current app version</source>
         <translation type="unfinished"> -- 当前应用版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source> 
 Now go and download the new version？
 
@@ -736,17 +736,17 @@ Updated content:
 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="340"/>
+        <location filename="qml/window/MainWindow.qml" line="341"/>
         <source>OK</source>
         <translation type="unfinished">确定</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="367"/>
+        <location filename="qml/window/MainWindow.qml" line="368"/>
         <source>The current version is already the latest</source>
         <translation type="unfinished">当前版本已经是最新版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="374"/>
+        <location filename="qml/window/MainWindow.qml" line="375"/>
         <source>The network is abnormal</source>
         <translation type="unfinished">网络异常</translation>
     </message>
@@ -1204,12 +1204,52 @@ Updated content:
         <translation>轮播图</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Carousel.qml" line="36"/>
+        <location filename="qml/page/T_Carousel.qml" line="34"/>
         <source>Carousel map, support infinite carousel, infinite swipe, and components implemented with ListView</source>
         <translation>轮播图，支持无限轮播，无限滑动，用ListView实现的组件</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Carousel.qml" line="203"/>
+        <location filename="qml/page/T_Carousel.qml" line="38"/>
+        <source>Play orientation:</source>
+        <translation type="unfinished">轮播方向：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="46"/>
+        <source>Horizontal</source>
+        <translation type="unfinished">水平</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="50"/>
+        <source>Vertical</source>
+        <translation type="unfinished">垂直</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="56"/>
+        <source>Indicator position:</source>
+        <translation type="unfinished">指示器位置：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="63"/>
+        <source>top</source>
+        <translation type="unfinished">上</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="69"/>
+        <source>right</source>
+        <translation type="unfinished">右</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="66"/>
+        <source>bottom</source>
+        <translation type="unfinished">下</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="72"/>
+        <source>left</source>
+        <translation type="unfinished">左</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="79"/>
         <source>Auto play</source>
         <translation>自动轮播</translation>
     </message>

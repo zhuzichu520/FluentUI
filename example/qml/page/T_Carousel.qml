@@ -24,183 +24,112 @@ FluScrollablePage{
 
     FluFrame{
         Layout.fillWidth: true
-        height: 370
         padding: 10
-        Column{
-            spacing: 15
-            anchors{
-                verticalCenter: parent.verticalCenter
-                left:parent.left
+        ColumnLayout {
+            anchors {
+                left: parent.left
+                right: parent.right
             }
-            FluText{
+            FluText {
                 text: qsTr("Carousel map, support infinite carousel, infinite swipe, and components implemented with ListView")
             }
-            Item{
-                width: 400
-                height: 300
-                FluShadow{
-                    radius: 8
+            RowLayout {
+                FluText {
+                    text: qsTr("Play orientation:")
                 }
-                FluCarousel{
-                    anchors.fill: parent
-                    delegate: Component{
-                        Image {
-                            anchors.fill: parent
-                            source: model.url
-                            asynchronous: true
-                            fillMode:Image.PreserveAspectCrop
+                FluComboBox {
+                    id: orientation_box
+                    textRole: "key"
+                    valueRole: "value"
+                    model: ListModel {
+                        ListElement {
+                            key: qsTr("Horizontal")
+                            value: Qt.Horizontal
+                        }
+                        ListElement {
+                            key: qsTr("Vertical")
+                            value: Qt.Vertical
                         }
                     }
-                    Layout.topMargin: 20
-                    Layout.leftMargin: 5
-                    Component.onCompleted: {
-                        model = [{url:"qrc:/example/res/image/banner_1.jpg"},{url:"qrc:/example/res/image/banner_2.jpg"},{url:"qrc:/example/res/image/banner_3.jpg"}]
-                    }
                 }
-            }
-        }
-    }
-
-    FluFrame{
-        Layout.fillWidth: true
-        height: 340
-        padding: 10
-        Layout.topMargin: 10
-        Column{
-            spacing: 15
-            anchors{
-                verticalCenter: parent.verticalCenter
-                left:parent.left
-            }
-            Item{
-                width: 400
-                height: 300
-                FluShadow{
-                    radius: 8
+                FluText {
+                    text: qsTr("Indicator position:")
                 }
-                FluCarousel{
-                    anchors.fill: parent
-                    loopTime:1500
-                    indicatorGravity: Qt.AlignHCenter | Qt.AlignTop
-                    indicatorMarginTop:15
-                    delegate: Component{
-                        Item{
-                            anchors.fill: parent
-                            Image {
-                                anchors.fill: parent
-                                source: model.url
-                                asynchronous: true
-                                fillMode:Image.PreserveAspectCrop
-                            }
-                            Rectangle{
-                                height: 40
-                                width: parent.width
-                                anchors.bottom: parent.bottom
-                                color: "#33000000"
-                                FluText{
-                                    anchors.fill: parent
-                                    verticalAlignment: Qt.AlignVCenter
-                                    horizontalAlignment: Qt.AlignHCenter
-                                    text:model.title
-                                    color: FluColors.Grey10
-                                }
-                            }
-                        }
-                    }
-                    Layout.topMargin: 20
-                    Layout.leftMargin: 5
-                    Component.onCompleted: {
-                        var arr = []
-                        arr.push({url:"qrc:/example/res/image/banner_1.jpg",title:"共同应对全球性问题"})
-                        arr.push({url:"qrc:/example/res/image/banner_2.jpg",title:"三小只全程没互动"})
-                        arr.push({url:"qrc:/example/res/image/banner_3.jpg",title:"有效投资扩大 激发增长动能"})
-                        model = arr
-                    }
-                }
-            }
-
-        }
-    }
-    CodeExpander{
-        Layout.fillWidth: true
-        Layout.topMargin: -6
-        code:'FluCarousel{
-    id:carousel
-    width: 400
-    height: 300
-    delegate: Component{
-        Image {
-            anchors.fill: parent
-            source: model.url
-            asynchronous: true
-            fillMode:Image.PreserveAspectCrop
-        }
-    }
-    Component.onCompleted: {
-        carousel.model = [{url:"qrc:/example/res/image/banner_1.jpg"},{url:"qrc:/example/res/image/banner_2.jpg"},{url:"qrc:/example/res/image/banner_3.jpg"}]
-    }
-}'
-    }
-
-    FluFrame{
-        Layout.fillWidth: true
-        Layout.preferredHeight: 300 + topPadding + bottomPadding
-        padding: 10
-        Layout.topMargin: 10
-        RowLayout{
-            anchors.fill: parent
-            Item{
-                Layout.preferredWidth: 400
-                Layout.fillHeight: true
-                FluShadow{
-                    radius: 8
-                }
-                FluCarousel{
-                    anchors.fill: parent
-                    orientation: Qt.Vertical
-                    autoPlay: auto_play_switch.checked
-                    loopTime:1500
-                    indicatorGravity: Qt.AlignVCenter | Qt.AlignRight
-                    indicatorMarginTop:15
-                    delegate: Component{
-                        Item{
-                            anchors.fill: parent
-                            Image {
-                                anchors.fill: parent
-                                source: model.url
-                                asynchronous: true
-                                fillMode:Image.PreserveAspectCrop
-                            }
-                            Rectangle{
-                                height: 40
-                                width: parent.width
-                                anchors.bottom: parent.bottom
-                                color: "#33000000"
-                                FluText{
-                                    anchors.fill: parent
-                                    verticalAlignment: Qt.AlignVCenter
-                                    horizontalAlignment: Qt.AlignHCenter
-                                    text:model.title
-                                    color: FluColors.Grey10
-                                }
-                            }
-                        }
-                    }
-                    Layout.topMargin: 20
-                    Layout.leftMargin: 5
-                    Component.onCompleted: {
-                        var arr = []
-                        arr.push({url:"qrc:/example/res/image/banner_1.jpg",title:"共同应对全球性问题"})
-                        arr.push({url:"qrc:/example/res/image/banner_2.jpg",title:"三小只全程没互动"})
-                        arr.push({url:"qrc:/example/res/image/banner_3.jpg",title:"有效投资扩大 激发增长动能"})
-                        model = arr
-                    }
+                FluComboBox {
+                    id: position_box
+                    textRole: "key"
+                    valueRole: "value"
+                    model: orientation_box.currentValue === Qt.Horizontal ? [{
+                                                                                 "key": qsTr("top"),
+                                                                                 "value": Qt.AlignHCenter | Qt.AlignTop
+                                                                             }, {
+                                                                                 "key": qsTr("bottom"),
+                                                                                 "value": Qt.AlignHCenter | Qt.AlignBottom
+                                                                             }] : [{
+                                                                                       "key": qsTr("right"),
+                                                                                       "value": Qt.AlignVCenter | Qt.AlignRight
+                                                                                   }, {
+                                                                                       "key": qsTr("left"),
+                                                                                       "value": Qt.AlignVCenter | Qt.AlignLeft
+                                                                                   }]
                 }
             }
             FluToggleSwitch{
                 id: auto_play_switch
-                Layout.alignment: Qt.AlignRight
                 text: qsTr("Auto play")
+                checked: true
+                textRight: false
+            }
+            Item{
+                Layout.preferredWidth: 400
+                Layout.preferredHeight: 300
+                FluShadow{
+                    radius: 8
+                }
+                FluCarousel{
+                    anchors.fill: parent
+                    orientation: orientation_box.currentValue
+                    autoPlay: auto_play_switch.checked
+                    loopTime:1500
+                    indicatorGravity: position_box.currentValue
+                    indicatorMarginTop: 15
+                    indicatorMarginBottom: 15
+                    indicatorMarginLeft: 15
+                    indicatorMarginRight: 15
+                    delegate: Component{
+                        Item{
+                            anchors.fill: parent
+                            Image {
+                                anchors.fill: parent
+                                source: model.url
+                                asynchronous: true
+                                fillMode:Image.PreserveAspectCrop
+                            }
+                            Rectangle{
+                                height: 40
+                                width: parent.width
+                                anchors.bottom: parent.bottom
+                                color: "#33000000"
+                                FluText{
+                                    anchors.fill: parent
+                                    verticalAlignment: Qt.AlignVCenter
+                                    horizontalAlignment: Qt.AlignHCenter
+                                    text:model.title
+                                    color: FluColors.Grey10
+                                }
+                            }
+                        }
+                    }
+                    Layout.topMargin: 20
+                    Layout.leftMargin: 5
+                    Component.onCompleted: {
+                        var arr = []
+                        arr.push({url:"qrc:/example/res/image/banner_1.jpg",title:"共同应对全球性问题"})
+                        arr.push({url:"qrc:/example/res/image/banner_2.jpg",title:"三小只全程没互动"})
+                        arr.push({url:"qrc:/example/res/image/banner_3.jpg",title:"有效投资扩大 激发增长动能"})
+                        model = arr
+                    }
+                }
             }
         }
     }
@@ -212,6 +141,8 @@ FluScrollablePage{
     width: 400
     height: 300
     orientation: Qt.Vertical
+    indicatorGravity: Qt.AlignTop | Qt.AlignHCenter
+    autoPlay: true
     delegate: Component{
         Image {
             anchors.fill: parent

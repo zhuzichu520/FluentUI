@@ -213,6 +213,7 @@ FluWindow {
                     iconSource: FluentIcons.Search
                     items: ItemsOriginal.getSearchData()
                     placeholderText: qsTr("Search")
+                    filter: (item) => item[textRole].toLowerCase().includes(text.toLowerCase())
                     onItemClicked:
                         (data)=>{
                             ItemsOriginal.startPageByItem(data)

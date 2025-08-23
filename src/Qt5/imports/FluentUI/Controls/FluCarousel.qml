@@ -18,8 +18,11 @@ Item {
     property alias indicatorAnchors: indicator_loader.anchors
     property Component indicatorDelegate : com_indicator
     id:control
-    width: 400
-    height: 300
+    implicitWidth: 400
+    implicitHeight: 300
+    onIndicatorGravityChanged: {
+        indicator_loader.updateAnchors()
+    }
     ListModel{
         id:content_model
     }
@@ -147,6 +150,9 @@ Item {
                 }
             }
         }
+        onOrientationChanged: {
+            positionViewAtIndex(currentIndex, ListView.Center)
+        }
         function resetPos() {
             contentX = 0
             contentY = 0
@@ -184,20 +190,41 @@ Item {
 
     Loader{
         id: indicator_loader
-        anchors{
-            horizontalCenter:(indicatorGravity & Qt.AlignHCenter) ? parent.horizontalCenter : undefined
-            verticalCenter: (indicatorGravity & Qt.AlignVCenter) ? parent.verticalCenter : undefined
-            bottom: (indicatorGravity & Qt.AlignBottom) ? parent.bottom : undefined
-            top: (indicatorGravity & Qt.AlignTop) ? parent.top : undefined
-            left: (indicatorGravity & Qt.AlignLeft) ? parent.left : undefined
-            right: (indicatorGravity & Qt.AlignRight) ? parent.right : undefined
-            bottomMargin: control.indicatorMarginBottom
-            leftMargin: control.indicatorMarginBottom
-            rightMargin: control.indicatorMarginBottom
-            topMargin: control.indicatorMarginBottom
-        }
         active: showIndicator
         sourceComponent: control.orientation === Qt.Vertical ? column_indicator : row_indicator
+        function updateAnchors() {
+            anchors.horizontalCenter = undefined
+            anchors.verticalCenter = undefined
+            anchors.top = undefined
+            anchors.bottom = undefined
+            anchors.left = undefined
+            anchors.right = undefined
+            if (indicatorGravity & Qt.AlignHCenter) {
+                anchors.horizontalCenter = parent.horizontalCenter
+            }
+            if (indicatorGravity & Qt.AlignVCenter) {
+                anchors.verticalCenter = parent.verticalCenter
+            }
+            if (indicatorGravity & Qt.AlignTop) {
+                anchors.top = parent.top
+            }
+            if (indicatorGravity & Qt.AlignBottom) {
+                anchors.bottom = parent.bottom
+            }
+            if (indicatorGravity & Qt.AlignLeft) {
+                anchors.left = parent.left
+            }
+            if (indicatorGravity & Qt.AlignRight) {
+                anchors.right = parent.right
+            }
+            anchors.topMargin = Qt.binding(() => control.indicatorMarginTop)
+            anchors.bottomMargin = Qt.binding(() => control.indicatorMarginBottom)
+            anchors.leftMargin = Qt.binding(() => control.indicatorMarginLeft)
+            anchors.rightMargin = Qt.binding(() => control.indicatorMarginRight)
+        }
+        Component.onCompleted: {
+            updateAnchors()
+        }
     }
 
     Component{
