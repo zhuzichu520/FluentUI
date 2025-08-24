@@ -17,6 +17,7 @@
 #include "FluFrameless.h"
 #include "FluTableModel.h"
 #include "FluHotkey.h"
+#include "FluCountTimer.h"
 #include "qmlcustomplot/TimePlot.h"
 #include "qmlcustomplot/baseplot.h"
 #include "qmlcustomplot/axis.h"
@@ -46,6 +47,7 @@ void FluentUI::registerTypes(const char *uri) {
     qmlRegisterType<FluFrameless>(uri, major, minor, "FluFrameless");
     qmlRegisterType<FluHotkey>(uri, major, minor, "FluHotkey");
     qmlRegisterType<FluTableSortProxyModel>(uri, major, minor, "FluTableSortProxyModel");
+    qmlRegisterType<FluCountTimer>(uri, major, minor, "FluCountTimer");
 
     qmlRegisterType<QmlQCustomPlot::TimePlot>(uri, major, minor, "TimePlot");
     qmlRegisterType<QmlQCustomPlot::BasePlot>(uri, major, minor, "BasePlot");

@@ -571,26 +571,31 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="472"/>
-        <source>Captcha</source>
+        <source>CountTimer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="478"/>
+        <source>Captcha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="484"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="485"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="491"/>
         <source>Remote Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="499"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="505"/>
         <source>Hot Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="505"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="511"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1354,6 +1359,29 @@ Updated content:
             model.append({text: editText})
     }
 }</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_CountTimer</name>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="10"/>
+        <source>CountTimer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="27"/>
+        <source>Countdown milliseconds: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="39"/>
+        <source>Countdown seconds: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="67"/>
+        <source>Countup seconds: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

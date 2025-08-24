@@ -469,6 +469,12 @@ FluObject{
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{
+            title: qsTr("CountTimer")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_CountTimer.qml"
+            onTap: { navigationView.push(url) }
+        }
+        FluPaneItem{
             title: qsTr("Captcha")
             menuDelegate: paneItemMenu
             url: "qrc:/example/qml/page/T_Captcha.qml"

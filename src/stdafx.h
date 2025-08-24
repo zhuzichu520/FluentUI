@@ -9,7 +9,7 @@ public:                                                                         
         _##M = in_##M;                                                                             \
         Q_EMIT M##Changed();                                                                       \
     }                                                                                              \
-    TYPE M() {                                                                                     \
+    TYPE M() const {                                                                               \
         return _##M;                                                                               \
     }                                                                                              \
                                                                                                    \
@@ -21,10 +21,12 @@ private:                                                                        
 public:                                                                                            \
     Q_SIGNAL void M##Changed();                                                                    \
     void M(const TYPE &in_##M) {                                                                   \
-        _##M = in_##M;                                                                             \
-        Q_EMIT M##Changed();                                                                       \
+        if (_##M != in_##M) {                                                                      \
+            _##M = in_##M;                                                                         \
+            Q_EMIT M##Changed();                                                                   \
+        }                                                                                          \
     }                                                                                              \
-    TYPE M() {                                                                                     \
+    TYPE M() const {                                                                               \
         return _##M;                                                                               \
     }                                                                                              \
                                                                                                    \
@@ -37,10 +39,12 @@ private:                                                                        
 public:                                                                                            \
     Q_SIGNAL void M##Changed();                                                                    \
     void M(const TYPE &in_##M) {                                                                   \
-        _##M = in_##M;                                                                             \
-        Q_EMIT M##Changed();                                                                       \
+        if (_##M != in_##M) {                                                                      \
+            _##M = in_##M;                                                                         \
+            Q_EMIT M##Changed();                                                                   \
+        }                                                                                          \
     }                                                                                              \
-    TYPE M() {                                                                                     \
+    TYPE M() const {                                                                               \
         return _##M;                                                                               \
     }                                                                                              \
                                                                                                    \
