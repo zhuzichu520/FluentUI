@@ -74,6 +74,9 @@ QtObject {
             cache.build(true)
         }
     }
+    function hasPinyinMatch(cache, item, pinyin) {
+        return context.hasPinyinMatch(cache, item, pinyin)
+    }
     function findMatches(cache, pinyin) {
         return context.findMatches(cache, pinyin)
     }
