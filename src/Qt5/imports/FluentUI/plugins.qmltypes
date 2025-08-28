@@ -3719,6 +3719,26 @@ Module {
         Property { name: "size"; type: "int" }
     }
     Component {
+        prototype: "FluRectangle"
+        name: "FluentUI/FluParallaxView 1.0"
+        exports: ["FluentUI/FluParallaxView 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "backgroundSizeMode"; type: "string" }
+        Property { name: "backgroundMinHeight"; type: "double" }
+        Property { name: "speed"; type: "double" }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "spacing"; type: "double" }
+        Property { name: "backgroundItem"; type: "QQmlComponent"; isPointer: true }
+        Property {
+            name: "backgroundAcrylic"
+            type: "FluAcrylic_QMLTYPE_12"
+            isReadonly: true
+            isPointer: true
+        }
+    }
+    Component {
         prototype: "QQuickTextField"
         name: "FluentUI/FluPasswordBox 1.0"
         exports: ["FluentUI/FluPasswordBox 1.0"]

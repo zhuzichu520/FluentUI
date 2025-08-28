@@ -470,132 +470,137 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="352"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="350"/>
+        <source>ParallaxView</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="358"/>
         <source>Theming</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="355"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="361"/>
         <source>Acrylic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="361"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="367"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="367"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="373"/>
         <source>Typography</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="373"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="379"/>
         <source>Icons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="381"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="387"/>
         <source>Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="384"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
         <source>Bar Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
         <source>Line Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
         <source>Pie Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
         <source>Polar Area Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
         <source>Bubble Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="420"/>
         <source>Scatter Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="420"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="426"/>
         <source>Radar Chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="433"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="439"/>
         <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
         <source>OpenGL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
         <source>QCustomPlot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
         <source>QRCode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
         <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
         <source>Timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
         <source>Pinyin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
         <source>CountTimer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="484"/>
         <source>Captcha</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="484"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="490"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="491"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="497"/>
         <source>Remote Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="505"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="511"/>
         <source>Hot Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="511"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="517"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1994,6 +1999,39 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <location filename="qml/page/T_Pagination.qml" line="10"/>
         <source>Pagination</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_ParallaxView</name>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="10"/>
+        <source>ParallaxView</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="22"/>
+        <source>Background size mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="30"/>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="34"/>
+        <source>Cover</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="38"/>
+        <source>Fixed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="46"/>
+        <source>Speed:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -216,6 +216,7 @@
         <file>qml/page/T_BubbleBox.qml</file>
         <file>qml/page/T_Pinyin.qml</file>
         <file>qml/page/T_CountTimer.qml</file>
+        <file>qml/page/T_ParallaxView.qml</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
