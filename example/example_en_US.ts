@@ -1246,34 +1246,49 @@ Updated content:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="18"/>
+        <location filename="qml/page/T_CheckBox.qml" line="52"/>
         <source>A 2-state CheckBox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="32"/>
+        <location filename="qml/page/T_CheckBox.qml" line="66"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="36"/>
+        <location filename="qml/page/T_CheckBox.qml" line="70"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="46"/>
-        <location filename="qml/page/T_CheckBox.qml" line="101"/>
+        <location filename="qml/page/T_CheckBox.qml" line="80"/>
+        <location filename="qml/page/T_CheckBox.qml" line="135"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="64"/>
+        <location filename="qml/page/T_CheckBox.qml" line="98"/>
         <source>A 3-state CheckBox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="75"/>
+        <location filename="qml/page/T_CheckBox.qml" line="109"/>
         <source>Three State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="154"/>
+        <source>Using a 3-state CheckBox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="157"/>
+        <source>Select all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="168"/>
+        <source>Option %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

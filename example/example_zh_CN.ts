@@ -1272,35 +1272,50 @@ Updated content:
         <translation type="unfinished">复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="18"/>
+        <location filename="qml/page/T_CheckBox.qml" line="52"/>
         <source>A 2-state CheckBox</source>
         <translation type="unfinished">两状态复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="32"/>
+        <location filename="qml/page/T_CheckBox.qml" line="66"/>
         <source>Right</source>
         <translation type="unfinished">右</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="36"/>
+        <location filename="qml/page/T_CheckBox.qml" line="70"/>
         <source>Left</source>
         <translation type="unfinished">左</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="46"/>
-        <location filename="qml/page/T_CheckBox.qml" line="101"/>
+        <location filename="qml/page/T_CheckBox.qml" line="80"/>
+        <location filename="qml/page/T_CheckBox.qml" line="135"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="64"/>
+        <location filename="qml/page/T_CheckBox.qml" line="98"/>
         <source>A 3-state CheckBox</source>
         <translation type="unfinished">三状态复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="75"/>
+        <location filename="qml/page/T_CheckBox.qml" line="109"/>
         <source>Three State</source>
         <translation type="unfinished">三状态</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="154"/>
+        <source>Using a 3-state CheckBox</source>
+        <translation type="unfinished">使用三状态复选框</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="157"/>
+        <source>Select all</source>
+        <translation type="unfinished">选中全部</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="168"/>
+        <source>Option %1</source>
+        <translation type="unfinished">选项 %1</translation>
     </message>
 </context>
 <context>
