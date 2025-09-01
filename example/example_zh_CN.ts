@@ -470,122 +470,132 @@
         <translation type="unfinished">显示用户可以翻阅的项集合，一次翻阅一个项。</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="352"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="350"/>
+        <source>ParallaxView</source>
+        <translation type="unfinished">视差视图</translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="358"/>
         <source>Theming</source>
         <translation type="unfinished">主题</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="355"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="361"/>
         <source>Acrylic</source>
         <translation type="unfinished">亚克力</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="361"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="367"/>
         <source>Theme</source>
         <translation type="unfinished">主题</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="367"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="373"/>
         <source>Typography</source>
         <translation type="unfinished">字体</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="373"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="379"/>
         <source>Icons</source>
         <translation type="unfinished">图标</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="381"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="387"/>
         <source>Chart</source>
         <translation type="unfinished">图表</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="384"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
         <source>Bar Chart</source>
         <translation type="unfinished">条形图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="390"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
         <source>Line Chart</source>
         <translation type="unfinished">线型图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="396"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
         <source>Pie Chart</source>
         <translation type="unfinished">饼图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="402"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
         <source>Polar Area Chart</source>
         <translation type="unfinished">极坐标区域图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="408"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
         <source>Bubble Chart</source>
         <translation type="unfinished">气泡图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="414"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="420"/>
         <source>Scatter Chart</source>
         <translation type="unfinished">散点图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="420"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="426"/>
         <source>Radar Chart</source>
         <translation type="unfinished">雷达图</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="433"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="439"/>
         <source>Other</source>
         <translation type="unfinished">其他</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="436"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
         <source>OpenGL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="442"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
         <source>QCustomPlot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="448"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
         <source>QRCode</source>
         <translation type="unfinished">二维码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="454"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
         <source>Tour</source>
         <translation type="unfinished">漫游式引导</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
         <source>Timeline</source>
         <translation type="unfinished">时间轴</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
         <source>Pinyin</source>
         <translation type="unfinished">拼音</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
+        <source>CountTimer</source>
+        <translation type="unfinished">计时器</translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="484"/>
         <source>Captcha</source>
         <translation type="unfinished">验证码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="490"/>
         <source>Network</source>
         <translation type="unfinished">网络</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="485"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="497"/>
         <source>Remote Loader</source>
         <translation type="unfinished">远程加载</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="499"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="511"/>
         <source>Hot Loader</source>
         <translation type="unfinished">热加载</translation>
     </message>
@@ -594,7 +604,7 @@
         <translation type="obsolete">3D</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="505"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="517"/>
         <source>Test Crash</source>
         <translation type="unfinished">测试崩溃</translation>
     </message>
@@ -626,7 +636,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="310"/>
+        <location filename="qml/window/MainWindow.qml" line="311"/>
         <source>Dark Mode</source>
         <translation type="unfinished">夜间模式</translation>
     </message>
@@ -658,7 +668,7 @@
     </message>
     <message>
         <location filename="qml/window/MainWindow.qml" line="97"/>
-        <location filename="qml/window/MainWindow.qml" line="339"/>
+        <location filename="qml/window/MainWindow.qml" line="340"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
@@ -678,52 +688,52 @@
         <translation type="unfinished">搜索</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="304"/>
+        <location filename="qml/window/MainWindow.qml" line="305"/>
         <source>Finish</source>
         <translation type="unfinished">完成</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="305"/>
+        <location filename="qml/window/MainWindow.qml" line="306"/>
         <source>Next</source>
         <translation type="unfinished">下一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="306"/>
+        <location filename="qml/window/MainWindow.qml" line="307"/>
         <source>Previous</source>
         <translation type="unfinished">上一步</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="310"/>
+        <location filename="qml/window/MainWindow.qml" line="311"/>
         <source>Here you can switch to night mode.</source>
         <translation type="unfinished">在这里，您可以切换到夜间模式。</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="312"/>
+        <location filename="qml/window/MainWindow.qml" line="313"/>
         <source>Hide Easter eggs</source>
         <translation type="unfinished">隐藏彩蛋</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="312"/>
+        <location filename="qml/window/MainWindow.qml" line="313"/>
         <source>Try a few more clicks!!</source>
         <translation type="unfinished">再试几下！！</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="336"/>
+        <location filename="qml/window/MainWindow.qml" line="337"/>
         <source>Upgrade Tips</source>
         <translation type="unfinished">升级提示</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source>FluentUI is currently up to date </source>
         <translation type="unfinished">FluentUI 目前最新版本 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source> -- The current app version</source>
         <translation type="unfinished"> -- 当前应用版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="337"/>
+        <location filename="qml/window/MainWindow.qml" line="338"/>
         <source> 
 Now go and download the new version？
 
@@ -736,17 +746,17 @@ Updated content:
 </translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="340"/>
+        <location filename="qml/window/MainWindow.qml" line="341"/>
         <source>OK</source>
         <translation type="unfinished">确定</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="367"/>
+        <location filename="qml/window/MainWindow.qml" line="368"/>
         <source>The current version is already the latest</source>
         <translation type="unfinished">当前版本已经是最新版本</translation>
     </message>
     <message>
-        <location filename="qml/window/MainWindow.qml" line="374"/>
+        <location filename="qml/window/MainWindow.qml" line="375"/>
         <source>The network is abnormal</source>
         <translation type="unfinished">网络异常</translation>
     </message>
@@ -1204,12 +1214,52 @@ Updated content:
         <translation>轮播图</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Carousel.qml" line="36"/>
+        <location filename="qml/page/T_Carousel.qml" line="34"/>
         <source>Carousel map, support infinite carousel, infinite swipe, and components implemented with ListView</source>
         <translation>轮播图，支持无限轮播，无限滑动，用ListView实现的组件</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Carousel.qml" line="203"/>
+        <location filename="qml/page/T_Carousel.qml" line="38"/>
+        <source>Play orientation:</source>
+        <translation type="unfinished">轮播方向：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="46"/>
+        <source>Horizontal</source>
+        <translation type="unfinished">水平</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="50"/>
+        <source>Vertical</source>
+        <translation type="unfinished">垂直</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="56"/>
+        <source>Indicator position:</source>
+        <translation type="unfinished">指示器位置：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="63"/>
+        <source>top</source>
+        <translation type="unfinished">上</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="69"/>
+        <source>right</source>
+        <translation type="unfinished">右</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="66"/>
+        <source>bottom</source>
+        <translation type="unfinished">下</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="72"/>
+        <source>left</source>
+        <translation type="unfinished">左</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Carousel.qml" line="79"/>
         <source>Auto play</source>
         <translation>自动轮播</translation>
     </message>
@@ -1222,35 +1272,50 @@ Updated content:
         <translation type="unfinished">复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="18"/>
+        <location filename="qml/page/T_CheckBox.qml" line="52"/>
         <source>A 2-state CheckBox</source>
         <translation type="unfinished">两状态复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="32"/>
+        <location filename="qml/page/T_CheckBox.qml" line="66"/>
         <source>Right</source>
         <translation type="unfinished">右</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="36"/>
+        <location filename="qml/page/T_CheckBox.qml" line="70"/>
         <source>Left</source>
         <translation type="unfinished">左</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="46"/>
-        <location filename="qml/page/T_CheckBox.qml" line="101"/>
+        <location filename="qml/page/T_CheckBox.qml" line="80"/>
+        <location filename="qml/page/T_CheckBox.qml" line="135"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="64"/>
+        <location filename="qml/page/T_CheckBox.qml" line="98"/>
         <source>A 3-state CheckBox</source>
         <translation type="unfinished">三状态复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="75"/>
+        <location filename="qml/page/T_CheckBox.qml" line="109"/>
         <source>Three State</source>
         <translation type="unfinished">三状态</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="154"/>
+        <source>Using a 3-state CheckBox</source>
+        <translation type="unfinished">使用三状态复选框</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="157"/>
+        <source>Select all</source>
+        <translation type="unfinished">选中全部</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CheckBox.qml" line="168"/>
+        <source>Option %1</source>
+        <translation type="unfinished">选项 %1</translation>
     </message>
 </context>
 <context>
@@ -1385,6 +1450,29 @@ Updated content:
                 model.append({text: editText})
         }
     }</translation>
+    </message>
+</context>
+<context>
+    <name>T_CountTimer</name>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="10"/>
+        <source>CountTimer</source>
+        <translation type="unfinished">计时器</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="27"/>
+        <source>Countdown milliseconds: %1</source>
+        <translation type="unfinished">毫秒倒计时：%1</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="39"/>
+        <source>Countdown seconds: %1</source>
+        <translation type="unfinished">秒倒计时：%1</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_CountTimer.qml" line="67"/>
+        <source>Countup seconds: %1</source>
+        <translation type="unfinished">秒正计时：%1</translation>
     </message>
 </context>
 <context>
@@ -2076,6 +2164,39 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
     <message>
         <source>Next&gt;</source>
         <translation type="obsolete">下一页&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>T_ParallaxView</name>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="10"/>
+        <source>ParallaxView</source>
+        <translation type="unfinished">视差视图</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="22"/>
+        <source>Background size mode:</source>
+        <translation type="unfinished">背景尺寸模式：</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="30"/>
+        <source>Auto</source>
+        <translation type="unfinished">自适应</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="34"/>
+        <source>Cover</source>
+        <translation type="unfinished">完全覆盖</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="38"/>
+        <source>Fixed</source>
+        <translation type="unfinished">固定</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_ParallaxView.qml" line="46"/>
+        <source>Speed:</source>
+        <translation type="unfinished">视差滚动速度：</translation>
     </message>
 </context>
 <context>

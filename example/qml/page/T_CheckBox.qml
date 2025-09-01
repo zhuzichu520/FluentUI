@@ -9,6 +9,40 @@ FluScrollablePage{
 
     title: qsTr("CheckBox")
 
+    QtObject {
+        id: controller
+        readonly property bool checked: allChecked()
+        readonly property bool indeterminate: !allChecked() && anyChecked()
+        property var items: []
+        function addItem(id, item) {
+            const ref = items
+            ref.push({
+                         "id": id,
+                         "item": item
+                     })
+            items = ref
+        }
+        function setItemChecked(id, checked) {
+            const ref = items
+            const index = ref.findIndex(obj => obj.id === id)
+            if (index !== -1) {
+                ref[index].item.checked = checked
+            }
+            items = ref
+        }
+        function setAllChecked(checked) {
+            const ref = items
+            ref.forEach(obj => obj.item.checked = checked)
+            items = ref
+        }
+        function allChecked() {
+            return items.every(obj => obj.item.checked)
+        }
+        function anyChecked() {
+            return items.some(obj => obj.item.checked)
+        }
+    }
+
     FluFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 72
@@ -110,4 +144,39 @@ FluScrollablePage{
 }'
     }
 
+    FluFrame{
+        Layout.fillWidth: true
+        padding: 10
+        Layout.topMargin: 20
+
+        ColumnLayout {
+            FluText{
+                text: qsTr("Using a 3-state CheckBox")
+            }
+            FluCheckBox {
+                text: qsTr("Select all")
+                checked: controller.checked
+                indeterminate: controller.indeterminate
+                clickListener: function () {
+                    controller.setAllChecked(!checked)
+                }
+            }
+            Repeater {
+                model: 3
+                FluCheckBox {
+                    Layout.leftMargin: 24
+                    text: qsTr("Option %1").arg(index)
+                    clickListener: function () {
+                        controller.setItemChecked(this.toString(), !checked)
+                    }
+                }
+                onItemAdded: (index, item) => {
+                    controller.addItem(item.toString(), item)
+                    if (index === count - 1) {
+                        controller.setItemChecked(item.toString(), true)
+                    }
+                }
+            }
+        }
+    }
 }

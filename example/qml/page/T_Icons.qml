@@ -15,7 +15,7 @@ FluContentPage {
             top: parent.top
         }
         onTextChanged: {
-            grid_view.model = FluApp.iconData(text_box.text)
+            grid_view.model = FluApp.iconData(text_box.text, false)
         }
     }
     FluToggleSwitch{

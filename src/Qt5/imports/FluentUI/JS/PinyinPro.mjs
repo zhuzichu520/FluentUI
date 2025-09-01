@@ -25229,51 +25229,61 @@ class PinyinCache {
             percent: 0
         };
     }
+    _text2pinyin(text) {
+        // 是否大小写不敏感
+        if (this._options.insensitive !== false) {
+            text = text.toLowerCase();
+        }
+        return {
+            "text": text,
+            "pinyin": splitString(text).map((word) =>
+                pinyin(word, {
+                    toneType: "none",
+                    multiple: true,
+                    type: "array",
+                    v: this._options.v,
+                })
+            )
+        };
+    }
+    _processItem(item) {
+        // 处理字符串类型
+        if (typeof item === 'string') {
+            this.cache.set(item, this._text2pinyin(item).pinyin);
+            return 1;
+        }
+        // 处理对象类型
+        // 需要提供文本提取函数用于转为拼音，返回值为字符串数组
+        // 需要提供唯一字段值函数用于作为Map的key
+        else if (typeof item === 'object' && item !== null
+            && typeof this._options.textSelector === 'function'
+            && typeof this._options.keySelector === 'function') {
+            const texts = this._options.textSelector(item);
+            if (Array.isArray(texts)) {
+                const pinyinResults = {};
+                for (const text of texts) {
+                    if (typeof text === 'string') {
+                        const result = this._text2pinyin(text);
+                        pinyinResults[result.text] = result.pinyin;
+                    }
+                }
+                this.cache.set(this._options.keySelector(item), pinyinResults);
+                return 1;
+            }
+        }
+        return 0;
+    }
     // 构建拼音缓存
     build(force = false) {
         if (this.isBuilt && !force) {
             return;
         }
-        this.clear()
+        this.clear();
         if (this.data.length === 0) {
             return;
         }
-        const text2pinyin = (text) => {
-            // 是否大小写不敏感
-            if (this._options.insensitive !== false) {
-                text = text.toLowerCase();
-            }
-            return {
-                "text": text,
-                "pinyin": splitString(text).map((word) => {
-                    return pinyin(word, {
-                        toneType: "none",
-                        multiple: true,
-                        type: "array",
-                        v: this._options.v,
-                    });
-                })
-            }
-        }
         for (const item of this.data) {
-            // 处理字符串类型
-            if (typeof item === 'string') {
-                this.cache.set(item, text2pinyin(item).pinyin);
-            }
-            // 处理对象类型，需要提供字段提取函数，返回值为字符串数组
-            else if (typeof item === 'object' && item !== null && typeof this._options.textSelector === 'function') {
-                const texts = this._options.textSelector(item);
-                if (Array.isArray(texts)) {
-                    const pinyinResults = {};
-                    for (const text of texts) {
-                        if (typeof text === 'string') {
-                            const result = text2pinyin(text);
-                            pinyinResults[result.text] = result.pinyin; // key为已处理大小写的文本，value为拼音数组
-                        }
-                    }
-                    this.cache.set(item, pinyinResults);
-                }
-            }
+            this._processItem(item);
         }
         this.isBuilt = true;
     }
@@ -25287,45 +25297,9 @@ class PinyinCache {
         if (this.data.length === 0) {
             return;
         }
-        const text2pinyin = (text) => {
-            // 是否大小写不敏感
-            if (this._options.insensitive !== false) {
-                text = text.toLowerCase();
-            }
-            return {
-                "text": text,
-                "pinyin": splitString(text).map((word) => {
-                    return pinyin(word, {
-                        toneType: "none",
-                        multiple: true,
-                        type: "array",
-                        v: this._options.v,
-                    });
-                })
-            }
-        }
         let processedCount = 0;
         for (const item of this.data) {
-            // 处理字符串类型
-            if (typeof item === 'string') {
-                this.cache.set(item, text2pinyin(item).pinyin);
-                processedCount += 1;
-            }
-            // 处理对象类型，需要提供字段提取函数，返回值为字符串数组
-            else if (typeof item === 'object' && item !== null && typeof this._options.textSelector === 'function') {
-                const texts = this._options.textSelector(item);
-                if (Array.isArray(texts)) {
-                    const pinyinResults = {};
-                    for (const text of texts) {
-                        if (typeof text === 'string') {
-                            const result = text2pinyin(text);
-                            pinyinResults[result.text] = result.pinyin; // key为已处理大小写的文本，value为拼音数组
-                        }
-                    }
-                    this.cache.set(item, pinyinResults);
-                    processedCount += 1;
-                }
-            }
+            processedCount += this._processItem(item);
             if (processedCount >= sizePerBuild) {
                 yield;
                 processedCount = 0;
@@ -25357,6 +25331,13 @@ class PinyinCache {
             this.generatorDeleter = null;
         }
     }
+}
+function createCache(data, options, build) {
+    const cache = new PinyinCache(data || [], options);
+    if (build) {
+        cache.build();
+    }
+    return cache;
 }
 const matchAnyWithCache = (textPinyin, text, pinyin$1, options) => {
     let result = [];
@@ -25515,7 +25496,7 @@ const matchAboveStartWithCache = (textPinyin, text, pinyin$1, options) => {
     }
     return null;
 }
-function findMatches(cache, pinyin) {
+function hasPinyinMatch(cache, item, pinyin) {
     const options = cache.getOptions();
     if (options.v) {
         pinyin = pinyin.replace(/ü/g, "v");
@@ -25528,41 +25509,44 @@ function findMatches(cache, pinyin) {
     if (options.space === "ignore") {
         pinyin = pinyin.replace(/\s/g, "");
     }
-    return cache.data.filter((item) => {
+    // 处理字符串类型
+    if (typeof item === 'string') {
         const pinyinData = cache.getPinyin(item);
-        // 处理字符串类型
-        if (typeof item === 'string') {
-            let text = item; // 传入match的文本是需要处理大小写的
-            if (options.insensitive !== false) {
-                text = text.toLowerCase();
-            }
-            const result = options.precision === "any"
-                ? matchAnyWithCache(pinyinData, text, pinyin, options)
-                : matchAboveStartWithCache(pinyinData, text, pinyin, options);
-            return result && result.length > 0;
+        if (!pinyinData) {
+            return false;
         }
-        // 处理对象类型
-        else if (typeof item === 'object' && item !== null && typeof options.textSelector === 'function' && pinyinData) {
-            for (const text in pinyinData) {
-                const textPinyin = pinyinData[text];
-                const result = options.precision === "any"
-                    ? matchAnyWithCache(textPinyin, text, pinyin, options)
-                    : matchAboveStartWithCache(textPinyin, text, pinyin, options);
-                if (result && result.length > 0) {
-                    return true;
-                }
-            }
+        let text = item; // 传入match的文本是需要处理大小写的
+        if (options.insensitive !== false) {
+            text = text.toLowerCase();
         }
-        return false;
-    })
-}
-function createCache(data, options, build) {
-    const cache = new PinyinCache(data || [], options);
-    if (build) {
-        cache.build();
+        const result = options.precision === "any"
+            ? matchAnyWithCache(pinyinData, text, pinyin, options)
+            : matchAboveStartWithCache(pinyinData, text, pinyin, options);
+        return (result && result.length > 0) ? true : false;
     }
-    return cache;
+    // 处理对象类型
+    else if (typeof item === 'object' && item !== null
+        && typeof options.textSelector === 'function'
+        && typeof options.keySelector === 'function') {
+        const pinyinData = cache.getPinyin(options.keySelector(item));
+        if (!pinyinData) {
+            return false;
+        }
+        for (const text in pinyinData) {
+            const textPinyin = pinyinData[text];
+            const result = options.precision === "any"
+                ? matchAnyWithCache(textPinyin, text, pinyin, options)
+                : matchAboveStartWithCache(textPinyin, text, pinyin, options);
+            if (result && result.length > 0) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
-export { createCache, findMatches };
+function findMatches(cache, pinyin) {
+    return cache.data.filter((item) => hasPinyinMatch(cache, item, pinyin))
+}
+export { createCache, hasPinyinMatch, findMatches };
 
 export { OutputFormat, addDict, clearCustomDict, convert, customPinyin, getFinalParts, getInitialAndFinal, getNumOfTone, html, match, pinyin, polyphonic, removeDict, segment };

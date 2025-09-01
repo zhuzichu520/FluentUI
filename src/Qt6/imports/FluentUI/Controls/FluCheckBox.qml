@@ -87,7 +87,7 @@ Button {
             }
             border.width: 1
             color: {
-                if(checked){
+                if(checked || indeterminate){
                     if(!enabled){
                         return checkedDisableColor
                     }
@@ -107,30 +107,101 @@ Button {
                 }
                 return normalColor
             }
-            FluIcon {
+            Canvas {
+                id: markCanvas
+                property real strokeProgress: 0.0
+                property color strokeColor: FluTheme.dark ? "#000000" : "#FFFFFF"
                 anchors.centerIn: parent
-                iconSource: FluentIcons.CheckboxIndeterminate
-                iconSize: 14
-                visible: indeterminate
-                iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
-                Behavior on visible {
-                    enabled: control.animationEnabled
-                    NumberAnimation{
-                        duration: 83
+                width: size - 6
+                height: width
+                visible: state !== "unchecked"
+                state: {
+                    if (!indeterminate && checked) {
+                        return "checked"
+                    } else if (indeterminate) {
+                        return "indeterminate"
+                    }
+                    return "unchecked"
+                }
+                states: [
+                    State {
+                        name: "checked"
+                        PropertyChanges {
+                            target: markCanvas
+                            strokeProgress: 1.0
+                        }
+                    },
+                    State {
+                        name: "indeterminate"
+                        PropertyChanges {
+                            target: markCanvas
+                            strokeProgress: 1.0
+                        }
+                    },
+                    State {
+                        name: "unchecked"
+                        PropertyChanges {
+                            target: markCanvas
+                            strokeProgress: 0.0
+                        }
+                    }
+                ]
+                onStateChanged: {
+                    if (state !== "unchecked") {
+                        requestPaint()
                     }
                 }
-            }
-
-            FluIcon {
-                anchors.centerIn: parent
-                iconSource: FluentIcons.AcceptMedium
-                iconSize: 14
-                visible: checked && !indeterminate
-                iconColor: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
-                Behavior on visible {
+                onStrokeProgressChanged: requestPaint()
+                onStrokeColorChanged: requestPaint()
+                onPaint: {
+                    const ctx = getContext("2d")
+                    ctx.clearRect(0, 0, width, height)
+                    ctx.save()
+                    ctx.strokeStyle = strokeColor
+                    ctx.lineWidth = 2.0
+                    ctx.lineCap = "round"
+                    ctx.lineJoin = "round"
+                    if (state === "checked") {
+                        // draw Accept
+                        const startX = width * 0.15, startY = height * 0.5
+                        const midX = width * 0.4, midY = height * 0.75
+                        const endX = width - startX, endY = height * 0.3
+                        const line1Width = Math.sqrt(Math.pow(midX - startX, 2) + Math.pow(midY - startY, 2))
+                        const line2Width = Math.sqrt(Math.pow(endX - midX, 2) + Math.pow(endY - midY, 2))
+                        const totalLen = line1Width + line2Width
+                        const drawLen = totalLen * strokeProgress
+                        ctx.beginPath()
+                        ctx.moveTo(startX, startY)
+                        // draw line 1
+                        if (drawLen >= line1Width) {
+                            ctx.lineTo(midX, midY)
+                        } else {
+                            const ratio = drawLen / line1Width
+                            ctx.lineTo(startX + (midX - startX) * ratio, startY + (midY - startY) * ratio)
+                        }
+                        // draw line 2
+                        if (drawLen > line1Width) {
+                            const ratio2 = (drawLen - line1Width) / line2Width
+                            ctx.lineTo(midX + (endX - midX) * ratio2, midY + (endY - midY) * ratio2)
+                        }
+                    } else if (state === "indeterminate") {
+                        // draw Indeterminate
+                        const totalWidth = width * 0.6
+                        const halfWidth = (totalWidth / 2) * strokeProgress
+                        const centerX = width / 2
+                        const centerY = height / 2
+                        ctx.beginPath()
+                        ctx.moveTo(centerX - halfWidth, centerY)
+                        ctx.lineTo(centerX + halfWidth, centerY)
+                    }
+                    ctx.stroke()
+                    ctx.restore()
+                }
+                Behavior on strokeProgress {
                     enabled: control.animationEnabled
-                    NumberAnimation{
-                        duration: 83
+                    NumberAnimation {
+                        duration: 167
+                        easing.type: Easing.OutCubic
                     }
                 }
             }

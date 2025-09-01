@@ -38,7 +38,7 @@ public:
 
     Q_INVOKABLE void init(QObject *launcher, QLocale locale = QLocale::system());
 
-    [[maybe_unused]] Q_INVOKABLE static QJsonArray iconData(const QString &keyword = "");
+    [[maybe_unused]] Q_INVOKABLE static QJsonArray iconData(const QString &keyword = "", bool caseSensitive = true);
 
 private:
     QQmlEngine *_engine{};

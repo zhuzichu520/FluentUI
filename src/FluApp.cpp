@@ -32,14 +32,14 @@ void FluApp::init(QObject *launcher, QLocale locale) {
     }
 }
 
-[[maybe_unused]] QJsonArray FluApp::iconData(const QString &keyword) {
+[[maybe_unused]] QJsonArray FluApp::iconData(const QString &keyword, bool caseSensitive) {
     QJsonArray arr;
     QMetaEnum enumType = FluentIcons::staticMetaObject.enumerator(
         FluentIcons::staticMetaObject.indexOfEnumerator("Type"));
     for (int i = 0; i <= enumType.keyCount() - 1; ++i) {
         QString name = enumType.key(i);
         int icon = enumType.value(i);
-        if (keyword.isEmpty() || name.contains(keyword)) {
+        if (keyword.isEmpty() || name.contains(keyword, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive)) {
             QJsonObject obj;
             obj.insert("name", name);
             obj.insert("icon", icon);

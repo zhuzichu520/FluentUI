@@ -113,5 +113,6 @@
         <file>FluentUI/Controls/FluBubbleBox.qml</file>
         <file>FluentUI/JS/PinyinPro.mjs</file>
         <file>FluentUI/Controls/FluPinyin.qml</file>
+        <file>FluentUI/Controls/FluParallaxView.qml</file>
     </qresource>
 </RCC>
