@@ -9,7 +9,7 @@ Rectangle {
     readonly property alias rows: table_view.rows
     readonly property alias columns: table_view.columns
     readonly property alias current: d.current
-    property var sourceModel:FluTableModel {
+    property FluTableModel sourceModel:FluTableModel {
         columnSource: control.columnSource
     }
     property var columnSource: []

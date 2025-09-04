@@ -1272,48 +1272,48 @@ Updated content:
         <translation type="unfinished">复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="52"/>
+        <location filename="qml/page/T_CheckBox.qml" line="18"/>
         <source>A 2-state CheckBox</source>
         <translation type="unfinished">两状态复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="66"/>
+        <location filename="qml/page/T_CheckBox.qml" line="32"/>
         <source>Right</source>
         <translation type="unfinished">右</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="70"/>
+        <location filename="qml/page/T_CheckBox.qml" line="36"/>
         <source>Left</source>
         <translation type="unfinished">左</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="80"/>
-        <location filename="qml/page/T_CheckBox.qml" line="135"/>
+        <location filename="qml/page/T_CheckBox.qml" line="46"/>
+        <location filename="qml/page/T_CheckBox.qml" line="85"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="98"/>
+        <location filename="qml/page/T_CheckBox.qml" line="64"/>
         <source>A 3-state CheckBox</source>
         <translation type="unfinished">三状态复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="109"/>
+        <location filename="qml/page/T_CheckBox.qml" line="74"/>
         <source>Three State</source>
         <translation type="unfinished">三状态</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="154"/>
+        <location filename="qml/page/T_CheckBox.qml" line="104"/>
         <source>Using a 3-state CheckBox</source>
         <translation type="unfinished">使用三状态复选框</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="157"/>
+        <location filename="qml/page/T_CheckBox.qml" line="113"/>
         <source>Select all</source>
         <translation type="unfinished">选中全部</translation>
     </message>
     <message>
-        <location filename="qml/page/T_CheckBox.qml" line="168"/>
+        <location filename="qml/page/T_CheckBox.qml" line="120"/>
         <source>Option %1</source>
         <translation type="unfinished">选项 %1</translation>
     </message>
@@ -2745,108 +2745,108 @@ Some contents...</source>
         <translation type="unfinished">表格</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="72"/>
+        <location filename="qml/page/T_TableView.qml" line="65"/>
         <source>Modify the column name</source>
         <translation type="unfinished">修改列名</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="73"/>
+        <location filename="qml/page/T_TableView.qml" line="66"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="91"/>
+        <location filename="qml/page/T_TableView.qml" line="84"/>
         <source>OK</source>
         <translation type="unfinished">确定</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="133"/>
+        <location filename="qml/page/T_TableView.qml" line="126"/>
         <source>Search</source>
         <translation type="unfinished">搜索</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="176"/>
-        <location filename="qml/page/T_TableView.qml" line="504"/>
+        <location filename="qml/page/T_TableView.qml" line="169"/>
+        <location filename="qml/page/T_TableView.qml" line="493"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="210"/>
+        <location filename="qml/page/T_TableView.qml" line="203"/>
         <source>Delete</source>
         <translation type="unfinished">删除</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="217"/>
+        <location filename="qml/page/T_TableView.qml" line="210"/>
         <source>Edit</source>
         <translation type="unfinished">编辑</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="236"/>
+        <location filename="qml/page/T_TableView.qml" line="229"/>
         <source>Select All</source>
         <translation type="unfinished">全选</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="359"/>
+        <location filename="qml/page/T_TableView.qml" line="348"/>
         <source>Age</source>
         <translation type="unfinished">年龄</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="434"/>
+        <location filename="qml/page/T_TableView.qml" line="423"/>
         <source>Clear All</source>
         <translation type="unfinished">清除所有</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="470"/>
+        <location filename="qml/page/T_TableView.qml" line="459"/>
         <source>Insert a Row</source>
         <translation type="unfinished">插入一行</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="477"/>
+        <location filename="qml/page/T_TableView.qml" line="466"/>
         <source>Focus not acquired: Please click any item in the form as the target for insertion!</source>
         <translation type="unfinished">焦点未获取：请点击表格中的任意一项，作为插入的靶点！</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="509"/>
+        <location filename="qml/page/T_TableView.qml" line="498"/>
         <source>Avatar</source>
         <translation type="unfinished">头像</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="523"/>
+        <location filename="qml/page/T_TableView.qml" line="512"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="531"/>
+        <location filename="qml/page/T_TableView.qml" line="520"/>
         <source>Nickname</source>
         <translation type="unfinished">昵称</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="538"/>
+        <location filename="qml/page/T_TableView.qml" line="527"/>
         <source>Long String</source>
         <translation type="unfinished">长字符串</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="546"/>
+        <location filename="qml/page/T_TableView.qml" line="535"/>
         <source>Options</source>
         <translation type="unfinished">操作</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="564"/>
+        <location filename="qml/page/T_TableView.qml" line="553"/>
         <source>&lt;Previous</source>
         <translation type="unfinished">&lt;上一页</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="565"/>
+        <location filename="qml/page/T_TableView.qml" line="554"/>
         <source>Next&gt;</source>
         <translation type="unfinished">下一页&gt;</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="441"/>
+        <location filename="qml/page/T_TableView.qml" line="430"/>
         <source>Delete Selection</source>
         <translation type="unfinished">删除选中</translation>
     </message>
     <message>
-        <location filename="qml/page/T_TableView.qml" line="464"/>
+        <location filename="qml/page/T_TableView.qml" line="453"/>
         <source>Add a row of Data</source>
         <translation type="unfinished">添加一行数据</translation>
     </message>
