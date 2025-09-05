@@ -1024,7 +1024,7 @@ Updated content:
         <location filename="qml/page/T_Buttons.qml" line="199"/>
         <location filename="qml/page/T_Buttons.qml" line="320"/>
         <location filename="qml/page/T_Buttons.qml" line="368"/>
-        <location filename="qml/page/T_Buttons.qml" line="419"/>
+        <location filename="qml/page/T_Buttons.qml" line="420"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
@@ -1150,12 +1150,12 @@ Updated content:
         <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Buttons.qml" line="407"/>
+        <location filename="qml/page/T_Buttons.qml" line="408"/>
         <source>Radio Button_2</source>
         <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
-        <location filename="qml/page/T_Buttons.qml" line="410"/>
+        <location filename="qml/page/T_Buttons.qml" line="411"/>
         <source>Radio Button_3</source>
         <translation type="unfinished">单选按钮_3</translation>
     </message>
@@ -2351,41 +2351,37 @@ My only desire is to be permitted to drive out the traitors and restore the Han.
         <translation type="unfinished">单选按钮</translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="24"/>
+        <location filename="qml/page/T_RadioButton.qml" line="28"/>
         <source>Right</source>
         <translation type="unfinished">右</translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="28"/>
+        <location filename="qml/page/T_RadioButton.qml" line="33"/>
         <source>Left</source>
         <translation type="unfinished">左</translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="38"/>
-        <location filename="qml/page/T_RadioButton.qml" line="79"/>
-        <location filename="qml/page/T_RadioButton.qml" line="130"/>
-        <location filename="qml/page/T_RadioButton.qml" line="181"/>
+        <location filename="qml/page/T_RadioButton.qml" line="44"/>
+        <location filename="qml/page/T_RadioButton.qml" line="105"/>
+        <location filename="qml/page/T_RadioButton.qml" line="160"/>
         <source>Disabled</source>
         <translation type="unfinished">禁用</translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="64"/>
-        <location filename="qml/page/T_RadioButton.qml" line="115"/>
-        <location filename="qml/page/T_RadioButton.qml" line="166"/>
+        <location filename="qml/page/T_RadioButton.qml" line="86"/>
+        <location filename="qml/page/T_RadioButton.qml" line="144"/>
         <source>Radio Button_1</source>
         <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="67"/>
-        <location filename="qml/page/T_RadioButton.qml" line="118"/>
-        <location filename="qml/page/T_RadioButton.qml" line="169"/>
+        <location filename="qml/page/T_RadioButton.qml" line="90"/>
+        <location filename="qml/page/T_RadioButton.qml" line="147"/>
         <source>Radio Button_2</source>
         <translation type="unfinished">单选按钮_1</translation>
     </message>
     <message>
-        <location filename="qml/page/T_RadioButton.qml" line="70"/>
-        <location filename="qml/page/T_RadioButton.qml" line="121"/>
-        <location filename="qml/page/T_RadioButton.qml" line="172"/>
+        <location filename="qml/page/T_RadioButton.qml" line="95"/>
+        <location filename="qml/page/T_RadioButton.qml" line="151"/>
         <source>Radio Button_3</source>
         <translation type="unfinished">单选按钮_3</translation>
     </message>

@@ -26,7 +26,7 @@ FluScrollablePage{
                 Layout.topMargin: 20
                 Item{
                     anchors.fill: parent
-                    FluRadioButtons{
+                    ColumnLayout{
                         spacing: 8
                         anchors{
                             top: parent.top

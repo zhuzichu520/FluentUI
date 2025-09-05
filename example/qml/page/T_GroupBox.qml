@@ -25,13 +25,13 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.preferredHeight: 150
         Layout.topMargin: 20
-        FluRadioButtons {
+        ColumnLayout {
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
             spacing: 10
-            disabled: radio_button_switch.checked
+            enabled: !radio_button_switch.checked
             FluRadioButton { text: qsTr("E-mail") }
             FluRadioButton { text: qsTr("Calendar") }
             FluRadioButton { text: qsTr("Contacts") }
@@ -65,10 +65,8 @@ FluGroupBox {
 
 FluGroupBox {
     title: qsTr("RadioButton Group")
-    FluRadioButtons {
+    ColumnLayout {
         spacing: 10
-        disabled: true // 禁用所有FluRadioButton子组件
-        manuallyDisabled: true // 是否指定每个FluRadioButton上的disabled选项
         FluRadioButton { text: qsTr("E-mail") }
         FluRadioButton { text: qsTr("Calendar") }
         FluRadioButton { text: qsTr("Contacts") }
