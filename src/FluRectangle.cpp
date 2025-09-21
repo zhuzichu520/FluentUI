@@ -27,8 +27,6 @@ void FluRectangle::paint(QPainter *painter) {
     QRectF rect = boundingRect();
     bool drawBorder = borderValid();
     if (drawBorder) {
-        // 绘制边框时画笔的宽度从路径向两侧扩充
-        // 因此实际绘制的矩形应向内侧收缩边框宽度的一半，避免边框裁剪导致不完整
         qreal halfBorderWidth = _borderWidth / 2.0;
         rect.adjust(halfBorderWidth, halfBorderWidth, -halfBorderWidth, -halfBorderWidth);
     }
@@ -40,7 +38,6 @@ void FluRectangle::paint(QPainter *painter) {
         r.append(0);
     }
 
-    // 从右下角开始逆时针绘制圆角矩形路径
     path.moveTo(rect.bottomRight() - QPointF(0, r[2]));
     path.lineTo(rect.topRight() + QPointF(0, r[1]));
     path.arcTo(QRectF(QPointF(rect.topRight() - QPointF(r[1] * 2, 0)), QSize(r[1] * 2, r[1] * 2)), 0, 90);
@@ -54,10 +51,8 @@ void FluRectangle::paint(QPainter *painter) {
     path.lineTo(rect.bottomRight() - QPointF(r[2], 0));
     path.arcTo(QRectF(QPointF(rect.bottomRight() - QPointF(r[2] * 2, r[2] * 2)), QSize(r[2] * 2, r[2] * 2)), 270, 90);
 
-    // 填充背景
     painter->fillPath(path, _color);
 
-    // 绘制边框
     if (drawBorder) {
         QPen pen(_borderColor, _borderWidth, _borderStyle);
         if (_borderStyle == Qt::DashLine || _borderStyle == Qt::CustomDashLine) {
