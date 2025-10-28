@@ -393,15 +393,16 @@ FluScrollablePage{
         Layout.preferredHeight: 100
         padding: 10
         Layout.topMargin: 20
-        FluRadioButtons{
+        ColumnLayout{
             spacing: 8
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-            disabled: radio_button_switch.checked
+            enabled: !radio_button_switch.checked
             FluRadioButton{
                 text: qsTr("Radio Button_1")
+                checked: true
             }
             FluRadioButton{
                 text: qsTr("Radio Button_2")

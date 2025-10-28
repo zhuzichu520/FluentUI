@@ -16,17 +16,23 @@ FluScrollablePage{
         Row{
             spacing: 30
             anchors.verticalCenter: parent.verticalCenter
+            ButtonGroup {
+                id: group1
+            }
             FluRadioButton{
                 disabled: radio_button_switch.checked
+                autoExclusive: false
             }
             FluRadioButton{
                 disabled: radio_button_switch.checked
                 text: qsTr("Right")
+                ButtonGroup.group: group1
             }
             FluRadioButton{
                 disabled: radio_button_switch.checked
                 text: qsTr("Left")
                 textRight: false
+                ButtonGroup.group: group1
             }
         }
         FluToggleSwitch{
@@ -41,8 +47,23 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -6
-        code:'FluRadioButton{
-    text:"Text"
+        code:'Row{
+    spacing: 30
+    ButtonGroup {
+        id: group
+    }
+    FluRadioButton{
+        autoExclusive: false
+    }
+    FluRadioButton{
+        text: Right
+        ButtonGroup.group: group
+    }
+    FluRadioButton{
+        text: "Left"
+        textRight: false
+        ButtonGroup.group: group
+    }
 }'
     }
 
@@ -51,23 +72,28 @@ FluScrollablePage{
         Layout.preferredHeight: 100
         padding: 10
         Layout.topMargin: 20
-        FluRadioButtons{
+        ColumnLayout{
             spacing: 8
-            disabled: radio_button_switch2.checked
-            anchors.verticalCenter: parent.verticalCenter
+            enabled: !radio_button_switch2.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-            currentIndex: 1
+            ButtonGroup {
+                id: group2
+            }
             FluRadioButton{
                 text: qsTr("Radio Button_1")
+                ButtonGroup.group: group2
             }
             FluRadioButton{
                 text: qsTr("Radio Button_2")
+                checked: true
+                ButtonGroup.group: group2
             }
             FluRadioButton{
                 text: qsTr("Radio Button_3")
+                ButtonGroup.group: group2
             }
         }
         FluToggleSwitch{
@@ -82,16 +108,22 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -6
-        code:'FluRadioButtons{
+        code:'ColumnLayout{
     spacing: 8
+    ButtonGroup{
+        id: group
+    }
     FluRadioButton{
         text:"Radio Button_1"
+        ButtonGroup.group: group
     }
     FluRadioButton{
         text:"Radio Button_2"
+        ButtonGroup.group: group
     }
     FluRadioButton{
         text:"Radio Button_3"
+        ButtonGroup.group: group
     }
 }'
     }
@@ -101,21 +133,19 @@ FluScrollablePage{
         Layout.preferredHeight: 60
         padding: 10
         Layout.topMargin: 20
-        FluRadioButtons{
+        RowLayout{
             spacing: 8
-            anchors.verticalCenter: parent.verticalCenter
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
             }
-            disabled: radio_button_switch3.checked
-            orientation: Qt.Horizontal
-            currentIndex: 1
+            enabled: !radio_button_switch3.checked
             FluRadioButton{
                 text: qsTr("Radio Button_1")
             }
             FluRadioButton{
                 text: qsTr("Radio Button_2")
+                checked: true
             }
             FluRadioButton{
                 text: qsTr("Radio Button_3")
@@ -133,9 +163,8 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -6
-        code:'FluRadioButtons{
+        code:'RowLayout{
     spacing: 8
-    orientation: Qt.Horizontal
     FluRadioButton{
         text:"Radio Button_1"
     }
@@ -147,55 +176,4 @@ FluScrollablePage{
     }
 }'
     }
-
-    FluFrame{
-        Layout.fillWidth: true
-        Layout.preferredHeight: 100
-        padding: 10
-        Layout.topMargin: 20
-        FluRadioButtons{
-            spacing: 8
-            anchors.verticalCenter: parent.verticalCenter
-            anchors{
-                verticalCenter: parent.verticalCenter
-                left: parent.left
-            }
-            disabled: radio_button_switch4.checked
-            currentIndex: -1
-            FluCheckBox{
-                text: qsTr("Radio Button_1")
-            }
-            FluCheckBox{
-                text: qsTr("Radio Button_2")
-            }
-            FluCheckBox{
-                text: qsTr("Radio Button_3")
-            }
-        }
-        FluToggleSwitch{
-            id: radio_button_switch4
-            anchors{
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-            }
-            text: qsTr("Disabled")
-        }
-    }
-    CodeExpander{
-        Layout.fillWidth: true
-        Layout.topMargin: -6
-        code:'FluRadioButtons{
-    spacing: 8
-    FluCheckBox{
-        text:"Radio Button_1"
-    }
-    FluCheckBox{
-        text:"Radio Button_2"
-    }
-    FluCheckBox{
-        text:"Radio Button_3"
-    }
-}'
-    }
-
 }

@@ -9,11 +9,10 @@ FluContentPage{
 
     id:root
     title: qsTr("TableView")
-    signal checkBoxChanged
-
     property int sortType: 0
-    property bool selectedAll: true
+    property int allCheckState: Qt.Checked
     property string nameKeyword: ""
+    signal checkBoxChanged
 
     onNameKeywordChanged: {
         table_view.filter(function(item){
@@ -29,13 +28,7 @@ FluContentPage{
     }
 
     onCheckBoxChanged: {
-        for(var i =0;i< table_view.rows ;i++){
-            if(false === table_view.getRow(i).checkbox.options.checked){
-                root.selectedAll = false
-                return
-            }
-        }
-        root.selectedAll = true
+        updateAllCheck()
     }
 
     onSortTypeChanged: {
@@ -161,9 +154,9 @@ FluContentPage{
                 animationEnabled: false
                 clickListener: function(){
                     var obj = table_view.getRow(row)
-                    obj.checkbox = table_view.customItem(com_checbox,{checked:!options.checked})
+                    obj.checkbox = table_view.customItem(com_checbox,{checked})
                     table_view.setRow(row,obj)
-                    checkBoxChanged()
+                    root.checkBoxChanged()
                 }
             }
         }
@@ -236,20 +229,16 @@ FluContentPage{
                     text: qsTr("Select All")
                     Layout.alignment: Qt.AlignVCenter
                 }
-                FluCheckBox{
-                    checked: true === root.selectedAll
-                    animationEnabled: false
+                FluCheckBox {
                     Layout.alignment: Qt.AlignVCenter
-                    clickListener: function(){
-                        root.selectedAll = !root.selectedAll
-                        var checked = root.selectedAll
-                        var columnModel = model.display
-                        columnModel.title = table_view.customItem(com_column_checbox,{"checked":checked})
-                        model.display = columnModel
-                        for(var i =0;i< table_view.rows ;i++){
-                            var rowData = table_view.getRow(i)
-                            rowData.checkbox = table_view.customItem(com_checbox,{"checked":checked})
-                            table_view.setRow(i,rowData)
+                    checkState: root.allCheckState
+                    animationEnabled: false
+                    clickListener: function () {
+                        root.allCheckState = checkState
+                        for (let i = 0; i < table_view.rows; i++) {
+                            const rowData = table_view.getRow(i)
+                            rowData.checkbox = table_view.customItem(com_checbox, {"checked": checkState === Qt.Checked})
+                            table_view.setRow(i, rowData)
                         }
                     }
                 }
@@ -598,7 +587,7 @@ FluContentPage{
             return avatars[randomIndex];
         }
         return {
-            checkbox: table_view.customItem(com_checbox,{checked:root.selectedAll}),
+            checkbox: table_view.customItem(com_checbox,{checked:true}),
             avatar:table_view.customItem(com_avatar,{avatar:getAvatar()}),
             name: getRandomName(),
             age:getRandomAge(),
@@ -611,11 +600,25 @@ FluContentPage{
         }
     }
     function loadData(page,count){
-        root.selectedAll = true
         const dataSource = []
         for(var i=0;i<count;i++){
             dataSource.push(genTestObject())
         }
         table_view.dataSource = dataSource
+    }
+    function updateAllCheck() {
+        let checkedCount = 0
+        for (let i = 0; i < table_view.rows; i++) {
+            if (table_view.getRow(i).checkbox.options.checked) {
+                checkedCount += 1
+            }
+        }
+        if (checkedCount > 0 && checkedCount === table_view.rows) {
+            root.allCheckState = Qt.Checked
+        } else if (checkedCount > 0 && checkedCount < table_view.rows) {
+            root.allCheckState = Qt.PartiallyChecked
+        } else {
+            root.allCheckState = Qt.Unchecked
+        }
     }
 }
