@@ -334,20 +334,20 @@
 <context>
     <name>FluTour</name>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluTour.qml" line="13"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluTour.qml" line="13"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTour.qml" line="15"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTour.qml" line="15"/>
         <source>Finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluTour.qml" line="14"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluTour.qml" line="14"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTour.qml" line="16"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTour.qml" line="16"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Qt5/imports/FluentUI/Controls/FluTour.qml" line="15"/>
-        <location filename="Qt6/imports/FluentUI/Controls/FluTour.qml" line="15"/>
+        <location filename="Qt5/imports/FluentUI/Controls/FluTour.qml" line="17"/>
+        <location filename="Qt6/imports/FluentUI/Controls/FluTour.qml" line="17"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
