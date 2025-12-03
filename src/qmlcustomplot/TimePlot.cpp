@@ -15,7 +15,6 @@ TimePlot::TimePlot(QQuickItem *parent)
     xAxis()->setTickerType(Axis::Time);
     connect(m_timer, &QTimer::timeout, this, &TimePlot::onTimeOut);
     m_timer->start(5);
-    startTimer(25);
     m_plotTimeRangeInMilliseconds = 60;
 }
 
@@ -61,10 +60,10 @@ void TimePlot::onTimeOut() noexcept
     auto todayTime = QDateTime::fromString(todayString, "yyyy-MM-dd hh:mm:ss");
     m_currentTimeKey = todayTime.msecsTo(QDateTime::currentDateTime()) / 1000.0;
     if(m_currentTimeKey - m_lastClearTime > m_plotTimeRangeInMilliseconds || m_currentTimeKey < m_lastClearTime) {
-        auto map = graphsMap();
-        std::for_each(map.begin(), map.end(), [this](auto graph) {
-            if(graph) graph->removeDataBefore(m_currentTimeKey - m_plotTimeRangeInMilliseconds);
-        });
+        auto map = graphs();
+        for(auto it = map.begin(); it != map.end(); ++it) {
+            it.value().value<Graph*>()->removeDataBefore(m_currentTimeKey - m_plotTimeRangeInMilliseconds);
+        }
         m_lastClearTime = m_currentTimeKey;
     }
     // if(m_currentTimeKey - m_lastAddedTime > 0.002 || m_currentTimeKey < m_lastAddedTime) {
@@ -80,7 +79,7 @@ void TimePlot::onTimeOut() noexcept
     // qDebug() << s;
 }
 
-void TimePlot::timerEvent(QTimerEvent *event)
+void TimePlot::updatePlot()
 {
     customPlot()->replot();
 }

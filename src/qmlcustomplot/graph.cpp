@@ -24,25 +24,30 @@ Graph::~Graph()
 void Graph::setData(const QVector<double> &keys, const QVector<double> &values) noexcept
 {
     m_graph->setData(keys, values);
-    m_parentPlot->replot();
+}
+void Graph::setData(const QVector<double> &keys, const QVector<double> &values, bool alreadySorted) noexcept
+{
+    m_graph->setData(keys, values, alreadySorted);
+}
+
+void Graph::addDatas(const QVector<double> &keys, const QVector<double> &values, bool alreadySorted) noexcept
+{
+    m_graph->addData(keys, values, alreadySorted);
 }
 
 void Graph::addData(double key, double value) noexcept
 {
     m_graph->addData(key, value);
-    m_parentPlot->replot();
 }
 
 void Graph::removeDataBefore(double key) noexcept
 {
     m_graph->data()->removeBefore(key);
-    m_parentPlot->replot();
 }
 
 void Graph::clearData() noexcept
 {
     m_graph->data()->clear();
-    m_parentPlot->replot();
 }
 
 void Graph::set_visible(bool value) noexcept
@@ -52,7 +57,6 @@ void Graph::set_visible(bool value) noexcept
     m_visible = value;
     m_graph->setVisible(value);
     Q_EMIT visibleChanged(m_visible);
-    m_parentPlot->replot();
 }
 
 void Graph::set_antialiased(bool value) noexcept
@@ -62,7 +66,6 @@ void Graph::set_antialiased(bool value) noexcept
     m_antialiased = value;
     m_graph->setAntialiased(value);
     Q_EMIT antialiasedChanged(m_antialiased);
-    m_parentPlot->replot();
 }
 
 void Graph::set_name(const QString &value) noexcept
@@ -72,7 +75,6 @@ void Graph::set_name(const QString &value) noexcept
     m_name = value;
     m_graph->setName(value);
     Q_EMIT nameChanged(m_name);
-    m_parentPlot->replot();
 }
 
 void Graph::set_lineStyle(LineStyle value) noexcept
@@ -82,7 +84,6 @@ void Graph::set_lineStyle(LineStyle value) noexcept
     m_lineStyle = value;
     m_graph->setLineStyle(static_cast<QCPGraph::LineStyle>(value));
     Q_EMIT lineStyleChanged(m_lineStyle);
-    m_parentPlot->replot();
 }
 
 void Graph::set_graphWidth(int value) noexcept
@@ -94,7 +95,6 @@ void Graph::set_graphWidth(int value) noexcept
     pen.setWidth(value);
     m_graph->setPen(pen);
     Q_EMIT graphWidthChanged(m_graphWidth);
-    m_parentPlot->replot();
 }
 
 void Graph::set_graphColor(const QColor &value) noexcept
@@ -106,7 +106,6 @@ void Graph::set_graphColor(const QColor &value) noexcept
     pen.setColor(value);
     m_graph->setPen(pen);
     Q_EMIT graphColorChanged(m_graphColor);
-    m_parentPlot->replot();
 }
 
 void Graph::updateProperty() noexcept

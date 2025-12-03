@@ -37,6 +37,8 @@ public:
     ~Graph();
 
     Q_INVOKABLE void setData(const QVector<double> &keys, const QVector<double> &values) noexcept;
+    Q_INVOKABLE void setData(const QVector<double> &keys, const QVector<double> &values, bool alreadySorted) noexcept;
+    Q_INVOKABLE void addDatas(const QVector<double> &keys, const QVector<double> &values, bool alreadySorted) noexcept;
     Q_INVOKABLE void addData(double key, double value) noexcept;
     Q_INVOKABLE void removeDataBefore(double key) noexcept;
     Q_INVOKABLE void clearData() noexcept;
