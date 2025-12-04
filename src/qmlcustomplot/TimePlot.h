@@ -31,9 +31,9 @@ public:
      * 
      * @param parent The parent QQuickItem, default is nullptr.
      */
-    TimePlot(QQuickItem *parent = nullptr);
+    explicit TimePlot(QQuickItem *parent = nullptr);
 
-    ~TimePlot();
+    ~TimePlot() override;
 
     /*
      * @brief Sets the time range for the plot display in milliseconds.
@@ -92,16 +92,8 @@ protected:
      */
     virtual void onTimeOut() noexcept;
 
-    /*
-     * @brief Handles timer events.
-     * 
-     * This function is called automatically by the Qt framework when a timer event occurs. 
-     * It updates the plot by adding a new time value if necessary and handles any other 
-     * timer-related functionality.
-     * 
-     * @param event The timer event containing information about the timer that triggered the event.
-     */
-    void timerEvent(QTimerEvent *event) override;
+public slots:
+    void updatePlot() override;
 
 private:
     QTimer *m_timer = nullptr;   ///< Pointer to the QTimer object used to trigger regular updates.

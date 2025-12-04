@@ -451,6 +451,12 @@ FluObject{
             onTap: { navigationView.push(url) }
         }
         FluPaneItem{
+            title: qsTr("QCustomPlot2")
+            menuDelegate: paneItemMenu
+            url: "qrc:/example/qml/page/T_CustomPlot2.qml"
+            onTap: { navigationView.push(url) }
+        }
+        FluPaneItem{
             title: qsTr("QRCode")
             menuDelegate: paneItemMenu
             url: "qrc:/example/qml/page/T_QRCode.qml"

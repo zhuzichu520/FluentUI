@@ -63,12 +63,13 @@ void Axis::setTickerType(TickerType type)
 void Axis::setRange(float position, float size, Qt::AlignmentFlag align) noexcept
 {
     m_axis->setRange(position, size, align);
-    m_parentPlot->replot();
+    // m_parentPlot->replot();
 }
 
 Q_INVOKABLE void Axis::setRange(float lower, float upper) noexcept
 {
     m_axis->setRange(lower, upper);
+    // m_parentPlot->replot();
 }
 
 void Axis::setTicker(QSharedPointer<QCPAxisTicker> ticker) noexcept

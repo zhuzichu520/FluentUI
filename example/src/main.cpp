@@ -21,6 +21,7 @@
 #include "src/helper/Network.h"
 #include "src/helper/SettingsHelper.h"
 #include "src/helper/TranslateHelper.h"
+#include "src/component/DataGenerator.h"
 
 #ifdef FLUENTUI_BUILD_STATIC_LIB
 #  if (QT_VERSION > QT_VERSION_CHECK(6, 2, 0))
@@ -81,6 +82,7 @@ int main(int argc, char *argv[]) {
     qmlRegisterType<OpenGLItem>(uri, major, minor, "OpenGLItem");
     qmlRegisterUncreatableMetaObject(NetworkType::staticMetaObject, uri, major, minor,
                                      "NetworkType", "Access to enums & flags only");
+    qmlRegisterType<DataGenerator>(uri, major, minor, "DataGenerator");
 
     QQmlApplicationEngine engine;
     TranslateHelper::getInstance()->init(&engine);
