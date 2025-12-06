@@ -98,6 +98,9 @@ Rectangle {
     }
     onDataSourceChanged: {
         sourceModel.clear()
+        dataSource.forEach(function(item) {
+            item._key = item._key || FluTools.uuid()
+        })
         sourceModel.rows = dataSource
     }
     TableModel{

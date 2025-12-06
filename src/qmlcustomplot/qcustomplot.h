@@ -869,6 +869,7 @@ public:
   
 };
 Q_DECLARE_TYPEINFO(QCPRange, Q_MOVABLE_TYPE);
+Q_DECLARE_METATYPE(QCPRange)
 
 /*! \relates QCPRange
 

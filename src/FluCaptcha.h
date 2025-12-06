@@ -13,6 +13,12 @@ class FluCaptcha : public QQuickPaintedItem {
 
     Q_PROPERTY_AUTO(QFont, font)
     Q_PROPERTY_AUTO(bool, ignoreCase)
+    Q_PROPERTY_AUTO(int, noiseCount)
+    Q_PROPERTY_AUTO(qreal, noiseRadius)
+    Q_PROPERTY_AUTO(int, lineCount)
+    Q_PROPERTY_AUTO(qreal, lineWidthMin)
+    Q_PROPERTY_AUTO(qreal, lineWidthMax)
+
     QML_NAMED_ELEMENT(FluCaptcha)
 
 public:
