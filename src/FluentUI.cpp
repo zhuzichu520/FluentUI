@@ -23,6 +23,7 @@
 #include "qmlcustomplot/axis.h"
 #include "qmlcustomplot/ticker.h"
 #include "qmlcustomplot/grid.h"
+#include "qmlcustomplot/RealTimePlot.h"
 
 const char* FluentUI::_uri = "FluentUI";
 

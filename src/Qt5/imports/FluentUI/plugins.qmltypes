@@ -76,6 +76,11 @@ Module {
         exportMetaObjectRevisions: [0]
         Property { name: "font"; type: "QFont" }
         Property { name: "ignoreCase"; type: "bool" }
+        Property { name: "noiseCount"; type: "int" }
+        Property { name: "noiseRadius"; type: "double" }
+        Property { name: "lineCount"; type: "int" }
+        Property { name: "lineWidthMin"; type: "double" }
+        Property { name: "lineWidthMax"; type: "double" }
         Method { name: "refresh" }
         Method {
             name: "verify"
@@ -2565,13 +2570,28 @@ Module {
         exports: ["FluentUI/BasePlot 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "backgroundColor"; type: "QColor" }
+        Property { name: "labelColor"; type: "QColor" }
+        Property { name: "baseColor"; type: "QColor" }
         Property { name: "xAxis"; type: "QmlQCustomPlot::Axis"; isReadonly: true; isPointer: true }
         Property { name: "x1Axis"; type: "QmlQCustomPlot::Axis"; isReadonly: true; isPointer: true }
         Property { name: "yAxis"; type: "QmlQCustomPlot::Axis"; isReadonly: true; isPointer: true }
         Property { name: "y1Axis"; type: "QmlQCustomPlot::Axis"; isReadonly: true; isPointer: true }
+        Property { name: "maxBufferPoints"; type: "int" }
+        Property { name: "refreshMs"; type: "int" }
+        Property { name: "paused"; type: "bool" }
+        Property { name: "initialXRange"; type: "QVariant" }
+        Property { name: "initialYRange"; type: "QVariant" }
         Property { name: "graphs"; type: "QVariantMap"; isReadonly: true }
         Signal {
             name: "backgroundColorChanged"
+            Parameter { type: "QColor" }
+        }
+        Signal {
+            name: "labelColorChanged"
+            Parameter { type: "QColor" }
+        }
+        Signal {
+            name: "baseColorChanged"
             Parameter { type: "QColor" }
         }
         Signal {
@@ -2590,6 +2610,34 @@ Module {
             name: "y1AxisChanged"
             Parameter { type: "QmlQCustomPlot::Axis"; isPointer: true }
         }
+        Signal { name: "rangeChanged" }
+        Signal { name: "maxBufferChanged" }
+        Method {
+            name: "appendBatch"
+            Parameter { name: "name"; type: "string" }
+            Parameter { name: "x"; type: "QVector<double>" }
+            Parameter { name: "y"; type: "QVector<double>" }
+            Parameter { name: "alreadySorted"; type: "bool" }
+        }
+        Method {
+            name: "appendBatch"
+            Parameter { name: "x"; type: "QVector<double>" }
+            Parameter { name: "y"; type: "QVector<double>" }
+        }
+        Method { name: "updatePlot" }
+        Method {
+            name: "setMaxBufferPoints"
+            Parameter { name: "n"; type: "int" }
+        }
+        Method {
+            name: "setRefreshMs"
+            Parameter { name: "ms"; type: "int" }
+        }
+        Method {
+            name: "setPaused"
+            Parameter { name: "p"; type: "bool" }
+        }
+        Method { name: "onRepaintTimer" }
         Method {
             name: "addGraph"
             Parameter { name: "key"; type: "string" }
@@ -2603,6 +2651,38 @@ Module {
             Parameter { name: "onlyVisiblePlottables"; type: "bool" }
         }
         Method { name: "rescaleAxes" }
+        Method { name: "requestRepaint" }
+        Method {
+            name: "moveY"
+            Parameter { name: "percent"; type: "double" }
+        }
+        Method {
+            name: "zoomX"
+            Parameter { name: "px"; type: "double" }
+            Parameter { name: "factor"; type: "double" }
+            Parameter { name: "isScale"; type: "bool" }
+        }
+        Method {
+            name: "zoomY"
+            Parameter { name: "py"; type: "double" }
+            Parameter { name: "factor"; type: "double" }
+            Parameter { name: "isScale"; type: "bool" }
+        }
+        Method {
+            name: "zoomXY"
+            Parameter { name: "px"; type: "double" }
+            Parameter { name: "py"; type: "double" }
+            Parameter { name: "factor"; type: "double" }
+            Parameter { name: "isScale"; type: "bool" }
+        }
+        Method { name: "resetRange" }
+        Method {
+            name: "setRangeByPixels"
+            Parameter { name: "x1"; type: "double" }
+            Parameter { name: "y1"; type: "double" }
+            Parameter { name: "x2"; type: "double" }
+            Parameter { name: "y2"; type: "double" }
+        }
     }
     Component {
         name: "QmlQCustomPlot::Grid"
@@ -2663,6 +2743,19 @@ Module {
         }
     }
     Component {
+        name: "QmlQCustomPlot::RealTimePlot"
+        defaultProperty: "data"
+        prototype: "QmlQCustomPlot::BasePlot"
+        exports: ["FluentUI/RealTimePlot 1.0"]
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "appendBatch"
+            Parameter { name: "x"; type: "QVector<double>" }
+            Parameter { name: "y"; type: "QVector<double>" }
+        }
+        Method { name: "updatePlot" }
+    }
+    Component {
         name: "QmlQCustomPlot::Ticker"
         prototype: "QObject"
         exports: ["FluentUI/Ticker 1.0"]
@@ -2715,6 +2808,7 @@ Module {
             name: "plotTimeRangeInMillisecondsChanged"
             Parameter { type: "int" }
         }
+        Method { name: "updatePlot" }
         Method {
             name: "setTimeFormat"
             Parameter { name: "format"; type: "string" }
@@ -2817,7 +2911,7 @@ Module {
         }
         Property {
             name: "layoutMacosButtons"
-            type: "FluLoader_QMLTYPE_16"
+            type: "FluLoader_QMLTYPE_20"
             isReadonly: true
             isPointer: true
         }
@@ -3542,8 +3636,8 @@ Module {
         Property { name: "actionItem"; type: "QQmlComponent"; isPointer: true }
         Property { name: "topPadding"; type: "int" }
         Property { name: "pageMode"; type: "int" }
-        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_48"; isPointer: true }
-        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_48"; isPointer: true }
+        Property { name: "navItemRightMenu"; type: "FluMenu_QMLTYPE_52"; isPointer: true }
+        Property { name: "navItemExpanderRightMenu"; type: "FluMenu_QMLTYPE_52"; isPointer: true }
         Property { name: "navCompactWidth"; type: "int" }
         Property { name: "navTopMargin"; type: "int" }
         Property { name: "cellHeight"; type: "int" }

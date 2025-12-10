@@ -556,51 +556,56 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="454"/>
-        <source>QRCode</source>
+        <source>QCustomPlot2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="460"/>
-        <source>Tour</source>
+        <source>QRCode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="466"/>
-        <source>Timeline</source>
+        <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="472"/>
-        <source>Pinyin</source>
+        <source>Timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="478"/>
-        <source>CountTimer</source>
+        <source>Pinyin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="484"/>
-        <source>Captcha</source>
+        <source>CountTimer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="490"/>
+        <source>Captcha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="496"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="497"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="503"/>
         <source>Remote Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="511"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="517"/>
         <source>Hot Loader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="517"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="523"/>
         <source>Test Crash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1410,6 +1415,14 @@ Updated content:
     <message>
         <location filename="qml/page/T_CustomPlot.qml" line="10"/>
         <source>QCustomPlot</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_CustomPlot2</name>
+    <message>
+        <location filename="qml/page/T_CustomPlot2.qml" line="10"/>
+        <source>QCustomPlot2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2755,6 +2768,11 @@ Some contents...</source>
         <source>Open Blur Window</source>
         <oldsource>Rounded Window</oldsource>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="144"/>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="qml/page/T_Theme.qml" line="157"/>

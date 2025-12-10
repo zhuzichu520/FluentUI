@@ -89,6 +89,9 @@ FluPopup {
                 id:layout_actions
                 Layout.fillWidth: true
                 Layout.preferredHeight: 60
+                visible: (control.buttonFlags & FluContentDialogType.NeutralButton) ||
+                         (control.buttonFlags & FluContentDialogType.NegativeButton) ||
+                         (control.buttonFlags & FluContentDialogType.PositiveButton)
                 radius: 5
                 color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
                 RowLayout{

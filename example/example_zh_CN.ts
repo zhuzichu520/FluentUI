@@ -556,46 +556,51 @@
     </message>
     <message>
         <location filename="qml/global/ItemsOriginal.qml" line="454"/>
+        <source>QCustomPlot2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
         <source>QRCode</source>
         <translation type="unfinished">二维码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="460"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
         <source>Tour</source>
         <translation type="unfinished">漫游式引导</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="466"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
         <source>Timeline</source>
         <translation type="unfinished">时间轴</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="472"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
         <source>Pinyin</source>
         <translation type="unfinished">拼音</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="478"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="484"/>
         <source>CountTimer</source>
         <translation type="unfinished">计时器</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="484"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="490"/>
         <source>Captcha</source>
         <translation type="unfinished">验证码</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="490"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="496"/>
         <source>Network</source>
         <translation type="unfinished">网络</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="497"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="503"/>
         <source>Remote Loader</source>
         <translation type="unfinished">远程加载</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="511"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="517"/>
         <source>Hot Loader</source>
         <translation type="unfinished">热加载</translation>
     </message>
@@ -604,7 +609,7 @@
         <translation type="obsolete">3D</translation>
     </message>
     <message>
-        <location filename="qml/global/ItemsOriginal.qml" line="517"/>
+        <location filename="qml/global/ItemsOriginal.qml" line="523"/>
         <source>Test Crash</source>
         <translation type="unfinished">测试崩溃</translation>
     </message>
@@ -1512,6 +1517,14 @@ Updated content:
     <message>
         <location filename="qml/page/T_CustomPlot.qml" line="10"/>
         <source>QCustomPlot</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>T_CustomPlot2</name>
+    <message>
+        <location filename="qml/page/T_CustomPlot2.qml" line="10"/>
+        <source>QCustomPlot2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2944,6 +2957,11 @@ Some contents...</source>
         <source>Open Blur Window</source>
         <oldsource>Rounded Window</oldsource>
         <translation>亚克力背景</translation>
+    </message>
+    <message>
+        <location filename="qml/page/T_Theme.qml" line="144"/>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="qml/page/T_Theme.qml" line="157"/>

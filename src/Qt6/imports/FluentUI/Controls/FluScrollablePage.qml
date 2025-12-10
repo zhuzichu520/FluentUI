@@ -5,6 +5,7 @@ import QtQuick.Controls
 import FluentUI
 
 FluPage {
+    id: control
     property bool autoResetScroll: false
     default property alias content: container.data
 
@@ -12,12 +13,15 @@ FluPage {
         id: flickable
         clip: true
         anchors.fill: parent
-        ScrollBar.vertical: FluScrollBar {}
+        ScrollBar.vertical: FluScrollBar {
+            id: bar
+        }
         boundsBehavior: Flickable.StopAtBounds
         contentHeight: container.height
-        ColumnLayout{
-            id:container
-            width: parent.width
+        ColumnLayout {
+            id: container
+            width: parent.width - bar.width
+            spacing: control.spacing
         }
     }
 

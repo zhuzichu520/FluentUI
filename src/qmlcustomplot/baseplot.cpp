@@ -257,7 +257,11 @@ namespace QmlQCustomPlot
             event->ignore();
             return;
         }
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
         auto* newEvent = new QMouseEvent(event->type(), event->position(), event->button(), event->buttons(), event->modifiers());
+#else
+        auto* newEvent = new QMouseEvent(event->type(), event->pos(), event->button(), event->buttons(), event->modifiers());
+#endif
         QCoreApplication::postEvent(m_customPlot, newEvent);
         event->accept();
 
