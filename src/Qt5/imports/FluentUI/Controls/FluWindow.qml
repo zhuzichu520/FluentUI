@@ -280,6 +280,16 @@ Window {
             anchors.fill: parent
             sourceComponent: background
         }
+        Item{
+            id: layout_content
+            anchors{
+                top: loader_app_bar.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            clip: true
+        }
         FluLoader{
             id:loader_app_bar
             anchors {
@@ -294,16 +304,6 @@ Window {
                 return window.fitsAppBarWindows ? 0 : window.appBar.height
             }
             sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
-        }
-        Item{
-            id: layout_content
-            anchors{
-                top: loader_app_bar.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-            clip: true
         }
         FluLoader{
             property string loadingText
