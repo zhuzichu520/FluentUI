@@ -30,7 +30,6 @@ endif ()
 option(FLUENTUI_BUILD_STATIC_LIB "Build static library." OFF)
 
 #导入Qt相关依赖包
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml Widgets PrintSupport)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Widgets PrintSupport)
 
 set(QT_SDK_DIR "${Qt${QT_VERSION_MAJOR}_DIR}/../../..")
@@ -42,20 +41,41 @@ if (NOT FLUENTUI_QML_PLUGIN_DIRECTORY)
     set(FLUENTUI_QML_PLUGIN_DIRECTORY ${QT_SDK_DIR}/qml/FluentUI)
 endif ()
 
-#国际化
-find_program(QT_LUPDATE NAMES lupdate)
-find_program(QT_LRELEASE NAMES lrelease)
-if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/fluentui_en_US.qm)
-    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts fluentui_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-    execute_process(COMMAND ${QT_LRELEASE} fluentui_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-endif ()
-if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/fluentui_zh_CN.qm)
-    execute_process(COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts fluentui_zh_CN.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-    execute_process(COMMAND ${QT_LRELEASE} fluentui_zh_CN.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-endif ()
+# 查找Qt Linguist工具
+include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/FindQtLinguistTools.cmake)
 
-file(GLOB QM_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.qm)
-file(COPY ${QM_FILE_PATHS} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/Qt${QT_VERSION_MAJOR}/imports/FluentUI/i18n")
+# 获取 translations 目录下的所有 .ts 文件
+file(GLOB_RECURSE TS_FILES "${CMAKE_CURRENT_LIST_DIR}/translations/*.ts")
+
+# 构建命令列表
+set(UPDATE_TRANSLATION_COMMANDS)
+set(LRELEASE_COMMANDS)
+set(QM_FILES)
+
+foreach(TSFIL ${TS_FILES})
+    get_filename_component(FIL_WE ${TSFIL} NAME_WE)
+    set(QMFIL ${CMAKE_CURRENT_BINARY_DIR}/${FIL_WE}.qm)
+
+    # 添加 lupdate 命令
+    list(APPEND UPDATE_TRANSLATION_COMMANDS COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${TSFIL} WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+
+    # 添加 lrelease 命令
+    list(APPEND LRELEASE_COMMANDS COMMAND ${QT_LRELEASE} ${TSFIL} -qm ${QMFIL})
+    
+    # 记录生成的 qm 文件
+    list(APPEND QM_FILES ${QMFIL})
+endforeach()
+
+# 执行翻译更新和编译
+if(TS_FILES)
+    execute_process(${UPDATE_TRANSLATION_COMMANDS})
+    execute_process(${LRELEASE_COMMANDS})
+endif()
+
+# 复制qm文件到目标目录
+if(QM_FILES)
+    file(COPY ${QM_FILES} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/Qt${QT_VERSION_MAJOR}/imports/FluentUI/i18n")
+endif()
 
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h *.cxx)
