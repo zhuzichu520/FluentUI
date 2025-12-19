@@ -27,18 +27,47 @@ endif ()
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network Widgets)
 
-#添加国际化脚本
-find_program(QT_LUPDATE NAMES lupdate lupdate-qt6)
-find_program(QT_LRELEASE NAMES lrelease lrelease-qt6)
-file(GLOB TS_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.ts)
+# 查找Qt Linguist工具
+include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/FindQtLinguistTools.cmake)
+
+# 获取 translations 目录下的所有 .ts 文件
+file(GLOB_RECURSE TS_FILES "${CMAKE_CURRENT_LIST_DIR}/translations/*.ts")
+
+# 构建命令列表
+set(UPDATE_TRANSLATION_COMMANDS)
+set(LRELEASE_COMMANDS)
+set(QM_FILES)
+
+foreach(TSFIL ${TS_FILES})
+    get_filename_component(FIL_WE ${TSFIL} NAME_WE)
+    set(QMFIL ${CMAKE_CURRENT_BINARY_DIR}/${FIL_WE}.qm)
+
+    # 添加 lupdate 命令
+    list(APPEND UPDATE_TRANSLATION_COMMANDS COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${TSFIL} WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+
+    # 添加 lrelease 命令
+    list(APPEND LRELEASE_COMMANDS COMMAND ${QT_LRELEASE} ${TSFIL} -qm ${QMFIL})
+
+    # 记录生成的 qm 文件
+    list(APPEND QM_FILES ${QMFIL})
+endforeach()
+
+# 构建复制命令
+set(COPY_COMMANDS COMMAND ${CMAKE_COMMAND} -E make_directory ${APPLICATION_DIR_PATH}/i18n)
+
+if(QM_FILES)
+    list(APPEND COPY_COMMANDS COMMAND ${CMAKE_COMMAND} -E copy)
+    foreach(QMFIL ${QM_FILES})
+        list(APPEND COPY_COMMANDS ${QMFIL})
+    endforeach()
+    list(APPEND COPY_COMMANDS ${APPLICATION_DIR_PATH}/i18n)
+endif()
+
 add_custom_target(Script-UpdateTranslations
-        COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-        COMMAND ${QT_LUPDATE} ${CMAKE_CURRENT_LIST_DIR} -ts ${PROJECT_NAME}_zh_CN.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-        COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_en_US.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-        COMMAND ${QT_LRELEASE} ${PROJECT_NAME}_zh_CN.ts WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${APPLICATION_DIR_PATH}/i18n
-        COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_NAME}_en_US.qm ${PROJECT_NAME}_zh_CN.qm ${APPLICATION_DIR_PATH}/i18n
-        SOURCES ${TS_FILE_PATHS}
+    ${UPDATE_TRANSLATION_COMMANDS}
+    ${LRELEASE_COMMANDS}
+    ${COPY_COMMANDS}
+    DEPENDS ${TS_FILES}
 )
 
 ##生成版本信息头文件
