@@ -1,9 +1,8 @@
 //
 // Created by rookie on 2025/12/3.
 //
-
+#include <qmath.h>
 #include "DataGenerator.h"
-
 
 QVector<double> DataGenerator::xData() const {
     QReadLocker locker(&m_lock);
