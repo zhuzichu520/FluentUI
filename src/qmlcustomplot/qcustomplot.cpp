@@ -6723,9 +6723,17 @@ QString QCPAxisTickerDateTime::getTickLabel(double tick, const QLocale &locale, 
   if (mDateTimeSpec == Qt::TimeZone)
     return locale.toString(keyToDateTime(tick).toTimeZone(mTimeZone), mDateTimeFormat);
   else
+# if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    return locale.toString(keyToDateTime(tick).toTimeZone(mDateTimeSpec == Qt::UTC ? QTimeZone::utc() : QTimeZone()), mDateTimeFormat);
+# else
     return locale.toString(keyToDateTime(tick).toTimeSpec(mDateTimeSpec), mDateTimeFormat);
+# endif
+# else
+# if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+  return locale.toString(keyToDateTime(tick).toTimeZone(mDateTimeSpec == Qt::UTC ? QTimeZone::utc() : QTimeZone()), mDateTimeFormat);
 # else
   return locale.toString(keyToDateTime(tick).toTimeSpec(mDateTimeSpec), mDateTimeFormat);
+# endif
 # endif
 }
 
@@ -6827,6 +6835,8 @@ double QCPAxisTickerDateTime::dateTimeToKey(const QDate &date, Qt::TimeSpec time
   return QDateTime(date, QTime(0, 0), timeSpec).toTime_t();
 # elif QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
   return QDateTime(date, QTime(0, 0), timeSpec).toMSecsSinceEpoch()/1000.0;
+# elif QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+ return date.startOfDay(timeSpec == Qt::UTC ? QTimeZone::utc() : QTimeZone()).toMSecsSinceEpoch()/1000.0;
 # else
   return date.startOfDay(timeSpec).toMSecsSinceEpoch()/1000.0;
 # endif
