@@ -10,6 +10,8 @@
 #include <QThread>
 #include <QSettings>
 #include <QRegularExpression>
+#include <QMutexLocker>
+#include <QMutex>
 #include "Version.h"
 
 #ifdef WIN32
@@ -32,6 +34,7 @@ static bool g_logError = false;
 
 static std::unique_ptr<QFile> g_logFile = nullptr;
 static std::unique_ptr<QTextStream> g_logStream = nullptr;
+static QMutex g_logMutex;
 
 static int g_logLevel = 4;
 
@@ -151,6 +154,7 @@ static inline void messageHandler(const QtMsgType type, const QMessageLogContext
         if (g_logError) {
             return;
         }
+        QMutexLocker locker(&g_logMutex);
         if (!g_logFile) {
             g_logFile = std::make_unique<QFile>(g_file_path);
             if (!g_logFile->open(QFile::WriteOnly | QFile::Text | QFile::Append)) {
