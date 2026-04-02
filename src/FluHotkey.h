@@ -3,8 +3,9 @@
 
 #include <QObject>
 #include <QQuickItem>
-#include "qhotkey/qhotkey.h"
 #include "stdafx.h"
+
+class QHotkey;
 
 class FluHotkey : public QObject {
 
