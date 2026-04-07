@@ -67,13 +67,9 @@ endforeach (filepath)
 
 list(REMOVE_ITEM sources_files qhotkey/qhotkey_mac.cpp qhotkey/qhotkey_win.cpp qhotkey/qhotkey_x11.cpp)
 
-if (WIN32)
-    list(APPEND sources_files qhotkey/qhotkey_win.cpp)
-elseif (APPLE)
-    list(APPEND sources_files qhotkey/qhotkey_mac.cpp)
-elseif (UNIX)
-    list(APPEND sources_files qhotkey/qhotkey_x11.cpp)
-endif()
+# 配置 qhotkey
+include(QHotkey)
+list(APPEND sources_files ${QHOTKEY_SOURCES})
 
 if (WIN32)
     set(FLUENTUI_VERSION_RC_PATH ${CMAKE_CURRENT_BINARY_DIR}/version_${PROJECT_NAME}.rc)
@@ -201,23 +197,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         Qt${QT_VERSION_MAJOR}::Widgets
         Qt${QT_VERSION_MAJOR}::PrintSupport
 )
-if(APPLE)
-    find_library(CARBON_LIBRARY Carbon)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${CARBON_LIBRARY})
-elseif(WIN32)
-    target_link_libraries(${PROJECT_NAME} PRIVATE user32)
-elseif(UNIX)
-    if(QT_VERSION_MAJOR STREQUAL "6")
-        if(QT_VERSION VERSION_LESS "6.2.0")
-            message(FATAL_ERROR "Qt 6.2.0 or greater is required when using Qt6")
-        endif()
-    else()
-        if(QT_VERSION_MAJOR LESS "6")
-            find_package(Qt5 REQUIRED COMPONENTS X11Extras)
-            target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::X11Extras)
-        endif()
-    endif()
-    target_link_libraries(${PROJECT_NAME} PRIVATE X11)
+
+if(QHOTKEY_AVAILABLE)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${QHOTKEY_LINK_LIBRARIES})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE QHOTKEY_AVAILABLE)
 endif()
 
 target_include_directories(${PROJECT_NAME} PRIVATE
