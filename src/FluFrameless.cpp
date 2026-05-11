@@ -540,13 +540,30 @@ void FluFrameless::componentComplete() {
                                : &(reinterpret_cast<LPNCCALCSIZE_PARAMS>(lParam))->rgrc[0]);
         bool isMax = ::isMaximized(hwnd);
         bool isFull = ::isFullScreen(hwnd);
+        bool bottomConstrained = false;
         if (isMax && !isFull) {
             auto ty = getResizeBorderThickness(hwnd, false, window()->devicePixelRatio());
-            clientRect->top += ty;
-            clientRect->bottom -= ty;
             auto tx = getResizeBorderThickness(hwnd, true, window()->devicePixelRatio());
+            // The maximized window is always positioned off-screen by (tx, ty) on the
+            // top-left (ptMaxPosition = rcWork.topLeft - (tx, ty)), so always clip top/left.
+            clientRect->top += ty;
             clientRect->left += tx;
-            clientRect->right -= tx;
+            // Only clip bottom/right if the window actually extends beyond the work area.
+            // When constrained by maximumHeight/maximumWidth the window stays within the
+            // work area, so we must ADD ty/tx (to compensate for the top/left clip)
+            // rather than subtract.
+            const auto mi = getMonitorForWindow(hwnd);
+            if (!mi.has_value() || clientRect->bottom > mi->rcWork.bottom) {
+                clientRect->bottom -= ty;
+            } else {
+                clientRect->bottom += ty;
+                bottomConstrained = true; // window is within work area, no taskbar hack needed
+            }
+            if (!mi.has_value() || clientRect->right > mi->rcWork.right) {
+                clientRect->right -= tx;
+            } else {
+                clientRect->right += tx;
+            }
         }
         if (isMax || isFull) {
             APPBARDATA abd;
@@ -581,16 +598,19 @@ void FluFrameless::componentComplete() {
                 if (top) {
                     clientRect->top += 1;
                 } else if (bottom) {
-                    clientRect->bottom -= 1;
+                    if (!bottomConstrained)
+                        clientRect->bottom -= 1;
                 } else if (left) {
                     clientRect->left += 1;
                 } else if (right) {
                     clientRect->right -= 1;
                 } else {
-                    clientRect->bottom -= 1;
+                    if (!bottomConstrained)
+                        clientRect->bottom -= 1;
                 }
             } else {
-                clientRect->bottom += 1;
+                if (!bottomConstrained)
+                    clientRect->bottom += 1;
             }
         }
         *result = 0;
@@ -701,6 +721,36 @@ void FluFrameless::componentComplete() {
             return true;
         }
         return false;
+    } else if (uMsg == WM_GETMINMAXINFO) {
+        // Fill in system defaults (maximized position/size, etc.)
+        *result = static_cast<QT_NATIVE_EVENT_RESULT_TYPE>(::DefWindowProcW(hwnd, uMsg, wParam, lParam));
+        auto *mmi = reinterpret_cast<MINMAXINFO *>(lParam);
+        const auto dpr = window()->devicePixelRatio();
+        // QWIDGETSIZE_MAX — Qt uses this to mean "no limit"
+        constexpr int QWIDGET_MAX = 16777215;
+        // Qt's WM_GETMINMAXINFO handler (which we are bypassing by returning true)
+        // calls AdjustWindowRectEx to add the WS_THICKFRAME border to the track sizes.
+        // Our WM_NCCALCSIZE handler removes that border entirely (client == window),
+        // so we must set the track sizes directly from Qt's logical sizes × dpr,
+        // with no frame added. This fixes the height jump after maximize → restore.
+        const auto minH = window()->minimumHeight();
+        const auto minW = window()->minimumWidth();
+        const auto maxH = window()->maximumHeight();
+        const auto maxW = window()->maximumWidth();
+
+        if (minH > 0) {
+            mmi->ptMinTrackSize.y = static_cast<LONG>(qRound(minH * dpr));
+        }
+        if (minW > 0) {
+            mmi->ptMinTrackSize.x = static_cast<LONG>(qRound(minW * dpr));
+        }
+        if (maxH < QWIDGET_MAX) {
+            mmi->ptMaxTrackSize.y = static_cast<LONG>(qRound(maxH * dpr));
+        }
+        if (maxW < QWIDGET_MAX) {
+            mmi->ptMaxTrackSize.x = static_cast<LONG>(qRound(maxW * dpr));
+        }
+        return true;
     }
     return false;
 #else
